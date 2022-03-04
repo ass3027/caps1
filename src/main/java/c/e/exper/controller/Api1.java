@@ -14,12 +14,15 @@ import java.util.Map;
 @RequestMapping("/api")
 public class Api1{
 
-    @Autowired
+    final
     UserMapper userMapper;
+
+    public Api1(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     @PostMapping("/join")
     public boolean join(@RequestBody Map<String,Object> map) {
-        System.out.println("Ss");
         String inputId = map.get("userId").toString();
         String inputPw = map.get("passwd").toString();
         if(userMapper.selectId(inputId).isPresent()){

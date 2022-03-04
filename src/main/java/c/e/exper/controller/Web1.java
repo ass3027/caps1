@@ -8,7 +8,6 @@ public class Web1 {
 
     @GetMapping("/")
     public String index(){
-        System.out.println("ss");
         return "index";
     }
 

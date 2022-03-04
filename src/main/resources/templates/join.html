@@ -5,8 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    id <input id="userId">
-    pw <input id="passwd">
+    <label>id <input id="userId"></label>
+    <label>pw <input id="passwd"></label>
     <button id="join">join</button>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -20,8 +20,8 @@
                     type:'post',
                     url:'/api/join',
                     data : JSON.stringify({
-                        userId:$("#userId").val(),
-                        passwd:$("#passwd").val()
+                        user_id:$("#user_id").val(),
+                        user_pw:$("#user_pw").val()
                     }),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader(csrfHeader, csrfToken);
