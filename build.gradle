@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'org.springframework.experimental.aot' version '0.11.1'
+    //시일험
 }
 
 group = 'c.e'
