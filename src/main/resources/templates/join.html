@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    id <input id="userId">
+    pw <input id="passwd">
+    <button id="join">join</button>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script th:inline="javascript">
+        $(()=>{
+            $("#join").click( ()=>{
+                const csrfToken=/*[[${_csrf.token}]]*/ null;
+                const csrfHeader=/*[[${_csrf.headerName}]]*/ null;
+                $.ajax({
+                    contentType:'application/json',
+                    type:'post',
+                    url:'/api/join',
+                    data : JSON.stringify({
+                        userId:$("#userId").val(),
+                        passwd:$("#passwd").val()
+                    }),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+
+                    }
+                })
+
+                .done( (res)=>{
+                    if(res) {
+                        alert("suc");
+                        location.href="/";
+                    }else {
+                        alert("fail");
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>
