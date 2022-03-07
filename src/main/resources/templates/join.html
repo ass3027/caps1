@@ -5,40 +5,74 @@
     <title>Title</title>
 </head>
 <body>
-    <label>id <input id="userId"></label>
-    <label>pw <input id="passwd"></label>
-    <button id="join">join</button>
+<div id="app">
+    <label>id <input v-model="id"></label>
+    <label>pw <input v-model="pw"></label>
+    <label>phone <input v-model="phone"></label>
+    <label>name <input v-model="name"></label>
+    <label>birth <input type="date" v-model="birth"></label>
+    <label>photo <input type="file" v-model="photo"></label>
+    <button v-on="submit">join</button>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script th:inline="javascript">
-        $(()=>{
-            $("#join").click( ()=>{
-                const csrfToken=/*[[${_csrf.token}]]*/ null;
-                const csrfHeader=/*[[${_csrf.headerName}]]*/ null;
-                $.ajax({
-                    contentType:'application/json',
-                    type:'post',
-                    url:'/api/join',
-                    data : JSON.stringify({
-                        user_id:$("#user_id").val(),
-                        user_pw:$("#user_pw").val()
-                    }),
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader(csrfHeader, csrfToken);
 
-                    }
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el : '#app',
+        data : {
+            id:'',
+            pw:'',
+            phone:'',
+            name:'',
+            birth:'',
+            photo:'',
+
+
+        },
+        method:{
+            submit:function(){
+                axios.post('/api/join',{
+
                 })
+                .then
+            }
+        }
+    })
+</script>
 
-                .done( (res)=>{
-                    if(res) {
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script th:inline="javascript">
+    $(() => {
+        $("#join").click(() => {
+            const csrfToken =/*[[${_csrf.token}]]*/ null;
+            const csrfHeader =/*[[${_csrf.headerName}]]*/ null;
+            $.ajax({
+                contentType: 'application/json',
+                type       : 'post',
+                url        : '/api/join',
+                data       : JSON.stringify({
+                    user_id: $("#user_id").val(),
+                    user_pw: $("#user_pw").val()
+                }),
+                beforeSend : function (xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+
+                }
+            })
+
+                .done((res) => {
+                    if (res) {
                         alert("suc");
-                        location.href="/";
-                    }else {
+                        location.href = "/";
+                    } else {
                         alert("fail");
                     }
                 })
-            })
         })
-    </script>
+    })
+</script>
+
+
 </body>
 </html>
