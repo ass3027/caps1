@@ -5,6 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 front/node_modules
+.DS_Store
 
 ### STS ###
 .apt_generated
