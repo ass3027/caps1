@@ -19,7 +19,7 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE user_id=#{user_id}")
     Optional<User> selectId(@Param("user_id") String user_id);
 
-    @Insert("INSERT INTO users VALUES(#{userId},#{user_pw},'user')")
-    void insert(@Param("userId") String userId, @Param("user_pw") String user_pw);
+    @Insert("INSERT INTO users VALUES(#{user.user_Id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.user_photo},#{user.role})")
+    void insert(@Param("user") User user);
 
 }

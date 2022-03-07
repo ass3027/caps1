@@ -1,12 +1,10 @@
 package c.e.exper.controller;
 
+import c.e.exper.data.User;
 import c.e.exper.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -22,14 +20,17 @@ public class Api1{
     }
 
     @PostMapping("/join")
-    public boolean join(@RequestBody Map<String,Object> map) {
-        String inputId = map.get("userId").toString();
-        String inputPw = map.get("passwd").toString();
-        if(userMapper.selectId(inputId).isPresent()){
+    public boolean join(@ModelAttribute User user) {
+        if(userMapper.selectId(user.getUser_id()).isPresent()){
             return false;
         }
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        userMapper.insert(inputId,bCryptPasswordEncoder.encode(inputPw));
+        user.setUser_pw(
+                bCryptPasswordEncoder.encode(
+                        user.getUser_pw()
+                )
+        );
+        userMapper.insert(user);
         return true;
     }
 }
