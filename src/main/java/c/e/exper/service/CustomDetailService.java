@@ -1,9 +1,8 @@
 package c.e.exper.service;
 
-import c.e.exper.data.User;
+import c.e.exper.data.UserDAO;
 import c.e.exper.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,10 +27,10 @@ public class CustomDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-         List<User> ex = userMapper.selectAll();
+         List<UserDAO> ex = userMapper.selectAll();
          System.out.println(ex.size());
 
-        Optional<User> user = userMapper.selectId(username);
+        Optional<UserDAO> user = userMapper.selectId(username);
         if(user.isEmpty()) return null;
          System.out.println(user.get().getUser_id());
          System.out.println(user.get().getUser_pw());

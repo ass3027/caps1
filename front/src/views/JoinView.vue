@@ -41,8 +41,8 @@ export default {
     }
   },
   methods: {
-    submit: async function () {
-      this.user_photo = this.$refs.refImage.files
+    submit: function () {
+      this.user_photo = this.$refs.refImage.files[0]
 
       var sendform = new FormData()
 
@@ -54,44 +54,42 @@ export default {
       sendform.append('user_photo', this.user_photo)
       sendform.append('role', this.role)
 
-      console.log(sendform)
+      console.log(sendform.get('user_id'))
 
       // const csrfToken=/*[[${_csrf.token}]]*/ null;
       // const csrfHeader=/*[[${_csrf.headerName}]]*/ null;
 
-      try {
-        const result = await axios.post('/api/join', {
-          data: sendform,
-        });
-        if (result.status === 200) {
-          this.loginSuccess = true
+      // try {
+      //   const result = await axios.post('/api/join', {
+      //     data: sendform,
+      //     headers: {
+      //       'Content-Type': 'multipart/form-data'
+      //     }
+      //   });
+      //   if (result.status === 200) {
+      //     this.loginSuccess = true
+      //   }
+      // } catch (err) {
+      //   this.loginError = true;
+      //   throw new Error(err)
+      // }
+
+
+      axios({
+        method : 'post',
+        url    : '/api/join',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data   : sendform,
+      })
+      .then((res) => {
+        if (res.data == "ok") {
+          alert("ok")
+          window.location.href = "/";
         }
-      } catch (err) {
-        this.loginError = true;
-        throw new Error(err)
-      }
-
-
+      })
     }
-    // axios({
-    //   method:'post',
-    //   url:'/api/join',
-    //   headers:{
-    //     'Content-Type':'multipart/form-data',
-    //
-    //   },
-    //   data : sendform,
-    //   // beforeSend: function (xhr) {
-    //   //   xhr.setRequestHeader(csrfHeader, csrfToken);
-    //   //
-    //   // }
-    // })
-    // .then((res)=>{
-    //   if(res.data=="ok"){
-    //     alert("ok")
-    //     window.location.href="/";
-    //   }
-    // })
   }
 }
 // components: {
