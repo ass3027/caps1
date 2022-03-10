@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import JoinVue from '../views/JoinView.vue'
+import SuppliesVue from '../views/SuppliesView'
+
 
 Vue.use(VueRouter)
 
@@ -23,6 +25,11 @@ const routes = [
     path: '/join',
     name: 'join',
     component:JoinVue
+  },
+  {
+    path: '/supplies',
+    name: 'supplies',
+    component:SuppliesVue
   }
 ]
 
