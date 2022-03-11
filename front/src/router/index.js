@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import JoinVue from '../views/JoinView.vue'
+import JoinView from '../views/JoinView.vue'
+import indexView from '../views/bag/IndexView'
 
 Vue.use(VueRouter)
 
@@ -22,8 +23,13 @@ const routes = [
   {
     path: '/join',
     name: 'join',
-    component:JoinVue
-  }
+    component:JoinView
+  },
+  {
+    path: '/bag',
+    name: 'index',
+    component: indexView
+  },
 ]
 
 const router = new VueRouter({

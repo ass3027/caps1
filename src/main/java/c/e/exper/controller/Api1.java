@@ -37,11 +37,12 @@ public class Api1 {
 
         return "aa";
     }
+    
 
     @PostMapping("/join")
     public boolean join(UserDTO user,HttpServletRequest req) {
 
-        //id중복확인
+        // id 중복확인
         if (userMapper.selectId(user.getUser_id()).isPresent()) {
             return false;
         }
