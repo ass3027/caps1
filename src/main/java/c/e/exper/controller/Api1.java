@@ -20,6 +20,12 @@ public class Api1 {
         this.userMapper = userMapper;
     }
 
+    @GetMapping("/test")
+    public String test() {
+        System.out.println("컨트롤러안");
+        return "aa";
+    }
+
     @GetMapping("/exper")
     public String exper() {
 
