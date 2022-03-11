@@ -3,9 +3,12 @@ package c.e.exper.controller;
 import c.e.exper.data.UserDAO;
 import c.e.exper.data.UserDTO;
 import c.e.exper.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
@@ -14,20 +17,29 @@ import java.io.File;
 public class Api1 {
 
     final
+    ServletContext servletContext;
+
+    final
     UserMapper userMapper;
 
-    public Api1(UserMapper userMapper) {
+    public Api1(UserMapper userMapper, ServletContext servletContext) {
         this.userMapper = userMapper;
+        this.servletContext = servletContext;
     }
 
     @GetMapping("/exper")
-    public String exper() {
+    public String exper(HttpServletRequest request) {
+        System.out.println(new ClassPathResource("/static/userImage").getPath());
+        System.out.println();
+        System.out.println(request.getServletContext().getRealPath("/"));
+        System.out.println(servletContext.getRealPath("/resources"));
+        System.out.println("classpath:");
 
         return "aa";
     }
 
     @PostMapping("/join")
-    public boolean join(UserDTO user, HttpServletRequest req) {
+    public boolean join(UserDTO user,HttpServletRequest req) {
 
         //id중복확인
         if (userMapper.selectId(user.getUser_id()).isPresent()) {
@@ -43,7 +55,7 @@ public class Api1 {
         //파일 이름 저장 밑 파일 실제 저장
         //경로 이상함
         String fileName = user.getUser_photo().getOriginalFilename();
-        String safeFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getAbsolutePath() + "/webApp/userImage/" +  System.currentTimeMillis() + fileName;
+        String safeFile = req.getSession().getServletContext().getRealPath("/userImage") + System.currentTimeMillis() + fileName;
         System.out.println(safeFile);
         try {
             user.getUser_photo().transferTo(new File(safeFile));
