@@ -30,8 +30,9 @@ export default {
         data   : '',
       })
           .then((res) => {
-              console.log(res);
-              this.accessStatus=true;
+            res.data.forEach(function (i){
+              console.log(i.supl_id.supl_name)
+            })
           })
     }
   }

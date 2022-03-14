@@ -1,13 +1,18 @@
 package c.e.exper.controller;
 
+import c.e.exper.data.Suplies;
 import c.e.exper.data.UserDAO;
 import c.e.exper.data.UserDTO;
+import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -16,19 +21,35 @@ public class Api1 {
     final
     UserMapper userMapper;
 
+    @Autowired
+    SuplMapper SuplMapper;
+
     public Api1(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
-    @GetMapping("/test")
-    public String test() {
+    @GetMapping("/getSupl")
+    public List<Map<String, Suplies>> getSupl() {
         System.out.println("컨트롤러안");
-        return "aa";
+
+        List<Map<String, Suplies>> ls =SuplMapper.findAll("1");
+        for(int a=0;a<ls.size();a++) {
+            for (Map.Entry<String, Suplies> entry : ls.get(a).entrySet()) {
+                System.out.println("[key]:" + entry.getKey() + ", [value]:" + entry.getValue());
+                System.out.println(entry.getValue().getSupl_name());
+            }
+        }
+        return SuplMapper.findAll("1");
+    }
+
+    @PostMapping("/postSupl")
+    public String postSupl(){
+
+        return "yep";
     }
 
     @GetMapping("/exper")
     public String exper() {
-
         return "aa";
     }
 

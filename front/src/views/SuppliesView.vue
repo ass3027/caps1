@@ -38,23 +38,32 @@ export default {
       doneList:[],
     }
   },
-  methods:{
-    getList: function () {
+  mounted() {
+    console.log("hi")
+    axios({
+      method : 'get',
+      url    : '/api/getSupl',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data   : '',
+    })
+        .then((res) => {
+          var a = [];
+          res.data.forEach(function (i){
+            console.log(i.supl_id.supl_name);
+            console.log(this)
 
-      console.log("hi")
-      axios({
-        method : 'get',
-        url    : '/api/test',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data   : '',
-      })
-          .then((res) => {
-            console.log(res);
-            this.accessStatus=true;
+            a.push({done: false, todo:i.supl_id.supl_name})
           })
-    },
+          console.log(this)
+          console.log(a)
+          this.todoList=a;
+
+        })
+  },
+  methods:{
+
     inputList(e){
       e.preventDefault();
       if(this.inputItem !== ""){

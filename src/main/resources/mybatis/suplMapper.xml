@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="c.e.exper.mapper.SuplMapper">
-    <resultMap type="Supl" id="suplMap">
+    <resultMap type="Map" id="plansuplResult">
+        <id property="plan_id" column="plan_id"/>
+        <association property="supl_id" column="supl" javaType="suplies" resultMap="suplResult"/>
+    </resultMap>
+    <resultMap type="suplies" id="suplResult">
         <id property="supl_id" column="supl_id"/>
         <result property="supl_name" column="supl_name"/>
     </resultMap>
-    <resultMap type="Plan_Supl" id="plansuplResult">
-        <id property="plan_id" column="plan_id"/>
-        <result property="supl_id" column="supl_id"/>
-    </resultMap>
 
-    <select id="findAll" resultMap="suplMap">
-        SELECT S.supl_name
-        FROM Supl S inner join Plan_Supl P
+    <select id="findAll" resultMap="plansuplResult">
+        SELECT  s.supl_name
+        FROM suplies s inner join plan_supl p
         ON s.supl_id = p.supl_id
-        <where>
-            <if test="plan_id!=null">
-                plan_id like CONCAT('%', #{name}, '%')
-            </if>
-        </where>
+        where p.PLAN_ID = #{id}
     </select>
 
 </mapper>
