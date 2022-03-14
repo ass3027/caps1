@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@10.30.3.95:1521/orcl
-    username: c##1901208
-    password: p1901208
+    url: jdbc:oracle:thin:@localhost:1521/xe
+    username: insa
+    password: insa
   devtools:
     remote:
       restart:
@@ -16,3 +16,4 @@ server:
 mybatis:
   type-aliases-package: c.e.exper.data
   mapper-locations : mybatis/**.xml
+  config-location: classpath:mybatis-config.xml

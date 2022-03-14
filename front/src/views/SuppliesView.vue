@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <div id="app">
+      <h2>내준비물</h2>
       <div class="container">
         <form v-on:submit.prevent="inputList">
           <input type="text" v-model="inputItem">
@@ -26,17 +27,34 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios'
 
 export default {
   name: 'SuppliesView',
   data(){
     return{
       inputItem:"",
-      todoList:[],
+      todoList:[{done: false, todo:'테스트'},{done: false, todo:'용'}],
       doneList:[],
     }
   },
   methods:{
+    getList: function () {
+
+      console.log("hi")
+      axios({
+        method : 'get',
+        url    : '/api/test',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data   : '',
+      })
+          .then((res) => {
+            console.log(res);
+            this.accessStatus=true;
+          })
+    },
     inputList(e){
       e.preventDefault();
       if(this.inputItem !== ""){

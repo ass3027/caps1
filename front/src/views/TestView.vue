@@ -2,6 +2,7 @@
   <div>
     <h2>게시판 리스트</h2>
     <a href="javascript:;" @click="getList">GET 방식 데이터 접근</a>
+    <h2>{{accessStatus}}</h2>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ export default {
   name: 'TestView',
   data() {
     return {
+      accessStatus:false,
     }
   },
   methods: {
@@ -29,7 +31,7 @@ export default {
       })
           .then((res) => {
               console.log(res);
-
+              this.accessStatus=true;
           })
     }
   }

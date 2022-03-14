@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<mapper namespace="c.e.exper.mapper.SuplMapper">
+    <resultMap type="Supl" id="suplMap">
+        <id property="supl_id" column="supl_id"/>
+        <result property="supl_name" column="supl_name"/>
+    </resultMap>
+    <resultMap type="Plan_Supl" id="plansuplResult">
+        <id property="plan_id" column="plan_id"/>
+        <result property="supl_id" column="supl_id"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="suplMap">
+        SELECT S.supl_name
+        FROM Supl S inner join Plan_Supl P
+        ON s.supl_id = p.supl_id
+        <where>
+            <if test="plan_id!=null">
+                plan_id like CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+</mapper>
