@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c.e.exper.mapper.SuplMapper">
+<!--    <resultMap type="c.e.exper.data.Suplies" id="suplMap">-->
+<!--        <id property="supl_id" column="supl_id"/>-->
+<!--        <result property="supl_name" column="supl_name"/>-->
+<!--    </resultMap>-->
+    <resultMap type="Map" id="plansuplResult">
+        <id property="plan_id" column="plan_id"/>
+        <association property="supl" column="supl_id" javaType="c.e.exper.data.Suplies" resultMap="suplMap"/>
+    </resultMap>
+
+    <resultMap id="suplMap" type="c.e.exper.data.Suplies">
+        <id property="supl_id" column="supl_id"/>
+        <result property="supl_name" column="supl_name"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="plansuplResult">
+        SELECT S.supl_name, S.supl_id
+        FROM Suplies S inner join Plan_Supl P
+        ON s.supl_id = p.supl_id
+        <where>
+            <if test="plan_id!=null">
+                plan_id like CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+</mapper>
