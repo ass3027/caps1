@@ -4,76 +4,11 @@
       <v-btn text> login</v-btn>
       <v-btn text> join</v-btn>
     </div>
+
     <div>
       <div class="">
-        <v-row justify="space-around">
-          <v-menu
-              bottom
-              origin="center center"
-              transition="slide-y-transition"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="" dark v-bind="attrs" v-on="on">
-                여행지
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title>{{
-                    item.title
-                  }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <v-menu transition="slide-y-transition" bottom right>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                  class="deep-orange"
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                여행계획
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title>{{
-                    item.title
-                  }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <v-menu transition="slide-y-transition" bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                  class="purple"
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                시설
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title>{{
-                    item.title
-                  }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-          <v-menu
-              bottom
-              origin="center center"
-              transition="slide-y-transition"
-          >
+        <div class="text-center">
+          <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                   color="primary"
@@ -81,85 +16,46 @@
                   v-bind="attrs"
                   v-on="on"
               >
-                가방관리
+                Dropdown
               </v-btn>
             </template>
-
             <v-list>
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title>{{
-                    item.title
-                  }}</v-list-item-title>
+              <v-list-item
+                  v-for="(store, index) in store"
+                  router :to="store.route"
+                  :key="index"
+
+              >
+                <v-list-item-title>{{ store.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-
-          <v-menu transition="slide-y-transition" bottom right>
+          <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  class="deep-orange"
                   color="primary"
                   dark
                   v-bind="attrs"
                   v-on="on"
               >
-                현지 가이드
+                Dropdown
               </v-btn>
             </template>
-
             <v-list>
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title>{{
-                    item.title
-                  }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+              <v-list-item
+                  v-for="(store, index) in store"
+                  router :to="store.route"
+                  :key="index"
 
-          <v-menu transition="slide-y-transition" bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                  class="purple"
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
               >
-                커뮤니티
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title>{{
-                    item.title
-                  }}</v-list-item-title>
+                <v-list-item-title>{{ store.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-
-          <v-menu transition="slide-y-transition" bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                  class="purple"
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                고객센터
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title>{{
-                    item.title
-                  }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-row>
+        </div>
+        <v-divider class="divider-padding"></v-divider>
       </div>
-      <v-divider class="divider-padding"></v-divider>
+
     </div>
   </div>
 </template>
@@ -167,16 +63,18 @@
 export default {
   name: 'HelloWorld',
   data: () => ({
-    items: [
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Click Me 2' }
+   store : [
+      { title: '호텔', route: '/hotel' },
+      { title: '펜션' , route: '/hotel'},
+      { title: '글램핑' , route: '/hotel'},
+      { title: '리조트' },
+      { title: '게스트하우스' }
     ]
   }),
   methods: {}
 };
 </script>
+
 <style scoped>
 .header-layout {
   display: flex;
@@ -202,6 +100,6 @@ export default {
   margin-top: 10px;
 }
 .a {
-  /* margin: 1%; */
+
 }
 </style>
