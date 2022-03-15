@@ -133,6 +133,7 @@
                 v-bind="attrs"
                 v-on="on"
               >
+                
                 커뮤니티
               </v-btn>
             </template>
