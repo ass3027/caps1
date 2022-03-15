@@ -2,19 +2,25 @@ package c.e.exper.controller;
 
 import c.e.exper.data.UserDAO;
 import c.e.exper.data.UserDTO;
+import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
+import c.e.exper.service.FileSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
 @RestController
 @RequestMapping("/api")
 public class Api1 {
+
+    final
+    SuplMapper suplMapper;
 
     final
     ServletContext servletContext;
@@ -22,18 +28,25 @@ public class Api1 {
     final
     UserMapper userMapper;
 
-    public Api1(UserMapper userMapper, ServletContext servletContext) {
+    final
+    FileSaveService fileSaveService;
+
+    public Api1(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileSaveService fileSaveService) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
+        this.suplMapper = suplMapper;
+        this.fileSaveService = fileSaveService;
     }
 
     @GetMapping("/exper")
     public String exper(HttpServletRequest request) {
-        System.out.println(new ClassPathResource("/static/userImage").getPath());
-        System.out.println();
-        System.out.println(request.getServletContext().getRealPath("/"));
-        System.out.println(servletContext.getRealPath("/resources"));
-        System.out.println("classpath:");
+        List<Map<String, Object>> ls =suplMapper.findAll();
+        for (Map<String, Object> l : ls) {
+            for (Map.Entry<String, Object> entry : l.entrySet()) {
+                System.out.println("[key]:" + entry.getKey() + ", [value]:" + entry.getValue());
+            }
+        }
+
 
         return "aa";
     }
@@ -46,24 +59,17 @@ public class Api1 {
         if (userMapper.selectId(user.getUser_id()).isPresent()) {
             return false;
         }
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        //passwordEncoder는 sercurity Config에서 임포트함
         user.setUser_pw(
-                bCryptPasswordEncoder.encode(
+                passwordEncoder().encode(
                         user.getUser_pw()
                 )
         );
 
         //파일 이름 저장 밑 파일 실제 저장
         //경로 이상함
-        String fileName = user.getUser_photo().getOriginalFilename();
-        String safeFile = req.getSession().getServletContext().getRealPath("/userImage") + System.currentTimeMillis() + fileName;
-        System.out.println(safeFile);
-        try {
-            user.getUser_photo().transferTo(new File(safeFile));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String filePath = fileSaveService.photoSave(user.getUser_photo(),req);
 
         //파일 경로를 넣은 DAO 생성
         UserDAO daoUser = UserDAO.builder()
@@ -72,7 +78,7 @@ public class Api1 {
                 .user_birth(user.getUser_birth())
                 .user_name(user.getUser_name())
                 .user_phone(user.getUser_phone())
-                .user_photo(safeFile)
+                .user_photo(filePath)
                 .role(user.getRole())
                 .build();
 
