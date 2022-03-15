@@ -5,7 +5,9 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/join">Join</router-link> |
       <router-link to="/supplies">Supplies</router-link> |
-      <router-link to="/test">test</router-link>
+      <router-link to="/test">test</router-link> |
+      <router-link to="/test">테스트</router-link>
+
     </nav>
     <router-view/>
   </div>
