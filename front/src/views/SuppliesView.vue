@@ -49,16 +49,23 @@ export default {
       data   : '',
     })
         .then((res) => {
-          var a = [];
+          console.log(res);
+          var todo = [];
+          var done = [];
+
           res.data.forEach(function (i){
             console.log(i.supl_id.supl_name);
-            console.log(this)
-
-            a.push({done: false, todo:i.supl_id.supl_name})
+            console.log(i.status)
+            if(i.status==0){
+              todo.push({done: false, todo:i.supl_id.supl_name})
+            }else{
+              done.push({done: true, todo:i.supl_id.supl_name})
+            }
           })
-          console.log(this)
-          console.log(a)
-          this.todoList=a;
+          console.log(todo)
+          console.log(done)
+          this.todoList=todo;
+          this.doneList=done;
 
         })
   },

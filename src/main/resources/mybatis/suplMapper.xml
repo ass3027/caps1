@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="c.e.exper.mapper.SuplMapper">
-    <resultMap type="Map" id="plansuplResult">
+    <resultMap type="c.e.exper.data.Plan_Suplies" id="plansuplResult">
         <id property="plan_id" column="plan_id"/>
+        <result property="status" column="status"/>
         <association property="supl_id" column="supl" javaType="suplies" resultMap="suplResult"/>
     </resultMap>
     <resultMap type="suplies" id="suplResult">

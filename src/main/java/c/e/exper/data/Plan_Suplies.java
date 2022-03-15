@@ -15,5 +15,6 @@ public class Plan_Suplies {
 
     String plan_id;
     Suplies supl_id;
+    String status;
 
 }

@@ -1,5 +1,6 @@
 package c.e.exper.controller;
 
+import c.e.exper.data.Plan_Suplies;
 import c.e.exper.data.Suplies;
 import c.e.exper.data.UserDAO;
 import c.e.exper.data.UserDTO;
@@ -29,16 +30,17 @@ public class Api1 {
     }
 
     @GetMapping("/getSupl")
-    public List<Map<String, Suplies>> getSupl() {
+    public List<Plan_Suplies> getSupl() {
         System.out.println("컨트롤러안");
+        System.out.println(SuplMapper.findAll("1"));
+//        List<Map<String, Suplies>> ls =SuplMapper.findAll("1");
+//        for(int a=0;a<ls.size();a++) {
+//            for (Map.Entry<String, Suplies> entry : ls.get(a).entrySet()) {
+//                System.out.println("[key]:" + entry.getKey() + ", [value]:" + entry.getValue());
+//                System.out.println(entry.getValue().getSupl_name());
+//            }
+//        }
 
-        List<Map<String, Suplies>> ls =SuplMapper.findAll("1");
-        for(int a=0;a<ls.size();a++) {
-            for (Map.Entry<String, Suplies> entry : ls.get(a).entrySet()) {
-                System.out.println("[key]:" + entry.getKey() + ", [value]:" + entry.getValue());
-                System.out.println(entry.getValue().getSupl_name());
-            }
-        }
         return SuplMapper.findAll("1");
     }
 
