@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import JoinView from '../views/JoinView.vue'
+
 import IndexView from '../views/bag/IndexView'
 import MapView from "@/views/MapView";
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/bag',
     name: 'bag',
     component: IndexView
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component:MapView
   },
   {
     path: '/map',
