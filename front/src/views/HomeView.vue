@@ -1,20 +1,9 @@
 <template>
   <div id="d">
-    <HelloWorld/>
+    <HelloWorld />
 
-
-
-
-
-
-
-
-
-fasdfadsfasfasdfasdfasdfasdfasfasd
-
-asdfdsaf
-
-    <div>dddd</div>
+    
+    <div></div>
   </div>
 
 </template>
