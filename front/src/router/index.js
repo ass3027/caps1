@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import JoinView from '../views/JoinView.vue'
 import indexView from '../views/bag/IndexView'
+import MapView from "@/views/MapView";
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/bag',
     name: 'index',
     component: indexView
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component:MapView
   },
 ]
 

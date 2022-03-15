@@ -2,6 +2,7 @@ package c.e.exper.controller;
 
 import c.e.exper.data.UserDAO;
 import c.e.exper.data.UserDTO;
+import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -11,10 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 public class Api1 {
+
+    final
+    SuplMapper suplMapper;
 
     final
     ServletContext servletContext;
@@ -22,18 +29,21 @@ public class Api1 {
     final
     UserMapper userMapper;
 
-    public Api1(UserMapper userMapper, ServletContext servletContext) {
+    public Api1(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
+        this.suplMapper = suplMapper;
     }
 
     @GetMapping("/exper")
     public String exper(HttpServletRequest request) {
-        System.out.println(new ClassPathResource("/static/userImage").getPath());
-        System.out.println();
-        System.out.println(request.getServletContext().getRealPath("/"));
-        System.out.println(servletContext.getRealPath("/resources"));
-        System.out.println("classpath:");
+        List<Map<String, Object>> ls =suplMapper.findAll();
+        for(int a=0;a<ls.size();a++){
+            for ( Map.Entry<String, Object> entry : ls.get(a).entrySet() ){
+                System.out.println("[key]:" + entry.getKey() + ", [value]:" + entry.getValue());
+            }
+        }
+
 
         return "aa";
     }
