@@ -1,5 +1,13 @@
 <template>
-  <div id="map" style="width:800px;height:600px;"></div>
+  <div>
+    <div id="map" style="width:800px;height:600px;float:left"></div>
+    <div style="float:right">
+      <input type="date" v-model="startDate">
+      <input type="date" v-model="endDate">
+      <button @click="apply()">Apply</button>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -8,8 +16,9 @@ export default {
   data()  {
     return {
       geooder: '',
-      markers:[],
-      markerCount:0,
+      marker:0,
+      startDate:0,
+      endDate:0,
 
   }
   },
@@ -31,8 +40,10 @@ export default {
   methods: {
     initMap() {
       const container = document.getElementById("map");
+
+      var center = new kakao.maps.LatLng(35.895552292215164, 128.62142110909582)
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center,
         level : 5,
       };
 
@@ -54,26 +65,29 @@ export default {
       var zoomControl = new kakao.maps.ZoomControl();
       this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
+      this.marker = new kakao.maps.Marker({
+        position : center
+      })
+
+      this.marker.setMap(this.map);
+
+      this.marker.setDraggable(true);
+
+      var infowindow = new kakao.maps.InfoWindow({zindex:1});
+
+
       kakao.maps.event.addListener(this.map,'click', (mouseEvent) => {
 
 
         var clickPosition = mouseEvent.latLng;
 
 
-        this.markers[this.markerCount] = new kakao.maps.Marker({
-          position: clickPosition
-        });
-        if(this.markerCount>0){
-          this.markers[this.markerCount-1].setMap(null);
-        }
-
-        this.markers[this.markerCount].setMap(this.map);
-
-        this.markers[this.markerCount].setDraggable(true);
+        this.marker.setPosition(clickPosition);
 
         this.searchDetailAddrFromCoords(clickPosition, (result,status)=>{
           if (status === kakao.maps.services.Status.OK) {
             console.log(result)
+            console.log(clickPosition)
             //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
             var detailAddr='';
             if(result[0].road_address!=undefined) {
@@ -87,12 +101,10 @@ export default {
             //   position : clickPosition,
             //   content : finalAddr
             // });
-            var infowindow = new kakao.maps.InfoWindow({zindex:1});
+
             infowindow.setContent(content);
 
-            infowindow.open(this.map, this.markers[this.markerCount]);
-
-            this.markerCount++
+            infowindow.open(this.map, this.marker);
 
           }
 
@@ -106,6 +118,14 @@ export default {
     },
     searchDetailAddrFromCoords(coords, callback){
       this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+    },
+    apply(){
+      console.log(typeof this.startDate)
+      console.log(this.startDate);
+      console.log(this.endDate);
+      console.log(this.startDate.toDateString().getDate()-this.endDate.toDateString().getDate())
+      //var tags = []
+      //for
     }
   }
 }

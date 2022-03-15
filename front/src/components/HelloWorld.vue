@@ -6,7 +6,6 @@
     </div>
 
     <div>
-<<<<<<< HEAD
       <div class="">
         <div class="text-center">
           <v-menu offset-y>
@@ -98,14 +97,13 @@
 export default {
   name: 'HelloWorld',
   data: () => ({
-<<<<<<< HEAD
    store : [
       { title: '호텔', route: '/hotel' },
       { title: '펜션' , route: '/hotel'},
       { title: '글램핑' , route: '/hotel'},
       { title: '리조트' },
       { title: '게스트하우스' }
-=======
+    ],
     btn: [
       ['여행지'],
       ['여행계획'],
@@ -133,7 +131,6 @@ export default {
       {title: '요금'},
       {title: '후기'},
       {title: '배송조회'}
->>>>>>> 8e3b2731d033718384bdb751b3b005c979411954
     ]
   }),
   methods: {}
@@ -150,7 +147,7 @@ export default {
 
 .login-box {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .hotel-list-form {
