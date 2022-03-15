@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import JoinView from '../views/JoinView.vue'
-import indexView from '../views/bag/IndexView'
+
+import IndexView from '../views/bag/IndexView'
 import MapView from "@/views/MapView";
 
 Vue.use(VueRouter)
@@ -16,9 +17,7 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
@@ -28,8 +27,13 @@ const routes = [
   },
   {
     path: '/bag',
-    name: 'index',
-    component: indexView
+    name: 'bag',
+    component: IndexView
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component:MapView
   },
   {
     path: '/map',

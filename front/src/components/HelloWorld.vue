@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <div class="">
+      <div class="menu-Bar">
         <div class="text-center">
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -103,7 +103,7 @@ export default {
       { title: '글램핑' , route: '/hotel'},
       { title: '리조트' },
       { title: '게스트하우스' }
-    ],
+       ],
     btn: [
       ['여행지'],
       ['여행계획'],
@@ -131,6 +131,41 @@ export default {
       {title: '요금'},
       {title: '후기'},
       {title: '배송조회'}
+    ],
+    facility: [
+      {title: '호텔', route: '/facility'},
+      {title: '펜션', route: '/facility'},
+      {title: '글램핑', route: '/facility'},
+      {title: '리조트', route: 'facility'},
+      {title: '게스트하우스', route: 'facility'}
+    ],
+    BagControl: [
+      {title: '가방예약', route: '/bag'},
+      {title: '이용안내', route: '/bag'},
+      {title: '요금', route: '/bag'},
+      {title: '후기', route: '/bag'},
+      {title: '운송조회', route: '/bag'}
+    ],
+    Guide: [
+      {title: 'Guide1', route: '/guide'},
+      {title: 'Guide2', route: '/Guide'},
+      {title: 'Guide3', route: '/Guide'},
+      {title: 'Guide4', route: '/Guide'},
+      {title: 'Guide5', route: '/Guide'}
+    ],
+    Community: [
+      {title: 'Community1', route: '/Community'},
+      {title: 'Community2', route: '/Community'},
+      {title: 'Community3', route: '/Community'},
+      {title: 'Community4', route: '/Community'},
+      {title: 'Community5', route: '/Community'}
+    ],
+    Customer: [
+      {title: 'Customer1 ', route: '/Customer'},
+      {title: 'Customer2', route: '/Customer'},
+      {title: 'Customer3', route: '/Customer'},
+      {title: 'Customer4', route: '/Customer'},
+      {title: 'Customer5', route: '/Customer'}
     ]
   }),
   methods: {}
@@ -148,6 +183,15 @@ export default {
 .login-box {
   display: flex;
   justify-content: flex-end;
+}
+.menu-Bar {
+   display: flex;
+   justify-content: center;
+ }
+.text-center {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .hotel-list-form {
