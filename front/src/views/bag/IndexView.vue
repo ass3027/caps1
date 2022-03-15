@@ -1,5 +1,7 @@
 <template>
-  <div id = "bag">{{message}}</div>
+  <div id = "bag">
+   
+    {{message}}</div>
 </template>
 
 <script>
