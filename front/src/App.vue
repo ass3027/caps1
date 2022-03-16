@@ -1,14 +1,7 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/join">Join</router-link>|
-      <router-link to="/bag">Bag</router-link> |
-      <router-link to="/map">Map</router-link>
-    </nav>
+  <v-app id="app">
     <router-view/>
-  </div>
+  </v-app>
 </template>
 
 <style>
