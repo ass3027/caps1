@@ -176,24 +176,19 @@
       <v-divider class="divider-padding"></v-divider>
     </div>
   </div>
-
 </template>
 
 <script>
-
-
-
 export default {
-  name   : 'HelloWorld',
   data   : () => ({
-    travel    : [
-      {title: 'travel1', route: '/travel'},
+    travel: [
+      {title: '호텔', route: '/hotel'},
       {title: 'travel2', route: '/travel'},
       {title: 'travel3', route: '/travel'},
       {title: 'travel4', route: '/travel'},
       {title: 'travel5', route: '/travel'}
     ],
-    plan      : [
+    plan: [
       {title: 'plan1', route: '/plan'},
       {title: 'plan2', route: '/plan'},
       {title: 'plan3', route: '/plan'},

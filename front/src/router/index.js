@@ -5,6 +5,7 @@ import JoinView from '../views/JoinView.vue'
 
 import IndexView from '../views/bag/IndexView'
 import MapView from "@/views/MapView";
+import HotelView from "@/views/travel/HotelView";
 
 Vue.use(VueRouter)
 
@@ -23,7 +24,7 @@ const routes = [
   {
     path: '/join',
     name: 'join',
-    component:JoinView
+    component: JoinView
   },
   {
     path: '/bag',
@@ -33,12 +34,12 @@ const routes = [
   {
     path: '/map',
     name: 'map',
-    component:MapView
+    component: MapView
   },
   {
-    path: '/map',
-    name: 'map',
-    component:MapView
+    path: '/hotel',
+    name: 'hotel',
+    component: HotelView
   },
 ]
 
