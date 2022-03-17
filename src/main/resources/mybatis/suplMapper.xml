@@ -13,7 +13,7 @@
     </resultMap>
 
     <select id="findAll" resultMap="plansuplResult">
-        SELECT  s.supl_name
+        SELECT  p.PLAN_SUPL_ID,s.supl_id, s.supl_name, p.STATUS
         FROM suplies s inner join plan_supl p
         ON s.supl_id = p.supl_id
         where p.PLAN_ID = #{id}
