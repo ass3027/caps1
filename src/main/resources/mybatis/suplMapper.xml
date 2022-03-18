@@ -3,8 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="c.e.exper.mapper.SuplMapper">
     <resultMap type="c.e.exper.data.Plan_Suplies" id="plansuplResult">
-        <id property="plan_id" column="plan_id"/>
+        <id property="plan_supl_id" column="plan_supl_id"/>
+        <result property="plan_id" column="plan_id"/>
         <result property="status" column="status"/>
+        <result property="name" column="name"/>
         <association property="supl_id" column="supl" javaType="suplies" resultMap="suplResult"/>
     </resultMap>
     <resultMap type="suplies" id="suplResult">
@@ -12,11 +14,16 @@
         <result property="supl_name" column="supl_name"/>
     </resultMap>
 
-    <select id="findAll" resultMap="plansuplResult">
-        SELECT  p.PLAN_SUPL_ID,s.supl_id, s.supl_name, p.STATUS
+    <select id="findMyAllSupl" resultMap="plansuplResult">
+        SELECT  *
         FROM suplies s inner join plan_supl p
         ON s.supl_id = p.supl_id
         where p.PLAN_ID = #{id}
+    </select>
+
+    <select id="findAllSupl" resultMap="suplResult">
+        SELECT  *
+        FROM suplies
     </select>
 
 </mapper>

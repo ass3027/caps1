@@ -29,12 +29,20 @@ public class Api1 {
         this.userMapper = userMapper;
     }
 
-    @GetMapping("/getSupl")
-    public List<Plan_Suplies> getSupl() {
+    @GetMapping("/getMySupl")
+    public List<Plan_Suplies> getMySupl() {
         System.out.println("컨트롤러안");
-        System.out.println(SuplMapper.findAll("1"));
+        System.out.println(SuplMapper.findMyAllSupl("1"));
 
-        return SuplMapper.findAll("1");
+        return SuplMapper.findMyAllSupl("1");
+    }
+
+    @GetMapping("/getSupl")
+    public List<Suplies> getSupl() {
+        System.out.println("컨트롤러안");
+        System.out.println(SuplMapper.findAllSupl());
+
+        return SuplMapper.findAllSupl();
     }
 
     @PostMapping("/inputSupl")
