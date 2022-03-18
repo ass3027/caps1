@@ -5,11 +5,16 @@
   >
     <p>{{date}}</p>
     <p>{{location}}</p>
+<!--    <ul>-->
+<!--      <li v-for="(selected,index) in selectedArr"-->
+<!--          :key="index"></li>-->
+<!--    </ul>-->
     <div v-for="(selected,index) in selectedArr"
          :id="index"
          :key="index"
-         :style="{width:100,height:2,border:2,top:selected,position: absolute}"
-    ></div>
+         :style="{backgroundColor:'aqua', top:selected+'px', position:'absolute'}"
+    >asdf</div>
+
   </div>
 </template>
 
@@ -33,6 +38,8 @@ export default {
       selectedTime2:'',
       selectedArr:[30],
       length:0,
+      selectedTag:'',
+      style:"width:100,height:2,border:2,top:selected",
     }
   },
   methods : {
@@ -41,19 +48,22 @@ export default {
     },
     select(e) {
       //console.log(e.target.id);
+
+      this.$emit('select',e.target);
       //선택된 태그를 눌렀을때
-      var sameChecking = this.$emit('select',e.target);
-      if(!sameChecking){
+      if(e.target==this.selectedTag){
         if(this.selectedTime1==''){
           this.selectedTime1 = e.offsetY;
-          this.selectedArr[this.selectedArr.length] = e.offsetY;
+          this.selectedArr.push(e.offsetY);
         }else{
           this.selectedTime2 = e.offsetY;
-          this.selectedArr[this.selectedArr.length] = e.offsetY;
+          this.selectedArr.push(e.offsetY);
         }
       }
+      else {
+        this.selectedTag = e.target
+      }
       console.log("ss")
-      console.log(sameChecking);
       console.log(this.selectedArr)
     },
     timeSet() {
