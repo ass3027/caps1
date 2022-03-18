@@ -171,8 +171,14 @@ export default {
       //for
     },
     selecting(tag)  {
-      this.selectedTag = tag;
-      console.log(tag);
+        var check = this.sameCheck(tag)
+        if(check) this.selectedTag = tag;
+        console.log(tag);
+        return check
+    },
+    sameCheck(tag){
+      if(this.selectedTag != tag) return true;
+      else return false
     },
 
     dateFormat(date) {
