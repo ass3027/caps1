@@ -37,19 +37,7 @@ public class ApiUser {
         this.fileSaveService = fileSaveService;
     }
 
-    @GetMapping("/exper")
-    public String exper(HttpServletRequest request) {
-        List<Map<String, Object>> ls =suplMapper.findAll();
-        for (Map<String, Object> l : ls) {
-            for (Map.Entry<String, Object> entry : l.entrySet()) {
-                System.out.println("[key]:" + entry.getKey() + ", [value]:" + entry.getValue());
-            }
-        }
 
-
-        return "aa";
-    }
-    
 
     @PostMapping("/join")
     public boolean join(UserDTO user,HttpServletRequest req) {

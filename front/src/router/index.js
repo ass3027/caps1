@@ -6,6 +6,7 @@ import JoinView from '../views/JoinView.vue'
 
 import IndexView from '../views/bag/IndexView'
 import MapView from '../views/MapView';
+import SuppliesVue from '../views/SuppliesView'
 
 import AboutView from '../views/AboutView';
 
@@ -17,6 +18,7 @@ const routes = [
   { path: '/join',  name: 'join',   component:JoinView },
   { path: '/bag',   name: 'bag',    component: IndexView },
   { path: '/map',   name: 'map',    component:MapView },
+  { path: '/supplies', name: 'supplies', component:SuppliesVue },
 ]
 
 const router = new VueRouter({

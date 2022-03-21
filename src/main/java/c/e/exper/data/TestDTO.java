@@ -11,9 +11,13 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Suplies {
+public class TestDTO {
 
-    String supl_id;
-    String supl_name;
-
+    String user_id;
+    String user_pw;
+    String user_phone;
+    String user_name;
+    Date   user_birth;
+    String role;
+    MultipartFile user_photo;
 }

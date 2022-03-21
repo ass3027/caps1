@@ -6,7 +6,8 @@
       <router-link to="/join">JoinView</router-link> |
       <router-link to="/about">AboutView</router-link> |
       <router-link to="/home">HomeView</router-link> |
-      <router-link to="/map">MapView</router-link>
+      <router-link to="/map">MapView</router-link>  |
+      <router-link to="/supplies">Supplies</router-link> |      
     </div>
   </v-app>
 </template>
