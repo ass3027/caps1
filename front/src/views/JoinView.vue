@@ -3,7 +3,11 @@
   <div>
 
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <div>
+
+
+
+    <form action="">
+
       <input type="text" placeholder="ID" v-model="user_id"/>
 
       <input type="text" placeholder="PASSWD" v-model="user_pw"/>
@@ -18,11 +22,9 @@
 
       <div id="pictures"></div>
 
-
       <button @click='submit()'>submit</button>
 
-
-    </div>
+    </form>
 
   </div>
 </template>

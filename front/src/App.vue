@@ -1,10 +1,30 @@
 <template>
   <v-app id="app">
-    <nav>
-    </nav>
-    <router-view/>
+    <router-view></router-view>
+
+    <div>
+      <router-link to="/join">JoinView</router-link> |
+      <router-link to="/about">AboutView</router-link> |
+      <router-link to="/home">HomeView</router-link> |
+      <router-link to="/map">MapView</router-link>
+    </div>
   </v-app>
 </template>
+
+<script>
+  import router from './router/index';
+  // import KakaoMap from "@/components/KakaoMap";
+
+  export default {
+    // components: {KakaoMap},
+    router,
+  };
+
+</script>
+
+
+
+
 
 <style>
 #app {
