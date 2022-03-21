@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 export default {
   data() {
     return {
@@ -31,72 +31,72 @@ export default {
     };
   },
   methods: {
-    test() {
-      let a = {
-        hotelInfos: [
-          {
-            hotelName: 'hotel1',
-            hotelImage: '',
-            hotelPrice: 50000,
-            hotelPhone: '010-3433-3333'
-          },
-          {
-            hotelName: 'hotel1',
-            hotelImage: '',
-            hotelPrice: 50000,
-            hotelPhone: '010-3433-3333'
-          },
-          {
-            hotelName: 'hotel1',
-            hotelImage: '',
-            hotelPrice: 50000,
-            hotelPhone: '010-3433-3333'
-          },
-          {
-            hotelName: 'hotel1',
-            hotelImage: '',
-            hotelPrice: 50000,
-            hotelPhone: '010-3433-3333'
-          },
-          {
-            hotelName: 'hotel2',
-            hotelImage: '',
-            hotelPrice: 443,
-            hotelPhone: '010-1232-3333'
-          },
-          {
-            hotelName: 'hotel3',
-            hotelImage: '',
-            hotelPrice: 500443300,
-            hotelPhone: '010-6655-3333'
-          },
-          {
-            hotelName: 'hotel4',
-            hotelImage: '',
-            hotelPrice: 500055550,
-            hotelPhone: '010-7653-3333'
-          },
-          {
-            hotelName: 'hotel5',
-            hotelImage: '',
-            hotelPrice: 4332,
-            hotelPhone: '010-5421-3333'
-          },
-          {
-            hotelName: 'hotel6',
-            hotelImage: '',
-            hotelPrice: 6546,
-            hotelPhone: '010-3333-3333'
-          }
-        ]
-      };
-      axios.get('test').then(res => {
-        console.log(res);
-      });
+    // test() {
+    //   let a = {
+    //     hotelInfos: [
+    //       {
+    //         hotelName: 'hotel1',
+    //         hotelImage: '',
+    //         hotelPrice: 50000,
+    //         hotelPhone: '010-3433-3333'
+    //       },
+    //       {
+    //         hotelName: 'hotel1',
+    //         hotelImage: '',
+    //         hotelPrice: 50000,
+    //         hotelPhone: '010-3433-3333'
+    //       },
+    //       {
+    //         hotelName: 'hotel1',
+    //         hotelImage: '',
+    //         hotelPrice: 50000,
+    //         hotelPhone: '010-3433-3333'
+    //       },
+    //       {
+    //         hotelName: 'hotel1',
+    //         hotelImage: '',
+    //         hotelPrice: 50000,
+    //         hotelPhone: '010-3433-3333'
+    //       },
+    //       {
+    //         hotelName: 'hotel2',
+    //         hotelImage: '',
+    //         hotelPrice: 443,
+    //         hotelPhone: '010-1232-3333'
+    //       },
+    //       {
+    //         hotelName: 'hotel3',
+    //         hotelImage: '',
+    //         hotelPrice: 500443300,
+    //         hotelPhone: '010-6655-3333'
+    //       },
+    //       {
+    //         hotelName: 'hotel4',
+    //         hotelImage: '',
+    //         hotelPrice: 500055550,
+    //         hotelPhone: '010-7653-3333'
+    //       },
+    //       {
+    //         hotelName: 'hotel5',
+    //         hotelImage: '',
+    //         hotelPrice: 4332,
+    //         hotelPhone: '010-5421-3333'
+    //       },
+    //       {
+    //         hotelName: 'hotel6',
+    //         hotelImage: '',
+    //         hotelPrice: 6546,
+    //         hotelPhone: '010-3333-3333'
+    //       }
+    //     ]
+    //   };
+    //   axios.get('test').then(res => {
+    //     console.log(res);
+    //   });
 
-      this.$store.state.test = a;
+      // this.$store.state.test = a;
     }
-  }
+
 };
 </script>
 <style scoped>
