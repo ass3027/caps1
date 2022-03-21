@@ -88,7 +88,8 @@
   </div>
 </template>
 <script>
-// import axios from 'axios';
+import axios from "axios";
+
 export default {
   name: 'TravelLeftbar',
   data() {
@@ -114,6 +115,10 @@ export default {
       ],
       peopleCount: 1
     };
+  },
+  mounted() {
+    console.log("hi")
+
   },
   computed: {
     test() {
@@ -151,70 +156,33 @@ export default {
       //     ratings: ratingList,
       //     people: this.peopleCount
       // };
+      axios({
+        method : 'get',
+        url    : '/api/getHotel',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data   : '',
+      })
+          .then((res) => {
+            console.log(res);
 
-      let a = {
-        hotelInfos: [
-          {
-            hotelName: 'hotel1',
-            hotelImage: '',
-            hotelPrice: 50000,
-            hotelPhone: '010-3433-3333'
-          },
-          {
-            hotelName: 'hotel1',
-            hotelImage: '',
-            hotelPrice: 50000,
-            hotelPhone: '010-3433-3333'
-          },
-          {
-            hotelName: 'hotel1',
-            hotelImage: '',
-            hotelPrice: 50000,
-            hotelPhone: '010-3433-3333'
-          },
-          {
-            hotelName: 'hotel1',
-            hotelImage: '',
-            hotelPrice: 50000,
-            hotelPhone: '010-3433-3333'
-          },
-          {
-            hotelName: 'hotel2',
-            hotelImage: '',
-            hotelPrice: 443,
-            hotelPhone: '010-1232-3333'
-          },
-          {
-            hotelName: 'hotel3',
-            hotelImage: '',
-            hotelPrice: 500443300,
-            hotelPhone: '010-6655-3333'
-          },
-          {
-            hotelName: 'hotel4',
-            hotelImage: '',
-            hotelPrice: 500055550,
-            hotelPhone: '010-7653-3333'
-          },
-          {
-            hotelName: 'hotel5',
-            hotelImage: '',
-            hotelPrice: 4332,
-            hotelPhone: '010-5421-3333'
-          },
-          {
-            hotelName: 'hotel6',
-            hotelImage: '',
-            hotelPrice: 6546,
-            hotelPhone: '010-3333-3333'
+            console.log(res.data);
+            let a = {
+              hotelInfos:
+                res.data
+
           }
-        ]
-      };
+            this.$store.state.test=a;
+          })
+      // let a = {
+      //   hotelInfos: []
+      // };
       //             axios.get('test').then((res)=>{
       // let a = res.data ;
       //             })
 
-      this.$store.state.test = a;
+      // this.$store.state.test = a;
     }
   },
   created() {

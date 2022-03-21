@@ -15,7 +15,7 @@
         class="hotelcard"
         @click="goHotelInfo(hotelInfo)"
     >
-      {{ hotelInfo.hotelName }}
+      {{ hotelInfo.user_id }}
       <v-card width="100%" height="200px"></v-card>
     </div>
   </div>
@@ -48,7 +48,8 @@ export default {
 .main-layout {
   width: 70%;
   height: 100%;
-  /* overflow: auto; */
+  margin-top: 25px;
+  /* overflow: auto; 스크롤안에 스크롤 */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

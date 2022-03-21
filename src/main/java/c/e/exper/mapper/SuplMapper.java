@@ -11,7 +11,6 @@ import java.util.Optional;
 @Mapper
 public interface SuplMapper {
 
-
     List<Map<String, Object>> findAll();
     //Optional<Plan_Suplies> findById(String id);
 
