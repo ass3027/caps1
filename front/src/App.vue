@@ -1,17 +1,31 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/join">Join</router-link> |
-      <router-link to="/supplies">Supplies</router-link> |
-      <router-link to="/test">test</router-link> |
-      <router-link to="/test">테스트</router-link>
+  <v-app id="app">
+    <router-view></router-view>
 
-    </nav>
-    <router-view/>
-  </div>
+    <div>
+      <router-link to="/join">JoinView</router-link> |
+      <router-link to="/about">AboutView</router-link> |
+      <router-link to="/home">HomeView</router-link> |
+      <router-link to="/map">MapView</router-link>  |
+      <router-link to="/supplies">Supplies</router-link> |      
+    </div>
+  </v-app>
 </template>
+
+<script>
+  import router from './router/index';
+  // import KakaoMap from "@/components/KakaoMap";
+
+  export default {
+    // components: {KakaoMap},
+    router,
+  };
+
+</script>
+
+
+
+
 
 <style>
 #app {
@@ -31,7 +45,4 @@ nav a {
   color: #2c3e50;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

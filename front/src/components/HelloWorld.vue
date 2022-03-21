@@ -1,58 +1,284 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="header-layout">
+    <div class="login-box">
+      <v-btn text> login</v-btn>
+      <v-btn text> join</v-btn>
+    </div>
+    <div>
+      <div class="menu-Bar">
+        <div class="text-center">
+          <!--여행지-->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                여행지
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                  v-for="(travel, index) in travel"
+                  router :to="travel.route"
+                  :key="index"
+              >
+                <v-list-item-title>{{ travel.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <!--여행계획-->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                여행계획
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                  v-for="(plan, index) in plan"
+                  router :to="plan.route"
+                  :key="index"
+              >
+                <v-list-item-title>{{ plan.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <!--시설-->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                시설
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                  v-for="(facility, index) in facility"
+                  router :to="facility.route"
+                  :key="index"
+              >
+                <v-list-item-title>{{ facility.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <!--가방관리-->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                가방관리
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item
+                  v-for="(BagControl, index) in BagControl"
+                  router :to="BagControl.route"
+                  :key="index"
+              >
+                <v-list-item-title>{{ BagControl.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <!--현지인 가이드-->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                현지인 가이드
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item
+                  v-for="(Guide, index) in Guide"
+                  router :to="Guide.route"
+                  :key="index"
+              >
+                <v-list-item-title>{{ Guide.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <!--커뮤니티-->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                커뮤니티
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item
+                  v-for="(Community, index) in Community"
+                  router :to="Community.route"
+                  :key="index"
+              >
+                <v-list-item-title>{{ Community.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <!--고객센터-->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                고객센터
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item
+                  v-for="(Customer, index) in Customer"
+                  router :to="Customer.route"
+                  :key="index"
+              >
+                <v-list-item-title>{{ Customer.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
+      </div>
+      <v-divider class="divider-padding"></v-divider>
+    </div>
   </div>
+
 </template>
 
 <script>
+
+
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+  name   : 'HelloWorld',
+  data   : () => ({
+    travel    : [
+      {title: 'travel1', route: '/travel'},
+      {title: 'travel2', route: '/travel'},
+      {title: 'travel3', route: '/travel'},
+      {title: 'travel4', route: '/travel'},
+      {title: 'travel5', route: '/travel'}
+    ],
+    plan      : [
+      {title: 'plan1', route: '/plan'},
+      {title: 'plan2', route: '/plan'},
+      {title: 'plan3', route: '/plan'},
+      {title: 'plan4', route: '/plan'},
+      {title: 'plan5', route: '/plan'}
+    ],
+    facility  : [
+      {title: '호텔', route: '/facility'},
+      {title: '펜션', route: '/facility'},
+      {title: '글램핑', route: '/facility'},
+      {title: '리조트', route: 'facility'},
+      {title: '게스트하우스', route: 'facility'}
+    ],
+    BagControl: [
+      {title: '가방예약', route: '/bag'},
+      {title: '이용안내', route: '/bag'},
+      {title: '요금', route: '/bag'},
+      {title: '후기', route: '/bag'},
+      {title: '운송조회', route: '/bag'}
+    ],
+    Guide     : [
+      {title: 'Guide1', route: '/guide'},
+      {title: 'Guide2', route: '/Guide'},
+      {title: 'Guide3', route: '/Guide'},
+      {title: 'Guide4', route: '/Guide'},
+      {title: 'Guide5', route: '/Guide'}
+    ],
+    Community : [
+      {title: 'Community1', route: '/Community'},
+      {title: 'Community2', route: '/Community'},
+      {title: 'Community3', route: '/Community'},
+      {title: 'Community4', route: '/Community'},
+      {title: 'Community5', route: '/Community'}
+    ],
+    Customer  : [
+      {title: 'Customer1 ', route: '/Customer'},
+      {title: 'Customer2', route: '/Customer'},
+      {title: 'Customer3', route: '/Customer'},
+      {title: 'Customer4', route: '/Customer'},
+      {title: 'Customer5', route: '/Customer'}
+    ]
+  }),
+  methods: {}
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.header-layout {
+  display: flex;
+  height: 20vh;
+  flex-direction: column;
+  justify-content: space-between;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.login-box {
+  display: flex;
+  justify-content: flex-end;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.menu-Bar {
+  display: flex;
+  justify-content: center;
 }
-a {
-  color: #42b983;
+
+.text-center {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
+
+.hotel-list-form {
+  display: flex;
+  align-items: center;
+}
+
+.select-box {
+  padding: 0 2%;
+}
+
+.select-size {
+  width: 50%;
+}
+
+.divider-padding {
+  margin-top: 10px;
+}
+
 </style>

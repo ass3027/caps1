@@ -1,8 +1,13 @@
 <template>
 
   <div>
+
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <div>
+
+
+
+    <form action="">
+
       <input type="text" placeholder="ID" v-model="user_id"/>
 
       <input type="text" placeholder="PASSWD" v-model="user_pw"/>
@@ -13,15 +18,25 @@
 
       <input type="date" placeholder="Birth" v-model="user_birth"/>
 
-      <input type="file" ref="refImage" placeholder="photo"/>
+      <input @change="imageSet()" type="file" ref="refImage" placeholder="photo"/>
+
+      <div id="pictures"></div>
 
       <button @click='submit()'>submit</button>
 
-    </div>
+    </form>
 
   </div>
 </template>
-
+<style>
+.photoFrame{
+  width: 500px;
+  height: 500px;
+}
+.photoFrame:hover{
+  cursor: pointer;
+}
+</style>
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
@@ -41,8 +56,31 @@ export default {
     }
   },
   methods: {
-    submit: function () {
+    imageSet: function () {
+
+      var picture = document.getElementById("pictures")
+      while (picture.hasChildNodes()) {
+        picture.removeChild(picture.firstChild);
+      }
+
       this.user_photo = this.$refs.refImage.files[0]
+      var reader = new FileReader();
+      reader.readAsDataURL(this.user_photo);
+
+      reader.onload = function () {
+        var photoFrame = document.createElement("div");
+        photoFrame.style = `background : url(${reader.result}); background-size : cover`;
+        photoFrame.className = "photoFrame";
+        document.getElementById("pictures").appendChild(photoFrame);
+        //e.target.value = "";
+
+        // photoFrame.addEventListener("click",function(){
+        //   document.getElementById("pictures").removeChild(photoFrame);
+        // })
+      }
+    },
+    submit  : function () {
+
 
       var sendform = new FormData()
 
@@ -83,12 +121,12 @@ export default {
         },
         data   : sendform,
       })
-      .then((res) => {
-        if (res.data == "ok") {
-          alert("ok")
-          window.location.href = "/";
-        }
-      })
+          .then((res) => {
+            if (res.data == "ok") {
+              alert("ok")
+              window.location.href = "/";
+            }
+          })
     }
   }
 }

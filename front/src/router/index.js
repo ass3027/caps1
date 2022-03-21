@@ -1,42 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import JoinVue from '../views/JoinView.vue'
-import SuppliesVue from '../views/SuppliesView'
-import TestView from '../views/TestView'
 
+import HomeView from '../views/HomeView.vue'
+import JoinView from '../views/JoinView.vue'
+
+import IndexView from '../views/bag/IndexView'
+import MapView from '../views/MapView';
+import SuppliesVue from '../views/SuppliesView'
+
+import AboutView from '../views/AboutView';
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
-  {
-    path: '/join',
-    name: 'join',
-    component:JoinVue
-  },
-  {
-    path: '/supplies',
-    name: 'supplies',
-    component:SuppliesVue
-  },
-  {
-    path: '/test',
-    name: 'test',
-    component:TestView
-  }
+  { path: '/',      name: 'home',   component: HomeView },
+  { path: '/about', name: 'about',  component: AboutView },
+  { path: '/join',  name: 'join',   component:JoinView },
+  { path: '/bag',   name: 'bag',    component: IndexView },
+  { path: '/map',   name: 'map',    component:MapView },
+  { path: '/supplies', name: 'supplies', component:SuppliesVue },
 ]
 
 const router = new VueRouter({
