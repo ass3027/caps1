@@ -1,16 +1,18 @@
 <template>
   <div>
-    <div id="map" style="width:800px;height:600px;float:left"></div>
-    <div id="plan" style="float:right">
+    <HelloWorld/>
+    <div id="map" style="width:40%;height:40%;float:left;top:10%"></div>
+    <div id="plan" style="float:right;width:60%;height:100%;overflow-x:auto;">
       <input type="date" v-model="startDate">
       <input type="date" v-model="endDate">
       <button @click="apply()">Apply</button>
-      <div v-if="buttonClicked">
+      <div v-if="buttonClicked" :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}">
         <DateComponent v-for="(date,index) in dateArr "
                        :key="index"
                        :date="date"
                        :id="index+`s`"
                        @select="selecting"
+                       :style="{width:'13%',height:'67vh',float:'left' }"
         >
 
         </DateComponent>
@@ -23,6 +25,7 @@
 <script>
 /* eslint-disable */
 import DateComponent from '@/components/DateComponent'
+import HelloWorld from "@/components/HelloWorld";
 /* eslint-disable */
 
 export default {
@@ -30,11 +33,12 @@ export default {
 
   name      : 'MapView',
   components: {
-    DateComponent
+    DateComponent,
+    HelloWorld
   },
   data() {
     return {
-      geooder      : '',
+      geocoder      : '',
       marker       : 0,
       startDate    : new Date("2022-03-01T00:00:00.000Z"),
       endDate      : new Date("2022-03-11T00:00:00.000Z"),
@@ -118,7 +122,7 @@ export default {
             console.log(clickPosition)
             //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
             var detailAddr = '';
-            if (result[0].road_address != undefined) {
+            if (result[0].road_address !== undefined) {
               detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
             }
             detailAddr += '<div >지번 주소 : ' + result[0].address.address_name + '</div>';
@@ -135,7 +139,7 @@ export default {
 
             infowindow.open(this.map, this.marker);
 
-            if(this.selectedTag!=''){
+            if(this.selectedTag!==''){
               const info = this.selectedTag.childNodes[1];
               info.textContent=result[0].address.address_name
             }
@@ -177,8 +181,7 @@ export default {
         return check
     },
     sameCheck(tag){
-      if(this.selectedTag != tag) return true;
-      else return false
+      return this.selectedTag !== tag;
     },
 
     dateFormat(date) {

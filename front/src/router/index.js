@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import JoinView from '../views/JoinView.vue'
-
+import PlInviteView from "@/views/PlInviteView";
 import IndexView from '../views/bag/IndexView'
 import MapView from "@/views/MapView";
+import SignView from "@/views/sign.vue"
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,20 @@ const routes = [
     path: '/map',
     name: 'map',
     component:MapView
+  },
+  {
+    path: '/invite',
+    name: 'invite',
+    component:PlInviteView
+  },
+
+
+
+
+  {
+    path: '/sign',
+    name: 'sign',
+    component:SignView
   },
 ]
 
