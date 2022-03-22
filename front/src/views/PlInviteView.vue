@@ -12,7 +12,7 @@
       <h2>멤버 초대</h2>
       <hr>
       <label>
-        회원ID <input id="idInput" placeholder="내용을 입력해주세요">
+        회원ID <input v-model="inputId" placeholder="내용을 입력해주세요">
         <button class="button" @click="invite">초대</button>
       </label>
     </div>
@@ -21,6 +21,7 @@
 
 <script>
 import HelloWorld from "@/components/HelloWorld";
+import axios from "axios";
 
 export default {
   name: "PlInviteView",
@@ -29,12 +30,23 @@ export default {
   },
   data() {
     return {
-      arr:['ㅁ','ㄴ','ㅇ','ㄹ']
+      arr:['ㅁ','ㄴ','ㅇ','ㄹ'],
+      inputId:'',
     }
   },
   methods:{
     invite() {
       console.log("axios 어떻게 쓰더라?? 개망ㅋㅋ")
+      axios({
+        url:'/api/invite',
+        method:'post',
+        data:this.inputId
+      })
+      .then( (res) => {
+        if(res) console.log('sucess')
+        else console.log('fail ')
+      })
+
     }
   }
 
