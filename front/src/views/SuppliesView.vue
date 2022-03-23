@@ -1,36 +1,39 @@
 <template>
-  <div class="home">
-    <div id="app">
-      <h2>내준비물</h2>
-      <div class="container">
-        <form v-on:submit.prevent="inputList">
-          <input type="text" v-model="inputItem" name="city" list="suplName">
-          <datalist  id="suplName">
-            <option v-for="item in supplies" :key="item" :value="item"></option>
-          </datalist>
-          <button>입력</button>
+  <v-container>
 
-        </form>
-        <hr>
-        <ol>
-          <li v-for="(item, index) in todoList" :key="index">
-            {{ item}}
-            <v-btn v-on:click="makeDone(item.id,item.done)">완료</v-btn>
-            <v-btn fab text small color="green" @click="plusQuantity(item)">+1</v-btn>
-            <v-btn fab text small color="red" @click="minusQuantity(item)">-1</v-btn>
-          </li>
-        </ol>
-        <hr>
-        <ol>
-          <li v-for="(item, index) in doneList" :key="index">
-            <del>{{ item }}</del>
-            <v-btn v-on:click="makeDone(item.id,item.done)">취소</v-btn>
-          </li>
-        </ol>
-        <v-btn v-on:click="allDelete">완료한 리스트 제거</v-btn>
-      </div>
-    </div>
-  </div>
+    <h2>내준비물</h2>
+
+
+    <form v-on:submit.prevent="inputList">
+      <input type="text" v-model="inputItem" name="city" list="suplName">
+      <datalist id="suplName">
+        <option v-for="item in supplies" :key="item" :value="item"></option>
+      </datalist>
+      <button>입력</button>
+
+    </form>
+
+    <hr>
+
+    <ol>
+      <li v-for="(item, index) in todoList" :key="index">
+        {{ item.todo }} {{ item.quantity }}개
+        <v-btn v-on:click="makeDone(item.id,item.done)">완료</v-btn>
+        <v-btn fab text small color="green" @click="plusQuantity(item)">+1</v-btn>
+        <v-btn fab text small color="red" @click="minusQuantity(item)">-1</v-btn>
+      </li>
+    </ol>
+    <hr>
+    <ol>
+      <li v-for="(item, index) in doneList" :key="index">
+        <del>{{ item.todo }}</del>
+        <v-btn v-on:click="makeDone(item.id,item.done)">취소</v-btn>
+      </li>
+    </ol>
+    <v-btn v-on:click="allDelete">완료한 리스트 제거</v-btn>
+
+
+  </v-container>
 </template>
 
 <script>
@@ -44,7 +47,7 @@ export default {
       inputItem: "",
       todoList: [],
       doneList: [],
-      supplies:[]
+      supplies: []
     }
   },
   mounted() {
@@ -53,7 +56,7 @@ export default {
     this.getList()
   },
   methods: {
-    getList(){
+    getList() {
       axios({
         method: 'get',
         url: '/api/getSupl',
@@ -74,7 +77,7 @@ export default {
           })
 
     },
-    getMyList(){
+    getMyList() {
       axios({
         method: 'get',
         url: '/api/getMySupl',
@@ -90,13 +93,13 @@ export default {
             var done = [];
 
             res.data.forEach(function (i) {
-              if (i.supl_id.supl_id == 0){
-                i.supl_id.supl_name=i.name;
+              if (i.supl_id.supl_id == 0) {
+                i.supl_id.supl_name = i.name;
               }
               if (i.status == 0) {
-                todo.push({id:i.plan_supl_id,done: false, todo: i.supl_id.supl_name, quantity:i.quantity})
+                todo.push({id: i.plan_supl_id, done: false, todo: i.supl_id.supl_name, quantity: i.quantity})
               } else {
-                done.push({id:i.plan_supl_id,done: true, todo: i.supl_id.supl_name, quantity:i.quantity})
+                done.push({id: i.plan_supl_id, done: true, todo: i.supl_id.supl_name, quantity: i.quantity})
               }
             })
             this.todoList = todo;
@@ -111,8 +114,12 @@ export default {
       //   this.todoList.push({done: false, todo: this.inputItem});
       //   this.inputItem = "";
       // }
-      var data2 = {plan_id:"1",supl_id:{supl_id:"3"
-          ,supl_name:this.inputItem}}
+      var data2 = {
+        plan_id: "1", supl_id: {
+          supl_id: "3"
+          , supl_name: this.inputItem
+        }
+      }
       console.log("넣을데이터")
       console.log(data2)
       axios({
@@ -126,10 +133,10 @@ export default {
           .then(() => {
             this.getMyList();
             console.log("삽입완료 다시불러옴")
-            this.inputItem=''
+            this.inputItem = ''
           })
     },
-    makeDone(id,done) {
+    makeDone(id, done) {
 
       axios({
         method: 'put',
@@ -138,7 +145,7 @@ export default {
           'Content-Type': 'application/json',
         },
 
-        data: JSON.stringify({plan_supl_id:id,status:done}),
+        data: JSON.stringify({plan_supl_id: id, status: done}),
       })
           .then(() => {
             this.getMyList();
@@ -148,7 +155,7 @@ export default {
     allDelete() {
       var newDoneList = []
       this.doneList.forEach(function (i) {
-          newDoneList.push({plan_supl_id:i.id})
+        newDoneList.push({plan_supl_id: i.id})
       })
       console.log(newDoneList)
       axios({
@@ -175,7 +182,7 @@ export default {
           'Content-Type': 'application/json',
         },
 
-        data: JSON.stringify({plan_supl_id:item.id,quantity:item.quantity+1}),
+        data: JSON.stringify({plan_supl_id: item.id, quantity: item.quantity + 1}),
       })
           .then(() => {
             this.getMyList();
@@ -184,7 +191,7 @@ export default {
     },
     minusQuantity(item) {
       console.log(item)
-      if(item.quantity==1)return;
+      if (item.quantity == 1) return;
       axios({
         method: 'put',
         url: '/api/updateQuantity',
@@ -192,7 +199,7 @@ export default {
           'Content-Type': 'application/json',
         },
 
-        data: JSON.stringify({plan_supl_id:item.id,quantity:item.quantity-1}),
+        data: JSON.stringify({plan_supl_id: item.id, quantity: item.quantity - 1}),
       })
           .then(() => {
             this.getMyList();

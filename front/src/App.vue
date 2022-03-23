@@ -1,14 +1,13 @@
 <template>
   <v-app id="app">
-    <router-view></router-view>
-
     <div>
       <router-link to="/join">JoinView</router-link> |
       <router-link to="/about">AboutView</router-link> |
       <router-link to="/home">HomeView</router-link> |
       <router-link to="/map">MapView</router-link>  |
-      <router-link to="/supplies">Supplies</router-link> |      
+      <router-link to="/supplies">Supplies</router-link> |
     </div>
+    <router-view></router-view>
   </v-app>
 </template>
 
