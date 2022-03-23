@@ -7,6 +7,7 @@
         <result property="plan_id" column="plan_id"/>
         <result property="status" column="status"/>
         <result property="name" column="name"/>
+        <result property="quantity" column="quantity"/>
         <association property="supl_id" column="supl" javaType="suplies" resultMap="suplResult"/>
     </resultMap>
     <resultMap type="suplies" id="suplResult">
@@ -25,5 +26,13 @@
         SELECT  *
         FROM suplies
     </select>
+
+    <select id="findSuplByName" resultMap="suplResult">
+        select *
+        from suplies
+        where supl_name= #{name}
+    </select>
+    
+
 
 </mapper>

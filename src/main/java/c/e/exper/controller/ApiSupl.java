@@ -47,12 +47,72 @@ public class ApiSupl {
     @PostMapping("/inputSupl")
     public String inputSupl(@RequestBody Plan_Suplies p){
         System.out.println("post컨트롤러안");
-        System.out.println(p);
+        System.out.println(p.getSupl_id().getSupl_name());
+        Suplies b = SuplMapper.findSuplByName(p.getSupl_id().getSupl_name());
+        if(b != null){
+            Plan_Suplies ps = new Plan_Suplies();
+            System.out.println("1");
+            ps.setSupl_id(b);
+            System.out.println("2");
+            ps.setName(p.getSupl_id().getSupl_name());
+            System.out.println("3");
+            ps.setPlan_id("1");
+            System.out.println("4");
+            SuplMapper.insertSuplies(ps);
+            System.out.println("있을때완료");
+        }else{
+            Plan_Suplies ps = new Plan_Suplies();
+            System.out.println("11");
+            Suplies d = new Suplies();
+            d.setSupl_id("0");
+            System.out.println(d.getSupl_id());
+            ps.setSupl_id(d);
+            System.out.println("22");
+            ps.setName(p.getSupl_id().getSupl_name());
+            System.out.println("33");
+            ps.setPlan_id("1");
+            System.out.println("44");
+            SuplMapper.insertSuplies(ps);
+            System.out.println("없을때완료");
 
-        SuplMapper.insertSuplies(p);
+        }
+//      SuplMapper.insertSuplies(p);
         return "yep";
     }
 
+    @PutMapping("/doneSupl")
+    public String doneSupl(@RequestBody Plan_Suplies p){
+        System.out.println(p.getPlan_supl_id());
+        System.out.println(p.getStatus());
+        if(p.getStatus().equals("true")){
+            System.out.println("이건가?");
+            SuplMapper.updateStatusById(p.getPlan_supl_id(),"0");
+        } else{
+            System.out.println("ㄴㄴ");
+            SuplMapper.updateStatusById(p.getPlan_supl_id(),"1");
+        }
+        System.out.println("됨?");
+        return "done good";
+    }
+
+    @DeleteMapping("/delSupl")
+    public String delSupl(@RequestBody List<Plan_Suplies> p){
+
+        for(int i =0; i<p.size(); i++){
+            System.out.println(p.get(i).getPlan_supl_id());
+            SuplMapper.deleteSuplies(p.get(i).getPlan_supl_id());
+        }
+        return "del good";
+    }
+
+    @PutMapping("/updateQuantity")
+    public String updateQuantity(@RequestBody Plan_Suplies p){
+        System.out.println(p.getPlan_supl_id());
+        System.out.println(p.getQuantity());
+        SuplMapper.updateQuantity(p.getPlan_supl_id(),p.getQuantity());
+        System.out.println("됨?");
+        return "update quantity good";
+    }
 
 
 }
