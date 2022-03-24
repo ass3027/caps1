@@ -4,8 +4,14 @@
     <hr>
     <div>
       <p>planner make</p>
-      <label>plan Name<input v-model="plan_name"></label>
-      <button @click="addPlan">생성</button>
+      <div>
+        <label>plan Name<input v-model="plan_name"></label>
+        <input type="date" v-model="plan_start">
+        <input type="date" v-model="plan_end">
+      </div>
+
+
+      <button @click="addPlan" @submit.prevent>생성</button>
     </div>
   </div>
 </template>
@@ -22,14 +28,22 @@ export default {
   data (){
     return {
       plan_name:'',
+      plan_start:'',
+      plan_end:'',
     }
   },
   methods: {
     addPlan() {
       axios({
-        methods:'post',
+        method:'post',
         url:'/api/plan',
-        data : this.plan_name
+        data : {
+          plan_id:'',
+          plan_name:this.plan_name,
+          plan_start:this.plan_start,
+          plan_end:this.plan_end,
+          user_id:'um'
+        }
       })
       .then( (res) => {
         if(res.data) alert("success")

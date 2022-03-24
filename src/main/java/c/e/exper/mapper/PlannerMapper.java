@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PlannerMapper {
 
-    @Insert("Insert into PLANNER values(#{planner.plan_id},#{planner.plan_start},#{planner.plan_end},#{planner.user_id},#{planner.plan_name})")
+    @Insert("Insert into PLANNER(plan_start,plan_end,user_id,plan_name) values(#{planner.plan_start},#{planner.plan_end},#{planner.user_id},#{planner.plan_name})")
     void insert(@Param("planner")PlannerDAO plannerDAO);
 }

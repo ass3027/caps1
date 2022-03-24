@@ -1,22 +1,19 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.InviteDTO;
+import c.e.exper.data.PlannerDTO;
 import c.e.exper.data.UserDAO;
-import c.e.exper.data.UserDTO;
 import c.e.exper.mapper.InviteMapper;
+import c.e.exper.mapper.PlannerMapper;
 import c.e.exper.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api/")
-public class ApiInvite {
+public class ApiPlanner {
 
     final
     UserMapper userMapper;
@@ -24,9 +21,13 @@ public class ApiInvite {
     final
     InviteMapper inviteMapper;
 
-    public ApiInvite(UserMapper userMapper, InviteMapper inviteMapper) {
+    final
+    PlannerMapper plannerMapper;
+
+    public ApiPlanner(UserMapper userMapper, InviteMapper inviteMapper,PlannerMapper plannerMapper) {
         this.userMapper = userMapper;
         this.inviteMapper = inviteMapper;
+        this.plannerMapper = plannerMapper;
     }
 
     @PostMapping("/invite")
@@ -41,8 +42,8 @@ public class ApiInvite {
     }
 
     @PostMapping("/plan")
-    public boolean planMaking(String planName){
-
+    public boolean planMaking(@RequestBody PlannerDTO plannerDTO){
+        plannerMapper.insert(plannerDTO.toDAO());
 
         return true;
     }

@@ -19,7 +19,7 @@ public class PlannerDTO {
     String user_id;
     String plan_name;
 
-    PlannerDAO toDAO(){
+    public PlannerDAO toDAO(){
 
         return PlannerDAO.builder()
                 .plan_id(this.plan_id)
