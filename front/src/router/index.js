@@ -6,6 +6,7 @@ import PlInviteView from "@/views/PlInviteView";
 import IndexView from '../views/bag/IndexView'
 import MapView from "@/views/MapView";
 import SignView from "@/views/sign.vue"
+import PlanView from "@/views/PlanView";
 
 Vue.use(VueRouter)
 
@@ -46,7 +47,11 @@ const routes = [
     name: 'invite',
     component:PlInviteView
   },
-
+  {
+    path:'/plan',
+    name:'plan',
+    component: PlanView
+  },
 
 
 

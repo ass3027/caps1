@@ -15,7 +15,7 @@ import java.util.Map;
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/")
 public class ApiUser {
 
     final

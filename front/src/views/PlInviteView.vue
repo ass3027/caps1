@@ -40,10 +40,14 @@ export default {
       axios({
         url:'/api/invite',
         method:'post',
-        data:this.inputId
+        data:{
+          user_id:this.inputId,
+          plan_id:1,
+        }
       })
       .then( (res) => {
-        if(res) console.log('sucess')
+        console.log(res)
+        if(res.data) console.log('sucess')
         else console.log('fail ')
       })
 
