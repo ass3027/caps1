@@ -57,7 +57,18 @@ export default {
   },
   methods: {
     getList() {
-      axios({
+      axios.get("/api/getSupl").then((res)=>{
+        var supplies = []
+
+        res.data.forEach(function (i) {
+          supplies.push(i.supl_name)
+        })
+        this.supplies = supplies;
+      })
+      axios.post("/api/inputSupl",{
+
+      })
+     /* axios({
         method: 'get',
         url: '/api/getSupl',
         headers: {
@@ -74,17 +85,17 @@ export default {
               supplies.push(i.supl_name)
             })
             this.supplies = supplies;
-          })
+          })*/
 
     },
     getMyList() {
       axios({
         method: 'get',
         url: '/api/getMySupl',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: '',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        // data: '',
       })
           .then((res) => {
             console.log("내리스트가져오기");
