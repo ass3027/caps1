@@ -1,5 +1,6 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.ImportSuppliesDTO;
 import c.e.exper.data.Plan_Suplies;
 import c.e.exper.data.Suplies;
 import c.e.exper.data.UserDAO;
@@ -31,4 +32,12 @@ public interface SuplMapper {
 
     @Delete("delete from PLAN_SUPL where PLAN_SUPL_ID=#{id}")
     public void deleteSuplies(@Param("id") String id);
+
+    @Select("select b.PL_ID , e.SUPL_NAME\n" +
+            "from PLANNER a, SCHEDULE b,  PL_SUPL d, SUPLIES e\n" +
+            "where a.PLAN_ID=b.PLAN_ID\n" +
+            "and b.PL_ID = d.PL_ID\n" +
+            "and d.SUPL_ID = e.SUPL_ID\n" +
+            "and a.PLAN_ID=#{id}")
+    public List<ImportSuppliesDTO> findSuppliesSets(@Param("id")String id);
 }

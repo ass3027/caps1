@@ -1,9 +1,6 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.Plan_Suplies;
-import c.e.exper.data.Suplies;
-import c.e.exper.data.UserDAO;
-import c.e.exper.data.UserDTO;
+import c.e.exper.data.*;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +39,11 @@ public class ApiSupl {
         System.out.println(SuplMapper.findAllSupl());
 
         return SuplMapper.findAllSupl();
+    }
+
+    @GetMapping("/getSets")
+    public List<ImportSuppliesDTO> getSets() {
+        return SuplMapper.findSuppliesSets("1");
     }
 
     @PostMapping("/inputSupl")
@@ -113,6 +115,7 @@ public class ApiSupl {
         System.out.println("됨?");
         return "update quantity good";
     }
+
 
 
 }

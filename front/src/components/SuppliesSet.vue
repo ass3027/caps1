@@ -10,6 +10,8 @@
       </li>
     </ol>
     <hr>
+    {{set}}
+
   </div>
 </template>
 
@@ -23,9 +25,17 @@ export default {
       inputItem: "",
       todoList: [{todo:"test",quantity:"입니다"}],
       doneList: [],
-      supplies: []
+      supplies: [],
+      set:this.sets,
     }
-  }, methods: {
+  },
+  props:['sets'],
+  mounted() {
+    console.log("sets "+this.sets)
+    console.log("set "+this.set)
+
+  },
+  methods: {
     getList() {
 
     },
