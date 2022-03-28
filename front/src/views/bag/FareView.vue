@@ -1,6 +1,5 @@
 <template>
   <v-app id="app">
-    <HelloWorld />
     
     <div class = Bag-order>
       요금안내
@@ -12,11 +11,11 @@
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+
 
 export default {
   components:{
-    HelloWorld
+  
   },
   data() {
     return {

@@ -1,6 +1,5 @@
 <template>
   <v-app id="app">
-    <HelloWorld/>
     
     <div class='Bag-order'>
       가방운송 신청서
@@ -67,18 +66,16 @@
         작성 완료
       </v-btn>
     </div>
-    
     <router-view/>
   </v-app>
 
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld.vue"
 
 export default {
   components: {
-    HelloWorld
+  
   },
   data() {
     return {

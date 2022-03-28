@@ -1,25 +1,25 @@
 <template>
   <v-app id="app">
-    <HelloWorld />
+    <HelloWorld/>
     
-    <div class = Bag-order>
-     이용안내
+    <div class=Bag-order>
+      이용안내
     </div>
     
     <router-view/>
   </v-app>
-  
+
 </template>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'
+
 export default {
-  components:{
+  components: {
     HelloWorld
   },
   data() {
-    return {
-    }
+    return {}
   }
 }
 </script>

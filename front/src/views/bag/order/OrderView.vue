@@ -1,7 +1,6 @@
 <template>
   
   <v-app id="app">
-    <HelloWorld/>
     
     <div class=Bag-order>
       가방예약
@@ -43,24 +42,23 @@
         depressed
         color="primary"
       >
-        가방운송
+        가방배송
       </v-btn>
     </v-row>
     
     <router-view/>
   </v-app>
-
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+
 
 export default {
   components: {
-    HelloWorld,
+  
   },
   data: () => ({
-    transport: '/TransportView',
+    transport: '/TransportView.vue',
     return: {}
   }),
 }
