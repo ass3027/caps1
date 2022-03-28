@@ -15,8 +15,12 @@
         class="hotelcard"
         @click="goHotelInfo(hotelInfo)"
     >
-      {{ hotelInfo.user_id }}
+      {{ hotelInfo.store_id }}
       <v-card width="100%" height="200px"></v-card>
+      <v-img
+          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          height="200px"
+      ></v-img>
     </div>
   </div>
 </template>
@@ -39,7 +43,7 @@ export default {
       console.log(hotelInfo);
       // console.log(this.$router);
       // console.log(`/${hotelInfo.hotelName}`);
-      this.$router.push(`/${hotelInfo.hotelName}`);
+      this.$router.push(`/${hotelInfo.store_id}`);
     }
   }
 };
@@ -48,7 +52,7 @@ export default {
 .main-layout {
   width: 70%;
   height: 100%;
-  margin-top: 25px;
+  margin-top: 33px;
   /* overflow: auto; 스크롤안에 스크롤 */
   display: flex;
   flex-wrap: wrap;

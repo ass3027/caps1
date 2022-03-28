@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Store {
-
-    String store_id;
-    String user_id;
+public class Place {
     String pl_id;
-    String store_phone;
-
+    String pl_name;
+    String pl_location;
+    String pl_info;
 }

@@ -18,9 +18,7 @@
 
       <div id="pictures"></div>
 
-
       <button @click='submit()'>submit</button>
-
 
     </div>
 

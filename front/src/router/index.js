@@ -1,11 +1,12 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import JoinView from '../views/JoinView.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import JoinView from '../views/JoinView.vue';
 
-import IndexView from '../views/bag/IndexView'
+import IndexView from '../views/bag/IndexView';
 import MapView from "@/views/MapView";
 import HotelView from "@/views/travel/HotelView";
+import HotelAdd from "@/views/travel/HotelAdd";
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [
     path: '/hotel',
     name: 'hotel',
     component: HotelView
+  },
+  {
+    path: '/hoteladd',
+    name: 'hoteladd',
+    component: HotelAdd
   },
 ]
 

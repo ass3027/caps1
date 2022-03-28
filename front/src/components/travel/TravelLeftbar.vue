@@ -171,7 +171,6 @@ export default {
             let a = {
               hotelInfos:
                 res.data
-
           }
             this.$store.state.test=a;
           })

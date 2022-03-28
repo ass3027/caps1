@@ -6,17 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Date;
-
-
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-public class Plan_Suplies {
-
+public class Pictures {
+    MultipartFile pic_name;
+    String ord_id;
+    String gitem_id;
+    String pl_id;
+    String keep_id;
+    String rev_id;
+    String pd_id;
+    String book_id;
     String plan_id;
-    String supl_id;
-    String supl_name;
-
+    String store_id;
 }
