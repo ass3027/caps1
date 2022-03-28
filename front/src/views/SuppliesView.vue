@@ -30,7 +30,8 @@
         <v-btn v-on:click="makeDone(item.id,item.done)">취소</v-btn>
       </li>
     </ol>
-    <v-btn v-on:click="allDelete">완료한 리스트 제거</v-btn>
+    <v-btn v-on:click="allDelete">완료한 준비물 제거</v-btn>
+    <v-btn @click="$router.push({path:'/supplies/sets'})">준비물 가져오기</v-btn>
 
 
   </v-container>
@@ -65,9 +66,7 @@ export default {
         })
         this.supplies = supplies;
       })
-      axios.post("/api/inputSupl",{
 
-      })
      /* axios({
         method: 'get',
         url: '/api/getSupl',
@@ -121,10 +120,10 @@ export default {
     },
     inputList(e) {
       e.preventDefault();
-      // if (this.inputItem !== "") {
-      //   this.todoList.push({done: false, todo: this.inputItem});
-      //   this.inputItem = "";
-      // }
+      if (this.inputItem == "") {
+        alert("준비물을 입력해주세요");
+        return;
+      }
       var data2 = {
         plan_id: "1", supl_id: {
           supl_id: "3"

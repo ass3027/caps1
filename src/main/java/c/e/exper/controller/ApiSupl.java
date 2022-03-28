@@ -82,6 +82,35 @@ public class ApiSupl {
         return "yep";
     }
 
+    @PostMapping("/sendItem")
+    public String sendItem(@RequestBody ImportSuppliesDTO i){
+        System.out.println(i);
+        Suplies s = SuplMapper.findSuplByName(i.getSupl_name());
+        Plan_Suplies p = new Plan_Suplies();
+        p.setSupl_id(s);
+        p.setName(s.getSupl_name());
+        p.setPlan_id("1");
+        SuplMapper.insertSuplies(p);
+        return "sending";
+    }
+
+    @PostMapping("/sendList")
+    public String sendList(@RequestBody List<ImportSuppliesDTO> i){
+        System.out.println(i);
+        Suplies s;
+        Plan_Suplies p;
+        for(int j=0; j<i.size();j++){
+
+            s = SuplMapper.findSuplByName(i.get(j).getSupl_name());
+            p = new Plan_Suplies();
+            p.setSupl_id(s);
+            p.setName(s.getSupl_name());
+            p.setPlan_id("1");
+            SuplMapper.insertSuplies(p);
+        }
+        return "sending List";
+    }
+
     @PutMapping("/doneSupl")
     public String doneSupl(@RequestBody Plan_Suplies p){
         System.out.println(p.getPlan_supl_id());
@@ -115,6 +144,7 @@ public class ApiSupl {
         System.out.println("됨?");
         return "update quantity good";
     }
+
 
 
 

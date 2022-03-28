@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 public class ImportSuppliesDTO {
 
     String pl_id;
+    String pl_name;
+    String supl_id;
     String supl_name;
 
 }
