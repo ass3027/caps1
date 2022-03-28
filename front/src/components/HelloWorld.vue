@@ -149,3 +149,44 @@
     }),
   }
 </script>
+
+<style scoped>
+.header-layout {
+  display: flex;
+  height: 20vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-box {
+  display: flex;
+  justify-content: end;
+}
+.menu-Bar {
+   display: flex;
+   justify-content: center;
+ }
+.text-center {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.hotel-list-form {
+  display: flex;
+  align-items: center;
+}
+
+.select-box {
+  padding: 0 2%;
+}
+
+.select-size {
+  width: 50%;
+}
+
+.divider-padding {
+  margin-top: 10px;
+}
+
+</style>

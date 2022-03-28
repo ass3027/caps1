@@ -22,4 +22,5 @@ public interface UserMapper {
     @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.user_photo},#{user.role})")
     void insert(@Param("user") UserDAO user);
 
+
 }

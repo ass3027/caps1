@@ -10,7 +10,11 @@ import ReviewView from '../views/bag/ReviewView'
 import UsageGuideView from '../views/bag/UsageGuideView'
 import TransportView from '../views/bag/TransportView'
 
+import PlInviteView from "@/views/planner/PlInviteView";
 import IndexView from '../views/bag/IndexView'
+import MapView from "@/views/planner/MapView";
+import SignView from "@/views/sign.vue"
+import PlanView from "@/views/planner/PlanView";
 
 Vue.use(VueRouter)
 
@@ -73,6 +77,24 @@ const routes = [
     path: '/TransportView',
     name: '운송조회',
     component: TransportView
+  },
+  {
+    path: '/invite',
+    name: 'invite',
+    component:PlInviteView
+  },
+  {
+    path:'/plan',
+    name:'plan',
+    component: PlanView
+  },
+
+
+
+  {
+    path: '/sign',
+    name: 'sign',
+    component:SignView
   },
 ]
 

@@ -5,7 +5,6 @@ import c.e.exper.data.UserDTO;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileSaveService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
@@ -16,8 +15,8 @@ import java.util.Map;
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
 @RestController
-@RequestMapping("/api")
-public class Api1 {
+@RequestMapping("/api/")
+public class ApiUser {
 
     final
     SuplMapper suplMapper;
@@ -31,7 +30,7 @@ public class Api1 {
     final
     FileSaveService fileSaveService;
 
-    public Api1(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileSaveService fileSaveService) {
+    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileSaveService fileSaveService) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
         this.suplMapper = suplMapper;
