@@ -2,11 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import JoinView from '../views/JoinView.vue'
-import PlInviteView from "@/views/PlInviteView";
+import PlInviteView from "@/views/planner/PlInviteView";
 import IndexView from '../views/bag/IndexView'
-import MapView from "@/views/MapView";
+import MapView from "@/views/planner/MapView";
 import SignView from "@/views/sign.vue"
-import PlanView from "@/views/PlanView";
+import PlanView from "@/views/planner/PlanView";
 
 Vue.use(VueRouter)
 

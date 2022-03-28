@@ -1,9 +1,6 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.InviteDTO;
-import c.e.exper.data.PlannerDAO;
-import c.e.exper.data.PlannerDTO;
-import c.e.exper.data.UserDAO;
+import c.e.exper.data.*;
 import c.e.exper.mapper.InviteMapper;
 import c.e.exper.mapper.PlannerMapper;
 import c.e.exper.mapper.UserMapper;
@@ -42,6 +39,28 @@ public class ApiPlanner {
         inviteMapper.insert(inviteDTO.toDAO());
 
         return true;
+    }
+
+    @GetMapping("/inviteListUser")
+    public List<InviteDTO> inviteListUser(@RequestParam("id") String id){
+        List<InviteDAO> result = inviteMapper.selectByUserId(id);
+        List<InviteDTO> response = new ArrayList<>();
+
+        result.forEach( data -> response.add(data.toDTO()));
+
+        return response;
+
+    }
+
+    @GetMapping("/inviteListPlan")
+    public List<InviteDTO> inviteListPlan(@RequestParam("id") String id){
+
+        List<InviteDAO> result = inviteMapper.selectByUserId(id);
+        List<InviteDTO> response = new ArrayList<>();
+
+        result.forEach( data -> response.add(data.toDTO()));
+        return response;
+
     }
 
     @PostMapping("/plan")
