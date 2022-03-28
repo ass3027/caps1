@@ -14,5 +14,5 @@ server:
   port: 8000
 
 mybatis:
-  type-aliases-package: c.e.exper.data
   mapper-locations : mybatis/**.xml
+  config-location: classpath:mybatis-config.xml
