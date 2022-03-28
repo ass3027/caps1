@@ -2,8 +2,8 @@
   <v-app id="app">
     <HelloWorld />
     
-    <div>
-      {{ transport }}
+    <div class = Bag-order>
+      배송조회
     </div>
     
     <router-view/>
@@ -19,8 +19,9 @@ export default {
     HelloWorld
   },
   data() {
+    
     return {
-      transport: '운송조회'
+    
     }
     
   }
@@ -28,5 +29,8 @@ export default {
 </script>
 
 <style scoped>
-
+.Bag-order {
+  margin: 10px;
+  font-size: xx-large;
+}
 </style>

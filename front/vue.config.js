@@ -12,5 +12,8 @@ module.exports = {
       }
     }
   },
+  entry:{
+    app:['./src/main.js']
+  }
   //indexPath: "../static/index.html",
 }

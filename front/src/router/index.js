@@ -10,6 +10,8 @@ import ReviewView from '../views/bag/ReviewView'
 import UsageGuideView from '../views/bag/UsageGuideView'
 import TransportView from '../views/bag/TransportView'
 
+import IndexView from '../views/bag/IndexView'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -29,7 +31,16 @@ const routes = [
     name: 'join',
     component:JoinView
   },
-
+  {
+    path: '/bag',
+    name: 'bag',
+    component: IndexView
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component:MapView
+  },
   {
     path: '/map',
     name: 'map',

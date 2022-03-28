@@ -2,8 +2,8 @@
   <v-app id="app">
     <HelloWorld />
     
-    <div>
-      {{ usageGuideView }}
+    <div class = Bag-order>
+     이용안내
     </div>
     
     <router-view/>
@@ -19,12 +19,14 @@ export default {
   },
   data() {
     return {
-      usageGuideView: '이용안내'
     }
   }
 }
 </script>
 
 <style scoped>
-
+.Bag-order {
+  margin: 10px;
+  font-size: xx-large;
+}
 </style>

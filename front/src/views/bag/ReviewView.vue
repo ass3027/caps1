@@ -2,8 +2,8 @@
   <v-app id="app">
     <HelloWorld />
     
-    <div>
-      {{ reviewView }}
+    <div class = Bag-order>
+      이용후기
     </div>
     
     <router-view/>
@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      reviewView: '후기'
+    
     }
     
   }
@@ -28,5 +28,8 @@ export default {
 </script>
 
 <style scoped>
-
+.Bag-order {
+  margin: 10px;
+  font-size: xx-large;
+}
 </style>

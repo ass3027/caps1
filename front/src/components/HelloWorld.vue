@@ -1,287 +1,151 @@
 <template>
-  <div class="header-layout">
-    <div class="login-box">
-      <v-btn text> login</v-btn>
-      <v-btn text> join</v-btn>
-    </div>
-    <div>
-      
-      <div class="text-center">
-        
-        <!--여행지-->
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              여행지
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item
-              v-for="(travel, index) in travel"
-              router :to="travel.route"
-              :key="index"
-            >
-              <v-list-item-title>{{ travel.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        
-        <!--여행계획-->
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              여행계획
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item
-              v-for="(plan, index) in plan"
-              router :to="plan.route"
-              :key="index"
-            >
-              <v-list-item-title>{{ plan.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        
-        <!--시설-->
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              시설
-            </v-btn>
-          </template>
-          
-          <v-list>
-            <v-list-item
-              v-for="(facility, index) in facility"
-              router :to="facility.route"
-              :key="index"
-            >
-              <v-list-item-title>{{ facility.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        
-        <!--가방관리-->
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              가방관리
-            </v-btn>
-          </template>
-          
-          <v-list>
-            <v-list-item
-              v-for="(BagControl, index) in BagControl"
-              router :to="BagControl.route"
-              :key="index"
-            >
-              <v-list-item-title>{{ BagControl.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        
-        <!--현지인 가이드-->
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              현지인 가이드
-            </v-btn>
-          </template>
-          
-          <v-list>
-            <v-list-item
-              v-for="(Guide, index) in Guide"
-              router :to="Guide.route"
-              :key="index"
-            >
-              <v-list-item-title>{{ Guide.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        
-        <!--커뮤니티-->
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              커뮤니티
-            </v-btn>
-          </template>
-          
-          <v-list>
-            <v-list-item
-              v-for="(Community, index) in Community"
-              router :to="Community.route"
-              :key="index"
-            >
-              <v-list-item-title>{{ Community.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        
-        <!--고객센터-->
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              고객센터
-            </v-btn>
-          </template>
-          
-          <v-list>
-            <v-list-item
-              v-for="(Customer, index) in Customer"
-              router :to="Customer.route"
-              :key="index"
-            >
-              <v-list-item-title>{{ Customer.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
-    </div>
-    <v-divider class="divider-padding"></v-divider>
-  </div>
+  <v-container>
+    <v-row class="text-center">
+      <v-col cols="12">
+        <v-img
+          :src="require('../assets/logo.svg')"
+          class="my-3"
+          contain
+          height="200"
+        />
+      </v-col>
 
+      <v-col class="mb-4">
+        <h1 class="display-2 font-weight-bold mb-3">
+          Welcome to Vuetify
+        </h1>
 
+        <p class="subheading font-weight-regular">
+          For help and collaboration with other Vuetify developers,
+          <br>please join our online
+          <a
+            href="https://community.vuetifyjs.com"
+            target="_blank"
+          >Discord Community</a>
+        </p>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          What's next?
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(next, i) in whatsNext"
+            :key="i"
+            :href="next.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ next.text }}
+          </a>
+        </v-row>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          Important Links
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(link, i) in importantLinks"
+            :key="i"
+            :href="link.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ link.text }}
+          </a>
+        </v-row>
+      </v-col>
+
+      <v-col
+        class="mb-5"
+        cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          Ecosystem
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(eco, i) in ecosystem"
+            :key="i"
+            :href="eco.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ eco.text }}
+          </a>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {
-  
-  name: 'HelloWorld',
-  data: () => ({
-    travel: [
-      {title: 'travel1', route: '/travel'},
-      {title: 'travel2', route: '/travel'},
-      {title: 'travel3', route: '/travel'},
-      {title: 'travel4', route: '/travel'},
-      {title: 'travel5', route: '/travel'}
-    ],
-    plan: [
-      {title: 'plan1', route: '/map'},
-      {title: 'plan2', route: '/map'},
-      {title: 'plan3', route: '/map'},
-      {title: 'plan4', route: '/map'},
-      {title: 'plan5', route: '/map'}
-    ],
-    facility: [
-      {title: '호텔', route: '/facility'},
-      {title: '펜션', route: '/facility'},
-      {title: '글램핑', route: '/facility'},
-      {title: '리조트', route: '/facility'},
-      {title: '게스트하우스', route: '/facility'}
-    ],
-    BagControl: [
-      {title: '가방예약', route: '/OrderView'},
-      {title: '이용안내', route: '/UsageGuideView'},
-      {title: '요금', route: '/FareView'},
-      {title: '후기', route: '/ReViewView'},
-      {title: '운송조회', route: '/TransPortView'}
-    ],
-    Guide: [
-      {title: 'Guide1', route: '/guide'},
-      {title: 'Guide2', route: '/Guide'},
-      {title: 'Guide3', route: '/Guide'},
-      {title: 'Guide4', route: '/Guide'},
-      {title: 'Guide5', route: '/Guide'}
-    ],
-    Community: [
-      {title: 'Community1', route: '/Community'},
-      {title: 'Community2', route: '/Community'},
-      {title: 'Community3', route: '/Community'},
-      {title: 'Community4', route: '/Community'},
-      {title: 'Community5', route: '/Community'}
-    ],
-    Customer: [
-      {title: 'Customer1 ', route: '/Customer'},
-      {title: 'Customer2', route: '/Customer'},
-      {title: 'Customer3', route: '/Customer'},
-      {title: 'Customer4', route: '/Customer'},
-      {title: 'Customer5', route: '/Customer'}
-    ]
-  }),
-  methods: {}
-};
+  export default {
+    name: 'HelloWorld',
+
+    data: () => ({
+      ecosystem: [
+        {
+          text: 'vuetify-loader',
+          href: 'https://github.com/vuetifyjs/vuetify-loader',
+        },
+        {
+          text: 'github',
+          href: 'https://github.com/vuetifyjs/vuetify',
+        },
+        {
+          text: 'awesome-vuetify',
+          href: 'https://github.com/vuetifyjs/awesome-vuetify',
+        },
+      ],
+      importantLinks: [
+        {
+          text: 'Documentation',
+          href: 'https://vuetifyjs.com',
+        },
+        {
+          text: 'Chat',
+          href: 'https://community.vuetifyjs.com',
+        },
+        {
+          text: 'Made with Vuetify',
+          href: 'https://madewithvuejs.com/vuetify',
+        },
+        {
+          text: 'Twitter',
+          href: 'https://twitter.com/vuetifyjs',
+        },
+        {
+          text: 'Articles',
+          href: 'https://medium.com/vuetify',
+        },
+      ],
+      whatsNext: [
+        {
+          text: 'Explore components',
+          href: 'https://vuetifyjs.com/components/api-explorer',
+        },
+        {
+          text: 'Select a layout',
+          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
+        },
+        {
+          text: 'Frequently Asked Questions',
+          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
+        },
+      ],
+    }),
+  }
 </script>
-<style scoped>
-.v-btn{
-  margin: 0px 40px;
-}
-
-.header-layout {
-  display: flex;
-  height: 20vh;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.login-box {
-  display: flex;
-  justify-content: end;
-}
-
-.facility {
-  margin: 10px;
-  padding: 10px;
-}
-
-.text-center {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.hotel-list-form {
-  display: flex;
-  align-items: center;
-}
-
-.select-box {
-  padding: 0 2%;
-}
-
-.select-size {
-  width: 50%;
-}
-
-.divider-padding {
-  margin-top: 10px;
-}
-
-</style>

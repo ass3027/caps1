@@ -2,8 +2,8 @@
   <v-app id="app">
     <HelloWorld />
     
-    <div>
-      {{ fareView }}
+    <div class = Bag-order>
+      요금안내
     </div>
     
     <router-view/>
@@ -20,12 +20,15 @@ export default {
   },
   data() {
     return {
-      fareView: '요금'
+    
     }
   }
 }
 </script>
 
 <style scoped>
-
+.Bag-order {
+  margin: 10px;
+  font-size: xx-large;
+}
 </style>
