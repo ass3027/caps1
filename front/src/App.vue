@@ -1,47 +1,37 @@
 <template>
-  <v-app id="app">
-    <div>
-      <router-link to="/join">JoinView</router-link> |
-      <router-link to="/about">AboutView</router-link> |
-      <router-link to="/home">HomeView</router-link> |
-      <router-link to="/map">MapView</router-link>  |
-      <router-link to="/supplies">Supplies</router-link> |
-    </div>
-    <router-view></router-view>
-  </v-app>
+	<v-app id="app">
+		<router-view />
+	</v-app>
 </template>
 
 <script>
-  import router from './router/index';
-  // import KakaoMap from "@/components/KakaoMap";
+import router from './router/index';
+// import KakaoMap from "@/components/KakaoMap";
 
-  export default {
-    // components: {KakaoMap},
-    router,
-  };
-
+export default {
+	// components: {KakaoMap},
+	router,
+};
 </script>
 
-
-
-
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+.font-set {
+	font-family: 'GmarketSansMedium';
 }
 
 nav {
-  padding: 30px;
+	padding: 30px;
 }
 
 nav a {
-  font-weight: bold;
-  color: #2c3e50;
+	font-weight: bold;
+	color: #2c3e50;
 }
-
 </style>

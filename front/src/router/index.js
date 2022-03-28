@@ -1,30 +1,43 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-import HomeView from '../views/HomeView.vue'
-import JoinView from '../views/JoinView.vue'
+import HomeView from '../views/HomeView.vue';
+import JoinView from '../views/JoinView.vue';
 
-import IndexView from '../views/bag/IndexView'
+import IndexView from '../views/bag/IndexView';
 import MapView from '../views/MapView';
-import SuppliesVue from '../views/SuppliesView'
+import SuppliesVue from '../views/SuppliesView';
 
 import AboutView from '../views/AboutView';
 
-Vue.use(VueRouter)
+import HotelView from '@/views/travel/HotelView';
+import HotelAdd from '@/views/travel/HotelAdd';
+
+Vue.use(VueRouter);
 
 const routes = [
-  { path: '/',      name: 'home',   component: HomeView },
-  { path: '/about', name: 'about',  component: AboutView },
-  { path: '/join',  name: 'join',   component:JoinView },
-  { path: '/bag',   name: 'bag',    component: IndexView },
-  { path: '/map',   name: 'map',    component:MapView },
-  { path: '/supplies', name: 'supplies', component:SuppliesVue },
-]
+	{ path: '/', name: 'home', component: HomeView },
+	{ path: '/about', name: 'about', component: AboutView },
+	{ path: '/join', name: 'join', component: JoinView },
+	{ path: '/bag', name: 'bag', component: IndexView },
+	{ path: '/map', name: 'map', component: MapView },
+	{ path: '/supplies', name: 'supplies', component: SuppliesVue },
+	{
+		path: '/hotel',
+		name: 'hotel',
+		component: HotelView,
+	},
+	{
+		path: '/hoteladd',
+		name: 'hoteladd',
+		component: HotelAdd,
+	},
+];
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
+	mode: 'history',
+	base: process.env.BASE_URL,
+	routes,
+});
 
-export default router
+export default router;

@@ -5,17 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-public class Plan_Suplies {
+public class Store {
 
-    String plan_supl_id;
-    String plan_id;
-    Suplies supl_id;
-    String status;
-    String name;
-    int quantity;
+    String store_id;
+    String user_id;
+    String pl_id;
+    String store_phone;
+
 }

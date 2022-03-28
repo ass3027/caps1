@@ -1,9 +1,6 @@
 <template>
-  <div id="d">
+  <div id="">
     <HelloWorld />
-
-    
-    <div></div>
   </div>
 
 </template>
