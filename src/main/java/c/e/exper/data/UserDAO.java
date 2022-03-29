@@ -19,5 +19,4 @@ public class UserDAO {
     String user_name;
     Date   user_birth;
     String role;
-    String user_photo;
 }

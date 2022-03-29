@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AffiliatedDAO {
+public class AffiliatedDTO {
 
     String user_id;
     String plan_id;
 
-    public AffiliatedDTO toDTO(){
-        return AffiliatedDTO.builder()
+    public AffiliatedDAO toDAO(){
+        return AffiliatedDAO.builder()
                 .plan_id(this.plan_id)
                 .user_id(this.user_id)
                 .build();
