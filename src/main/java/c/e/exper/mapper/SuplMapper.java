@@ -6,6 +6,7 @@ import c.e.exper.data.UserDAO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface SuplMapper {
@@ -31,4 +32,6 @@ public interface SuplMapper {
 
     @Delete("delete from PLAN_SUPL where PLAN_SUPL_ID=#{id}")
     public void deleteSuplies(@Param("id") String id);
+
+//    List<Map<String, Object>> findAll();
 }

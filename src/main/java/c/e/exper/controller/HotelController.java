@@ -1,8 +1,9 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.Place;
-import c.e.exper.data.Store;
+import c.e.exper.data.StoreDTO;
 import c.e.exper.data.UserDTO;
+import c.e.exper.data.Pictures;
 import c.e.exper.mapper.HotelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,18 +30,11 @@ public class HotelController {
     }
 
     @PostMapping("/hotelladd")
-    public boolean hoteladd(Store store, UserDTO user, Place place, HttpServerRequest req){
+    public boolean hoteladd(StoreDTO store){
+
         System.out.println("호텔 추가 컨트롤러임");
 
-        Store stores = Store.builder()
-                .store_id(store.getStore_id())
-                .user_id(user.getUser_id())
-                .pl_id(place.getPl_id())
-                .store_id(store.getStore_phone())
-                .build();
-
-         HotelMapper.insert(stores);
-
+        
         return true;
     }
 }
