@@ -1,5 +1,5 @@
 <template>
-  <div class="header-layout">
+  <v-app class="header-layout">
     <div class="login-box">
       <v-btn text> login</v-btn>
       <v-btn text> join</v-btn>
@@ -11,161 +11,162 @@
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
               >
                 여행지
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                  v-for="(travel, index) in travel"
-                  router :to="travel.route"
-                  :key="index"
+                v-for="(travel, index) in travel"
+                router :to="travel.route"
+                :key="index"
               >
                 <v-list-item-title>{{ travel.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-
+          
           <!--여행계획-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
               >
                 여행계획
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                  v-for="(plan, index) in plan"
-                  router :to="plan.route"
-                  :key="index"
+                v-for="(plan, index) in plan"
+                router :to="plan.route"
+                :key="index"
               >
                 <v-list-item-title>{{ plan.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-
+          
           <!--시설-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
               >
                 시설
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                  v-for="(facility, index) in facility"
-                  router :to="facility.route"
-                  :key="index"
+                v-for="(facility, index) in facility"
+                router :to="facility.route"
+                :key="index"
               >
                 <v-list-item-title>{{ facility.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-
+          
           <!--가방관리-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
               >
                 가방관리
               </v-btn>
             </template>
-
+            
             <v-list>
               <v-list-item
-                  v-for="(BagControl, index) in BagControl"
-                  router :to="BagControl.route"
-                  :key="index"
+                v-for="(BagControl, index) in BagControl"
+                router :to="BagControl.route"
+                :key="index"
               >
                 <v-list-item-title>{{ BagControl.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-
+          
           <!--현지인 가이드-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
               >
                 현지인 가이드
               </v-btn>
             </template>
-
+            
             <v-list>
               <v-list-item
-                  v-for="(Guide, index) in Guide"
-                  router :to="Guide.route"
-                  :key="index"
+                v-for="(Guide, index) in Guide"
+                router :to="Guide.route"
+                :key="index"
               >
                 <v-list-item-title>{{ Guide.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-
+          
           <!--커뮤니티-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
               >
                 커뮤니티
               </v-btn>
             </template>
-
+            
             <v-list>
               <v-list-item
-                  v-for="(Community, index) in Community"
-                  router :to="Community.route"
-                  :key="index"
+                v-for="(Community, index) in Community"
+                router :to="Community.route"
+                :key="index"
+                
               >
                 <v-list-item-title>{{ Community.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-
+          
           <!--고객센터-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="primary"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
               >
                 고객센터
               </v-btn>
             </template>
-
+            
             <v-list>
               <v-list-item
-                  v-for="(Customer, index) in Customer"
-                  router :to="Customer.route"
-                  :key="index"
+                v-for="(Customer, index) in Customer"
+                router :to="Customer.route"
+                :key="index"
               >
                 <v-list-item-title>{{ Customer.title }}</v-list-item-title>
               </v-list-item>
@@ -175,32 +176,30 @@
       </div>
       <v-divider class="divider-padding"></v-divider>
     </div>
-  </div>
-
+  </v-app>
 </template>
 
 <script>
 
-
-
 export default {
-  name   : 'HelloWorld',
-  data   : () => ({
-    travel    : [
+  
+  name: 'HelloWorld',
+  data: () => ({
+    travel: [
       {title: 'travel1', route: '/travel'},
       {title: 'travel2', route: '/travel'},
       {title: 'travel3', route: '/travel'},
       {title: 'travel4', route: '/travel'},
       {title: 'travel5', route: '/travel'}
     ],
-    plan      : [
+    plan: [
       {title: 'plan1', route: '/plan'},
       {title: 'plan2', route: '/plan'},
       {title: 'plan3', route: '/plan'},
       {title: 'plan4', route: '/plan'},
       {title: 'plan5', route: '/plan'}
     ],
-    facility  : [
+    facility: [
       {title: '호텔', route: '/facility'},
       {title: '펜션', route: '/facility'},
       {title: '글램핑', route: '/facility'},
@@ -208,27 +207,27 @@ export default {
       {title: '게스트하우스', route: 'facility'}
     ],
     BagControl: [
-      {title: '가방예약', route: '/bag'},
-      {title: '이용안내', route: '/bag'},
-      {title: '요금', route: '/bag'},
-      {title: '후기', route: '/bag'},
-      {title: '운송조회', route: '/bag'}
+      {title: '가방예약', route: '/OrderView'},
+      {title: '이용안내', route: '/UsageGuideView'},
+      {title: '요금', route: '/FareView'},
+      {title: '후기', route: '/ReviewView'},
+      {title: '배송조회', route: '/bag'}
     ],
-    Guide     : [
+    Guide: [
       {title: 'Guide1', route: '/guide'},
       {title: 'Guide2', route: '/Guide'},
       {title: 'Guide3', route: '/Guide'},
       {title: 'Guide4', route: '/Guide'},
       {title: 'Guide5', route: '/Guide'}
     ],
-    Community : [
+    Community: [
       {title: 'Community1', route: '/Community'},
       {title: 'Community2', route: '/Community'},
       {title: 'Community3', route: '/Community'},
       {title: 'Community4', route: '/Community'},
       {title: 'Community5', route: '/Community'}
     ],
-    Customer  : [
+    Customer: [
       {title: 'Customer1 ', route: '/Customer'},
       {title: 'Customer2', route: '/Customer'},
       {title: 'Customer3', route: '/Customer'},
@@ -250,7 +249,7 @@ export default {
 
 .login-box {
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
 }
 
 .menu-Bar {
@@ -280,5 +279,4 @@ export default {
 .divider-padding {
   margin-top: 10px;
 }
-
 </style>

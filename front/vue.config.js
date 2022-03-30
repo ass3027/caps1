@@ -1,5 +1,6 @@
 //const { defineConfig } = require('@vue/cli-service')
 module.exports = {
+
   transpileDependencies: [
     'vuetify'
   ],
@@ -12,5 +13,7 @@ module.exports = {
       }
     }
   },
+
+
   //indexPath: "../static/index.html",
 }
