@@ -7,7 +7,7 @@ import IndexView from '../views/bag/IndexView'
 import SignView from "@/views/sign.vue"
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
-import MapView from "@/views/planner/MapView";
+import MapView from "@/components/MapComponent";
 
 Vue.use(VueRouter)
 
