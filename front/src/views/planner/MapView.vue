@@ -1,54 +1,16 @@
 <template>
-  <div>
-    <HelloWorld/>
-    <div id="map" style="width:40%;height:40%;float:left;top:10%"></div>
-    <div id="plan" style="float:right;width:60%;height:100%;overflow-x:auto;">
-      <input type="date" v-model="startDate">
-      <input type="date" v-model="endDate">
-      <button @click="apply()">Apply</button>
-      <div v-if="buttonClicked" :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}">
-        <DateComponent v-for="(date,index) in dateArr "
-                       :key="index"
-                       :date="date"
-                       :id="index+`s`"
-                       @select="selecting"
-                       :style="{width:'13%',height:'67vh',float:'left' }"
-        >
-
-        </DateComponent>
-      </div>
-    </div>
-  </div>
-
+  <div id="map" style="width:40%;height:40%;float:left;top:10%"></div>
 </template>
 
 <script>
-/* eslint-disable */
-import DateComponent from '@/components/DateComponent'
-import HelloWorld from "@/components/HelloWorld";
-/* eslint-disable */
-
 export default {
-
-
-  name      : 'MapView',
-  components: {
-    DateComponent,
-    HelloWorld
-  },
-  data() {
+  name: "MapView.vue",
+  date() {
     return {
-      geocoder      : '',
-      marker       : 0,
-      startDate    : new Date("2022-03-01T00:00:00.000Z"),
-      endDate      : new Date("2022-03-11T00:00:00.000Z"),
-      startDateC   : new Date(),
-      endDateC     : new Date(),
-      dateArr      : [],
-      buttonClicked: false,
-      selectedTag: '',
+      geocoder:{},
+      marker:0,
       infowindow:{},
-
+      map:{}
     }
   },
   mounted() {
@@ -63,13 +25,10 @@ export default {
           "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=6334d5e4689d4570c9306cc116099288&libraries=services,clusterer,drawing"
 
       document.head.appendChild(script);
-      this.startDate = new Date("2022-03-01T00:00:00.000Z");
-      this.endDate = new Date("2022-03-11T00:00:00.000Z")
-      this.apply();
 
     }
   },
-  methods: {
+  methods : {
     initMap() {
       const container = document.getElementById("map");
 
@@ -156,59 +115,10 @@ export default {
     searchDetailAddrFromCoords(coords, callback) {
       this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
     },
-    apply() {
-      this.dateArr = []
-      this.buttonClicked = true
-      this.startDateC = new Date(this.startDate)
-      this.endDateC = new Date(this.endDate)
-      if (this.startDateC > this.endDateC) {
-        alert("잘못된 날짜 설정 입니다");
-        return;
-      }
-
-      var tempDate = this.startDateC
-      for (var i = 0; tempDate <= this.endDateC; i++) {
-        this.dateArr[i] = this.dateFormat(tempDate)//tempDate.format("yyyy-MM-dd")
-        tempDate.setDate(tempDate.getDate() + 1)
-      }
-      //var tags = []
-      //for
-    },
-    selecting(tag)  {
-        var check = this.sameCheck(tag)
-        if(check) this.selectedTag = tag;
-        console.log(tag);
-        return check
-    },
-    sameCheck(tag){
-      return this.selectedTag !== tag;
-    },
-
-    dateFormat(date) {
-      let month = date.getMonth() + 1;
-      let day = date.getDate();
-      let hour = date.getHours();
-      let minute = date.getMinutes();
-      let second = date.getSeconds();
-
-      month = month >= 10 ? month : '0' + month;
-      day = day >= 10 ? day : '0' + day;
-      hour = hour >= 10 ? hour : '0' + hour;
-      minute = minute >= 10 ? minute : '0' + minute;
-      second = second >= 10 ? second : '0' + second;
-
-      return date.getFullYear() + '-' + month + '-' + day;
-    }
   }
 }
 </script>
-<style>
-.bAddr {
-  padding: 5px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  border-radius: 2px;
-}
-</style>
 
+<style scoped>
+
+</style>

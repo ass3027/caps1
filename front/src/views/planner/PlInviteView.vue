@@ -92,11 +92,15 @@ export default {
         }
       })
           .then((res) => {
-            console.log(res)
-            if (res.data) {
+            if (res.data===true) {
               this.updateInvite()
               console.log('success')
-            } else console.log('fail ')
+              alert('success')
+            } else {
+              console.log('fail ')
+              alert('fail')
+            }
+
           })
     },
     updateInvite() {

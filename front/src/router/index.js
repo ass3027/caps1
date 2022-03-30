@@ -4,9 +4,10 @@ import HomeView from '../views/HomeView.vue'
 import JoinView from '../views/JoinView.vue'
 import PlInviteView from "@/views/planner/PlInviteView";
 import IndexView from '../views/bag/IndexView'
-import MapView from "@/views/planner/MapView";
 import SignView from "@/views/sign.vue"
 import PlanView from "@/views/planner/PlanView";
+import CalenderView from "@/views/planner/CalenderView";
+import MapView from "@/views/planner/MapView";
 
 Vue.use(VueRouter)
 
@@ -33,14 +34,9 @@ const routes = [
     component: IndexView
   },
   {
-    path: '/map',
-    name: 'map',
-    component:MapView
-  },
-  {
-    path: '/map',
-    name: 'map',
-    component:MapView
+    path: '/calender',
+    name: 'calender',
+    component:CalenderView
   },
   {
     path: '/invite',
@@ -55,6 +51,10 @@ const routes = [
 
 
 
+  {
+    path:'/map',
+    component: MapView
+  },
   {
     path: '/sign',
     name: 'sign',

@@ -28,7 +28,7 @@ public class InviteAffiliateServiceImpl implements InviteAffiliateService{
     @Override
     public boolean inviteRedundancyCheck(InviteDTO inviteDTO) {
 
-        //초대할 회원이 있는지 없는지
+        //초대할 회원이 없으면 ㅇ안대
         if(userMapper.selectId(inviteDTO.getUser_id()).isEmpty()) {
             return false;
         }

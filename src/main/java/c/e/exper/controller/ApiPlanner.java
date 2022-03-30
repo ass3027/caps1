@@ -66,7 +66,7 @@ public class ApiPlanner {
     @PostMapping("/invite")
     public boolean inviting(@RequestBody InviteDTO inviteDTO){
 
-        if ( inviteAffiliateService.inviteRedundancyCheck(inviteDTO) ) {
+        if ( !inviteAffiliateService.inviteRedundancyCheck(inviteDTO) ) {
             return false;
         }
         inviteMapper.insert(inviteDTO.toDAO());
