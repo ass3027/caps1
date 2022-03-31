@@ -126,13 +126,20 @@ public class ApiSupl {
         return "done good";
     }
 
-    @DeleteMapping("/delSupl")
-    public String delSupl(@RequestBody List<Plan_Suplies> p){
+    @DeleteMapping("/delSuplAll")
+    public String delSuplAll(@RequestBody List<Plan_Suplies> p){
 
         for(int i =0; i<p.size(); i++){
             System.out.println(p.get(i).getPlan_supl_id());
             SuplMapper.deleteSuplies(p.get(i).getPlan_supl_id());
         }
+        return "del good";
+    }
+    @DeleteMapping("/delSuplOne")
+    public String delSuplOne(@RequestBody Plan_Suplies p){
+        System.out.println(p.getPlan_supl_id());
+        SuplMapper.deleteSuplies(p.getPlan_supl_id());
+
         return "del good";
     }
 

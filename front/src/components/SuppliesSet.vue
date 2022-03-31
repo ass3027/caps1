@@ -2,34 +2,38 @@
   <v-container class="test">
 
     <h3>{{sets[0].pl_name}} 관련 세트</h3>
+    <hr>
     <ol>
       <li v-for="(item, index) in sets" :key="index">
-        {{ item.supl_id }} {{ item.supl_name }}
-<!--        <v-btn v-on:click="makeDone(item.id,item.done)">완료</v-btn>-->
-        <v-btn fab text small color="green" @click="sendItem(item)">가져오기</v-btn>
+
+        <p>{{ item.supl_name }}{{item.supl_id}}</p>
+<!--        객체에 새로운 키값을 넣으면 갱신이 안됨 그래서 기존것을 바꿔야됨-->
+        <div v-if="item.asdf != 0">
+          <v-btn  fab text small color="green" @click="sendItem(item,index)">가져오기</v-btn>
+        </div>
+        <div v-else>가져옴</div>
+
       </li>
     </ol>
-    <v-btn fab text small color="red" @click="sendList()">모두가져오기</v-btn>
-    <hr>
-    {{sets}}
-    <hr>
-    <v-btn @click="handleToggle">
-      모달?
-    </v-btn>
-    <div v-show="toggle">
-      <h5>뷰하!</h5>
-      <p>v-if와 v-show로 모달창을 띄워봅시다.</p>
+    <v-btn fab text small color="red" @click="handleToggle">모두 가져오기</v-btn>
 
-      <v-btn @click="handleToggle">
-        확인
-      </v-btn>
+    <div class="outterMordal" v-show="toggle">
+      <div class="innerMordal" v-show="toggle">
+        <h5>확인창</h5>
+        <p>모두 가져오시겠습니까?.</p>
+
+        <v-btn @click="handleToggleWithYes">
+          예
+        </v-btn>
+        <v-btn @click="handleToggle">
+          아니오
+        </v-btn>
+      </div>
     </div>
   </v-container>
 </template>
 
 <script>
-// import axios from "axios";
-
 import axios from "axios";
 
 export default {
@@ -41,17 +45,23 @@ export default {
       doneList: [],
       supplies: [],
       toggle: false,
+      sets: this.seto,
     }
   },
-  props:['sets'],
+  props:['seto'],
   mounted() {
 
   },
   methods: {
     sendItem(item) {
-      console.log(item)
       axios.post("/api/sendItem",item).then(()=>{
       })
+      var dummy = item["supl_id"];
+      item["supl_id"] = 0;
+      item["supl_id"] = dummy;
+      item["asdf"] = 0;
+      console.log(item)
+
     },
     sendList() {
       axios.post("/api/sendList",this.sets).then(()=>{
@@ -73,6 +83,13 @@ export default {
     },
     handleToggle() {
       this.toggle = !this.toggle;
+    },
+    handleToggleWithYes() {
+      this.sets.forEach((i)=>{
+        i.supl_id=0;
+      })
+      this.sendList()
+      this.toggle = !this.toggle;
     }
 
   }
@@ -82,6 +99,26 @@ export default {
 <style scoped>
   .test{
     border: solid;
+  }
+  .outterMordal{
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+
+  }
+  .innerMordal{
+    position: fixed;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    background: black;
+    z-index: 2;
+    padding: 15px;
 
   }
 </style>

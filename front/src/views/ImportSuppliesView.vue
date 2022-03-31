@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>준비물 가져오기</h2>
-    <SuppliesSet v-bind:sets="set" v-for="(set,index) in sets" :key="index"></SuppliesSet>
+    <SuppliesSet v-bind:seto="set" v-for="(set,index) in sets" :key="index"></SuppliesSet>
     <v-btn @click="$router.push({path:'/supplies'})">내준비물</v-btn>
 
   </div>
