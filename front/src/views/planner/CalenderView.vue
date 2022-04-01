@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <HelloWorld/>
-    <MapView/>
+  <div id="이재영시발럼">
+    <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
+      <MapComponent/>
+    </div>
+
     <div id="plan" style="float:right;width:60%;height:100%;overflow-x:auto;">
       <input type="date" v-model="startDate">
       <input type="date" v-model="endDate">
@@ -13,9 +15,7 @@
                        :id="index+`s`"
                        @select="selecting"
                        :style="{width:'13%',height:'67vh',float:'left' }"
-        >
-
-        </DateComponent>
+        />
       </div>
     </div>
   </div>
@@ -25,8 +25,8 @@
 <script>
 /* eslint-disable */
 import DateComponent from '@/components/DateComponent'
-import HelloWorld from "@/components/HelloWorld";
-import MapView from "@/components/MapComponent";
+
+import MapComponent from "@/components/MapComponent";
 /* eslint-disable */
 
 export default {
@@ -35,8 +35,8 @@ export default {
   name      : 'CalenderView',
   components: {
     DateComponent,
-    HelloWorld,
-    MapView
+
+    MapComponent
   },
   data() {
     return {
@@ -107,12 +107,6 @@ export default {
 }
 </script>
 <style>
-.bAddr {
-  padding: 5px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  border-radius: 2px;
-}
+
 </style>
 

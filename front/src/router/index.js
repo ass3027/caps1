@@ -11,12 +11,9 @@ import UsageGuideView from '../views/bag/UsageGuideView'
 import TransportView from '../views/bag/order/TransportView'
 
 import PlInviteView from "@/views/planner/PlInviteView";
-import IndexView from '../views/bag/IndexView'
 import SignView from "@/views/sign.vue"
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
-import MapView from "@/components/MapComponent";
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,11 +32,6 @@ const routes = [
     path: '/join',
     name: 'join',
     component:JoinView
-  },
-  {
-    path: '/bag',
-    name: 'bag',
-    component: IndexView
   },
   {
     path: '/calender',
