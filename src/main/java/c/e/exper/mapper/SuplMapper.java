@@ -7,6 +7,7 @@ import c.e.exper.data.UserDAO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface SuplMapper {

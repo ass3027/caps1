@@ -13,7 +13,7 @@ public class FileSaveServiceImpl implements FileSaveService {
     @Override
     public String photoSave(MultipartFile file, HttpServletRequest req){
         String fileName = file.getOriginalFilename();
-        String safeFile = req.getSession().getServletContext().getRealPath("/userImage") + System.currentTimeMillis() + fileName;
+        String safeFile = req.getSession().getServletContext().getRealPath("/userImage/") + System.currentTimeMillis() + fileName;
         System.out.println(safeFile);
         try {
             file.transferTo(new File(safeFile));
