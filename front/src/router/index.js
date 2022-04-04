@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import JoinView from '../views/JoinView.vue'
 
-
 import OrderView from '../views/bag/order/OrderView.vue'
 import FareView from '../views/bag/FareView'
 import ReviewView from '../views/bag/ReviewView'
