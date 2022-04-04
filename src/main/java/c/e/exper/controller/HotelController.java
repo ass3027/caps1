@@ -22,12 +22,12 @@ public class HotelController {
     HotelMapper HotelMapper;
 
 
-    @GetMapping("/getHotel")
-    public List<Store> hotel(){
-        System.out.println("컨트롤러임");
-        System.out.println(HotelMapper.findAll());
-        return HotelMapper.findAll();
-    }
+//    @GetMapping("/getHotel")
+//    public List<StoreDTO> hotel(){
+//        System.out.println("컨트롤러임");
+//        System.out.println(HotelMapper.findAll());
+//        return HotelMapper.findAll();
+//    }
 
     @PostMapping("/hotelladd")
     public boolean hoteladd(StoreDTO store){

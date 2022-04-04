@@ -8,6 +8,16 @@ import IndexView from '../views/bag/IndexView';
 import MapView from '../views/MapView';
 import SuppliesVue from '../views/SuppliesView';
 
+import OrderView from '../views/bag/order/OrderView.vue'
+import FareView from '../views/bag/FareView'
+import ReviewView from '../views/bag/ReviewView'
+import UsageGuideView from '../views/bag/UsageGuideView'
+import TransportView from '../views/bag/order/TransportView'
+
+import PlInviteView from "@/views/planner/PlInviteView";
+import SignView from "@/views/sign.vue"
+import PlanView from "@/views/planner/PlanView";
+import CalenderView from "@/views/planner/CalenderView";
 import AboutView from '../views/AboutView';
 
 import HotelView from '@/views/travel/HotelView';
@@ -22,16 +32,17 @@ const routes = [
 	{ path: '/bag', name: 'bag', component: IndexView },
 	{ path: '/map', name: 'map', component: MapView },
 	{ path: '/supplies', name: 'supplies', component: SuppliesVue },
-	{
-		path: '/hotel',
-		name: 'hotel',
-		component: HotelView,
-	},
-	{
-		path: '/hoteladd',
-		name: 'hoteladd',
-		component: HotelAdd,
-	},
+	{ path: '/hotel', name: 'hotel', component: HotelView,},
+	{ path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},
+   { path: '/calender', name: 'calender', component:CalenderView},
+   { path: '/OrderView', name: 'OrderView', component: OrderView},
+   { path: '/FareView', name: 'FareView',component: FareView},
+   { path: '/ReviewView', name: 'ReviewView', component:ReviewView},
+   { path: '/UsageGuideView', name: 'UsageGuideView', component: UsageGuideView},
+   { path: '/TransportView', name     : 'TransportView', component: TransportView},
+   { path: '/invite', name: 'invite', component:PlInviteView},
+   { path:'/plan', name:'plan', component: PlanView},
+   { path: '/sign', name: 'sign', component:SignView},
 ];
 
 const router = new VueRouter({
