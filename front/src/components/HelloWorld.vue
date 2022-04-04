@@ -29,7 +29,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          
+
           <!--여행계획-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -52,7 +52,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          
+
           <!--시설-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -75,7 +75,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          
+
           <!--가방관리-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -88,7 +88,7 @@
                 가방관리
               </v-btn>
             </template>
-            
+
             <v-list>
               <v-list-item
                 v-for="(BagControl, index) in BagControl"
@@ -99,7 +99,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          
+
           <!--현지인 가이드-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -112,7 +112,7 @@
                 현지인 가이드
               </v-btn>
             </template>
-            
+
             <v-list>
               <v-list-item
                 v-for="(Guide, index) in Guide"
@@ -123,7 +123,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          
+
           <!--커뮤니티-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -136,19 +136,19 @@
                 커뮤니티
               </v-btn>
             </template>
-            
+
             <v-list>
               <v-list-item
                 v-for="(Community, index) in Community"
                 router :to="Community.route"
                 :key="index"
-                
+
               >
                 <v-list-item-title>{{ Community.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-          
+
           <!--고객센터-->
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -161,7 +161,7 @@
                 고객센터
               </v-btn>
             </template>
-            
+
             <v-list>
               <v-list-item
                 v-for="(Customer, index) in Customer"
@@ -182,7 +182,7 @@
 <script>
 
 export default {
-  
+
   name: 'HelloWorld',
   data: () => ({
     travel: [
@@ -249,7 +249,7 @@ export default {
 
 .login-box {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .menu-Bar {

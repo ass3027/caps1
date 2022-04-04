@@ -11,21 +11,33 @@
 
 
 import HelloWorld from "@/components/HelloWorld";
+import router from './router/index';
 export default {
   components:{
 
     HelloWorld
-  }
+  },
+  router,
 }
 </script>
+
 <style>
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+.font-set {
+	font-family: 'GmarketSansMedium';
+}
 
 nav {
-  padding: 30px;
+	padding: 30px;
 }
 nav a {
-  font-weight: bold;
-  color: #2c3e50;
+	font-weight: bold;
+	color: #2c3e50;
 }
-
 </style>
