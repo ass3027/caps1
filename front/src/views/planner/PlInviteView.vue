@@ -1,6 +1,5 @@
 <template>
   <div>
-    <HelloWorld/>
     <div class="right">
       <select v-model="selected_plan">
         <option></option>
@@ -44,14 +43,10 @@
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld";
 import axios from "axios";
 
 export default {
   name      : "PlInviteView",
-  components: {
-    HelloWorld
-  },
   data() {
     return {
       plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
