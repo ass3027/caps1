@@ -1,7 +1,6 @@
 package c.e.exper.data;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,14 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-public class Plan_Suplies {
+public class Planner {
 
-    String plan_supl_id;
     String plan_id;
-    Suplies supl_id;
-    String status;
-    String name;
-    int quantity;
+    String plan_start;
+    String plan_end;
+    String user_id;
+    String plan_name;
 
 }

@@ -6,6 +6,8 @@ import JoinView from '../views/JoinView.vue';
 
 import IndexView from '../views/bag/IndexView';
 import MapView from '../views/MapView';
+import ImportSuppliesView from "@/views/ImportSuppliesView";
+
 import SuppliesVue from '../views/SuppliesView';
 
 import OrderView from '../views/bag/order/OrderView.vue'
@@ -32,7 +34,8 @@ const routes = [
 	{ path: '/bag', name: 'bag', component: IndexView },
 	{ path: '/map', name: 'map', component: MapView },
 	{ path: '/supplies', name: 'supplies', component: SuppliesVue },
-	{ path: '/hotel', name: 'hotel', component: HotelView,},
+	{ path: '/supplies/sets', name: 'ImportSupplies', component:ImportSuppliesView },
+  { path: '/hotel', name: 'hotel', component: HotelView,},
 	{ path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},
    { path: '/calender', name: 'calender', component:CalenderView},
    { path: '/OrderView', name: 'OrderView', component: OrderView},

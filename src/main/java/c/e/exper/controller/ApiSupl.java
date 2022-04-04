@@ -1,9 +1,6 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.Plan_Suplies;
-import c.e.exper.data.Suplies;
-import c.e.exper.data.UserDAO;
-import c.e.exper.data.UserDTO;
+import c.e.exper.data.*;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +41,11 @@ public class ApiSupl {
         return SuplMapper.findAllSupl();
     }
 
+    @GetMapping("/getSets")
+    public List<ImportSuppliesDTO> getSets() {
+        return SuplMapper.findSuppliesSets("1");
+    }
+
     @PostMapping("/inputSupl")
     public String inputSupl(@RequestBody Plan_Suplies p){
         System.out.println("post컨트롤러안");
@@ -80,6 +82,35 @@ public class ApiSupl {
         return "yep";
     }
 
+    @PostMapping("/sendItem")
+    public String sendItem(@RequestBody ImportSuppliesDTO i){
+        System.out.println(i);
+        Suplies s = SuplMapper.findSuplByName(i.getSupl_name());
+        Plan_Suplies p = new Plan_Suplies();
+        p.setSupl_id(s);
+        p.setName(s.getSupl_name());
+        p.setPlan_id("1");
+        SuplMapper.insertSuplies(p);
+        return "sending";
+    }
+
+    @PostMapping("/sendList")
+    public String sendList(@RequestBody List<ImportSuppliesDTO> i){
+        System.out.println(i);
+        Suplies s;
+        Plan_Suplies p;
+        for(int j=0; j<i.size();j++){
+
+            s = SuplMapper.findSuplByName(i.get(j).getSupl_name());
+            p = new Plan_Suplies();
+            p.setSupl_id(s);
+            p.setName(s.getSupl_name());
+            p.setPlan_id("1");
+            SuplMapper.insertSuplies(p);
+        }
+        return "sending List";
+    }
+
     @PutMapping("/doneSupl")
     public String doneSupl(@RequestBody Plan_Suplies p){
         System.out.println(p.getPlan_supl_id());
@@ -95,13 +126,20 @@ public class ApiSupl {
         return "done good";
     }
 
-    @DeleteMapping("/delSupl")
-    public String delSupl(@RequestBody List<Plan_Suplies> p){
+    @DeleteMapping("/delSuplAll")
+    public String delSuplAll(@RequestBody List<Plan_Suplies> p){
 
         for(int i =0; i<p.size(); i++){
             System.out.println(p.get(i).getPlan_supl_id());
             SuplMapper.deleteSuplies(p.get(i).getPlan_supl_id());
         }
+        return "del good";
+    }
+    @DeleteMapping("/delSuplOne")
+    public String delSuplOne(@RequestBody Plan_Suplies p){
+        System.out.println(p.getPlan_supl_id());
+        SuplMapper.deleteSuplies(p.getPlan_supl_id());
+
         return "del good";
     }
 
@@ -113,6 +151,8 @@ public class ApiSupl {
         System.out.println("됨?");
         return "update quantity good";
     }
+
+
 
 
 }
