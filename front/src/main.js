@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 
 //vuetify
-import vuetify from "@/plugins/vuetify";
 import vuetify from './plugins/vuetify'
 import { store } from '@/store/index.js'
 

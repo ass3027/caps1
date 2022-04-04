@@ -193,8 +193,8 @@ export default {
       {title: 'travel5', route: '/travel'}
     ],
     plan: [
-      {title: 'plan1', route: '/plan'},
-      {title: 'plan2', route: '/plan'},
+      {title: '일정', route: '/calender'},
+      {title: '준비물', route: '/supplies'},
       {title: 'plan3', route: '/plan'},
       {title: 'plan4', route: '/plan'},
       {title: 'plan5', route: '/plan'}
