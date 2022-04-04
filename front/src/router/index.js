@@ -9,6 +9,7 @@ import FareView from '../views/bag/FareView'
 import ReviewView from '../views/bag/ReviewView'
 import UsageGuideView from '../views/bag/UsageGuideView'
 import TransportView from '../views/bag/order/TransportView'
+import TrackingView from "@/views/bag/order/TrackingView";
 
 import PlInviteView from "@/views/planner/PlInviteView";
 import MapView from "@/views/planner/MapView";
@@ -34,11 +35,7 @@ const routes = [
     name: 'join',
     component:JoinView
   },
-  // {
-  //   path: '/bag',
-  //   name: 'bag',
-  //   component: IndexView
-  // },
+
   {
     path: '/map',
     name: 'map',
@@ -71,6 +68,11 @@ const routes = [
     path: '/TransportView',
     name: 'TransportView',
     component: TransportView
+  },
+  {
+    path: '/TrackingView',
+    name: 'TrackingView',
+    component: TrackingView
   },
 
   {
