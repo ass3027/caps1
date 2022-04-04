@@ -40,4 +40,8 @@ nav a {
 	font-weight: bold;
 	color: #2c3e50;
 }
+.v-application--wrap {
+  min-height: unset;
+}
+
 </style>
