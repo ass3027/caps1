@@ -1,5 +1,39 @@
 <template>
+<<<<<<< Updated upstream
   <div id="map" style="width:800px;height:600px;"></div>
+=======
+  <div>
+    <div
+      id="map"
+      style="width:800px;height:600px;float:left"
+    />
+    <div
+      id="plan"
+      style="float:right"
+    >
+      <input
+        v-model="startDate"
+        type="date"
+      >
+      <input
+        v-model="endDate"
+        type="date"
+      >
+      <button @click="apply()">
+        Apply
+      </button>
+      <div v-if="buttonClicked">
+        <DateComponent
+          v-for="(date,index) in dateArr "
+          :id="index+`s`"
+          :key="index"
+          :date="date"
+          @select="selecting"
+        />
+      </div>
+    </div>
+  </div>
+>>>>>>> Stashed changes
 </template>
 
 <script>
