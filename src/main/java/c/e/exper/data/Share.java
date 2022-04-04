@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 public class Share {
 
     String share_id;
-    String place;
-    String title;
-    String contents;
-    String created;
+    String share_place;
+    String share_title;
+    String share_contents;
+    String share_created;
 
 }

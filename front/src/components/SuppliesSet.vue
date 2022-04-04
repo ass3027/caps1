@@ -6,7 +6,7 @@
     <ol>
       <li v-for="(item, index) in sets" :key="index">
 
-        <p>{{ item.supl_name }}{{item.supl_id}}</p>
+        <p>{{ item.supl_name }}</p>
 <!--        객체에 새로운 키값을 넣으면 갱신이 안됨 그래서 기존것을 바꿔야됨-->
         <div v-if="item.asdf != 0">
           <v-btn  fab text small color="green" @click="sendItem(item,index)">가져오기</v-btn>
@@ -14,8 +14,9 @@
         <div v-else>가져옴</div>
 
       </li>
+      <v-btn fab text small color="red" @click="handleToggle">모두 가져오기</v-btn>
+
     </ol>
-    <v-btn fab text small color="red" @click="handleToggle">모두 가져오기</v-btn>
 
     <div class="outterMordal" v-show="toggle">
       <div class="innerMordal" v-show="toggle">
@@ -119,6 +120,6 @@ export default {
     background: black;
     z-index: 2;
     padding: 15px;
-
+    color: white;
   }
 </style>

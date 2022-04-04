@@ -7,8 +7,8 @@ import JoinView from '../views/JoinView.vue';
 import IndexView from '../views/bag/IndexView';
 import MapView from '../views/MapView';
 import ImportSuppliesView from "@/views/ImportSuppliesView";
-
 import SuppliesVue from '../views/SuppliesView';
+import PlannerShareView from '../views/PlannerShareView'
 
 import OrderView from '../views/bag/order/OrderView.vue'
 import FareView from '../views/bag/FareView'
@@ -35,7 +35,8 @@ const routes = [
 	{ path: '/map', name: 'map', component: MapView },
 	{ path: '/supplies', name: 'supplies', component: SuppliesVue },
 	{ path: '/supplies/sets', name: 'ImportSupplies', component:ImportSuppliesView },
-  { path: '/hotel', name: 'hotel', component: HotelView,},
+	{ path: '/share', name: 'share', component: PlannerShareView },
+	{ path: '/hotel', name: 'hotel', component: HotelView,},
 	{ path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},
    { path: '/calender', name: 'calender', component:CalenderView},
    { path: '/OrderView', name: 'OrderView', component: OrderView},
