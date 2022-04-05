@@ -1,15 +1,31 @@
-CREATE TABLE review_answer (
-rev_id	varchar2(9)		NOT NULL,
-rev_content	varchar(255)		NULL
+CREATE TABLE shares (
+share_id	varchar2(15)		NOT NULL,
+user_id	varchar2(15)		NOT NULL,
+share_place	varchar2(30)		NULL,
+share_title	varchar2(100)		NULL,
+share_contents	varchar2(500)		NULL,
+share_created	date		NULL,
+plan_id	varchar2(10)		NOT NULL
 );
 
-ALTER TABLE review_answer ADD CONSTRAINT PK_REVIEW_ANSWER PRIMARY KEY (
-rev_id
+
+
+ALTER TABLE shares ADD CONSTRAINT PK_SHARES PRIMARY KEY (
+share_id
 );
 
-ALTER TABLE review_answer ADD CONSTRAINT FK_review_TO_review_answer_1 FOREIGN KEY (
-rev_id
+
+ALTER TABLE shares ADD CONSTRAINT FK_users_TO_shares_1 FOREIGN KEY (
+user_id
 )
-REFERENCES review (
-rev_id
+REFERENCES users (
+user_id
 );
+
+ALTER TABLE shares ADD CONSTRAINT FK_planner_TO_shares_1 FOREIGN KEY (
+plan_id
+)
+REFERENCES planner (
+plan_id
+);
+

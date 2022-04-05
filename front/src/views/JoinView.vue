@@ -61,6 +61,7 @@ export default {
 			}
 
 			this.user_photo = this.$refs.refImage.files[0];
+      console.log(this.user_photo)
 			var reader = new FileReader();
 			reader.readAsDataURL(this.user_photo);
 

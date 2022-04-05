@@ -16,5 +16,6 @@ public class Share {
     String share_title;
     String share_contents;
     String share_created;
+    String plan_id;
 
 }

@@ -14,6 +14,9 @@ public interface PlannerMapper {
     @Select("Select * from Planner")
     List<PlannerDAO> selectAll();
 
+    @Select("Select * from Planner where user_id=#{id}")
+    List<PlannerDAO> selectAllById(@Param("id")String id);
+
     @Delete("Delete From Planner Where plan_id=#{id}")
     void delete(@Param("id") String id);
 }

@@ -27,6 +27,7 @@
       </v-simple-table>
     </template>
     {{tableSets}}
+    <router-link :to="{name:'shareWrite'}">go to write</router-link>
   </div>
 </template>
 

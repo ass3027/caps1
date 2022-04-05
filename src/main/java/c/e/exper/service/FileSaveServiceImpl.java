@@ -23,4 +23,12 @@ public class FileSaveServiceImpl implements FileSaveService {
         }
         return safeFile;
     }
+
+    @Override
+    public String photoLoad(String path, HttpServletRequest req) {
+
+        return null;
+    }
+
+
 }

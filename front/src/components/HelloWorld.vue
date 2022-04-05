@@ -1,8 +1,12 @@
 <template>
   <v-app class="header-layout">
     <div class="login-box">
-      <v-btn text> login</v-btn>
-      <v-btn text> join</v-btn>
+      <v-btn text router :to="{name:'login'}">
+        login
+      </v-btn>
+      <v-btn text router :to="{name:'join'}">
+        join
+      </v-btn>
     </div>
     <div>
       <div class="menu-Bar">
