@@ -1,5 +1,8 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.StoreDAO;
+import c.e.exper.data.StoreDTO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -9,9 +12,9 @@ import java.util.List;
 public interface HotelMapper {
 
     @Select("select * from STORE")
-    List<Store> findAll();
-    //Optional<Plan_Suplies> findById(String id);
+    List<StoreDAO> findAll();
 
-//    void insert(@Param("user") UserDAO user);
-//    void insert(@Param("pl") Place place);
+//    @Insert("INSERT INTO store VALUES()")
+
+
 }
