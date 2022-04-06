@@ -108,7 +108,7 @@ export default {
 }
 .login-box {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .hotel-list-form {
   display: flex;

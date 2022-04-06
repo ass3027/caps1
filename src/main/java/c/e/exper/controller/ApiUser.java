@@ -1,10 +1,13 @@
 package c.e.exper.controller;
 
+import c.e.exper.data.PictureDAO;
 import c.e.exper.data.UserDAO;
 import c.e.exper.data.UserDTO;
+import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileSaveService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
@@ -15,9 +18,11 @@ import java.util.Map;
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/")
 public class ApiUser {
 
+    final
+    PictureMapper pictureMapper;
     final
     SuplMapper suplMapper;
 
@@ -30,11 +35,12 @@ public class ApiUser {
     final
     FileSaveService fileSaveService;
 
-    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileSaveService fileSaveService) {
+    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileSaveService fileSaveService, PictureMapper pictureMapper) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
         this.suplMapper = suplMapper;
         this.fileSaveService = fileSaveService;
+        this.pictureMapper = pictureMapper;
     }
 
 //    @GetMapping("/exper")
@@ -75,11 +81,18 @@ public class ApiUser {
                 .user_birth(user.getUser_birth())
                 .user_name(user.getUser_name())
                 .user_phone(user.getUser_phone())
-                .user_photo(filePath)
                 .role(user.getRole())
                 .build();
 
         userMapper.insert(daoUser);
+
+        //사진 DAO 생성 및 값 설정
+        PictureDAO pictureDAO = new PictureDAO();
+        pictureDAO.setPic_name(filePath);
+        pictureDAO.setUser_id(user.getUser_id());
+
+        pictureMapper.InsertUser(pictureDAO);
+
         return true;
     }
 }

@@ -3,6 +3,7 @@
     <h2>게시판 리스트</h2>
     <a href="javascript:;" @click="getList">GET 방식 데이터 접근</a>
     <h2>{{accessStatus}}</h2>
+
   </div>
 </template>
 

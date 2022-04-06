@@ -23,12 +23,12 @@ public class HotelController {
     private FileSaveService fileSaveService;
 
 
-    @GetMapping("/getHotel")
-    public List<StoreDAO> hotel(){
-        System.out.println("컨트롤러임");
-        System.out.println(HotelMapper.findAll());
-        return HotelMapper.findAll();
-    }
+//    @GetMapping("/getHotel")
+//    public List<StoreDTO> hotel(){
+//        System.out.println("컨트롤러임");
+//        System.out.println(HotelMapper.findAll());
+//        return HotelMapper.findAll();
+//    }
 
     @PostMapping("/hotelladd")
     public boolean hoteladd(StoreDTO store, HttpServletRequest req){

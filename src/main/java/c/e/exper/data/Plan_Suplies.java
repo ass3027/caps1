@@ -18,4 +18,5 @@ public class Plan_Suplies {
     String status;
     String name;
     int quantity;
+
 }

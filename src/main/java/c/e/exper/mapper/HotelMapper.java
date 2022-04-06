@@ -16,5 +16,6 @@ public interface HotelMapper {
 
 //    @Insert("INSERT INTO store VALUES()")
 
+    //Optional<Plan_Suplies> findById(String id);
 
 }

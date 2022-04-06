@@ -1,17 +1,24 @@
 <template>
-	<v-app id="app">
-		<router-view />
-	</v-app>
+  <v-app>
+    <HelloWorld/>
+
+    <router-view/>
+  </v-app>
+
+
 </template>
-
 <script>
-import router from './router/index';
-// import KakaoMap from "@/components/KakaoMap";
 
+
+import HelloWorld from "@/components/HelloWorld";
+import router from './router/index';
 export default {
-	// components: {KakaoMap},
-	router,
-};
+  components:{
+
+    HelloWorld
+  },
+  router,
+}
 </script>
 
 <style>
@@ -29,9 +36,12 @@ export default {
 nav {
 	padding: 30px;
 }
-
 nav a {
 	font-weight: bold;
 	color: #2c3e50;
 }
+.v-application--wrap {
+  min-height: unset;
+}
+
 </style>
