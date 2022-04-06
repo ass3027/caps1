@@ -14,7 +14,7 @@ public interface HotelMapper {
     @Select("select * from STORE")
     List<StoreDAO> findAll();
 
-//    @Insert("INSERT INTO store VALUES()")
+    //@Insert("INSERT INTO store VALUES()")
 
     //Optional<Plan_Suplies> findById(String id);
 
