@@ -1,49 +1,82 @@
 <template>
-<div>
-  <div v-bind:class="{'contentbackground':true}"><!--컴포넌트 전체영역-->
-    <img class="background_img"  alt=""><!--백그라운드 이미지 src="../assets/background.png"-->
-    <div class="sign_box"><!--전체 로그인 화면-->
-      <div class="sign_title"> <!--로그인 타이틀-->
-        <span>LOGIN</span>
-      </div>
-      <div class="sign_inner_box"> <!--로그인 타이틀 아래, 기능부의 전체를 감싸는 검은박스-->
-        <div class="id_pw_form"> <!--ID와 패스워드 입력부-->
-          <div class="insert_id"> <!--ID와 인풋태그-->
-           <span class="id_label">ID</span> <input class="id_input_box" type="textarea">
-          </div>
-          <div class="insert_pw"> <!--PW와 인풋태그-->
-            <span class="pw_label">PW</span> <input class="pw_input_box" type="password">
-          </div>
-        </div> <!--ID와 패스워드 입력부 끝-->
-        <div class="logins"> <!--소셜로그인 버튼들-->
-          <div class="kakao_yellow"><!--카카오 소셜 로그인 박스-->
-            <span class="kakao_label">KAKAO</span> 
-          </div>
-          <div class="google_red"><!--구글 소셜 로그인 박스-->
-            <span class="google_label">GOOGLE</span> 
-          </div>
-          <div class="login_blue"><!--플랫폼 직접 로그인 박스-->
-            <span class="login_label">로그인</span> 
-          </div>
-        </div> <!--소셜로그인 버튼들 끝-->
-        <div class="logins_deco"> <!--로그인 버튼 아래에 꾸며주는 블럭 -->
-          <div class="logins_deco_social"><span class="social_label">social</span></div>
-          <div class="logins_deco_platform"><span class="platform_label">platform</span></div>
-        </div> <!--로그인 버튼 아래에 꾸며주는 블럭 끝 -->
-        <div class="signupNpasswd"> <!-- 최하단 회원가입 및 패스워드 찾기 -->
-          <span class="signup_button">회원가입</span>
-          <span class="where_my_account">로그인에 문제가 있나요?</span>
-        </div> <!-- 최하단 회원가입 및 패스워드 찾기 끝 -->
-        <div class="partion_block"> <!-- 로그인 및 광고영역간 공간분리 -->
+  <div>
+    <div :class="{'contentbackground':true}">
+      <!--컴포넌트 전체영역-->
+      <img
+        class="background_img"
+        alt=""
+      ><!--백그라운드 이미지 src="../assets/background.png"-->
+      <div class="sign_box">
+        <!--전체 로그인 화면-->
+        <div class="sign_title">
+          <!--로그인 타이틀-->
+          <span>LOGIN</span>
         </div>
-        <div class="adver_section"> <!--광고영역-->
-            <img class="adver_img"  alt=""> <!--광고영역의 이미지 src="../assets/adver.png"-->
-            <div class="adver_info"><span>123</span></div> <!--광고대상의 정보박스-->
-        </div> 
+        <div class="sign_inner_box">
+          <!--로그인 타이틀 아래, 기능부의 전체를 감싸는 검은박스-->
+          <div class="id_pw_form">
+            <!--ID와 패스워드 입력부-->
+            <div class="insert_id">
+              <!--ID와 인풋태그-->
+              <span class="id_label">ID</span> <input
+                class="id_input_box"
+                type="textarea"
+              >
+            </div>
+            <div class="insert_pw">
+              <!--PW와 인풋태그-->
+              <span class="pw_label">PW</span> <input
+                class="pw_input_box"
+                type="password"
+              >
+            </div>
+          </div> <!--ID와 패스워드 입력부 끝-->
+          <div class="logins">
+            <!--소셜로그인 버튼들-->
+            <div class="kakao_yellow">
+              <!--카카오 소셜 로그인 박스-->
+              <span class="kakao_label">KAKAO</span> 
+            </div>
+            <div class="google_red">
+              <!--구글 소셜 로그인 박스-->
+              <span class="google_label">GOOGLE</span> 
+            </div>
+            <div class="login_blue">
+              <!--플랫폼 직접 로그인 박스-->
+              <span class="login_label">로그인</span> 
+            </div>
+          </div> <!--소셜로그인 버튼들 끝-->
+          <div class="logins_deco">
+            <!--로그인 버튼 아래에 꾸며주는 블럭 -->
+            <div class="logins_deco_social">
+              <span class="social_label">social</span>
+            </div>
+            <div class="logins_deco_platform">
+              <span class="platform_label">platform</span>
+            </div>
+          </div> <!--로그인 버튼 아래에 꾸며주는 블럭 끝 -->
+          <div class="signupNpasswd">
+            <!-- 최하단 회원가입 및 패스워드 찾기 -->
+            <span class="signup_button">회원가입</span>
+            <span class="where_my_account">로그인에 문제가 있나요?</span>
+          </div> <!-- 최하단 회원가입 및 패스워드 찾기 끝 -->
+          <div class="partion_block">
+            <!-- 로그인 및 광고영역간 공간분리 -->
+          </div>
+          <div class="adver_section">
+            <!--광고영역-->
+            <img
+              class="adver_img"
+              alt=""
+            > <!--광고영역의 이미지 src="../assets/adver.png"-->
+            <div class="adver_info">
+              <span>123</span>
+            </div> <!--광고대상의 정보박스-->
+          </div> 
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 <style>
 .contentbackground {

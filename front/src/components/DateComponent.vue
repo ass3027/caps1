@@ -1,20 +1,23 @@
 <template>
-  <div class="date"
-       v-on:click="select"
-       @mousemove="timeSet"
+  <div
+    class="date"
+    @click="select"
+    @mousemove="timeSet"
   >
-    <p>{{date}}</p>
-    <p>{{location}}</p>
-<!--    <ul>-->
-<!--      <li v-for="(selected,index) in selectedArr"-->
-<!--          :key="index"></li>-->
-<!--    </ul>-->
-    <div v-for="(selected,index) in selectedArr"
-         :id="index"
-         :key="index"
-         :style="{backgroundColor:'aqua', top:selected+100+'px', position:'absolute'}"
-    >{{parseInt(selected/height*24)}}시 {{parseInt(height/selected*14400%60)}}분</div>
-
+    <p>{{ date }}</p>
+    <p>{{ location }}</p>
+    <!--    <ul>-->
+    <!--      <li v-for="(selected,index) in selectedArr"-->
+    <!--          :key="index"></li>-->
+    <!--    </ul>-->
+    <div
+      v-for="(selected,index) in selectedArr"
+      :id="index"
+      :key="index"
+      :style="{backgroundColor:'aqua', top:selected+100+'px', position:'absolute'}"
+    >
+      {{ parseInt(selected/height*24) }}시 {{ parseInt(height/selected*14400%60) }}분
+    </div>
   </div>
 </template>
 

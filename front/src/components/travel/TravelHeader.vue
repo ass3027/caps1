@@ -1,8 +1,12 @@
 <template>
   <div class="header-layout">
     <div class="login-box">
-      <v-btn text> login</v-btn>
-      <v-btn text> join</v-btn>
+      <v-btn text>
+        login
+      </v-btn>
+      <v-btn text>
+        join
+      </v-btn>
     </div>
     <div>
       <div>Packless Travel</div>
@@ -10,15 +14,15 @@
         <div>HOTEL</div>
         <div class="select-box">
           <v-select
-              :items="hotelList"
-              hide-details
-              dense
-              @change="test()"
-              class="select-size"
-          ></v-select>
+            :items="hotelList"
+            hide-details
+            dense
+            class="select-size"
+            @change="test()"
+          />
         </div>
       </div>
-      <v-divider class="divider-padding"></v-divider>
+      <v-divider class="divider-padding" />
     </div>
   </div>
 </template>
@@ -94,8 +98,8 @@ export default {
     //     console.log(res);
     //   });
 
-      // this.$store.state.test = a;
-    }
+    // this.$store.state.test = a;
+  }
 
 };
 </script>

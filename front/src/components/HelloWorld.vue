@@ -1,15 +1,19 @@
 <template>
   <v-app class="header-layout">
     <div class="login-box">
-      <v-btn text> login</v-btn>
-      <v-btn text> join</v-btn>
+      <v-btn text>
+        login
+      </v-btn>
+      <v-btn text>
+        join
+      </v-btn>
     </div>
     <div>
       <div class="menu-Bar">
         <div class="text-center">
           <!--여행지-->
           <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
@@ -22,8 +26,9 @@
             <v-list>
               <v-list-item
                 v-for="(travel, index) in travel"
-                router :to="travel.route"
                 :key="index"
+                router
+                :to="travel.route"
               >
                 <v-list-item-title>{{ travel.title }}</v-list-item-title>
               </v-list-item>
@@ -32,7 +37,7 @@
 
           <!--여행계획-->
           <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
@@ -45,8 +50,9 @@
             <v-list>
               <v-list-item
                 v-for="(plan, index) in plan"
-                router :to="plan.route"
                 :key="index"
+                router
+                :to="plan.route"
               >
                 <v-list-item-title>{{ plan.title }}</v-list-item-title>
               </v-list-item>
@@ -55,7 +61,7 @@
 
           <!--시설-->
           <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
@@ -68,8 +74,9 @@
             <v-list>
               <v-list-item
                 v-for="(facility, index) in facility"
-                router :to="facility.route"
                 :key="index"
+                router
+                :to="facility.route"
               >
                 <v-list-item-title>{{ facility.title }}</v-list-item-title>
               </v-list-item>
@@ -78,7 +85,7 @@
 
           <!--가방관리-->
           <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
@@ -92,8 +99,9 @@
             <v-list>
               <v-list-item
                 v-for="(BagControl, index) in BagControl"
-                router :to="BagControl.route"
                 :key="index"
+                router
+                :to="BagControl.route"
               >
                 <v-list-item-title>{{ BagControl.title }}</v-list-item-title>
               </v-list-item>
@@ -102,7 +110,7 @@
 
           <!--현지인 가이드-->
           <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
@@ -116,8 +124,9 @@
             <v-list>
               <v-list-item
                 v-for="(Guide, index) in Guide"
-                router :to="Guide.route"
                 :key="index"
+                router
+                :to="Guide.route"
               >
                 <v-list-item-title>{{ Guide.title }}</v-list-item-title>
               </v-list-item>
@@ -126,7 +135,7 @@
 
           <!--커뮤니티-->
           <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
@@ -140,9 +149,9 @@
             <v-list>
               <v-list-item
                 v-for="(Community, index) in Community"
-                router :to="Community.route"
                 :key="index"
-
+                router
+                :to="Community.route"
               >
                 <v-list-item-title>{{ Community.title }}</v-list-item-title>
               </v-list-item>
@@ -151,7 +160,7 @@
 
           <!--고객센터-->
           <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
@@ -165,8 +174,9 @@
             <v-list>
               <v-list-item
                 v-for="(Customer, index) in Customer"
-                router :to="Customer.route"
                 :key="index"
+                router
+                :to="Customer.route"
               >
                 <v-list-item-title>{{ Customer.title }}</v-list-item-title>
               </v-list-item>
@@ -174,7 +184,7 @@
           </v-menu>
         </div>
       </div>
-      <v-divider class="divider-padding"></v-divider>
+      <v-divider class="divider-padding" />
     </div>
   </v-app>
 </template>

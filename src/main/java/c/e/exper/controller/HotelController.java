@@ -1,10 +1,11 @@
 package c.e.exper.controller;
 
+import c.e.exper.data.PictureDAO;
 import c.e.exper.data.StoreDAO;
 import c.e.exper.data.StoreDTO;
 import c.e.exper.mapper.HotelMapper;
+import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileSaveService;
-import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,15 +21,20 @@ public class HotelController {
 
     @Autowired
     HotelMapper HotelMapper;
-    private FileSaveService fileSaveService;
+
+    @Autowired
+    FileSaveService fileSaveService;
+
+    @Autowired
+    PictureMapper pictureMapper;
 
 
-//    @GetMapping("/getHotel")
-//    public List<StoreDTO> hotel(){
-//        System.out.println("컨트롤러임");
-//        System.out.println(HotelMapper.findAll());
-//        return HotelMapper.findAll();
-//    }
+    @GetMapping("/getHotel")
+    public List<StoreDAO> hotel(){
+        System.out.println("컨트롤러임");
+        System.out.println(HotelMapper.findAll());
+        return HotelMapper.findAll();
+    }
 
     @PostMapping("/hotelladd")
     public boolean hoteladd(StoreDTO store, HttpServletRequest req){
@@ -46,6 +52,15 @@ public class HotelController {
                 .build();
 
         HotelMapper.insert(storeDAO);
+
+        System.out.println("사진추가");
+
+        PictureDAO pictureDAO = new PictureDAO();
+        pictureDAO.setPic_name(filePath);
+        pictureDAO.setStore_id(storeDAO.getStore_id());
+
+        pictureMapper.InsertStore(pictureDAO);
+
         return true;
     }
 }

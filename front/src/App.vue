@@ -1,11 +1,9 @@
 <template>
   <v-app>
-    <HelloWorld/>
+    <HelloWorld />
 
-    <router-view/>
+    <router-view />
   </v-app>
-
-
 </template>
 <script>
 
