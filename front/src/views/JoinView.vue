@@ -68,7 +68,7 @@ export default {
 			reader.onload = function () {
 				var photoFrame = document.createElement('div');
 				photoFrame.style = `background : url(${reader.result}); background-size : cover`;
-				photoFrame.className = 'photoFrame';
+				photoFrame.className = 'photoFrame'
 				document.getElementById('pictures').appendChild(photoFrame);
 				//e.target.value = "";
 

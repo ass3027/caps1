@@ -4,29 +4,46 @@
     <template>
       <v-simple-table dark dense
       >
-          <thead>
-          <tr>
-            <th class="text-center">
-              share_id
-            </th>
-            <th class="text-center">
-              share_created
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr
-              v-for="(item,index) in tableSets"
-              :key="index"
-              class="text-center"
-          >
-            <td>{{ item.share_id }}</td>
-            <td>{{ item.share_created }}</td>
-          </tr>
-          </tbody>
+        <thead>
+        <tr>
+          <th class="text-center">
+            share_id
+          </th>
+          <th class="text-center">
+            title
+          </th>
+          <th class="text-center">
+            place
+          </th>
+          <th class="text-center">
+            share_created
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+            v-for="(item,index) in tableSets"
+            :key="index"
+            class="text-center"
+        >
+          <td>
+            <router-link :to="{name:'shareDetails', params:{id:item.share_id}}">
+              {{ item.share_id }}
+            </router-link>
+          </td>
+          <td>
+            {{item.share_title}}
+          </td>
+          <td>
+            {{item.share_place}}
+          </td>
+
+          <td>{{ item.share_created }}</td>
+        </tr>
+        </tbody>
       </v-simple-table>
     </template>
-    {{tableSets}}
+    {{ tableSets }}
     <router-link :to="{name:'shareWrite'}">go to write</router-link>
   </div>
 </template>
@@ -36,21 +53,20 @@ import axios from 'axios';
 
 export default {
   name: "PlannerShareView",
-  components:{
-  },
-  data(){
-    return{
-      sets:[],
-      tableSets:[],
+  components: {},
+  data() {
+    return {
+      sets: [],
+      tableSets: [],
 
     }
   },
   mounted() {
     axios.get('/api/getSharePosts')
-    .then((res)=>{
-      this.tableSets=res.data;
-      console.log(res.data);
-    })
+        .then((res) => {
+          this.tableSets = res.data;
+          console.log(res.data);
+        })
   }
 }
 </script>

@@ -9,6 +9,7 @@ import MapView from '../views/MapView';
 import ImportSuppliesView from "@/views/ImportSuppliesView";
 import SuppliesVue from '../views/SuppliesView';
 import PlannerShareView from '../views/share/PlannerShareView'
+import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
 
 
@@ -38,6 +39,7 @@ const routes = [
 	{ path: '/supplies', name: 'supplies', component: SuppliesVue },
 	{ path: '/supplies/sets', name: 'ImportSupplies', component:ImportSuppliesView },
 	{ path: '/share', name: 'share', component: PlannerShareView },
+	{ path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView },
 	{ path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView },
 	{ path: '/hotel', name: 'hotel', component: HotelView,},
 	{ path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},

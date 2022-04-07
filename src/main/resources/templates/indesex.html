@@ -1,31 +1,27 @@
-CREATE TABLE shares (
+CREATE TABLE shares_pictures (
+share_pic_id	varchar2(15)		NOT NULL,
 share_id	varchar2(15)		NOT NULL,
-user_id	varchar2(15)		NOT NULL,
-share_place	varchar2(30)		NULL,
-share_title	varchar2(100)		NULL,
-share_contents	varchar2(500)		NULL,
-share_created	date		NULL,
-plan_id	varchar2(10)		NOT NULL
+pic_name	varchar2(255)		NOT NULL
 );
 
 
+ALTER TABLE shares_pictures ADD CONSTRAINT PK_SHARES_PICTURES PRIMARY KEY (
+share_pic_id
+);
 
-ALTER TABLE shares ADD CONSTRAINT PK_SHARES PRIMARY KEY (
+
+ALTER TABLE shares_pictures ADD CONSTRAINT FK_shares_TO_shares_pictures_1 FOREIGN KEY (
+share_id
+)
+REFERENCES shares (
 share_id
 );
 
-
-ALTER TABLE shares ADD CONSTRAINT FK_users_TO_shares_1 FOREIGN KEY (
-user_id
+ALTER TABLE shares_pictures ADD CONSTRAINT FK_pictures_TO_shares_pictures_1 FOREIGN KEY (
+pic_name
 )
-REFERENCES users (
-user_id
+REFERENCES pictures (
+pic_name
 );
 
-ALTER TABLE shares ADD CONSTRAINT FK_planner_TO_shares_1 FOREIGN KEY (
-plan_id
-)
-REFERENCES planner (
-plan_id
-);
 
