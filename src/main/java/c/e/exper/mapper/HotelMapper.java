@@ -13,11 +13,8 @@ import java.util.List;
 @Mapper
 public interface HotelMapper {
 
-    @Insert("INSERT INTO Store VALUES (store_id, #{store.user_id}, pl_id, store_phone, store.pic_name)")
+    @Insert("INSERT INTO Store VALUES (#{store.store_id}, #{store.user_id}, #{store.pl_id}, #{store.store_phone})")
     void insert(@Param("store")StoreDAO store);
-    // 나 왔다 감
-
-    //Optional<Plan_Suplies> findById(String id);
 
     @Select("select * from STORE")
     List<StoreDAO> findAll();

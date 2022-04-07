@@ -47,7 +47,7 @@ export default {
   data(){
     return {
       store_id:"",
-      user_id:"",
+      user_id:"1",
       pl_id:"",
       store_phone:"",
       pic_name:""
@@ -77,6 +77,7 @@ export default {
       sendform.append('store_id', this.store_id)
       sendform.append('user_id', this.user_id)
       sendform.append('pl_id', this.pl_id)
+      sendform.append('store_phone', this.store_phone)
       sendform.append('pic_name', this.pic_name)
 
       console.log(sendform.get('store_id'))

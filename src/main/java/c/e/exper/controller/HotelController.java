@@ -51,6 +51,8 @@ public class HotelController {
                 .pic_name(filePath)
                 .build();
 
+        System.out.println(storeDAO);
+
         HotelMapper.insert(storeDAO);
 
         System.out.println("사진추가");
