@@ -22,8 +22,9 @@ import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
 import AboutView from '../views/AboutView';
 
-import HotelView from '@/views/travel/HotelView';
-import HotelAdd from '@/views/travel/HotelAdd';
+import HotelView from '@/views/store/HotelView';
+import HotelAdd from '@/views/store/HotelAdd';
+
 import GuideView from '@/views/guide/GuideView';
 import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
@@ -32,28 +33,28 @@ import GuideReserve from "@/views/guide/GuideReserve";
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', name: 'home', component: HomeView },
-  { path: '/about', name: 'about', component: AboutView },
-  { path: '/join', name: 'join', component: JoinView },
-  { path: '/bag', name: 'bag', component: IndexView },
-  { path: '/map', name: 'map', component: MapView },
-  { path: '/supplies', name: 'supplies', component: SuppliesVue },
-  { path: '/supplies/sets', name: 'ImportSupplies', component:ImportSuppliesView },
-  { path: '/hotel', name: 'hotel', component: HotelView,},
-  { path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},
-  { path: '/calender', name: 'calender', component:CalenderView},
-  { path: '/OrderView', name: 'OrderView', component: OrderView},
-  { path: '/FareView', name: 'FareView',component: FareView},
-  { path: '/ReviewView', name: 'ReviewView', component:ReviewView},
-  { path: '/UsageGuideView', name: 'UsageGuideView', component: UsageGuideView},
-  { path: '/TransportView', name     : 'TransportView', component: TransportView},
-  { path: '/invite', name: 'invite', component:PlInviteView},
-  { path:'/plan', name:'plan', component: PlanView},
-  { path: '/sign', name: 'sign', component:SignView},
-  { path: '/GuideView', name: 'GuideView', component:GuideView},
-  { path: '/GuideRegister', name: 'GuideRegister', component:GuideRegister},
-  { path: '/GuideProductReg', name: 'GuideProductReg', component:GuideProductReg},
-  { path: '/GuideReserve', name: 'GuideReserve', component:GuideReserve},
+  {path: '/', name: 'home', component: HomeView},
+  {path: '/about', name: 'about', component: AboutView},
+  {path: '/join', name: 'join', component: JoinView},
+  {path: '/bag', name: 'bag', component: IndexView},
+  {path: '/map', name: 'map', component: MapView},
+  {path: '/supplies', name: 'supplies', component: SuppliesVue},
+  {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
+  {path: '/hotel', name: 'hotel', component: HotelView,},
+  {path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},
+  {path: '/calender', name: 'calender', component: CalenderView},
+  {path: '/OrderView', name: 'OrderView', component: OrderView},
+  {path: '/FareView', name: 'FareView', component: FareView},
+  {path: '/ReviewView', name: 'ReviewView', component: ReviewView},
+  {path: '/UsageGuideView', name: 'UsageGuideView', component: UsageGuideView},
+  {path: '/TransportView', name: 'TransportView', component: TransportView},
+  {path: '/invite', name: 'invite', component: PlInviteView},
+  {path: '/plan', name: 'plan', component: PlanView},
+  {path: '/sign', name: 'sign', component: SignView},
+  {path: '/GuideView', name: 'GuideView', component: GuideView},
+  {path: '/GuideRegister', name: 'GuideRegister', component: GuideRegister},
+  {path: '/GuideProductReg', name: 'GuideProductReg', component: GuideProductReg},
+  {path: '/GuideReserve', name: 'GuideReserve', component: GuideReserve},
 
 
 ];
