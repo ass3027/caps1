@@ -214,10 +214,10 @@ export default {
       {title: '배송조회', route: '/bag'}
     ],
     Guide: [
-      {title: 'Guide1', route: '/guide'},
-      {title: 'Guide2', route: '/Guide'},
-      {title: 'Guide3', route: '/Guide'},
-      {title: 'Guide4', route: '/Guide'},
+      {title: 'GuideView', route: '/guideview'},
+      {title: 'GuideRegister', route: '/GuideRegister'},
+      {title: 'GuideProductReg', route: '/GuideProductReg'},
+      {title: 'GuideReserve', route: '/GuideReserve'},
       {title: 'Guide5', route: '/Guide'}
     ],
     Community: [

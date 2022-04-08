@@ -24,6 +24,10 @@ import AboutView from '../views/AboutView';
 
 import HotelView from '@/views/travel/HotelView';
 import HotelAdd from '@/views/travel/HotelAdd';
+import GuideView from '@/views/guide/GuideView';
+import GuideRegister from "@/views/guide/GuideRegister";
+import GuideProductReg from "@/views/guide/GuideProductReg";
+import GuideReserve from "@/views/guide/GuideReserve";
 
 Vue.use(VueRouter);
 
@@ -46,6 +50,11 @@ const routes = [
    { path: '/invite', name: 'invite', component:PlInviteView},
    { path:'/plan', name:'plan', component: PlanView},
    { path: '/sign', name: 'sign', component:SignView},
+	{ path: '/GuideView', name: 'GuideView', component:GuideView},
+	{ path: '/GuideRegister', name: 'GuideRegister', component:GuideRegister},
+	{ path: '/GuideProductReg', name: 'GuideProductReg', component:GuideProductReg},
+	{ path: '/GuideReserve', name: 'GuideReserve', component:GuideReserve},
+
 ];
 
 const router = new VueRouter({
