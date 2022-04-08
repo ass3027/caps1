@@ -71,9 +71,9 @@ export default {
         method: 'get',
         url   : '/api/guide',
       })
-          .then((res) => {
-            this.lists = res.data;
-          })
+        .then((res) => {
+          this.lists = res.data;
+        })
     }
   }
 }
