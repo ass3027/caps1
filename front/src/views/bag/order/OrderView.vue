@@ -1,20 +1,19 @@
 <template>
-  
   <v-app id="app">
-    
-    <div class=Bag-order>
+    <div class="Bag-order">
       가방예약
     </div>
     
     <v-row
-      justify="space-around">
+      justify="space-around"
+    >
       <v-col
         cols="6"
         sm="2"
       >
         <v-img
           src="@/image/storage1.png"
-        ></v-img>
+        />
       </v-col>
       
       <v-col
@@ -23,7 +22,7 @@
       >
         <v-img
           src="@/image/transport1.png"
-        ></v-img>
+        />
       </v-col>
     </v-row>
     
@@ -38,15 +37,15 @@
       </v-btn>
       
       <v-btn
-        @click="$router.push({name:'TransportView'})"
         depressed
         color="primary"
+        @click="$router.push({name:'TransportView'})"
       >
         가방배송
       </v-btn>
     </v-row>
     
-    <router-view/>
+    <router-view />
   </v-app>
 </template>
 

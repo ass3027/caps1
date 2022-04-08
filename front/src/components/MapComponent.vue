@@ -31,7 +31,6 @@
       <div id="pagination"></div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -268,8 +267,8 @@ export default {
     },
     displayPagination(pagination) {
       var paginationEl = document.getElementById('pagination'),
-          fragment = document.createDocumentFragment(),
-          i;
+        fragment = document.createDocumentFragment(),
+        i;
 
       // 기존에 추가된 페이지번호를 삭제합니다
       while (paginationEl.hasChildNodes()) {

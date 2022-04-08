@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import HomeView from '../views/HomeView.vue';
 import JoinView from '../views/auth/JoinView.vue';
+import LoginView from "@/views/auth/LoginView";
 
 import IndexView from '../views/bag/IndexView';
 import ImportSuppliesView from "@/views/ImportSuppliesView";
@@ -16,14 +17,17 @@ import UsageGuideView from '../views/bag/UsageGuideView'
 import TransportView from '../views/bag/order/TransportView'
 
 import PlInviteView from "@/views/planner/PlInviteView";
-import SignView from "@/views/auth/sign.vue"
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
 import AboutView from '../views/AboutView';
 
 import HotelView from '@/views/travel/HotelView';
 import HotelAdd from '@/views/travel/HotelAdd';
-import LoginView from "@/views/auth/LoginView";
+
+import GuideView from '@/views/guide/GuideView';
+import GuideRegister from "@/views/guide/GuideRegister";
+import GuideProductReg from "@/views/guide/GuideProductReg";
+import GuideReserve from "@/views/guide/GuideReserve";
 
 Vue.use(VueRouter);
 
@@ -45,13 +49,16 @@ const routes = [
     {path: '/TransportView', name: 'TransportView', component: TransportView},
     {path: '/invite', name: 'invite', component: PlInviteView},
     {path: '/plan', name: 'plan', component: PlanView},
-    {path: '/sign', name: 'sign', component: SignView},
+    {path: '/GuideView', name: 'GuideView', component: GuideView},
+    {path: '/GuideRegister', name: 'GuideRegister', component: GuideRegister},
+    {path: '/GuideProductReg', name: 'GuideProductReg', component: GuideProductReg},
+    {path: '/GuideReserve', name: 'GuideReserve', component: GuideReserve},
 ];
 
 const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes,
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes,
 });
 
 export default router;
