@@ -62,6 +62,20 @@ public class ReviewMapperTest {
 
     }
 
+    @Test
+    public void updateReview() {
+        Review review = Review.builder()
+                .rev_id("100")
+                .rev_content("ABCDEFGHIJKLMNOPQRSTUVWOXYZ")
+                .rev_rating(1)
+                .build();
+
+        System.out.println(review);
+
+
+        System.out.println("수정 컬럼 수: " + mapper.updateReview(review));
+    }
+
 
 
 }
