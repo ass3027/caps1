@@ -1,8 +1,12 @@
 <template>
   <v-app class="header-layout">
-    <div class="login-box">
-      <v-btn text> login</v-btn>
-      <v-btn text> join</v-btn>
+    <div v-if="$store.state.user.userId===''" class="login-box">
+      <v-btn text router to="/login"> login</v-btn>
+      <v-btn text router to="/join"> join</v-btn>
+    </div>
+    <div v-else class="login-box">
+      <v-btn text>{{$store.state.user.userId}}</v-btn>
+      <v-btn text @click="logOut">logout</v-btn>
     </div>
     <div>
       <div class="menu-Bar">
@@ -180,6 +184,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
 
@@ -235,7 +240,22 @@ export default {
       {title: 'Customer5', route: '/Customer'}
     ]
   }),
-  methods: {}
+  methods: {
+    logOut(){
+      axios({
+        url:'/api/logout',
+        method:'post'
+      })
+      .then((res)=>{
+        console.log(res)
+        this.$store.commit('user/updateUserId','')
+        this.$router.push("/")
+      })
+      .catch((err)=>{
+        console.error(err)
+      })
+    }
+  }
 };
 </script>
 

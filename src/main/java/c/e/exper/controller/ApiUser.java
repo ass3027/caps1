@@ -8,10 +8,15 @@ import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.security.Security;
 import java.util.List;
 import java.util.Map;
 
@@ -43,16 +48,11 @@ public class ApiUser {
         this.pictureMapper = pictureMapper;
     }
 
-//    @GetMapping("/exper")
-//    public String exper(HttpServletRequest request) {
-//        List<Map<String, Object>> ls = suplMapper.findAll();
-//        for (Map<String, Object> l : ls) {
-//            for (Map.Entry<String, Object> entry : l.entrySet()) {
-//                System.out.println("[key]:" + entry.getKey() + ", [value]:" + entry.getValue());
-//            }
-//        }
-//        return "aa";
-//    }
+    @GetMapping("/exper")
+    public String exper() {
+
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
     
 
     @PostMapping("/join")
@@ -95,5 +95,9 @@ public class ApiUser {
 
         return true;
     }
+
+
+
+
 }
 
