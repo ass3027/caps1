@@ -1,24 +1,24 @@
 package c.e.exper.data;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Schedule {
+public class Share {
 
-    String sch_number;
-    String gitem_id;
+    String share_id;
+    String user_id;
+    String share_place;
+    String share_title;
+    String share_contents;
+    Date share_created;
     String plan_id;
-    String pl_id;
-    String sch_name;
-    Date sch_starttime;
-    Date sch_endtime;
-    String expect_expenses;
 
 }

@@ -234,7 +234,7 @@ export default {
     Community: [
       {title: 'Community1', route: '/Community'},
       {title: 'Community2', route: '/Community'},
-      {title: 'Community3', route: '/Community'},
+      {title: '공유', route: '/share'},
       {title: 'Community4', route: '/Community'},
       {title: 'Community5', route: '/Community'}
     ],

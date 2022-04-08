@@ -2,6 +2,17 @@
   <v-container>
     <h2>내준비물</h2>
 
+    <v-autocomplete
+        v-model="values"
+        :items="items"
+        outlined
+        dense
+        chips
+        small-chips
+        label="준비물을 입력해보세요"
+        multiple
+    ></v-autocomplete>
+<!--    <v-btn @click="new"></v-btn>-->
 
     <form @submit.prevent="inputList">
       <input
@@ -89,7 +100,11 @@ export default {
       inputItem: "",
       todoList: [],
       doneList: [],
-      supplies: []
+      supplies: [],
+      items: ['수건', '휴대폰 충전기', '여권'],
+      values: ['수건'],
+      value: null,
+
     }
   },
   mounted() {
@@ -99,13 +114,14 @@ export default {
   },
   methods: {
     getList() {
-      axios.get("/api/getSupl").then((res)=>{
+      axios.get('/api/getSupl').then((res)=>{
         var supplies = []
 
         res.data.forEach(function (i) {
           supplies.push(i.supl_name)
         })
         this.supplies = supplies;
+        this.items = supplies;
       })
 
 
