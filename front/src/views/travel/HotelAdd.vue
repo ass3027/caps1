@@ -1,5 +1,6 @@
 <template>
   <div>
+  <HelloWorld/>
     <input
       v-model="store_id"
       type="text"
@@ -41,9 +42,14 @@
 
 <script>
 import axios from "axios";
+import HelloWorld from "@/components/HelloWorld";
 
 export default {
   name: "HotelAdd",
+  components: {
+    HelloWorld,
+  },
+
   data(){
     return {
       store_id:"",
