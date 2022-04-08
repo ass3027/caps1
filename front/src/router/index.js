@@ -32,6 +32,7 @@ import GuideReserve from "@/views/guide/GuideReserve";
 Vue.use(VueRouter);
 
 const routes = [
+
 	{ path: '/', name: 'home', component: HomeView },
 	{ path: '/about', name: 'about', component: AboutView },
 	{ path: '/join', name: 'join', component: JoinView },
@@ -55,12 +56,13 @@ const routes = [
 	{ path: '/GuideProductReg', name: 'GuideProductReg', component:GuideProductReg},
 	{ path: '/GuideReserve', name: 'GuideReserve', component:GuideReserve},
 
+
 ];
 
 const router = new VueRouter({
-	mode: 'history',
-	base: process.env.BASE_URL,
-	routes,
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes,
 });
 
 export default router;

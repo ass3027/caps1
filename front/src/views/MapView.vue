@@ -1,17 +1,47 @@
 <template>
-  <div id="map" style="width:800px;height:600px;"></div>
+  <div>
+    <div
+      id="map"
+      style="width:800px;height:600px;float:left"
+    />
+    <div
+      id="plan"
+      style="float:right"
+    >
+      <input
+        v-model="startDate"
+        type="date"
+      >
+      <input
+        v-model="endDate"
+        type="date"
+      >
+      <button @click="apply()">
+        Apply
+      </button>
+      <div v-if="buttonClicked">
+        <DateComponent
+          v-for="(date,index) in dateArr "
+          :id="index+`s`"
+          :key="index"
+          :date="date"
+          @select="selecting"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'MapView',
-  data()  {
+  data() {
     return {
       geooder: '',
-      markers:[],
-      markerCount:0,
+      markers: [],
+      markerCount: 0,
 
-  }
+    }
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -22,7 +52,7 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-          "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=6334d5e4689d4570c9306cc116099288&libraries=services,clusterer,drawing"
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=6334d5e4689d4570c9306cc116099288&libraries=services,clusterer,drawing"
 
       document.head.appendChild(script);
 
@@ -33,7 +63,7 @@ export default {
       const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level : 5,
+        level: 5,
       };
 
       // 주소-좌표 변환 객체를 생성합니다
@@ -54,7 +84,7 @@ export default {
       var zoomControl = new kakao.maps.ZoomControl();
       this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-      kakao.maps.event.addListener(this.map,'click', (mouseEvent) => {
+      kakao.maps.event.addListener(this.map, 'click', (mouseEvent) => {
 
 
         var clickPosition = mouseEvent.latLng;
@@ -63,21 +93,21 @@ export default {
         this.markers[this.markerCount] = new kakao.maps.Marker({
           position: clickPosition
         });
-        if(this.markerCount>0){
-          this.markers[this.markerCount-1].setMap(null);
+        if (this.markerCount > 0) {
+          this.markers[this.markerCount - 1].setMap(null);
         }
 
         this.markers[this.markerCount].setMap(this.map);
 
         this.markers[this.markerCount].setDraggable(true);
 
-        this.searchDetailAddrFromCoords(clickPosition, (result,status)=>{
+        this.searchDetailAddrFromCoords(clickPosition, (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
             console.log(result)
             //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-            var detailAddr='';
-            if(result[0].road_address!=undefined) {
-              detailAddr+='<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
+            var detailAddr = '';
+            if (result[0].road_address != undefined) {
+              detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
             }
             detailAddr += '<div >지번 주소 : ' + result[0].address.address_name + '</div>';
 
@@ -87,7 +117,7 @@ export default {
             //   position : clickPosition,
             //   content : finalAddr
             // });
-            var infowindow = new kakao.maps.InfoWindow({zindex:1});
+            var infowindow = new kakao.maps.InfoWindow({zindex: 1});
             infowindow.setContent(content);
 
             infowindow.open(this.map, this.markers[this.markerCount]);
@@ -101,18 +131,22 @@ export default {
 
       })
     },
-    searchAddrFromCoords(coords, callback){
+    searchAddrFromCoords(coords, callback) {
       this.geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
     },
-    searchDetailAddrFromCoords(coords, callback){
+    searchDetailAddrFromCoords(coords, callback) {
       this.geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
     }
   }
 }
 </script>
 <style>
-  .bAddr {
-    padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;border-radius: 2px;
-  }
+.bAddr {
+  padding: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  border-radius: 2px;
+}
 </style>
 

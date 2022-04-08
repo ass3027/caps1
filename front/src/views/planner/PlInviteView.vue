@@ -1,24 +1,32 @@
 <template>
   <div>
-    <HelloWorld/>
-    <div class="right">
+    <div class="float-right">
       <select v-model="selected_plan">
-        <option></option>
+        <option />
       </select>
     </div>
-    <div class="left">
+    <div class="float-left">
       <h2>현재 멤버</h2>
-      <div v-for="(data,key) in plan_user_list" :key="key">
+      <div
+        v-for="(data,key) in plan_user_list"
+        :key="key"
+      >
         <hr>
         <p>{{ data }}</p>
       </div>
     </div>
-    <div class="right">
+    <div class="float-right">
       <h2>멤버 초대</h2>
       <hr>
       <label>
-        회원ID <input v-model="inputId" placeholder="내용을 입력해주세요">
-        <button class="button" @click="invite">초대</button>
+        회원ID <input
+          v-model="inputId"
+          placeholder="내용을 입력해주세요"
+        >
+        <button
+          class="button"
+          @click="invite"
+        >초대</button>
       </label>
     </div>
     <hr>
@@ -28,30 +36,38 @@
 
       내가 초대한
       <ul>
-        <li v-for="(data,index) in this.invite_list_plan" :key="index">{{ data.user_id}} / {{data.plan_id}}</li>
+        <li
+          v-for="(data,index) in invite_list_plan"
+          :key="index"
+        >
+          {{ data.user_id }} / {{ data.plan_id }}
+        </li>
       </ul>
       <hr>
       내가 초대된
       <ul>
-        <li v-for="(data,index) in this.invite_list_user" :key="index">
-          {{ data.user_id}} / {{data.plan_id}}
-          <button @click="accept(data)" class="button">수락</button>
+        <li
+          v-for="(data,index) in invite_list_user"
+          :key="index"
+        >
+          {{ data.user_id }} / {{ data.plan_id }}
+          <button
+            class="button"
+            @click="accept(data)"
+          >
+            수락
+          </button>
         </li>
       </ul>
-
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld";
 import axios from "axios";
 
 export default {
   name      : "PlInviteView",
-  components: {
-    HelloWorld
-  },
   data() {
     return {
       plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
@@ -74,12 +90,12 @@ export default {
         url:`/api/affiliating?plan_id=${this.plan_id}`,
         method:'get'
       })
-      .then( (res)=>{
-        this.plan_user_list = res.data;
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+        .then( (res)=>{
+          this.plan_user_list = res.data;
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
     },
     invite() {
       console.log("axios 어떻게 쓰더라?? 개망ㅋㅋ")
@@ -91,40 +107,40 @@ export default {
           plan_id: this.plan_id,
         }
       })
-          .then((res) => {
-            if (res.data===true) {
-              this.updateInvite()
-              console.log('success')
-              alert('success')
-            } else {
-              console.log('fail ')
-              alert('fail')
-            }
+        .then((res) => {
+          if (res.data===true) {
+            this.updateInvite()
+            console.log('success')
+            alert('success')
+          } else {
+            console.log('fail ')
+            alert('fail')
+          }
 
-          })
+        })
     },
     updateInvite() {
       axios({
         url   : `/api/inviteListPlan?id=${this.plan_id}`,
         method: 'get'
       })
-          .then((res) => {
-            this.invite_list_plan = res.data
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        .then((res) => {
+          this.invite_list_plan = res.data
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       axios({
         url   : `/api/inviteListUser?id=${this.id}`,
         method: 'get'
       })
-          .then((res) => {
-            this.invite_list_user = res.data
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+        .then((res) => {
+          this.invite_list_user = res.data
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     },
     accept(data) {
       axios({
@@ -132,12 +148,12 @@ export default {
         method: 'post',
         data  : data
       })
-          .then(() => {
-            alert("success")
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+        .then(() => {
+          alert("success")
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     },
 
   }

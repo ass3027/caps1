@@ -19,8 +19,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    final
     CustomDetailService customDetailService;
+
+    public SecurityConfig(CustomDetailService customDetailService) {
+        this.customDetailService = customDetailService;
+    }
 
     @Bean
     public static PasswordEncoder passwordEncoder() {

@@ -1,7 +1,6 @@
 <template>
   <v-app id="app">
-    
-    <div class='Bag-order'>
+    <div class="Bag-order">
       가방운송 신청서
     </div>
     
@@ -17,7 +16,7 @@
             :counter="10"
             label="이름"
             required
-          ></v-text-field>
+          />
         </v-col>
         
         <v-col
@@ -29,7 +28,7 @@
             :rules="phoneRules"
             label="휴대폰번호"
             required
-          ></v-text-field>
+          />
         </v-col>
         
         <v-col
@@ -41,7 +40,7 @@
             :rules="startRules"
             label="시작장소"
             required
-          ></v-text-field>
+          />
         </v-col>
         
         <v-col
@@ -53,7 +52,7 @@
             :rules="destinationRules"
             label="도착장소"
             required
-          ></v-text-field>
+          />
         </v-col>
       </v-container>
     </v-form>
@@ -66,9 +65,8 @@
         작성 완료
       </v-btn>
     </div>
-    <router-view/>
+    <router-view />
   </v-app>
-
 </template>
 
 <script>
