@@ -1,13 +1,11 @@
 <template>
   <v-app id="app">
-    
-    <div class = Bag-order>
+    <div class="Bag-order">
       요금안내
     </div>
     
-    <router-view/>
+    <router-view />
   </v-app>
-  
 </template>
 
 <script>

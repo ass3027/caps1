@@ -1,7 +1,6 @@
 <template>
   <v-container class="test">
-
-    <h3>{{sets[0].pl_name}} 관련 세트</h3>
+    <h3>{{ sets[0].pl_name }} 관련 세트</h3>
     <hr>
     <ol>
       <li v-for="(item, index) in sets" :key="index">
@@ -9,17 +8,32 @@
         <p>{{ item.supl_name }}</p>
 <!--        객체에 새로운 키값을 넣으면 갱신이 안됨 그래서 기존것을 바꿔야됨-->
         <div v-if="item.asdf != 0">
-          <v-btn  fab text small color="green" @click="sendItem(item,index)">가져오기</v-btn>
+          <v-btn
+            fab
+            text
+            small
+            color="green"
+            @click="sendItem(item,index)"
+          >
+            가져오기
+          </v-btn>
         </div>
-        <div v-else>가져옴</div>
-
+        <div v-else>
+          가져옴
+        </div>
       </li>
       <v-btn fab text small color="red" @click="handleToggle">모두 가져오기</v-btn>
 
     </ol>
 
-    <div class="outterMordal" v-show="toggle">
-      <div class="innerMordal" v-show="toggle">
+    <div
+      v-show="toggle"
+      class="outterMordal"
+    >
+      <div
+        v-show="toggle"
+        class="innerMordal"
+      >
         <h5>확인창</h5>
         <p>모두 가져오시겠습니까?.</p>
 
@@ -39,6 +53,7 @@ import axios from "axios";
 
 export default {
   name: "SuppliesSet",
+  props:['seto'],
   data() {
     return {
       inputItem: "",
@@ -49,7 +64,6 @@ export default {
       sets: this.seto,
     }
   },
-  props:['seto'],
   mounted() {
 
   },

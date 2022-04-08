@@ -1,10 +1,13 @@
 <template>
-  <v-container fluid class="main">
+  <v-container
+    fluid
+    class="main"
+  >
     <div class="body">
-      <TravelHeader/>
+      <TravelHeader :category="category"/>
       <div class="body-form">
-        <TravelLeftbar/>
-        <TravelMain/>
+        <TravelLeftbar />
+        <TravelMain />
       </div>
     </div>
   </v-container>
@@ -22,6 +25,11 @@ export default {
     TravelHeader,
     TravelLeftbar,
     TravelMain,
+  },
+  data(){
+    return{
+      category:'ddssdd'
+    }
   }
 }
 </script>

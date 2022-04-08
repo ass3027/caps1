@@ -1,14 +1,13 @@
 <template>
   <v-app id="app">
-    <HelloWorld/>
+    <HelloWorld />
     
-    <div class=Bag-order>
+    <div class="Bag-order">
       배송조회
     </div>
     
-    <router-view/>
+    <router-view />
   </v-app>
-
 </template>
 
 <script>

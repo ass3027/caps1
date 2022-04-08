@@ -1,25 +1,41 @@
 <template>
   <div>
-
     <hr>
     <div>
       <p>planner make</p>
       <div>
         <label>plan Name<input v-model="plan_name"></label>
-        <input type="date" v-model="plan_start">
-        <input type="date" v-model="plan_end">
+        <input
+          v-model="plan_start"
+          type="date"
+        >
+        <input
+          v-model="plan_end"
+          type="date"
+        >
       </div>
-      <button @click="addPlan" @submit.prevent>생성</button>
+      <button
+        @click="addPlan"
+        @submit.prevent
+      >
+        생성
+      </button>
       <hr>
 
       <ul>
-        <li v-for="(plan,index) in plan_list" :key="index">
+        <li
+          v-for="(plan,index) in plan_list"
+          :key="index"
+        >
           ID : {{ plan.plan_id }} / NAME : {{ plan.plan_name }}
-          <button @submit.prevent @click="deletePlan(plan.plan_id)">삭제</button>
+          <button
+            @submit.prevent
+            @click="deletePlan(plan.plan_id)"
+          >
+            삭제
+          </button>
         </li>
       </ul>
-
-
     </div>
   </div>
 </template>
@@ -57,21 +73,21 @@ export default {
           user_id   : 'um'
         }
       })
-          .then((res) => {
-            if (res.data) {
-              alert("success")
-              this.importPlan()
-            }
-          })
+        .then((res) => {
+          if (res.data) {
+            alert("success")
+            this.importPlan()
+          }
+        })
     },
     importPlan() {
       axios({
         method: 'get',
         url   : '/api/plan',
       })
-          .then((res) => {
-            this.plan_list = res.data;
-          })
+        .then((res) => {
+          this.plan_list = res.data;
+        })
     },
     deletePlan(plan_id) {
 
@@ -81,13 +97,13 @@ export default {
           url   : '/api/plan',
           data  : plan_id
         })
-            .then(() => {
+          .then(() => {
 
-              console.log("success")
-              this.importPlan();
+            console.log("success")
+            this.importPlan();
 
 
-            })
+          })
       }
     }
   }

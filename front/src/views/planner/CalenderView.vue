@@ -1,25 +1,39 @@
 <template>
   <div id="이재영시발럼">
     <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
-      <MapComponent/>
+      <MapComponent />
     </div>
 
-    <div id="plan" style="float:right;width:60%;height:100%;overflow-x:auto;">
-      <input type="date" v-model="startDate">
-      <input type="date" v-model="endDate">
-      <button @click="apply()">Apply</button>
-      <div v-if="buttonClicked" :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}">
-        <DateComponent v-for="(date,index) in dateArr "
-                       :key="index"
-                       :date="date"
-                       :id="index+`s`"
-                       @select="selecting"
-                       :style="{width:'13%',height:'67vh',float:'left' }"
+    <div
+      id="plan"
+      style="float:right;width:60%;height:100%;overflow-x:auto;"
+    >
+      <input
+        v-model="startDate"
+        type="date"
+      >
+      <input
+        v-model="endDate"
+        type="date"
+      >
+      <button @click="apply()">
+        Apply
+      </button>
+      <div
+        v-if="buttonClicked"
+        :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}"
+      >
+        <DateComponent
+          v-for="(date,index) in dateArr "
+          :id="index+`s`"
+          :key="index"
+          :date="date"
+          :style="{width:'13%',height:'67vh',float:'left' }"
+          @select="selecting"
         />
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
