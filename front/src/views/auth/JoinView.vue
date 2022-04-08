@@ -27,13 +27,7 @@
 	</div>
 </template>
 <style>
-.photoFrame {
-	width: 500px;
-	height: 500px;
-}
-.photoFrame:hover {
-	cursor: pointer;
-}
+
 </style>
 <script>
 // @ is an alias to /src
@@ -115,7 +109,7 @@ export default {
 				},
 				data: sendform,
 			}).then((res) => {
-				if (res.data == 'ok') {
+				if (res.data === 'ok') {
 					alert('ok');
 					window.location.href = '/';
 				}
