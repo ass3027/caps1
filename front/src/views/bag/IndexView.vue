@@ -1,15 +1,10 @@
 <template>
   <div id = "bag">
-   
     {{message}}</div>
 </template>
 
 <script>
 //import Vue from "vue";
-
-
-
-
 export default {
   data() {
     return{

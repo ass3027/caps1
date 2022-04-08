@@ -1,27 +1,47 @@
 <template>
-  <v-app id="app">
-    <nav>
-    </nav>
+  <v-app>
+    <HelloWorld/>
+
     <router-view/>
   </v-app>
+
+
 </template>
+<script>
+
+
+import HelloWorld from "@/components/HelloWorld";
+import router from './router/index';
+export default {
+  components:{
+
+    HelloWorld
+  },
+  router,
+}
+</script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+.font-set {
+	font-family: 'GmarketSansMedium';
 }
 
 nav {
-  padding: 30px;
+	padding: 30px;
 }
-
 nav a {
-  font-weight: bold;
-  color: #2c3e50;
+	font-weight: bold;
+	color: #2c3e50;
+}
+.v-application--wrap {
+  min-height: unset;
 }
 
 </style>

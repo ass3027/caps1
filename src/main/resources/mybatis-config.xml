@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="c.e.exper.data.Suplies" alias="suplies"/>
+        <typeAlias type="c.e.exper.data.Plan_Suplies" alias="plan-supl"/>
+    </typeAliases>
+</configuration>
