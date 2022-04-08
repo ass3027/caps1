@@ -1,7 +1,7 @@
 <template>
   
   <v-app id="app">
-   
+    
     <div class=Bag-order>
       가방예약
     </div>
@@ -54,9 +54,7 @@
 
 
 export default {
-  components: {
- 
-  },
+  components: {},
   data: () => ({
     transport: '/TransportView.vue',
     return: {}
