@@ -43,8 +43,8 @@
         </tbody>
       </v-simple-table>
     </template>
-    {{ tableSets }}
     <router-link :to="{name:'shareWrite'}">go to write</router-link>
+    <v-btn @click="testButton">테스트버튼</v-btn>
   </div>
 </template>
 
@@ -67,6 +67,14 @@ export default {
           this.tableSets = res.data;
           console.log(res.data);
         })
+  },
+  methods:{
+    testButton(){
+      axios.get('/webapp/userImage/1649155691753bro.png')
+      .then((res)=>{
+        console.log(res)
+      })
+    }
   }
 }
 </script>

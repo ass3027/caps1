@@ -3,15 +3,12 @@ package c.e.exper.controller;
 import c.e.exper.data.*;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.PlannerMapper;
+import c.e.exper.mapper.ScheduleMapper;
 import c.e.exper.mapper.ShareMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,18 +22,23 @@ public class ApiShare {
     final
     PlannerMapper plannerMapper;
 
+    final ScheduleMapper scheduleMapper;
+
     final PictureMapper pictureMapper;
 
-    public ApiShare(ShareMapper shareMapper, PlannerMapper plannerMapper, PictureMapper pictureMapper) {
+
+
+    public ApiShare(ShareMapper shareMapper, PlannerMapper plannerMapper, ScheduleMapper scheduleMapper, PictureMapper pictureMapper) {
         this.shareMapper = shareMapper;
         this.plannerMapper = plannerMapper;
+        this.scheduleMapper = scheduleMapper;
         this.pictureMapper = pictureMapper;
     }
 
 
     @GetMapping("/getSharePosts")
     public List<Share> getSharePosts() {
-        List<Share> s = shareMapper.getTest();
+        List<Share> s = shareMapper.findAllShares();
         System.out.println(s);
 
 
@@ -46,6 +48,7 @@ public class ApiShare {
     @PostMapping("/addPost")
     public String addPost(@RequestBody Share share) {
 
+        System.out.println(share);
 //        System.out.println(LocalDateTime.now().format());
 //        Long datetime =
 //        System.out.println(datetime);
@@ -95,10 +98,49 @@ public class ApiShare {
 
     /*상세보기 페이지*/
     @GetMapping("/getSharePostDetails")
-    public List<SharePictureDAO> getSharePostDetails() {
-        
+    public ArrayList getSharePostDetails(
+            @RequestParam("share_id") String share_id
+    ) {
+        System.out.println(share_id);
+        ArrayList a = new ArrayList();
+        Share s = shareMapper.findShareById(share_id);
+        List<Schedule> schedules = scheduleMapper.selectAllById(s.getPlan_id());
+        List<SharePictureDAO> pic = shareMapper.findPicturesById(share_id);
 
-        return ;
+        a.add(s);
+        a.add(schedules);
+        a.add(pic);
+
+        return a;
+    }
+
+    @GetMapping("/copyPlanner")
+    public String copyPlanner(@RequestParam("plan_id") String plan_id,
+                                 @RequestParam("user_id") String user_id
+    ) {
+        System.out.println(plan_id);
+        System.out.println(user_id);
+
+        PlannerDAO p = plannerMapper.selectById(plan_id);
+        System.out.println(p);
+        p.setUser_id(user_id);
+        System.out.println(p.getPlan_id());
+        plannerMapper.insert(p);
+        System.out.println(p.getPlan_id());
+
+        List<Schedule> s = scheduleMapper.selectAllById(plan_id);
+        System.out.println(s);
+        for(int i=0;i< s.size();i++){
+            s.get(i).setPlan_id(p.getPlan_id());
+            System.out.println(s.get(i));
+            scheduleMapper.insert(s.get(i));
+        }
+
+
+
+
+
+        return "성공";
     }
 
 
