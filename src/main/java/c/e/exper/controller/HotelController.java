@@ -5,7 +5,7 @@ import c.e.exper.data.StoreDAO;
 import c.e.exper.data.StoreDTO;
 import c.e.exper.mapper.HotelMapper;
 import c.e.exper.mapper.PictureMapper;
-import c.e.exper.service.FileSaveService;
+import c.e.exper.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,7 @@ public class HotelController {
     HotelMapper HotelMapper;
 
     @Autowired
-    FileSaveService fileSaveService;
+    FileService fileService;
 
     @Autowired
     PictureMapper pictureMapper;
@@ -41,7 +41,7 @@ public class HotelController {
 
         System.out.println("호텔 추가 컨트롤러임");
 
-        String filePath = fileSaveService.photoSave(store.getPic_name(), req);
+        String filePath = fileService.photoSave(store.getPic_name(), req,"storeImage");
 
         StoreDAO storeDAO = StoreDAO.builder()
                 .store_id(store.getStore_id())

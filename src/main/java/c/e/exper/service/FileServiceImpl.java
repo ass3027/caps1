@@ -7,13 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
 @Service
-public class FileSaveServiceImpl implements FileSaveService {
+public class FileServiceImpl implements FileService {
+
+
 
 
     @Override
-    public String photoSave(MultipartFile file, HttpServletRequest req){
-        String fileName = file.getOriginalFilename();
-        String safeFile = req.getSession().getServletContext().getRealPath("/userImage/") + System.currentTimeMillis() + fileName;
+    public String photoSave(MultipartFile file, HttpServletRequest req,String folder){
+        String fileName = folder+"\\"+ System.currentTimeMillis() + file.getOriginalFilename();
+        String safeFile = req.getSession().getServletContext().getRealPath("/") + fileName;
         System.out.println(safeFile);
         try {
             file.transferTo(new File(safeFile));
@@ -21,6 +23,6 @@ public class FileSaveServiceImpl implements FileSaveService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return safeFile;
+        return fileName;
     }
 }

@@ -3,9 +3,11 @@
     <div v-if="$store.state.user.userId===''" class="login-box">
       <v-btn text router to="/login"> login</v-btn>
       <v-btn text router to="/join"> join</v-btn>
+      <img :src="dd" alt="실허어엄">
     </div>
     <div v-else class="login-box">
       <v-btn text>{{$store.state.user.userId}}</v-btn>
+
       <v-btn text @click="logOut">logout</v-btn>
     </div>
     <div>
@@ -196,6 +198,7 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
+    dd: `/api/photo/`+"userImage/1648100757821img.jpg",
     travel: [
       {title: 'travel1', route: '/travel'},
       {title: 'travel2', route: '/travel'},
@@ -289,18 +292,18 @@ export default {
   justify-content: center;
 }
 
-.hotel-list-form {
-  display: flex;
-  align-items: center;
-}
+/*.hotel-list-form {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*}*/
 
-.select-box {
-  padding: 0 2%;
-}
+/*.select-box {*/
+/*  padding: 0 2%;*/
+/*}*/
 
-.select-size {
-  width: 50%;
-}
+/*.select-size {*/
+/*  width: 50%;*/
+/*}*/
 
 .divider-padding {
   margin-top: 10px;
