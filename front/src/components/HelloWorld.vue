@@ -63,11 +63,11 @@
       </div>
       <v-divider class="divider-padding" />
     </div>
-    <img
-      :src="dd"
-      alt="실허어엄"
-      style="width:100px;height:100px"
-    >
+<!--    <img-->
+<!--      :src="dd"-->
+<!--      alt="실허어엄"-->
+<!--      style="width:100px;height:100px"-->
+<!--    >-->
   </v-app>
 </template>
 
@@ -78,7 +78,7 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
-    dd: `/api/photo/`+"userImage/1648463078479i14085986122.jpg",
+    // dd: `/api/photo/`+"userImage/1648100757821img.jpg",
     menuList:[
       "여행지",
       "여행계획",
