@@ -34,7 +34,6 @@ import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
-import ReviewTestView from "@/views/ReviewTestView";
 
 import ReviewTestView from "@/views/ReviewTestView";
 import Hoteltest from "@/views/travel/HotelTest";
