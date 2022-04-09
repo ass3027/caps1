@@ -28,7 +28,7 @@
       </v-carousel-item>
     </v-carousel>
     <div
-      v-for="(hotelInfo, aIdx) in test.hotelInfos"
+      v-for="(hotelInfo, aIdx) in hotel.hotelInfo"
       :key="aIdx"
       class="hotelcard"
       @click="goHotelInfo(hotelInfo)"
@@ -55,8 +55,8 @@ export default {
     };
   },
   computed: {
-    test() {
-      return this.$store.state.test;
+    hotel() {
+      return this.$store.state.hotel;
     }
   },
   methods: {

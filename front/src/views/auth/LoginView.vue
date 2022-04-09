@@ -62,7 +62,7 @@ export default {
               console.log(this.username)
               this.$store.commit('user/updateUserId',this.id)
               console.log(this.$store.state.user)
-              console.log(this.$store.state.id);
+              console.log(this.$store.state.id)
               this.$router.push("/")
             }
           })

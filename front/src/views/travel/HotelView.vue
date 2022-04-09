@@ -28,7 +28,7 @@ export default {
   },
   data(){
     return{
-      category:'ddssdd'
+      category:'HOTEL'
     }
   }
 }
