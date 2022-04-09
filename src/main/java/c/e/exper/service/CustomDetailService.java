@@ -27,14 +27,16 @@ public class CustomDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-         List<UserDAO> ex = userMapper.selectAll();
-         System.out.println(ex.size());
 
+        System.out.println(username);
         Optional<UserDAO> user = userMapper.selectId(username);
-        if(user.isEmpty()) return null;
-         System.out.println(user.get().getUser_id());
-         System.out.println(user.get().getUser_pw());
-         System.out.println(user.get().getRole());
+        System.out.println(user.isEmpty());
+        if(user.isEmpty()) throw new UsernameNotFoundException(username);
+
+        System.out.println(user.get().getUser_id());
+        System.out.println(user.get().getUser_pw());
+        System.out.println(user.get().getRole());
+
         List<GrantedAuthority> authority = new ArrayList<>();
         authority.add(new SimpleGrantedAuthority(user.get().getRole()));
         return new org.springframework.security.core.userdetails.User(

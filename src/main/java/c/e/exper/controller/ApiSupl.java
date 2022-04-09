@@ -27,16 +27,12 @@ public class ApiSupl {
 
     @GetMapping("/getMySupl")
     public List<Plan_Suplies> getMySupl() {
-        System.out.println("컨트롤러안");
-        System.out.println(SuplMapper.findMyAllSupl("1"));
 
         return SuplMapper.findMyAllSupl("1");
     }
 
     @GetMapping("/getSupl")
     public List<Suplies> getSupl() {
-        System.out.println("컨트롤러안");
-        System.out.println(SuplMapper.findAllSupl());
 
         return SuplMapper.findAllSupl();
     }
@@ -48,6 +44,7 @@ public class ApiSupl {
 
     @PostMapping("/inputSupl")
     public String inputSupl(@RequestBody Plan_Suplies p){
+        System.out.println(p);
         System.out.println("post컨트롤러안");
         System.out.println(p.getSupl_id().getSupl_name());
         Suplies b = SuplMapper.findSuplByName(p.getSupl_id().getSupl_name());

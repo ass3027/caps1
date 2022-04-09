@@ -1,20 +1,41 @@
 <template>
   <form class="joinGuide">
-
     <h2>가이드 등록</h2>
     <div class="textForm">
-      <input name="userId" v-model="user_id" type="text" class="id" placeholder="아이디">
+      <input
+        v-model="user_id"
+        name="userId"
+        type="text"
+        class="id"
+        placeholder="아이디"
+      >
     </div>
 
     <div class="textForm">
-      <input name="guideLicense" v-model="guide_license" type="text" class="license" placeholder="자격증">
+      <input
+        v-model="guide_license"
+        name="guideLicense"
+        type="text"
+        class="license"
+        placeholder="자격증"
+      >
     </div>
     <div class="textForm">
-      <input name="guideIntro" type="text" v-model="guide_intro" class="intro" placeholder="간단한 소개">
+      <input
+        v-model="guide_intro"
+        name="guideIntro"
+        type="text"
+        class="intro"
+        placeholder="간단한 소개"
+      >
     </div>
-    <v-btn class="btn" @click="onsubmit()">JOIN</v-btn>
+    <v-btn
+      class="btn"
+      @click="onsubmit()"
+    >
+      JOIN
+    </v-btn>
   </form>
-
 </template>
 
 <script>
@@ -24,14 +45,14 @@ import axios from "axios";
 
 export default {
   name: 'GuideRegister',
+  components: {
+  },
   data(){
     return{
       user_id:'',
       guide_license:'',
       guide_intro:''
     }
-  },
-  components: {
   },
   methods:{
     onsubmit(){
@@ -41,7 +62,12 @@ export default {
       sendform.append('guide_license', this.guide_license);
       sendform.append('guide_intro', this.guide_intro);
 
-      console.log(sendform.get('user_id'))
+      if(this.user_id == '')
+        alert('아이디를 확인하세요')
+
+
+      if(this.guide_intro == '')
+        alert('소개를 확인하세요')
 
       axios({
         method: 'post',
@@ -56,6 +82,7 @@ export default {
           window.location.href = '/';
         }
       });
+
     }
   }
 }
@@ -74,9 +101,9 @@ export default {
 
 
 .joinGuide {
-  position:absolute;
+
   width:400px;
-  height:400px;
+  height:40px;
   padding: 30px;
   background-color:#FFFFFF;
   text-align:center;

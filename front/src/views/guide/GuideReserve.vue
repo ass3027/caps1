@@ -1,9 +1,8 @@
 <template>
   <div>
     <h1>GuideReserve</h1>
-    <guide-bar></guide-bar>
+    <guide-bar />
   </div>
-
 </template>
 
 <script>

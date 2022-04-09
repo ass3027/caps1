@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c.e.exper.mapper.ShareMapper">
+    <select id="getTest" resultType="c.e.exper.data.Share">
+        SELECT * FROM shares
+    </select>
+    <insert id="insertTest">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select SHARES_SEQUENCE.nextval from dual
+        </selectKey>
+        INSERT INTO shares (share_id,user_id,PLAN_ID ) VALUES (#{id},#{param1}, #{param2})
+    </insert>
+</mapper>
+

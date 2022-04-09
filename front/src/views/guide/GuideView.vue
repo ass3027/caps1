@@ -1,5 +1,6 @@
 <template>
   <div class="card">
+
     <v-row cols="0" md="0">
   <v-card v-for="(item,index) in lists" :key="index"
       class="mx-auto"
@@ -10,12 +11,12 @@
     <v-list-item three-line>
       <v-list-item-content>
         <div class="text-overline mb-4">
-          {{item.guide_License}}
+          {{item.guide_license}}
         </div>
         <v-list-item-title class="text-h5 mb-1">
           {{ item.user_id }}
         </v-list-item-title>
-        <v-list-item-subtitle>{{item.guide_Intro}}</v-list-item-subtitle>
+        <v-list-item-subtitle>{{item.guide_intro}}</v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar
@@ -29,16 +30,58 @@
       <v-btn
           outlined
           rounded
-          text
+          text @click="view(item)"
       >
-        Button
+        상세보기
       </v-btn>
     </v-card-actions>
 
   </v-card>
 
-    </v-row>
 
+    <v-row
+      cols="0"
+      md="0"
+    >
+      <v-card
+        v-for="(item,index) in lists"
+        :key="index"
+        class="mx-auto"
+        width="344"
+        outlined
+        justify="start"
+      >
+        <v-list-item three-line>
+          <v-list-item-content>
+            <div class="text-overline mb-4">
+              {{ item.guide_License }}
+            </div>
+            <v-list-item-title class="text-h5 mb-1">
+              {{ item.user_id }}
+            </v-list-item-title>
+            <v-list-item-subtitle>{{ item.guide_Intro }}</v-list-item-subtitle>
+          </v-list-item-content>
+
+          <v-list-item-avatar
+            tile
+            size="80"
+            color="grey"
+          />
+        </v-list-item>
+
+        <v-card-actions>
+          <v-btn
+            outlined
+            rounded
+            text
+          >
+            Button
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+    </v-row>
+    </v-row>
   </div>
 </template>
 
@@ -64,6 +107,10 @@ export default {
     this.importGuide()
   },
   methods:{
+    view(item){
+      console.log(item)
+      this.$router.push("/GuideView/" + item.user_id)
+    },
 
 
     importGuide(){
@@ -71,9 +118,9 @@ export default {
         method: 'get',
         url   : '/api/guide',
       })
-          .then((res) => {
-            this.lists = res.data;
-          })
+        .then((res) => {
+          this.lists = res.data;
+        })
     }
   }
 }

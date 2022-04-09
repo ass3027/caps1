@@ -11,7 +11,7 @@
     <div>
       <div>Packless Travel</div>
       <div class="hotel-list-form">
-        <div>HOTEL</div>
+        <div>{{ category }}</div>
         <div class="select-box">
           <v-select
             :items="hotelList"
@@ -29,6 +29,7 @@
 <script>
 // import axios from 'axios';
 export default {
+  props:['category'],
   data() {
     return {
       hotelList: ['제주', '대구', '부산', '서울', '인천', '여수']

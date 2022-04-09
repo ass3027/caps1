@@ -25,10 +25,14 @@ public class ApiGuide {
     public List<GuideDAO> findAllGuide() {
         return guideService.가이드_조회();
     }
+    @GetMapping("/guide/{id}")
+    public GuideDAO findAllGuide(@PathVariable("id") String id) {
+        return guideService.가이드_조회1(id);
+    }
     @PostMapping("/gjoin")
     public void insertGuide(GuideDAO guideDAO) {
-
         guideService.가이드_등록(guideDAO);
+        //System.out.println(guideDAO);
     }
 
 

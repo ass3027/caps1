@@ -4,7 +4,7 @@
     class="main"
   >
     <div class="body">
-      <TravelHeader />
+      <TravelHeader :category="category" />
       <div class="body-form">
         <TravelLeftbar />
         <TravelMain />
@@ -25,6 +25,11 @@ export default {
     TravelHeader,
     TravelLeftbar,
     TravelMain,
+  },
+  data(){
+    return{
+      category:'ddssdd'
+    }
   }
 }
 </script>

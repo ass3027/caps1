@@ -2,7 +2,7 @@
   <div>
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
 
-    <form action="">
+    <form @submit.prevent>
       <input
         v-model="user_id"
         type="text"
@@ -40,7 +40,10 @@
         @change="imageSet()"
       >
 
-      <div id="pictures" />
+      <div
+        id="pictures"
+        style="width:400px;height:400px"
+      />
 
       <button @click="submit()">
         submit
@@ -49,13 +52,7 @@
   </div>
 </template>
 <style>
-.photoFrame {
-	width: 500px;
-	height: 500px;
-}
-.photoFrame:hover {
-	cursor: pointer;
-}
+
 </style>
 <script>
 // @ is an alias to /src
@@ -88,7 +85,7 @@ export default {
 
       reader.onload = function () {
         var photoFrame = document.createElement('div');
-        photoFrame.style = `background : url(${reader.result}); background-size : cover`;
+        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
         photoFrame.className = 'photoFrame';
         document.getElementById('pictures').appendChild(photoFrame);
         //e.target.value = "";
@@ -109,41 +106,24 @@ export default {
       sendform.append('user_photo', this.user_photo);
       sendform.append('role', this.role);
 
-      console.log(sendform.get('user_id'));
 
-      // const csrfToken=/*[[${_csrf.token}]]*/ null;
-      // const csrfHeader=/*[[${_csrf.headerName}]]*/ null;
+			axios({
+				method: 'post',
+				url: '/api/join',
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+				data: sendform,
+			}).then((res) => {
+        console.log(res.data)
+				if (res.data === true) {
 
-      // try {
-      //   const result = await axios.post('/api/join', {
-      //     data: sendform,
-      //     headers: {
-      //       'Content-Type': 'multipart/form-data'
-      //     }
-      //   });
-      //   if (result.status === 200) {
-      //     this.loginSuccess = true
-      //   }
-      // } catch (err) {
-      //   this.loginError = true;
-      //   throw new Error(err)
-      // }
-
-      axios({
-        method: 'post',
-        url: '/api/join',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        data: sendform,
-      }).then((res) => {
-        if (res.data == 'ok') {
-          alert('ok');
-          window.location.href = '/';
-        }
-      });
-    },
-  },
+					alert('ok');
+					this.$router.push('/')
+				}
+			});
+		},
+	},
 };
 // components: {
 //   HelloWorld

@@ -32,7 +32,6 @@
         from suplies
         where supl_name= #{name}
     </select>
-    
-
 
 </mapper>
+
