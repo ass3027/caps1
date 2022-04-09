@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <HelloWorld />
 
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
@@ -34,11 +33,10 @@
   </v-app>
 </template>
 <script>
-import HelloWorld from "@/components/HelloWorld";
 
 export default {
   components:{
-    HelloWorld
+
   },
 
   data() {
@@ -46,7 +44,9 @@ export default {
       drawer: false,
       items: [
           {title: 'Review', icon:'mdi-vue-dashboard', to:'/ReviewView'},
-          {title: 'Plan', icon:'mdi-vue-dashboard', to:'/plan'}
+          {title: 'Plan', icon:'mdi-vue-dashboard', to:'/plan'},
+          {title: 'Join', icon:'mdi-vue-dashboard', to:'/join'}
+
       ]
     }
   }

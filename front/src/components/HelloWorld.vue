@@ -63,16 +63,15 @@
       </div>
       <v-divider class="divider-padding" />
     </div>
-    <img
-      :src="dd"
-      alt="실허어엄"
-      style="width:100px;height:100px"
-    >
+<!--    <img-->
+<!--      :src="dd"-->
+<!--      alt="실허어엄"-->
+<!--      style="width:100px;height:100px"-->
+<!--    >-->
   </v-app>
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
 
@@ -111,7 +110,7 @@ export default {
         {title: '게스트하우스', route: 'facility'}
       ],
       [
-        {title: '가방예약', route: '/OrderView'},
+        {title: '가방예약', route: '/BagReserveView'},
         {title: '이용안내', route: '/UsageGuideView'},
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},

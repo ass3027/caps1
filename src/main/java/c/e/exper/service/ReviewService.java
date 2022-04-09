@@ -1,21 +1,24 @@
 package c.e.exper.service;
 
+import c.e.exper.data.PictureDAO;
 import c.e.exper.data.Review;
+import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.ReviewMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
 public class ReviewService {
 
     final ReviewMapper reviewMapper;
+    final PictureMapper pictureMapper;
 
-    public ReviewService(ReviewMapper reviewMapper) {
+    public ReviewService(ReviewMapper reviewMapper, PictureMapper pictureMapper) {
         this.reviewMapper = reviewMapper;
+        this.pictureMapper = pictureMapper;
     }
 
 
@@ -29,13 +32,29 @@ public class ReviewService {
 
         int insertColumnCount = 0;
 
+        PictureDAO picture = null;
+
+        System.out.println("!!!!!!!!!!!!!!"+picture);
+
+
         if(review.getBook_id() == null && review.getOrd_id() == null) {
             System.out.println("잘못된 형식입니다."); // 에러 출력
         } else if (review.getBook_id() != null) {
+            picture.setBook_id(""+review.getBook_id());
+            pictureMapper.InsertOrderReview(picture);
+            System.out.println("!!!!!!!!!!!!!!"+picture);
+
             insertColumnCount = reviewMapper.addBookReview(review);
         } else {
+            picture.setBook_id(""+review.getOrd_id());
+            pictureMapper.InsertOrderReview(picture);
+            System.out.println("!!!!!!!!!!!!!!"+picture);
+
+
             insertColumnCount = reviewMapper.addOrderReview(review);
         }
+
+
 
         System.out.println("등록 컬럼 갯수: " + insertColumnCount);
         return insertColumnCount;

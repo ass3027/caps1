@@ -107,23 +107,23 @@ export default {
       sendform.append('role', this.role);
 
 
-			axios({
-				method: 'post',
-				url: '/api/join',
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-				data: sendform,
-			}).then((res) => {
+      axios({
+        method: 'post',
+        url: '/api/join',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: sendform,
+      }).then((res) => {
         console.log(res.data)
-				if (res.data === true) {
+        if (res.data === true) {
 
-					alert('ok');
-					this.$router.push('/')
-				}
-			});
-		},
-	},
+          alert('ok');
+          this.$router.push('/')
+        }
+      });
+    },
+  },
 };
 // components: {
 //   HelloWorld
