@@ -2,7 +2,7 @@
   <div>
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
 
-    <form action="">
+    <form @submit.prevent>
       <input
         v-model="user_id"
         type="text"
@@ -40,7 +40,10 @@
         @change="imageSet()"
       >
 
-      <div id="pictures" />
+      <div
+        id="pictures"
+        style="width:400px;height:400px"
+      />
 
       <button @click="submit()">
         submit
@@ -82,7 +85,7 @@ export default {
 
       reader.onload = function () {
         var photoFrame = document.createElement('div');
-        photoFrame.style = `background : url(${reader.result}); background-size : cover`;
+        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
         photoFrame.className = 'photoFrame';
         document.getElementById('pictures').appendChild(photoFrame);
         //e.target.value = "";
@@ -112,7 +115,9 @@ export default {
 				},
 				data: sendform,
 			}).then((res) => {
-				if (res.data === 'ok') {
+        console.log(res.data)
+				if (res.data === true) {
+
 					alert('ok');
 					this.$router.push('/')
 				}

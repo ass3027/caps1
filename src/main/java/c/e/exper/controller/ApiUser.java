@@ -6,7 +6,7 @@ import c.e.exper.data.UserDTO;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
-import c.e.exper.service.FileSaveService;
+import c.e.exper.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,13 +38,13 @@ public class ApiUser {
     UserMapper userMapper;
 
     final
-    FileSaveService fileSaveService;
+    FileService fileService;
 
-    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileSaveService fileSaveService, PictureMapper pictureMapper) {
+    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
         this.suplMapper = suplMapper;
-        this.fileSaveService = fileSaveService;
+        this.fileService = fileService;
         this.pictureMapper = pictureMapper;
     }
 
@@ -72,7 +72,7 @@ public class ApiUser {
 
         //파일 이름 저장 밑 파일 실제 저장
         //경로 이상함
-        String filePath = fileSaveService.photoSave(user.getUser_photo(),req);
+        String filePath = fileService.photoSave(user.getUser_photo(),req,"userImage");
 
         //파일 경로를 넣은 DAO 생성
         UserDAO daoUser = UserDAO.builder()

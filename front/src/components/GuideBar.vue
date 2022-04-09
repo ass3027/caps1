@@ -1,7 +1,11 @@
 <template>
   <div class="icon-bar">
-    <router-link to="/"><i class="fa fa-home"></i></router-link>
-    <router-link to="/about"><i class="fas fa-question"></i></router-link>
+    <router-link to="/">
+      <i class="fa fa-home" />
+    </router-link>
+    <router-link to="/about">
+      <i class="fas fa-question" />
+    </router-link>
   </div>
 </template>
 

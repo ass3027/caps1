@@ -5,13 +5,14 @@
       pw<input v-model="pw">
       <button>login</button>
     </form>
-<!--    <button @click="logout()">logout</button>-->
+    <!--    <button @click="logout()">logout</button>-->
 
     <div>
-      <button @click="getId()">getId</button>
+      <button @click="getId()">
+        getId
+      </button>
     </div>
   </div>
-
 </template>
 
 <script>

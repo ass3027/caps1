@@ -1,34 +1,48 @@
 <template>
   <div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-    <div id="menu_wrap" class="bg_white">
+    <div
+      id="map"
+      style="width:100%;height:100%;position:relative;overflow:hidden;"
+    />
+    <div
+      id="menu_wrap"
+      class="bg_white"
+    >
       <div class="option">
         <div>
           <form @submit.prevent="searchPlaces()">
-            키워드 : <input type="text" v-model="keyword" size="15">
-            <button type="submit">검색하기</button>
+            키워드 : <input
+              v-model="keyword"
+              type="text"
+              size="15"
+            >
+            <button type="submit">
+              검색하기
+            </button>
           </form>
         </div>
       </div>
       <hr>
       <ul id="placesList">
-      <li v-for="(place,index) in places" :key="index"
+        <li
+          v-for="(place,index) in places"
+          :key="index"
           @mouseover="displayInfowindow(marker[index],place.place_name)"
           @mouseout="infowindow.close()"
-      >
-        <span class='`markerbg marker_${index+1}`'></span>
-        <div class="info">
-          <h5>{{ place.place_name }}</h5>
-          <template v-if="place.road_address_name">
-            <span>{{ place.road_address_name }}</span>
-            <span class="jibun gray">{{ place.adress_name }}</span>
-          </template>
-          <span v-else>{{ place.address_name }}</span>
-          <span class="tel">{{ place.phone }}</span>
-        </div>
-      </li>
+        >
+          <span class="`markerbg marker_${index+1}`" />
+          <div class="info">
+            <h5>{{ place.place_name }}</h5>
+            <template v-if="place.road_address_name">
+              <span>{{ place.road_address_name }}</span>
+              <span class="jibun gray">{{ place.adress_name }}</span>
+            </template>
+            <span v-else>{{ place.address_name }}</span>
+            <span class="tel">{{ place.phone }}</span>
+          </div>
+        </li>
       </ul>
-      <div id="pagination"></div>
+      <div id="pagination" />
     </div>
   </div>
 </template>
