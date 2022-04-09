@@ -70,7 +70,6 @@ const routes = [
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
-  {path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView},
   {path:"/GuideViewUser",name:"GuideViewUser",component: GuideViewUser}
 ];
