@@ -1,14 +1,13 @@
 <template>
   <v-app id="app">
-    
-    <div class='Bag-order'>
+    <div class="Bag-order">
       가방운송 신청서
     </div>
-    
+
     <v-form v-model="valid">
       <v-container>
         <h3>짐 종류와 수량</h3>
-        
+
         <div class="d-flex flex-column mb-6">
           <v-card
             v-for="(bagType,index) in bagType "
@@ -16,11 +15,11 @@
             class="d-inline-flex p-2"
             outlined
             tile
-            
+
           >{{ bagType.title }}
           </v-card>
         </div>
-        
+
         <v-row
           justify="space-around">
           <v-col
@@ -37,7 +36,7 @@
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
-            
+
             <v-card
               class="d-flex pa-2"
               outlined
@@ -66,7 +65,7 @@
       </v-container>
     </v-form>
     <!--    <div id="mapcomponent"><MapComponent/></div>-->
-    
+
     <router-view/>
   </v-app>
 
@@ -82,7 +81,7 @@ export default {
   components: {
     // MapComponent
     AddressComponent
-    
+
   },
   data() {
     return {
@@ -103,7 +102,7 @@ export default {
       ],
     }
   },
-  
+
   methods: {
     addOrder() {
       const bag = {
@@ -135,8 +134,8 @@ export default {
       }, 2000)
     },
   },
-  
-  
+
+
 }
 
 </script>

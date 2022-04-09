@@ -1,7 +1,8 @@
 <template>
-  <div class="date"
-       v-on:click="select"
-       @mousemove="timeSet"
+  <div
+    class="date"
+    @click="select"
+    @mousemove="timeSet"
   >
     <p>{{ date }}</p>
     <p>{{ location }}</p>
@@ -9,11 +10,13 @@
     <!--      <li v-for="(selected,index) in selectedArr"-->
     <!--          :key="index"></li>-->
     <!--    </ul>-->
-    <div v-for="(selected,index) in selectedArr"
-         :id="index"
-         :key="index"
-         :style="{backgroundColor:'aqua', top:selected+'px', position:'absolute'}"
-    >{{ parseInt(selected / height * 24) }}시 {{ parseInt(height / selected * 14400 % 60) }}분
+    <div
+      v-for="(selected,index) in selectedArr"
+      :id="index"
+      :key="index"
+      :style="{backgroundColor:'aqua', top:selected+100+'px', position:'absolute'}"
+    >
+      {{ parseInt(selected / height * 24) }}시 {{ parseInt(height / selected * 14400 % 60) }}분
     </div>
   </div>
 </template>
@@ -37,7 +40,7 @@ export default {
       location: '',
       selectedTime1: '',
       selectedTime2: '',
-      selectedArr: [30],
+      selectedArr: [],
       length: 0,
       selectedTag: '',
       style: "width:100,height:2,border:2,top:selected",
@@ -49,7 +52,7 @@ export default {
     },
     select(e) {
       //console.log(e.target.id);
-      
+
       this.$emit('select', e.target);
       //선택된 태그를 눌렀을때
       if (e.target === this.selectedTag) {
@@ -79,6 +82,6 @@ export default {
   width: 20%;
   height: 100%;
   border: 2px solid;
-  
+
 }
 </style>

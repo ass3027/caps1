@@ -1,10 +1,10 @@
 <template>
   <v-app id="app">
-    
+
     <div class=Bag-order>
       이용안내
     </div>
-    
+
     <router-view/>
   </v-app>
 

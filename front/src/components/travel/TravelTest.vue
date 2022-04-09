@@ -4,7 +4,8 @@
 
 <script>
 export default {
-  name: "TravelTest"
+  name: "TravelTest",
+  components: {}
 }
 </script>
 

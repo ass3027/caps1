@@ -1,30 +1,35 @@
 <template>
   <div class="header-layout">
     <div class="login-box">
-      <v-btn text> login</v-btn>
-      <v-btn text> join</v-btn>
+      <v-btn text>
+        login
+      </v-btn>
+      <v-btn text>
+        join
+      </v-btn>
     </div>
     <div>
       <div>Packless Travel</div>
       <div class="hotel-list-form">
-        <div>HOTEL</div>
+        <div>{{ category }}</div>
         <div class="select-box">
           <v-select
-              :items="hotelList"
-              hide-details
-              dense
-              @change="test()"
-              class="select-size"
-          ></v-select>
+            :items="hotelList"
+            hide-details
+            dense
+            class="select-size"
+            @change="test()"
+          />
         </div>
       </div>
-      <v-divider class="divider-padding"></v-divider>
+      <v-divider class="divider-padding" />
     </div>
   </div>
 </template>
 <script>
 // import axios from 'axios';
 export default {
+  props:['category'],
   data() {
     return {
       hotelList: ['제주', '대구', '부산', '서울', '인천', '여수']
@@ -94,8 +99,8 @@ export default {
     //     console.log(res);
     //   });
 
-      // this.$store.state.test = a;
-    }
+    // this.$store.state.test = a;
+  }
 
 };
 </script>

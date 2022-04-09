@@ -1,10 +1,7 @@
 <template>
   <div id="d">
-
-    
-    <div></div>
+    <div />
   </div>
-
 </template>
 
 <script>

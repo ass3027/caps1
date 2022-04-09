@@ -1,42 +1,91 @@
 <template>
   <v-container>
-
     <h2>내준비물</h2>
 
+    <v-autocomplete
+      v-model="values"
+      :items="items"
+      outlined
+      dense
+      chips
+      small-chips
+      label="준비물을 입력해보세요"
+      multiple
+    />
+    <!--    <v-btn @click="new"></v-btn>-->
 
-    <form v-on:submit.prevent="inputList">
-      <input type="text" v-model="inputItem" name="city" list="suplName">
+    <form @submit.prevent="inputList">
+      <input
+        v-model="inputItem"
+        type="text"
+        name="city"
+        list="suplName"
+      >
       <datalist id="suplName">
-        <option v-for="item in supplies" :key="item" :value="item"></option>
+        <option
+          v-for="item in supplies"
+          :key="item"
+          :value="item"
+        />
       </datalist>
       <button>입력</button>
-
     </form>
 
     <hr>
 
     <ol>
-      <li v-for="(item, index) in todoList" :key="index">
+      <li
+        v-for="(item, index) in todoList"
+        :key="index"
+      >
         {{ item.todo }} {{ item.quantity }}개
-        <v-btn fab text small color="green" @click="plusQuantity(item)">+1</v-btn>
-        <v-btn fab text small color="red" @click="minusQuantity(item)">-1</v-btn>
-        <v-btn v-on:click="makeDone(item.id,item.done)">완료</v-btn>
-        <v-btn v-on:click="deleteOne(item)">삭제</v-btn>
-
+        <v-btn
+          fab
+          text
+          small
+          color="green"
+          @click="plusQuantity(item)"
+        >
+          +1
+        </v-btn>
+        <v-btn
+          fab
+          text
+          small
+          color="red"
+          @click="minusQuantity(item)"
+        >
+          -1
+        </v-btn>
+        <v-btn @click="makeDone(item.id,item.done)">
+          완료
+        </v-btn>
+        <v-btn @click="deleteOne(item)">
+          삭제
+        </v-btn>
       </li>
     </ol>
     <hr>
     <ol>
-      <li v-for="(item, index) in doneList" :key="index">
+      <li
+        v-for="(item, index) in doneList"
+        :key="index"
+      >
         <del>{{ item.todo }}</del>
-        <v-btn v-on:click="makeDone(item.id,item.done)">취소</v-btn>
-        <v-btn v-on:click="deleteOne(item)">삭제</v-btn>
+        <v-btn @click="makeDone(item.id,item.done)">
+          취소
+        </v-btn>
+        <v-btn @click="deleteOne(item)">
+          삭제
+        </v-btn>
       </li>
     </ol>
-    <v-btn v-on:click="deleteAll">완료한 준비물 제거</v-btn>
-    <v-btn @click="$router.push({path:'/supplies/sets'})">준비물 가져오기</v-btn>
-
-
+    <v-btn @click="deleteAll">
+      완료한 준비물 제거
+    </v-btn>
+    <v-btn @click="$router.push({path:'/supplies/sets'})">
+      준비물 가져오기
+    </v-btn>
   </v-container>
 </template>
 
@@ -51,7 +100,11 @@ export default {
       inputItem: "",
       todoList: [],
       doneList: [],
-      supplies: []
+      supplies: [],
+      items: ['수건', '휴대폰 충전기', '여권'],
+      values: ['수건'],
+      value: null,
+
     }
   },
   mounted() {
@@ -61,13 +114,14 @@ export default {
   },
   methods: {
     getList() {
-      axios.get("/api/getSupl").then((res)=>{
+      axios.get('/api/getSupl').then((res)=>{
         var supplies = []
 
         res.data.forEach(function (i) {
           supplies.push(i.supl_name)
         })
         this.supplies = supplies;
+        this.items = supplies;
       })
 
 
@@ -77,26 +131,26 @@ export default {
         method: 'get',
         url: '/api/getMySupl',
       })
-          .then((res) => {
-            console.log("내리스트가져오기");
-            console.log(res.data);
-            var todo = [];
-            var done = [];
+        .then((res) => {
+          console.log("내리스트가져오기");
+          console.log(res.data);
+          var todo = [];
+          var done = [];
 
-            res.data.forEach((i) => {
-              if (i.supl_id.supl_id == 0) {
-                i.supl_id.supl_name = i.name;
-              }
-              if (i.status == 0) {
-                todo.push({id: i.plan_supl_id, done: false, todo: i.supl_id.supl_name, quantity: i.quantity})
-              } else {
-                done.push({id: i.plan_supl_id, done: true, todo: i.supl_id.supl_name, quantity: i.quantity})
-              }
-            })
-            this.todoList = todo;
-            this.doneList = done;
-
+          res.data.forEach((i) => {
+            if (i.supl_id.supl_id == 0) {
+              i.supl_id.supl_name = i.name;
+            }
+            if (i.status == 0) {
+              todo.push({id: i.plan_supl_id, done: false, todo: i.supl_id.supl_name, quantity: i.quantity})
+            } else {
+              done.push({id: i.plan_supl_id, done: true, todo: i.supl_id.supl_name, quantity: i.quantity})
+            }
           })
+          this.todoList = todo;
+          this.doneList = done;
+
+        })
 
     },
     inputList(e) {
@@ -121,11 +175,11 @@ export default {
         },
         data: JSON.stringify(data2),
       })
-          .then(() => {
-            this.getMyList();
-            console.log("삽입완료 다시불러옴")
-            this.inputItem = ''
-          })
+        .then(() => {
+          this.getMyList();
+          console.log("삽입완료 다시불러옴")
+          this.inputItem = ''
+        })
     },
     makeDone(id, done) {
 
@@ -138,10 +192,10 @@ export default {
 
         data: JSON.stringify({plan_supl_id: id, status: done}),
       })
-          .then(() => {
-            this.getMyList();
-            console.log("상태수정완료 다시불러옴")
-          })
+        .then(() => {
+          this.getMyList();
+          console.log("상태수정완료 다시불러옴")
+        })
     },
     deleteAll() {
       var newDoneList = []
@@ -158,10 +212,10 @@ export default {
 
         data: JSON.stringify(newDoneList),
       })
-          .then(() => {
-            this.getMyList();
-            console.log("삭제완료 다시불러옴")
-          })
+        .then(() => {
+          this.getMyList();
+          console.log("삭제완료 다시불러옴")
+        })
     },
     deleteOne(item) {
       console.log(item.id)
@@ -174,10 +228,10 @@ export default {
 
         data: {plan_supl_id:item.id},
       })
-          .then(() => {
-            this.getMyList();
-            console.log("삭제완료 다시불러옴")
-          })
+        .then(() => {
+          this.getMyList();
+          console.log("삭제완료 다시불러옴")
+        })
     },
     plusQuantity(item) {
 
@@ -191,10 +245,10 @@ export default {
 
         data: JSON.stringify({plan_supl_id: item.id, quantity: item.quantity + 1}),
       })
-          .then(() => {
-            this.getMyList();
-            console.log("quantity수정완료 다시불러옴")
-          })
+        .then(() => {
+          this.getMyList();
+          console.log("quantity수정완료 다시불러옴")
+        })
     },
     minusQuantity(item) {
       console.log(item)
@@ -208,10 +262,10 @@ export default {
 
         data: JSON.stringify({plan_supl_id: item.id, quantity: item.quantity - 1}),
       })
-          .then(() => {
-            this.getMyList();
-            console.log("quantity수정완료 다시불러옴")
-          })
+        .then(() => {
+          this.getMyList();
+          console.log("quantity수정완료 다시불러옴")
+        })
     }
   }
 }

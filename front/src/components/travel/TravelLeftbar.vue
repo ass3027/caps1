@@ -5,13 +5,16 @@
         <div>날짜</div>
         <div>
           <div class="text-center">
-            <v-dialog v-model="IsDataForm" width="50%">
-              <template v-slot:activator="{ on, attrs }">
+            <v-dialog
+              v-model="IsDataForm"
+              width="50%"
+            >
+              <template #activator="{ on, attrs }">
                 <v-btn
-                    color="red lighten-2"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
+                  color="red lighten-2"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
                 >
                   {{ settingstart }} ~ {{ settingend }}
                 </v-btn>
@@ -23,25 +26,25 @@
                 <v-card-text>
                   <div class="modal-data">
                     <v-date-picker
-                        v-model="startDate"
-                        :min="disabletoday"
-                    ></v-date-picker>
+                      v-model="startDate"
+                      :min="disabletoday"
+                    />
                     ~
                     <v-date-picker
-                        v-model="endDate"
-                        :min="disabletoday"
-                    ></v-date-picker>
+                      v-model="endDate"
+                      :min="disabletoday"
+                    />
                   </div>
                 </v-card-text>
 
-                <v-divider></v-divider>
+                <v-divider />
 
                 <v-card-actions>
-                  <v-spacer></v-spacer>
+                  <v-spacer />
                   <v-btn
-                      color="primary"
-                      text
-                      @click="SetDataForm()"
+                    color="primary"
+                    text
+                    @click="SetDataForm()"
                   >
                     적용
                   </v-btn>
@@ -55,31 +58,41 @@
         <div>상세조건</div>
         <div>
           <v-btn>초기화</v-btn>
-          <v-btn @click="setting()">적용</v-btn>
+          <v-btn @click="setting()">
+            적용
+          </v-btn>
         </div>
       </div>
       <div>
-        {{ this.$store.state.asdf }}
+        {{ $store.state.asdf }}
         <div>호텔유형</div>
         <div>
           <v-checkbox
-              v-for="(ratingItem, aIdx) in rating"
-              :key="aIdx"
-              v-model="ratingItem.type"
-              hide-details
-              :label="`${ratingItem.name}`"
-              class="margin-0"
-          ></v-checkbox>
+            v-for="(ratingItem, aIdx) in rating"
+            :key="aIdx"
+            v-model="ratingItem.type"
+            hide-details
+            :label="`${ratingItem.name}`"
+            class="margin-0"
+          />
         </div>
       </div>
       <div>
         <div>인원</div>
         <div class="flex itemcenter">
-          <v-btn text icon @click="minusPeople()">
+          <v-btn
+            text
+            icon
+            @click="minusPeople()"
+          >
             <v-icon>mdi-minus</v-icon>
           </v-btn>
           <div>{{ peopleCount }}</div>
-          <v-btn text icon @click="plusPeople()">
+          <v-btn
+            text
+            icon
+            @click="plusPeople()"
+          >
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </div>
@@ -95,15 +108,15 @@ export default {
   data() {
     return {
       startDate: new Date(
-          Date.now() - new Date().getTimezoneOffset() * 60000
+        Date.now() - new Date().getTimezoneOffset() * 60000
       )
-          .toISOString()
-          .substr(0, 10),
+        .toISOString()
+        .substr(0, 10),
       endDate: new Date(
-          Date.now() - new Date().getTimezoneOffset() * 60000
+        Date.now() - new Date().getTimezoneOffset() * 60000
       )
-          .toISOString()
-          .substr(0, 10),
+        .toISOString()
+        .substr(0, 10),
       settingstart: '',
       settingend: '',
       IsDataForm: false,
@@ -116,14 +129,18 @@ export default {
       peopleCount: 1
     };
   },
-  mounted() {
-    console.log("hi")
-
-  },
   computed: {
     test() {
       return 'aa';
     }
+  },
+  mounted() {
+    console.log("hi")
+
+  },
+  created() {
+    this.settingstart = this.startDate;
+    this.settingend = this.endDate;
   },
   methods: {
     SetDataForm() {
@@ -156,24 +173,23 @@ export default {
       //     ratings: ratingList,
       //     people: this.peopleCount
       // };
+
       axios({
         method : 'get',
         url    : '/api/getHotel',
         headers: {
-          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/json'
         },
-        data   : '',
       })
-          .then((res) => {
-            console.log(res);
+        .then((res) => {
+          console.log(res);
 
-            console.log(res.data);
-            let a = {
-              hotelInfos:
-                res.data
-          }
-            this.$store.state.test=a;
-          })
+          console.log(res.data);
+
+          this.$store.commit('hotel/updateHotel', res.data)
+
+        })
+
       // let a = {
       //   hotelInfos: []
       // };
@@ -183,10 +199,6 @@ export default {
 
       // this.$store.state.test = a;
     }
-  },
-  created() {
-    this.settingstart = this.startDate;
-    this.settingend = this.endDate;
   }
 };
 </script>

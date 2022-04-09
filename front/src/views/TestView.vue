@@ -1,9 +1,11 @@
 <template>
   <div>
     <h2>게시판 리스트</h2>
-    <a href="javascript:;" @click="getList">GET 방식 데이터 접근</a>
-    <h2>{{accessStatus}}</h2>
-
+    <a
+      href="javascript:;"
+      @click="getList"
+    >GET 방식 데이터 접근</a>
+    <h2>{{ accessStatus }}</h2>
   </div>
 </template>
 
@@ -30,11 +32,11 @@ export default {
         },
         data   : '',
       })
-          .then((res) => {
-            res.data.forEach(function (i){
-              console.log(i.supl_id.supl_name)
-            })
+        .then((res) => {
+          res.data.forEach(function (i){
+            console.log(i.supl_id.supl_name)
           })
+        })
     }
   }
 }

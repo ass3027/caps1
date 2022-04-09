@@ -1,39 +1,68 @@
 <template>
   <div>
-    <input type="text" placeholder="사업자번호" v-model="store_id"/>
+    <HelloWorld />
+    <input
+      v-model="store_id"
+      type="text"
+      placeholder="사업자번호"
+    >
 
-    <input type="text" placeholder="회원아이디" v-model="user_id"/>
+    <input
+      v-model="user_id"
+      type="text"
+      placeholder="회원아이디"
+    >
 
-    <input type="text" placeholder="장소번호" v-model="pl_id"/>
+    <input
+      v-model="pl_id"
+      type="text"
+      placeholder="장소번호"
+    >
 
-    <input type="text" placeholder="전화번호" v-model="store_phone"/>
+    <input
+      v-model="store_phone"
+      type="text"
+      placeholder="전화번호"
+    >
 
-    <input @change="imageSet()" type="file" ref="refImage" placeholder="photo"/>
+    <input
+      ref="refImage"
+      type="file"
+      placeholder="photo"
+      @change="imageSet()"
+    >
 
-    <div id="pictures"></div>
+    <div id="pictures" />
 
-    <button @click='submit()'>submit</button>
+    <button @click="submit()">
+      submit
+    </button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import HelloWorld from "@/components/HelloWorld";
 
 export default {
-  name: "HotelAdd",
-  data(){
+  name      : "HotelAdd",
+  components: {
+    HelloWorld,
+  },
+
+  data() {
     return {
-      store_id:"",
-      user_id:"",
-      pl_id:"",
-      store_phone:"",
-      pic_name:""
+      store_id   : "",
+      user_id    : "1",
+      pl_id      : "",
+      store_phone: "",
+      pic_name   : ""
     }
   },
-  methods:{
-    imageSet: function(){
+  methods: {
+    imageSet: function () {
       var picture = document.getElementById("pictures")
-      while (picture.hasChildNodes()){
+      while (picture.hasChildNodes()) {
         picture.removeChild(picture.firstChild);
       }
 
@@ -48,29 +77,30 @@ export default {
         document.getElementById("pictures").appendChild(photoFrame);
       }
     },
-    submit : function () {
+    submit  : function () {
       var sendform = new FormData()
 
       sendform.append('store_id', this.store_id)
       sendform.append('user_id', this.user_id)
       sendform.append('pl_id', this.pl_id)
+      sendform.append('store_phone', this.store_phone)
       sendform.append('pic_name', this.pic_name)
 
       console.log(sendform.get('store_id'))
 
       axios({
         method : 'post',
-        url : 'api/hotelladd',
+        url    : 'api/hotelladd',
         headers: {
-          'Content-Type' : 'multipart/form-data',
+          'Content-Type': 'multipart/form-data',
         },
-        data : sendform,
+        data   : sendform,
       })
-      .then((res) => {
-        if(res.data == 'ok'){
-          alert("ok");
-        }
-      })
+        .then((res) => {
+          if (res.data == 'ok') {
+            alert("ok");
+          }
+        })
     }
   }
 }

@@ -1,181 +1,73 @@
 <template>
   <v-app class="header-layout">
-    <div class="login-box">
-      <v-btn text> login</v-btn>
-      <v-btn text> join</v-btn>
+    <div
+      v-if="$store.state.user.userId===''"
+      class="login-box"
+    >
+      <v-btn
+        text
+        router
+        to="/login"
+      >
+        login
+      </v-btn>
+      <v-btn
+        text
+        router
+        to="/join"
+      >
+        join
+      </v-btn>
+    </div>
+    <div
+      v-else
+      class="login-box"
+    >
+      <v-btn text>
+        {{ $store.state.user.userId }}
+      </v-btn>
+
+      <v-btn
+        text
+        @click="logOut"
+      >
+        logout
+      </v-btn>
     </div>
     <div>
       <div class="menu-Bar">
         <div class="text-center">
-          <!--여행지-->
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
+          <v-menu offset-y v-for="(menu,index) in menuList" :key="index">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
                 v-bind="attrs"
                 v-on="on"
               >
-                여행지
+                {{ menu }}
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                v-for="(travel, index) in travel"
-                router :to="travel.route"
-                :key="index"
+                v-for="(content, index2) in contents[index]"
+                :key="index2"
+                router
+                :to="content.route"
               >
-                <v-list-item-title>{{ travel.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <!--여행계획-->
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                여행계획
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(plan, index) in plan"
-                router :to="plan.route"
-                :key="index"
-              >
-                <v-list-item-title>{{ plan.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <!--시설-->
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                시설
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(facility, index) in facility"
-                router :to="facility.route"
-                :key="index"
-              >
-                <v-list-item-title>{{ facility.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <!--가방관리-->
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                가방관리
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-item
-                v-for="(BagControl, index) in BagControl"
-                router :to="BagControl.route"
-                :key="index"
-              >
-                <v-list-item-title>{{ BagControl.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <!--현지인 가이드-->
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                현지인 가이드
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-item
-                v-for="(Guide, index) in Guide"
-                router :to="Guide.route"
-                :key="index"
-              >
-                <v-list-item-title>{{ Guide.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <!--커뮤니티-->
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                커뮤니티
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-item
-                v-for="(Community, index) in Community"
-                router :to="Community.route"
-                :key="index"
-
-              >
-                <v-list-item-title>{{ Community.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <!--고객센터-->
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                고객센터
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-item
-                v-for="(Customer, index) in Customer"
-                router :to="Customer.route"
-                :key="index"
-              >
-                <v-list-item-title>{{ Customer.title }}</v-list-item-title>
+                <v-list-item-title>{{ content.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
         </div>
       </div>
-      <v-divider class="divider-padding"></v-divider>
+      <v-divider class="divider-padding" />
     </div>
+    <img
+      :src="dd"
+      alt="실허어엄"
+      style="width:100px;height:100px"
+    >
   </v-app>
 </template>
 
@@ -185,57 +77,84 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
-    travel: [
-      {title: 'travel1', route: '/travel'},
-      {title: 'travel2', route: '/travel'},
-      {title: 'travel3', route: '/travel'},
-      {title: 'travel4', route: '/travel'},
-      {title: 'travel5', route: '/travel'}
+    dd: `/api/photo/`+"userImage/1648463078479i14085986122.jpg",
+    menuList:[
+      "여행지",
+      "여행계획",
+      "시설",
+      "가방관리",
+      "현지인 가이드",
+      "커뮤니티",
+      "고객센터"
     ],
-    plan: [
-      {title: '일정', route: '/calender'},
-      {title: '준비물', route: '/supplies'},
-      {title: 'plan3', route: '/plan'},
-      {title: 'plan4', route: '/plan'},
-      {title: 'plan5', route: '/plan'}
+    contents: [
+      [
+        {title: 'travel1', route: '/travel'},
+        {title: 'travel2', route: '/travel'},
+        {title: 'travel3', route: '/travel'},
+        {title: 'travel4', route: '/travel'},
+        {title: 'travel5', route: '/travel'}
+      ],
+      [
+        {title: '일정', route: '/calender'},
+        {title: '준비물', route: '/supplies'},
+        {title: 'plan3', route: '/plan'},
+        {title: 'plan4', route: '/plan'},
+        {title: 'plan5', route: '/plan'}
+      ],
+      [
+        {title: '호텔', route: '/hotel'},
+        {title: '펜션', route: '/facility'},
+        {title: '글램핑', route: '/facility'},
+        {title: '리조트', route: 'facility'},
+        {title: '게스트하우스', route: 'facility'}
+      ],
+      [
+        {title: '가방예약', route: '/OrderView'},
+        {title: '이용안내', route: '/UsageGuideView'},
+        {title: '요금', route: '/FareView'},
+        {title: '후기', route: '/ReviewView'},
+        {title: '배송조회', route: '/bag'}
+      ],
+      [
+        {title: 'GuideView', route: '/guideview'},
+        {title: 'GuideRegister', route: '/GuideRegister'},
+        {title: 'GuideProductReg', route: '/GuideProductReg'},
+        {title: 'GuideReserve', route: '/GuideReserve'},
+        {title: 'Guide5', route: '/Guide'}
+      ],
+      [
+        {title: 'Community1', route: '/Community'},
+        {title: 'Community2', route: '/Community'},
+        {title: '공유', route: '/share'},
+        {title: 'Community4', route: '/Community'},
+        {title: 'Community5', route: '/Community'}
+      ],
+      [
+        {title: 'Customer1 ', route: '/Customer'},
+        {title: 'Customer2', route: '/Customer'},
+        {title: 'Customer3', route: '/Customer'},
+        {title: 'Customer4', route: '/Customer'},
+        {title: 'Customer5', route: '/Customer'}
+      ]
     ],
-    facility: [
-      {title: '호텔', route: '/facility'},
-      {title: '펜션', route: '/facility'},
-      {title: '글램핑', route: '/facility'},
-      {title: '리조트', route: 'facility'},
-      {title: '게스트하우스', route: 'facility'}
-    ],
-    BagControl: [
-      {title: '가방예약', route: '/BagReserveView'},
-      {title: '이용안내', route: '/UsageGuideView'},
-      {title: '요금', route: '/FareView'},
-      {title: '후기', route: '/ReviewView'},
-      {title: '배송조회', route: '/TrackingView'}
-    ],
-    Guide: [
-      {title: 'Guide1', route: '/guide'},
-      {title: 'Guide2', route: '/Guide'},
-      {title: 'Guide3', route: '/Guide'},
-      {title: 'Guide4', route: '/Guide'},
-      {title: 'Guide5', route: '/Guide'}
-    ],
-    Community: [
-      {title: 'Community1', route: '/Community'},
-      {title: 'Community2', route: '/Community'},
-      {title: 'Community3', route: '/Community'},
-      {title: 'Community4', route: '/Community'},
-      {title: 'Community5', route: '/Community'}
-    ],
-    Customer: [
-      {title: 'Customer1 ', route: '/Customer'},
-      {title: 'Customer2', route: '/Customer'},
-      {title: 'Customer3', route: '/Customer'},
-      {title: 'Customer4', route: '/Customer'},
-      {title: 'Customer5', route: '/Customer'}
-    ]
   }),
-  methods: {}
+  methods: {
+    logOut(){
+      axios({
+        url:'/api/logout',
+        method:'post'
+      })
+      .then((res)=>{
+        console.log(res)
+        this.$store.commit('user/updateUserId','')
+        this.$router.push("/")
+      })
+      .catch((err)=>{
+        console.error(err)
+      })
+    }
+  }
 };
 </script>
 
@@ -263,18 +182,18 @@ export default {
   justify-content: center;
 }
 
-.hotel-list-form {
-  display: flex;
-  align-items: center;
-}
+/*.hotel-list-form {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*}*/
 
-.select-box {
-  padding: 0 2%;
-}
+/*.select-box {*/
+/*  padding: 0 2%;*/
+/*}*/
 
-.select-size {
-  width: 50%;
-}
+/*.select-size {*/
+/*  width: 50%;*/
+/*}*/
 
 .divider-padding {
   margin-top: 10px;

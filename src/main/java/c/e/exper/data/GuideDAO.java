@@ -5,15 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Place {
+public class GuideDAO {
 
-    String pl_id;
-    String pl_name;
-    String pl_location;
-    String pl_info;
+    String user_id;
+    String guide_license;
+    String guide_intro;
+
 
 }
