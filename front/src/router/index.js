@@ -15,7 +15,6 @@ import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
 
 import OrderView from "../views/bag/order/OrderView.vue";
 import FareView from "../views/bag/FareView";
-import ReviewView from "../views/bag/ReviewView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportView from "../views/bag/order/TransportView";
 
@@ -35,7 +34,6 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
-import ReviewTestView from "@/views/ReviewTestView";
 import Hoteltest from "@/views/travel/HotelTest";
 import ReviewView from "@/views/ReviewView";
 
