@@ -60,7 +60,9 @@ export default {
 	font-weight: normal;
 	font-style: normal;
 }
-
+.v-application--wrap {
+  min-height: unset;
+}
 
 nav {
 	padding: 30px;
