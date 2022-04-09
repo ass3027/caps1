@@ -1,6 +1,6 @@
 <template>
   <v-app>
-<!--    <HelloWorld />-->
+    <HelloWorld />
 
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
@@ -35,9 +35,11 @@
 </template>
 <script>
 import router from './router/index';
+import HelloWorld from "@/components/HelloWorld";
 
 export default {
   components:{
+    HelloWorld
   },
   router,
   data() {

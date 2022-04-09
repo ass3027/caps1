@@ -2,34 +2,42 @@
   <v-container>
     <h2>내준비물</h2>
 
-    <v-autocomplete
-      v-model="values"
-      :items="items"
-      outlined
-      dense
-      chips
-      small-chips
-      label="준비물을 입력해보세요"
-      multiple
-    />
-    <!--    <v-btn @click="new"></v-btn>-->
+    <div>
+      <v-autocomplete
+        v-model="values"
+        :items="items"
+        outlined
+        dense
+        chips
+        small-chips
+        label="준비물을 입력해보세요"
+        multiple
+      />
+      <v-btn @click="inputAll">선택한 준비물들 한꺼번에 넣기</v-btn>
+    </div>
 
-    <form @submit.prevent="inputList">
-      <input
-        v-model="inputItem"
-        type="text"
-        name="city"
-        list="suplName"
-      >
-      <datalist id="suplName">
-        <option
-          v-for="item in supplies"
-          :key="item"
-          :value="item"
-        />
-      </datalist>
-      <button>입력</button>
-    </form>
+
+    <p><br><br></p>
+    <h3>직접입력하기</h3>
+    <div>
+      <form @submit.prevent="inputList">
+        <input
+          v-model="inputItem"
+          type="text"
+          name="city"
+          list="suplName"
+        >
+        <datalist id="suplName">
+          <option
+            v-for="item in supplies"
+            :key="item"
+            :value="item"
+          />
+        </datalist>
+        <button>입력</button>
+      </form>
+
+    </div>
 
     <hr>
 
@@ -181,6 +189,36 @@ export default {
           this.inputItem = ''
         })
     },
+    inputAll() {
+      if (this.values == "") {
+        alert("준비물을 입력해주세요");
+        return;
+      }
+      this.values.forEach((i)=>{
+        var data2 = {
+          plan_id: "1", supl_id: {
+            supl_id: "3"
+            , supl_name: i
+          }
+        }
+        console.log("넣을데이터")
+        console.log(data2)
+        axios({
+          method: 'post',
+          url: '/api/inputSupl',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          data: JSON.stringify(data2),
+        })
+          .then(() => {
+            this.getMyList();
+            console.log("삽입완료 다시불러옴")
+            this.values = ''
+          })
+      })
+
+    },
     makeDone(id, done) {
 
       axios({
@@ -270,3 +308,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+v-layout{
+  border:1px solid;
+}
+del{
+  text-decoration:line-through;
+}
+</style>

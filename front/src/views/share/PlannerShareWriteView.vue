@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>플래너 공유 작성 게시판</h2>
+    <h2>플래너 공유 작성하기</h2>
     <v-text-field
       v-model="title"
       placeholder="제목"
@@ -13,6 +13,7 @@
     />
     <v-textarea
       v-model="contents"
+      placeholder="내용 입력"
       maxlength="250"
     />
 
@@ -28,9 +29,10 @@
           :key="planner.plan_id"
           :value="planner.plan_id"
         >
-          {{ planner.plan_name }}여행
+          {{ planner.plan_name }}
         </option>
       </select>
+      <hr>
       <v-btn @click="loadPictures">
         사진 가져오기
       </v-btn>
@@ -44,6 +46,9 @@
             :label="picture.pic_name"
             :value="picture.pic_name"
           />
+          <div>
+            <img :src="'/api/photo/'+picture.pic_name">
+          </div>
         </li>
       </ul>
       {{ selectedPic }}
@@ -79,7 +84,7 @@ export default {
     loadPlanner() {
       axios.get('/api/loadPlanner', {
         params: {
-          id: '127'
+          id: this.$store.state.user.userId
         }
       })
           .then(res => {
@@ -100,9 +105,14 @@ export default {
           })
     },
     addPost() {
+      console.log(this.selectedPlan)
+      if(!this.selectedPlan){
+        alert("플래너를 선택해주세요")
+        return
+      }
       var Share = {
         share_id: '',
-        user_id: '127',
+        user_id: this.$store.state.user.userId,
         share_place: this.place,
         share_title: this.title,
         share_contents: this.contents,
@@ -137,5 +147,10 @@ export default {
 </script>
 
 <style scoped>
+img{
+  border: 1px solid;
+  width: 200px;
+  height: 200px;
+}
 
 </style>
