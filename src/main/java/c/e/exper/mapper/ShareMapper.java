@@ -19,7 +19,7 @@ public interface ShareMapper {
 
     public long insertTest(String param1, String param2);
 
-    @Select("select * from shares order by TO_NUMBER(SHARE_ID)")
+    @Select("select * from shares order by TO_NUMBER(SHARE_ID)desc")
     public List<Share> findAllShares();
 
     @Select("select * from shares where SHARE_ID=#{share_id}")

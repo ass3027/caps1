@@ -1,13 +1,12 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.*;
-import c.e.exper.mapper.AffiliatedMapper;
-import c.e.exper.mapper.InviteMapper;
-import c.e.exper.mapper.PlannerMapper;
-import c.e.exper.mapper.UserMapper;
+import c.e.exper.mapper.*;
+import c.e.exper.service.FileService;
 import c.e.exper.service.InviteAffiliateService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +30,18 @@ public class ApiPlanner {
     final
     InviteAffiliateService inviteAffiliateService;
 
-    public ApiPlanner(UserMapper userMapper, InviteMapper inviteMapper, PlannerMapper plannerMapper, AffiliatedMapper affiliatedMapper, InviteAffiliateService inviteAffiliateService) {
+    final FileService fileService;
+
+    final PictureMapper pictureMapper;
+
+    public ApiPlanner(UserMapper userMapper, InviteMapper inviteMapper, PlannerMapper plannerMapper, AffiliatedMapper affiliatedMapper, InviteAffiliateService inviteAffiliateService, FileService fileService, PictureMapper pictureMapper) {
         this.userMapper = userMapper;
         this.inviteMapper = inviteMapper;
         this.plannerMapper = plannerMapper;
         this.affiliatedMapper = affiliatedMapper;
         this.inviteAffiliateService = inviteAffiliateService;
+        this.fileService = fileService;
+        this.pictureMapper = pictureMapper;
     }
 
 
@@ -118,5 +123,29 @@ public class ApiPlanner {
     public void plannerDelete(@RequestBody String plan_id){
         System.out.println(plan_id);
         plannerMapper.delete(plan_id);
+    }
+
+    @GetMapping("/getPlanPic")
+    public List<PictureDAO> getPlanPic(@RequestParam("plan_id") String plan_id){
+        return pictureMapper.selectAllbyPlanId(plan_id);
+    }
+
+    @PostMapping("/addPlanPic")
+    public boolean addPlanPic(PictureDTO pictureDTO, HttpServletRequest req) {
+
+
+        System.out.println("1");
+        //파일 이름 저장 밑 파일 실제 저장
+        String filePath = fileService.photoSave(pictureDTO.getPic_name(),req,"planImage");
+        System.out.println("2");
+
+        PictureDAO pictureDAO = new PictureDAO();
+        pictureDAO.setPic_name(filePath);
+        pictureDAO.setUser_id(pictureDTO.getUser_id());
+        pictureDAO.setPlan_id(pictureDTO.getPlan_id());
+
+        pictureMapper.InsertPlan(pictureDAO);
+
+        return true;
     }
 }

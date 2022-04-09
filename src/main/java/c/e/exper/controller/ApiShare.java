@@ -8,7 +8,11 @@ import c.e.exper.mapper.ShareMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -39,6 +43,15 @@ public class ApiShare {
     @GetMapping("/getSharePosts")
     public List<Share> getSharePosts() {
         List<Share> s = shareMapper.findAllShares();
+//        for(int i =0;i<s.size();i++){
+//            Date d = s.get(i).getShare_created();
+//            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+//            String f = format.format(d);
+//
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-mm-dd");
+//            LocalDateTime date = LocalDateTime.parse(f, formatter);
+//            s.get(i).setShare_created(java.sql.Timestamp.valueOf(date));
+//        }
         System.out.println(s);
 
 

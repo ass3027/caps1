@@ -1,8 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import HomeView from "../views/HomeView.vue";
 import JoinView from "../views/auth/JoinView.vue";
 import LoginView from "@/views/auth/LoginView";
+
 import IndexView from "../views/bag/IndexView";
 import ImportSuppliesView from "@/views/ImportSuppliesView";
 import SuppliesVue from '../views/SuppliesView';
@@ -18,6 +20,7 @@ import UsageGuideView from '../views/bag/UsageGuideView'
 import TransportView from '../views/bag/order/TransportView'
 import TrackingView from "@/views/bag/TrackingView";
 import StorageView from "@/views/bag/order/StorageView";
+import PlannerPicView from "@/views/share/PlannerPicView";
 
 
 import PlInviteView from "@/views/planner/PlInviteView";
@@ -34,10 +37,10 @@ import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
-import SignView from "@/views/auth/Sign";
+
 
 import Hoteltest from "@/views/travel/HotelTest";
-
+import ReviewView from "@/views/ReviewView";
 
 Vue.use(VueRouter);
 
@@ -67,7 +70,6 @@ const routes = [
   {path: '/invite', name: 'invite', component: PlInviteView},
   {path: '/plan', name: 'plan', component: PlanView},
   {path: '/sign', name: 'sign', component: SignView},
-
   {path: "/GuideView", name: "GuideView", component: GuideView},
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
