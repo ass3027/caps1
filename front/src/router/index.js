@@ -15,7 +15,6 @@ import PlannerPicView from "@/views/share/PlannerPicView";
 
 import OrderView from "../views/bag/order/OrderView.vue";
 import FareView from "../views/bag/FareView";
-import ReviewView from "../views/bag/ReviewView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportView from "../views/bag/order/TransportView";
 
@@ -27,6 +26,7 @@ import AboutView from "../views/AboutView";
 import HotelView from "@/views/travel/HotelView";
 import HotelAdd from "@/views/travel/HotelAdd";
 
+
 import GuideView from "@/views/guide/GuideView";
 import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
@@ -34,7 +34,8 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
-import ReviewTestView from "@/views/ReviewTestView";
+import Hoteltest from "@/views/travel/HotelTest";
+import ReviewView from "@/views/ReviewView";
 
 Vue.use(VueRouter);
 
@@ -52,32 +53,25 @@ const routes = [
 	{ path: '/plan/:id/pic', name: 'planPic', component: PlannerPicView ,props:true},
   { path: "/hotel", name: "hotel", component: HotelView },
   { path: "/hoteladd", name: "hoteladd", component: HotelAdd },
+  { path: "/hoteltest", name: "hoteltest", component: Hoteltest },
   { path: "/calender", name: "calender", component: CalenderView },
   { path: "/OrderView", name: "OrderView", component: OrderView },
   { path: "/FareView", name: "FareView", component: FareView },
   { path: "/ReviewView", name: "ReviewView", component: ReviewView },
   {
-    path: "/UsageGuideView",
-    name: "UsageGuideView",
+    path     : "/UsageGuideView",
+    name     : "UsageGuideView",
     component: UsageGuideView,
   },
-  { path: "/TransportView", name: "TransportView", component: TransportView },
-  { path: "/invite", name: "invite", component: PlInviteView },
-  { path: "/plan", name: "plan", component: PlanView },
-  { path: "/GuideView", name: "GuideView", component: GuideView },
-  { path: "/GuideRegister", name: "GuideRegister", component: GuideRegister },
-  {
-    path: "/GuideProductReg",
-    name: "GuideProductReg",
-    component: GuideProductReg,
-  },
-  { path: "/GuideReserve", name: "GuideReserve", component: GuideReserve },
-  { path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView },
-  {
-    path: "/UsageGuideView",
-    name: "UsageGuideView",
-    component: UsageGuideView,
-  },
+  {path: "/TransportView", name: "TransportView", component: TransportView},
+  {path: "/invite", name: "invite", component: PlInviteView},
+  {path: "/plan", name: "plan", component: PlanView},
+  {path: "/GuideView", name: "GuideView", component: GuideView},
+  {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
+  {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
+  {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
+  {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView},
+  {path:"/GuideViewUser",name:"GuideViewUser",component: GuideViewUser}
 ];
 
 const router = new VueRouter({

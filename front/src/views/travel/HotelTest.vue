@@ -1,11 +1,12 @@
 <template>
-  <div>Travel Test...</div>
+  <div></div>
 </template>
 
 <script>
+
+
 export default {
-  name: "TravelTest",
-  components: {}
+  name: "HotelTest",
 }
 </script>
 

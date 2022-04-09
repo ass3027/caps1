@@ -27,11 +27,12 @@
         <li
           v-for="(place,index) in places"
           :key="index"
+          class="item"
           @mouseover="displayInfowindow(marker[index],place.place_name)"
           @mouseout="infowindow.close()"
         >
-          <span class="`markerbg marker_${index+1}`" />
-          <div class="info">
+          <span :class="[`markerbg marker_${index+1}`]" />
+          <div class="info1">
             <h5>{{ place.place_name }}</h5>
             <template v-if="place.road_address_name">
               <span>{{ place.road_address_name }}</span>
@@ -44,6 +45,10 @@
       </ul>
       <div id="pagination" />
     </div>
+    <ul v-for="(data,index) in [0,1,2,3,4,5]" :key="index">
+      <button @click="removeMarker2(index)">{{data}}ss</button>
+      <button @click="dd(index)">{{data}}bvbv</button>
+    </ul>
   </div>
 </template>
 
@@ -78,6 +83,9 @@ export default {
     }
   },
   methods: {
+    dd(index){
+      this.markers[index].setMap(this.map)
+    },
     initMap() {
       const container = document.getElementById("map");
 
@@ -233,30 +241,10 @@ export default {
       this.map.setBounds(bounds);
     },
 
-    // getListItem(index,places) {
-    //
-    //   var el = document.createElement('li'),
-    //       itemStr = `<span class="markerbg marker_${index+1}"></span>
-    //                 <div class="info">
-    //                     <h5>${places.place_name}</h5>`;
-    //
-    //   if(places.road_address_name) {
-    //     itemStr += `<span>${places.road_address_name}</span>
-    //                    <span class="jibun gray">${places.address_name}</span>`;
-    //   }else {
-    //     itemStr += `<span>${places.address_name}</span>`;
-    //   }
-    //    itemStr += `<span class="tel">${places.phone}</span> </div>`
-    //
-    //   el.innerHTML = itemStr;
-    //   el.className = 'item'
-    //
-    //   return el
-    // },
 
     addMarker(position, idx, title) {
       var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
-          imageSize = new kakao.maps.Size(36.37),
+          imageSize = new kakao.maps.Size(36,37),
           imgOptions = {
             spriteSize  : new kakao.maps.Size(36, 691),
             spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10),
@@ -269,6 +257,7 @@ export default {
           });
       title + 1//????에러피하기
       marker.setMap(this.map); // 지도 위에 마커를 표출합니다
+      marker.setDraggable(true);
       this.markers.push(marker);  // 배열에 생성된 마커를 추가합니다
 
       return marker;
@@ -278,6 +267,10 @@ export default {
         this.markers[i].setMap(null);
       }
       this.markers = [];
+    },
+    removeMarker2(index){
+      console.log(this.markers)
+      this.markers[index].setMap(null);
     },
     displayPagination(pagination) {
       var paginationEl = document.getElementById('pagination'),
@@ -413,20 +406,20 @@ export default {
   white-space: nowrap;
 }
 
-#placesList .item .info {
+#placesList .item .info1 {
   padding: 10px 0 10px 55px;
 }
 
-#placesList .info .gray {
+#placesList .info1 .gray {
   color: #8a8a8a;
 }
 
-#placesList .info .jibun {
+#placesList .info1 .jibun {
   padding-left: 26px;
   background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;
 }
 
-#placesList .info .tel {
+#placesList .info1 .tel {
   color: #009900;
 }
 
