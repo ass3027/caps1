@@ -1,12 +1,12 @@
 <template>
   <v-app>
-<!--    <HelloWorld />-->
+    <HelloWorld />
 
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
     <v-navigation-drawer
         v-model="drawer"
-        absolute
+        app
         temporary
     >
       <v-list
@@ -34,18 +34,19 @@
   </v-app>
 </template>
 <script>
-import router from './router/index';
+import HelloWorld from "@/components/HelloWorld";
 
 export default {
   components:{
+    HelloWorld
   },
-  router,
+
   data() {
     return {
       drawer: false,
       items: [
-          {title: 'ReviewTest', icon:'mdi-vue-dashboard', to:'/ReviewTest'},
-          {title: 'plan', icon:'mdi-vue-dashboard', to:'/plan'}
+          {title: 'Review', icon:'mdi-vue-dashboard', to:'/ReviewView'},
+          {title: 'Plan', icon:'mdi-vue-dashboard', to:'/plan'}
       ]
     }
   }

@@ -33,7 +33,10 @@ import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideReserve from "@/views/guide/GuideReserve";
 
 
+
 import ReviewTestView from "@/views/ReviewTestView";
+import Hoteltest from "@/views/travel/HotelTest";
+import ReviewView from "@/views/ReviewView";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 Vue.use(VueRouter);
@@ -52,6 +55,7 @@ const routes = [
 	{ path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView },
   { path: "/hotel", name: "hotel", component: HotelView },
   { path: "/hoteladd", name: "hoteladd", component: HotelAdd },
+  { path: "/hoteltest", name: "hoteltest", component: Hoteltest },
   { path: "/calender", name: "calender", component: CalenderView },
   { path: "/OrderView", name: "OrderView", component: OrderView },
   { path: "/FareView", name: "FareView", component: FareView },
@@ -70,6 +74,21 @@ const routes = [
   { path: "/GuideReserve", name: "GuideReserve", component: GuideReserve },
   { path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView },
   { path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
+  {
+    path     : "/UsageGuideView",
+    name     : "UsageGuideView",
+    component: UsageGuideView,
+  },
+  {path: "/TransportView", name: "TransportView", component: TransportView},
+  {path: "/invite", name: "invite", component: PlInviteView},
+  {path: "/plan", name: "plan", component: PlanView},
+  {path: "/GuideView", name: "GuideView", component: GuideView},
+  {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
+  {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
+  {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
+  {path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView},
+  {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView},
+
 ];
 
 const router = new VueRouter({
