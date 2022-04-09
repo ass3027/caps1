@@ -2,49 +2,55 @@
   <div>
     <h2>플래너 공유 게시판</h2>
     <template>
-      <v-simple-table dark dense
+      <v-simple-table
+        dark
+        dense
       >
         <thead>
-        <tr>
-          <th class="text-center">
-            share_id
-          </th>
-          <th class="text-center">
-            title
-          </th>
-          <th class="text-center">
-            place
-          </th>
-          <th class="text-center">
-            share_created
-          </th>
-        </tr>
+          <tr>
+            <th class="text-center">
+              share_id
+            </th>
+            <th class="text-center">
+              title
+            </th>
+            <th class="text-center">
+              place
+            </th>
+            <th class="text-center">
+              share_created
+            </th>
+          </tr>
         </thead>
         <tbody>
-        <tr
+          <tr
             v-for="(item,index) in tableSets"
             :key="index"
             class="text-center"
-        >
-          <td>
-            <router-link :to="{name:'shareDetails', params:{id:item.share_id}}">
-              {{ item.share_id }}
-            </router-link>
-          </td>
-          <td>
-            {{item.share_title}}
-          </td>
-          <td>
-            {{item.share_place}}
-          </td>
+          >
+            <td>
+              <router-link :to="{name:'shareDetails', params:{id:item.share_id}}">
+                {{ item.share_id }}
+              </router-link>
+            </td>
+            <td>
+              {{ item.share_title }}
+            </td>
+            <td>
+              {{ item.share_place }}
+            </td>
 
-          <td>{{ item.share_created }}</td>
-        </tr>
+            <td>{{ item.share_created }}</td>
+          </tr>
         </tbody>
       </v-simple-table>
     </template>
-    <router-link :to="{name:'shareWrite'}">go to write</router-link>
-    <v-btn @click="testButton">테스트버튼</v-btn>
+    <router-link :to="{name:'shareWrite'}">
+      go to write
+    </router-link>
+    <v-btn @click="testButton">
+      테스트버튼
+    </v-btn>
   </div>
 </template>
 

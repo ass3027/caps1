@@ -1,6 +1,6 @@
 <template>
   <div>
-  <HelloWorld/>
+    <HelloWorld />
     <input
       v-model="store_id"
       type="text"
@@ -45,24 +45,24 @@ import axios from "axios";
 import HelloWorld from "@/components/HelloWorld";
 
 export default {
-  name: "HotelAdd",
+  name      : "HotelAdd",
   components: {
     HelloWorld,
   },
 
-  data(){
+  data() {
     return {
-      store_id:"",
-      user_id:"1",
-      pl_id:"",
-      store_phone:"",
-      pic_name:""
+      store_id   : "",
+      user_id    : "1",
+      pl_id      : "",
+      store_phone: "",
+      pic_name   : ""
     }
   },
-  methods:{
-    imageSet: function(){
+  methods: {
+    imageSet: function () {
       var picture = document.getElementById("pictures")
-      while (picture.hasChildNodes()){
+      while (picture.hasChildNodes()) {
         picture.removeChild(picture.firstChild);
       }
 
@@ -77,7 +77,7 @@ export default {
         document.getElementById("pictures").appendChild(photoFrame);
       }
     },
-    submit : function () {
+    submit  : function () {
       var sendform = new FormData()
 
       sendform.append('store_id', this.store_id)
@@ -90,14 +90,14 @@ export default {
 
       axios({
         method : 'post',
-        url : 'api/hotelladd',
+        url    : 'api/hotelladd',
         headers: {
-          'Content-Type' : 'multipart/form-data',
+          'Content-Type': 'multipart/form-data',
         },
-        data : sendform,
+        data   : sendform,
       })
         .then((res) => {
-          if(res.data == 'ok'){
+          if (res.data == 'ok') {
             alert("ok");
           }
         })

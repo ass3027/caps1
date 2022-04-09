@@ -11,40 +11,44 @@
           dense
           half-increments
           size="30"
-        ></v-rating>
+        />
       </v-card-actions>
 
       <v-row class="mx-auto">
         <v-col cols="9">
-          <v-textarea placeholder="리뷰는 최대 1,000자까지 등록 가능합니다.">
-
-          </v-textarea>
+          <v-textarea placeholder="리뷰는 최대 1,000자까지 등록 가능합니다." />
         </v-col>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-col>
           <v-img
             v-if="alt_img_url = ''"
             src="@/image/logo.png"
             contain
-            @click.prevent="imgClick"
             max-height="150px"
             max-width="150px"
-          ></v-img>
+            @click.prevent="imgClick"
+          />
           <v-img
             v-else
             src="@/image/logo.png"
             contain
-            @click.prevent="imgClick"
             max-height="150px"
             max-width="150px"
-          ></v-img>
+            @click.prevent="imgClick"
+          />
         </v-col>
       </v-row>
 
-      <v-card-actions >
-        <v-spacer></v-spacer>
-        <input id="image-input" type="file" @change="imageSet($event)">
-        <v-btn width="150px">리뷰 등록</v-btn>
+      <v-card-actions>
+        <v-spacer />
+        <input
+          id="image-input"
+          type="file"
+          @change="imageSet($event)"
+        >
+        <v-btn width="150px">
+          리뷰 등록
+        </v-btn>
       </v-card-actions>
 
 
@@ -54,21 +58,20 @@
 
 
 
-<!--        <input-->
-<!--          type="file"-->
-<!--          accept="image/*"-->
-<!--          @change="imageSet"-->
-<!--        >-->
+      <!--        <input-->
+      <!--          type="file"-->
+      <!--          accept="image/*"-->
+      <!--          @change="imageSet"-->
+      <!--        >-->
 
 
-        <!--    이미지출력 테스트-->
-<!--        <div-->
-<!--          v-if="url_string"-->
-<!--          class="upload-image"-->
-<!--          :style="`background-image:url(${url_string});`"-->
-<!--        />-->
+      <!--    이미지출력 테스트-->
+      <!--        <div-->
+      <!--          v-if="url_string"-->
+      <!--          class="upload-image"-->
+      <!--          :style="`background-image:url(${url_string});`"-->
+      <!--        />-->
     </v-card>
-
   </v-container>
 </template>
 

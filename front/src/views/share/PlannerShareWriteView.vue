@@ -1,32 +1,57 @@
 <template>
   <div>
     <h2>플래너 공유 작성 게시판</h2>
-    <v-text-field v-model="title" placeholder="제목" maxlength="50"></v-text-field>
-    <v-text-field v-model="place" placeholder="여행지" maxlength="15"></v-text-field>
-    <v-textarea v-model="contents" maxlength="250"></v-textarea>
+    <v-text-field
+      v-model="title"
+      placeholder="제목"
+      maxlength="50"
+    />
+    <v-text-field
+      v-model="place"
+      placeholder="여행지"
+      maxlength="15"
+    />
+    <v-textarea
+      v-model="contents"
+      maxlength="250"
+    />
 
-    <v-btn @click="loadPlanner">플래너 가져오기</v-btn>
+    <v-btn @click="loadPlanner">
+      플래너 가져오기
+    </v-btn>
 
     <div v-if="toggle">
       <select v-model="selectedPlan">
         <option>선택해주세요</option>
-        <option :value="planner.plan_id" v-for="planner in planners" :key="planner.plan_id">{{ planner.plan_name }}여행
+        <option
+          v-for="planner in planners"
+          :key="planner.plan_id"
+          :value="planner.plan_id"
+        >
+          {{ planner.plan_name }}여행
         </option>
       </select>
-      <v-btn @click="loadPictures">사진 가져오기</v-btn>
+      <v-btn @click="loadPictures">
+        사진 가져오기
+      </v-btn>
       <ul>
-        <li v-for="picture in pictures" :key="picture.pic_name">
+        <li
+          v-for="picture in pictures"
+          :key="picture.pic_name"
+        >
           <v-checkbox
-              v-model="selectedPic"
-              :label="picture.pic_name"
-              :value="picture.pic_name"
-          ></v-checkbox>
+            v-model="selectedPic"
+            :label="picture.pic_name"
+            :value="picture.pic_name"
+          />
         </li>
       </ul>
       {{ selectedPic }}
     </div>
     <!--    <div><img src=></div>-->
-    <v-btn @click="addPost">작성완료</v-btn>
+    <v-btn @click="addPost">
+      작성완료
+    </v-btn>
   </div>
 </template>
 

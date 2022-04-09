@@ -3,16 +3,16 @@
     <h2>내준비물</h2>
 
     <v-autocomplete
-        v-model="values"
-        :items="items"
-        outlined
-        dense
-        chips
-        small-chips
-        label="준비물을 입력해보세요"
-        multiple
-    ></v-autocomplete>
-<!--    <v-btn @click="new"></v-btn>-->
+      v-model="values"
+      :items="items"
+      outlined
+      dense
+      chips
+      small-chips
+      label="준비물을 입력해보세요"
+      multiple
+    />
+    <!--    <v-btn @click="new"></v-btn>-->
 
     <form @submit.prevent="inputList">
       <input

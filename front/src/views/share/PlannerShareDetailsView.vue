@@ -1,36 +1,44 @@
 <template>
   <div>
-    <h2>공유 플래너 상세보기({{$route.params.id}})</h2>
+    <h2>공유 플래너 상세보기({{ $route.params.id }})</h2>
 
     <p>
-      id:{{share.share_id}}
+      id:{{ share.share_id }}
     </p>
     <p>
-      장소:{{share.share_place}}
+      장소:{{ share.share_place }}
     </p>
     <p>
-      제목:{{share.share_title}}
+      제목:{{ share.share_title }}
     </p>
     <p>
-      내용:{{share.share_contents}}
+      내용:{{ share.share_contents }}
     </p>
 
     <h3>-----------</h3>
     <h3>일정 or 지도 컴포넌트</h3>
     <ul>
-      <li v-for="schedule in schedules" :key="schedule.sch_number">
-        {{schedule}}
+      <li
+        v-for="schedule in schedules"
+        :key="schedule.sch_number"
+      >
+        {{ schedule }}
       </li>
     </ul>
     <h3>-----------</h3>
     <h3>사진들</h3>
     <ul>
-      <li v-for="(picture,index) in pictures" :key="index">
-        {{picture.pic_name}}
+      <li
+        v-for="(picture,index) in pictures"
+        :key="index"
+      >
+        {{ picture.pic_name }}
       </li>
     </ul>
 
-    <v-btn @click="copyPlanner">일정 복제하기</v-btn>
+    <v-btn @click="copyPlanner">
+      일정 복제하기
+    </v-btn>
   </div>
 </template>
 

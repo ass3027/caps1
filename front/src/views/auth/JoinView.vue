@@ -40,7 +40,10 @@
         @change="imageSet()"
       >
 
-      <div id="pictures" style="width:400px;height:400px"/>
+      <div
+        id="pictures"
+        style="width:400px;height:400px"
+      />
 
       <button @click="submit()">
         submit

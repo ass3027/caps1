@@ -11,7 +11,7 @@
     <div>
       <div>Packless Travel</div>
       <div class="hotel-list-form">
-        <div>{{category}}</div>
+        <div>{{ category }}</div>
         <div class="select-box">
           <v-select
             :items="hotelList"

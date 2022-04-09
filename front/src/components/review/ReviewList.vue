@@ -1,19 +1,17 @@
 <template>
   <v-container>
-
-
     <ul>
       <h3>Review {{ reviews.length }}</h3>
 
-      <div v-for="(review, index) in reviews" :key="index">
+      <div
+        v-for="(review, index) in reviews"
+        :key="index"
+      >
         <ReviewCard
           :review="review"
           @deleteReview="deleteReview"
           @review-updated="updateReview"
-        >
-
-        </ReviewCard>
-
+        />
       </div>
     </ul>
   </v-container>
@@ -40,6 +38,9 @@ export default {
 
     }
   },
+  created() {
+
+  },
   methods: {
     deleteReview() {
       this.$emit('deleteReview')
@@ -47,9 +48,6 @@ export default {
     updateReview() {
       this.$emit('review-updated')
     }
-  },
-  created() {
-
   }
 
 }

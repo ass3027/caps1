@@ -4,7 +4,7 @@
     class="main"
   >
     <div class="body">
-      <TravelHeader :category="category"/>
+      <TravelHeader :category="category" />
       <div class="body-form">
         <TravelLeftbar />
         <TravelMain />

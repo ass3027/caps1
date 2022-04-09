@@ -1,6 +1,6 @@
 <template>
   <v-app>
-<!--    <HelloWorld />-->
+        <HelloWorld />
 
     <router-view />
   </v-app>
@@ -9,12 +9,10 @@
 
 
 import HelloWorld from "@/components/HelloWorld";
-import router from './router/index';
 export default {
   components:{
-    // HelloWorld
+    HelloWorld
   },
-  router,
 }
 </script>
 
@@ -26,9 +24,7 @@ export default {
 	font-weight: normal;
 	font-style: normal;
 }
-.font-set {
-	font-family: 'GmarketSansMedium';
-}
+
 
 nav {
 	padding: 30px;
@@ -37,8 +33,6 @@ nav a {
 	font-weight: bold;
 	color: #2c3e50;
 }
-.v-application--wrap {
-  min-height: unset;
-}
+
 
 </style>

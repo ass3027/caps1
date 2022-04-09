@@ -3,10 +3,12 @@
     <h3>{{ sets[0].pl_name }} 관련 세트</h3>
     <hr>
     <ol>
-      <li v-for="(item, index) in sets" :key="index">
-
+      <li
+        v-for="(item, index) in sets"
+        :key="index"
+      >
         <p>{{ item.supl_name }}</p>
-<!--        객체에 새로운 키값을 넣으면 갱신이 안됨 그래서 기존것을 바꿔야됨-->
+        <!--        객체에 새로운 키값을 넣으면 갱신이 안됨 그래서 기존것을 바꿔야됨-->
         <div v-if="item.asdf != 0">
           <v-btn
             fab
@@ -22,8 +24,15 @@
           가져옴
         </div>
       </li>
-      <v-btn fab text small color="red" @click="handleToggle">모두 가져오기</v-btn>
-
+      <v-btn
+        fab
+        text
+        small
+        color="red"
+        @click="handleToggle"
+      >
+        모두 가져오기
+      </v-btn>
     </ol>
 
     <div
