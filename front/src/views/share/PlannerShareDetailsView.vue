@@ -2,14 +2,11 @@
   <div>
     <h2>공유 플래너 상세보기({{ $route.params.id }})</h2>
 
-    <p>
-      id:{{ share.share_id }}
-    </p>
+    <h2>
+      {{ share.share_title }}
+    </h2>
     <p>
       장소:{{ share.share_place }}
-    </p>
-    <p>
-      제목:{{ share.share_title }}
     </p>
     <p>
       내용:{{ share.share_contents }}
@@ -27,14 +24,9 @@
     </ul>
     <h3>-----------</h3>
     <h3>사진들</h3>
-    <ul>
-      <li
-        v-for="(picture,index) in pictures"
-        :key="index"
-      >
-        {{ picture.pic_name }}
-      </li>
-    </ul>
+    <div>
+      <img v-for="photo in pictures" :src="'/api/photo/'+photo.pic_name"  :key="photo.pic_name">
+    </div>
 
     <v-btn @click="copyPlanner">
       일정 복제하기
@@ -76,10 +68,16 @@ export default {
   },
   methods:{
     copyPlanner(){
+      console.log("여기요")
+      console.log(this.$store.state.user.userId)
+      if(!this.$store.state.user.userId){
+        alert("로그인을 해주세요");
+        return;
+      }
       axios.get('/api/copyPlanner',{
         params:{
           plan_id:this.share.plan_id,
-          user_id:1
+          user_id:this.$store.state.user.userId
         }
       })
       .then((res)=>{
@@ -92,5 +90,10 @@ export default {
 </script>
 
 <style scoped>
+img{
+  border: 1px solid;
+  width: 200px;
+  height: 200px;
+}
 
 </style>

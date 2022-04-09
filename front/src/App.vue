@@ -74,4 +74,7 @@ nav a {
 }
 
 
+.v-application--wrap {
+  min-height: unset;
+}
 </style>
