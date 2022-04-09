@@ -25,4 +25,35 @@ public interface PictureMapper {
     void InsertPlan(@Param("pic") PictureDAO pictureDAO);
 
 
+
+    @Insert("""
+            Insert Into Pictures Values(
+            #{pic.pic_name},
+            #{pic.ord_id},
+            #{pic.gitem_id, jdbcType=VARCHAR},
+            #{pic.pl_id, jdbcType=VARCHAR},
+            #{pic.keep_id, jdbcType=VARCHAR},
+            #{pic.rev_id, jdbcType=VARCHAR},
+            #{pic.pd_id, jdbcType=VARCHAR},
+            #{pic.book_id, jdbcType=VARCHAR},
+            #{pic.plan_id, jdbcType=VARCHAR},
+            #{pic.store_id jdbcType=VARCHAR},
+            #{pic.user_id, jdbcType=VARCHAR})""")
+    void InsertOrderReview(@Param("pic") PictureDAO pictureDAO);
+
+    @Insert("""
+            Insert Into Pictures Values(
+            #{pic.pic_name},
+            #{pic.ord_id,jdbcType=VARCHAR},
+            #{pic.gitem_id, jdbcType=VARCHAR},
+            #{pic.pl_id, jdbcType=VARCHAR},
+            #{pic.keep_id, jdbcType=VARCHAR},
+            #{pic.rev_id, jdbcType=VARCHAR},
+            #{pic.pd_id, jdbcType=VARCHAR},
+            #{pic.book_id},
+            #{pic.plan_id, jdbcType=VARCHAR},
+            #{pic.store_id jdbcType=VARCHAR},
+            #{pic.user_id, jdbcType=VARCHAR})""")
+    void InsertBookReview(@Param("pic") PictureDAO pictureDAO);
+
 }
