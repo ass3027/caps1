@@ -25,7 +25,8 @@ public class ApiPhoto {
             @PathVariable String fileName, HttpServletRequest req) throws Exception{
         InputStream in = null;
         ResponseEntity<byte[]> entity;
-        String path = req.getSession().getServletContext().getRealPath("/")+"\\"+folderName+"\\"+fileName;
+        String path = req.getSession().getServletContext().getRealPath("/")+folderName+"/"+fileName;
+        System.out.println(req.getSession().getServletContext().getRealPath("/")+folderName+"/"+fileName);
 
         try {
             in = new FileInputStream(path);

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HelloWorld />
+<!--    <HelloWorld />-->
     <input
       v-model="store_id"
       type="text"
@@ -32,7 +32,10 @@
       @change="imageSet()"
     >
 
-    <div id="pictures" />
+    <div
+      id="pictures"
+      style="width:400px;height:400px"
+    />
 
     <button @click="submit()">
       submit
@@ -47,7 +50,7 @@ import HelloWorld from "@/components/HelloWorld";
 export default {
   name      : "HotelAdd",
   components: {
-    HelloWorld,
+    // HelloWorld,
   },
 
   data() {
@@ -72,7 +75,7 @@ export default {
 
       reader.onload = function () {
         var photoFrame = document.createElement("div");
-        photoFrame.style = `background : url(${reader.result}); background-size : cover`;
+        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
         photoFrame.className = "photoFrame"
         document.getElementById("pictures").appendChild(photoFrame);
       }
@@ -90,7 +93,7 @@ export default {
 
       axios({
         method : 'post',
-        url    : 'api/hotelladd',
+        url    : 'api/hoteladd',
         headers: {
           'Content-Type': 'multipart/form-data',
         },

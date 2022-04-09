@@ -28,6 +28,7 @@ public class ApiUser {
 
     final
     PictureMapper pictureMapper;
+
     final
     SuplMapper suplMapper;
 
@@ -95,9 +96,6 @@ public class ApiUser {
 
         return true;
     }
-
-
-
 
 }
 

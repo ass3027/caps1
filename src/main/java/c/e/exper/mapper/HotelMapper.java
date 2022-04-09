@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface HotelMapper {
@@ -18,4 +19,7 @@ public interface HotelMapper {
 
     @Select("select * from STORE")
     List<StoreDAO> findAll();
+
+    @Select("select PIC_NAME from PICTURES where store_id is not null")
+    List<String> selectStorePic();
 }
