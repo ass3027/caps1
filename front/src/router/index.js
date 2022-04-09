@@ -15,7 +15,6 @@ import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
 
 import OrderView from "../views/bag/order/OrderView.vue";
 import FareView from "../views/bag/FareView";
-import ReviewView from "../views/bag/ReviewView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportView from "../views/bag/order/TransportView";
 
@@ -34,7 +33,7 @@ import GuideReserve from "@/views/guide/GuideReserve";
 
 
 
-import ReviewTestView from "@/views/ReviewTestView";
+
 import Hoteltest from "@/views/travel/HotelTest";
 import ReviewView from "@/views/ReviewView";
 import GuideViewUser from "@/views/guide/GuideViewUser";
@@ -72,7 +71,7 @@ const routes = [
     component: GuideProductReg,
   },
   { path: "/GuideReserve", name: "GuideReserve", component: GuideReserve },
-  { path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView },
+  //{ path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView },
   { path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
   {
     path     : "/UsageGuideView",
@@ -86,8 +85,9 @@ const routes = [
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
-  {path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView},
+  //{path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView},
+
 
 ];
 
