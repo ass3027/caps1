@@ -22,9 +22,11 @@ Review {
     private String rev_content;                 // 리뷰 내용*
     private Date reg_date;                      // 작성일자
     private int rev_rating;                     // 별점*
-    private MultipartFile review_image;         // 리뷰 사진(사진 테이블)*
+    private MultipartFile rev_photo;         // 리뷰 사진(사진 테이블)*
     private Integer ord_id;                         // 주문서 외래키
     private Integer book_id;                    // 예약 외래키(가이드 상품, 상품)
+    private String rev_img_filename;
+
 
 
     // 테이블은 리뷰, 답변으로 나누어져 있지만 데이터는 합쳐서 보낸다.

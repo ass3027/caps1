@@ -40,6 +40,7 @@ public interface SuplMapper {
             "and b.PL_ID = c.pl_id\n" +
             "and c.pl_id = d.PL_ID\n" +
             "and d.SUPL_ID = e.SUPL_ID\n" +
-            "and a.PLAN_ID=#{id}")
+            "and a.PLAN_ID=#{id}\n" +
+            "order by to_number(c.PL_ID)")
     public List<ImportSuppliesDTO> findSuppliesSets(@Param("id")String id);
 }

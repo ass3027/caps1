@@ -1,13 +1,14 @@
 <template>
   <v-app id="app">
-    <div class="Bag-order">
-      가방운송 신청서
+    
+    <div class='Bag-order'>
+      가방 보관 신청서
     </div>
-
+    
     <v-form v-model="valid">
       <v-container>
         <h3>짐 종류와 수량</h3>
-
+        
         <div class="d-flex flex-column mb-6">
           <v-card
             v-for="(bagType,index) in bagType "
@@ -15,42 +16,43 @@
             class="d-inline-flex p-2"
             outlined
             tile
-
           >{{ bagType.title }}
           </v-card>
         </div>
-
+        
         <v-row
           justify="space-around">
           <v-col
             cols="12"
-            md="6"
+            md="12"
           >
-            <span>이용날짜</span>
-            <v-expansion-panels>
-              <v-expansion-panel>
-                <v-expansion-panel-header>
-                </v-expansion-panel-header>
-                <v-expansion-panel-content>
-                  <v-date-picker v-model="picker" show-adjacent-months></v-date-picker>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-
             <v-card
               class="d-flex pa-2"
               outlined
-              tile>
-              <h3>시작</h3><br>
-              <AddressComponent @addressData="startAddress"></AddressComponent>
+              tile
+            >
+              <div>
+              </div>
             </v-card>
-            <v-card
-              class="d-flex pa-2"
-              outlined
-              tile>
-              <h3>도착</h3><br>
-              <AddressComponent @addressData="endAddress"></AddressComponent>
+            <v-card>
+              <h3>맡길
+                <AddressComponent @addressData="startAddress" ></AddressComponent></h3>
             </v-card>
+            <br>
+            
+            <v-text-field
+              v-model="checkBagTime"
+              
+              label="맡길 시간"
+              required
+            ></v-text-field>
+            
+            <v-text-field
+              v-model="pickUpTime"
+              
+              label="찾을시간"
+              required
+            ></v-text-field>
           </v-col>
         </v-row>
         <div>
@@ -65,7 +67,7 @@
       </v-container>
     </v-form>
     <!--    <div id="mapcomponent"><MapComponent/></div>-->
-
+    
     <router-view/>
   </v-app>
 
@@ -81,11 +83,10 @@ export default {
   components: {
     // MapComponent
     AddressComponent
-
+    
   },
   data() {
     return {
-      picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       overlay: false,
       valid: '',
       keepStart: '',
@@ -102,7 +103,7 @@ export default {
       ],
     }
   },
-
+  
   methods: {
     addOrder() {
       const bag = {
@@ -118,11 +119,11 @@ export default {
           console.log(res)
         })
     },
-    startAddress(address) {
-      this.keepStart = address
+    startAddress(address){
+    this.keepStart = address
       console.log(this.keepStart)
     },
-    endAddress(address) {
+    endAddress(address){
       this.keepEnd = address
       console.log(this.keepEnd)
     }
@@ -134,8 +135,8 @@ export default {
       }, 2000)
     },
   },
-
-
+  
+  
 }
 
 </script>

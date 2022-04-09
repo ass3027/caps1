@@ -1,11 +1,11 @@
 <template>
   <v-app id="app">
     <HelloWorld />
-    
+
     <div class="Bag-order">
       이용후기
     </div>
-    
+
     <router-view />
   </v-app>
 </template>
@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {}
-    
+
   }
 }
 </script>

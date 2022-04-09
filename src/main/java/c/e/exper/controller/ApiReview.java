@@ -2,6 +2,7 @@ package c.e.exper.controller;
 
 
 import c.e.exper.data.Review;
+import c.e.exper.service.FileServiceImpl;
 import c.e.exper.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +15,25 @@ import java.util.List;
 public class ApiReview {
 
     private final ReviewService reviewService;
+    private final FileServiceImpl fileService;
 
     @Autowired
-    public ApiReview(ReviewService reviewService) {
+    public ApiReview(ReviewService reviewService, FileServiceImpl fileService) {
         this.reviewService = reviewService;
+        this.fileService = fileService;
     }
 
 
 
     @PostMapping("/addReview")
-    public int addReview(Review review) {
+    public int addReview(Review review, HttpServletRequest req) {
+
 
         review.setUser_id("1");
         review.setOrd_id(1);
         review.setBook_id(1);
 
-        System.out.println("등록할 리뷰: " + review);
+        review.setRev_img_filename(fileService.photoSave(review.getRev_photo(), req, "reviewImage"));
 
         int insertColumnCount = reviewService.리뷰_등록(review);
         System.out.println("등록 컬럼 갯수: " + insertColumnCount);

@@ -15,63 +15,33 @@
       </v-card-actions>
 
       <v-row class="mx-auto">
-        <v-col cols="9">
-          <v-textarea placeholder="리뷰는 최대 1,000자까지 등록 가능합니다." />
+        <v-col cols="12">
+          <v-textarea v-model="rev_content" placeholder="리뷰는 최대 1,000자까지 등록 가능합니다." />
         </v-col>
         <v-spacer />
         <v-col>
-          <v-img
-            v-if="alt_img_url = ''"
-            src="@/image/logo.png"
-            contain
-            max-height="150px"
-            max-width="150px"
-            @click.prevent="imgClick"
-          />
-          <v-img
-            v-else
-            src="@/image/logo.png"
-            contain
-            max-height="150px"
-            max-width="150px"
-            @click.prevent="imgClick"
+
+          <input ref="refImage"
+                 type="file"
+                 placeholder="photo"
+                 @change="imageSet($event)"
+          >
+
+          <div
+            id="pictures"
+            style="width: 150px; height: 150px"
           />
         </v-col>
       </v-row>
 
       <v-card-actions>
         <v-spacer />
-        <input
-          id="image-input"
-          type="file"
-          @change="imageSet($event)"
-        >
-        <v-btn width="150px">
+        <v-btn width="150px" @click="onSubmit">
           리뷰 등록
         </v-btn>
       </v-card-actions>
-
-
-
-
-
-
-
-
-      <!--        <input-->
-      <!--          type="file"-->
-      <!--          accept="image/*"-->
-      <!--          @change="imageSet"-->
-      <!--        >-->
-
-
-      <!--    이미지출력 테스트-->
-      <!--        <div-->
-      <!--          v-if="url_string"-->
-      <!--          class="upload-image"-->
-      <!--          :style="`background-image:url(${url_string});`"-->
-      <!--        />-->
     </v-card>
+    <input v-model="rev_photo" >
   </v-container>
 </template>
 
@@ -87,12 +57,13 @@ export default {
   },
   data() {
     return {
+      img_test: `/api/photo/`+"userImage/1648100757821img.jpg",
 
       name          : "",
       rev_content   : "",
       rev_rating    : 5,
       image         : "",
-      review_photo  : "",
+      rev_photo  : "",
 
       url_string    : "",
 
@@ -101,23 +72,37 @@ export default {
   },
   methods: {
 
-    imgClick() {
-      let imageInput = document.getElementById("image-input");
-
-      console.log("이미지 클릭")
-      imageInput.click()
-    },
-
     imageSet(e) {
 
 
-      this.review_photo = e.target.files[0]
-      console.log(this.review_photo)
+      // this.rev_photo = e.target.files[0]
+      // console.log(this.rev_photo)
+
+      var picture = document.getElementById('pictures')
+
+
+
+      while(picture.hasChildNodes()) {
+        picture.removeChild(picture.firstChild);
+      }
+
+      this.rev_photo = this.$refs.refImage.files[0];
+
+      var reader = new FileReader();
+      reader.readAsDataURL(this.rev_photo);
+
+      reader.onload = function () {
+        var photoFrame = document.createElement('div');
+        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
+        photoFrame.className = 'photoFrame';
+        document.getElementById('pictures').appendChild(photoFrame);
+      }
+
       // this.url_string = URL.createObjectURL(e.target.files[0])
-      // console.log(this.review_photo)
+      // console.log(this.rev_photo)
 
       // var reader = new FileReader();
-      // reader.readAsDataURL(this.review_photo);
+      // reader.readAsDataURL(this.rev_photo);
       //
       // reader.onload = function () {
       //   var photoFrame = document.createElement("div");
@@ -129,18 +114,21 @@ export default {
 
     },
     created(){
-      console.log("이미지 url: " + this.alt_img_url)
     },
     onSubmit() {
       var sendForm = new FormData()
+
+      console.log("리뷰 사진")
+      console.log(this.rev_photo)
 
 
 
       sendForm.append('rev_content', this.rev_content)
       sendForm.append('rev_rating', this.rev_rating)
-      sendForm.append('review_image', this.review_photo)
+      sendForm.append('rev_photo', this.rev_photo)
 
-      // console.log('rev_content: ' + sendForm.get('rev_content'))
+
+      // console.log('rev_content: ' + srnsendForm.get('rev_content'))
       // console.log('rating: ' + sendForm.get('rev_rating'))
       // console.log('review_image' + sendForm.get('review_image'))
 
@@ -160,7 +148,7 @@ export default {
         this.rev_content = ""
         this.rev_rating = 5
         this.image = ""
-        this.review_photo = ""
+        this.rev_photo = ""
         this.url_string = ""
 
       })
