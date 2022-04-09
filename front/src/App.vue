@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <HelloWorld />
+<!--    <HelloWorld />-->
 
     <router-view />
   </v-app>
@@ -12,8 +12,7 @@ import HelloWorld from "@/components/HelloWorld";
 import router from './router/index';
 export default {
   components:{
-
-    HelloWorld
+    // HelloWorld
   },
   router,
 }

@@ -27,4 +27,6 @@ Review {
     private Integer book_id;                    // 예약 외래키(가이드 상품, 상품)
 
 
+    // 테이블은 리뷰, 답변으로 나누어져 있지만 데이터는 합쳐서 보낸다.
+    private String answer;
 }

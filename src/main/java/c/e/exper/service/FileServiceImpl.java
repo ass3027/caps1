@@ -25,4 +25,12 @@ public class FileServiceImpl implements FileService {
         }
         return fileName;
     }
+
+    @Override
+    public String photoLoad(String path, HttpServletRequest req) {
+
+        return null;
+    }
+
+
 }
