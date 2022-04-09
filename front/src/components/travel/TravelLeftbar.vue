@@ -173,24 +173,23 @@ export default {
       //     ratings: ratingList,
       //     people: this.peopleCount
       // };
+
       axios({
         method : 'get',
         url    : '/api/getHotel',
         headers: {
-          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/json'
         },
-        data   : '',
       })
         .then((res) => {
           console.log(res);
 
           console.log(res.data);
-          let a = {
-            hotelInfos:
-                res.data
-          }
-          this.$store.state.test=a;
+
+          this.$store.commit('hotel/updateHotel', res.data)
+
         })
+
       // let a = {
       //   hotelInfos: []
       // };
