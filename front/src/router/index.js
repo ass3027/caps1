@@ -27,12 +27,14 @@ import AboutView from "../views/AboutView";
 import HotelView from "@/views/travel/HotelView";
 import HotelAdd from "@/views/travel/HotelAdd";
 
+
 import GuideView from "@/views/guide/GuideView";
 import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideReserve from "@/views/guide/GuideReserve";
 
 import ReviewTestView from "@/views/ReviewTestView";
+import Hoteltest from "@/views/travel/HotelTest";
 
 Vue.use(VueRouter);
 
@@ -50,6 +52,7 @@ const routes = [
 	{ path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView },
   { path: "/hotel", name: "hotel", component: HotelView },
   { path: "/hoteladd", name: "hoteladd", component: HotelAdd },
+  { path: "/hoteltest", name: "hoteltest", component: Hoteltest },
   { path: "/calender", name: "calender", component: CalenderView },
   { path: "/OrderView", name: "OrderView", component: OrderView },
   { path: "/FareView", name: "FareView", component: FareView },
