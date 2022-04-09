@@ -26,38 +26,34 @@
             cols="12"
             md="12"
           >
+            <v-card
+              class="d-flex pa-2"
+              outlined
+              tile
+            >
+              <div>
+              
+              </div>
+            </v-card>
+            <div>
+            <AddressComponent></AddressComponent>
+            </div>
             <v-text-field
-              v-model="name"
-              :rules="nameRules"
-              :counter="10"
-              label="이름"
-              required
-            ></v-text-field>
-            
-            <v-text-field
-              v-model="startPoint"
-              :rules="startRules"
-              label="시작장소"
-              required
-            ></v-text-field>
-            
-            <v-text-field
-              v-model="destination"
-              :rules="destinationRules"
+              v-model="keepEnd"
               label="도착장소"
               required
             ></v-text-field>
             
             <v-text-field
               v-model="checkBagTime"
-              :rules="checkBagTime"
+              
               label="맡길 시간"
               required
             ></v-text-field>
             
             <v-text-field
               v-model="pickUpTime"
-              :rules="pickUpTime"
+              
               label="찾을시간"
               required
             ></v-text-field>
@@ -74,7 +70,7 @@
         </div>
       </v-container>
     </v-form>
-    <div id="mapcomponent"><MapComponent/></div>
+    <!--    <div id="mapcomponent"><MapComponent/></div>-->
     
     <router-view/>
   </v-app>
@@ -83,28 +79,22 @@
 
 <script>
 
-import MapComponent from "@/components/MapComponent";
+// import MapComponent from "@/components/MapComponent";
+import AddressComponent from "@/components/AddressComponent"
 import axios from "axios";
-// import axios from "axios";
+
 export default {
   components: {
-    MapComponent
+    // MapComponent
+    AddressComponent
     
   },
   data() {
     return {
       overlay: false,
       valid: '',
-      name: '',
-      nameRules: [
-        v => !!v || '이름을 입력해주세요.',
-        v => v.length <= 10 || '이름은 11자 미만이어야 합니다.',
-      ],
-      
-      startPoint: '',
-      startRules: [],
-      destination: '',
-      destinationRules: [],
+      keepStart: '',
+      keepEnd: '',
       checkBagTime: '',
       pickUpTime: '',
       bagType: [
@@ -117,19 +107,19 @@ export default {
       ],
     }
   },
-  methods:{
-    
-    addOrder(){
-      var bag = {
-        ord_id:208,
-        user_id:1,
-        keep_start:100,
-        keep_end:101
+  
+  methods: {
+    addOrder() {
+      const bag = {
+        ord_id: 301,
+        user_id: 199,
+        keep_start: this.keepStart,
+        keep_end: this.keepEnd,
       }
       console.log(bag);
       axios
-        .post('/api/addOrder',bag)
-        .then((res)=>{
+        .post('/api/addOrder', bag)
+        .then((res) => {
           console.log(res)
         })
     }
@@ -152,7 +142,8 @@ export default {
   margin: 10px;
   font-size: xx-large;
 }
-#mapcomponent{
+
+#mapcomponent {
   width: 1000px;
   height: 300px;
 }

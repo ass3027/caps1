@@ -24,7 +24,6 @@ public class ApiBag {
       bagMapper.insert(bag);
       return "";
    }
-
-
+   
 }
 
