@@ -21,21 +21,10 @@
         <v-spacer />
         <v-col>
           <v-img
-            v-if="alt_img_url = ''"
-            src="@/image/logo.png"
+            :src="img_test"
             contain
             max-height="150px"
-            max-width="150px"
-            @click.prevent="imgClick"
-          />
-          <v-img
-            v-else
-            src="@/image/logo.png"
-            contain
-            max-height="150px"
-            max-width="150px"
-            @click.prevent="imgClick"
-          />
+            max-width="150px" ></v-img>
         </v-col>
       </v-row>
 
@@ -87,6 +76,7 @@ export default {
   },
   data() {
     return {
+      img_test: `/api/photo/`+"userImage/1648100757821img.jpg",
 
       name          : "",
       rev_content   : "",

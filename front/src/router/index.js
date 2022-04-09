@@ -37,6 +37,7 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 
 import ReviewTestView from "@/views/ReviewTestView";
 import Hoteltest from "@/views/travel/HotelTest";
+import ReviewView from "@/views/ReviewView";
 
 Vue.use(VueRouter);
 

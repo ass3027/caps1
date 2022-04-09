@@ -6,7 +6,7 @@
 
     <v-navigation-drawer
         v-model="drawer"
-        absolute
+        app
         temporary
     >
       <v-list
@@ -45,8 +45,8 @@ export default {
     return {
       drawer: false,
       items: [
-          {title: 'ReviewTest', icon:'mdi-vue-dashboard', to:'/ReviewTest'},
-          {title: 'plan', icon:'mdi-vue-dashboard', to:'/plan'}
+          {title: 'Review', icon:'mdi-vue-dashboard', to:'/ReviewView'},
+          {title: 'Plan', icon:'mdi-vue-dashboard', to:'/plan'}
       ]
     }
   }
