@@ -23,6 +23,16 @@
             <v-list-item-subtitle>{{ item.guide_Intro }}</v-list-item-subtitle>
           </v-list-item-content>
 
+          <v-card-actions>
+            <v-btn
+              outlined
+              rounded
+              text @click="view(item)"
+            >
+              상세보기
+            </v-btn>
+          </v-card-actions>
+
           <v-list-item-avatar
             tile
             size="80"
@@ -66,6 +76,10 @@ export default {
     this.importGuide()
   },
   methods:{
+    view(item){
+      console.log(item)
+      this.$router.push("/GuideView/" + item.user_id)
+    },
 
 
     importGuide(){

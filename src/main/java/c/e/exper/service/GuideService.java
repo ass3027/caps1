@@ -21,7 +21,12 @@ public class GuideService {
         return guideMapper.selectAll();
     }
 
+    public GuideDAO 가이드_조회1(String id) {
+        return guideMapper.selectById(id);
+    }
+
     public void 가이드_등록(GuideDAO guideDAO) {
+
          guideMapper.insert(guideDAO);
     }
 }

@@ -62,7 +62,12 @@ export default {
       sendform.append('guide_license', this.guide_license);
       sendform.append('guide_intro', this.guide_intro);
 
-      console.log(sendform.get('user_id'))
+      if(this.user_id == '')
+        alert('아이디를 확인하세요')
+
+
+      if(this.guide_intro == '')
+        alert('소개를 확인하세요')
 
       axios({
         method: 'post',
@@ -77,6 +82,7 @@ export default {
           window.location.href = '/';
         }
       });
+
     }
   }
 }
@@ -95,9 +101,9 @@ export default {
 
 
 .joinGuide {
-  position:absolute;
+
   width:400px;
-  height:400px;
+  height:40px;
   padding: 30px;
   background-color:#FFFFFF;
   text-align:center;

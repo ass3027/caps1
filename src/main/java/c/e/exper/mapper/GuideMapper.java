@@ -16,6 +16,9 @@ public interface GuideMapper {
     @Select("SELECT * FROM guide")
     List<GuideDAO> selectAll();
 
+    @Select("SELECT * FROM guide where user_id = #{id}")
+    GuideDAO selectById(String id);
+
     @Insert("INSERT INTO guide VALUES(#{guide.user_id},#{guide.guide_license},#{guide.guide_intro})")
     void insert(@Param("guide") GuideDAO guide);
 

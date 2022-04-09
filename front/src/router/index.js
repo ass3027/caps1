@@ -32,6 +32,9 @@ import GuideView from "@/views/guide/GuideView";
 import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideReserve from "@/views/guide/GuideReserve";
+import GuideViewUser from "@/views/guide/GuideViewUser";
+
+import ReviewTestView from "@/views/ReviewTestView";
 
 import ReviewTestView from "@/views/ReviewTestView";
 import Hoteltest from "@/views/travel/HotelTest";
@@ -73,7 +76,12 @@ const routes = [
     component: GuideProductReg,
   },
   { path: "/GuideReserve", name: "GuideReserve", component: GuideReserve },
-  { path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView }
+  { path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView },
+  {
+    path: "/UsageGuideView",
+    name: "UsageGuideView",
+    component: UsageGuideView,
+  },
 ];
 
 const router = new VueRouter({
