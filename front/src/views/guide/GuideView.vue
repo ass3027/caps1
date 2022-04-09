@@ -15,12 +15,12 @@
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">
-              {{ item.guide_License }}
+              {{ item.guide_license }}
             </div>
             <v-list-item-title class="text-h5 mb-1">
               {{ item.user_id }}
             </v-list-item-title>
-            <v-list-item-subtitle>{{ item.guide_Intro }}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ item.guide_intro }}</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-card-actions>
