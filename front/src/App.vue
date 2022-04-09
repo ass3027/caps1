@@ -1,31 +1,24 @@
 <template>
   <v-app>
     <HelloWorld/>
+
     <router-view/>
   </v-app>
-  
-  
-<!--  <div id="app">-->
-<!--    <nav>-->
-<!--      <router-link to="/">Home</router-link> |-->
-<!--      <router-link to="/about">About</router-link> |-->
-<!--      <router-link to="/join">Join</router-link>|-->
-<!--      <router-link to="/bag">Bag</router-link> |-->
-<!--      <router-link to="/map">Map</router-link>-->
-<!--    </nav>-->
-<!--    <router-view/>-->
-<!--  </div>-->
+
 
 </template>
 <script>
 
+
 import HelloWorld from "@/components/HelloWorld";
+import router from './router/index';
 export default {
   components:{
   HelloWorld
   }
 }
 </script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -34,14 +27,18 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.font-set {
+	font-family: 'GmarketSansMedium';
+}
+
 nav {
-  padding: 30px;
+	padding: 30px;
 }
 nav a {
-  font-weight: bold;
-  color: #2c3e50;
+	font-weight: bold;
+	color: #2c3e50;
 }
-nav a.router-link-exact-active {
-  color: #42b983;
+.v-application--wrap {
+  min-height: unset;
 }
 </style>

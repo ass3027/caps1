@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HelloWorld/>
+
     <hr>
     <div>
       <p>planner make</p>
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld";
+
 import axios from "axios";
 
 export default {
   name      : "PlanView.vue",
   components: {
-    HelloWorld
+
   },
   data() {
     return {

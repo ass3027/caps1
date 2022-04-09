@@ -1,14 +1,18 @@
 <template>
   <div>
-    <HelloWorld/>
     <div class="right">
+      <select v-model="selected_plan">
+        <option></option>
+      </select>
+    </div>
+    <div class="left">
       <h2>현재 멤버</h2>
-      <div v-for="(data,key) in arr" :key="key">
+      <div v-for="(data,key) in plan_user_list" :key="key">
         <hr>
         <p>{{ data }}</p>
       </div>
     </div>
-    <div class="left">
+    <div class="right">
       <h2>멤버 초대</h2>
       <hr>
       <label>
@@ -23,13 +27,13 @@
 
       내가 초대한
       <ul>
-        <li v-for="(data,index) in this.invite_list_plan" :key="index">{{ data }}</li>
+        <li v-for="(data,index) in this.invite_list_plan" :key="index">{{ data.user_id}} / {{data.plan_id}}</li>
       </ul>
-
+      <hr>
       내가 초대된
       <ul>
         <li v-for="(data,index) in this.invite_list_user" :key="index">
-          {{ data }}
+          {{ data.user_id}} / {{data.plan_id}}
           <button @click="accept(data)" class="button">수락</button>
         </li>
       </ul>
@@ -39,33 +43,43 @@
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld";
 import axios from "axios";
 
 export default {
   name      : "PlInviteView",
-  components: {
-    HelloWorld
-  },
   data() {
     return {
-      arr             : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
+      plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
       inputId         : '',
       id              : 'um',
       plan_id         : 2,
       current_user_id : 'um',
       invite_list_user: [],
       invite_list_plan: [],
+      selected_plan : 0,
     }
   },
   mounted() {
     this.updateInvite()
+    this.loadAffiliated()
   },
   methods: {
+    loadAffiliated(){
+      axios({
+        url:`/api/affiliating?plan_id=${this.plan_id}`,
+        method:'get'
+      })
+      .then( (res)=>{
+        this.plan_user_list = res.data;
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    },
     invite() {
       console.log("axios 어떻게 쓰더라?? 개망ㅋㅋ")
       axios({
-        url   : '/api/invite',
+        url   : `/api/invite`,
         method: 'post',
         data  : {
           user_id: this.inputId,
@@ -73,11 +87,15 @@ export default {
         }
       })
           .then((res) => {
-            console.log(res)
-            if (res.data) {
+            if (res.data===true) {
               this.updateInvite()
               console.log('success')
-            } else console.log('fail ')
+              alert('success')
+            } else {
+              console.log('fail ')
+              alert('fail')
+            }
+
           })
     },
     updateInvite() {
@@ -105,7 +123,7 @@ export default {
     },
     accept(data) {
       axios({
-        url   : '/api/affiliated',
+        url   : '/api/affiliating',
         method: 'post',
         data  : data
       })
@@ -115,7 +133,8 @@ export default {
           .catch((err) => {
             console.log(err);
           })
-    }
+    },
+
   }
 
 }
@@ -126,14 +145,14 @@ export default {
   width: 40%;
   height: 90%;
   left: 10%;
-  float: left;
+  float: right;
 }
 
 .left {
   width: 40%;
   height: 90%;
   right: 10%;
-  float: right;
+  float: left;
 }
 
 .button {
