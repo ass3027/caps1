@@ -34,7 +34,9 @@
               </router-link>
             </td>
             <td>
+              <router-link :to="{name:'shareDetails', params:{id:item.share_id}}">
               {{ item.share_title }}
+              </router-link>
             </td>
             <td>
               {{ item.share_place }}
@@ -45,12 +47,7 @@
         </tbody>
       </v-simple-table>
     </template>
-    <router-link :to="{name:'shareWrite'}">
-      go to write
-    </router-link>
-    <v-btn @click="testButton">
-      테스트버튼
-    </v-btn>
+    <v-btn @click="loginCheck">작성하기</v-btn>
   </div>
 </template>
 
@@ -75,11 +72,12 @@ export default {
         })
   },
   methods:{
-    testButton(){
-      axios.get('/webapp/userImage/1649155691753bro.png')
-      .then((res)=>{
-        console.log(res)
-      })
+    loginCheck(){
+      if(this.$store.state.user.userId){
+        this.$router.push({name:'shareWrite'})
+      }else{
+        alert("로그인해주세요")
+      }
     }
   }
 }

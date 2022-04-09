@@ -11,7 +11,7 @@ import SuppliesVue from '../views/SuppliesView';
 import PlannerShareView from '../views/share/PlannerShareView'
 import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
-
+import PlannerPicView from "@/views/share/PlannerPicView";
 
 import OrderView from "../views/bag/order/OrderView.vue";
 import FareView from "../views/bag/FareView";
@@ -45,12 +45,12 @@ const routes = [
   { path: "/join", name: "join", component: JoinView },
   { path: "/login", name: "login", component: LoginView },
   { path: "/bag", name: "bag", component: IndexView },
-  { path: "/supplies", name: "supplies", component: SuppliesVue },
   { path: '/supplies', name: 'supplies', component: SuppliesVue },
 	{ path: '/supplies/sets', name: 'ImportSupplies', component:ImportSuppliesView },
 	{ path: '/share', name: 'share', component: PlannerShareView },
 	{ path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView },
 	{ path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView },
+	{ path: '/plan/:id/pic', name: 'planPic', component: PlannerPicView ,props:true},
   { path: "/hotel", name: "hotel", component: HotelView },
   { path: "/hoteladd", name: "hoteladd", component: HotelAdd },
   { path: "/hoteltest", name: "hoteltest", component: Hoteltest },

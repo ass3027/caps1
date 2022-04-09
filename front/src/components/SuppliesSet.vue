@@ -9,7 +9,7 @@
       >
         <p>{{ item.supl_name }}</p>
         <!--        객체에 새로운 키값을 넣으면 갱신이 안됨 그래서 기존것을 바꿔야됨-->
-        <div v-if="item.asdf != 0">
+        <div v-if="item.supl_id != 0">
           <v-btn
             fab
             text
@@ -21,7 +21,7 @@
           </v-btn>
         </div>
         <div v-else>
-          가져옴
+          가져오기 완료
         </div>
       </li>
       <v-btn
@@ -82,8 +82,6 @@ export default {
       })
       var dummy = item["supl_id"];
       item["supl_id"] = 0;
-      item["supl_id"] = dummy;
-      item["asdf"] = 0;
       console.log(item)
 
     },
