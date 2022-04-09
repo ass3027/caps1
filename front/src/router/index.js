@@ -31,11 +31,10 @@ import GuideView from "@/views/guide/GuideView";
 import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideReserve from "@/views/guide/GuideReserve";
+
+
+import ReviewTestView from "@/views/ReviewTestView";
 import GuideViewUser from "@/views/guide/GuideViewUser";
-
-import ReviewTestView from "@/views/ReviewTestView";
-
-import ReviewTestView from "@/views/ReviewTestView";
 
 Vue.use(VueRouter);
 
@@ -57,11 +56,7 @@ const routes = [
   { path: "/OrderView", name: "OrderView", component: OrderView },
   { path: "/FareView", name: "FareView", component: FareView },
   { path: "/ReviewView", name: "ReviewView", component: ReviewView },
-  {
-    path: "/UsageGuideView",
-    name: "UsageGuideView",
-    component: UsageGuideView,
-  },
+
   { path: "/TransportView", name: "TransportView", component: TransportView },
   { path: "/invite", name: "invite", component: PlInviteView },
   { path: "/plan", name: "plan", component: PlanView },
@@ -74,11 +69,7 @@ const routes = [
   },
   { path: "/GuideReserve", name: "GuideReserve", component: GuideReserve },
   { path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView },
-  {
-    path: "/UsageGuideView",
-    name: "UsageGuideView",
-    component: UsageGuideView,
-  },
+  { path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
 ];
 
 const router = new VueRouter({
