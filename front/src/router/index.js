@@ -69,7 +69,7 @@ const routes = [
   {path: "/TransportView", name: "TransportView", component: TransportView},
   {path: '/invite', name: 'invite', component: PlInviteView},
   {path: '/plan', name: 'plan', component: PlanView},
-  {path: '/sign', name: 'sign', component: SignView},
+
   {path: "/GuideView", name: "GuideView", component: GuideView},
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
