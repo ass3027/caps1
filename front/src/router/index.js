@@ -32,6 +32,8 @@ import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideReserve from "@/views/guide/GuideReserve";
 
+import ReviewTestView from "@/views/ReviewTestView";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -68,6 +70,7 @@ const routes = [
     component: GuideProductReg,
   },
   { path: "/GuideReserve", name: "GuideReserve", component: GuideReserve },
+  { path: "/ReviewTest", name: "ReviewTest", component: ReviewTestView }
 ];
 
 const router = new VueRouter({

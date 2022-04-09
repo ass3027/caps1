@@ -1,18 +1,54 @@
 <template>
   <v-app>
-        <HelloWorld />
+<!--    <HelloWorld />-->
+
+    <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+    <v-navigation-drawer
+        v-model="drawer"
+        absolute
+        temporary
+    >
+      <v-list
+          nav
+          dense
+      >
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.to"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <router-view />
   </v-app>
 </template>
 <script>
+import router from './router/index';
 
-
-import HelloWorld from "@/components/HelloWorld";
 export default {
   components:{
-    HelloWorld
   },
+  router,
+  data() {
+    return {
+      drawer: false,
+      items: [
+          {title: 'ReviewTest', icon:'mdi-vue-dashboard', to:'/ReviewTest'},
+          {title: 'plan', icon:'mdi-vue-dashboard', to:'/plan'}
+      ]
+    }
+  }
 }
 </script>
 
