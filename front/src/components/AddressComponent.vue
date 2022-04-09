@@ -1,10 +1,15 @@
 <template>
   <div class="address">
-    <h3>ADDRESS</h3>
-    <input type="text" v-model="postcode" placeholder="우편번호">
-    <input type="button" @click="execDaumPostcode()" value="우편번호 찾기"><br>
-    <input type="text" id="address" placeholder="주소"><br>
-    <input type="text" id="detailAddress" placeholder="상세주소">
+    <h3>장소</h3>
+    <div>
+      우편번호 : <input type="text" v-model="postcode" placeholder="우편번호">
+      <input type="button" @click="execDaumPostcode()" value="우편번호 찾기"><br>
+    </div>
+    
+    <div>
+      <input type="text" v-model="address" placeholder="주소" ><br>
+    </div>
+    <input type="text" id="detailAddress" placeholder="상세주소"><br>
     <input type="text" id="extraAddress" placeholder="참고항목">
   </div>
 </template>
@@ -18,6 +23,9 @@ export default {
       address: "",
       extraAddress: "",
     };
+  },
+  props:{
+  
   },
   methods: {
     execDaumPostcode() {
@@ -57,10 +65,13 @@ export default {
             this.extraAddress = "";
           }
           // 우편번호를 입력한다.
+          this.$emit('addressData',this.address );
           this.postcode = data.zonecode;
         },
       }).open();
+      
     },
+    
   },
 };
 </script>

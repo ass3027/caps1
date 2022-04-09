@@ -33,6 +33,7 @@
       <v-btn
         depressed
         color="primary"
+        @click="$router.push({name:'StorageView'})"
       >
         가방 보관
       </v-btn>

@@ -2,7 +2,7 @@
   <v-app id="app">
     
     <div class='Bag-order'>
-      가방운송 신청서
+      가방 보관 신청서
     </div>
     
     <v-form v-model="valid">
@@ -26,21 +26,19 @@
             cols="12"
             md="12"
           >
-            
             <v-card
               class="d-flex pa-2"
               outlined
-              tile>
-              <h3>시작</h3><br>
-              <AddressComponent @addressData="startAddress" ></AddressComponent>
+              tile
+            >
+              <div>
+              </div>
             </v-card>
-            <v-card
-              class="d-flex pa-2"
-              outlined
-              tile>
-              <h3>도착</h3><br>
-              <AddressComponent @addressData="endAddress"></AddressComponent>
+            <v-card>
+              <h3>맡길
+                <AddressComponent @addressData="startAddress" ></AddressComponent></h3>
             </v-card>
+            <br>
             
             <v-text-field
               v-model="checkBagTime"

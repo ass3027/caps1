@@ -207,7 +207,7 @@ export default {
       {title: '게스트하우스', route: 'facility'}
     ],
     BagControl: [
-      {title: '가방예약', route: '/OrderView'},
+      {title: '가방예약', route: '/BagReserveView'},
       {title: '이용안내', route: '/UsageGuideView'},
       {title: '요금', route: '/FareView'},
       {title: '후기', route: '/ReviewView'},

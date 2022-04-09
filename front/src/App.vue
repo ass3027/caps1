@@ -11,7 +11,7 @@
 
 
 import HelloWorld from "@/components/HelloWorld";
-import router from './router/index';
+
 export default {
   components:{
   HelloWorld
