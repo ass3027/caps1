@@ -1,13 +1,12 @@
 <template>
-<HelloWorld/>
+  <div></div>
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld";
+
 
 export default {
   name: "HotelTest",
-  components: {HelloWorld}
 }
 </script>
 
