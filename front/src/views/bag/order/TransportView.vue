@@ -107,7 +107,7 @@ export default {
     addOrder() {
       const bag = {
         ord_id: 301,
-        user_id: 199,
+        user_id: this.$store.state.user.userId,
         keep_start: this.keepStart,
         keep_end: this.keepEnd,
       }
@@ -146,8 +146,8 @@ export default {
   font-size: xx-large;
 }
 
-#mapcomponent {
-  width: 1000px;
-  height: 300px;
-}
+/*#mapcomponent {*/
+/*  width: 1000px;*/
+/*  height: 300px;*/
+/*}*/
 </style>

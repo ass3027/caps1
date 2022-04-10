@@ -5,7 +5,7 @@
       이용후기
     </div>
 
-    <router-view />
+
   </v-app>
 </template>
 

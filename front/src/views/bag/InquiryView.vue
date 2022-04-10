@@ -6,7 +6,7 @@
       배송조회
     </div>
 
-    <router-view />
+
   </v-app>
 </template>
 
