@@ -39,7 +39,7 @@
         height="200px"
       />
       <v-img
-        :src="picture(index)"
+        :src="'/api/photo/'+hotelInfo.pic_name"
         alt="실허어엄"
       />
     </div>
@@ -68,9 +68,6 @@ export default {
       // console.log(`/${hotelInfo.hotelName}`);
       this.$router.push(`/${hotelInfo.store_id}`);
     },
-    picture(index){
-      return "/api/photo/storeImage/"+this.$store.state.hotel.hotelPictures[index]
-    }
   }
 };
 </script>

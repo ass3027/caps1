@@ -1,7 +1,7 @@
 export default {
   namespaced:true,
   state: {
-    hotelInfo: "",
+    hotelInfo: [],
     hotelPictures:[]
   },
   mutations:{
@@ -9,7 +9,17 @@ export default {
       state.hotelInfo = newHotel
     },
     updateHotelPictures(state,data){
-      state.hotelPictures=data;
+      state.hotelInfo.forEach(i=>{
+        data.forEach(j=>{
+          // console.log("스토어 동등연산 비교"+i.store_id+"///"+j.store_id)
+          // console.log(i.store_id)
+          // console.log(j.store_id)
+          // console.log(i.store_id==j.store_id)
+          if(i.store_id==j.store_id)
+            i.pic_name=j.pic_name;
+          // console.log(i.pic_name);
+        })
+      })
     }
   }
 }

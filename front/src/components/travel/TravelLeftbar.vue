@@ -173,6 +173,13 @@ export default {
       //     ratings: ratingList,
       //     people: this.peopleCount
       // };
+      axios({
+        method : 'get',
+        url    : '/api/getHotel',
+      })
+        .then((res)=>{
+          this.$store.commit('hotel/updateHotel', res.data)
+        })
 
       axios({
         method : 'get',
@@ -188,20 +195,10 @@ export default {
           this.$store.commit("hotel/updateHotelPictures",res.data)
           console.log(this.$store.state.hotel.hotelPictures)
 
+
         });
 
-      axios({
-        method : 'get',
-        url    : '/api/getHotel',
-      })
-      .then((res)=>{
 
-
-
-        this.$store.commit('hotel/updateHotel', res.data)
-
-
-      })
 
       // let a = {
       //   hotelInfos: []
