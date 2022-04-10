@@ -1,5 +1,6 @@
 <template>
   <div>
+    <PlannerHeader/>
     <hr>
     <div>
       <p>planner make</p>
@@ -43,11 +44,12 @@
 <script>
 
 import axios from "axios";
+import PlannerHeader from "@/components/PlannerHeader";
 
 export default {
   name      : "PlanView.vue",
   components: {
-
+    PlannerHeader
   },
   data() {
     return {

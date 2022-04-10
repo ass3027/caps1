@@ -33,7 +33,8 @@
       >
         logout
       </v-btn>
-      <img src="/api/photo/userImage/1649413987170images.jpg">
+<!--      엄준식은 살아있다-->
+<!--      <img src="/api/photo/userImage/1649413987170images.jpg">-->
     </div>
     <div>
       <div class="menu-Bar">

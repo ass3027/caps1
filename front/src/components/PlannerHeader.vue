@@ -1,0 +1,60 @@
+<template>
+  <div style="width:100px;height:100px">
+    <select style="border-style:solid;width:100px;height:30px " v-model="plan_id" @change="reload">
+      <option v-for="(plan,index) in plan_list" :key="index" :value="plan.plan_id">{{ plan.plan_name }}</option>
+    </select>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "PlannerHeader",
+  data() {
+    return {
+        plan_id:1,
+        plan_list:[]
+    }
+  },
+  mounted() {
+    this.getPlanListByUserId();
+  },
+  computed:{
+    user_id(){
+      return this.$store.state.user.userId
+    }
+  },
+  methods:{
+    reload(){
+      this.$store.commit('user/updatePlanId',this.plan_id)
+    },
+    getPlanListByUserId() {
+      axios({
+        url:'/api/plan/'+this.user_id,
+        method:'get'
+      })
+        .then( (res)=>{
+          console.log(res)
+          if(res.data.length==0) {
+            this.plan_list=[{
+              "plan_name":"없음"}]
+
+          }else{
+            this.plan_list=res.data
+
+          }
+          this.plan_id=this.plan_list[0].plan_id
+        })
+        .catch( (err)=>{
+          console.error(err)
+        })
+    }
+
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

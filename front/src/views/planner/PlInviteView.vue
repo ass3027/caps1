@@ -1,5 +1,6 @@
 <template>
   <div>
+    <PlannerHeader/>
     <select style="border-style:solid " v-model="plan_id" @change="reload">
       <option v-for="(plan,index) in plan_list" :key="index" :value="plan.plan_id">{{ plan.plan_name }}</option>
     </select>
@@ -68,9 +69,11 @@
 
 <script>
 import axios from "axios";
+import PlannerHeader from "@/components/PlannerHeader";
 
 export default {
   name: "PlInviteView",
+  components: {PlannerHeader},
   data() {
     return {
       plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
