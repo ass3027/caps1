@@ -13,7 +13,6 @@ import PlannerPicView from "@/views/share/PlannerPicView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/BagReserveView.vue'
-import ReviewView from '../views/bag/ReviewView'
 import TrackingView from "@/views/bag/TrackingView";
 import StorageView from "@/views/bag/order/StorageView";
 
@@ -54,7 +53,6 @@ const routes = [
   {path: '/calender', name: 'calender', component: CalenderView},
   {path: '/BagReserveView', name: 'OrderView', component: BagReserveView},
   {path: '/FareView', name: 'FareView', component: FareView},
-  {path: '/ReviewView', name: 'ReviewView', component: ReviewView},
   {path: '/UsageGuideView', name: 'UsageGuideView', component: UsageGuideView},
   {path: '/TransportView', name: 'TransportView', component: TransportView},
   {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
