@@ -1,17 +1,19 @@
 <template>
   <div>
+    <select>
+      <option v-for="(plan,index) in plan_list" :key="index">{{ plan.plan_name }}</option>
+    </select>
     <div class="float-right">
       <select v-model="selected_plan">
-        <option />
+        <option/>
       </select>
     </div>
     <div class="float-left">
       <h2>현재 멤버</h2>
       <div
         v-for="(data,key) in plan_user_list"
-        :key="key"
-      >
-        <hr>
+        :key="key">
+
         <p>{{ data }}</p>
       </div>
     </div>
@@ -20,13 +22,14 @@
       <hr>
       <label>
         회원ID <input
-          v-model="inputId"
-          placeholder="내용을 입력해주세요"
-        >
+        v-model="input_id"
+        placeholder="내용을 입력해주세요"
+      >
         <button
           class="button"
-          @click="invite"
-        >초대</button>
+          @click="invite">
+          초대
+        </button>
       </label>
     </div>
     <hr>
@@ -67,33 +70,39 @@
 import axios from "axios";
 
 export default {
-  name      : "PlInviteView",
+  name: "PlInviteView",
   data() {
     return {
       plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
-      inputId         : '',
-      id              : 'um',
+      input_id         : '',
       plan_id         : 2,
       current_user_id : 'um',
       invite_list_user: [],
       invite_list_plan: [],
-      selected_plan : 0,
+      selected_plan   : 0,
+      plan_list:[]
+    }
+  },
+  computed: {
+    user_id() {
+      return this.$store.state.user.userId
     }
   },
   mounted() {
     this.updateInvite()
     this.loadAffiliated()
+    this.getPlanListByUserId()
   },
   methods: {
-    loadAffiliated(){
+    loadAffiliated() {
       axios({
-        url:`/api/affiliating?plan_id=${this.plan_id}`,
-        method:'get'
+        url   : `/api/affiliating?plan_id=${this.plan_id}`,
+        method: 'get'
       })
-        .then( (res)=>{
+        .then((res) => {
           this.plan_user_list = res.data;
         })
-        .catch((err)=>{
+        .catch((err) => {
           console.log(err);
         })
     },
@@ -103,12 +112,12 @@ export default {
         url   : `/api/invite`,
         method: 'post',
         data  : {
-          user_id: this.inputId,
+          user_id: this.input_id,
           plan_id: this.plan_id,
         }
       })
         .then((res) => {
-          if (res.data===true) {
+          if (res.data === true) {
             this.updateInvite()
             console.log('success')
             alert('success')
@@ -155,6 +164,19 @@ export default {
           console.log(err);
         })
     },
+    getPlanListByUserId() {
+      axios({
+        url:'/api/plan/'+this.user_id,
+        method:'get'
+      })
+      .then( (res)=>{
+        this.plan_list=res.data
+        console.log(this.plan_list)
+      })
+      .catch( (err)=>{
+        console.error(err)
+      })
+    }
 
   }
 

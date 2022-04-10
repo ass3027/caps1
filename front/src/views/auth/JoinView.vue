@@ -56,7 +56,7 @@
 </style>
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HeaderComponent.vue'
 import axios from 'axios';
 
 export default {

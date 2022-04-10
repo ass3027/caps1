@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
 
@@ -98,8 +99,8 @@ export default {
       [
         {title: '일정', route: '/calender'},
         {title: '준비물', route: '/supplies'},
-        {title: 'plan3', route: '/plan'},
-        {title: 'plan4', route: '/plan'},
+        {title: '플래너 생성', route: '/plan'},
+        {title: '플래너 초대', route: '/plInvite'},
         {title: 'plan5', route: '/plan'}
       ],
       [
@@ -141,6 +142,7 @@ export default {
   }),
   methods: {
     logOut(){
+      console.log(22)
       axios({
         url:'/api/logout',
         method:'post'

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-
+    <HeaderComponent/>
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
     <v-navigation-drawer
@@ -33,10 +33,11 @@
   </v-app>
 </template>
 <script>
+import HeaderComponent from "@/components/HeaderComponent";
 
 export default {
   components:{
-
+    HeaderComponent
   },
 
   data() {

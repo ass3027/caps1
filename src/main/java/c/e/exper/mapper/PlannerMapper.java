@@ -5,6 +5,7 @@ import c.e.exper.data.Share;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface PlannerMapper {
@@ -24,7 +25,7 @@ public interface PlannerMapper {
     List<PlannerDAO> selectAllById(@Param("id")String id);
 
     @Select("Select * from Planner where plan_id=#{plan_id}")
-    PlannerDAO selectById(String plan_id);
+    Optional<PlannerDAO> selectById(String plan_id);
 
     @Delete("Delete From Planner Where plan_id=#{id}")
     void delete(@Param("id") String id);
