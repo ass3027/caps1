@@ -179,23 +179,26 @@ export default {
       })
         .then((res)=>{
           this.$store.commit('hotel/updateHotel', res.data)
+
+          axios({
+            method : 'get',
+            url    : '/api/getHotelPic',
+            headers: {
+              // 'Content-Type': 'application/json'
+            },
+          })
+            .then((res) => {
+              console.log(res);
+
+              console.log(res.data);
+              this.$store.commit("hotel/updateHotelPictures",res.data)
+
+
+            });
+
         })
 
-      axios({
-        method : 'get',
-        url    : '/api/getHotelPic',
-        headers: {
-          // 'Content-Type': 'application/json'
-        },
-      })
-        .then((res) => {
-          console.log(res);
 
-          console.log(res.data);
-          this.$store.commit("hotel/updateHotelPictures",res.data)
-
-
-        });
 
 
 

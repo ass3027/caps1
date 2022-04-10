@@ -23,6 +23,8 @@ export default {
           // console.log(i.pic_name);
         })
       })
+      console.log("updateHotelPictures complete")
+
     }
   }
 }
