@@ -4,6 +4,7 @@
 <!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>-->
 
       <h2>IAMPORT 결제 데모</h2>
+      <h2>가격 20원</h2>
       <li>
         <button @click="iamportPayment" type="button">결제테스트</button>
       </li>
@@ -48,7 +49,7 @@ export default {
       IMP.init('imp19569487');
 
       IMP.request_pay({
-        pg:"kakaopay.TC0ONETIME",
+        pg:"html5_inics",
         pay_method: "card",
         merchant_uid:"iamport_test_id" + new Date().getTime(),
         name:"가이드",
@@ -59,6 +60,7 @@ export default {
       }), function (rsp){
         if (rsp.success)
         {
+          alert("결제가 성공했습니다.")
 
         } else{
 
