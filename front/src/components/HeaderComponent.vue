@@ -103,7 +103,7 @@ export default {
         {title: '준비물', route: '/supplies'},
         {title: '플래너 생성', route: '/plan'},
         {title: '플래너 초대', route: '/plInvite'},
-        {title: 'plan5', route: '/plan'}
+        {title: '플래너 사진', route: '/planPic'}
       ],
       [
         {title: '호텔', route: '/hotel'},

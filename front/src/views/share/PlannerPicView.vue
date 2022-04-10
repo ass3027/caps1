@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>플래너 사진 공유</h2>
+    <PlannerHeader></PlannerHeader>
+    <h2>플래너 사진 공유({{$store.state.user.planId}})</h2>
     <h2>사진 불러오기</h2>
     <div>
       <img v-for="photo in photos" :src="'/api/photo/'+photo.pic_name"  :key="photo.pic_name">
@@ -12,7 +13,8 @@
       placeholder="photo"
     >
     <v-btn @click="upload">사진업로드</v-btn>
-    {{id}}
+
+
 
   </div>
 </template>
@@ -20,7 +22,7 @@
 <script>
 
 // import axios from 'axios'
-
+import PlannerHeader from "@/components/PlannerHeader";
 import axios from "axios";
 
 export default {
@@ -31,11 +33,13 @@ export default {
       photos:''
     }
   },
-  props:["id"],
+  components: {
+    PlannerHeader,
+  },
   mounted() {
     axios.get('/api/getPlanPic',{
       params:{
-        plan_id:this.id,
+        plan_id:this.$store.state.user.planId,
       }
     })
     .then(res=>{
@@ -53,14 +57,14 @@ export default {
       }
       var data = {
         pic_name: this.user_photo,
-        plan_id:this.id,
+        plan_id:this.$store.state.user.planId,
         user_id:this.$store.state.user.userId
       }
 
       var sendform = new FormData();
 
       sendform.append('pic_name', this.user_photo);
-      sendform.append('plan_id', this.id);
+      sendform.append('plan_id', this.$store.state.user.planId);
       sendform.append('user_id', this.$store.state.user.userId);
 
       axios({
@@ -75,6 +79,7 @@ export default {
         if (res.data === true) {
 
           alert('ok');
+          location.reload();
         }
       });
 

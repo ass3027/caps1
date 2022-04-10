@@ -9,6 +9,7 @@ import SuppliesVue from '../views/SuppliesView';
 import PlannerShareView from '../views/share/PlannerShareView'
 import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
+import PlannerPicView from "@/views/share/PlannerPicView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/BagReserveView.vue'
@@ -62,6 +63,7 @@ const routes = [
  // { path: "/OrderView", name: "OrderView", component: OrderView },
   {path: '/plInvite', name: 'plInvite', component: PlInviteView},
   {path: '/plan', name: 'plan', component: PlanView},
+  {path: '/planPic', name: 'planPic', component: PlannerPicView},
 
   {path: "/GuideView", name: "GuideView", component: GuideView},
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
