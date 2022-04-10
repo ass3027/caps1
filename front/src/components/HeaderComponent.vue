@@ -152,6 +152,7 @@ export default {
       .then((res)=>{
         console.log(res)
         this.$store.commit('user/updateUserId','')
+        this.$store.commit('user/updatePlanId','')
         this.$router.push("/")
       })
       .catch((err)=>{

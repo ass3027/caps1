@@ -1,7 +1,7 @@
 <template>
   <div style="width:100px;height:100px">
-    <select style="border-style:solid;width:100px;height:30px " v-model="plan_id" @change="reload">
-      <option v-for="(plan,index) in plan_list" :key="index" :value="plan.plan_id">{{ plan.plan_name }}</option>
+    <select style="border-style:solid;width:100px;height:30px " v-model="plan_id" @change="reload" >
+      <option v-for="(plan,index) in plan_list"  :key="index" :value="plan.plan_id">{{ plan.plan_name }}</option>
     </select>
   </div>
 </template>
@@ -18,7 +18,9 @@ export default {
     }
   },
   mounted() {
+
     this.getPlanListByUserId();
+    this.plan_id=this.$store.state.user.planId
   },
   computed:{
     user_id(){
@@ -29,6 +31,7 @@ export default {
     reload(){
       this.$store.commit('user/updatePlanId',this.plan_id)
       console.log(this.$store.state.user.planId)
+      location.reload();
     },
     getPlanListByUserId() {
       axios({
@@ -45,7 +48,9 @@ export default {
             this.plan_list=res.data
 
           }
-          this.plan_id=this.plan_list[0].plan_id
+          if(this.$store.state.user.planId=='') {
+            this.plan_id = this.plan_list[1].plan_id
+          }
         })
         .catch( (err)=>{
           console.error(err)
