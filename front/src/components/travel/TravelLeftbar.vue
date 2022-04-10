@@ -173,35 +173,34 @@ export default {
       //     ratings: ratingList,
       //     people: this.peopleCount
       // };
-
-      axios({
-        method : 'get',
-        url    : '/api/getHotelPic',
-        headers: {
-          // 'Content-Type': 'application/json'
-        },
-      })
-        .then((res) => {
-          console.log(res);
-
-          console.log(res.data);
-          this.$store.commit("hotel/updateHotelPictures",res.data)
-          console.log(this.$store.state.hotel.hotelPictures)
-
-        });
-
       axios({
         method : 'get',
         url    : '/api/getHotel',
       })
-      .then((res)=>{
+        .then((res)=>{
+          this.$store.commit('hotel/updateHotel', res.data)
+
+          axios({
+            method : 'get',
+            url    : '/api/getHotelPic',
+            headers: {
+              // 'Content-Type': 'application/json'
+            },
+          })
+            .then((res) => {
+              console.log(res);
+
+              console.log(res.data);
+              this.$store.commit("hotel/updateHotelPictures",res.data)
+
+
+            });
+
+        })
 
 
 
-        this.$store.commit('hotel/updateHotel', res.data)
 
-
-      })
 
       // let a = {
       //   hotelInfos: []

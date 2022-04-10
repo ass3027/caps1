@@ -34,14 +34,17 @@
       @click="goHotelInfo(hotelInfo)"
     >
       {{ hotelInfo.store_id }}
-      <v-card
+      <v-card v-if="hotelInfo.pic_name"
         width="100%"
         height="200px"
-      />
-      <v-img
-        :src="picture(index)"
-        alt="실허어엄"
-      />
+      >
+        <v-img v-if="hotelInfo.pic_name"
+               width="100%"
+               height="100%"
+               :src="'/api/photo/'+hotelInfo.pic_name"
+               alt="실허어엄"
+        />
+      </v-card>
     </div>
   </div>
 </template>
@@ -57,6 +60,7 @@ export default {
   },
   computed: {
     hotel() {
+      console.log("didididi")
       return this.$store.state.hotel;
     },
 
@@ -68,9 +72,6 @@ export default {
       // console.log(`/${hotelInfo.hotelName}`);
       this.$router.push(`/${hotelInfo.store_id}`);
     },
-    picture(index){
-      return "/api/photo/storeImage/"+this.$store.state.hotel.hotelPictures[index]
-    }
   }
 };
 </script>

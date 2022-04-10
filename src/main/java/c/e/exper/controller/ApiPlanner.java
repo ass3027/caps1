@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -114,6 +115,19 @@ public class ApiPlanner {
         List<PlannerDTO> convertResult = new ArrayList<>();
         result.forEach(
             row -> convertResult.add(row.toDTO())
+        );
+
+        return convertResult;
+    }
+
+    @GetMapping("/plan/{user_id}")
+    public List<PlannerDTO> plannerSearchByUserId(@PathVariable String user_id){
+        List<PlannerDAO> result = plannerMapper.selectAllById(user_id);
+        List<PlannerDTO> convertResult = new ArrayList<>();
+//        if(result.isEmpty()) return convertResult;
+
+        result.forEach(
+                row -> convertResult.add(row.toDTO())
         );
 
         return convertResult;

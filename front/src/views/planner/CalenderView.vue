@@ -1,5 +1,6 @@
 <template>
   <div id="이재영시발럼">
+    <PlannerHeader/>
     <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
       <MapComponent />
     </div>
@@ -39,7 +40,7 @@
 <script>
 /* eslint-disable */
 import DateComponent from '@/components/DateComponent'
-
+import PlannerHeader from "@/components/PlannerHeader";
 import MapComponent from "@/components/MapComponent";
 /* eslint-disable */
 
@@ -49,7 +50,7 @@ export default {
   name      : 'CalenderView',
   components: {
     DateComponent,
-
+    PlannerHeader,
     MapComponent
   },
   data() {

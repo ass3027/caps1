@@ -33,6 +33,8 @@
       >
         logout
       </v-btn>
+<!--      엄준식은 살아있다-->
+<!--      <img src="/api/photo/userImage/1649413987170images.jpg">-->
     </div>
     <div>
       <div class="menu-Bar">
@@ -72,6 +74,7 @@
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
 
@@ -98,9 +101,9 @@ export default {
       [
         {title: '일정', route: '/calender'},
         {title: '준비물', route: '/supplies'},
-        {title: 'plan3', route: '/plan'},
-        {title: 'plan4', route: '/plan'},
-        {title: 'plan5', route: '/plan'}
+        {title: '플래너 생성', route: '/plan'},
+        {title: '플래너 초대', route: '/plInvite'},
+        {title: '플래너 사진', route: '/planPic'}
       ],
       [
         {title: '호텔', route: '/hotel'},
@@ -114,7 +117,7 @@ export default {
         {title: '이용안내', route: '/UsageGuideView'},
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},
-        {title: '배송조회', route: '/bag'}
+        {title: '배송조회', route: '/TrackingView'}
       ],
       [
         {title: 'GuideView', route: '/guideview'},
@@ -141,6 +144,7 @@ export default {
   }),
   methods: {
     logOut(){
+      console.log(22)
       axios({
         url:'/api/logout',
         method:'post'
@@ -148,6 +152,7 @@ export default {
       .then((res)=>{
         console.log(res)
         this.$store.commit('user/updateUserId','')
+        this.$store.commit('user/updatePlanId','')
         this.$router.push("/")
       })
       .catch((err)=>{

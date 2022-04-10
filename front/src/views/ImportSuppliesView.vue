@@ -27,7 +27,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('/api/getSets')
+    axios.get('/api/getSets/'+this.$store.state.user.planId)
       .then((res)=>{
         console.log("여기")
         console.log(res.data);

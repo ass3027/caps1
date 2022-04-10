@@ -1,5 +1,6 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.PictureDAO;
 import c.e.exper.data.StoreDAO;
 import c.e.exper.data.StoreDTO;
 import c.e.exper.data.UserDAO;
@@ -20,6 +21,6 @@ public interface HotelMapper {
     @Select("select * from STORE")
     List<StoreDAO> findAll();
 
-    @Select("select PIC_NAME from PICTURES where store_id is not null")
-    List<String> selectStorePic();
+    @Select("select pic_name, store_id from PICTURES where store_id is not null")
+    List<PictureDAO> selectStorePic();
 }

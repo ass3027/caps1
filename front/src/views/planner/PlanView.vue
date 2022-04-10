@@ -1,5 +1,6 @@
 <template>
   <div>
+    <PlannerHeader/>
     <hr>
     <div>
       <p>planner make</p>
@@ -43,11 +44,12 @@
 <script>
 
 import axios from "axios";
+import PlannerHeader from "@/components/PlannerHeader";
 
 export default {
   name      : "PlanView.vue",
   components: {
-
+    PlannerHeader
   },
   data() {
     return {
@@ -58,7 +60,12 @@ export default {
     }
   },
   mounted() {
-    this.importPlan()
+    this.loadPlan()
+  },
+  computed:{
+    user_id() {
+      return this.$store.state.user.userId
+    }
   },
   methods: {
     addPlan() {
@@ -70,20 +77,20 @@ export default {
           plan_name : this.plan_name,
           plan_start: this.plan_start,
           plan_end  : this.plan_end,
-          user_id   : 'um'
+          user_id   : this.user_id
         }
       })
         .then((res) => {
           if (res.data) {
             alert("success")
-            this.importPlan()
+            this.loadPlan()
           }
         })
     },
-    importPlan() {
+    loadPlan() {
       axios({
         method: 'get',
-        url   : '/api/plan',
+        url   : '/api/plan/'+this.user_id,
       })
         .then((res) => {
           this.plan_list = res.data;
@@ -100,7 +107,7 @@ export default {
           .then(() => {
 
             console.log("success")
-            this.importPlan();
+            this.loadPlan();
 
 
           })

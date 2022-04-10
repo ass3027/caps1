@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -93,7 +94,9 @@ public class ApiShare {
 
     @GetMapping("/loadPlanner")
     public List<PlannerDTO> loadPlanner(HttpServletRequest req) {
+
         List<PlannerDAO> plannerDAO = plannerMapper.selectAllById(req.getParameter("id"));
+
         List<PlannerDTO> plannerDTO = new ArrayList<>();
         plannerDAO.forEach(data -> plannerDTO.add(data.toDTO()));
 
@@ -134,7 +137,11 @@ public class ApiShare {
         System.out.println(plan_id);
         System.out.println(user_id);
 
-        PlannerDAO p = plannerMapper.selectById(plan_id);
+        //optional로 바꾼 부분
+        Optional<PlannerDAO> pp = plannerMapper.selectById(plan_id);
+        if(pp.isEmpty()) return "시일패애";
+        PlannerDAO p = pp.get();
+
         System.out.println(p);
         p.setUser_id(user_id);
         System.out.println(p.getPlan_id());

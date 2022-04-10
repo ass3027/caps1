@@ -45,7 +45,6 @@
 
 <script>
 import axios from "axios";
-import HelloWorld from "@/components/HelloWorld";
 
 export default {
   name      : "HotelAdd",
