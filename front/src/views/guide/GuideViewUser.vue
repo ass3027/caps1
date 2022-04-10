@@ -86,7 +86,9 @@ export default {
 
   data(){
     return {
-      lists:''
+      lists:'',
+      selection:0,
+      loading:"dd"
     }
   },
   mounted() {

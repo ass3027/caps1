@@ -117,7 +117,7 @@ export default {
         {title: '이용안내', route: '/UsageGuideView'},
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},
-        {title: '배송조회', route: '/bag'}
+        {title: '배송조회', route: '/TrackingView'}
       ],
       [
         {title: 'GuideView', route: '/guideview'},

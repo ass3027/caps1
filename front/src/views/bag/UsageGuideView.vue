@@ -5,7 +5,7 @@
       이용안내
     </div>
 
-    <router-view/>
+
   </v-app>
 
 </template>
