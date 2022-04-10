@@ -84,7 +84,7 @@ public class ApiReview {
 
     @GetMapping("/findByPay")
     public String findByPay(String pay_id) {
-        System.out.println(pay_id);
+        System.out.println("pay_id: " +pay_id);
         return reviewService.findByPay(pay_id);
     }
 

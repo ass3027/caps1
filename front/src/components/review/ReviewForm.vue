@@ -115,12 +115,15 @@ export default {
 
     },
     created(){
+      console.log("!!!!!!!!:"+this.book_id)
     },
     onSubmit() {
       var sendForm = new FormData()
 
       console.log("리뷰 사진")
       console.log(this.rev_photo)
+
+      console.log("예약 아이디 "+ this.book_id)
 
 
 

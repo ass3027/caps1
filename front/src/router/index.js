@@ -37,6 +37,9 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 
 import Hoteltest from "@/views/travel/HotelTest";
 
+import ReviewView from "@/views/ReviewView";
+import ReviewCreateView from "@/views/ReviewCreateView";
+
 
 Vue.use(VueRouter);
 
@@ -67,7 +70,12 @@ const routes = [
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
-  {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true}
+  {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
+
+  {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
+  {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
+
+
 ];
 
 const router = new VueRouter({
