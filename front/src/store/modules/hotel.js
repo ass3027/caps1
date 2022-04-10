@@ -7,8 +7,11 @@ export default {
   mutations:{
     updateHotel(state, newHotel){
       state.hotelInfo = newHotel
+      console.log("updateHotel")
     },
     updateHotelPictures(state,data){
+      console.log("updateHotelPictures")
+
       state.hotelInfo.forEach(i=>{
         data.forEach(j=>{
           // console.log("스토어 동등연산 비교"+i.store_id+"///"+j.store_id)

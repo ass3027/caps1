@@ -193,7 +193,6 @@ export default {
 
           console.log(res.data);
           this.$store.commit("hotel/updateHotelPictures",res.data)
-          console.log(this.$store.state.hotel.hotelPictures)
 
 
         });
