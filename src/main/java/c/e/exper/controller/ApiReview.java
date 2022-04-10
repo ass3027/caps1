@@ -29,9 +29,10 @@ public class ApiReview {
     public int addReview(Review review, HttpServletRequest req) {
 
 
-        review.setUser_id("1");
-        review.setOrd_id(1);
-        review.setBook_id(1);
+        review.setUser_id("100");
+
+        System.out.println("등록할 리뷰: "+ review);
+
 
         review.setRev_img_filename(fileService.photoSave(review.getRev_photo(), req, "reviewImage"));
 
@@ -57,6 +58,8 @@ public class ApiReview {
 
     @GetMapping("/productReview")
     public List<Review> findProductReview(String pd_id) {
+        System.out.println(pd_id);
+
         return reviewService.상품아이디_리뷰_조회(pd_id);
     }
 
@@ -78,4 +81,11 @@ public class ApiReview {
 
         System.out.println("삭제 열 갯수: " + deleteColumnCount);
     }
+
+    @GetMapping("/findByPay")
+    public String findByPay(String pay_id) {
+        System.out.println(pay_id);
+        return reviewService.findByPay(pay_id);
+    }
+
 }

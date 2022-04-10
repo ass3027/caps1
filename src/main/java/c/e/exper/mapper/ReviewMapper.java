@@ -21,7 +21,7 @@ public interface ReviewMapper {
     public int addOrderReview(@Param("review") Review review);
 
     /* 예약 리뷰 등록 */
-    @Insert("insert into review(REV_ID, USER_ID, REV_CONTENT, REV_RATING, BOOK_ID) values (REVIEW_SEQ.nextval, #{review.user_id}, #{review.rev_content}, #{review.rev_rating}, #{review.book_id})")
+    @Insert("insert into review( USER_ID, REV_CONTENT, REV_RATING, BOOK_ID) values ( #{review.user_id}, #{review.rev_content}, #{review.rev_rating}, #{review.book_id})")
     public int addBookReview(@Param("review") Review review);
 
     /* 리뷰 조회 */
@@ -39,4 +39,7 @@ public interface ReviewMapper {
 
     @Update("update review set rev_content = #{review.rev_content} where review_id = #{review.rev_id}")
     public int updateReview(@Param("review") Review review);
+
+    @Select("select BOOK_ID from BOOK where PAY_ID = #{pay_id}")
+    public String findByPay(@Param("pay_id") String pay_id);
 }
