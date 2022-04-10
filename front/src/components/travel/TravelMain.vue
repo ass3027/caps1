@@ -34,14 +34,17 @@
       @click="goHotelInfo(hotelInfo)"
     >
       {{ hotelInfo.store_id }}
-      <v-card
+      <v-card v-if="hotelInfo.pic_name"
         width="100%"
         height="200px"
-      />
-      <v-img
-        :src="'/api/photo/'+hotelInfo.pic_name"
-        alt="실허어엄"
-      />
+      >
+        <v-img v-if="hotelInfo.pic_name"
+               width="100%"
+               height="100%"
+               :src="'/api/photo/'+hotelInfo.pic_name"
+               alt="실허어엄"
+        />
+      </v-card>
     </div>
   </div>
 </template>
