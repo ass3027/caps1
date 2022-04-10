@@ -176,7 +176,7 @@ export default {
 
       axios({
         method : 'get',
-        url    : '/api/getHotel',
+        url    : '/api/getHotelPic',
         headers: {
           // 'Content-Type': 'application/json'
         },
@@ -185,10 +185,23 @@ export default {
           console.log(res);
 
           console.log(res.data);
+          this.$store.commit("hotel/updateHotelPictures",res.data)
+          console.log(this.$store.state.hotel.hotelPictures)
 
-          this.$store.commit('hotel/updateHotel', res.data)
+        });
 
-        })
+      axios({
+        method : 'get',
+        url    : '/api/getHotel',
+      })
+      .then((res)=>{
+
+
+
+        this.$store.commit('hotel/updateHotel', res.data)
+
+
+      })
 
       // let a = {
       //   hotelInfos: []

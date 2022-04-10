@@ -1,12 +1,6 @@
 <template>
   <div class="header-layout">
     <div class="login-box">
-      <v-btn text>
-        login
-      </v-btn>
-      <v-btn text>
-        join
-      </v-btn>
     </div>
     <div>
       <div>Packless Travel</div>

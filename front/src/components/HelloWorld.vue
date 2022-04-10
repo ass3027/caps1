@@ -77,7 +77,7 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
-    dd: `/api/photo/`+"userImage/1648463078479i14085986122.jpg",
+    // dd: `/api/photo/`+"userImage/1648100757821img.jpg",
     menuList:[
       "여행지",
       "여행계획",

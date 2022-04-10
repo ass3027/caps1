@@ -39,8 +39,8 @@
         height="200px"
       />
       <v-img
-        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-        height="200px"
+        :src="picture(index)"
+        alt="실허어엄"
       />
     </div>
   </div>
@@ -50,6 +50,7 @@ export default {
   name: 'TravelMain',
   data() {
     return {
+      dd: `/api/photo/` + "userImage/1648100757821img.jpg",
       model: 0,
       colors: ['primary', 'secondary', 'yellow darken-2', 'red', 'orange']
     };
@@ -57,7 +58,8 @@ export default {
   computed: {
     hotel() {
       return this.$store.state.hotel;
-    }
+    },
+
   },
   methods: {
     goHotelInfo(hotelInfo) {
@@ -65,6 +67,9 @@ export default {
       // console.log(this.$router);
       // console.log(`/${hotelInfo.hotelName}`);
       this.$router.push(`/${hotelInfo.store_id}`);
+    },
+    picture(index){
+      return "/api/photo/storeImage/"+this.$store.state.hotel.hotelPictures[index]
     }
   }
 };
@@ -79,6 +84,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .hotelcard {
   margin-right: 3%;
   width: 200px;

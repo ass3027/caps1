@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -32,11 +34,23 @@ public class HotelController {
     @GetMapping("/getHotel")
     public List<StoreDAO> hotel(){
         System.out.println("컨트롤러임");
-        System.out.println(HotelMapper.findAll());
+
         return HotelMapper.findAll();
     }
 
-    @PostMapping("/hotelladd")
+    @GetMapping("/getHotelPic")
+    public List<String> hotelPic(){
+        System.out.println("호텔 사진 컨트롤러임");
+        List<String> data = HotelMapper.selectStorePic();
+        System.out.println(data.size());
+        for(int a=0;a<data.size();a++){
+            System.out.println(data.get(a));
+        }
+
+        return data;
+    }
+
+    @PostMapping("/hoteladd")
     public boolean hoteladd(StoreDTO store, HttpServletRequest req){
 
         System.out.println("호텔 추가 컨트롤러임");
