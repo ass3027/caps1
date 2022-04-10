@@ -1,7 +1,7 @@
 <template>
   <div>
-    <select>
-      <option v-for="(plan,index) in plan_list" :key="index">{{ plan.plan_name }}</option>
+    <select style="border-style:solid " v-model="plan_id" @change="reload">
+      <option v-for="(plan,index) in plan_list" :key="index" :value="plan.plan_id">{{ plan.plan_name }}</option>
     </select>
     <div class="float-right">
       <select v-model="selected_plan">
@@ -75,7 +75,7 @@ export default {
     return {
       plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
       input_id         : '',
-      plan_id         : 2,
+      plan_id         : 0,
       current_user_id : 'um',
       invite_list_user: [],
       invite_list_plan: [],
@@ -92,8 +92,14 @@ export default {
     this.updateInvite()
     this.loadAffiliated()
     this.getPlanListByUserId()
+
+
   },
   methods: {
+    reload(){
+      this.updateInvite()
+      this.loadAffiliated()
+    },
     loadAffiliated() {
       axios({
         url   : `/api/affiliating?plan_id=${this.plan_id}`,
@@ -171,7 +177,7 @@ export default {
       })
       .then( (res)=>{
         this.plan_list=res.data
-        console.log(this.plan_list)
+        this.plan_id=this.plan_list[0].plan_id
       })
       .catch( (err)=>{
         console.error(err)

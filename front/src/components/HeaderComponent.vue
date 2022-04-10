@@ -33,6 +33,7 @@
       >
         logout
       </v-btn>
+      <img src="/api/photo/userImage/1649413987170images.jpg">
     </div>
     <div>
       <div class="menu-Bar">
