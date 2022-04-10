@@ -14,15 +14,11 @@ import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
 
 //가방 보관
 import BagReserveView from '../views/bag/order/BagReserveView.vue'
-import FareView from '../views/bag/FareView'
 import ReviewView from '../views/bag/ReviewView'
-import UsageGuideView from '../views/bag/UsageGuideView'
-import TransportView from '../views/bag/order/TransportView'
 import TrackingView from "@/views/bag/TrackingView";
 import StorageView from "@/views/bag/order/StorageView";
-import PlannerPicView from "@/views/share/PlannerPicView";
 
-import OrderView from "../views/bag/order/OrderView.vue";
+//import OrderView from "../views/bag/order/OrderView.vue";
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportView from "../views/bag/order/TransportView";
@@ -84,7 +80,7 @@ const routes = [
   { path: "/hoteladd", name: "hoteladd", component: HotelAdd },
   { path: "/hoteltest", name: "hoteltest", component: Hoteltest },
   { path: "/calender", name: "calender", component: CalenderView },
-  { path: "/OrderView", name: "OrderView", component: OrderView },
+ // { path: "/OrderView", name: "OrderView", component: OrderView },
   { path: "/FareView", name: "FareView", component: FareView },
   { path: "/ReviewView", name: "ReviewView", component: ReviewView },
   {path: "/TransportView", name: "TransportView", component: TransportView},
@@ -96,7 +92,7 @@ const routes = [
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView},
-  {path: "/GuideViewUser", name: "GuideViewUser", component: GuideViewUser}
+  {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true}
 ];
 
 const router = new VueRouter({
