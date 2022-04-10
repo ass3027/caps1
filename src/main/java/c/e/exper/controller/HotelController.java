@@ -39,9 +39,9 @@ public class HotelController {
     }
 
     @GetMapping("/getHotelPic")
-    public List<String> hotelPic(){
+    public List<PictureDAO> hotelPic(){
         System.out.println("호텔 사진 컨트롤러임");
-        List<String> data = HotelMapper.selectStorePic();
+        List<PictureDAO> data = HotelMapper.selectStorePic();
         System.out.println(data.size());
         for(int a=0;a<data.size();a++){
             System.out.println(data.get(a));
