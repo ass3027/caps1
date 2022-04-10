@@ -25,10 +25,11 @@ public class ApiSupl {
         this.userMapper = userMapper;
     }
 
-    @GetMapping("/getMySupl")
-    public List<Plan_Suplies> getMySupl() {
+    @GetMapping("/getMySupl/{plan_id}")
+    public List<Plan_Suplies> getMySupl(@PathVariable("plan_id") String plan_id) {
+        System.out.println(plan_id);
 
-        return SuplMapper.findMyAllSupl("1");
+        return SuplMapper.findMyAllSupl(plan_id);
     }
 
     @GetMapping("/getSupl")
@@ -37,9 +38,9 @@ public class ApiSupl {
         return SuplMapper.findAllSupl();
     }
 
-    @GetMapping("/getSets")
-    public List<ImportSuppliesDTO> getSets() {
-        return SuplMapper.findSuppliesSets("1");
+    @GetMapping("/getSets/{plan_id}")
+    public List<ImportSuppliesDTO> getSets(@PathVariable("plan_id")String plan_id) {
+        return SuplMapper.findSuppliesSets(plan_id);
     }
 
     @PostMapping("/inputSupl")
@@ -55,7 +56,7 @@ public class ApiSupl {
             System.out.println("2");
             ps.setName(p.getSupl_id().getSupl_name());
             System.out.println("3");
-            ps.setPlan_id("1");
+            ps.setPlan_id(p.getPlan_id());
             System.out.println("4");
             SuplMapper.insertSuplies(ps);
             System.out.println("있을때완료");
@@ -69,7 +70,7 @@ public class ApiSupl {
             System.out.println("22");
             ps.setName(p.getSupl_id().getSupl_name());
             System.out.println("33");
-            ps.setPlan_id("1");
+            ps.setPlan_id(p.getPlan_id());
             System.out.println("44");
             SuplMapper.insertSuplies(ps);
             System.out.println("없을때완료");

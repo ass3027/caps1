@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <PlannerHeader></PlannerHeader>
     <h2>내준비물</h2>
 
     <div>
@@ -100,9 +101,13 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
+import PlannerHeader from "@/components/PlannerHeader";
 
 export default {
   name: 'SuppliesView',
+  components: {
+    PlannerHeader,
+  },
   data() {
     return {
       inputItem: "",
@@ -117,10 +122,14 @@ export default {
   },
   mounted() {
     console.log("첫로딩데이터")
+
     this.getMyList()
     this.getList()
   },
   methods: {
+    test() {
+      console.log("test")
+    },
     getList() {
       axios.get('/api/getSupl').then((res)=>{
         var supplies = []
@@ -137,7 +146,7 @@ export default {
     getMyList() {
       axios({
         method: 'get',
-        url: '/api/getMySupl',
+        url: '/api/getMySupl/'+this.$store.state.user.planId,
       })
         .then((res) => {
           console.log("내리스트가져오기");
@@ -168,7 +177,7 @@ export default {
         return;
       }
       var data2 = {
-        plan_id: "1", supl_id: {
+        plan_id: this.$store.state.user.planId, supl_id: {
           supl_id: "3"
           , supl_name: this.inputItem
         }
@@ -196,7 +205,7 @@ export default {
       }
       this.values.forEach((i)=>{
         var data2 = {
-          plan_id: "1", supl_id: {
+          plan_id: this.$store.state.user.planId, supl_id: {
             supl_id: "3"
             , supl_name: i
           }

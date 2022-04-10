@@ -60,6 +60,7 @@ export default {
   },
   computed: {
     hotel() {
+      console.log("didididi")
       return this.$store.state.hotel;
     },
 

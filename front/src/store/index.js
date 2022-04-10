@@ -13,6 +13,6 @@ export const store = new VueX.Store({
     hotel,
   },
   plugins: [createPersistedState({
-    path: ["user"]
+    paths: ["user"]
   })]
 });

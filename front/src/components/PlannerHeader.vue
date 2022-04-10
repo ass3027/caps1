@@ -28,6 +28,7 @@ export default {
   methods:{
     reload(){
       this.$store.commit('user/updatePlanId',this.plan_id)
+      console.log(this.$store.state.user.planId)
     },
     getPlanListByUserId() {
       axios({
