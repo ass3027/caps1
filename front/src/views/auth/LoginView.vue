@@ -68,6 +68,7 @@ export default {
               console.log(this.$store.state.user)
               console.log(this.$store.state.id)
               this.$router.push("/")
+              location.reload()
             }
           })
           .catch((err) => {

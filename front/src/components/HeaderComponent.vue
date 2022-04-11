@@ -34,7 +34,9 @@
         logout
       </v-btn>
 <!--      엄준식은 살아있다-->
-<!--      <img src="/api/photo/userImage/1649413987170images.jpg">-->
+      <img :src="photo"
+           style="width:150px;height:150px"
+      >
     </div>
     <div>
       <div class="menu-Bar">
@@ -79,8 +81,18 @@ import axios from "axios";
 export default {
 
   name: 'HelloWorld',
+  mounted(){
+    if(this.$store.state.user.userId!==''){
+      axios.get("/api/user")
+        .then( (res)=> {
+          console.log(res.data)
+          this.photo = `/api/photo/`+res.data
+        })
+    }
+
+  },
   data: () => ({
-    // dd: `/api/photo/`+"userImage/1648100757821img.jpg",
+    photo: `/api/photo/`+"userImage/1648100757821img.jpg",
     menuList:[
       "여행지",
       "여행계획",
@@ -92,17 +104,17 @@ export default {
     ],
     contents: [
       [
-        {title: 'travel1', route: '/travel'},
-        {title: 'travel2', route: '/travel'},
-        {title: 'travel3', route: '/travel'},
-        {title: 'travel4', route: '/travel'},
-        {title: 'travel5', route: '/travel'}
+        // {title: 'travel1', route: '/travel'},
+        // {title: 'travel2', route: '/travel'},
+        // {title: 'travel3', route: '/travel'},
+        // {title: 'travel4', route: '/travel'},
+        // {title: 'travel5', route: '/travel'}
       ],
       [
-        {title: '일정', route: '/calender'},
-        {title: '준비물', route: '/supplies'},
         {title: '플래너 생성', route: '/plan'},
         {title: '플래너 초대', route: '/plInvite'},
+        {title: '일정', route: '/calender'},
+        {title: '준비물', route: '/supplies'},
         {title: '플래너 사진', route: '/planPic'}
       ],
       [
@@ -120,16 +132,16 @@ export default {
         {title: '배송조회', route: '/TrackingView'}
       ],
       [
-        {title: 'GuideView', route: '/guideview'},
-        {title: 'GuideRegister', route: '/GuideRegister'},
-        {title: 'GuideProductReg', route: '/GuideProductReg'},
-        {title: 'GuideReserve', route: '/GuideReserve'},
+        {title: '가이드 리스트', route: '/guideview'},
+        {title: '가이드 등록', route: '/GuideRegister'},
+        {title: '가이드 예약 ', route: '/GuideReserve'},
+        {title: '가이드 상품 등록', route: '/GuideProductReg'},
         {title: 'Guide5', route: '/Guide'}
       ],
       [
+        {title: '공유', route: '/share'},
         {title: 'Community1', route: '/Community'},
         {title: 'Community2', route: '/Community'},
-        {title: '공유', route: '/share'},
         {title: 'Community4', route: '/Community'},
         {title: 'Community5', route: '/Community'}
       ],

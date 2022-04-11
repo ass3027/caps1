@@ -57,8 +57,8 @@ export default {
     return {
       geocoder      : '',
       marker       : 0,
-      startDate    : new Date("2022-03-01T00:00:00.000Z"),
-      endDate      : new Date("2022-03-11T00:00:00.000Z"),
+      startDate    : '',
+      endDate      : '',
       startDateC   : new Date(),
       endDateC     : new Date(),
       dateArr      : [],
@@ -69,8 +69,8 @@ export default {
     }
   },
   mounted() {
-      this.startDate = new Date("2022-03-01T00:00:00.000Z");
-      this.endDate = new Date("2022-03-11T00:00:00.000Z")
+      //this.startDate = new Date("2022-03-01T00:00:00.000Z");
+      //this.endDate = new Date("2022-03-11T00:00:00.000Z")
       this.apply();
 
   },

@@ -115,7 +115,7 @@ export default {
       axios
         .post('/api/addOrder', bag)
         .then((res) => {
-          console.log(res)
+          alert("주문 완료!")
         })
     },
     startAddress(address) {

@@ -79,7 +79,6 @@ export default {
       plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
       input_id         : '',
       plan_id         : 0,
-      current_user_id : 'um',
       invite_list_user: [],
       invite_list_plan: [],
       selected_plan   : 0,
@@ -89,9 +88,11 @@ export default {
   computed: {
     user_id() {
       return this.$store.state.user.userId
-    }
+    },
   },
   mounted() {
+    this.plan_id = this.$store.state.user.planId;
+    console.log("mounted")
     this.updateInvite()
     this.loadAffiliated()
     this.getPlanListByUserId()
@@ -168,6 +169,7 @@ export default {
       })
         .then(() => {
           alert("success")
+          location.reload();
         })
         .catch((err) => {
           console.log(err);
