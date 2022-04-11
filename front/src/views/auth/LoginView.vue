@@ -1,16 +1,20 @@
 <template>
   <div>
     <form @submit.prevent="login()">
-      id<input v-model="id">
-      pw<input v-model="pw">
-      <button>login</button>
+      <div style="width:400px">
+        <v-text-field v-model="id" placeholder="ID"></v-text-field>
+        <v-text-field v-model="pw" placeholder="PW"/>
+        <v-btn @click="login()">login</v-btn>
+      </div>
+
     </form>
     <!--    <button @click="logout()">logout</button>-->
 
     <div>
-      <button @click="getId()">
+      <br>
+      <v-btn @click="getId()">
         getId
-      </button>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -34,10 +38,10 @@ export default {
   methods: {
     login() {
       if (this.id == '') {
-        alert("id입력해라")
+        alert("id를 입력하세요")
         return
       } else if (this.pw == '') {
-        alert("비번입력해라")
+        alert("비번을 입력하세요")
         return
       }
       var loginData = new FormData();

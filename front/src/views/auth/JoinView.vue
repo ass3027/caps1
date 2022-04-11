@@ -3,51 +3,72 @@
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
 
     <form @submit.prevent>
-      <input
-        v-model="user_id"
-        type="text"
-        placeholder="ID"
-      >
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="user_id"
+              type="text"
+              placeholder="ID"
+              append-icon="mdi-close"
+            >ss</v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-text-field
+            v-model="user_pw"
+            type="text"
+            placeholder="PASSWD"
+            append-icon="mdi-close"
+          />
+        </v-row>
+        <v-row>
+          <v-text-field
+            v-model="user_name"
+            type="text"
+            placeholder="NAME"
+          />
+        </v-row>
+        <v-row>
+          <v-text-field
+            v-model="user_phone"
+            type="text"
+            placeholder="PHONE"
+          />
+        </v-row>
+        <v-row>
+          <v-date-picker
+            v-model="user_birth"
+            placeholder="Birth"
+          />
+        </v-row>
+      </v-container>
 
-      <input
-        v-model="user_pw"
-        type="text"
-        placeholder="PASSWD"
-      >
 
-      <input
-        v-model="user_name"
-        type="text"
-        placeholder="NAME"
-      >
 
-      <input
-        v-model="user_phone"
-        type="text"
-        placeholder="PHONE"
-      >
 
-      <input
-        v-model="user_birth"
-        type="date"
-        placeholder="Birth"
-      >
 
-      <input
+
+
+
+
+
+
+      <v-file-input
+        v-model="user_photo"
         ref="refImage"
-        type="file"
         placeholder="photo"
         @change="imageSet()"
-      >
+      />
 
       <div
         id="pictures"
         style="width:400px;height:400px"
       />
 
-      <button @click="submit()">
+      <v-btn @click="submit()">
         submit
-      </button>
+      </v-btn>
     </form>
   </div>
 </template>
@@ -79,7 +100,8 @@ export default {
         picture.removeChild(picture.firstChild);
       }
 
-      this.user_photo = this.$refs.refImage.files[0];
+      // this.user_photo = this.$refs.refImage.files[0];
+
       var reader = new FileReader();
       reader.readAsDataURL(this.user_photo);
 
@@ -118,8 +140,11 @@ export default {
         console.log(res.data)
         if (res.data === true) {
 
-          alert('ok');
+          alert('회원가입 성공');
           this.$router.push('/')
+        }
+        else{
+          alert('회원가입 실패')
         }
       });
     },

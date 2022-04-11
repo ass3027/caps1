@@ -3,6 +3,14 @@
     <select style="border-style:solid;width:100px;height:30px " v-model="plan_id" @change="reload" >
       <option v-for="(plan,index) in plan_list"  :key="index" :value="plan.plan_id">{{ plan.plan_name }}</option>
     </select>
+<!--    <v-select-->
+<!--      class="select-size"-->
+<!--      :item="plan_list"-->
+<!--      v-model="plan_id"-->
+<!--      @change="reload"-->
+<!--      >-->
+
+<!--    </v-select>-->
   </div>
 </template>
 
