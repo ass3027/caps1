@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <h1>{{book_id}}</h1>
     <v-card
       class="mx-auto"
     >
@@ -51,8 +52,8 @@ import axios from 'axios';
 export default {
   name:'ReviewForm',
   props: {
-    product: {
-      type: Object
+    book_id: {
+      type: String
     }
   },
   data() {
@@ -93,7 +94,7 @@ export default {
 
       reader.onload = function () {
         var photoFrame = document.createElement('div');
-        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
+        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:150px;height:150px;`;
         photoFrame.className = 'photoFrame';
         document.getElementById('pictures').appendChild(photoFrame);
       }
@@ -114,6 +115,7 @@ export default {
 
     },
     created(){
+      console.log("!!!!!!!!:"+this.book_id)
     },
     onSubmit() {
       var sendForm = new FormData()
@@ -121,27 +123,29 @@ export default {
       console.log("리뷰 사진")
       console.log(this.rev_photo)
 
+      console.log("예약 아이디 "+ this.book_id)
+
 
 
       sendForm.append('rev_content', this.rev_content)
       sendForm.append('rev_rating', this.rev_rating)
       sendForm.append('rev_photo', this.rev_photo)
+      sendForm.append('book_id', ""+this.book_id)
 
 
       // console.log('rev_content: ' + srnsendForm.get('rev_content'))
       // console.log('rating: ' + sendForm.get('rev_rating'))
       // console.log('review_image' + sendForm.get('review_image'))
 
-
       axios({
         method : 'post',
-        url    : 'api/addReview',
+        url    : 'http://localhost:8080/api/addReview',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
         data   : sendForm
       }).then((res) => {
-        console.log(res.data())
+        console.log(res.data)
         console.log('name: ' + this.name)
         this.name = ''
         console.log('init name: ' + this.name)
