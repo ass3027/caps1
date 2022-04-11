@@ -1,29 +1,29 @@
 <template>
   <div>
 <!--    <HelloWorld />-->
-    <input
+    <v-text-field
       v-model="store_id"
       type="text"
       placeholder="사업자번호"
-    >
+    />
 
-    <input
+    <v-text-field
       v-model="user_id"
       type="text"
       placeholder="회원아이디"
-    >
+    />
 
-    <input
+    <v-text-field
       v-model="pl_id"
       type="text"
       placeholder="장소번호"
-    >
+    />
 
-    <input
+    <v-text-field
       v-model="store_phone"
       type="text"
       placeholder="전화번호"
-    >
+    />
 
     <input
       ref="refImage"
@@ -37,9 +37,10 @@
       style="width:400px;height:400px"
     />
 
-    <button @click="submit()">
+    <v-btn @click="submit()"
+           color="primary">
       submit
-    </button>
+    </v-btn>
   </div>
 </template>
 
@@ -55,7 +56,7 @@ export default {
   data() {
     return {
       store_id   : "",
-      user_id    : "1",
+      user_id    : "",
       pl_id      : "",
       store_phone: "",
       pic_name   : ""
