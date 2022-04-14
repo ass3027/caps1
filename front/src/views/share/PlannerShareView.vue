@@ -35,7 +35,7 @@
             </td>
             <td>
               <router-link :to="{name:'shareDetails', params:{id:item.share_id}}">
-              {{ item.share_title }}
+                {{ item.share_title }}
               </router-link>
             </td>
             <td>
@@ -47,7 +47,9 @@
         </tbody>
       </v-simple-table>
     </template>
-    <v-btn @click="loginCheck">작성하기</v-btn>
+    <v-btn @click="loginCheck">
+      작성하기
+    </v-btn>
   </div>
 </template>
 

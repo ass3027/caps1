@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <HeaderComponent/>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <HeaderComponent />
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
 
       <v-navigation-drawer
         v-model="drawer"
@@ -30,7 +30,7 @@
         </v-list>
       </v-navigation-drawer>
 
-      <router-view/>
+      <router-view />
     </v-main>
   </v-app>
 </template>

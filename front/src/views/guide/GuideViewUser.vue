@@ -9,15 +9,15 @@
         color="deep-purple"
         height="10"
         indeterminate
-      ></v-progress-linear>
+      />
     </template>
 
     <v-img
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    ></v-img>
+    />
 
-    <v-card-title>{{lists.user_id}}</v-card-title>
+    <v-card-title>{{ lists.user_id }}</v-card-title>
 
     <v-card-text>
       <v-row
@@ -31,7 +31,7 @@
           half-increments
           readonly
           size="14"
-        ></v-rating>
+        />
 
         <div class="grey--text ms-4">
           4.5 (413)
@@ -39,13 +39,13 @@
       </v-row>
 
       <div class="my-4 text-subtitle-1">
-        {{lists.guide_license}}
+        {{ lists.guide_license }}
       </div>
 
-      <div>{{lists.guide_intro}}</div>
+      <div>{{ lists.guide_intro }}</div>
     </v-card-text>
 
-    <v-divider class="mx-4"></v-divider>
+    <v-divider class="mx-4" />
 
     <v-card-title>Tonight's availability</v-card-title>
 

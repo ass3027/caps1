@@ -25,7 +25,11 @@
     <h3>-----------</h3>
     <h3>사진들</h3>
     <div>
-      <img v-for="photo in pictures" :src="'/api/photo/'+photo.pic_name"  :key="photo.pic_name">
+      <img
+        v-for="photo in pictures"
+        :key="photo.pic_name"
+        :src="'/api/photo/'+photo.pic_name"
+      >
     </div>
 
     <v-btn @click="copyPlanner">

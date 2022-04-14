@@ -1,10 +1,14 @@
 <template>
   <div>
-    <PlannerHeader></PlannerHeader>
-    <h2>플래너 사진 공유({{$store.state.user.planId}})</h2>
+    <PlannerHeader />
+    <h2>플래너 사진 공유({{ $store.state.user.planId }})</h2>
     <h2>사진 불러오기</h2>
     <div>
-      <img v-for="photo in photos" :src="'/api/photo/'+photo.pic_name"  :key="photo.pic_name">
+      <img
+        v-for="photo in photos"
+        :key="photo.pic_name"
+        :src="'/api/photo/'+photo.pic_name"
+      >
     </div>
     <h2>사진 넣기</h2>
     <input
@@ -12,10 +16,9 @@
       type="file"
       placeholder="photo"
     >
-    <v-btn @click="upload">사진업로드</v-btn>
-
-
-
+    <v-btn @click="upload">
+      사진업로드
+    </v-btn>
   </div>
 </template>
 
@@ -27,14 +30,14 @@ import axios from "axios";
 
 export default {
   name: 'PlannerPicView',
+  components: {
+    PlannerHeader,
+  },
   data() {
     return {
       user_photo:'',
       photos:''
     }
-  },
-  components: {
-    PlannerHeader,
   },
   mounted() {
     axios.get('/api/getPlanPic',{

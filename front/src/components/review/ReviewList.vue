@@ -7,7 +7,6 @@
         v-for="(review, index) in reviews"
         :key="index"
       >
-
         <ReviewItem
           :review="review"
           @deleteReview="deleteReview"

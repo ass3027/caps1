@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <PlannerHeader></PlannerHeader>
+    <PlannerHeader />
     <h2>내준비물</h2>
 
     <div>
@@ -14,7 +14,9 @@
         label="준비물을 입력해보세요"
         multiple
       />
-      <v-btn @click="inputAll">선택한 준비물들 한꺼번에 넣기</v-btn>
+      <v-btn @click="inputAll">
+        선택한 준비물들 한꺼번에 넣기
+      </v-btn>
     </div>
 
 
@@ -37,7 +39,6 @@
         </datalist>
         <button>입력</button>
       </form>
-
     </div>
 
     <hr>
