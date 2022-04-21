@@ -50,15 +50,18 @@
     <v-btn @click="loginCheck">
       작성하기
     </v-btn>
+    <place-recommend></place-recommend>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import placeRecommend from "@/components/PlaceRecommend";
+import PlaceRecommend from "@/components/PlaceRecommend";
 
 export default {
   name: "PlannerShareView",
-  components: {},
+  components: {PlaceRecommend},
   data() {
     return {
       sets: [],
