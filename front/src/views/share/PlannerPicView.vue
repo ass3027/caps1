@@ -1,7 +1,7 @@
 <template>
   <div>
     <PlannerHeader />
-    <h2>플래너 사진 공유({{ $store.state.user.planId }})</h2>
+    <h2>플래너 사진 공유게시판({{ $store.state.user.planId }})</h2>
     <h2>사진 불러오기</h2>
     <div>
       <img

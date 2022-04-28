@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>공유 플래너 상세보기({{ $route.params.id }})</h2>
-
+    <h2>공유된 횟수:{{share.share_count}}</h2>
     <h2>
       {{ share.share_title }}
     </h2>
@@ -19,6 +19,7 @@
         v-for="schedule in schedules"
         :key="schedule.sch_number"
       >
+<!--@todo cheack-->
         {{ schedule }}
       </li>
     </ul>
@@ -80,6 +81,7 @@ export default {
       }
       axios.get('/api/copyPlanner',{
         params:{
+          share_id:this.share.share_id,
           plan_id:this.share.plan_id,
           user_id:this.$store.state.user.userId
         }

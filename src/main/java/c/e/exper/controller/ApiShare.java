@@ -132,10 +132,13 @@ public class ApiShare {
 
     @GetMapping("/copyPlanner")
     public String copyPlanner(@RequestParam("plan_id") String plan_id,
-                                 @RequestParam("user_id") String user_id
+                                 @RequestParam("user_id") String user_id,
+                              @RequestParam("share_id") String share_id
+
     ) {
         System.out.println(plan_id);
         System.out.println(user_id);
+        System.out.println(share_id);
 
         //optional로 바꾼 부분
         Optional<PlannerDAO> pp = plannerMapper.selectById(plan_id);
@@ -155,6 +158,8 @@ public class ApiShare {
             System.out.println(s.get(i));
             scheduleMapper.insert(s.get(i));
         }
+
+        shareMapper.updateShareCount(share_id);
 
 
 

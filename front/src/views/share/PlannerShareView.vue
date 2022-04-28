@@ -9,16 +9,16 @@
         <thead>
           <tr>
             <th class="text-center">
-              share_id
+              게시글번호
             </th>
             <th class="text-center">
-              title
+              제목
             </th>
             <th class="text-center">
-              place
+              장소
             </th>
             <th class="text-center">
-              share_created
+              작성시간
             </th>
           </tr>
         </thead>
@@ -27,16 +27,13 @@
             v-for="(item,index) in tableSets"
             :key="index"
             class="text-center"
+            @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
           >
             <td>
-              <router-link :to="{name:'shareDetails', params:{id:item.share_id}}">
                 {{ item.share_id }}
-              </router-link>
             </td>
             <td>
-              <router-link :to="{name:'shareDetails', params:{id:item.share_id}}">
                 {{ item.share_title }}
-              </router-link>
             </td>
             <td>
               {{ item.share_place }}
@@ -50,15 +47,17 @@
     <v-btn @click="loginCheck">
       작성하기
     </v-btn>
+    <place-recommend></place-recommend>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import PlaceRecommend from "@/components/PlaceRecommend";
 
 export default {
   name: "PlannerShareView",
-  components: {},
+  components: {PlaceRecommend},
   data() {
     return {
       sets: [],
@@ -69,8 +68,17 @@ export default {
   mounted() {
     axios.get('/api/getSharePosts')
         .then((res) => {
+          let now = new Date()
+          let today = new Date(now.toLocaleDateString());
+          res.data.forEach(i=>{
+            var thisDate = new Date(i.share_created)
+            if(today>thisDate){
+              i.share_created=i.share_created.substring(0,10)
+            }else{
+              i.share_created=thisDate.toString().substring(16,21)
+            }
+          })
           this.tableSets = res.data;
-          console.log(res.data);
         })
   },
   methods:{

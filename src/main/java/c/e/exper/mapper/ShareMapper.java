@@ -37,5 +37,7 @@ public interface ShareMapper {
             "values(#{sharePic.share_id},#{sharePic.pic_name})")
     public void insertSharesPictures(@Param("sharePic") SharePictureDAO sharePic);
 
+    @Update("update SHARES set SHARE_COUNT=SHARE_COUNT+1 where SHARE_ID=#{share_id}")
+    public void updateShareCount(String share_id);
 
 }
