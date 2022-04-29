@@ -36,6 +36,11 @@
     <v-btn @click="copyPlanner">
       일정 복제하기
     </v-btn>
+    <div v-if="$store.state.user.userId==share.user_id">
+      <v-btn @click="edit">수정</v-btn>
+      <v-btn @click="del">삭제</v-btn>
+    </div>
+
   </div>
 </template>
 
@@ -89,6 +94,30 @@ export default {
       .then((res)=>{
         console.log(res)
         alert("복제성공")
+      })
+    },
+    edit(){
+      alert("edit")
+      this.$router.push({name:'shareEdit',params:{
+        share:this.share,
+        schedules:this.schedules,
+        pictures:this.pictures
+
+        }})
+    },
+    del(){
+      alert("delete")
+      axios.delete('/api/delSharePlan',{
+        params:{
+          share_id:this.share.share_id
+        }
+      })
+      .then(res=>{
+        alert(res.data)
+        this.$router.push({name:'share'})
+      })
+      .catch((err)=>{
+        console.log(err)
       })
     }
   }

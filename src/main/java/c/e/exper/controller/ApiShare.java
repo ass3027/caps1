@@ -161,13 +161,16 @@ public class ApiShare {
 
         shareMapper.updateShareCount(share_id);
 
-
-
-
-
         return "성공";
     }
 
+    @DeleteMapping("/delSharePlan")
+    public String delSharePlan(@RequestParam("share_id")String share_id){
+        System.out.println(share_id);
+        shareMapper.deleteSharePlan(share_id);
+
+        return "삭제성공";
+    }
 
 }
 

@@ -48,16 +48,19 @@
       작성하기
     </v-btn>
     <place-recommend></place-recommend>
+    <best-place></best-place>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import PlaceRecommend from "@/components/PlaceRecommend";
+import bestPlace from "@/components/BestPlace";
+
 
 export default {
   name: "PlannerShareView",
-  components: {PlaceRecommend},
+  components: {PlaceRecommend,bestPlace},
   data() {
     return {
       sets: [],

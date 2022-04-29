@@ -40,4 +40,7 @@ public interface ShareMapper {
     @Update("update SHARES set SHARE_COUNT=SHARE_COUNT+1 where SHARE_ID=#{share_id}")
     public void updateShareCount(String share_id);
 
+    @Delete("delete from shares where share_id=#{share_id}")
+    public void deleteSharePlan(String share_id);
+
 }

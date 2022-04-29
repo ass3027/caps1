@@ -10,6 +10,7 @@ import PlannerShareView from '../views/share/PlannerShareView'
 import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
 import PlannerPicView from "@/views/share/PlannerPicView";
+import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/BagReserveView.vue'
@@ -51,6 +52,7 @@ const routes = [
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
   {path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView},
+  {path: '/share/edit', name: 'shareEdit', component: PlannerShareEditView, props:true},
   {path: '/hotel', name: 'hotel', component: HotelView,},
   {path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},
   {path: '/calender', name: 'calender', component: CalenderView},
