@@ -131,6 +131,8 @@ export default {
     };
   },
   computed: {
+
+
     test() {
       return 'aa';
     }
@@ -138,6 +140,15 @@ export default {
   mounted() {
   },
   created() {
+    axios({
+      method : 'get',
+      url    : `/api/store/${this.category}`,
+    })
+      .then((res)=>{
+        console.log("z")
+        this.$store.commit('stores/updateStore', res.data)
+      })
+
     this.settingstart = this.startDate;
     this.settingend = this.endDate;
   },
@@ -173,15 +184,16 @@ export default {
       //     people: this.peopleCount
       // };
 
-      axios({
-        method : 'get',
-        url    : `/api/store/${this.category}`,
-      })
-        .then((res)=>{
-          console.log(res)
-          console.log(res.data)
-          this.$store.commit('hotel/updateHotel', res.data)
-        })
+      // 적용 눌렀을떄말고도 로드하기위해서 created로 이동
+      // axios({
+      //   method : 'get',
+      //   url    : `/api/store/${this.category}`,
+      // })
+      //   .then((res)=>{
+      //     console.log("z")
+      //     this.$store.commit('stores/updateStore', res.data)
+      //   })
+
     }
   }
 };

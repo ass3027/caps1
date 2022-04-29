@@ -34,21 +34,12 @@ public class ApiStore {
     @GetMapping("/store/{category}")
     public List<StoreDAO> getStoreByCategory(@PathVariable String category){
 
-        System.out.println(category);
+//      System.out.println(category);
 
         List<StoreDAO> result = storeMapper.selectByCategory(category);
-        System.out.println(result.size());
-
-//        List<PictureDAO> result2 = pictureMapper.
-//        List<StoreDTO> response = new ArrayList<>();
-//
-//        result.forEach( it->{
-//            response.add(it);
-//        });
 
         return result;
     }
-
 
     @GetMapping("/getHotel")
     public List<StoreDAO> hotel(){
