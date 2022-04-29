@@ -50,7 +50,7 @@
 </template>
 <script>
 export default {
-  name: 'TravelMain',
+  name: 'StoreMain',
   data() {
     return {
       dd: `/api/photo/` + "userImage/1648100757821img.jpg",
@@ -60,11 +60,11 @@ export default {
   },
   computed: {
     hotel() {
-      console.log("didididi")
       return this.$store.state.hotel;
     },
 
   },
+
   methods: {
     goHotelInfo(hotelInfo) {
       console.log(hotelInfo);

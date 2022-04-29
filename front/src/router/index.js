@@ -24,8 +24,10 @@ import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
 
-import HotelView from "@/views/travel/HotelView";
-import HotelAdd from "@/views/travel/HotelAdd";
+import HotelView from "@/views/store/HotelView";
+import StoreAdd from "@/views/store/StoreAdd";
+
+import PensionView from "@/views/pension/PensionView";
 
 
 import GuideView from "@/views/guide/GuideView";
@@ -35,10 +37,11 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
-import Hoteltest from "@/views/travel/HotelTest";
+import Hoteltest from "@/views/store/StoreTest";
 
 import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
+import MotelView from "@/views/store/MotelView";
 
 
 Vue.use(VueRouter);
@@ -51,8 +54,15 @@ const routes = [
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
   {path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView},
+
   {path: '/hotel', name: 'hotel', component: HotelView,},
-  {path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},
+  {path: '/storeadd', name: 'storeadd', component: StoreAdd,},
+  {path: '/motel', name: 'motel', component: MotelView,},
+
+  {path: "/", name: "hoteltest", component: Hoteltest },
+
+  {path: '/pension', name: 'pension', component: PensionView},
+
   {path: '/calender', name: 'calender', component: CalenderView},
   {path: '/BagReserveView', name: 'OrderView', component: BagReserveView},
   {path: '/FareView', name: 'FareView', component: FareView},
@@ -60,7 +70,8 @@ const routes = [
   {path: '/TransportView', name: 'TransportView', component: TransportView},
   {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
   {path: '/StorageView', name: 'StorageView', component: StorageView},
-  { path: "/hoteltest", name: "hoteltest", component: Hoteltest },
+  {path: "/hoteltest", name: "hoteltest", component: Hoteltest },
+
  // { path: "/OrderView", name: "OrderView", component: OrderView },
   {path: '/plInvite', name: 'plInvite', component: PlInviteView},
   {path: '/plan', name: 'plan', component: PlanView},

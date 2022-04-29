@@ -104,7 +104,7 @@
 import axios from "axios";
 
 export default {
-  name: 'TravelLeftbar',
+  name: 'StoreLeftbar',
   data() {
     return {
       startDate: new Date(
@@ -126,7 +126,8 @@ export default {
         { name: 'star4', type: false },
         { name: 'star3', type: false }
       ],
-      peopleCount: 1
+      peopleCount: 1,
+      category:"hotel"
     };
   },
   computed: {
@@ -135,8 +136,6 @@ export default {
     }
   },
   mounted() {
-    console.log("hi")
-
   },
   created() {
     this.settingstart = this.startDate;
@@ -173,43 +172,16 @@ export default {
       //     ratings: ratingList,
       //     people: this.peopleCount
       // };
+
       axios({
         method : 'get',
-        url    : '/api/getHotel',
+        url    : `/api/store/${this.category}`,
       })
         .then((res)=>{
+          console.log(res)
+          console.log(res.data)
           this.$store.commit('hotel/updateHotel', res.data)
-
-          axios({
-            method : 'get',
-            url    : '/api/getHotelPic',
-            headers: {
-              // 'Content-Type': 'application/json'
-            },
-          })
-            .then((res) => {
-              console.log(res);
-
-              console.log(res.data);
-              this.$store.commit("hotel/updateHotelPictures",res.data)
-
-
-            });
-
         })
-
-
-
-
-
-      // let a = {
-      //   hotelInfos: []
-      // };
-      //             axios.get('test').then((res)=>{
-      // let a = res.data ;
-      //             })
-
-      // this.$store.state.test = a;
     }
   }
 };
