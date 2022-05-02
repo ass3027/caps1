@@ -2,7 +2,6 @@
   <v-app>
     <HeaderComponent/>
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
     <v-navigation-drawer
         v-model="drawer"
         app

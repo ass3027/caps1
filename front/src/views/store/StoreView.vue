@@ -25,9 +25,20 @@ export default {
     StoreLeftbar,
     StoreMain,
   },
+  props: ['value'],
   data() {
     return {
-      category: 'HOTEL'
+      category: this.$route.params.value
+    }
+  },
+  created() {
+    this.category = this.$route.params.value
+    console.log(this.category)
+  },
+  watch: {
+    '$route.params.value'(now) {
+      console.log('a')
+      this.category = now
     }
   }
 }

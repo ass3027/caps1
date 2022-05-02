@@ -26,9 +26,9 @@ import CalenderView from "@/views/planner/CalenderView";
 
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
+import MotelView from "@/views/store/MotelView";
 
 import PensionView from "@/views/pension/PensionView";
-
 
 import GuideView from "@/views/guide/GuideView";
 import GuideRegister from "@/views/guide/GuideRegister";
@@ -41,7 +41,8 @@ import Hoteltest from "@/views/store/StoreTest";
 
 import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
-import MotelView from "@/views/store/MotelView";
+
+import StoreView from "@/views/store/StoreView";
 
 
 Vue.use(VueRouter);
@@ -55,11 +56,10 @@ const routes = [
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
   {path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView},
 
-  {path: '/hotel', name: 'hotel', component: HotelView,},
+  // {path: '/hotel', name: 'hotel', component: HotelView,},
   {path: '/storeadd', name: 'storeadd', component: StoreAdd,},
-  {path: '/motel', name: 'motel', component: MotelView,},
-
-  {path: "/", name: "hoteltest", component: Hoteltest },
+  // {path: '/motel', name: 'motel', component: MotelView,},\
+  {path: '/store', name: 'store', component: StoreView, props: {value:String}},
 
   {path: '/pension', name: 'pension', component: PensionView},
 
@@ -70,7 +70,6 @@ const routes = [
   {path: '/TransportView', name: 'TransportView', component: TransportView},
   {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
   {path: '/StorageView', name: 'StorageView', component: StorageView},
-  {path: "/hoteltest", name: "hoteltest", component: Hoteltest },
 
  // { path: "/OrderView", name: "OrderView", component: OrderView },
   {path: '/plInvite', name: 'plInvite', component: PlInviteView},

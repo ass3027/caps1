@@ -131,11 +131,6 @@ export default {
     };
   },
   computed: {
-
-
-    test() {
-      return 'aa';
-    }
   },
   mounted() {
   },
@@ -145,7 +140,6 @@ export default {
       url    : `/api/store/${this.category}`,
     })
       .then((res)=>{
-        console.log("z")
         this.$store.commit('stores/updateStore', res.data)
       })
 
@@ -195,6 +189,9 @@ export default {
       //   })
 
     }
+  },
+  watch: {
+
   }
 };
 </script>
