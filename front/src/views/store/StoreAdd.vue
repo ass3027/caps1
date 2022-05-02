@@ -25,6 +25,12 @@
       placeholder="전화번호"
     />
 
+    <v-text-field
+      v-model="category"
+      type="text"
+      placeholder="카테고리"
+    />
+
     <input
       ref="refImage"
       type="file"
@@ -61,6 +67,7 @@ export default {
       user_id    : "",
       pl_id      : "",
       store_phone: "",
+      category   : "",
       pic_name   : ""
     }
   },
@@ -90,6 +97,7 @@ export default {
       sendform.append('pl_id', this.pl_id)
       sendform.append('store_phone', this.store_phone)
       sendform.append('pic_name', this.pic_name)
+      sendform.append('category', this.category)
 
       console.log(sendform.get('store_id'))
 

@@ -190,9 +190,6 @@ export default {
 
     }
   },
-  watch: {
-
-  }
 };
 </script>
 <style scoped>

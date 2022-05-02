@@ -19,7 +19,7 @@ import StoreLeftbar from '@/components/store/StoreLeftbar.vue';
 import StoreMain from '@/components/store/StoreMain.vue';
 
 export default {
-  name: "HotelView",
+  name: "StoreView",
   components: {
     StoreHeader,
     StoreLeftbar,

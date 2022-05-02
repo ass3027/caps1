@@ -62,7 +62,7 @@
                 v-for="(content, index2) in contents[index]"
                 :key="index2"
                 router
-                :to="{name: content.route.substr(1), params:{'value':content.title}}"
+                :to="content.route"
               >
                 <v-list-item-title>{{ content.title }}</v-list-item-title>
               </v-list-item>
@@ -113,7 +113,7 @@ export default {
         {title: '플래너 사진', route: '/planPic'}
       ],
       [
-        {title: '호텔', route: '/store'},
+        {title: '호텔', route: '/hotel'},
         {title: '모텔', route: '/store'},
         {title: '펜션', route: '/store'},
         {title: '글램핑', route: '/store'},
@@ -177,9 +177,9 @@ export default {
         console.error(err)
       })
     },
-    store(a){
-      this.$router.push({path:a.route, params:{'value':a.title}})
-    }
+    // store(a){
+    //   this.$router.push({path:a.route, params:{'value':a.title}})
+    // }
   }
 };
 </script>
