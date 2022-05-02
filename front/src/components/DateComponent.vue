@@ -13,7 +13,7 @@
       @click="select(index)"
 
     >
-      {{index+1}}
+      {{selected}}
     </div>
     <div></div>
   </div>
@@ -32,12 +32,13 @@ export default {
     //   required:false
     // }
   },
-  computed () {
-    this.plan = this.$store.state.calendar.calendar
+  computed : {
+    plan : function() {
+      return this.$store.state.calendar.calendar[''+this.date]
+    }
   },
   data() {
     return {
-      plan:[],
       height: 500,
       location: '',
       selectedTime: 30,
@@ -56,11 +57,13 @@ export default {
       //console.log(e.target.id);
       const a = {
         "date" : this.date,
-        "time" : index+1
+        "time" : index
       }
       this.$store.commit('calendar/updateSelect',a)
       console.log(this.$store.state.calendar.selectTime)
       console.log(this.$store.state.calendar.selectDate)
+      console.log(this.plan)
+      this.selectedTime = index
     },
 
   }

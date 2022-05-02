@@ -1,8 +1,10 @@
 <template>
   <div id="이재영시발럼">
-    <PlannerHeader />
+    <PlannerHeader/>
     <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
-      <MapComponent />
+      <MapComponent
+        @mapDataTransfer="applyMapData"
+      />
     </div>
 
     <div
@@ -30,7 +32,6 @@
           :key="index"
           :date="date"
           :style="{width:'30%',float:'left' }"
-          @select="selecting"
         />
       </div>
     </div>
@@ -55,27 +56,29 @@ export default {
   },
   data() {
     return {
-      geocoder      : '',
+      geocoder     : '',
       marker       : 0,
       startDate    : '',
       endDate      : '',
       startDateC   : new Date(),
       endDateC     : new Date(),
-      dateArr      : [],
+      calendar      : [],
+      dateArr : [],
       buttonClicked: false,
-      selectedTag: '',
-      infowindow:{},
+      selectedTag  : '',
+      infowindow   : {},
 
     }
   },
   mounted() {
-      //this.startDate = new Date("2022-03-01T00:00:00.000Z");
-      //this.endDate = new Date("2022-03-11T00:00:00.000Z")
-      this.apply();
+    //this.startDate = new Date("2022-03-01T00:00:00.000Z");
+    //this.endDate = new Date("2022-03-11T00:00:00.000Z")
+    this.apply();
 
   },
   methods: {
     apply() {
+      this.calendar = []
       this.dateArr = []
       this.buttonClicked = true
       this.startDateC = new Date(this.startDate)
@@ -85,43 +88,52 @@ export default {
         return;
       }
 
+      if (this.startDateC >= this.endDateC) return;
+
       const tempDate = this.startDateC;
       for (let i = 0; tempDate <= this.endDateC; i++) {
-        this.dateArr[i] = this.dateFormat(tempDate)//tempDate.format("yyyy-MM-dd")
+        this.dateArr.push( this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
         tempDate.setDate(tempDate.getDate() + 1)
       }
 
-      const calendar = [];
-      this.dateArr.forEach( (it)=>{
+
+
+      this.dateArr.forEach( (it) => {
         console.log(it)
         const a = [];
-        for(let i =0;i<24;i++){
+        for (let i = 0; i < 24; i++) {
           a.push(" ")
         }
-        calendar.push({[it] :a})
+        this.calendar[it] = a
 
       })
-      console.log(calendar)
-      calendar.forEach((v)=>{
+      console.log(this.calendar)
+      this.calendar.forEach((key,data) => {
 
-        for(let variable in v) {
-            console.log(variable + "dd" +  v[variable][3])
-        }
+        console.log(key + ", data:" + data)
+        // for (let variable in v) {
+        //   console.log(variable + "dd" + v[variable][3])
+        // }
 
       })
 
-      this.$store.commit('calendar/updateCalendar',calendar)
+      this.$store.commit('calendar/updateCalendar', this.calendar)
       //var tags = []
       //for
     },
-    selecting(tag)  {
-      const check = this.sameCheck(tag);
-      if(check) this.selectedTag = tag;
-        console.log(tag);
-        return check
-    },
-    sameCheck(tag){
-      return this.selectedTag !== tag;
+    // selecting(tag) {
+    //   const check = this.sameCheck(tag);
+    //   if (check) this.selectedTag = tag;
+    //   console.log(tag);
+    //   return check
+    // },
+    // sameCheck(tag) {
+    //   return this.selectedTag !== tag;
+    // },
+
+    applyMapData(mapData) {
+      console.log("calendar: " + mapData)
+      this.$store.commit('calendar/updateCalendarDate',mapData)
     },
 
     dateFormat(date) {

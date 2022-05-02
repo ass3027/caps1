@@ -12,10 +12,10 @@
         <div>
           <form @submit.prevent="searchPlaces()">
             키워드 : <input
-              v-model="keyword"
-              type="text"
-              size="15"
-            >
+            v-model="keyword"
+            type="text"
+            size="15"
+          >
             <button type="submit">
               검색하기
             </button>
@@ -31,7 +31,7 @@
           @mouseover="displayInfowindow(marker[index],place.place_name)"
           @mouseout="infowindow.close()"
         >
-          <span :class="[`markerbg marker_${index+1}`]" />
+          <span :class="[`markerbg marker_${index+1}`]"/>
           <div class="info1">
             <h5 @click="logLocationInfo(place)">{{ place.place_name }}</h5>
             <template v-if="place.road_address_name">
@@ -43,7 +43,7 @@
           </div>
         </li>
       </ul>
-      <div id="pagination" />
+      <div id="pagination"/>
     </div>
     <ul
       v-for="(data,index) in [0,1,2,3,4,5]"
@@ -83,14 +83,14 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-          "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=6334d5e4689d4570c9306cc116099288&libraries=services,clusterer,drawing"
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=6334d5e4689d4570c9306cc116099288&libraries=services,clusterer,drawing"
 
       document.head.appendChild(script);
 
     }
   },
   methods: {
-    dd(index){
+    dd(index) {
       this.markers[index].setMap(this.map)
     },
     initMap() {
@@ -148,26 +148,32 @@ export default {
             console.log(result)
             console.log(clickPosition)
             //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-            var detailAddr = '';
-            if (result[0].road_address !== undefined) {
-              detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
+            let detailAddr = '';
+            let mapData = 0;
+
+            if (result[0].address === undefined && result[0].road_address == undefined) {
+              detailAddr += `<div>주소를 찾을 수 없습니다</div>`
+            } else {
+              if (result[0].road_address != undefined) {
+                mapData = result[0].road_address
+                detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
+              }
+              mapData = result[0].address.address_name
+              detailAddr += '<div >지번 주소 : ' + result[0].address.address_name + '</div>';
             }
-            detailAddr += '<div >지번 주소 : ' + result[0].address.address_name + '</div>';
 
-            var content = '<div class="bAddr">' + detailAddr + '</div>';
+            const content = '<div >' + detailAddr + '</div>';
 
-            // var infowindow = new kakao.maps.InfoWindow({
-            //   position : clickPosition,
-            //   content : finalAddr
-            // });
 
             this.infowindow.setContent(content);
 
             this.infowindow.open(this.map, this.marker);
 
-            if (this.selectedTag !== '') {
-              const info = this.selectedTag.childNodes[1];
-              info.textContent = result[0].address.address_name
+
+
+            console.log(mapData)
+            if (mapData !== 0) {
+              this.$emit('mapDataTransfer', mapData)
             }
 
 
@@ -216,7 +222,7 @@ export default {
       this.places = places;
       console.log(this.places)
       var menuEl = document.getElementById('menu_wrap'),
-          bounds = new kakao.maps.LatLngBounds();
+        bounds = new kakao.maps.LatLngBounds();
       //listStr = '';
 
 
@@ -254,17 +260,17 @@ export default {
 
     addMarker(position, idx, title) {
       var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
-          imageSize = new kakao.maps.Size(36,37),
-          imgOptions = {
-            spriteSize  : new kakao.maps.Size(36, 691),
-            spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10),
-            offset      : new kakao.maps.Point(13, 37)
-          },
-          markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-          marker = new kakao.maps.Marker({
-            position: position, // 마커의 위치
-            image   : markerImage
-          });
+        imageSize = new kakao.maps.Size(36, 37),
+        imgOptions = {
+          spriteSize  : new kakao.maps.Size(36, 691),
+          spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10),
+          offset      : new kakao.maps.Point(13, 37)
+        },
+        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+        marker = new kakao.maps.Marker({
+          position: position, // 마커의 위치
+          image   : markerImage
+        });
       title + 1//????에러피하기
       marker.setMap(this.map); // 지도 위에 마커를 표출합니다
       marker.setDraggable(true);
@@ -278,7 +284,7 @@ export default {
       }
       this.markers = [];
     },
-    removeMarker2(index){
+    removeMarker2(index) {
       console.log(this.markers)
       this.markers[index].setMap(null);
     },
@@ -318,7 +324,7 @@ export default {
       this.infowindow.open(this.map, marker);
     },
 
-    logLocationInfo(place){
+    logLocationInfo(place) {
       console.log(place)
       console.log(place.place_name)
       // 이동할 위도 경도 위치를 생성합니다
