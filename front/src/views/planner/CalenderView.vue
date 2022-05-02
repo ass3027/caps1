@@ -29,7 +29,7 @@
           :id="index+`s`"
           :key="index"
           :date="date"
-          :style="{width:'13%',height:'67vh',float:'left' }"
+          :style="{width:'30%',float:'left' }"
           @select="selecting"
         />
       </div>
@@ -85,17 +85,38 @@ export default {
         return;
       }
 
-      var tempDate = this.startDateC
+      const tempDate = this.startDateC;
       for (let i = 0; tempDate <= this.endDateC; i++) {
         this.dateArr[i] = this.dateFormat(tempDate)//tempDate.format("yyyy-MM-dd")
         tempDate.setDate(tempDate.getDate() + 1)
       }
+
+      const calendar = [];
+      this.dateArr.forEach( (it)=>{
+        console.log(it)
+        const a = [];
+        for(let i =0;i<24;i++){
+          a.push(" ")
+        }
+        calendar.push({[it] :a})
+
+      })
+      console.log(calendar)
+      calendar.forEach((v)=>{
+
+        for(let variable in v) {
+            console.log(variable + "dd" +  v[variable][3])
+        }
+
+      })
+
+      this.$store.commit('calendar/updateCalendar',calendar)
       //var tags = []
       //for
     },
     selecting(tag)  {
-        var check = this.sameCheck(tag)
-        if(check) this.selectedTag = tag;
+      const check = this.sameCheck(tag);
+      if(check) this.selectedTag = tag;
         console.log(tag);
         return check
     },

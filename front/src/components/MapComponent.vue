@@ -33,7 +33,7 @@
         >
           <span :class="[`markerbg marker_${index+1}`]" />
           <div class="info1">
-            <h5>{{ place.place_name }}</h5>
+            <h5 @click="logLocationInfo(place)">{{ place.place_name }}</h5>
             <template v-if="place.road_address_name">
               <span>{{ place.road_address_name }}</span>
               <span class="jibun gray">{{ place.adress_name }}</span>
@@ -169,7 +169,10 @@ export default {
               const info = this.selectedTag.childNodes[1];
               info.textContent = result[0].address.address_name
             }
+
+
           }
+
 
         })
 
@@ -211,7 +214,7 @@ export default {
 
     displayPlaces(places) {
       this.places = places;
-      console.log(places.length)
+      console.log(this.places)
       var menuEl = document.getElementById('menu_wrap'),
           bounds = new kakao.maps.LatLngBounds();
       //listStr = '';
@@ -219,9 +222,10 @@ export default {
 
       this.removeMarker();
 
-      for (var i = 0; i < places.length; i++) {
+      for (let i = 0; i < places.length; i++) {
         //마커 생성 및 지도 표시
-        console.log(1)
+
+
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
 
         // itemEl = this.getListItem(i, places[i]); //검색 결과 항목 element 생성
@@ -231,7 +235,7 @@ export default {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
-
+        console.log()
         kakao.maps.event.addListener(this.markers[i], 'mouseover', () => {
           this.displayInfowindow(this.markers[i], places[i].place_name);
         });
@@ -244,7 +248,6 @@ export default {
       }
 
       menuEl.scrollTop = 0;
-      console.log(this.markers)
       this.map.setBounds(bounds);
     },
 
@@ -314,6 +317,18 @@ export default {
       this.infowindow.setContent(content);
       this.infowindow.open(this.map, marker);
     },
+
+    logLocationInfo(place){
+      console.log(place)
+      console.log(place.place_name)
+      // 이동할 위도 경도 위치를 생성합니다
+      var moveLatLon = new kakao.maps.LatLng(place.y, place.x);
+
+      // 지도 중심을 부드럽게 이동시킵니다
+      // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+      this.map.panTo(moveLatLon);
+      this.map.setLevel(3)
+    }
 
     // removeAllChildNods(el) {
     //   while (el.hasChildNodes()) {
