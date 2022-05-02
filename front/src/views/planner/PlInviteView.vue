@@ -19,14 +19,14 @@
         <option />
       </select>
     </div>
-    <div class="float-left">
+    <div >
       <h2>현재 멤버</h2>
-      <div
+      <ul
         v-for="(data,key) in plan_user_list"
         :key="key"
       >
-        <p>{{ data }}</p>
-      </div>
+        <li>id : {{ data.user_id }} / plan_id : {{data.plan_id}}</li>
+      </ul>
     </div>
     <div class="float-right">
       <h2>멤버 초대</h2>
@@ -206,19 +206,7 @@ export default {
 </script>
 
 <style scoped>
-.right {
-  width: 40%;
-  height: 90%;
-  left: 10%;
-  float: right;
-}
 
-.left {
-  width: 40%;
-  height: 90%;
-  right: 10%;
-  float: left;
-}
 
 .button {
   border: 2px solid;
