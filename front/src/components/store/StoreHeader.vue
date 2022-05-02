@@ -1,7 +1,6 @@
 <template>
   <div class="header-layout">
-    <div class="login-box">
-    </div>
+    <div class="login-box" />
     <div>
       <div>Packless Travel</div>
       <div class="hotel-list-form">

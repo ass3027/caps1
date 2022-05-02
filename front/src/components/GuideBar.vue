@@ -9,6 +9,14 @@
   </div>
 </template>
 
+<script>
+export default {
+  name:'GuideBar',
+
+}
+
+</script>
+
 <style>
 .icon-bar {
   height: 100%;
@@ -43,11 +51,3 @@
 
 
 </style>
-
-<script>
-export default {
-  name:'GuideBar',
-
-}
-
-</script>

@@ -2,11 +2,18 @@
   <div>
     <form @submit.prevent="login()">
       <div style="width:400px">
-        <v-text-field v-model="id" placeholder="ID"></v-text-field>
-        <v-text-field v-model="pw" placeholder="PW"/>
-        <v-btn @click="login()">login</v-btn>
+        <v-text-field
+          v-model="id"
+          placeholder="ID"
+        />
+        <v-text-field
+          v-model="pw"
+          placeholder="PW"
+        />
+        <v-btn @click="login()">
+          login
+        </v-btn>
       </div>
-
     </form>
     <!--    <button @click="logout()">logout</button>-->
 
@@ -37,10 +44,10 @@ export default {
   },
   methods: {
     login() {
-      if (this.id == '') {
+      if (this.id === '') {
         alert("id를 입력하세요")
         return
-      } else if (this.pw == '') {
+      } else if (this.pw === '') {
         alert("비번을 입력하세요")
         return
       }
@@ -59,7 +66,7 @@ export default {
           .then((res) => {
             console.log(res)
             //console.log(res.data)
-            if (res.headers.gg == "ss") {
+            if (res.headers.gg === "ss") {
               alert("fail")
             }
             else {

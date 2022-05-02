@@ -1,6 +1,6 @@
 <template>
   <div id="이재영시발럼">
-    <PlannerHeader/>
+    <PlannerHeader />
     <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
       <MapComponent />
     </div>

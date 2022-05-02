@@ -45,9 +45,16 @@
       </ul>
       <div id="pagination" />
     </div>
-    <ul v-for="(data,index) in [0,1,2,3,4,5]" :key="index">
-      <button @click="removeMarker2(index)">{{data}}ss</button>
-      <button @click="dd(index)">{{data}}bvbv</button>
+    <ul
+      v-for="(data,index) in [0,1,2,3,4,5]"
+      :key="index"
+    >
+      <button @click="removeMarker2(index)">
+        {{ data }}ss
+      </button>
+      <button @click="dd(index)">
+        {{ data }}bvbv
+      </button>
     </ul>
   </div>
 </template>

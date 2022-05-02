@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    <HelloWorld />-->
+    <!--    <HelloWorld />-->
     <v-text-field
       v-model="store_id"
       type="text"
@@ -37,8 +37,10 @@
       style="width:400px;height:400px"
     />
 
-    <v-btn @click="submit()"
-           color="primary">
+    <v-btn
+      color="primary"
+      @click="submit()"
+    >
       submit
     </v-btn>
   </div>

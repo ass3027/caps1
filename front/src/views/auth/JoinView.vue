@@ -11,7 +11,9 @@
               type="text"
               placeholder="ID"
               append-icon="mdi-close"
-            >ss</v-text-field>
+            >
+              ss
+            </v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -55,8 +57,8 @@
 
 
       <v-file-input
-        v-model="user_photo"
         ref="refImage"
+        v-model="user_photo"
         placeholder="photo"
         @change="imageSet()"
       />
@@ -72,9 +74,6 @@
     </form>
   </div>
 </template>
-<style>
-
-</style>
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HeaderComponent.vue'
@@ -154,3 +153,6 @@ export default {
 //   HelloWorld
 // }
 </script>
+<style>
+
+</style>
