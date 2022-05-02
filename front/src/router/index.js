@@ -39,6 +39,8 @@ import Hoteltest from "@/views/travel/HotelTest";
 
 import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
+import Mypage from "@/views/auth/MypageView";
+import MypageView from "@/views/auth/MypageView";
 
 
 Vue.use(VueRouter);
@@ -46,6 +48,7 @@ Vue.use(VueRouter);
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
+  {path: "/mypage", name:'Mypage', component: MypageView},
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
   {path: '/share', name: 'share', component: PlannerShareView},
@@ -60,7 +63,7 @@ const routes = [
   {path: '/TransportView', name: 'TransportView', component: TransportView},
   {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
   {path: '/StorageView', name: 'StorageView', component: StorageView},
-  { path: "/hoteltest", name: "hoteltest", component: Hoteltest },
+  {path: "/hoteltest", name: "hoteltest", component: Hoteltest },
  // { path: "/OrderView", name: "OrderView", component: OrderView },
   {path: '/plInvite', name: 'plInvite', component: PlInviteView},
   {path: '/plan', name: 'plan', component: PlanView},

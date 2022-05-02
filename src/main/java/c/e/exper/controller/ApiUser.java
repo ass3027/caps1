@@ -7,18 +7,12 @@ import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-import java.security.Security;
-import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
@@ -61,7 +55,22 @@ public class ApiUser {
         String pic = pictureMapper.selectByUserId(user_id);
         return pic;
     }
-    
+
+    @GetMapping("/data/{userId}")
+    public UserDAO getUserInfo(@PathVariable String userId){
+        System.out.println(userId); //주소로 받아온 데이터
+        System.out.println("pp");
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());// 서버에서 가지고있는 아이디 정보
+        Optional<UserDAO> result = userMapper.selectId(SecurityContextHolder.getContext().getAuthentication().getName());
+//        if(result.isEmpty()){
+//            return ;
+//        }
+        System.out.println(result.get().getUser_id());
+        System.out.println(result.get().getUser_name());
+
+        return result.get();
+        //void=>아무것도 반환하지 않을때
+    }
 
     @PostMapping("/join")
     public boolean join(UserDTO user,HttpServletRequest req) {
