@@ -25,7 +25,7 @@ export default {
   props:['category'],
   data() {
     return {
-      hotelList: ['제주', '대구', '부산', '서울', '인천', '여수', '대전']
+      hotelList: ['제주', '대구', '부산', '서울', '인천', '여수', '세종',]
     };
   },
   methods: {
