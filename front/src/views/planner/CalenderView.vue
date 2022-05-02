@@ -19,9 +19,13 @@
         v-model="endDate"
         type="date"
       >
-      <button @click="apply()">
+      <v-text-field v-model="schName" style="width:30%"></v-text-field>
+      <v-btn @click="apply()">
         Apply
-      </button>
+      </v-btn>
+      <v-btn @click="save()">
+        save
+      </v-btn>
       <div
         v-if="buttonClicked"
         :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}"
@@ -43,6 +47,7 @@
 import DateComponent from '@/components/DateComponent'
 import PlannerHeader from "@/components/PlannerHeader";
 import MapComponent from "@/components/MapComponent";
+import axios from "axios";
 /* eslint-disable */
 
 export default {
@@ -56,13 +61,13 @@ export default {
   },
   data() {
     return {
+      schName: '',
       geocoder     : '',
       marker       : 0,
       startDate    : '',
       endDate      : '',
       startDateC   : new Date(),
       endDateC     : new Date(),
-      calendar      : [],
       dateArr : [],
       buttonClicked: false,
       selectedTag  : '',
@@ -73,16 +78,26 @@ export default {
   mounted() {
     //this.startDate = new Date("2022-03-01T00:00:00.000Z");
     //this.endDate = new Date("2022-03-11T00:00:00.000Z")
-    this.apply();
+    //this.apply();
 
+  },
+  computed:{
+    calendar() {
+      return this.$store.state.calendar.calendar
+    }
   },
   methods: {
     apply() {
-      this.calendar = []
+      let calendar = []
       this.dateArr = []
       this.buttonClicked = true
       this.startDateC = new Date(this.startDate)
       this.endDateC = new Date(this.endDate)
+      if(this.schName === '') {
+        alert("이름이 없습니다")
+        return;
+      }
+
       if (this.startDateC > this.endDateC) {
         alert("잘못된 날짜 설정 입니다");
         return;
@@ -97,17 +112,20 @@ export default {
       }
 
 
-
+      calendar["planId"] = this.$store.state.user.planId
+      calendar["SchName"] = this.schName
+      calendar["expectExpenses"] = 1000
+      calendar["date"]=[]
       this.dateArr.forEach( (it) => {
         console.log(it)
         const a = [];
         for (let i = 0; i < 24; i++) {
           a.push(" ")
         }
-        this.calendar[it] = a
+        calendar.date[it] = a
 
       })
-      console.log(this.calendar)
+      console.log(calendar)
       this.calendar.forEach((key,data) => {
 
         console.log(key + ", data:" + data)
@@ -117,25 +135,45 @@ export default {
 
       })
 
-      this.$store.commit('calendar/updateCalendar', this.calendar)
-      //var tags = []
-      //for
+      this.$store.commit('calendar/updateCalendar', calendar)
+
     },
-    // selecting(tag) {
-    //   const check = this.sameCheck(tag);
-    //   if (check) this.selectedTag = tag;
-    //   console.log(tag);
-    //   return check
-    // },
-    // sameCheck(tag) {
-    //   return this.selectedTag !== tag;
-    // },
 
     applyMapData(mapData) {
       console.log("calendar: " + mapData)
-      this.$store.commit('calendar/updateCalendarDate',mapData)
+      this.$store.dispatch('calendar/changeCalendarDate',mapData)
     },
 
+    save() {
+      console.log(this.calendar)
+      let data = []
+      let temp = {}
+      for ( let a in this.calendar.date) {
+        for ( let b in a){
+          temp = {
+            gitem_id : null,
+            plan_id : this.calendar.planId,
+            place : this.calendar.date[a][b],
+            sch_name : this.schName,
+            sch_startTime: b,
+            sch_endTime: b.parseInt+1,
+            expect_expenses : this.calendar.expectExpenses,
+          }
+          data.push(temp)
+        }
+
+
+      }
+      console.log(data)
+
+      axios.post('/api/schedule',data)
+      .then ((res) => {
+        console.log(res)
+      })
+      .catch ( (err)=> {
+        console.log(err)
+      })
+    },
     dateFormat(date) {
       let month = date.getMonth() + 1;
       let day = date.getDate();
