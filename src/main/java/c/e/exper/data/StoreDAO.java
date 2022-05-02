@@ -14,5 +14,6 @@ public class StoreDAO {
     String user_id;
     String pl_id;
     String store_phone;
+    String category;
     String pic_name;
 }

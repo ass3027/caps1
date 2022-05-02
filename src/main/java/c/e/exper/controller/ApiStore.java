@@ -3,45 +3,55 @@ package c.e.exper.controller;
 import c.e.exper.data.PictureDAO;
 import c.e.exper.data.StoreDAO;
 import c.e.exper.data.StoreDTO;
-import c.e.exper.mapper.HotelMapper;
+import c.e.exper.mapper.StoreMapper;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class HotelController {
+public class ApiStore {
 
-    @Autowired
-    HotelMapper HotelMapper;
+    final
+    StoreMapper storeMapper;
 
-    @Autowired
+    final
     FileService fileService;
 
-    @Autowired
+    final
     PictureMapper pictureMapper;
 
+    public ApiStore(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper) {
+        this.storeMapper = storeMapper;
+        this.fileService = fileService;
+        this.pictureMapper = pictureMapper;
+    }
+
+    @GetMapping("/store/{category}")
+    public List<StoreDAO> getStoreByCategory(@PathVariable String category){
+
+//      System.out.println(category);
+
+        List<StoreDAO> result = storeMapper.selectByCategory(category);
+
+        return result;
+    }
 
     @GetMapping("/getHotel")
     public List<StoreDAO> hotel(){
         System.out.println("컨트롤러임");
 
-        return HotelMapper.findAll();
+        return storeMapper.findAll();
     }
 
     @GetMapping("/getHotelPic")
     public List<PictureDAO> hotelPic(){
         System.out.println("호텔 사진 컨트롤러임");
-        List<PictureDAO> data = HotelMapper.selectStorePic();
+        List<PictureDAO> data = storeMapper.selectStorePic();
         System.out.println(data.size());
         for(int a=0;a<data.size();a++){
             System.out.println(data.get(a));
@@ -62,12 +72,13 @@ public class HotelController {
                 .user_id(store.getUser_id())
                 .pl_id(store.getPl_id())
                 .store_phone(store.getStore_phone())
+                .category(store.getCategory())
                 .pic_name(filePath)
                 .build();
 
         System.out.println(storeDAO);
 
-        HotelMapper.insert(storeDAO);
+        storeMapper.insert(storeDAO);
 
         System.out.println("사진추가");
 

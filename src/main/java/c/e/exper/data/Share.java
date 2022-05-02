@@ -20,5 +20,6 @@ public class Share {
     String share_contents;
     Date share_created;
     String plan_id;
+    String share_count;
 
 }

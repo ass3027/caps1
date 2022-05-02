@@ -13,6 +13,9 @@
         {{ plan.plan_name }}
       </option>
     </select>
+    <p v-if=" plan_id=='' " class="warningText">
+      플래너를 선택해주세요!
+    </p>
     <!--    <v-select-->
     <!--      class="select-size"-->
     <!--      :item="plan_list"-->
@@ -81,5 +84,7 @@ export default {
 </script>
 
 <style scoped>
-
+.warningText{
+  color: red;
+}
 </style>
