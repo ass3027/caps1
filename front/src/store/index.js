@@ -10,7 +10,7 @@ export const store = new VueX.Store({
 
   modules: {
     user,
-    stores,
+    stores
   },
   plugins: [createPersistedState({
     paths: ["user"]
