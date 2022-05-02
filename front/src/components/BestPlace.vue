@@ -55,6 +55,7 @@ export default {
             i.pic_name="placeImage/noImage.png"
           }
         })
+        console.log("??????????????????")
         console.log(res.data)
         this.items=res.data
 

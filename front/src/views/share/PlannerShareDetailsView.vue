@@ -97,7 +97,6 @@ export default {
       })
     },
     edit(){
-      alert("edit")
       this.$router.push({name:'shareEdit',params:{
         share:this.share,
         schedules:this.schedules,

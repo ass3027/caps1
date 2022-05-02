@@ -51,10 +51,11 @@
           </div>
         </li>
       </ul>
+      {{selectedPic}}
     </div>
     <!--    <div><img src=></div>-->
-    <v-btn @click="addPost">
-      작성완료
+    <v-btn @click="editPost">
+      수정하기
     </v-btn>
   </div>
 </template>
@@ -78,12 +79,19 @@ export default {
     }
   },
   mounted() {
-    alert('InEdit')
     console.log(this.$route.params)
     this.title=this.$route.params.share.share_title
     this.place=this.$route.params.share.share_place
     this.contents=this.$route.params.share.share_contents
 
+    this.loadPlanner()
+    this.selectedPlan=this.$route.params.share.plan_id;
+    this.loadPictures()
+
+
+    this.selectedPic=this.$route.params.pictures.map((i)=>{
+      return `${i.pic_name}`
+    })
   },
   methods: {
     loadPlanner() {
@@ -109,22 +117,27 @@ export default {
             this.pictures = res.data
           })
     },
-    addPost() {
+    editPost() {
+      if(confirm('수정하시겠습니까?')){
+        alert('okk')
+      }else{
+        alert('noooo')
+        return
+      }
       console.log(this.selectedPlan)
       if(!this.selectedPlan){
         alert("플래너를 선택해주세요")
         return
       }
       var Share = {
-        share_id: '',
-        user_id: this.$store.state.user.userId,
+        share_id: this.$route.params.share.share_id,
         share_place: this.place,
         share_title: this.title,
         share_contents: this.contents,
         share_created: '',
         plan_id: this.selectedPlan
       }
-      axios.post('/api/addPost', Share)
+      axios.put('/api/editPost', Share)
           .then((res) => {
             console.log(res.data)
             var pictures = []
@@ -132,20 +145,24 @@ export default {
             this.selectedPic.forEach((i) => {
               inner = {
                 pic_name: i,
-                share_id: res.data
+                share_id: this.$route.params.share.share_id
               }
               pictures.push(inner)
             })
             console.log(pictures)
 
-            axios.post('/api/addPostPic', pictures)
-                .then((res) => {
-                  console.log(res.data)
-                  alert('작성완료')
+            axios.post('/api/editPostPic', pictures,{
+              params:{
+                share_id:this.$route.params.share.share_id
+              }
+            })
+                .then(() => {
+                  alert('수정완료')
                   this.$router.push({name: 'share'})
                 })
           })
-    }
+    },
+
 
   }
 }
