@@ -13,9 +13,10 @@
       @click="select(index)"
 
     >
-      {{selected}}
+      <div>{{index}}시</div>
+      <div> {{selected}} </div>
     </div>
-    <div></div>
+
   </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
   },
   computed : {
     plan : function() {
-      return this.$store.state.calendar.calendar[''+this.date]
+      return this.$store.state.calendar.calendar.date[''+this.date]
     }
   },
   data() {
