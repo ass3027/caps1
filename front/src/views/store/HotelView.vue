@@ -12,6 +12,7 @@
     </div>
   </v-container>
 </template>
+
 <script>
 
 import StoreHeader from '@/components/store/StoreHeader.vue';
