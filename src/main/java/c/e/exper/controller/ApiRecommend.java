@@ -34,4 +34,14 @@ public class ApiRecommend {
 
         return places;
     }
+    @GetMapping("/bestPlace")
+    public List<Place> bestPlace(){
+
+        List<Place> places = placeMapper.findBestPlace();
+        System.out.println(places);
+
+        return places;
+    }
+
+
 }

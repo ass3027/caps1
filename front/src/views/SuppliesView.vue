@@ -93,9 +93,10 @@
     <v-btn @click="deleteAll"  color="error">
       완료한 준비물 제거
     </v-btn>
-    <v-btn @click="$router.push({path:'/supplies/sets'})" color="primary">
+    <v-btn v-if="$store.state.user.planId!=0" @click="$router.push({path:'/supplies/sets'})" color="primary">
       준비물 가져오기 페이지로
     </v-btn>
+
   </v-container>
 </template>
 
