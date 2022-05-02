@@ -14,9 +14,9 @@
       :key="aIdx"
       class="hotelcard"
       @click="gostoreInfo(storeInfo)"
-    >
-      {{ storeInfo.store_id }}
-      <v-card v-if="storeInfo.pic_name" width="100%" height="200px">
+    > <br/><br/>
+      {{ storeInfo.store_name }}
+      <v-card v-if="storeInfo.pic_name" width="300%" height="200px">
         <v-img
           v-if="storeInfo.pic_name"
           width="100%"
@@ -47,10 +47,10 @@ export default {
   methods: {
     gostoreInfo(storeInfo) {
       console.log(storeInfo);
-      // console.log(this.$router);
-      // console.log(`/${storeInfo.hotelName}`);
-      this.$router.push(`/${storeInfo.store_id}`);
+      this.$router.push(`hotel/${storeInfo.store_id}`);
     },
+
+
   },
 };
 </script>
@@ -66,9 +66,9 @@ export default {
 }
 
 .hotelcard {
-  margin-right: 3%;
-  width: 200px;
-  height: 250px;
+  /*margin-right: 3%;*/
+  width: 800px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   cursor: pointer;

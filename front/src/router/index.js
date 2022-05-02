@@ -44,6 +44,7 @@ import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 
 import StoreView from "@/views/store/StoreView";
+import StoreDetail from "@/views/store/StoreDetail";
 
 
 Vue.use(VueRouter);
@@ -58,6 +59,7 @@ const routes = [
   {path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView},
   {path: '/share/edit', name: 'shareEdit', component: PlannerShareEditView, props:true},
   {path: '/hotel', name: 'hotel', component: HotelView,},
+  {path: '/hotel/:store_name', name: 'hotel', component: StoreDetail, props: true},
   {path: '/storeadd', name: 'storeadd', component: StoreAdd,},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
