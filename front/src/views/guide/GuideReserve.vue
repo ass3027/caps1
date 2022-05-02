@@ -57,14 +57,14 @@ export default {
         buyer_email:"testiamport@naver.com",
         buyer_name:"홍길동",
         buyer_tel:"01012341234"
-      }), function (rsp){
-        if (rsp.success)
-        {
-          alert("결제가 성공했습니다.")
-
+      }, rsp =>{
+        console.log(rsp);
+        if (rsp.success){
+          alert("성공")
         } else{
-
-        }     }
+          alert("실패")
+        }
+      })
     }
   }
 }

@@ -1,6 +1,8 @@
 package c.e.exper.service;
 
+import c.e.exper.data.GItemDAO;
 import c.e.exper.data.GuideDAO;
+import c.e.exper.mapper.GItemMapper;
 import c.e.exper.mapper.GuideMapper;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,13 @@ public class GuideService {
 
     final
     GuideMapper guideMapper;
+    GItemMapper gitemMapper;
 
 
-    public GuideService(GuideMapper guideMapper) {
+    public GuideService(GuideMapper guideMapper, GItemMapper gitemMapper) {
+
         this.guideMapper = guideMapper;
+        this.gitemMapper = gitemMapper;
     }
 
     public List<GuideDAO> 가이드_조회() {
@@ -28,5 +33,10 @@ public class GuideService {
     public void 가이드_등록(GuideDAO guideDAO) {
 
          guideMapper.insert(guideDAO);
+    }
+    public void 가이드_상품등록(GItemDAO gitemDAO) {
+
+        System.out.println(gitemDAO);
+        gitemMapper.insert(gitemDAO);
     }
 }
