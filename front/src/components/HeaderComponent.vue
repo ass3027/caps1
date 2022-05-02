@@ -114,10 +114,11 @@ export default {
       ],
       [
         {title: '호텔', route: '/hotel'},
-        {title: '펜션', route: '/facility'},
-        {title: '글램핑', route: '/facility'},
-        {title: '리조트', route: 'facility'},
-        {title: '게스트하우스', route: 'facility'}
+        {title: '모텔', route: '/store'},
+        {title: '펜션', route: '/store'},
+        {title: '글램핑', route: '/store'},
+        {title: '리조트', route: '/store'},
+        {title: '게스트하우스', route: '/store'}
       ],
       [
         {title: '가방예약', route: '/BagReserveView'},
@@ -175,7 +176,10 @@ export default {
       .catch((err)=>{
         console.error(err)
       })
-    }
+    },
+    // store(a){
+    //   this.$router.push({path:a.route, params:{'value':a.title}})
+    // }
   }
 };
 </script>
@@ -221,3 +225,4 @@ export default {
   margin-top: 10px;
 }
 </style>
+

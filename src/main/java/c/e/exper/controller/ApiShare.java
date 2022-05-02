@@ -132,10 +132,13 @@ public class ApiShare {
 
     @GetMapping("/copyPlanner")
     public String copyPlanner(@RequestParam("plan_id") String plan_id,
-                                 @RequestParam("user_id") String user_id
+                                 @RequestParam("user_id") String user_id,
+                              @RequestParam("share_id") String share_id
+
     ) {
         System.out.println(plan_id);
         System.out.println(user_id);
+        System.out.println(share_id);
 
         //optional로 바꾼 부분
         Optional<PlannerDAO> pp = plannerMapper.selectById(plan_id);
@@ -156,13 +159,43 @@ public class ApiShare {
             scheduleMapper.insert(s.get(i));
         }
 
-
-
-
+        shareMapper.updateShareCount(share_id);
 
         return "성공";
     }
 
+    @DeleteMapping("/delSharePlan")
+    public String delSharePlan(@RequestParam("share_id")String share_id){
+        System.out.println(share_id);
+        shareMapper.deleteSharePic(share_id);
+        shareMapper.deleteSharePlan(share_id);
+
+        return "삭제성공";
+    }
+
+    @PutMapping("/editPost")
+    public String editPost(@RequestBody Share share){
+        System.out.println(share);
+        shareMapper.updateShare(share);
+
+        return "수정중";
+    }
+
+    @PostMapping("/editPostPic")
+    public String editPostPic(
+            @RequestBody List<SharePictureDAO> pictures,
+            @RequestParam("share_id") String share_id
+    ) {
+        System.out.println("아아여기요"+share_id);
+        shareMapper.deleteSharePic(share_id);
+
+        for (int i = 0; i < pictures.size(); i++) {
+            System.out.println(pictures.get(i));
+            shareMapper.insertSharesPictures(pictures.get(i));
+        }
+
+        return "수정완료";
+    }
 
 }
 
