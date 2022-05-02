@@ -4,15 +4,8 @@
       <HeaderComponent />
       <v-app-bar-nav-icon @click="drawer = !drawer" />
 
-      <v-navigation-drawer
-        v-model="drawer"
-        app
-        temporary
-      >
-        <v-list
-          nav
-          dense
-        >
+      <v-navigation-drawer v-model="drawer" app temporary>
+        <v-list nav dense>
           <v-list-item
             v-for="item in items"
             :key="item.title"
@@ -39,27 +32,27 @@ import HeaderComponent from "@/components/HeaderComponent";
 
 export default {
   components: {
-    HeaderComponent
+    HeaderComponent,
   },
 
   data() {
     return {
       drawer: false,
-      items : [
-        {title: 'Review', icon: 'mdi-vue-dashboard', to: '/ReviewView'},
-        {title: 'Plan', icon: 'mdi-vue-dashboard', to: '/plan'},
-        {title: 'Join', icon: 'mdi-vue-dashboard', to: '/join'}
-
-      ]
-    }
-  }
-}
+      items: [
+        { title: "Review", icon: "mdi-vue-dashboard", to: "/ReviewView" },
+        { title: "Plan", icon: "mdi-vue-dashboard", to: "/plan" },
+        { title: "Join", icon: "mdi-vue-dashboard", to: "/join" },
+      ],
+    };
+  },
+};
 </script>
 
 <style>
 @font-face {
-  font-family: 'GmarketSansMedium';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -76,7 +69,6 @@ nav a {
   font-weight: bold;
   color: #2c3e50;
 }
-
 
 .v-application--wrap {
   min-height: unset;

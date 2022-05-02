@@ -9,11 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class StoreDAO {
-    String store_id;
+public class GItemDAO {
+
+    String gitem_id;
     String user_id;
     String pl_id;
-    String store_phone;
-    String category;
-    String pic_name;
+    String introduce;
+    String usage_time;
+    String require_time;
+
+
 }
