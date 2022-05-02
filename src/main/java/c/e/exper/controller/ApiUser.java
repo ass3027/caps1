@@ -54,6 +54,13 @@ public class ApiUser {
 
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
+
+    @GetMapping("/user")
+    public String getUserPicture(){
+        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        String pic = pictureMapper.selectByUserId(user_id);
+        return pic;
+    }
     
 
     @PostMapping("/join")

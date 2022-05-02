@@ -32,17 +32,21 @@ public class ReviewService {
 
         int insertColumnCount = 0;
 
-        PictureDAO picture = null;
+        PictureDAO picture = new PictureDAO();
 
-        System.out.println("!!!!!!!!!!!!!!"+picture);
+        picture.setPic_name(review.getRev_img_filename());
+
+
 
 
         if(review.getBook_id() == null && review.getOrd_id() == null) {
             System.out.println("잘못된 형식입니다."); // 에러 출력
         } else if (review.getBook_id() != null) {
             picture.setBook_id(""+review.getBook_id());
-            pictureMapper.InsertOrderReview(picture);
-            System.out.println("!!!!!!!!!!!!!!"+picture);
+            System.out.println(picture);
+            pictureMapper.InsertBookReview(picture);
+
+            System.out.println("예약 리뷰 등록!!!!!!!!!!");
 
             insertColumnCount = reviewMapper.addBookReview(review);
         } else {
@@ -76,6 +80,9 @@ public class ReviewService {
     public int 리뷰_삭제(Review review){
         return reviewMapper.deleteReview(review.getRev_id());
     }
+
+
+    public String findByPay(String pay_id) { return reviewMapper.findByPay(pay_id);}
 
 
 }

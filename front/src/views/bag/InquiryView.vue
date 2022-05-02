@@ -1,12 +1,8 @@
 <template>
   <v-app id="app">
-
-
     <div class="Bag-order">
       배송조회
     </div>
-
-
   </v-app>
 </template>
 

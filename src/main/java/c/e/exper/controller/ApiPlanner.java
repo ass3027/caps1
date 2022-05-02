@@ -4,6 +4,7 @@ import c.e.exper.data.*;
 import c.e.exper.mapper.*;
 import c.e.exper.service.FileService;
 import c.e.exper.service.InviteAffiliateService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +62,8 @@ public class ApiPlanner {
 
     @PostMapping("/affiliating")
     public boolean affiliating(@RequestBody AffiliatedDTO affiliatedDTO){
-
+        System.out.println(affiliatedDTO.getUser_id());
+        System.out.println(affiliatedDTO.getPlan_id());
         affiliatedMapper.insert(affiliatedDTO.toDAO());
         inviteMapper.deleteById(affiliatedDTO.getUser_id(),affiliatedDTO.getPlan_id());
         return true;
@@ -81,11 +83,13 @@ public class ApiPlanner {
     }
 
     @GetMapping("/inviteListUser")
-    public List<InviteDTO> inviteListUser(@RequestParam("id") String id){
+    public List<InviteDTO> inviteListUser(){
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
         List<InviteDAO> result = inviteMapper.selectByUserId(id);
         List<InviteDTO> response = new ArrayList<>();
-
-        result.forEach( data -> response.add(data.toDTO()));
+        result.forEach( data -> {
+            response.add(data.toDTO());
+        } );
 
         return response;
 
@@ -93,7 +97,7 @@ public class ApiPlanner {
 
     @GetMapping("/inviteListPlan")
     public List<InviteDTO> inviteListPlan(@RequestParam("id") String id){
-
+        System.out.println(id);
         List<InviteDAO> result = inviteMapper.selectByPlanId(id);
         List<InviteDTO> response = new ArrayList<>();
 

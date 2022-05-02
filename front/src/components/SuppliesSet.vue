@@ -7,9 +7,9 @@
         v-for="(item, index) in sets"
         :key="index"
       >
-        <p>{{ item.supl_name }}</p>
+        {{ item.supl_name }}
         <!--        객체에 새로운 키값을 넣으면 갱신이 안됨 그래서 기존것을 바꿔야됨-->
-        <div v-if="item.supl_id != 0">
+        <div v-if="item.supl_id != 0" class="inlineBlock">
           <v-btn
             fab
             text
@@ -20,9 +20,10 @@
             가져오기
           </v-btn>
         </div>
-        <div v-else>
+        <div v-else class="inlineBlock">
           가져오기 완료
         </div>
+
       </li>
       <v-btn
         fab
@@ -78,6 +79,8 @@ export default {
   },
   methods: {
     sendItem(item) {
+      item.plan_id=this.$store.state.user.planId;
+      console.log(item);
       axios.post("/api/sendItem",item).then(()=>{
       })
       var dummy = item["supl_id"];
@@ -86,7 +89,11 @@ export default {
 
     },
     sendList() {
-      axios.post("/api/sendList",this.sets).then(()=>{
+      axios.post("/api/sendList",this.sets,{
+        params:{
+          plan_id:this.$store.state.user.planId
+        }
+      }).then(()=>{
       })
     },
     getList() {
@@ -142,5 +149,8 @@ export default {
     z-index: 2;
     padding: 15px;
     color: white;
+  }
+  .inlineBlock{
+    display: inline;
   }
 </style>

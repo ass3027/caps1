@@ -16,5 +16,5 @@ public class StoreDTO {
     String pl_id;
     String store_phone;
     MultipartFile pic_name;
-
+    String category;
 }

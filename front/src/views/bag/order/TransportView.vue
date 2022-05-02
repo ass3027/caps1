@@ -15,13 +15,14 @@
             class="d-inline-flex p-2"
             outlined
             tile
-
-          >{{ bagType.title }}
+          >
+            {{ bagType.title }}
           </v-card>
         </div>
 
         <v-row
-          justify="space-around">
+          justify="space-around"
+        >
           <v-col
             cols="12"
             md="6"
@@ -29,10 +30,12 @@
             <span>이용날짜</span>
             <v-expansion-panels>
               <v-expansion-panel>
-                <v-expansion-panel-header>
-                </v-expansion-panel-header>
+                <v-expansion-panel-header />
                 <v-expansion-panel-content>
-                  <v-date-picker v-model="picker" show-adjacent-months></v-date-picker>
+                  <v-date-picker
+                    v-model="picker"
+                    show-adjacent-months
+                  />
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
@@ -40,16 +43,18 @@
             <v-card
               class="d-flex pa-2"
               outlined
-              tile>
+              tile
+            >
               <h3>시작</h3><br>
-              <AddressComponent @addressData="startAddress"></AddressComponent>
+              <AddressComponent @addressData="startAddress" />
             </v-card>
             <v-card
               class="d-flex pa-2"
               outlined
-              tile>
+              tile
+            >
               <h3>도착</h3><br>
-              <AddressComponent @addressData="endAddress"></AddressComponent>
+              <AddressComponent @addressData="endAddress" />
             </v-card>
           </v-col>
         </v-row>
@@ -66,9 +71,8 @@
     </v-form>
     <!--    <div id="mapcomponent"><MapComponent/></div>-->
 
-    <router-view/>
+    <router-view />
   </v-app>
-
 </template>
 
 <script>
@@ -102,6 +106,13 @@ export default {
       ],
     }
   },
+  watch: {
+    overlay(val) {
+      val && setTimeout(() => {
+        this.overlay = false
+      }, 2000)
+    },
+  },
 
   methods: {
     addOrder() {
@@ -115,7 +126,7 @@ export default {
       axios
         .post('/api/addOrder', bag)
         .then((res) => {
-          console.log(res)
+          alert("주문 완료!")
         })
     },
     startAddress(address) {
@@ -126,13 +137,6 @@ export default {
       this.keepEnd = address
       console.log(this.keepEnd)
     }
-  },
-  watch: {
-    overlay(val) {
-      val && setTimeout(() => {
-        this.overlay = false
-      }, 2000)
-    },
   },
 
 

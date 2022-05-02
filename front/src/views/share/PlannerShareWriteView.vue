@@ -51,7 +51,6 @@
           </div>
         </li>
       </ul>
-      {{ selectedPic }}
     </div>
     <!--    <div><img src=></div>-->
     <v-btn @click="addPost">

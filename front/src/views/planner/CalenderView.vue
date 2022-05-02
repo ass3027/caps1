@@ -1,6 +1,6 @@
 <template>
   <div id="이재영시발럼">
-    <PlannerHeader/>
+    <PlannerHeader />
     <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
       <MapComponent />
     </div>
@@ -57,8 +57,8 @@ export default {
     return {
       geocoder      : '',
       marker       : 0,
-      startDate    : new Date("2022-03-01T00:00:00.000Z"),
-      endDate      : new Date("2022-03-11T00:00:00.000Z"),
+      startDate    : '',
+      endDate      : '',
       startDateC   : new Date(),
       endDateC     : new Date(),
       dateArr      : [],
@@ -69,8 +69,8 @@ export default {
     }
   },
   mounted() {
-      this.startDate = new Date("2022-03-01T00:00:00.000Z");
-      this.endDate = new Date("2022-03-11T00:00:00.000Z")
+      //this.startDate = new Date("2022-03-01T00:00:00.000Z");
+      //this.endDate = new Date("2022-03-11T00:00:00.000Z")
       this.apply();
 
   },

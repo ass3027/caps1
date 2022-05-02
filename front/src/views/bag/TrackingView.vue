@@ -1,15 +1,15 @@
 <template>
   <v-app>
-
     <h1>배송조회</h1>
     <ul>
-      <li v-for="(data,index) in list" :key="index">
-        {{data}}
+      <li
+        v-for="(data,index) in list"
+        :key="index"
+      >
+        {{ data }}
       </li>
     </ul>
-
-</v-app>
-
+  </v-app>
 </template>
 
 <script>

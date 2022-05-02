@@ -1,14 +1,13 @@
 <template>
   <v-app id="app">
-    
-    <div class='Bag-order'>
+    <div class="Bag-order">
       가방 보관 신청서
     </div>
-    
+
     <v-form v-model="valid">
       <v-container>
         <h3>짐 종류와 수량</h3>
-        
+
         <div class="d-flex flex-column mb-6">
           <v-card
             v-for="(bagType,index) in bagType "
@@ -16,12 +15,14 @@
             class="d-inline-flex p-2"
             outlined
             tile
-          >{{ bagType.title }}
+          >
+            {{ bagType.title }}
           </v-card>
         </div>
-        
+
         <v-row
-          justify="space-around">
+          justify="space-around"
+        >
           <v-col
             cols="12"
             md="12"
@@ -31,28 +32,29 @@
               outlined
               tile
             >
-              <div>
-              </div>
+              <div />
             </v-card>
             <v-card>
-              <h3>맡길
-                <AddressComponent @addressData="startAddress" ></AddressComponent></h3>
+              <h3>
+                맡길
+                <AddressComponent @addressData="startAddress" />
+              </h3>
             </v-card>
             <br>
-            
+
             <v-text-field
               v-model="checkBagTime"
-              
+
               label="맡길 시간"
               required
-            ></v-text-field>
-            
+            />
+
             <v-text-field
               v-model="pickUpTime"
-              
+
               label="찾을시간"
               required
-            ></v-text-field>
+            />
           </v-col>
         </v-row>
         <div>
@@ -67,10 +69,9 @@
       </v-container>
     </v-form>
     <!--    <div id="mapcomponent"><MapComponent/></div>-->
-    
-    <router-view/>
-  </v-app>
 
+    <router-view />
+  </v-app>
 </template>
 
 <script>
@@ -83,7 +84,7 @@ export default {
   components: {
     // MapComponent
     AddressComponent
-    
+
   },
   data() {
     return {
@@ -103,7 +104,14 @@ export default {
       ],
     }
   },
-  
+  watch: {
+    overlay(val) {
+      val && setTimeout(() => {
+        this.overlay = false
+      }, 2000)
+    },
+  },
+
   methods: {
     addOrder() {
       const bag = {
@@ -119,24 +127,17 @@ export default {
           console.log(res)
         })
     },
-    startAddress(address){
-    this.keepStart = address
+    startAddress(address) {
+      this.keepStart = address
       console.log(this.keepStart)
     },
-    endAddress(address){
+    endAddress(address) {
       this.keepEnd = address
       console.log(this.keepEnd)
     }
   },
-  watch: {
-    overlay(val) {
-      val && setTimeout(() => {
-        this.overlay = false
-      }, 2000)
-    },
-  },
-  
-  
+
+
 }
 
 </script>

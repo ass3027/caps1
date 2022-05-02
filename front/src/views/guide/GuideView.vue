@@ -27,7 +27,8 @@
             <v-btn
               outlined
               rounded
-              text @click="view(item)"
+              text
+              @click="view(item)"
             >
               상세보기
             </v-btn>
@@ -40,9 +41,7 @@
           />
         </v-list-item>
 
-        <v-card-actions>
-
-        </v-card-actions>
+        <v-card-actions />
       </v-card>
     </v-row>
   </div>

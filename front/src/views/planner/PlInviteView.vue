@@ -1,20 +1,30 @@
 <template>
   <div>
-    <PlannerHeader/>
-    <select style="border-style:solid " v-model="plan_id" @change="reload">
-      <option v-for="(plan,index) in plan_list" :key="index" :value="plan.plan_id">{{ plan.plan_name }}</option>
+    <PlannerHeader />
+    <select
+      v-model="plan_id"
+      style="border-style:solid "
+      @change="reload"
+    >
+      <option
+        v-for="(plan,index) in plan_list"
+        :key="index"
+        :value="plan.plan_id"
+      >
+        {{ plan.plan_name }}
+      </option>
     </select>
     <div class="float-right">
       <select v-model="selected_plan">
-        <option/>
+        <option />
       </select>
     </div>
     <div class="float-left">
       <h2>현재 멤버</h2>
       <div
         v-for="(data,key) in plan_user_list"
-        :key="key">
-
+        :key="key"
+      >
         <p>{{ data }}</p>
       </div>
     </div>
@@ -23,12 +33,13 @@
       <hr>
       <label>
         회원ID <input
-        v-model="input_id"
-        placeholder="내용을 입력해주세요"
-      >
+          v-model="input_id"
+          placeholder="내용을 입력해주세요"
+        >
         <button
           class="button"
-          @click="invite">
+          @click="invite"
+        >
           초대
         </button>
       </label>
@@ -79,7 +90,6 @@ export default {
       plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
       input_id         : '',
       plan_id         : 0,
-      current_user_id : 'um',
       invite_list_user: [],
       invite_list_plan: [],
       selected_plan   : 0,
@@ -89,9 +99,11 @@ export default {
   computed: {
     user_id() {
       return this.$store.state.user.userId
-    }
+    },
   },
   mounted() {
+    this.plan_id = this.$store.state.user.planId;
+    console.log("mounted")
     this.updateInvite()
     this.loadAffiliated()
     this.getPlanListByUserId()
@@ -168,6 +180,7 @@ export default {
       })
         .then(() => {
           alert("success")
+          location.reload();
         })
         .catch((err) => {
           console.log(err);

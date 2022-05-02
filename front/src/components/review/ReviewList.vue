@@ -7,7 +7,7 @@
         v-for="(review, index) in reviews"
         :key="index"
       >
-        <ReviewCard
+        <ReviewItem
           :review="review"
           @deleteReview="deleteReview"
           @review-updated="updateReview"
@@ -18,14 +18,14 @@
 </template>
 
 <script>
-import ReviewCard from "@/components/review/ReveiwItem";
+import ReviewItem from "@/components/review/ReveiwItem";
 
 export default {
 
 
   name:'ReviewList',
   components: {
-    ReviewCard
+    ReviewItem
   },
   props: {
     reviews:{

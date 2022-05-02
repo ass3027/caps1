@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <h1>{{ book_id }}</h1>
     <v-card
       class="mx-auto"
     >
@@ -16,15 +17,18 @@
 
       <v-row class="mx-auto">
         <v-col cols="12">
-          <v-textarea v-model="rev_content" placeholder="리뷰는 최대 1,000자까지 등록 가능합니다." />
+          <v-textarea
+            v-model="rev_content"
+            placeholder="리뷰는 최대 1,000자까지 등록 가능합니다."
+          />
         </v-col>
         <v-spacer />
         <v-col>
-
-          <input ref="refImage"
-                 type="file"
-                 placeholder="photo"
-                 @change="imageSet($event)"
+          <input
+            ref="refImage"
+            type="file"
+            placeholder="photo"
+            @change="imageSet($event)"
           >
 
           <div
@@ -36,12 +40,15 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn width="150px" @click="onSubmit">
+        <v-btn
+          width="150px"
+          @click="onSubmit"
+        >
           리뷰 등록
         </v-btn>
       </v-card-actions>
     </v-card>
-    <input v-model="rev_photo" >
+    <input v-model="rev_photo">
   </v-container>
 </template>
 
@@ -51,8 +58,8 @@ import axios from 'axios';
 export default {
   name:'ReviewForm',
   props: {
-    product: {
-      type: Object
+    book_id: {
+      type: String
     }
   },
   data() {
@@ -93,7 +100,7 @@ export default {
 
       reader.onload = function () {
         var photoFrame = document.createElement('div');
-        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
+        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:150px;height:150px;`;
         photoFrame.className = 'photoFrame';
         document.getElementById('pictures').appendChild(photoFrame);
       }
@@ -114,6 +121,7 @@ export default {
 
     },
     created(){
+      console.log("!!!!!!!!:"+this.book_id)
     },
     onSubmit() {
       var sendForm = new FormData()
@@ -121,27 +129,29 @@ export default {
       console.log("리뷰 사진")
       console.log(this.rev_photo)
 
+      console.log("예약 아이디 "+ this.book_id)
+
 
 
       sendForm.append('rev_content', this.rev_content)
       sendForm.append('rev_rating', this.rev_rating)
       sendForm.append('rev_photo', this.rev_photo)
+      sendForm.append('book_id', ""+this.book_id)
 
 
       // console.log('rev_content: ' + srnsendForm.get('rev_content'))
       // console.log('rating: ' + sendForm.get('rev_rating'))
       // console.log('review_image' + sendForm.get('review_image'))
 
-
       axios({
         method : 'post',
-        url    : 'api/addReview',
+        url    : 'http://localhost:8080/api/addReview',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
         data   : sendForm
       }).then((res) => {
-        console.log(res.data())
+        console.log(res.data)
         console.log('name: ' + this.name)
         this.name = ''
         console.log('init name: ' + this.name)

@@ -33,13 +33,20 @@
       >
         logout
       </v-btn>
-<!--      엄준식은 살아있다-->
-<!--      <img src="/api/photo/userImage/1649413987170images.jpg">-->
+      <!--      엄준식은 살아있다-->
+      <img
+        :src="photo"
+        style="width:150px;height:150px"
+      >
     </div>
     <div>
       <div class="menu-Bar">
         <div class="text-center">
-          <v-menu offset-y v-for="(menu,index) in menuList" :key="index">
+          <v-menu
+            v-for="(menu,index) in menuList"
+            :key="index"
+            offset-y
+          >
             <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
@@ -55,7 +62,7 @@
                 v-for="(content, index2) in contents[index]"
                 :key="index2"
                 router
-                :to="content.route"
+                :to="{name: content.route.substr(1), params:{'value':content.title}}"
               >
                 <v-list-item-title>{{ content.title }}</v-list-item-title>
               </v-list-item>
@@ -65,11 +72,11 @@
       </div>
       <v-divider class="divider-padding" />
     </div>
-<!--    <img-->
-<!--      :src="dd"-->
-<!--      alt="실허어엄"-->
-<!--      style="width:100px;height:100px"-->
-<!--    >-->
+    <!--    <img-->
+    <!--      :src="dd"-->
+    <!--      alt="실허어엄"-->
+    <!--      style="width:100px;height:100px"-->
+    <!--    >-->
   </v-app>
 </template>
 
@@ -80,7 +87,7 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
-    // dd: `/api/photo/`+"userImage/1648100757821img.jpg",
+    photo: `/api/photo/`+"userImage/1648100757821img.jpg",
     menuList:[
       "여행지",
       "여행계획",
@@ -92,25 +99,26 @@ export default {
     ],
     contents: [
       [
-        {title: 'travel1', route: '/travel'},
-        {title: 'travel2', route: '/travel'},
-        {title: 'travel3', route: '/travel'},
-        {title: 'travel4', route: '/travel'},
-        {title: 'travel5', route: '/travel'}
+        // {title: 'travel1', route: '/travel'},
+        // {title: 'travel2', route: '/travel'},
+        // {title: 'travel3', route: '/travel'},
+        // {title: 'travel4', route: '/travel'},
+        // {title: 'travel5', route: '/travel'}
       ],
       [
-        {title: '일정', route: '/calender'},
-        {title: '준비물', route: '/supplies'},
         {title: '플래너 생성', route: '/plan'},
         {title: '플래너 초대', route: '/plInvite'},
+        {title: '일정', route: '/calender'},
+        {title: '준비물', route: '/supplies'},
         {title: '플래너 사진', route: '/planPic'}
       ],
       [
-        {title: '호텔', route: '/hotel'},
-        {title: '펜션', route: '/facility'},
-        {title: '글램핑', route: '/facility'},
-        {title: '리조트', route: 'facility'},
-        {title: '게스트하우스', route: 'facility'}
+        {title: '호텔', route: '/store'},
+        {title: '모텔', route: '/store'},
+        {title: '펜션', route: '/store'},
+        {title: '글램핑', route: '/store'},
+        {title: '리조트', route: '/store'},
+        {title: '게스트하우스', route: '/store'}
       ],
       [
         {title: '가방예약', route: '/BagReserveView'},
@@ -120,16 +128,16 @@ export default {
         {title: '배송조회', route: '/TrackingView'}
       ],
       [
-        {title: 'GuideView', route: '/guideview'},
-        {title: 'GuideRegister', route: '/GuideRegister'},
-        {title: 'GuideProductReg', route: '/GuideProductReg'},
-        {title: 'GuideReserve', route: '/GuideReserve'},
+        {title: '가이드 리스트', route: '/guideview'},
+        {title: '가이드 등록', route: '/GuideRegister'},
+        {title: '가이드 예약 ', route: '/GuideReserve'},
+        {title: '가이드 상품 등록', route: '/GuideProductReg'},
         {title: 'Guide5', route: '/Guide'}
       ],
       [
+        {title: '공유', route: '/share'},
         {title: 'Community1', route: '/Community'},
         {title: 'Community2', route: '/Community'},
-        {title: '공유', route: '/share'},
         {title: 'Community4', route: '/Community'},
         {title: 'Community5', route: '/Community'}
       ],
@@ -142,6 +150,16 @@ export default {
       ]
     ],
   }),
+  mounted(){
+    if(this.$store.state.user.userId!==''){
+      axios.get("/api/user")
+        .then( (res)=> {
+          console.log(res.data)
+          this.photo = `/api/photo/`+res.data
+        })
+    }
+
+  },
   methods: {
     logOut(){
       console.log(22)
@@ -158,6 +176,9 @@ export default {
       .catch((err)=>{
         console.error(err)
       })
+    },
+    store(a){
+      this.$router.push({path:a.route, params:{'value':a.title}})
     }
   }
 };
@@ -204,3 +225,4 @@ export default {
   margin-top: 10px;
 }
 </style>
+
