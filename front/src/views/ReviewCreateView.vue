@@ -1,8 +1,7 @@
 <template>
   <review-form
-    :book_id="book_id">
-
-  </review-form>
+    :book_id="book_id"
+  />
 </template>
 
 <script>

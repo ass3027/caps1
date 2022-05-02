@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PlannerHeader/>
+    <PlannerHeader />
     <hr>
     <div>
       <p>planner make</p>
@@ -47,7 +47,7 @@ import axios from "axios";
 import PlannerHeader from "@/components/PlannerHeader";
 
 export default {
-  name      : "PlanView.vue",
+  name      : "PlanView",
   components: {
     PlannerHeader
   },
@@ -59,13 +59,13 @@ export default {
       plan_list : ''
     }
   },
-  mounted() {
-    this.loadPlan()
-  },
   computed:{
     user_id() {
       return this.$store.state.user.userId
     }
+  },
+  mounted() {
+    this.loadPlan()
   },
   methods: {
     addPlan() {

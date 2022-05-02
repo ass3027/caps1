@@ -104,7 +104,7 @@
 import axios from "axios";
 
 export default {
-  name: 'TravelLeftbar',
+  name: 'StoreLeftbar',
   data() {
     return {
       startDate: new Date(
@@ -126,19 +126,23 @@ export default {
         { name: 'star4', type: false },
         { name: 'star3', type: false }
       ],
-      peopleCount: 1
+      peopleCount: 1,
+      category:"hotel"
     };
   },
   computed: {
-    test() {
-      return 'aa';
-    }
   },
   mounted() {
-    console.log("hi")
-
   },
   created() {
+    axios({
+      method : 'get',
+      url    : `/api/store/${this.category}`,
+    })
+      .then((res)=>{
+        this.$store.commit('stores/updateStore', res.data)
+      })
+
     this.settingstart = this.startDate;
     this.settingend = this.endDate;
   },
@@ -173,45 +177,19 @@ export default {
       //     ratings: ratingList,
       //     people: this.peopleCount
       // };
-      axios({
-        method : 'get',
-        url    : '/api/getHotel',
-      })
-        .then((res)=>{
-          this.$store.commit('hotel/updateHotel', res.data)
 
-          axios({
-            method : 'get',
-            url    : '/api/getHotelPic',
-            headers: {
-              // 'Content-Type': 'application/json'
-            },
-          })
-            .then((res) => {
-              console.log(res);
+      // 적용 눌렀을떄말고도 로드하기위해서 created로 이동
+      // axios({
+      //   method : 'get',
+      //   url    : `/api/store/${this.category}`,
+      // })
+      //   .then((res)=>{
+      //     console.log("z")
+      //     this.$store.commit('stores/updateStore', res.data)
+      //   })
 
-              console.log(res.data);
-              this.$store.commit("hotel/updateHotelPictures",res.data)
-
-
-            });
-
-        })
-
-
-
-
-
-      // let a = {
-      //   hotelInfos: []
-      // };
-      //             axios.get('test').then((res)=>{
-      // let a = res.data ;
-      //             })
-
-      // this.$store.state.test = a;
     }
-  }
+  },
 };
 </script>
 <style scoped>

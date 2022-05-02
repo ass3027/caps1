@@ -1,7 +1,6 @@
 <template>
   <div class="header-layout">
-    <div class="login-box">
-    </div>
+    <div class="login-box" />
     <div>
       <div>Packless Travel</div>
       <div class="hotel-list-form">
@@ -26,7 +25,7 @@ export default {
   props:['category'],
   data() {
     return {
-      hotelList: ['제주', '대구', '부산', '서울', '인천', '여수']
+      hotelList: ['제주', '대구', '부산', '서울', '인천', '여수', '세종',]
     };
   },
   methods: {

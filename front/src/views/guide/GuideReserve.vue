@@ -1,14 +1,19 @@
 <template>
-<div>
-<!--    <script type="text/javascript" src="https://code.jquery-1.12.4.min.js"></script>-->
-<!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>-->
+  <div>
+    <!--    <script type="text/javascript" src="https://code.jquery-1.12.4.min.js"></script>-->
+    <!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>-->
 
-      <h2>IAMPORT 결제 데모</h2>
-      <h2>가격 20원</h2>
-      <li>
-        <button @click="iamportPayment" type="button">결제테스트</button>
-      </li>
-    </div>
+    <h2>IAMPORT 결제 데모</h2>
+    <h2>가격 20원</h2>
+    <li>
+      <button
+        type="button"
+        @click="iamportPayment"
+      >
+        결제테스트
+      </button>
+    </li>
+  </div>
 </template>
 
 <script>
@@ -57,14 +62,14 @@ export default {
         buyer_email:"testiamport@naver.com",
         buyer_name:"홍길동",
         buyer_tel:"01012341234"
-      }), function (rsp){
-        if (rsp.success)
-        {
-          alert("결제가 성공했습니다.")
-
+      }, rsp =>{
+        console.log(rsp);
+        if (rsp.success){
+          alert("성공")
         } else{
-
-        }     }
+          alert("실패")
+        }
+      })
     }
   }
 }

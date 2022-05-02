@@ -33,15 +33,20 @@
       >
         logout
       </v-btn>
-<!--      엄준식은 살아있다-->
-      <img :src="photo"
-           style="width:150px;height:150px"
+      <!--      엄준식은 살아있다-->
+      <img
+        :src="photo"
+        style="width:150px;height:150px"
       >
     </div>
     <div>
       <div class="menu-Bar">
         <div class="text-center">
-          <v-menu offset-y v-for="(menu,index) in menuList" :key="index">
+          <v-menu
+            v-for="(menu,index) in menuList"
+            :key="index"
+            offset-y
+          >
             <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
@@ -67,11 +72,11 @@
       </div>
       <v-divider class="divider-padding" />
     </div>
-<!--    <img-->
-<!--      :src="dd"-->
-<!--      alt="실허어엄"-->
-<!--      style="width:100px;height:100px"-->
-<!--    >-->
+    <!--    <img-->
+    <!--      :src="dd"-->
+    <!--      alt="실허어엄"-->
+    <!--      style="width:100px;height:100px"-->
+    <!--    >-->
   </v-app>
 </template>
 
@@ -81,16 +86,6 @@ import axios from "axios";
 export default {
 
   name: 'HelloWorld',
-  mounted(){
-    if(this.$store.state.user.userId!==''){
-      axios.get("/api/user")
-        .then( (res)=> {
-          console.log(res.data)
-          this.photo = `/api/photo/`+res.data
-        })
-    }
-
-  },
   data: () => ({
     photo: `/api/photo/`+"userImage/1648100757821img.jpg",
     menuList:[
@@ -119,10 +114,11 @@ export default {
       ],
       [
         {title: '호텔', route: '/hotel'},
-        {title: '펜션', route: '/facility'},
-        {title: '글램핑', route: '/facility'},
-        {title: '리조트', route: 'facility'},
-        {title: '게스트하우스', route: 'facility'}
+        {title: '모텔', route: '/store'},
+        {title: '펜션', route: '/store'},
+        {title: '글램핑', route: '/store'},
+        {title: '리조트', route: '/store'},
+        {title: '게스트하우스', route: '/store'}
       ],
       [
         {title: '가방예약', route: '/BagReserveView'},
@@ -154,6 +150,16 @@ export default {
       ]
     ],
   }),
+  mounted(){
+    if(this.$store.state.user.userId!==''){
+      axios.get("/api/user")
+        .then( (res)=> {
+          console.log(res.data)
+          this.photo = `/api/photo/`+res.data
+        })
+    }
+
+  },
   methods: {
     logOut(){
       console.log(22)
@@ -170,7 +176,10 @@ export default {
       .catch((err)=>{
         console.error(err)
       })
-    }
+    },
+    // store(a){
+    //   this.$router.push({path:a.route, params:{'value':a.title}})
+    // }
   }
 };
 </script>
@@ -216,3 +225,4 @@ export default {
   margin-top: 10px;
 }
 </style>
+

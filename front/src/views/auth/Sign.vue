@@ -78,6 +78,15 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  name: 'vsnS                                                                                                                                                                                                                                                                      ign',
+
+  components: {
+  },
+}
+  
+</script>
 <style>
 .contentbackground {
   background:#353535;
@@ -323,13 +332,4 @@
 
 
 </style>
-<script>
-export default {
-  name: 'vsnS                                                                                                                                                                                                                                                                      ign',
-
-  components: {
-  },
-}
-  
-</script>
 

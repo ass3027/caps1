@@ -10,6 +10,7 @@ import PlannerShareView from '../views/share/PlannerShareView'
 import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
 import PlannerPicView from "@/views/share/PlannerPicView";
+import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/BagReserveView.vue'
@@ -24,9 +25,11 @@ import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
 
-import HotelView from "@/views/travel/HotelView";
-import HotelAdd from "@/views/travel/HotelAdd";
+import HotelView from "@/views/store/HotelView";
+import StoreAdd from "@/views/store/StoreAdd";
+import MotelView from "@/views/store/MotelView";
 
+import PensionView from "@/views/pension/PensionView";
 
 import GuideView from "@/views/guide/GuideView";
 import GuideRegister from "@/views/guide/GuideRegister";
@@ -35,10 +38,13 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
-import Hoteltest from "@/views/travel/HotelTest";
+import Hoteltest from "@/views/store/StoreTest";
 
 import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
+
+import StoreView from "@/views/store/StoreView";
+import StoreDetail from "@/views/store/StoreDetail";
 
 
 Vue.use(VueRouter);
@@ -51,8 +57,15 @@ const routes = [
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
   {path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView},
+  {path: '/share/edit', name: 'shareEdit', component: PlannerShareEditView, props:true},
   {path: '/hotel', name: 'hotel', component: HotelView,},
-  {path: '/hoteladd', name: 'hoteladd', component: HotelAdd,},
+  {path: '/hotel/:store_name', name: 'hotel', component: StoreDetail, props: true},
+  {path: '/storeadd', name: 'storeadd', component: StoreAdd,},
+  // {path: '/motel', name: 'motel', component: MotelView,},\
+  // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
+
+  {path: '/pension', name: 'pension', component: PensionView},
+
   {path: '/calender', name: 'calender', component: CalenderView},
   {path: '/BagReserveView', name: 'OrderView', component: BagReserveView},
   {path: '/FareView', name: 'FareView', component: FareView},
@@ -60,7 +73,7 @@ const routes = [
   {path: '/TransportView', name: 'TransportView', component: TransportView},
   {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
   {path: '/StorageView', name: 'StorageView', component: StorageView},
-  { path: "/hoteltest", name: "hoteltest", component: Hoteltest },
+
  // { path: "/OrderView", name: "OrderView", component: OrderView },
   {path: '/plInvite', name: 'plInvite', component: PlInviteView},
   {path: '/plan', name: 'plan', component: PlanView},

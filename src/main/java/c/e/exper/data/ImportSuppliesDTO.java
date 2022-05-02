@@ -14,5 +14,6 @@ public class ImportSuppliesDTO {
     String pl_name;
     String supl_id;
     String supl_name;
+    String plan_id;
 
 }

@@ -32,8 +32,16 @@ public class ApiGuide {
     }
     @PostMapping("/gjoin")
     public void insertGuide(GuideDAO guideDAO) {
+
         guideService.가이드_등록(guideDAO);
         //System.out.println(guideDAO);
+    }
+
+    @PostMapping("/gijoin")
+    public void insertGitem(GItemDAO gitemDAO) {
+
+        guideService.가이드_상품등록(gitemDAO);
+
     }
 
 

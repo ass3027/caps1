@@ -1,20 +1,30 @@
 <template>
   <div>
-    <PlannerHeader/>
-    <select style="border-style:solid " v-model="plan_id" @change="reload">
-      <option v-for="(plan,index) in plan_list" :key="index" :value="plan.plan_id">{{ plan.plan_name }}</option>
+    <PlannerHeader />
+    <select
+      v-model="plan_id"
+      style="border-style:solid "
+      @change="reload"
+    >
+      <option
+        v-for="(plan,index) in plan_list"
+        :key="index"
+        :value="plan.plan_id"
+      >
+        {{ plan.plan_name }}
+      </option>
     </select>
     <div class="float-right">
       <select v-model="selected_plan">
-        <option/>
+        <option />
       </select>
     </div>
     <div class="float-left">
       <h2>현재 멤버</h2>
       <div
         v-for="(data,key) in plan_user_list"
-        :key="key">
-
+        :key="key"
+      >
         <p>{{ data }}</p>
       </div>
     </div>
@@ -23,12 +33,13 @@
       <hr>
       <label>
         회원ID <input
-        v-model="input_id"
-        placeholder="내용을 입력해주세요"
-      >
+          v-model="input_id"
+          placeholder="내용을 입력해주세요"
+        >
         <button
           class="button"
-          @click="invite">
+          @click="invite"
+        >
           초대
         </button>
       </label>

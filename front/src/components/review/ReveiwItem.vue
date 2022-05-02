@@ -1,7 +1,5 @@
 <template>
-
   <v-container>
-
     <v-card
       class="mx-auto"
       outlined
@@ -10,19 +8,24 @@
         <v-list-item-content>
           <v-list-item-title class="text-h5 mb-1">
             <v-row>
-              <v-col cols="12" class="mb-0 pb-0">
+              <v-col
+                cols="12"
+                class="mb-0 pb-0"
+              >
                 <v-rating
                   v-model="rev_rating"
                   background-color="purple lighten-3"
                   color="purple"
                   readonly
                   small
-                ></v-rating>
+                />
               </v-col>
 
 
               <v-col class="ml-2 pt-0">
-                <p class="text-body-2 red--text">{{reg_date}}</p>
+                <p class="text-body-2 red--text">
+                  {{ reg_date }}
+                </p>
               </v-col>
             </v-row>
           </v-list-item-title>
@@ -35,10 +38,9 @@
           tile
           size="150"
           color="grey"
-        ></v-list-item-avatar>
+        />
       </v-list-item>
     </v-card>
-
   </v-container>
 </template>
 
@@ -56,14 +58,14 @@ export default {
       rev_rating: this.review.rev_rating,
     }
   },
-  mounted() {
-
-    console.log(this.review.rev_content)
-  },
   computed: {
     reg_date: function() {
       return this.review.reg_date.substring(0,10);
     }
+  },
+  mounted() {
+
+    console.log(this.review.rev_content)
   }
 }
 

@@ -1,6 +1,5 @@
 <template>
   <v-app id="app">
-    <br>
     <div class="Bag-order">
       가방운송 신청서
     </div>
@@ -147,6 +146,7 @@ export default {
     },
   },
 }
+
 </script>
 
 <style scoped>

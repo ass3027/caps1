@@ -87,14 +87,17 @@ public class ApiSupl {
         Plan_Suplies p = new Plan_Suplies();
         p.setSupl_id(s);
         p.setName(s.getSupl_name());
-        p.setPlan_id("1");
+        p.setPlan_id(i.getPlan_id());
         SuplMapper.insertSuplies(p);
         return "sending";
     }
 
     @PostMapping("/sendList")
-    public String sendList(@RequestBody List<ImportSuppliesDTO> i){
+    public String sendList(@RequestBody List<ImportSuppliesDTO> i,
+                           @RequestParam("plan_id") String plan_id
+    ){
         System.out.println(i);
+        System.out.println(plan_id);
         Suplies s;
         Plan_Suplies p;
         for(int j=0; j<i.size();j++){
@@ -103,7 +106,7 @@ public class ApiSupl {
             p = new Plan_Suplies();
             p.setSupl_id(s);
             p.setName(s.getSupl_name());
-            p.setPlan_id("1");
+            p.setPlan_id(plan_id);
             SuplMapper.insertSuplies(p);
         }
         return "sending List";

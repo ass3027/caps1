@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>공유 플래너 상세보기({{ $route.params.id }})</h2>
-
+    <h2>공유된 횟수:{{share.share_count}}</h2>
     <h2>
       {{ share.share_title }}
     </h2>
@@ -19,18 +19,28 @@
         v-for="schedule in schedules"
         :key="schedule.sch_number"
       >
+<!--@todo cheack-->
         {{ schedule }}
       </li>
     </ul>
     <h3>-----------</h3>
     <h3>사진들</h3>
     <div>
-      <img v-for="photo in pictures" :src="'/api/photo/'+photo.pic_name"  :key="photo.pic_name">
+      <img
+        v-for="photo in pictures"
+        :key="photo.pic_name"
+        :src="'/api/photo/'+photo.pic_name"
+      >
     </div>
 
     <v-btn @click="copyPlanner">
       일정 복제하기
     </v-btn>
+    <div v-if="$store.state.user.userId==share.user_id">
+      <v-btn @click="edit">수정</v-btn>
+      <v-btn @click="del">삭제</v-btn>
+    </div>
+
   </div>
 </template>
 
@@ -76,6 +86,7 @@ export default {
       }
       axios.get('/api/copyPlanner',{
         params:{
+          share_id:this.share.share_id,
           plan_id:this.share.plan_id,
           user_id:this.$store.state.user.userId
         }
@@ -83,6 +94,29 @@ export default {
       .then((res)=>{
         console.log(res)
         alert("복제성공")
+      })
+    },
+    edit(){
+      this.$router.push({name:'shareEdit',params:{
+        share:this.share,
+        schedules:this.schedules,
+        pictures:this.pictures
+
+        }})
+    },
+    del(){
+      alert("delete")
+      axios.delete('/api/delSharePlan',{
+        params:{
+          share_id:this.share.share_id
+        }
+      })
+      .then(res=>{
+        alert(res.data)
+        this.$router.push({name:'share'})
+      })
+      .catch((err)=>{
+        console.log(err)
       })
     }
   }
