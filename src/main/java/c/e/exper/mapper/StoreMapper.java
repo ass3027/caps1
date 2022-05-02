@@ -15,7 +15,7 @@ import java.util.Optional;
 @Mapper
 public interface StoreMapper {
 
-    @Insert("INSERT INTO Store VALUES (#{store.store_id}, #{store.user_id}, #{store.pl_id}, #{store.store_phone}, #{store.category})")
+    @Insert("INSERT INTO Store VALUES (#{store.store_id}, #{store.user_id}, #{store.pl_id}, #{store.store_phone}, #{store.category}, #{store.store_name})")
     void insert(@Param("store")StoreDAO store);
 
     @Select("select * from STORE")

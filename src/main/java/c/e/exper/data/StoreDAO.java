@@ -13,6 +13,7 @@ public class StoreDAO {
     String store_id;
     String user_id;
     String pl_id;
+    String store_name;
     String store_phone;
     String category;
     String pic_name;

@@ -20,6 +20,12 @@
     />
 
     <v-text-field
+      v-model="store_name"
+      type="text"
+      placeholder="가게이름"
+    />
+
+    <v-text-field
       v-model="store_phone"
       type="text"
       placeholder="전화번호"
@@ -56,19 +62,20 @@
 import axios from "axios";
 
 export default {
-  name      : "HotelAdd",
+  name: "HotelAdd",
   components: {
     // HelloWorld,
   },
 
   data() {
     return {
-      store_id   : "",
-      user_id    : "",
-      pl_id      : "",
+      store_id: "",
+      user_id: "",
+      pl_id: "",
       store_phone: "",
-      category   : "",
-      pic_name   : ""
+      category: "",
+      store_name: "",
+      pic_name: "",
     }
   },
   methods: {
@@ -89,12 +96,13 @@ export default {
         document.getElementById("pictures").appendChild(photoFrame);
       }
     },
-    submit  : function () {
+    submit: function () {
       var sendform = new FormData()
 
       sendform.append('store_id', this.store_id)
       sendform.append('user_id', this.user_id)
       sendform.append('pl_id', this.pl_id)
+      sendform.append('store_name', this.store_name)
       sendform.append('store_phone', this.store_phone)
       sendform.append('pic_name', this.pic_name)
       sendform.append('category', this.category)
@@ -102,16 +110,19 @@ export default {
       console.log(sendform.get('store_id'))
 
       axios({
-        method : 'post',
-        url    : 'api/hoteladd',
+        method: 'post',
+        url: 'api/hoteladd',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        data   : sendform,
+        data: sendform,
       })
         .then((res) => {
-          if (res.data == 'ok') {
-            alert("ok");
+          if (res.data === true) {
+            alert('등록 성공');
+            this.$router.push('/hotel')
+          } else {
+            alert('등록 실패')
           }
         })
     }

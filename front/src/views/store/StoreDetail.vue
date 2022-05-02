@@ -9,15 +9,15 @@
         color="deep-purple"
         height="10"
         indeterminate
-      />
+      ></v-progress-linear>
     </template>
 
     <v-img
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    />
+    ></v-img>
 
-    <v-card-title>{{ lists.user_id }}</v-card-title>
+    <v-card-title>Cafe Badilico</v-card-title>
 
     <v-card-text>
       <v-row
@@ -31,7 +31,7 @@
           half-increments
           readonly
           size="14"
-        />
+        ></v-rating>
 
         <div class="grey--text ms-4">
           4.5 (413)
@@ -39,13 +39,13 @@
       </v-row>
 
       <div class="my-4 text-subtitle-1">
-        {{ lists.guide_license }}
+        $ • Italian, Cafe
       </div>
 
-      <div>{{ lists.guide_intro }}</div>
+      <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
     </v-card-text>
 
-    <v-divider class="mx-4" />
+    <v-divider class="mx-4"></v-divider>
 
     <v-card-title>Tonight's availability</v-card-title>
 
@@ -81,37 +81,34 @@
 import axios from "axios";
 
 export default {
-  name:'GuideViewUser',
-  props:['user_id'],
+  name: "StoreDetail",
+  props: ['store_name'],
 
-  data(){
-    return {
-      lists:'',
-      selection:0,
-      loading:"dd"
-    }
-  },
+  data: () => ({
+    loading: false,
+    selection: 1,
+    lists: '',
+  }),
+
   mounted() {
-    this.importGuide()
+    this.importStore()
   },
-  methods:{
-    reserve(){
+
+  methods: {
+    reserve () {
+      this.loading = true
+      setTimeout(() => (this.loading = false), 2000)
     },
 
-    importGuide() {
+    importStore(){
       axios({
         method:'get',
-        url : `/api/guide/`+ this.user_id,
+        url: `/api/store/` + this.store_name,
       })
-        .then((res)=>{
-          console.log(res.data)
-          this.lists = res.data;
-        })
+      .then((res)=>{
+        this.lists = res.data;
+      })
     }
-  }
-
-
+  },
 }
-
-
 </script>
