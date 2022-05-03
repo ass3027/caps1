@@ -32,15 +32,15 @@ export default {
     }
   },
   created() {
-    // this.category = this.$route.params.value
-    // console.log(this.category)
+    this.category = this.$route.params.value
+    console.log(this.category)
   },
-  // watch: {
-  //   '$route.params.value'(now) {
-  //     console.log('a')
-  //     this.category = now
-  //   }
-  // }
+  watch: {
+    '$route.params.value'(now) {
+      console.log('a')
+      this.category = now
+    }
+  }
 }
 </script>
 
