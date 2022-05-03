@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 <template>
   <div>
     <div :class="{'contentbackground':true}">
@@ -334,5 +333,3 @@ export default {
 
 </style>
 
-=======
->>>>>>> Stashed changes

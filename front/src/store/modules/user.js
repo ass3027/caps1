@@ -8,7 +8,7 @@ export default {
         updateUserId(state,newId){
             state.userId = newId
         },
-        updatePlanId(state,newPlanId){
+      updatePlanId(state,newPlanId){
           state.planId = newPlanId
       }
     }

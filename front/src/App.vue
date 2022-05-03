@@ -38,16 +38,14 @@ export default {
   data() {
     return {
       drawer: false,
-      items : [
-        {title: 'Review', icon: 'mdi-vue-dashboard', to: '/ReviewView'},
-        {title: 'Plan', icon: 'mdi-vue-dashboard', to: '/plan'},
-        {title: 'Join', icon: 'mdi-vue-dashboard', to: '/join'},
-        {title: 'Mypage', icon:'mdi-vue-dashboard', to: '/Mypage'}
-
-      ]
-    }
-  }
-}
+      items: [
+        { title: "Review", icon: "mdi-vue-dashboard", to: "/ReviewView" },
+        { title: "Plan", icon: "mdi-vue-dashboard", to: "/plan" },
+        { title: "Join", icon: "mdi-vue-dashboard", to: "/join" },
+      ],
+    };
+  },
+};
 </script>
 
 <style>
