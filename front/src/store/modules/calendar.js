@@ -11,7 +11,7 @@ export default {
     },
     updateCalendarDate(state,mapData){
       if(state.selectTime===0,state.selectDate==='') return
-      state.calendar.date[state.selectDate][state.selectTime] = mapData
+      state.calendar.date[state.selectDate].set(state.selectTime,mapData)
       console.log(state.calendar)
     },
     updateSelect(state,data){
