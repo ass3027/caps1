@@ -64,6 +64,7 @@
         </div>
       </div>
       <div>
+        {{ $store.state.asdf }}
         <div>호텔유형</div>
         <div>
           <v-checkbox
