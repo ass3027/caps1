@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:front/src/views/store/StoreTest.vue
 <template>
   <div />
 </template>
@@ -13,3 +14,5 @@ export default {
 <style scoped>
 
 </style>
+=======
+>>>>>>> Stashed changes:front/src/views/travel/HotelTest.vue

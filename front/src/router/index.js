@@ -48,6 +48,8 @@ import MypageView from "@/views/auth/MypageView";
 import StoreView from "@/views/store/StoreView";
 import StoreDetail from "@/views/store/StoreDetail";
 
+import TestView from "@/views/TestView";
+
 
 Vue.use(VueRouter);
 
@@ -90,6 +92,8 @@ const routes = [
 
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
+
+  {path: "/TestView", name: "TestView", component: TestView},
 
 
 ];

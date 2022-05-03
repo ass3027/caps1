@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <template>
   <form class="joinGItem">
     <h2>가이드 상품 등록</h2>
@@ -209,3 +210,5 @@ export default {
   background-position: right;
 }
 </style>
+=======
+>>>>>>> Stashed changes

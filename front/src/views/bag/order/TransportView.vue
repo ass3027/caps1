@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <template>
   <v-app id="app">
     <div class="Bag-order">
@@ -155,3 +156,5 @@ export default {
 /*  height: 300px;*/
 /*}*/
 </style>
+=======
+>>>>>>> Stashed changes
