@@ -46,11 +46,8 @@ export default {
 
   methods: {
     gostoreInfo(storeInfo) {
-      console.log(storeInfo);
       this.$router.push(`hotel/${storeInfo.store_id}`);
     },
-
-
   },
 };
 </script>

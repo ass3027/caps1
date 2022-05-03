@@ -2,7 +2,6 @@ export default {
   namespaced:true,
   state: {
     storeInfo: [],
-    hotelPictures:[]
   },
   mutations:{
     updateStore(state, newStore){
