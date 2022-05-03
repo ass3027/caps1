@@ -89,7 +89,7 @@ export default {
       })
           .then((res) => {
             console.log(res)
-            console.log(res.data)
+            console.log("USERID"+res.data)
           })
           .catch((err) => {
             console.log(err)
