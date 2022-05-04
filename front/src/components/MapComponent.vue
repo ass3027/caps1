@@ -12,10 +12,10 @@
         <div>
           <form @submit.prevent="searchPlaces()">
             키워드 : <input
-            v-model="keyword"
-            type="text"
-            size="15"
-          >
+              v-model="keyword"
+              type="text"
+              size="15"
+            >
             <button type="submit">
               검색하기
             </button>
@@ -31,9 +31,11 @@
           @mouseover="displayInfowindow(marker[index],place.place_name)"
           @mouseout="infowindow.close()"
         >
-          <span :class="[`markerbg marker_${index+1}`]"/>
+          <span :class="[`markerbg marker_${index+1}`]" />
           <div class="info1">
-            <h5 @click="logLocationInfo(place)">{{ place.place_name }}</h5>
+            <h5 @click="logLocationInfo(place)">
+              {{ place.place_name }}
+            </h5>
             <template v-if="place.road_address_name">
               <span>{{ place.road_address_name }}</span>
               <span class="jibun gray">{{ place.adress_name }}</span>
@@ -43,7 +45,7 @@
           </div>
         </li>
       </ul>
-      <div id="pagination"/>
+      <div id="pagination" />
     </div>
     <ul
       v-for="(data,index) in [0,1,2,3,4,5]"

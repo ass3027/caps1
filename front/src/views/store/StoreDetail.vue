@@ -9,13 +9,13 @@
         color="deep-purple"
         height="10"
         indeterminate
-      ></v-progress-linear>
+      />
     </template>
 
     <v-img
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    ></v-img>
+    />
 
     <v-card-title>Cafe Badilico</v-card-title>
 
@@ -31,7 +31,7 @@
           half-increments
           readonly
           size="14"
-        ></v-rating>
+        />
 
         <div class="grey--text ms-4">
           4.5 (413)
@@ -45,7 +45,7 @@
       <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
     </v-card-text>
 
-    <v-divider class="mx-4"></v-divider>
+    <v-divider class="mx-4" />
 
     <v-card-title>Tonight's availability</v-card-title>
 

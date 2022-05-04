@@ -8,14 +8,13 @@
     <div
       v-for="(selected,index) in plan"
       :id="index"
-      :class ="{dd:true,selecting:selectedTime==index}"
       :key="index"
+      :class="{dd:true,selecting:selectedTime==index}"
       @click="select(index)"
-
     >
-      {{selected}}
+      {{ selected }}
     </div>
-    <div></div>
+    <div />
   </div>
 </template>
 
@@ -32,11 +31,6 @@ export default {
     //   required:false
     // }
   },
-  computed : {
-    plan : function() {
-      return this.$store.state.calendar.calendar[''+this.date]
-    }
-  },
   data() {
     return {
       height: 500,
@@ -47,6 +41,11 @@ export default {
       length: 0,
       selectedTag: '',
       style: "width:100,height:2,border:2,top:selected",
+    }
+  },
+  computed : {
+    plan : function() {
+      return this.$store.state.calendar.calendar[''+this.date]
     }
   },
   methods: {

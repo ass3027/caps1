@@ -1,7 +1,5 @@
 <template>
-  <div>
-
-  </div>
+  <div />
 </template>
 
 <script>
@@ -15,6 +13,10 @@ export default {
       connection: null,
       currentPosition: null,
     }
+  },
+  mounted() {
+    this.getLocation()
+    this.currentPosition = setInterval(this.getLocation, 500)
   },
   methods: {
     getList: function () {
@@ -68,10 +70,6 @@ export default {
       }
 
     }
-  },
-  mounted() {
-    this.getLocation()
-    this.currentPosition = setInterval(this.getLocation, 500)
   }
 }
 

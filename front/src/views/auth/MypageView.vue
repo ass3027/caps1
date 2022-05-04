@@ -1,10 +1,10 @@
 <template>
   <!--  <div id="app">-->
   <div>
-  <h1>마이페이지</h1>
+    <h1>마이페이지</h1>
 
 
-    <router-link to="list"></router-link>
+    <router-link to="list" />
     <header>
       <nav>
         <button><span>즐겨찾기</span></button> |
@@ -13,105 +13,140 @@
       </nav>
     </header>
 
-  <div id="container">
-    <form @submit.prevent="submitForm">
-      <v-container>
-        <v-row>
-          <v-col
-            cols="3"
-            md="2">
-            <div class="name">
-              <v-text-field
-                v-model="user_name" :counter="10" label="이름" required/>
+    <div id="container">
+      <form @submit.prevent="submitForm">
+        <v-container>
+          <v-row>
+            <v-col
+              cols="3"
+              md="2"
+            >
+              <div class="name">
+                <v-text-field
+                  v-model="user_name"
+                  :counter="10"
+                  label="이름"
+                  required
+                />
               <!--<label for="name">이름: </label>-->
               <!--<input type="text" id="name"  placeholder="NAME"-->
               <!--v-model="user_name" />-->
-            </div>
-          </v-col>
-        </v-row>
+              </div>
+            </v-col>
+          </v-row>
 
-      <!--            <div class="age">-->
-      <!--                <label for="age">생년월일 : </label>-->
-      <!--                <input type="text" id="age" v-model="age" />-->
-      <!--            </div>-->
+          <!--            <div class="age">-->
+          <!--                <label for="age">생년월일 : </label>-->
+          <!--                <input type="text" id="age" v-model="age" />-->
+          <!--            </div>-->
 
-      <v-row>
-        <v-col
-        cols="3"
-        md="2">
-          <div class="id">
-            <v-text-field
-              v-model="user_id" :counter="20" label="아이디" required/>
-          </div>
-        </v-col>
-      </v-row>
+          <v-row>
+            <v-col
+              cols="3"
+              md="2"
+            >
+              <div class="id">
+                <v-text-field
+                  v-model="user_id"
+                  :counter="20"
+                  label="아이디"
+                  required
+                />
+              </div>
+            </v-col>
+          </v-row>
 
-<!--      <div class="id">-->
-<!--        <label for="id">아이디: </label>-->
-<!--        <input-->
-<!--          id="id" v-model="user_id" type="text">-->
-<!--      </div>-->
+          <!--      <div class="id">-->
+          <!--        <label for="id">아이디: </label>-->
+          <!--        <input-->
+          <!--          id="id" v-model="user_id" type="text">-->
+          <!--      </div>-->
 
-        <v-row>
-          <v-col
-            cols="3"
-            md="2">
-            <div class="pw">
-              <v-text-field
-                v-model="user_pw" :counter="20" label="비밀번호" required/>
-            </div>
-          </v-col>
-        </v-row>
+          <v-row>
+            <v-col
+              cols="3"
+              md="2"
+            >
+              <div class="pw">
+                <v-text-field
+                  v-model="user_pw"
+                  :counter="20"
+                  label="비밀번호"
+                  required
+                />
+              </div>
+            </v-col>
+          </v-row>
 
-<!--      <div class="pw">-->
-<!--        <label for="pw">비밀번호 : </label>-->
-<!--        <input-->
-<!--          id="pw" v-model="user_pw" type="pw">-->
-<!--      </div>-->
+          <!--      <div class="pw">-->
+          <!--        <label for="pw">비밀번호 : </label>-->
+          <!--        <input-->
+          <!--          id="pw" v-model="user_pw" type="pw">-->
+          <!--      </div>-->
 
-      <!--            <div class="email">-->
-      <!--                <label for="email">email : </label>-->
-      <!--                <input type="text" id="email" v-model="email" />-->
-      <!--            </div>-->
+          <!--            <div class="email">-->
+          <!--                <label for="email">email : </label>-->
+          <!--                <input type="text" id="email" v-model="email" />-->
+          <!--            </div>-->
 
-        <v-row>
-          <v-col
-            cols="3"
-            md="2">
-            <div class="phone">
-              <v-text-field
-                v-model="user_phone" :counter="20" label="연락처"
-                type="text" placeholder="핸드폰번호 입력" required/>
-            </div>
-          </v-col>
-        </v-row>
+          <v-row>
+            <v-col
+              cols="3"
+              md="2"
+            >
+              <div class="phone">
+                <v-text-field
+                  v-model="user_phone"
+                  :counter="20"
+                  label="연락처"
+                  type="text"
+                  placeholder="핸드폰번호 입력"
+                  required
+                />
+              </div>
+            </v-col>
+          </v-row>
 
 
 
-<!--      <div class="phone">-->
-<!--        <label for="phone">연락처 : </label>-->
-<!--        <input-->
-<!--          id="phone" v-model="user_phone" type="text" placeholder="핸드폰번호 입력" maxlength="13">-->
-<!--      </div>-->
+          <!--      <div class="phone">-->
+          <!--        <label for="phone">연락처 : </label>-->
+          <!--        <input-->
+          <!--          id="phone" v-model="user_phone" type="text" placeholder="핸드폰번호 입력" maxlength="13">-->
+          <!--      </div>-->
         <!--              <input type="text" name="phone"/>- -->
         <!--              <input type="text" name="phone"/>- -->
         <!--              <input type="text" name="phone"/>-->
+        </v-container>
+        <!--            <div class="address">-->
+        <!--                <label for="address">주소 : </label>-->
+        <!--                <input type="text" id="address" v-model="address">-->
+        <!--            </div>-->
+        <!--            <button type="submit">로그인</button>-->
+        <!--            <button type="submit">메인으로 이동<el/button>-->
 
-      </v-container>
-      <!--            <div class="address">-->
-      <!--                <label for="address">주소 : </label>-->
-      <!--                <input type="text" id="address" v-model="address">-->
-      <!--            </div>-->
-      <!--            <button type="submit">로그인</button>-->
-      <!--            <button type="submit">메인으로 이동<el/button>-->
-
-      <div id="button">
-        <v-btn v-on:click="login" elevation="3">로그인</v-btn>
-        <v-btn v-on:click="main" elevation="3">메인으로 이동</v-btn>
-        <v-btn v-on:click="Modify" elevation="2">정보 수정하기</v-btn>
-      </div>
-    </form>
-   </div>
+        <div id="button">
+          <v-btn
+            elevation="3"
+            @click="login"
+          >
+            로그인
+          </v-btn>
+          <v-btn
+            elevation="3"
+            @click="main"
+          >
+            메인으로 이동
+          </v-btn>
+          <v-btn
+            elevation="2"
+            @click="Modify"
+          >
+            정보 수정하기
+          </v-btn>
+        </div>
+      </form>
+    </div>
   </div>
 
 <!--  </div>-->

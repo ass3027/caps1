@@ -11,6 +11,7 @@ import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
 import PlannerPicView from "@/views/share/PlannerPicView";
 import PlannerShareEditView from "@/views/share/PlannerShareEditView";
+import LocationCheckView from "@/views/LocationCheckView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/BagReserveView.vue'
@@ -93,7 +94,9 @@ const routes = [
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
 
-  {path: "/TestView", name: "TestView", component: TestView},
+  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView},
+
+  {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 
 
 ];

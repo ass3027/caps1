@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>공유 플래너 상세보기({{ $route.params.id }})</h2>
-    <h2>공유된 횟수:{{share.share_count}}</h2>
+    <h2>공유된 횟수:{{ share.share_count }}</h2>
     <h2>
       {{ share.share_title }}
     </h2>
@@ -19,7 +19,7 @@
         v-for="schedule in schedules"
         :key="schedule.sch_number"
       >
-<!--@todo cheack-->
+        <!--@todo cheack-->
         {{ schedule }}
       </li>
     </ul>
@@ -37,10 +37,13 @@
       일정 복제하기
     </v-btn>
     <div v-if="$store.state.user.userId==share.user_id">
-      <v-btn @click="edit">수정</v-btn>
-      <v-btn @click="del">삭제</v-btn>
+      <v-btn @click="edit">
+        수정
+      </v-btn>
+      <v-btn @click="del">
+        삭제
+      </v-btn>
     </div>
-
   </div>
 </template>
 
