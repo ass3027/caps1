@@ -43,13 +43,9 @@ import Hoteltest from "@/views/store/StoreTest";
 
 import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
-import Mypage from "@/views/auth/MypageView";
-import MypageView from "@/views/auth/MypageView";
 
 import StoreView from "@/views/store/StoreView";
 import StoreDetail from "@/views/store/StoreDetail";
-
-import TestView from "@/views/TestView";
 
 
 Vue.use(VueRouter);
@@ -57,7 +53,6 @@ Vue.use(VueRouter);
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
-  {path: "/mypage", name:'Mypage', component: MypageView},
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
   {path: '/share', name: 'share', component: PlannerShareView},
@@ -94,10 +89,13 @@ const routes = [
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
 
+<<<<<<< HEAD
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView},
 
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 
+=======
+>>>>>>> e6f1c20f4916173c73180cdb1e1032344acecc2f
 
 ];
 

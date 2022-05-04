@@ -46,6 +46,16 @@
         </v-row>
       </v-container>
 
+
+
+
+
+
+
+
+
+
+
       <v-file-input
         ref="refImage"
         v-model="user_photo"
@@ -138,12 +148,6 @@ export default {
       });
     },
   },
-  phone(num) {
-    var formatNum = "";
-    if (num.length == 11) {
-      formatNum = num.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
-    }
-  }
 };
 // components: {
 //   HelloWorld
