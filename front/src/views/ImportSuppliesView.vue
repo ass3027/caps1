@@ -23,7 +23,19 @@ export default {
   },
   data(){
     return{
-      sets:[],
+      sets:[
+        [
+          {pl_id:0,pl_name:"기본",supl_id:"2",supl_name:"휴대폰 충전기"},
+          {pl_id:0,pl_name:"기본",supl_id:"58",supl_name:"물"},
+          {pl_id:0,pl_name:"기본",supl_id:"60",supl_name:"마스크"},
+          {pl_id:0,pl_name:"기본",supl_id:"43",supl_name:"스킨/로션"},
+          {pl_id:0,pl_name:"기본",supl_id:"23",supl_name:"물티슈"},
+          {pl_id:0,pl_name:"기본",supl_id:"14",supl_name:"신용카드"},
+          {pl_id:0,pl_name:"기본",supl_id:"14",supl_name:"신용카드"},
+          {pl_id:0,pl_name:"기본",supl_id:"15",supl_name:"보조 배터리"},
+          {pl_id:0,pl_name:"기본",supl_id:"4",supl_name:"선크림"},
+        ]
+      ],
     }
   },
   mounted() {

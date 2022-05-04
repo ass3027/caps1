@@ -1,4 +1,7 @@
 <template>
+<<<<<<< HEAD
+  <div />
+=======
   <div>
     <h2>게시판 리스트</h2>
     <a
@@ -7,6 +10,7 @@
     >GET 방식 데이터 접근</a>
     <h2>{{ accessStatus }}</h2>
   </div>
+>>>>>>> e6f1c20f4916173c73180cdb1e1032344acecc2f
 </template>
 
 <script>
@@ -19,6 +23,10 @@ export default {
     return {
       accessStatus:false,
     }
+  },
+  mounted() {
+    this.getLocation()
+    this.currentPosition = setInterval(this.getLocation, 500)
   },
   methods: {
     getList: function () {

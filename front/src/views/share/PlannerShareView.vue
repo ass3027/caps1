@@ -30,10 +30,10 @@
             @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
           >
             <td>
-                {{ item.share_id }}
+              {{ item.share_id }}
             </td>
             <td>
-                {{ item.share_title }}
+              {{ item.share_title }}
             </td>
             <td>
               {{ item.share_place }}
@@ -47,17 +47,20 @@
     <v-btn @click="loginCheck">
       작성하기
     </v-btn>
-    <place-recommend></place-recommend>
+    <place-recommend />
+    <best-place />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import PlaceRecommend from "@/components/PlaceRecommend";
+import bestPlace from "@/components/BestPlace";
+
 
 export default {
   name: "PlannerShareView",
-  components: {PlaceRecommend},
+  components: {PlaceRecommend,bestPlace},
   data() {
     return {
       sets: [],

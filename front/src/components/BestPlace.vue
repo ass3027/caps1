@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>
+    <h2>베스트 여행지</h2>
     <v-carousel>
       <v-carousel-item
         v-for="(item,i) in items"
@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     axios
-      .get('/api/recPlace')
+      .get('/api/bestPlace')
       .then(res=>{
         console.log(res.data)
         res.data.forEach(i=>{
@@ -52,6 +52,7 @@ export default {
             i.pic_name="placeImage/noImage.png"
           }
         })
+        console.log("??????????????????")
         console.log(res.data)
         this.items=res.data
 

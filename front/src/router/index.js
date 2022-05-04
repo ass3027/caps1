@@ -10,6 +10,8 @@ import PlannerShareView from '../views/share/PlannerShareView'
 import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
 import PlannerPicView from "@/views/share/PlannerPicView";
+import PlannerShareEditView from "@/views/share/PlannerShareEditView";
+import LocationCheckView from "@/views/LocationCheckView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/BagReserveView.vue'
@@ -43,6 +45,7 @@ import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 
 import StoreView from "@/views/store/StoreView";
+import StoreDetail from "@/views/store/StoreDetail";
 
 
 Vue.use(VueRouter);
@@ -55,8 +58,9 @@ const routes = [
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
   {path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView},
-
+  {path: '/share/edit', name: 'shareEdit', component: PlannerShareEditView, props:true},
   {path: '/hotel', name: 'hotel', component: HotelView,},
+  {path: '/hotel/:store_name', name: 'hotel', component: StoreDetail, props: true},
   {path: '/storeadd', name: 'storeadd', component: StoreAdd,},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
@@ -85,6 +89,13 @@ const routes = [
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
 
+<<<<<<< HEAD
+  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView},
+
+  {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
+
+=======
+>>>>>>> e6f1c20f4916173c73180cdb1e1032344acecc2f
 
 ];
 

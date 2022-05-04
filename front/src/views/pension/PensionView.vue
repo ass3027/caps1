@@ -1,6 +1,5 @@
 <template>
-  <TravelHeader category="PENSION"/>
-
+  <TravelHeader category="PENSION" />
 </template>
 
 <script>

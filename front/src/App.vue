@@ -4,8 +4,15 @@
       <HeaderComponent />
       <v-app-bar-nav-icon @click="drawer = !drawer" />
 
-      <v-navigation-drawer v-model="drawer" app temporary>
-        <v-list nav dense>
+      <v-navigation-drawer
+        v-model="drawer"
+        app
+        temporary
+      >
+        <v-list
+          nav
+          dense
+        >
           <v-list-item
             v-for="item in items"
             :key="item.title"
