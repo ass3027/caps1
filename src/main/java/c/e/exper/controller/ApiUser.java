@@ -52,8 +52,8 @@ public class ApiUser {
     @GetMapping("/user")
     public String getUserPicture(){
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        String pic = pictureMapper.selectByUserId(user_id);
-        return pic;
+        return pictureMapper.selectByUserId(user_id);
+
     }
 
     @GetMapping("/data/{userId}")
@@ -71,6 +71,16 @@ public class ApiUser {
         return result.get();
         //void=>아무것도 반환하지 않을때
     }
+
+    @PostMapping("/Mypage")
+    public void getUserUpdate(UserDAO userDAO){
+        System.out.println(userDAO);
+    }
+
+//    @RequestMapping(value = "data", method = RequestMethod.POST)
+//    public String update(@ModelAttribute ) {
+//    }
+
 
     @PostMapping("/join")
     public boolean join(UserDTO user,HttpServletRequest req) {

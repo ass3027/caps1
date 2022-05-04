@@ -27,7 +27,7 @@ import CalenderView from "@/views/planner/CalenderView";
 
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
-import MotelView from "@/views/store/MotelView";
+
 
 import PensionView from "@/views/pension/PensionView";
 
@@ -38,16 +38,16 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
-import Hoteltest from "@/views/store/StoreTest";
+
 
 import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
-import Mypage from "@/views/auth/MypageView";
+
 import MypageView from "@/views/auth/MypageView";
 
-import StoreView from "@/views/store/StoreView";
-import StoreDetail from "@/views/store/StoreDetail";
 
+import StoreDetail from "@/views/store/StoreDetail";
+import BookMarkView from "@/views/auth/BookMarkView";
 
 Vue.use(VueRouter);
 
@@ -55,6 +55,7 @@ const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
   {path: "/mypage", name:'Mypage', component: MypageView},
+  {path: "/bookmark", name:'Bookmark', component: BookMarkView},
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
   {path: '/share', name: 'share', component: PlannerShareView},
