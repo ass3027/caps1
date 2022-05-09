@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>Location Check {{ ord_id }}</h1>
+    <div id="map" style="width:100%;height:350px;"></div>
+    <p>{{ latitude }}</p>
+    <p>{{ longitude }}</p>
 
   </div>
 </template>
@@ -10,27 +13,24 @@ import axios from 'axios'
 
 export default {
   name: 'LocationCheckview',
+  props:['ord_id'],
   data() {
     return {
-      ord_id: null,
       duser_id: null,
       latitude: null,
       longitude: null,
     }
   },
   mounted() {
-    this.ord_id = this.$route.params.ord_id
-    console.log("ord_id: " + this.ord_id)
+    console.log("[mounted]ord_id" + this.ord_id)
     this.findDuserIdByOrdId()
-    this.getLocation()
+    let get = setInterval(this.getLocation, 3000)
+
   },
   methods: {
 
-    findDuserIdByOrdId(ord_id) {
+    findDuserIdByOrdId() {
       const sendform = new FormData();
-      console.log("ord_id: " + this.ord_id)
-
-      sendform.append('ord_id', this.ord_id)
 
       axios({
         method  : 'get',
@@ -43,20 +43,30 @@ export default {
         this.duser_id = res.data
         console.log("duser_id: " + this.duser_id)
       })
+
+
     },
     getLocation() {
 
-      console.log("getLocation()")
+      console.log("---getLocation()---")
+      console.log(this.duser_id)
       axios({
         method : 'get',
-        url    : '/api/location/check?user_id=' + this.duser_id,
+        url    : '/api/location/check',
+        params :  {'duser_id': this.duser_id},
         headers: {
           'Content-Type': 'application/json',
         },
       })
         .then((res) => {
           console.log(res.data)
+          console.log("[getLocation()]" + res.data.latitude)
+          this.latitude = res.data.latitude
+          console.log("[getLocation()]" + res.data.longitude)
+          this.longitude = res.data.longitude
         })
+
+      console.log("---getLocation()---")
     },
   }
 }

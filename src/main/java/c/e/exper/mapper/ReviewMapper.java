@@ -42,6 +42,10 @@ public interface ReviewMapper {
     @Select("select * from review where booK_id in (select BOOK.BOOK_ID from BOOK where PD_ID = #{pd_id})")
     public List<Review> findAllReviewForProduct(@Param("pd_id") String pd_id);
 
+    /* 가게 아이디로 모든 리뷰 조회*/
+    @Select("select * from review where book_id in (select book_id from book where pd_id in (select pd_id from product where store_id = #{store_id}))")
+    public List<Review> findAllReviewForStore(@Param("store_id") String store_id);
+
     /* 키퍼 아이디로 모든 리뷰 조회 */
     @Select("select * from REVIEW where ORD_ID in (select ORD_ID from ORDERS where KEEP_START = #{keep_id} or KEEP_END = #{keep_id})")
     public List<Review> findAllReviewForKeep(@Param("keep_id") String keep_id);

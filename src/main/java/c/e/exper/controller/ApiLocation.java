@@ -3,10 +3,7 @@ package c.e.exper.controller;
 
 import c.e.exper.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -14,6 +11,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class ApiLocation {
 
+    private static int count = 0;
     private final DeliveryService deliveryService;
 
     @Autowired
@@ -22,17 +20,19 @@ public class ApiLocation {
     }
 
     @PostMapping("/location/update")
-    public void updateLocation(String user_id, String latitude, String longitude) {
-        System.out.println("latitude: " + latitude);
-        System.out.println("longitude: " + longitude);
+    public void updateLocation(@RequestBody Map<String, String> form) {
+        int temp = count++%10;
+        System.out.println(temp);
 
-        deliveryService.운송원_위치_업데이트(user_id, latitude, longitude);
+        System.out.println("[updateLocation] " + form);
+
+        deliveryService.운송원_위치_업데이트(form.get("user_id"), form.get("latitude")+temp, form.get("longitude")+temp);
     }
 
     @GetMapping("/location/check")
-    public Map<String, String> checkLocation(String user_id) {
-        System.out.println("user_id: " + user_id);
-        return deliveryService.운송원_위치_조회(user_id);
+    public Map<String, String> checkLocation(@RequestParam("duser_id") String duser_id) {
+        System.out.println("user_id: " + duser_id);
+        return deliveryService.운송원_위치_조회(duser_id);
     }
 
     // 주문서 아이디로 운송원 아이디

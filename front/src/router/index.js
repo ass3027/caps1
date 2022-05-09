@@ -47,6 +47,8 @@ import ReviewCreateView from "@/views/ReviewCreateView";
 import StoreView from "@/views/store/StoreView";
 import StoreDetail from "@/views/store/StoreDetail";
 
+import LocationUpdate from "@/views/LocationUpdate";
+
 
 Vue.use(VueRouter);
 
@@ -89,7 +91,9 @@ const routes = [
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
 
-  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView},
+  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true},
+  {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true},
+
 
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 
