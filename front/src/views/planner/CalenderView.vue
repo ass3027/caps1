@@ -19,7 +19,7 @@
         v-model="endDate"
         type="date"
       >
-      <v-text-field v-model="schName" style="width:30%"></v-text-field>
+      <v-text-field v-model="schName" placeholder="일정이름" style="width:30%"></v-text-field>
       <v-btn @click="apply()">
         Apply
       </v-btn>
@@ -150,6 +150,7 @@ export default {
       let temp = {}
       for ( let a in this.calendar.date) {
         for ( let b in a){
+          if(this.calendar.date[a])
           temp = {
             gitem_id : null,
             plan_id : this.calendar.planId,

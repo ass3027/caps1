@@ -1,43 +1,69 @@
 <template>
   <div>
-    <PlannerHeader />
+    <PlannerHeader/>
     <hr>
-    <div>
-      <p>planner make</p>
-      <div>
-        <label>plan Name<input v-model="plan_name"></label>
-        <input
+
+    <p>planner make</p>
+    <v-row>
+      <v-col>
+        plan Name
+        <v-text-field
+          placeholder="name"
+          solo
+          v-model="plan_name"
+          style="width:200px"
+        />
+      </v-col>
+    </v-row>
+    <v-row justify="center" style="width:100%">
+      <v-col>
+        <v-date-picker
+          style="width:50%;height:350px;"
           v-model="plan_start"
           type="date"
-        >
-        <input
+
+        />
+
+      </v-col>
+      <v-col>
+        <v-date-picker
+          style="width:50%;height:350px"
           v-model="plan_end"
           type="date"
-        >
-      </div>
-      <button
+        />
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-btn
         @click="addPlan"
         @submit.prevent
+        color="blue"
       >
         생성
-      </button>
-      <hr>
+      </v-btn>
+    </v-row>
 
+    <v-row>
+      <hr>
       <ul>
         <li
           v-for="(plan,index) in plan_list"
           :key="index"
         >
           ID : {{ plan.plan_id }} / NAME : {{ plan.plan_name }}
-          <button
+          <v-btn
             @submit.prevent
             @click="deletePlan(plan.plan_id)"
+            color="light-green"
           >
             삭제
-          </button>
+          </v-btn>
         </li>
       </ul>
-    </div>
+
+    </v-row>
+
   </div>
 </template>
 
@@ -59,7 +85,7 @@ export default {
       plan_list : ''
     }
   },
-  computed:{
+  computed: {
     user_id() {
       return this.$store.state.user.userId
     }
@@ -90,7 +116,7 @@ export default {
     loadPlan() {
       axios({
         method: 'get',
-        url   : '/api/plan/'+this.user_id,
+        url   : '/api/plan/' + this.user_id,
       })
         .then((res) => {
           this.plan_list = res.data;
