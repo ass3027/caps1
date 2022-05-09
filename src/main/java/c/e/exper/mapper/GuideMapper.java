@@ -22,7 +22,4 @@ public interface GuideMapper {
     @Insert("INSERT INTO guide VALUES(#{guide.user_id},#{guide.guide_license},#{guide.guide_intro})")
     void insert(@Param("guide") GuideDAO guide);
 
-
-
-
 }

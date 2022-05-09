@@ -24,6 +24,6 @@ public interface StoreMapper {
     @Select("select pic_name, store_id from PICTURES where store_id is not null")
     List<PictureDAO> selectStorePic();
 
-    @Select("Select s.*,p.pic_name From Store s,Pictures p Where s.category=#{category} and s.store_id=p.store_id")
+    @Select("Select s.*, p.pic_name From Store s, Pictures p Where s.category=#{category} and s.store_id=p.store_id")
     List<StoreDAO> selectByCategory(String category);
 }

@@ -25,6 +25,7 @@ public class ApiGuide {
     public List<GuideDAO> findAllGuide() {
         return guideService.가이드_조회();
     }
+
     @GetMapping("/guide/{id}")
     public GuideDAO findAllGuide(@PathVariable("id") String id) {
 

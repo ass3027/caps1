@@ -9,13 +9,13 @@
         color="deep-purple"
         height="10"
         indeterminate
-      />
+      ></v-progress-linear>
     </template>
 
     <v-img
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    />
+    ></v-img>
 
     <v-card-title>Cafe Badilico</v-card-title>
 
@@ -31,7 +31,7 @@
           half-increments
           readonly
           size="14"
-        />
+        ></v-rating>
 
         <div class="grey--text ms-4">
           4.5 (413)
@@ -45,7 +45,7 @@
       <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
     </v-card-text>
 
-    <v-divider class="mx-4" />
+    <v-divider class="mx-4"></v-divider>
 
     <v-card-title>Tonight's availability</v-card-title>
 
@@ -79,19 +79,34 @@
 
 <script>
 import axios from "axios";
+import ReviewView from "@/views/ReviewView";
 
 export default {
   name: "StoreDetail",
-  props: ['store_name'],
+  components: { ReviewView },
+  props: ['store_id'],
 
   data: () => ({
     loading: false,
     selection: 1,
-    lists: '',
+    products: [],
+    mainpic: [],
   }),
 
   mounted() {
-    this.importStore()
+    axios({
+      method: 'GET',
+      url:'/api/product/',
+      params: {'store_id': this.store_id}
+    })
+      .then(res => {
+        this.products = res.data
+        console.log(res.data)
+        console.log(res.data[1].pic_name)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   },
 
   methods: {
@@ -100,15 +115,15 @@ export default {
       setTimeout(() => (this.loading = false), 2000)
     },
 
-    importStore(){
-      axios({
-        method:'get',
-        url: `/api/store/` + this.store_name,
-      })
-      .then((res)=>{
-        this.lists = res.data;
-      })
-    }
+    // importStore(){
+    //   axios({
+    //     method:'get',
+    //     url: `/api/store/` + this.store_name,
+    //   })
+    //   .then((res)=>{
+    //     this.lists = res.data;
+    //   })
+    // }
   },
 }
 </script>
