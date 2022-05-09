@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{ storeId }}</h1>
 
 
     <v-row justify="center">

@@ -1,5 +1,17 @@
 <template>
   <div>
+    <div>
+      <div v-for="(product, i) in products" :key="i">
+        <div>
+          <p>{{ product.pd_name }}</p>
+        </div>
+        <div>
+          <v-img width="50%"
+                 height="50%"
+                 :src="'/api/photo/' + product.pic_name"></v-img>
+        </div>
+      </div>
+    </div>
     <StoreReviewView :storeId="store_id"/>
   </div>
 </template>
