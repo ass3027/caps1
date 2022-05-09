@@ -41,7 +41,8 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 
 import Hoteltest from "@/views/store/StoreTest";
 
-import ReviewView from "@/views/ReviewView";
+import ProductReviewView from "@/views/ProductReviewView";
+import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 
 import StoreView from "@/views/store/StoreView";
@@ -88,7 +89,8 @@ const routes = [
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
 
-  {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
+  {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true},
+  {path: "/StoreReviewView/:storeId", name: "StoreReviewView", component: StoreReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
 
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true},
