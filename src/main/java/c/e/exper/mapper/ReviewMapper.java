@@ -50,7 +50,7 @@ public interface ReviewMapper {
     @Select("select * from REVIEW where ORD_ID in (select ORD_ID from ORDERS where DELIVERY_ID = #{delivery_id})")
     public List<Review> findAllReviewForDelivery(@Param("delivery_id") String delivery_id);
 
-    @Select("select * from REVIEW where BOOK_ID in ()")
+//    @Select("select * from REVIEW where BOOK_ID in ()")
 
     @Update("update review set rev_content = #{review.rev_content} where review_id = #{review.rev_id}")
     public int updateReview(@Param("review") Review review);

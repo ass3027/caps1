@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Location Check {{this.ord_id}}</h1>
+    <h1>Location Check {{ ord_id }}</h1>
 
   </div>
 </template>

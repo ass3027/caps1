@@ -89,13 +89,10 @@ const routes = [
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
 
-<<<<<<< HEAD
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView},
 
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 
-=======
->>>>>>> e6f1c20f4916173c73180cdb1e1032344acecc2f
 
 ];
 
