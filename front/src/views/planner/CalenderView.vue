@@ -117,13 +117,7 @@ export default {
       calendar["expectExpenses"] = 1000
       calendar["date"]=[]
       this.dateArr.forEach( (it) => {
-        console.log(it)
-        const a = [];
-        for (let i = 0; i < 24; i++) {
-          a.push(" ")
-        }
-        calendar.date[it] = a
-
+        calendar.date[it] = new Map();
       })
       console.log(calendar)
       this.calendar.forEach((key,data) => {
@@ -149,15 +143,16 @@ export default {
       let data = []
       let temp = {}
       for ( let a in this.calendar.date) {
-        for ( let b in a){
-          if(this.calendar.date[a])
+        console.log(this.calendar.date[a])
+        for ( let [key,value] of this.calendar.date[a]){
+          console.log("11")
           temp = {
             gitem_id : null,
             plan_id : this.calendar.planId,
-            place : this.calendar.date[a][b],
+            place : value,
             sch_name : this.schName,
-            sch_startTime: b,
-            sch_endTime: b.parseInt+1,
+            sch_startTime: parseInt(key),
+            sch_endTime: parseInt(key)+1,
             expect_expenses : this.calendar.expectExpenses,
           }
           data.push(temp)

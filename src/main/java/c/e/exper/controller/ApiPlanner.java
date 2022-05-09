@@ -52,6 +52,7 @@ public class ApiPlanner {
 
     @GetMapping("/affiliating")
     public List<AffiliatedDTO> affiliatedList(@RequestParam("plan_id") String plan_id){
+        System.out.println("소속멤버 확인");
         List<AffiliatedDAO> result = affiliatedMapper.SelectByPlanId(plan_id);
         List<AffiliatedDTO> response = new ArrayList<>();
 
@@ -64,8 +65,9 @@ public class ApiPlanner {
     public boolean affiliating(@RequestBody AffiliatedDTO affiliatedDTO){
         System.out.println(affiliatedDTO.getUser_id());
         System.out.println(affiliatedDTO.getPlan_id());
-        affiliatedMapper.insert(affiliatedDTO.toDAO());
+        System.out.println(affiliatedDTO.toDAO().getPlan_id()+"//" + affiliatedDTO.toDAO().getUser_id());
         inviteMapper.deleteById(affiliatedDTO.getUser_id(),affiliatedDTO.getPlan_id());
+        affiliatedMapper.insert(affiliatedDTO.toDAO());
         return true;
     }
 
@@ -87,9 +89,7 @@ public class ApiPlanner {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         List<InviteDAO> result = inviteMapper.selectByUserId(id);
         List<InviteDTO> response = new ArrayList<>();
-        result.forEach( data -> {
-            response.add(data.toDTO());
-        } );
+        result.forEach( data -> response.add(data.toDTO()));
 
         return response;
 

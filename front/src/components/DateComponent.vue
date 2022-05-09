@@ -6,15 +6,15 @@
     <p>{{ location }}</p>
 
     <div
-      v-for="(selected,index) in plan"
+      v-for="(index) in 24"
       :id="index"
       :class ="{dd:true,selecting:selectedTime==index}"
       :key="index"
       @click="select(index)"
 
     >
-      <div>{{index}}시</div>
-      <div> {{selected}} </div>
+      <div >{{index}}시</div>
+      <div v-if="plan.get(index)"> {{plan.get(index)}} </div>
     </div>
 
   </div>
@@ -36,7 +36,8 @@ export default {
   computed : {
     plan : function() {
       return this.$store.state.calendar.calendar.date[''+this.date]
-    }
+    },
+
   },
   data() {
     return {
@@ -51,9 +52,7 @@ export default {
     }
   },
   methods: {
-    setLocation(location) {
-      this.location = location;
-    },
+
     select(index) {
       //console.log(e.target.id);
       const a = {
