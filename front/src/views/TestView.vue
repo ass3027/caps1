@@ -1,5 +1,4 @@
 <template>
-  <div />
   <div>
     <h2>게시판 리스트</h2>
     <a

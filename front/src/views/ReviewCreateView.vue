@@ -22,6 +22,7 @@ export default {
   mounted() {
     var sendForm = new FormData()
 
+    console.log("pay_id" + this.pay_id)
     const pay_id = this.pay_id+""
     axios({
       method: 'GET',
