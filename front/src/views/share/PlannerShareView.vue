@@ -1,60 +1,69 @@
 <template>
-  <div>
-    <h2>플래너 공유 게시판</h2>
-    <v-simple-table
-      dark
-      dense
+  <v-container>
+    <v-row
+    justify="center"
     >
-      <thead>
-      <tr>
-        <th class="text-center">
-          게시글번호
-        </th>
-        <th class="text-center">
-          제목
-        </th>
-        <th class="text-center">
-          장소
-        </th>
-        <th class="text-center">
-          작성시간
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr
-        v-for="(item,index) in tableSets"
-        :key="index"
-        class="text-center"
-        @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
+      <v-col
+      cols="9"
       >
-        <td>
-          {{ item.share_id }}
-        </td>
-        <td>
-          {{ item.share_title }}
-        </td>
-        <td>
-          {{ item.share_place }}
-        </td>
+        <h2>플래너 공유 게시판</h2>
+        <v-simple-table
+          dark
+          dense
+        >
+          <thead>
+          <tr>
+            <th class="text-center">
+              게시글번호
+            </th>
+            <th class="text-center">
+              제목
+            </th>
+            <th class="text-center">
+              장소
+            </th>
+            <th class="text-center">
+              작성시간
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            v-for="(item,index) in tableSets"
+            :key="index"
+            class="text-center"
+            @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
+          >
+            <td>
+              {{ item.share_id }}
+            </td>
+            <td>
+              {{ item.share_title }}
+            </td>
+            <td>
+              {{ item.share_place }}
+            </td>
 
-        <td>{{ item.share_created }}</td>
-      </tr>
-      </tbody>
-    </v-simple-table>
-    <v-btn @click="loginCheck">
-      작성하기
-    </v-btn>
-    <v-container>
-      <v-row v-col v-for="i in 3" :key="i">
-        <v-col v-for="i in 10" :key="i">
-          <planner-share-card></planner-share-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    <place-recommend></place-recommend>
-    <best-place></best-place>
-  </div>
+            <td>{{ item.share_created }}</td>
+          </tr>
+          </tbody>
+        </v-simple-table>
+        <v-btn @click="loginCheck">
+          작성하기
+        </v-btn>
+        <v-container>
+          <v-row justify="center">
+            <v-col v-for="(item,index) in tableSets" :key="index" cols="12">
+              <planner-share-card :shareSet="item"></planner-share-card>
+            </v-col>
+          </v-row>
+        </v-container>
+        <place-recommend></place-recommend>
+        <best-place></best-place>
+
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

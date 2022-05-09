@@ -1,9 +1,11 @@
 <template>
   <v-container
-
+  fluid
   >
-    <v-row>
-      <v-col>
+    <v-row
+    justify="center"
+    >
+      <v-col  cols="3">
         <h2 class="text-h4 success--text pl-4">
           할 일:&nbsp;
           <v-fade-transition leave-absolute>
@@ -16,7 +18,7 @@
 
       </v-col>
       <v-col
-
+      cols="3"
       >
         <v-row
           class="my-1"
@@ -45,8 +47,12 @@
       </v-col>
 
     </v-row>
-    <v-row>
-      <v-col>
+    <v-row
+      justify="center"
+    >
+      <v-col
+        cols="3"
+      >
 
         <v-card v-if="tasks.length > 0">
           <v-slide-y-transition
@@ -92,6 +98,7 @@
         </v-card>
       </v-col>
       <v-col
+        cols="3"
       >
         <v-text-field
           v-model="newTask"
