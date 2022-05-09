@@ -12,6 +12,7 @@
         </div>
       </div>
     </div>
+    <br/>
     <StoreReviewView :storeId="store_id"/>
   </div>
 </template>
