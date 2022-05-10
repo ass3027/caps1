@@ -1,44 +1,47 @@
 <template>
   <div id="이재영시발럼">
     <PlannerHeader/>
-    <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
-      <MapComponent
-        @mapDataTransfer="applyMapData"
-      />
-    </div>
-
-    <div
-      id="plan"
-      style="float:right;width:60%;height:100%;overflow-x:auto;"
-    >
-      <input
-        v-model="startDate"
-        type="date"
-      >
-      <input
-        v-model="endDate"
-        type="date"
-      >
-      <v-text-field v-model="schName" placeholder="일정이름" style="width:30%"></v-text-field>
-      <v-btn @click="apply()">
-        Apply
-      </v-btn>
-      <v-btn @click="save()">
-        save
-      </v-btn>
-      <div
-        v-if="buttonClicked"
-        :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}"
-      >
-        <DateComponent
-          v-for="(date,index) in dateArr "
-          :id="index+`s`"
-          :key="index"
-          :date="date"
-          :style="{width:'30%',float:'left' }"
+    <v-container style="padding-left:10px">
+      <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
+        <MapComponent
+          @mapDataTransfer="applyMapData"
         />
       </div>
-    </div>
+
+      <div
+        id="plan"
+        style="float:right;width:60%;height:100%;overflow-x:auto;"
+      >
+        <input
+          v-model="startDate"
+          type="date"
+        >
+        <input
+          v-model="endDate"
+          type="date"
+        >
+        <v-text-field v-model="schName" placeholder="일정이름" style="width:30%"></v-text-field>
+        <v-btn @click="apply()">
+          Apply
+        </v-btn>
+        <v-btn @click="save()">
+          save
+        </v-btn>
+        <div
+          v-if="buttonClicked"
+          :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}"
+        >
+          <DateComponent
+            v-for="(date,index) in dateArr "
+            :id="index+`s`"
+            :key="index"
+            :date="date"
+            :style="{width:'30%',float:'left' }"
+          />
+        </div>
+      </div>
+    </v-container>
+
   </div>
 </template>
 
@@ -72,25 +75,33 @@ export default {
       buttonClicked: false,
       selectedTag  : '',
       infowindow   : {},
-      scheduleList : []
+      scheduleList : {},
+
 
     }
   },
   mounted() {
+    console.log(this.$store.state.user.planId)
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
       .then( (res)=>{
+        console.log(res.data)
         this.scheduleList=res.data
       })
       .catch( (err)=>{
         console.error(err)
       })
   },
+  watch(){
+
+  },
+
   computed:{
     calendar() {
       return this.$store.state.calendar.calendar
-    }
+    },
   },
   methods: {
+
     apply() {
       let calendar = []
       this.dateArr = []
@@ -108,14 +119,14 @@ export default {
       }
 
       if (this.startDateC >= this.endDateC) return;
-
+// 날짜 계산
       const tempDate = this.startDateC;
       for (let i = 0; tempDate <= this.endDateC; i++) {
         this.dateArr.push( this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
         tempDate.setDate(tempDate.getDate() + 1)
       }
 
-
+//이거는 플래너가 비었을떄? 저장된 값이 없을때 스케쥴 배열  길이가 0일때
       calendar["planId"] = this.$store.state.user.planId
       calendar["SchName"] = this.schName
       calendar["expectExpenses"] = 1000

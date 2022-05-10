@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -22,5 +23,21 @@ public class ScheduleDAO {
     Date sch_endTime;
     String expect_expenses;
 
+
+    public ScheduleDTO toDTO() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        return ScheduleDTO.builder()
+                .sch_number(this.sch_number)
+                .gitem_id(this.gitem_id)
+                .plan_id(this.plan_id)
+                .sch_name(this.sch_name)
+                .sch_startTime(formatter.format(this.sch_startTime))
+                .sch_endTime(formatter.format(this.sch_endTime))
+                .expect_expenses(this.expect_expenses)
+                .build();
+
+
+    }
 
 }

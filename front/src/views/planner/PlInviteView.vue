@@ -188,7 +188,7 @@ export default {
     },
     getPlanListByUserId() {
       axios({
-        url:'/api/planner/plan/'+this.user_id,
+        url:'/api/planner/'+this.user_id,
         method:'get'
       })
       .then( (res)=>{

@@ -97,7 +97,7 @@ export default {
     addPlan() {
       axios({
         method: 'post',
-        url   : '/api/planner/plan',
+        url   : '/api/planner/',
         data  : {
           plan_id   : '',
           plan_name : this.plan_name,
@@ -116,7 +116,7 @@ export default {
     loadPlan() {
       axios({
         method: 'get',
-        url   : '/api/planner/plan/' + this.user_id,
+        url   : '/api/planner/' + this.user_id,
       })
         .then((res) => {
           this.plan_list = res.data;
@@ -127,7 +127,7 @@ export default {
       if (confirm("delete?")) {
         axios({
           method: 'delete',
-          url   : '/api/planner/plan',
+          url   : '/api/planner/',
           data  : plan_id
         })
           .then(() => {

@@ -55,7 +55,7 @@ export default {
       loginData.append('username', this.id)
       loginData.append('password', this.pw)
       axios({
-        url   : '/api/user/login',
+        url   : '/api/login',
         method: 'post',
         auth : {
           username:this.id,

@@ -17,11 +17,11 @@ public interface ScheduleMapper {
     @Select("Select * from Schedule where plan_id=#{id}")
     List<ScheduleDAO> selectAllById(@Param("id")String id);
 
-    @Select("Select * from Schedule where sch_name=#{name}")
-    List<ScheduleDAO> selectAllByName(@Param("name")String name);
-
-    @Select("Select DISTINCT sch_name from Schedule where plan_id=#{id}")
-    List<String> selectNameById(@Param("id")String id);
+//    @Select("Select * from Schedule where sch_name=#{name}")
+//    List<ScheduleDAO> selectAllByName(@Param("name")String name);
+//
+//    @Select("Select DISTINCT sch_name from Schedule where plan_id=#{id}")
+//    List<String> selectNameById(@Param("id")String id);
 
     @Delete("Delete From Schedule Where plan_id=#{id}")
     void delete(@Param("id") String id);
