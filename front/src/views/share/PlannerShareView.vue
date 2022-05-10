@@ -51,9 +51,13 @@
         <v-btn @click="loginCheck">
           작성하기
         </v-btn>
+        {{tableSets}}
         <v-container>
           <v-row justify="center">
-            <v-col v-for="(item,index) in tableSets" :key="index" cols="12">
+            <v-col
+              v-for="(item,index) in tableSets" :key="index" cols="12"
+              @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
+            >
               <planner-share-card :shareSet="item"></planner-share-card>
             </v-col>
           </v-row>
