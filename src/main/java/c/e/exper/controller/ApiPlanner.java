@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -170,7 +172,16 @@ public class ApiPlanner {
         return true;
     }
 
-    @PostMapping("/schedule")
+    @GetMapping("/Schedule/{planId}")
+    public Map<String,List<ScheduleDTO>> getSchedule(@PathVariable String planId){
+        Map<String,List<ScheduleDTO>> data = new HashMap<>();
+        List<String> list = scheduleMapper.selectNameById(planId);
+        list.forEach(scheduleMapper::selectAllByName);
+
+        return data;
+    }
+
+    @PostMapping("/Schedule")
     public void addSchedule(@RequestBody List<ScheduleDTO> scheduleList){
         System.out.println(scheduleList.get(0).getSch_endTime());
         scheduleList.forEach( it->

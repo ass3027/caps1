@@ -72,14 +72,18 @@ export default {
       buttonClicked: false,
       selectedTag  : '',
       infowindow   : {},
+      scheduleList : []
 
     }
   },
   mounted() {
-    //this.startDate = new Date("2022-03-01T00:00:00.000Z");
-    //this.endDate = new Date("2022-03-11T00:00:00.000Z")
-    //this.apply();
-
+    axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
+      .then( (res)=>{
+        this.scheduleList=res.data
+      })
+      .catch( (err)=>{
+        console.error(err)
+      })
   },
   computed:{
     calendar() {
@@ -174,7 +178,7 @@ export default {
       }
       console.log(data)
 
-      axios.post('/api/planner/schedule',data)
+      axios.post('/api/planner/Schedule',data)
       .then ((res) => {
         console.log(res)
       })

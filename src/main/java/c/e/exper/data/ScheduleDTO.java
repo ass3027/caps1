@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,16 +24,23 @@ public class ScheduleDTO {
     String expect_expenses;
 
     public ScheduleDAO toDAO() {
-        System.out.println(Date.valueOf(this.sch_startTime));
-        return ScheduleDAO.builder()
-                .sch_number(this.sch_number)
-                .gitem_id(this.gitem_id)
-                .plan_id(this.plan_id)
-                .pl_id(this.pl_id)
-                .sch_name(this.sch_name)
-                .sch_startTime(Date.valueOf(this.sch_startTime))
-                .sch_endTime(Date.valueOf(this.sch_endTime))
-                .expect_expenses(this.expect_expenses)
-                .build();
+        try{
+            SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            System.out.println(sDate.parse(this.sch_startTime));
+            return ScheduleDAO.builder()
+                    .sch_number(this.sch_number)
+                    .gitem_id(this.gitem_id)
+                    .plan_id(this.plan_id)
+                    .pl_id(this.pl_id)
+                    .sch_name(this.sch_name)
+                    .sch_startTime(sDate.parse(this.sch_startTime))
+                    .sch_endTime(sDate.parse(this.sch_endTime))
+                    .expect_expenses(this.expect_expenses)
+                    .build();
+        }
+        catch (ParseException e){
+            System.out.println(e);
+        }
+        return new ScheduleDAO();
     }
 }
