@@ -1,10 +1,28 @@
 <template>
   <div class="main-layout">
-    <v-carousel v-model="model" height="200px" cycle interval="3000">
-      <v-carousel-item v-for="(color, i) in colors" :key="color">
-        <v-sheet :color="color" height="100%" tile>
-          <v-row class="fill-height" align="center" justify="center">
-            <div class="text-h2">Slide {{ i + 1 }}</div>
+    <v-carousel
+      v-model="model"
+      height="200px"
+      cycle
+      interval="3000"
+    >
+      <v-carousel-item
+        v-for="(color, i) in colors"
+        :key="color"
+      >
+        <v-sheet
+          :color="color"
+          height="100%"
+          tile
+        >
+          <v-row
+            class="fill-height"
+            align="center"
+            justify="center"
+          >
+            <div class="text-h2">
+              Slide {{ i + 1 }}
+            </div>
           </v-row>
         </v-sheet>
       </v-carousel-item>
@@ -14,9 +32,14 @@
       :key="aIdx"
       class="hotelcard"
       @click="gostoreInfo(storeInfo)"
-    > <br/><br/>
+    >
+      <br><br>
       {{ storeInfo.store_name }}
-      <v-card v-if="storeInfo.pic_name" width="300%" height="200px">
+      <v-card
+        v-if="storeInfo.pic_name"
+        width="300%"
+        height="200px"
+      >
         <v-img
           v-if="storeInfo.pic_name"
           width="100%"
@@ -46,11 +69,9 @@ export default {
 
   methods: {
     gostoreInfo(storeInfo) {
-      console.log(storeInfo);
+      console.log('storeInfo:' + storeInfo);
       this.$router.push(`hotel/${storeInfo.store_id}`);
     },
-
-
   },
 };
 </script>
