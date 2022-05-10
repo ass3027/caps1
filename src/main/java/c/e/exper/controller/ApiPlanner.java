@@ -8,10 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -111,14 +108,14 @@ public class ApiPlanner {
 
     }
 
-    @PostMapping("/plan")
+    @PostMapping("/")
     public boolean planMaking(@RequestBody PlannerDTO plannerDTO){
         plannerMapper.insert(plannerDTO.toDAO());
 
         return true;
     }
 
-    @GetMapping("/plan")
+    @GetMapping("/")
     public List<PlannerDTO> plannerSearch(){
         List<PlannerDAO> result = plannerMapper.selectAll();
         List<PlannerDTO> convertResult = new ArrayList<>();
@@ -129,7 +126,7 @@ public class ApiPlanner {
         return convertResult;
     }
 
-    @GetMapping("/plan/{user_id}")
+    @GetMapping("/{user_id}")
     public List<PlannerDTO> plannerSearchByUserId(@PathVariable String user_id){
         List<PlannerDAO> result = plannerMapper.selectAllById(user_id);
         List<PlannerDTO> convertResult = new ArrayList<>();
@@ -142,7 +139,7 @@ public class ApiPlanner {
         return convertResult;
     }
 
-    @DeleteMapping("/plan")
+    @DeleteMapping("/")
     public void plannerDelete(@RequestBody String plan_id){
         System.out.println(plan_id);
         plannerMapper.delete(plan_id);
@@ -173,10 +170,22 @@ public class ApiPlanner {
     }
 
     @GetMapping("/Schedule/{planId}")
-    public Map<String,List<ScheduleDTO>> getSchedule(@PathVariable String planId){
-        Map<String,List<ScheduleDTO>> data = new HashMap<>();
-        List<String> list = scheduleMapper.selectNameById(planId);
-        list.forEach(scheduleMapper::selectAllByName);
+    public Map<String,Object> getSchedule(@PathVariable String planId) throws Exception{
+        System.out.println(planId);
+        Map<String,Object> data = new HashMap<>();
+        Optional<PlannerDAO> plan = plannerMapper.selectById(planId);
+        if(plan.isEmpty()) {
+            throw new Exception();
+        }
+        List<ScheduleDAO> list = scheduleMapper.selectAllById(planId);
+        System.out.println(list.size());
+
+        List<ScheduleDTO> convertResult = new ArrayList<>();
+        list.forEach( it->
+                convertResult.add(it.toDTO()));
+
+        data.put("plan",plan.get());
+        data.put("scheduleList",list);
 
         return data;
     }
