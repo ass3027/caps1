@@ -55,7 +55,7 @@ export default {
       loginData.append('username', this.id)
       loginData.append('password', this.pw)
       axios({
-        url   : '/api/login',
+        url   : '/api/user/login',
         method: 'post',
         auth : {
           username:this.id,
@@ -72,7 +72,7 @@ export default {
             else {
               console.log(this.username)
               this.$store.commit('user/updateUserId',this.id)
-              console.log(this.$store.state.user)
+              console.log(this.$store.state.user.userId)
               console.log(this.$store.state.id)
               this.$router.push("/")
               location.reload()
@@ -84,7 +84,7 @@ export default {
     },
     getId() {
       axios({
-        url   : '/api/exper',
+        url   : '/api/user/exper',
         method: 'get'
       })
           .then((res) => {

@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/planner")
 public class ApiPlanner {
 
     final
@@ -27,6 +26,9 @@ public class ApiPlanner {
     InviteMapper inviteMapper;
 
     final
+    ScheduleMapper scheduleMapper;
+
+    final
     PlannerMapper plannerMapper;
 
     final
@@ -36,7 +38,7 @@ public class ApiPlanner {
 
     final PictureMapper pictureMapper;
 
-    public ApiPlanner(UserMapper userMapper, InviteMapper inviteMapper, PlannerMapper plannerMapper, AffiliatedMapper affiliatedMapper, InviteAffiliateService inviteAffiliateService, FileService fileService, PictureMapper pictureMapper) {
+    public ApiPlanner(UserMapper userMapper, InviteMapper inviteMapper, PlannerMapper plannerMapper, AffiliatedMapper affiliatedMapper, InviteAffiliateService inviteAffiliateService, FileService fileService, PictureMapper pictureMapper, ScheduleMapper scheduleMapper) {
         this.userMapper = userMapper;
         this.inviteMapper = inviteMapper;
         this.plannerMapper = plannerMapper;
@@ -44,6 +46,7 @@ public class ApiPlanner {
         this.inviteAffiliateService = inviteAffiliateService;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
+        this.scheduleMapper = scheduleMapper;
     }
 
 
@@ -165,6 +168,14 @@ public class ApiPlanner {
         pictureMapper.InsertPlan(pictureDAO);
 
         return true;
+    }
+
+    @PostMapping("/schedule")
+    public void addSchedule(@RequestBody List<ScheduleDTO> scheduleList){
+        System.out.println(scheduleList.get(0).getSch_endTime());
+        scheduleList.forEach( it->
+                scheduleMapper.insert(it.toDAO())
+        ); // Lamda can be replaced with method reference
     }
 
 

@@ -7,23 +7,16 @@ import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-import java.security.Security;
-import java.util.List;
-import java.util.Map;
+
 
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/user")
 public class ApiUser {
 
     final
@@ -55,11 +48,10 @@ public class ApiUser {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    @GetMapping("/user")
+    @GetMapping("/photo")
     public String getUserPicture(){
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        String pic = pictureMapper.selectByUserId(user_id);
-        return pic;
+        return pictureMapper.selectPicnameByUserId(user_id);
     }
     
 

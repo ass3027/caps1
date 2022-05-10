@@ -117,7 +117,7 @@ export default {
     },
     loadAffiliated() {
       axios({
-        url   : `/api/affiliating?plan_id=${this.plan_id}`,
+        url   : `/api/planner/affiliating?plan_id=${this.plan_id}`,
         method: 'get'
       })
         .then((res) => {
@@ -130,7 +130,7 @@ export default {
     invite() {
       console.log("axios 어떻게 쓰더라?? 개망ㅋㅋ")
       axios({
-        url   : `/api/invite`,
+        url   : `/api/planner/invite`,
         method: 'post',
         data  : {
           user_id: this.input_id,
@@ -151,7 +151,7 @@ export default {
     },
     updateInvite() {
       axios({
-        url   : `/api/inviteListPlan?id=${this.plan_id}`,
+        url   : `/api/planner/inviteListPlan?id=${this.plan_id}`,
         method: 'get'
       })
         .then((res) => {
@@ -162,7 +162,7 @@ export default {
         });
 
       axios({
-        url   : `/api/inviteListUser?id=${this.id}`,
+        url   : `/api/planner/inviteListUser?id=${this.id}`,
         method: 'get'
       })
         .then((res) => {
@@ -174,7 +174,7 @@ export default {
     },
     accept(data) {
       axios({
-        url   : '/api/affiliating',
+        url   : '/api/planner/affiliating',
         method: 'post',
         data  : data
       })
@@ -188,7 +188,7 @@ export default {
     },
     getPlanListByUserId() {
       axios({
-        url:'/api/plan/'+this.user_id,
+        url:'/api/planner/plan/'+this.user_id,
         method:'get'
       })
       .then( (res)=>{

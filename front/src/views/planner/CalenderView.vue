@@ -123,9 +123,7 @@ export default {
       this.calendar.forEach((key,data) => {
 
         console.log(key + ", data:" + data)
-        // for (let variable in v) {
-        //   console.log(variable + "dd" + v[variable][3])
-        // }
+
 
       })
 
@@ -144,17 +142,31 @@ export default {
       let temp = {}
       for ( let a in this.calendar.date) {
         console.log(this.calendar.date[a])
+        console.log(a)
         for ( let [key,value] of this.calendar.date[a]){
-          console.log("11")
+          let startHour
+          let endHour;
+          if(parseInt(key)<9){
+            startHour= "0"+key
+            endHour = "0"+(parseInt(key)+1)
+
+          }else if(parseInt(key)===9){
+            startHour= "09"
+            endHour = "10"
+          }else {
+            startHour = key;
+            endHour = (parseInt(key)+1)
+          }
           temp = {
             gitem_id : null,
             plan_id : this.calendar.planId,
             place : value,
             sch_name : this.schName,
-            sch_startTime: parseInt(key),
-            sch_endTime: parseInt(key)+1,
+            sch_startTime: a + ` ${startHour}:00:00`,
+            sch_endTime: a + ` ${endHour}:00:00`,
             expect_expenses : this.calendar.expectExpenses,
           }
+          console.log(a + ` ${key}:00:00`)
           data.push(temp)
         }
 
@@ -162,7 +174,7 @@ export default {
       }
       console.log(data)
 
-      axios.post('/api/schedule',data)
+      axios.post('/api/planner/schedule',data)
       .then ((res) => {
         console.log(res)
       })
