@@ -6,7 +6,10 @@
         v-for="(data,index) in list"
         :key="index"
       >
-        {{ data }}
+        주문번호:{{ data.ord_id }}
+        금액: {{data.order_amount}}
+        출발키퍼: {{data.keep_start}}
+        도착키퍼: {{data.keep_end}}
       </li>
     </ul>
   </v-app>
