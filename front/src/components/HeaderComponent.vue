@@ -34,10 +34,7 @@
         logout
       </v-btn>
       <!--      엄준식은 살아있다-->
-      <img
-        :src="photo"
-        style="width:150px;height:150px"
-      >
+
     </div>
     <div>
       <div class="menu-Bar">

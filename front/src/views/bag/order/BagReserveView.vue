@@ -1,9 +1,11 @@
 <template>
+
   <v-app id="app">
+    <HeaderComponent />
     <div class="Bag-order">
       가방예약
     </div>
-    
+
     <v-row
       justify="space-around"
     >
@@ -15,7 +17,7 @@
           src="@/image/storage1.png"
         />
       </v-col>
-      
+
       <v-col
         cols="6"
         sm="2"
@@ -25,7 +27,7 @@
         />
       </v-col>
     </v-row>
-    
+
     <v-row
       justify="space-around"
     >
@@ -36,7 +38,7 @@
       >
         가방 보관
       </v-btn>
-      
+
       <v-btn
         depressed
         color="primary"
@@ -45,13 +47,13 @@
         가방배송
       </v-btn>
     </v-row>
-    
+
     <router-view />
   </v-app>
 </template>
 
 <script>
-
+import HeaderComponent from '@/components/HeaderComponent.vue'
 
 export default {
   components: {},
