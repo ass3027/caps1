@@ -1,7 +1,7 @@
 export default {
     namespaced:true,
     state: {
-        userId: "",
+        userId: '',
         planId:0,
     },
     mutations:{

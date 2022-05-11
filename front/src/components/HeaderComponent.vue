@@ -37,7 +37,7 @@
       <img
         :src="photo"
         style="width:150px;height:150px"
-      >
+       alt="">
     </div>
     <div>
       <div class="menu-Bar">
@@ -152,7 +152,7 @@ export default {
   }),
   mounted(){
     if(this.$store.state.user.userId!==''){
-      axios.get("/api/user")
+      axios.get("/api/user/photo")
         .then( (res)=> {
           console.log(res.data)
           this.photo = `/api/photo/`+res.data
