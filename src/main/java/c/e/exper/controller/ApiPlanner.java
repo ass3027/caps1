@@ -187,7 +187,7 @@ public class ApiPlanner {
                 convertResult.add(it.toDTO()));
 
         data.put("plan",plan.get());
-        data.put("scheduleList",list);
+        data.put("scheduleList",convertResult);
 
         return data;
     }

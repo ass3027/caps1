@@ -138,9 +138,11 @@ export default {
       calendar["SchName"] = this.schName
       calendar["expectExpenses"] = 1000
       calendar["date"]=[]
+
       this.dateArr.forEach( (it) => {
         calendar.date[it] = new Map();
       })
+
       console.log(calendar)
       this.calendar.forEach((key,data) => {
 
