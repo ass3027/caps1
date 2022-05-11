@@ -81,11 +81,18 @@ export default {
     }
   },
   mounted() {
+    //가끔 plan Id 가 업다고 뜸 로직 문제..??
     console.log(this.$store.state.user.planId)
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
       .then( (res)=>{
-        console.log(res.data)
+        console.log(res)
         this.scheduleList=res.data
+
+        const tempDate = this.scheduleList.plan.plan_start;
+        for (let i = 0; tempDate <= this.scheduleList.plan.plan_end; i++) {
+          this.dateArr.push( this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
+          tempDate.setDate(tempDate.getDate() + 1)
+        }
       })
       .catch( (err)=>{
         console.error(err)

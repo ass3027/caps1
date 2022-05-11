@@ -175,8 +175,10 @@ public class ApiPlanner {
         Map<String,Object> data = new HashMap<>();
         Optional<PlannerDAO> plan = plannerMapper.selectById(planId);
         if(plan.isEmpty()) {
+            System.out.println("isEmpty");
             throw new Exception();
         }
+
         List<ScheduleDAO> list = scheduleMapper.selectAllById(planId);
         System.out.println(list.size());
 
