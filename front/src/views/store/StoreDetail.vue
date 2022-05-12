@@ -13,7 +13,11 @@
 
             <div class="d-block d-md-none col-12 px-0">
               <b-carousel v-model="slide" controls :interval="0">
-                <b-carousel-slide v-for="(image, index) in this.images" :key="index" :img-src="image"></b-carousel-slide>
+                <b-carousel-slide v-for="(product, index) in this.products" :key="index" :img-src="image">
+                  <v-img width="50%"
+                         height="50%"
+                         :src="'/api/photo/' + product.pic_name"></v-img>
+                </b-carousel-slide>
               </b-carousel>
             </div>
 
@@ -114,7 +118,7 @@
 // import NavBar from './NavBar'
 export default {
   name: 'ProductPage',
-  props: {},
+  props: ['store_id'],
   components: {
     // NavBar
   },
@@ -126,10 +130,11 @@ export default {
       mainImage: require('@/image/product1.png'),
       images: [
         require('@/image/product1.png'),
-        require('@/image/storage1.png'),
-        require('@/image/product1.png'),
-        require('@/image/transport1.png'),
+        require('@/image/product3.png'),
+        require('@/image/product2.png'),
+        require('@/image/product4.png'),
       ],
+      products: [],
 
       showImageModal: false,
       slide: 0,
@@ -139,7 +144,21 @@ export default {
     const items = JSON.parse(localStorage.getItem('myCart'));
     console.log('items', items);
     this.cartItems = items;
-  },
+
+    axios({
+      method: 'GET',
+      url:'/api/product/',
+      params: {'store_id': this.store_id}
+    })
+      .then(res => {
+        this.products = res.data
+        console.log(res.data)
+        console.log(res.data[1].pic_name)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+},
   computed: {
     cartItemsCount() {
       return this.cartItems.length;
