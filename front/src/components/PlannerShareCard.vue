@@ -1,6 +1,7 @@
 <template>
   <v-card height="300px">
     <v-container class="pa-0" >
+<!--      사진-->
       <v-row no-gutters>
         <v-col cols="auto" v-for="(pic,index) in shareSet.pic_name" :key="index">
           <img :src="'/api/photo/'+pic.pic_name" alt="My Image">
@@ -20,21 +21,23 @@
         </v-col>
 
       </v-row>
-      <v-row class="ma-5" style="height: 100px">
-        <v-col cols="3" class="fill-height">
+<!--      내용과 프사-->
+      <v-row justify="space-around" class="ma-5" style="height: 100px" >
+        <v-col cols="7" class="fill-height text-truncate">
           <h3 >{{ shareSet.share_title }}</h3>
           <h4 class="grey--text">{{ shareSet.share_contents }}</h4>
         </v-col>
-        <v-col align-self="center" cols="6">
-          <h3>#{{ shareSet.share_place }} #먹거리</h3>
-        </v-col>
-        <v-col class="grey--text">
+        <v-col cols="3" class="grey--text">
           <h4>{{ shareSet.user_id }}님의 일정</h4>
-          <h3>공유된 횟수 : {{shareSet.share_count}}</h3>
+          <h4>공유된 횟수 : {{shareSet.share_count}}</h4>
         </v-col>
       </v-row>
-      <v-row justify="end" class="ma-5">
-        <v-col class="grey--text" cols="auto">
+<!--      태그와작성시간-->
+      <v-row justify="space-around" class="ma-5">
+        <v-col cols="7">
+          <h5>#{{ shareSet.share_place }} #먹거리</h5>
+        </v-col>
+        <v-col cols="3" class="grey--text">
           <h5>{{shareSet.share_created}}</h5>
         </v-col>
       </v-row>

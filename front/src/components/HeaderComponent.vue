@@ -36,7 +36,7 @@
       <!--      엄준식은 살아있다-->
       <img
         :src="photo"
-        style="width:150px;height:150px"
+        style="width:50px;height:50px"
       >
     </div>
     <div>

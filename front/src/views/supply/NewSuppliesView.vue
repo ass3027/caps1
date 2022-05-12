@@ -2,10 +2,82 @@
   <v-container
   fluid
   >
+    트리플의 카테고리형식
+    <v-card
+      class="mx-auto"
+      width="300"
+    >
+      <v-list>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
+
+        <v-list-group
+          :value="true"
+          prepend-icon="mdi-account-circle"
+        >
+          <template v-slot:activator>
+            <v-list-item-title>Users</v-list-item-title>
+          </template>
+
+          <v-list-group
+            :value="true"
+            no-action
+            sub-group
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>Admin</v-list-item-title>
+              </v-list-item-content>
+            </template>
+
+            <v-list-item
+              v-for="([title, icon], i) in admins"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </v-list-group>
+
+          <v-list-group
+            no-action
+            sub-group
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>Actions</v-list-item-title>
+              </v-list-item-content>
+            </template>
+
+            <v-list-item
+              v-for="([title, icon], i) in cruds"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </v-list-group>
+        </v-list-group>
+      </v-list>
+    </v-card>
     <v-row
     justify="center"
     >
-      <v-col  cols="3">
+
+      <v-col  cols="3" class="">
         <h2 class="text-h4 success--text pl-4">
           할 일:&nbsp;
           <v-fade-transition leave-absolute>
@@ -14,16 +86,18 @@
         </span>
           </v-fade-transition>
         </h2>
-        <v-divider class="mt-4"></v-divider>
 
       </v-col>
       <v-col
       cols="3"
       >
         <v-row
-          class="my-1"
+
           align="center"
+
         >
+          <v-divider vertical></v-divider>
+
           <v-col>
             남은 할일 수: {{ remainingTasks }}
           </v-col>
@@ -42,9 +116,12 @@
           ></v-progress-circular>
 
         </v-row>
-        <v-divider class="mb-4"></v-divider>
 
       </v-col>
+
+    </v-row>
+    <v-row>
+      <v-divider class="mt-4"></v-divider>
 
     </v-row>
     <v-row
@@ -137,6 +214,16 @@
 export default {
   name: "NewSuppliesView",
   data: () => ({
+    admins: [
+      ['Management', 'mdi-account-multiple-outline'],
+      ['Settings', 'mdi-cog-outline'],
+    ],
+    cruds: [
+      ['Create', 'mdi-plus-outline'],
+      ['Read', 'mdi-file-outline'],
+      ['Update', 'mdi-update'],
+      ['Delete', 'mdi-delete'],
+    ],
     tasks: [
       {
         done: false,

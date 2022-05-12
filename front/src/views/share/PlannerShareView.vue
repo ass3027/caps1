@@ -51,7 +51,6 @@
         <v-btn @click="loginCheck">
           작성하기
         </v-btn>
-        {{tableSets}}
         <v-container>
           <v-row justify="center">
             <v-col
