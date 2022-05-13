@@ -24,6 +24,7 @@ public class ScheduleDTO {
     String sch_startTime;
     String sch_endTime;
     String expect_expenses;
+    String place;
 
     public ScheduleDAO toDAO() {
         try{
@@ -38,10 +39,11 @@ public class ScheduleDTO {
                     .sch_startTime(sDate.parse(this.sch_startTime))
                     .sch_endTime(sDate.parse(this.sch_endTime))
                     .expect_expenses(this.expect_expenses)
+                    .place(this.place)
                     .build();
         }
         catch (ParseException e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         return new ScheduleDAO();
     }
