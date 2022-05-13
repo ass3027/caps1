@@ -88,6 +88,10 @@ export default {
         const scheduleList=res.data.scheduleList
         const plan = res.data.plan
 
+        this.startDate = plan.plan_start
+        this.endDate = plan.plan_end
+        this.schName = plan.plan_name
+
         const tempDate = new Date(plan.plan_start);
         const endDate = new Date(plan.plan_end)
         for (let i = 0; tempDate <= endDate; i++) {
@@ -106,11 +110,18 @@ export default {
         calendar["expectExpenses"] = 1000
         calendar["date"]=[]
 
+        this.dateArr.forEach( (it)=>{
+          calendar.date[it]= new Map();
+        })
         //여기서 부터
         scheduleList.forEach( (it)=>{
-
+          console.log(it.sch_endTime.substring(0,10))
+            calendar.date[it.sch_endTime.substring(0,10)].set(
+              parseInt( it.sch_startTime.substring(12,13) ),it.place)
         })
-        this.$store.commit('updateCalendarDate',)
+
+        this.$store.commit('calendar/updateCalendar',calendar)
+        console.log(1)
       })
       .catch( (err)=>{
         console.error(err)
@@ -158,7 +169,7 @@ export default {
 
     applyMapData(mapData) {
       console.log("calendar: " + mapData)
-      this.$store.dispatch('calendar/changeCalendarDate',mapData)
+      this.$store.commit('calendar/updateCalendarDate',mapData)
     },
 
     save() {
@@ -202,6 +213,7 @@ export default {
       axios.post('/api/planner/Schedule',data)
       .then ((res) => {
         console.log(res)
+        alert("success")
       })
       .catch ( (err)=> {
         console.log(err)
