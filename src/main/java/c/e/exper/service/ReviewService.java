@@ -20,8 +20,7 @@ public class ReviewService {
         this.reviewMapper = reviewMapper;
         this.pictureMapper = pictureMapper;
     }
-
-
+    
     public List<Review> 모든_리뷰_조회() {
 
         return reviewMapper.findAllReview();
@@ -68,11 +67,14 @@ public class ReviewService {
         return reviewMapper.selectReview(rev_id);
     }
 
-    public List<Review> 리뷰아이디_리뷰_조회(String rev_id) {
-        return reviewMapper.findAllReviewForReview(rev_id);
-    }
 
-    public List<Review> 상품아이디_리뷰_조회(String pd_id) { return reviewMapper.findAllReviewForProduct(pd_id); }
+    public List<Review> 상품아이디_모든리뷰_조회(String pd_id) { return reviewMapper.findAllReviewForProduct(pd_id); }
+
+    public List<Review> 가게아이디_모든리뷰_조회(String store_id) { return reviewMapper.findAllReviewForReview(store_id); }
+
+    public List<Review> 키퍼아이디_모든리뷰_조회(String keep_id) { return reviewMapper.findAllReviewForKeep(keep_id); }
+
+    public List<Review> 운송원아이디_모든리뷰_조회(String delivery_id) { return reviewMapper.findAllReviewForDelivery(delivery_id); }
 
     public void 리뷰_수정(Review review) {  reviewMapper.updateReview(review); }
 

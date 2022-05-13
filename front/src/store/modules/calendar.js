@@ -10,13 +10,19 @@ export default {
       state.calendar = calendar
     },
     updateCalendarDate(state,mapData){
-      if(state.selectTime===0,state.selectDate==='') return
-      state.calendar[state.selectDate][state.selectTime] = mapData
+      if(state.selectTime===0 || state.selectDate==='') return
+      state.calendar.date[state.selectDate].set(state.selectTime,mapData)
       console.log(state.calendar)
     },
     updateSelect(state,data){
       state.selectDate = data.date
       state.selectTime = data.time
     }
-  }
+  },
+
+  // actions : {
+  //   changeCalendarDate({commit},mapData) {
+  //     commit('updateCalendarDate',mapData)
+  //   }
+  // }
 }

@@ -20,6 +20,10 @@ export default {
       accessStatus:false,
     }
   },
+  mounted() {
+    this.getLocation()
+    this.currentPosition = setInterval(this.getLocation, 500)
+  },
   methods: {
     getList: function () {
 

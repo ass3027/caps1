@@ -4,10 +4,10 @@
     class="main"
   >
     <div class="body">
-      <StoreHeader :category="category"/>
+      <StoreHeader :category="category" />
       <div class="body-form">
-        <StoreLeftbar/>
-        <StoreMain/>
+        <StoreLeftbar />
+        <StoreMain />
       </div>
     </div>
   </v-container>

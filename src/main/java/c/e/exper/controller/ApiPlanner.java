@@ -8,13 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/planner")
 public class ApiPlanner {
 
     final
@@ -27,6 +25,9 @@ public class ApiPlanner {
     InviteMapper inviteMapper;
 
     final
+    ScheduleMapper scheduleMapper;
+
+    final
     PlannerMapper plannerMapper;
 
     final
@@ -36,7 +37,7 @@ public class ApiPlanner {
 
     final PictureMapper pictureMapper;
 
-    public ApiPlanner(UserMapper userMapper, InviteMapper inviteMapper, PlannerMapper plannerMapper, AffiliatedMapper affiliatedMapper, InviteAffiliateService inviteAffiliateService, FileService fileService, PictureMapper pictureMapper) {
+    public ApiPlanner(UserMapper userMapper, InviteMapper inviteMapper, PlannerMapper plannerMapper, AffiliatedMapper affiliatedMapper, InviteAffiliateService inviteAffiliateService, FileService fileService, PictureMapper pictureMapper, ScheduleMapper scheduleMapper) {
         this.userMapper = userMapper;
         this.inviteMapper = inviteMapper;
         this.plannerMapper = plannerMapper;
@@ -44,6 +45,7 @@ public class ApiPlanner {
         this.inviteAffiliateService = inviteAffiliateService;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
+        this.scheduleMapper = scheduleMapper;
     }
 
 
@@ -52,6 +54,7 @@ public class ApiPlanner {
 
     @GetMapping("/affiliating")
     public List<AffiliatedDTO> affiliatedList(@RequestParam("plan_id") String plan_id){
+        System.out.println("소속멤버 확인");
         List<AffiliatedDAO> result = affiliatedMapper.SelectByPlanId(plan_id);
         List<AffiliatedDTO> response = new ArrayList<>();
 
@@ -64,8 +67,9 @@ public class ApiPlanner {
     public boolean affiliating(@RequestBody AffiliatedDTO affiliatedDTO){
         System.out.println(affiliatedDTO.getUser_id());
         System.out.println(affiliatedDTO.getPlan_id());
-        affiliatedMapper.insert(affiliatedDTO.toDAO());
+        System.out.println(affiliatedDTO.toDAO().getPlan_id()+"//" + affiliatedDTO.toDAO().getUser_id());
         inviteMapper.deleteById(affiliatedDTO.getUser_id(),affiliatedDTO.getPlan_id());
+        affiliatedMapper.insert(affiliatedDTO.toDAO());
         return true;
     }
 
@@ -87,9 +91,7 @@ public class ApiPlanner {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         List<InviteDAO> result = inviteMapper.selectByUserId(id);
         List<InviteDTO> response = new ArrayList<>();
-        result.forEach( data -> {
-            response.add(data.toDTO());
-        } );
+        result.forEach( data -> response.add(data.toDTO()));
 
         return response;
 
@@ -106,14 +108,14 @@ public class ApiPlanner {
 
     }
 
-    @PostMapping("/plan")
+    @PostMapping("/")
     public boolean planMaking(@RequestBody PlannerDTO plannerDTO){
         plannerMapper.insert(plannerDTO.toDAO());
 
         return true;
     }
 
-    @GetMapping("/plan")
+    @GetMapping("/")
     public List<PlannerDTO> plannerSearch(){
         List<PlannerDAO> result = plannerMapper.selectAll();
         List<PlannerDTO> convertResult = new ArrayList<>();
@@ -124,7 +126,7 @@ public class ApiPlanner {
         return convertResult;
     }
 
-    @GetMapping("/plan/{user_id}")
+    @GetMapping("/{user_id}")
     public List<PlannerDTO> plannerSearchByUserId(@PathVariable String user_id){
         List<PlannerDAO> result = plannerMapper.selectAllById(user_id);
         List<PlannerDTO> convertResult = new ArrayList<>();
@@ -137,7 +139,7 @@ public class ApiPlanner {
         return convertResult;
     }
 
-    @DeleteMapping("/plan")
+    @DeleteMapping("/")
     public void plannerDelete(@RequestBody String plan_id){
         System.out.println(plan_id);
         plannerMapper.delete(plan_id);
@@ -166,4 +168,37 @@ public class ApiPlanner {
 
         return true;
     }
+
+    @GetMapping("/Schedule/{planId}")
+    public Map<String,Object> getSchedule(@PathVariable String planId) throws Exception{
+        System.out.println(planId);
+        Map<String,Object> data = new HashMap<>();
+        Optional<PlannerDAO> plan = plannerMapper.selectById(planId);
+        if(plan.isEmpty()) {
+            System.out.println("isEmpty");
+            throw new Exception();
+        }
+
+        List<ScheduleDAO> list = scheduleMapper.selectAllById(planId);
+        System.out.println(list.size());
+
+        List<ScheduleDTO> convertResult = new ArrayList<>();
+        list.forEach( it->
+                convertResult.add(it.toDTO()));
+
+        data.put("plan",plan.get());
+        data.put("scheduleList",convertResult);
+
+        return data;
+    }
+
+    @PostMapping("/Schedule")
+    public void addSchedule(@RequestBody List<ScheduleDTO> scheduleList){
+        System.out.println(scheduleList.get(0).getSch_endTime());
+        scheduleList.forEach( it->
+                scheduleMapper.insert(it.toDAO())
+        ); // Lamda can be replaced with method reference
+    }
+
+
 }

@@ -143,7 +143,7 @@ export default {
         this.$store.commit('stores/updateStore', res.data)
       })
 
-    this.settingstart = this.startDate;
+      this.settingstart = this.startDate;
     this.settingend = this.endDate;
   },
   methods: {

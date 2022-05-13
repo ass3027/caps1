@@ -96,7 +96,6 @@ export default {
   },
   methods:{
     reserve(){
-
     },
 
     importGuide() {

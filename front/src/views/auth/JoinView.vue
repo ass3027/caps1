@@ -130,7 +130,7 @@ export default {
 
       axios({
         method: 'post',
-        url: '/api/join',
+        url: '/api/user/join',
         headers: {
           'Content-Type': 'multipart/form-data',
         },

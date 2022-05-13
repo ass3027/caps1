@@ -60,7 +60,28 @@ public class ApiReview {
     public List<Review> findProductReview(String pd_id) {
         System.out.println(pd_id);
 
-        return reviewService.상품아이디_리뷰_조회(pd_id);
+        return reviewService.상품아이디_모든리뷰_조회(pd_id);
+    }
+
+    @GetMapping("/storeReview")
+    public List<Review> findStoreReview(String store_id) {
+        System.out.println("[findStoreReview]store_id: " + store_id);
+
+        return reviewService.가게아이디_모든리뷰_조회(store_id);
+    }
+
+    @GetMapping("/keeperReview")
+    public List<Review> findKeeperReview(String keep_id) {
+        System.out.println("keep_id: " + keep_id);
+
+        return reviewService.키퍼아이디_모든리뷰_조회(keep_id);
+    }
+
+    @GetMapping("/deliverReview")
+    public List<Review> findDeliveryReview(String delivery_id) {
+        System.out.println("delivery_id: " + delivery_id);
+
+        return reviewService.운송원아이디_모든리뷰_조회(delivery_id);
     }
 
     @PutMapping("/updateReview")

@@ -71,6 +71,7 @@ public class ApiStore {
                 .store_id(store.getStore_id())
                 .user_id(store.getUser_id())
                 .pl_id(store.getPl_id())
+                .store_name(store.getStore_name())
                 .store_phone(store.getStore_phone())
                 .category(store.getCategory())
                 .pic_name(filePath)

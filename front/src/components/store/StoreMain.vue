@@ -1,10 +1,28 @@
 <template>
   <div class="main-layout">
-    <v-carousel v-model="model" height="200px" cycle interval="3000">
-      <v-carousel-item v-for="(color, i) in colors" :key="color">
-        <v-sheet :color="color" height="100%" tile>
-          <v-row class="fill-height" align="center" justify="center">
-            <div class="text-h2">Slide {{ i + 1 }}</div>
+    <v-carousel
+      v-model="model"
+      height="200px"
+      cycle
+      interval="3000"
+    >
+      <v-carousel-item
+        v-for="(color, i) in colors"
+        :key="color"
+      >
+        <v-sheet
+          :color="color"
+          height="100%"
+          tile
+        >
+          <v-row
+            class="fill-height"
+            align="center"
+            justify="center"
+          >
+            <div class="text-h2">
+              Slide {{ i + 1 }}
+            </div>
           </v-row>
         </v-sheet>
       </v-carousel-item>
@@ -15,8 +33,13 @@
       class="hotelcard"
       @click="gostoreInfo(storeInfo)"
     >
-      {{ storeInfo.store_id }}
-      <v-card v-if="storeInfo.pic_name" width="100%" height="200px">
+      <br><br>
+      {{ storeInfo.store_name }}
+      <v-card
+        v-if="storeInfo.pic_name"
+        width="300%"
+        height="200px"
+      >
         <v-img
           v-if="storeInfo.pic_name"
           width="100%"
@@ -46,10 +69,8 @@ export default {
 
   methods: {
     gostoreInfo(storeInfo) {
-      console.log(storeInfo);
-      // console.log(this.$router);
-      // console.log(`/${storeInfo.hotelName}`);
-      this.$router.push(`/${storeInfo.store_id}`);
+      console.log('storeInfo:' + storeInfo);
+      this.$router.push(`hotel/${storeInfo.store_id}`);
     },
   },
 };
@@ -66,9 +87,9 @@ export default {
 }
 
 .hotelcard {
-  margin-right: 3%;
-  width: 200px;
-  height: 250px;
+  /*margin-right: 3%;*/
+  width: 800px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   cursor: pointer;

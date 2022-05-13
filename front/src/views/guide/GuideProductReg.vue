@@ -1,6 +1,7 @@
 <template>
   <form class="joinGItem">
     <h2>가이드 상품 등록</h2>
+    <h1>{{$store.state.user.userId}}</h1>
     <div class="textForm">
       <input
         v-model="gitem_id"
@@ -11,15 +12,7 @@
       >
     </div>
 
-    <div class="textForm">
-      <input
-        v-model="user_id"
-        name="guideLicense"
-        type="text"
-        class="license"
-        placeholder="아이디"
-      >
-    </div>
+
     <div class="textForm">
       <input
         v-model="pl_id"
@@ -86,17 +79,19 @@ export default {
   },
   methods:{
     onsubmit(){
+      if (this.$store.state.user.userId===''){
+        alert("로그인후 이용해주세요")
+      }
       var sendform= new FormData();
 
       sendform.append('gitem_id', this.gitem_id);
-      sendform.append('user_id', this.user_id);
+      sendform.append('user_id', this.$store.state.user.userId);
       sendform.append('pl_id', this.pl_id);
       sendform.append('introduce', this.introduce);
       sendform.append('usage_time', this.usage_time);
       sendform.append('require_time', this.require_time);
 
-      if(this.user_id != '')
-        alert('가이드에 없는 아이디입니다.')
+
 
 
       axios({
@@ -107,10 +102,14 @@ export default {
         },
         data: sendform,
       }).then((res) => {
-        if (res.data == 'ok') {
-          alert('ok');
-          window.location.href = '/';
+        console.log(res)
+        if (res.data === '') {
+          alert('가입성공');
+
+        }else{
+          alert('가입실패');
         }
+
       });
 
     }

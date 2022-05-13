@@ -4,10 +4,10 @@
     class="main"
   >
     <div class="body">
-      <StoreHeader :category="category"/>
+      <StoreHeader :category="category" />
       <div class="body-form">
-        <StoreLeftbar/>
-        <StoreMain/>
+        <StoreLeftbar />
+        <StoreMain />
       </div>
     </div>
   </v-container>
@@ -31,15 +31,15 @@ export default {
       category: this.$route.params.value
     }
   },
-  created() {
-    this.category = this.$route.params.value
-    console.log(this.category)
-  },
   watch: {
     '$route.params.value'(now) {
       console.log('a')
       this.category = now
     }
+  },
+  created() {
+    this.category = this.$route.params.value
+    console.log(this.category)
   }
 }
 </script>
