@@ -80,12 +80,10 @@ export default {
   methods: {
     sendItem(item) {
       item.plan_id=this.$store.state.user.planId;
-      console.log(item);
       axios.post("/api/sendItem",item).then(()=>{
       })
       var dummy = item["supl_id"];
       item["supl_id"] = 0;
-      console.log(item)
 
     },
     sendList() {
@@ -95,20 +93,6 @@ export default {
         }
       }).then(()=>{
       })
-    },
-    getList() {
-
-    },
-    getMyList() {
-
-    },
-    inputList(e) {
-      e.preventDefault();
-    },
-    makeDone(id, done) {
-      console.log(id,done)
-    },
-    allDelete() {
     },
     handleToggle() {
       this.toggle = !this.toggle;

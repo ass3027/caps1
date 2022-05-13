@@ -41,8 +41,6 @@ export default {
   mounted() {
     axios.get('/api/getSets/'+this.$store.state.user.planId)
       .then((res)=>{
-        console.log("여기")
-        console.log(res.data);
         var outerArray = [
           [
             {pl_id:0,pl_name:"기본",supl_id:"2",supl_name:"휴대폰 충전기"},
@@ -70,11 +68,7 @@ export default {
 
         })
         outerArray.push(innerArray);
-        console.log("outerArray")
-        console.log(outerArray);
         this.sets=outerArray;
-        console.log("this.sets")
-        console.log(this.sets)
       })
   }
 }
