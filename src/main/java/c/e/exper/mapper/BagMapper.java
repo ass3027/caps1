@@ -12,8 +12,8 @@ import java.util.Map;
 public interface BagMapper {
     
     //주문서 등록
-    @Insert("insert into orders(user_id,order_amount,entrust_time,entrust_picker,keep_start,withdraw_time,withdraw_picker,keep_end) " +
-          "values(#{user_id},#{order_amount},#{entrust_time},#{emtrist_picker},#{entrust_time},#{keep_start},#{withdraw_picker},#{withdraw_time},#{keep_end})")
+    @Insert("insert into orders(user_id,ord_amount,entrust_time,keep_start,withdraw_time,keep_end) " +
+          "values(#{user_id},#{ord_amount},#{entrust_time},#{keep_start},#{withdraw_time},#{keep_end})")
     void insert(BagDAO bag);
     
     //배송조회
