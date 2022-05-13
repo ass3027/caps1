@@ -54,9 +54,7 @@ import axios from "axios";
 /* eslint-disable */
 
 export default {
-
-
-  name      : 'CalenderView',
+  name: 'CalenderView',
   components: {
     DateComponent,
     PlannerHeader,
@@ -65,17 +63,17 @@ export default {
   data() {
     return {
       schName: '',
-      geocoder     : '',
-      marker       : 0,
-      startDate    : '',
-      endDate      : '',
-      startDateC   : new Date(),
-      endDateC     : new Date(),
-      dateArr : [],
+      geocoder: '',
+      marker: 0,
+      startDate: '',
+      endDate: '',
+      startDateC: new Date(),
+      endDateC: new Date(),
+      dateArr: [],
       buttonClicked: false,
-      selectedTag  : '',
-      infowindow   : {},
-      scheduleList : {},
+      selectedTag: '',
+      infowindow: {},
+      scheduleList: {},
 
 
     }
@@ -84,25 +82,25 @@ export default {
     //가끔 plan Id 가 업다고 뜸 로직 문제..??
     console.log(this.$store.state.user.planId)
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
-      .then( (res)=>{
+      .then((res) => {
         console.log(res)
-        this.scheduleList=res.data
+        this.scheduleList = res.data
 
         const tempDate = this.scheduleList.plan.plan_start;
         for (let i = 0; tempDate <= this.scheduleList.plan.plan_end; i++) {
-          this.dateArr.push( this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
+          this.dateArr.push(this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
           tempDate.setDate(tempDate.getDate() + 1)
         }
       })
-      .catch( (err)=>{
+      .catch((err) => {
         console.error(err)
       })
   },
-  watch(){
+  watch() {
 
   },
 
-  computed:{
+  computed: {
     calendar() {
       return this.$store.state.calendar.calendar
     },
@@ -115,7 +113,7 @@ export default {
       this.buttonClicked = true
       this.startDateC = new Date(this.startDate)
       this.endDateC = new Date(this.endDate)
-      if(this.schName === '') {
+      if (this.schName === '') {
         alert("이름이 없습니다")
         return;
       }
@@ -129,7 +127,7 @@ export default {
 // 날짜 계산
       const tempDate = this.startDateC;
       for (let i = 0; tempDate <= this.endDateC; i++) {
-        this.dateArr.push( this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
+        this.dateArr.push(this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
         tempDate.setDate(tempDate.getDate() + 1)
       }
 
@@ -137,14 +135,14 @@ export default {
       calendar["planId"] = this.$store.state.user.planId
       calendar["SchName"] = this.schName
       calendar["expectExpenses"] = 1000
-      calendar["date"]=[]
+      calendar["date"] = []
 
-      this.dateArr.forEach( (it) => {
+      this.dateArr.forEach((it) => {
         calendar.date[it] = new Map();
       })
 
       console.log(calendar)
-      this.calendar.forEach((key,data) => {
+      this.calendar.forEach((key, data) => {
 
         console.log(key + ", data:" + data)
 
@@ -157,38 +155,38 @@ export default {
 
     applyMapData(mapData) {
       console.log("calendar: " + mapData)
-      this.$store.dispatch('calendar/changeCalendarDate',mapData)
+      this.$store.dispatch('calendar/changeCalendarDate', mapData)
     },
 
     save() {
       console.log(this.calendar)
       let data = []
       let temp = {}
-      for ( let a in this.calendar.date) {
+      for (let a in this.calendar.date) {
         console.log(this.calendar.date[a])
         console.log(a)
-        for ( let [key,value] of this.calendar.date[a]){
+        for (let [key, value] of this.calendar.date[a]) {
           let startHour
           let endHour;
-          if(parseInt(key)<9){
-            startHour= "0"+key
-            endHour = "0"+(parseInt(key)+1)
+          if (parseInt(key) < 9) {
+            startHour = "0" + key
+            endHour = "0" + (parseInt(key) + 1)
 
-          }else if(parseInt(key)===9){
-            startHour= "09"
+          } else if (parseInt(key) === 9) {
+            startHour = "09"
             endHour = "10"
-          }else {
+          } else {
             startHour = key;
-            endHour = (parseInt(key)+1)
+            endHour = (parseInt(key) + 1)
           }
           temp = {
-            gitem_id : null,
-            plan_id : this.calendar.planId,
-            place : value,
-            sch_name : this.schName,
+            gitem_id: null,
+            plan_id: this.calendar.planId,
+            place: value,
+            sch_name: this.schName,
             sch_startTime: a + ` ${startHour}:00:00`,
             sch_endTime: a + ` ${endHour}:00:00`,
-            expect_expenses : this.calendar.expectExpenses,
+            expect_expenses: this.calendar.expectExpenses,
           }
           console.log(a + ` ${key}:00:00`)
           data.push(temp)
@@ -198,13 +196,13 @@ export default {
       }
       console.log(data)
 
-      axios.post('/api/planner/Schedule',data)
-      .then ((res) => {
-        console.log(res)
-      })
-      .catch ( (err)=> {
-        console.log(err)
-      })
+      axios.post('/api/planner/Schedule', data)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     dateFormat(date) {
       let month = date.getMonth() + 1;

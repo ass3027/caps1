@@ -10,58 +10,34 @@
           </v-row>
 
           <v-card>
-            <h1>가방 합계가격: {{ bagTypeChoose }} 원</h1>
+            <h1>가방 합계가격: {{ bagAmount }} 원</h1>
           </v-card>
         </v-container>
       </v-container>
+      <v-container fluid class="pa-0">
+        <v-row>
+          <DateTimePicker :label="'시작날짜'" @date="changeEntrustTime"></DateTimePicker>
+          <DateTimePicker :label="'종료날짜'" @date="changeWithdrawTime"></DateTimePicker>
+        </v-row>
+      </v-container>
 
       <v-container justify="space-around">
         <v-row md="6">
           <v-col>
             <v-card>
-              <h3>맡길 날짜</h3>
-              <v-date-picker v-model="entrustPicker" @addressData="startPicker"></v-date-picker>
+              <h3>출발장소</h3>
+              <AddressComponent @addressData="startAddress"></AddressComponent>
             </v-card>
           </v-col>
-
           <v-col>
             <v-card>
-              <h3> 맡길 시간</h3>
-              <div>{{ entrustTime }}</div>
-              <v-time-picker v-model="entrustTime" @addressData="startTime"></v-time-picker>
+              <h3>도착장소</h3>
+              <AddressComponent @addressData="endAddress"></AddressComponent>
             </v-card>
           </v-col>
-          <v-card>
-            <h3>출발장소</h3>
-            <AddressComponent @addressData="startAddress"></AddressComponent>
-          </v-card>
         </v-row>
       </v-container>
       <br>
-      <v-container justify="space-around">
-        <v-row md="6">
-          <v-col>
-            <v-card>
-              <h3>찾을 날짜</h3>
-              <div> {{ withdrawPicker }}</div>
-              <v-date-picker v-model="withdrawPicker" @addressData="endPicker"></v-date-picker>
-            </v-card>
-          </v-col>
-
-          <v-col>
-            <v-card>
-              <h3> 찾을 시간</h3>
-              <div>{{ withdrawTime }}</div>
-              <v-time-picker v-model="withdrawTime" @addressData="endTime"></v-time-picker>
-            </v-card>
-          </v-col>
-          <v-card>
-            <h3>도착장소</h3>
-            <AddressComponent @addressData="endAddress"></AddressComponent>
-          </v-card>
-        </v-row>
-      </v-container>
-
 
       <div>
         <v-btn depressed color="primary" @click="addOrder">
@@ -73,17 +49,16 @@
     <router-view/>
   </v-app>
 </template>
+
 <script>
-
-
 import AddressComponent from "@/components/AddressComponent"
-
+import DateTimePicker from "@/views/bag/order/DateTimePicker"
 import axios from "axios";
 
 export default {
   components: {
     AddressComponent,
-
+    DateTimePicker
   },
   data() {
     return {
@@ -93,17 +68,13 @@ export default {
       checkBagTime: '',
       pickUpTime: '',
       //시작날짜
-      entrustPicker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      entrustTime:'',
       //도착날짜
-      withdrawPicker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      withdrawTime: '',
       //시작장소
       entrustAddress: '',
       //도착장소
       withdrawAddress: '',
-      //맡길시간
-      entrustTime: '',
-      //찾을시간
-      withdrawTime: '',
 
       bagType: [
         {title: '기내용 캐리어(57cm 미만) 11,000원', value: 11000},
@@ -116,7 +87,9 @@ export default {
     }
   },
   computed: {
-    bagTypeChoose() {
+
+
+    bagAmount() {
       var a = 0;
       this.checkedName.forEach(i => {
         a = a + i;
@@ -125,45 +98,42 @@ export default {
       return a;
     },
   },
+
   methods: {
+    changeEntrustTime(date){
+      this.entrustTime =date;
+    },
+    changeWithdrawTime(date){
+      this.withdrawTime = date;
+    },
     addOrder() {
-      const bag = {
+      let bag = {
         ord_id: 301,
+        ord_amount: this.bagAmount,
         user_id: this.$store.state.user.userId,
         keep_start: this.entrustAddress,
         keep_end: this.withdrawAddress,
-        order_amount: this.bagTypeChoose,
-        entrust_picker: this.entrustPicker,
-        entrust_time: this.entrustTime,
-        withdraw_picker: this.withdrawPicker,
+        entrust_time:this.entrustTime,
         withdraw_time: this.withdrawTime,
       }
-      console.log(bag);
       axios
         .post('/api/addOrder', bag)
         .then((res) => {
           alert("주문 완료!")
         })
     },
-    startPicker(address) {
-      console.log(address)
-      this.entrustPicker = address
-      console.log(this.entrustPicker)
-    },
-    startTime(address) {
-      this.entrustTime = address
-      console.log(this.entrustTime)
-    },
+    // entrustTime(address){
+    //   this.entrust_time = address
+    //   console.log(this.entrust_time)
+    // },
+    // withdrawTime(address){
+    //   this.withdraw_time = address
+    //   console.log(this.withdraw_time)
+    // },
+
     startAddress(address) {
       this.entrustAddress = address
       console.log(this.entrustAddress)
-    },
-    endPicker(address){
-      this.withdrawPicker = address
-      console.log(this.withdrawPicker)
-    },
-    endTime(address){
-      this.withdrawTime = address
     },
     endAddress(address) {
       this.withdrawAddress = address
@@ -180,7 +150,6 @@ export default {
     },
   },
 }
-
 </script>
 
 <style scoped>

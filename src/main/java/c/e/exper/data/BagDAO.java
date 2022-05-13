@@ -17,10 +17,10 @@ public class BagDAO {
    String user_id;   //회원ID
    String ord_amount;   //금액
    String keep_status;  //보관현황
-   String entrust_picker; //맡길장소
-   String entrust_time;   //맡길 시간
-   String withdraw_picker;   //찾을 날짜
-   String withdraw_time;  //찾을 시간
+   Date entrust_picker; //맡길날짜
+   Date entrust_time;   //맡길 시간
+   Date withdraw_picker;//찾을 날짜
+   Date withdraw_time;  //찾을 시간
    String keep_start;   //출발장소
    String keep_end;     //도착장소
    String delivery_id;  //운송원ID
