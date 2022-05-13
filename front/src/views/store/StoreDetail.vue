@@ -8,7 +8,7 @@
           <div class="d-flex flex-column">
             <div class="col-12 px-md-2 d-none d-md-block">
               <div class="" style="cursor: pointer">
-                <img :src="mainImage" alt="" style="width: 100%" class="image" @click="showMainImage()">
+                <img :src="'/api/photo/' + products[0].pic_name" alt="" style="width: 100%" class="image" @click="showMainImage()">
               </div>
             </div>
 
@@ -23,10 +23,8 @@
               <div class="row">
                 <div class="col-3" v-for="(product, index) in products" :key="index">
                   <div class="thumbnail" @click="changeMainImage(image)">
-                    <v-img :src="image" style="width: 100%" alt="" class="image"
+                    <v-img :src="'/api/photo/' + product.pic_name" style="width: 100%" alt="" class="image"
                            :class="mainImage === image ? 'activess' : ''"></v-img>
-                    <v-img style="width: 100%"
-                           :src="'/api/photo/' + product.pic_name"></v-img>
                   </div>
                 </div>
               </div>
@@ -34,7 +32,6 @@
           </div>
         </div>
 
-        <div v-for="(product, index) in this.products" :key="index">
           <div class="col-12 col-md-6 text-left my-3">
             <div class="container">
               <div>
@@ -43,9 +40,9 @@
               </span>
               </div>
 
-              <div class="mt-2 mb-4">
-              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ title }}
+              <div class="mt-2 mb-4" >
+              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem" >
+                {{ products[0].store_id }}
               </span>
               </div>
 
@@ -80,7 +77,6 @@
           </div>
         </div>
       </div>
-    </div>
     <StoreReviewView :store-id="store_id"/>
   </div>
 </template>
@@ -123,7 +119,6 @@ export default {
       .then(res => {
         this.products = res.data
         console.log(res.data)
-        console.log(res.data[1].pic_name)
       })
       .catch((err) => {
         console.log(err)
