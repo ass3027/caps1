@@ -72,6 +72,7 @@ export default {
             else {
               console.log(this.username)
               this.$store.commit('user/updateUserId',this.id)
+              this.$store.dispatch('user/setPlanID',this.id)
               console.log(this.$store.state.user.userId)
               console.log(this.$store.state.id)
               this.$router.push("/")

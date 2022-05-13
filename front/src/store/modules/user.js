@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
     namespaced:true,
     state: {
@@ -10,6 +12,11 @@ export default {
         },
       updatePlanId(state,newPlanId){
           state.planId = newPlanId
+      }
+    },
+    actions:{
+      updateUserId({commit},newId) {
+        axios.get()
       }
     }
 }

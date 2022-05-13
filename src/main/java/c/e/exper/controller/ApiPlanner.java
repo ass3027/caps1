@@ -171,7 +171,7 @@ public class ApiPlanner {
 
     @GetMapping("/Schedule/{planId}")
     public Map<String,Object> getSchedule(@PathVariable String planId) throws Exception{
-        System.out.println(planId);
+        System.out.println("planId:"+planId);
         Map<String,Object> data = new HashMap<>();
         Optional<PlannerDAO> plan = plannerMapper.selectById(planId);
         if(plan.isEmpty()) {
