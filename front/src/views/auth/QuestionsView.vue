@@ -60,43 +60,54 @@ import axios from "axios";
 
 export default {
   name: "QuestionsView",
-  data(){
+  data() {
     return {
-      inq_type: '',
+      inq_id: '',
       inq_title: '',
-      inq_body: '',
-      items: ['여행시설문의', '가방관리문의', '가이드문의', '기타문의'],
-      tableList:[]
+      inq_time: '',
+      user_id: '',
+      inq_count: ''
+      // tableList:[]
     }
   },
-  methods:{
-    check(){
+  mounted() {
+    axios.get("/api/Questions/" + this.$store.state.user.userId)
+    .then(res=>{
+      this.inq_id = res.data.inq_id
+      this.inq_title = res.data.inq_title
+      this.inq_time = res.data.inq_time
+      this.user_id = res.data.user_id
+      this.inq_count = res.data.inq_count
+
+    }).catch((error)=>{
+      this.error = error
+    })
+  },
+  methods: {
+    check() {
       console.log('성공')
     },
     cancel() {
     },
-    bookmark(){
+    bookmark() {
       this.$router.push('/BookMark')
     },
-    pay(){
+    pay() {
     },
-    mydata(){
+    mydata() {
       this.$router.push('/MyData')
     },
-    questions(){
+    questions() {
       this.$router.push('/Questions')
     },
-    write(){
-      if (this.$store.state.user.userId){
-        this.$router.push({name:'Writing'})
-      }else{
+    write() {
+      if (this.$store.state.user.userId) {
+        this.$router.push({name: 'Writing'})
+      } else {
         alert("로그인해주세요")
       }
       // this.$router.push('/Writing')
     }
-  },
-  mounted() {
-
   }
 }
 </script>

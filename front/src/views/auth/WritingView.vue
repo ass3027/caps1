@@ -56,6 +56,7 @@
       <v-btn v-on:click="cancel" type="button">취소</v-btn>
     </div>
 
+<!--    <p>{{user_id}}</p>-->
   </div>
 </template>
 
@@ -96,7 +97,7 @@ export default {
       var sendform = new FormData()
       console.log(this.user_id)
       sendform.append("inq_type", this.inq_type)
-      sendform.append("user_user", this.user_id)
+      sendform.append("user_id", this.user_id)
       sendform.append("inq_title", this.inq_title)
       sendform.append("inq_body", this.inq_body)
 
