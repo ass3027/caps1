@@ -6,16 +6,16 @@
       </template>
       <v-date-picker v-model="date" scrollable>
         <v-spacer></v-spacer>
-        <v-btn flat color="primary" @click="dateModal = false">Cancel</v-btn>
-        <v-btn flat color="primary" @click="timeModal = true">OK</v-btn>
+        <v-btn text color="primary" @click="dateModal = false">Cancel</v-btn>
+        <v-btn text color="primary" @click="timeModal = true">OK</v-btn>
       </v-date-picker>
     </v-dialog>
 
     <v-dialog ref="dialog2" v-model="timeModal" :return-value.sync="time" persistent lazy full-width width="290px">
       <v-time-picker v-if="timeModal" v-model="time" full-width>
         <v-spacer></v-spacer>
-        <v-btn flat color="primary" @click="timeModal = false">Cancel</v-btn>
-        <v-btn flat color="primary" @click="set()">OK</v-btn>
+        <v-btn text color="primary" @click="timeModal = false">Cancel</v-btn>
+        <v-btn text color="primary" @click="set()">OK</v-btn>
       </v-time-picker>
     </v-dialog>
   </v-col>

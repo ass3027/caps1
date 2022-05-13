@@ -122,14 +122,6 @@ export default {
           alert("주문 완료!")
         })
     },
-    // entrustTime(address){
-    //   this.entrust_time = address
-    //   console.log(this.entrust_time)
-    // },
-    // withdrawTime(address){
-    //   this.withdraw_time = address
-    //   console.log(this.withdraw_time)
-    // },
 
     startAddress(address) {
       this.entrustAddress = address
@@ -139,7 +131,6 @@ export default {
       this.withdrawAddress = address
       console.log(this.withdrawAddress)
     },
-
 
   },
   watch: {
