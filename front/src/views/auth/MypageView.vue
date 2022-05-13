@@ -7,8 +7,8 @@
       <nav>
         <button @click="bookmark" type="submit">즐겨찾기</button> |
         <button @click="pay" type="submit">수익관리</button> |
-        <button @click="board" type="submit">1대1문의</button> |
-        <button @click="mydata" type="submit">내정보수정 </button>
+        <button @click="mydata" type="submit">내정보수정 </button> |
+        <button @click="questions" type="submit">1대1문의</button>
       </nav>
     </header>
 
@@ -92,7 +92,7 @@
       <div class ="textForm">
         <p class="a">비밀번호</p>
         <input
-          type="text"
+          type="password"
           name="user pw"
           class="pw"
           placeholder="비밀번호를 입력하세요"
@@ -136,11 +136,11 @@
       <!--            </div>-->
 
 
-      <div id="button">
-        <v-btn v-on:click="login" elevation="3">로그인</v-btn>
-        <v-btn v-on:click="main" elevation="3">메인으로 이동</v-btn>
-        <v-btn v-on:click="Modify" elevation="3" type="button">정보 수정하기</v-btn>
-      </div>
+<!--      <div id="button">-->
+<!--        <v-btn v-on:click="login" elevation="3" type="button">로그인</v-btn>-->
+<!--        <v-btn v-on:click="main" elevation="3" type="button">메인으로 이동</v-btn>-->
+<!--        <v-btn v-on:click="Modify" elevation="3" type="button">정보 수정하기</v-btn>-->
+<!--      </div>-->
 
         </form>
       </div>
@@ -203,11 +203,11 @@ export default {
     pay(){
       this.$router.push("/pay")
     },
-    board(){
-      this.$router.push("./board")
+    questions(){
+      this.$router.push("/Questions")
     },
     mydata(){
-      this.$router.push("/mydata")
+      this.$router.push("/MyData")
     }
   }
 }

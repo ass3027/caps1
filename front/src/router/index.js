@@ -48,6 +48,9 @@ import MypageView from "@/views/auth/MypageView";
 
 import StoreDetail from "@/views/store/StoreDetail";
 import BookMarkView from "@/views/auth/BookMarkView";
+import MyDataView from "@/views/auth/MyDataView";
+import QuestionsView from "@/views/auth/QuestionsView";
+import WritingView from "@/views/auth/WritingView";
 
 Vue.use(VueRouter);
 
@@ -55,6 +58,9 @@ const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
   {path: "/mypage", name:'Mypage', component: MypageView},
+  {path: "/mydata", name:'Mydata', component: MyDataView},
+  {path: "/questions", name:'Questions', component: QuestionsView},
+  {path: "/writing", name:'Writing', component: WritingView},
   {path: "/bookmark", name:'Bookmark', component: BookMarkView},
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},

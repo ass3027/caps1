@@ -1,8 +1,10 @@
 package c.e.exper.controller;
 
+import c.e.exper.data.InquiryDAO;
 import c.e.exper.data.PictureDAO;
 import c.e.exper.data.UserDAO;
 import c.e.exper.data.UserDTO;
+import c.e.exper.mapper.InquiryMapper;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
@@ -35,12 +37,16 @@ public class ApiUser {
     final
     FileService fileService;
 
-    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper) {
+    final
+    InquiryMapper inquiryMapper;
+
+    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper,InquiryMapper inquiryMapper) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
         this.suplMapper = suplMapper;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
+        this.inquiryMapper = inquiryMapper;
     }
 
     @GetMapping("/exper")
@@ -59,7 +65,7 @@ public class ApiUser {
     @GetMapping("/data/{userId}")
     public UserDAO getUserInfo(@PathVariable String userId){
         System.out.println(userId); //주소로 받아온 데이터
-        System.out.println("pp");
+//        System.out.println("pp");
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());// 서버에서 가지고있는 아이디 정보
         Optional<UserDAO> result = userMapper.selectId(SecurityContextHolder.getContext().getAuthentication().getName());
 //        if(result.isEmpty()){
@@ -72,10 +78,39 @@ public class ApiUser {
         //void=>아무것도 반환하지 않을때
     }
 
-    @PostMapping("/Mypage")
-    public void getUserUpdate(UserDAO userDAO){
+    @PostMapping("/MyData")
+    public boolean getUserUpdate(UserDAO userDAO){
         System.out.println(userDAO);
+        userDAO.setUser_pw(
+                passwordEncoder().encode(
+                        userDAO.getUser_pw()
+                )
+        );
+        boolean result = userMapper.updateUserInfo(userDAO);
+        return result;
+
     }
+
+    @PostMapping("/Writing")
+    public boolean getListInfo(InquiryDAO inquiryDAO){
+        System.out.println(inquiryDAO);
+        boolean result = inquiryMapper.insert(inquiryDAO);
+        return result;
+    }
+
+//    @GetMapping("/Writing")
+//    public boolean
+//        public boolean insert(){return "Writing/insert";}
+
+
+//    @GetMapping("/Writing")
+//    public InquiryDAO getListInfo(@PathVariable String userId) {
+//        System.out.println(userId);
+//        Optional<InquiryDAO> result = inquiryMapper.selectId(SecurityContextHolder.getContext().getAuthentication().getName());
+//        return result.get();
+//    }
+
+//
 
 //    @RequestMapping(value = "data", method = RequestMethod.POST)
 //    public String update(@ModelAttribute ) {
