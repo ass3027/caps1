@@ -65,7 +65,7 @@ public class ApiReview {
 
     @GetMapping("/storeReview")
     public List<Review> findStoreReview(String store_id) {
-        System.out.println("[findStoreReview]store_id: " + store_id);
+        System.out.println("[findStoreReview]store_id  : " + store_id);
 
         return reviewService.가게아이디_모든리뷰_조회(store_id);
     }

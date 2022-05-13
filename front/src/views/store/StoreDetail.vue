@@ -1,6 +1,7 @@
 <template>
   <div class="">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <div class="container my-0 my-md-4">
       <div class="row align-items-center justify-content-between">
         <div class="col-12 col-md-5 p-0 p-md-2">
@@ -14,18 +15,18 @@
             <div class="d-block d-md-none col-12 px-0">
               <b-carousel v-model="slide" controls :interval="0">
                 <b-carousel-slide v-for="(product, index) in this.products" :key="index" :img-src="image">
-                  <v-img width="50%"
-                         height="50%"
-                         :src="'/api/photo/' + product.pic_name"></v-img>
                 </b-carousel-slide>
               </b-carousel>
             </div>
 
             <div class="col-12 d-none d-md-block my-4">
               <div class="row">
-                <div class="col-3" v-for="(image, index) in images" :key="index">
+                <div class="col-3" v-for="(product, index) in products" :key="index">
                   <div class="thumbnail" @click="changeMainImage(image)">
-                    <v-img :src="image" style="width: 100%" alt="" class="image" :class="mainImage === image ? 'activess' : ''"></v-img>
+                    <v-img :src="image" style="width: 100%" alt="" class="image"
+                           :class="mainImage === image ? 'activess' : ''"></v-img>
+                    <v-img style="width: 100%"
+                           :src="'/api/photo/' + product.pic_name"></v-img>
                   </div>
                 </div>
               </div>
@@ -33,106 +34,78 @@
           </div>
         </div>
 
-        <div class="col-12 col-md-6 text-left my-3">
-          <div class="container">
-            <div>
+        <div v-for="(product, index) in this.products" :key="index">
+          <div class="col-12 col-md-6 text-left my-3">
+            <div class="container">
+              <div>
               <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
-                SNEAKER COMPANY
+                Packless Traval
               </span>
-            </div>
+              </div>
 
-            <div class="mt-2 mb-4">
+              <div class="mt-2 mb-4">
               <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
                 {{ title }}
               </span>
-            </div>
+              </div>
 
-            <div class="my-3">
+              <div class="my-3">
               <span class="text-muted">
-                These low-profile sneakers are your perfect casual wear companion.
-                Featuring a durable rubber outer sole, they'll withstand everything the weather can offer.
+                개인 바베큐 됩니다.
               </span>
-            </div>
+              </div>
 
-            <div class="row">
-              <div class="col-8 col-md-12 d-flex flex-row align-items-center">
-                <div>
+              <div class="row">
+                <div class="col-8 col-md-12 d-flex flex-row align-items-center">
+                  <div>
                   <span style="font-size: 24px; font-weight: 900">
                     ${{ parseFloat(price).toFixed(2) }}
                   </span>
-                </div>
-                <div class="">
-                  <span class="mx-3 discount px-2 py-1 rounded" style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)">
+                  </div>
+                  <div class="">
+                  <span class="mx-3 discount px-2 py-1 rounded"
+                        style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)">
                     50%
                   </span>
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-4 col-md-12 my-1">
+                <div class="col-4 col-md-12 my-1">
                 <span class="" style="font-weight: 700; color: rgb(183, 183, 183); text-decoration: line-through;">
                   $250.00
                 </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-<!--      <b-modal v-model="showImageModal" variant="transparent" size="md" backdrop shadow hide-footer>-->
-<!--        <template #modal-header-close>-->
-<!--          <i class="fas fa-times" style="color: #fff"></i>-->
-<!--        </template>-->
-<!--        <div class="container">-->
-<!--          <div class="d-flex flex-column">-->
-<!--            <div class="col-12 px-0 px-md-2">-->
-<!--              <div class="">-->
-<!--                <b-carousel v-model="slide" controls :interval="0">-->
-<!--                  <b-carousel-slide v-for="(image, index) in this.images" :key="index" :img-src="image" class=""></b-carousel-slide>-->
-<!--                </b-carousel>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="d-none col-12 px-0 px-md-2">-->
-<!--              <div class="text-center">-->
-<!--                <b-img :src="this.mainImage" alt="" style="width: 100%" class="image"></b-img>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="col-12 my-3">-->
-<!--              <div class="row">-->
-<!--                <div class="col-3" v-for="(image, index) in images" :key="index">-->
-<!--                  <div class="thumbnail">-->
-<!--                    <v-img :src="image" style="width: 100%" alt="" class="image" :class="index === slide ? 'activess' : ''"></v-img>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </b-modal>-->
     </div>
+    <StoreReviewView :store-id="store_id"/>
   </div>
 </template>
 
 <script>
-// import NavBar from './NavBar'
+import StoreReviewView from "@/views/StoreReviewView";
+import axios from "axios";
+
 export default {
   name: 'ProductPage',
   props: ['store_id'],
   components: {
-    // NavBar
+    StoreReviewView
   },
   data() {
     return {
-      title: 'Fall Limited Edition Sneakers',
+      title: '5성급 편안호텔',
       price: "125.000",
       count: 1,
       mainImage: require('@/image/product1.png'),
       images: [
-        require('@/image/product1.png'),
-        require('@/image/product3.png'),
-        require('@/image/product2.png'),
-        require('@/image/product4.png'),
+        // require('@/image/product1.png'),
+        // require('@/image/product3.png'),
+        // require('@/image/product2.png'),
+        // require('@/image/product4.png'),
       ],
       products: [],
 
@@ -140,14 +113,11 @@ export default {
       slide: 0,
     }
   },
-  mounted() {
-    const items = JSON.parse(localStorage.getItem('myCart'));
-    console.log('items', items);
-    this.cartItems = items;
 
+  mounted() {
     axios({
       method: 'GET',
-      url:'/api/product/',
+      url: '/api/product',
       params: {'store_id': this.store_id}
     })
       .then(res => {
@@ -158,7 +128,11 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-},
+
+    const items = JSON.parse(localStorage.getItem('myCart'));
+    // console.log('items', items);
+    this.cartItems = items;
+  },
   computed: {
     cartItemsCount() {
       return this.cartItems.length;
@@ -189,7 +163,7 @@ export default {
       // Save allEntries back to local storage
       existingEntries.push(entry);
       localStorage.setItem("myCart", JSON.stringify(existingEntries));
-      console.log('myCart', JSON.parse(localStorage.getItem('myCart')));
+      // console.log('myCart', JSON.parse(localStorage.getItem('myCart')));
       this.cartItems = JSON.parse(localStorage.getItem('myCart'));
     }
   }
