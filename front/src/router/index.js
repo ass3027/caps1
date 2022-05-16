@@ -14,13 +14,14 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 
 //가방 보관
-import BagReserveView from '../views/bag/order/BagReserveView.vue'
+import BagReserveView from '../views/bag/order/SelectionOrder.vue'
 import TrackingView from "@/views/bag/TrackingView";
-import StorageView from "@/views/bag/order/StorageView";
+import StorageView from "@/views/bag/StorageView";
 
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
-import TransportView from "../views/bag/order/TransportView";
+import TransportOrder from "../views/bag/order/TransportOrder";
+import SelectionOrder from "../views/bag/order/SelectionOrder";
 
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
@@ -53,6 +54,7 @@ import LocationUpdate from "@/views/LocationUpdate";
 
 Vue.use(VueRouter);
 
+
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
@@ -72,10 +74,10 @@ const routes = [
   {path: '/pension', name: 'pension', component: PensionView},
 
   {path: '/calender', name: 'calender', component: CalenderView},
-  {path: '/BagReserveView', name: 'OrderView', component: BagReserveView},
+  {path: '/SelectionOrder', name: 'SelectionOrder', component: SelectionOrder},
   {path: '/FareView', name: 'FareView', component: FareView},
   {path: '/UsageGuideView', name: 'UsageGuideView', component: UsageGuideView},
-  {path: '/TransportView', name: 'TransportView', component: TransportView},
+  {path: '/TransportOrder', name: 'TransportOrder', component: TransportOrder},
   {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
   {path: '/StorageView', name: 'StorageView', component: StorageView},
 

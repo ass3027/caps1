@@ -6,44 +6,22 @@
       가방예약
     </div>
 
-    <v-row
-      justify="space-around"
-    >
-      <v-col
-        cols="6"
-        sm="2"
-      >
-        <v-img
-          src="@/image/storage1.png"
-        />
+    <v-row justify="space-around">
+      <v-col cols="6" sm="2">
+        <v-img src="@/image/storage1.png"/>
       </v-col>
 
-      <v-col
-        cols="6"
-        sm="2"
-      >
-        <v-img
-          src="@/image/transport1.png"
-        />
+      <v-col cols="6" sm="2">
+        <v-img src="@/image/transport1.png"/>
       </v-col>
     </v-row>
 
-    <v-row
-      justify="space-around"
-    >
-      <v-btn
-        depressed
-        color="primary"
-        @click="$router.push({name:'StorageView'})"
-      >
+    <v-row justify="space-around">
+      <v-btn depressed color="primary" @click="$router.push({name:'StorageOrder'})">
         가방 보관
       </v-btn>
 
-      <v-btn
-        depressed
-        color="primary"
-        @click="$router.push({name:'TransportView'})"
-      >
+      <v-btn depressed color="primary" @click="$router.push({name:'TransportView'})">
         가방배송
       </v-btn>
     </v-row>
@@ -58,7 +36,7 @@ import HeaderComponent from '@/components/HeaderComponent.vue'
 export default {
   components: {},
   data: () => ({
-    transport: '/TransportView.vue',
+    transport: '/TransportOrder.vue',
     return: {}
   }),
 }

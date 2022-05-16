@@ -1,36 +1,19 @@
 <template>
   <v-app class="header-layout">
-    <div
-      v-if="$store.state.user.userId===''"
-      class="login-box"
-    >
-      <v-btn
-        text
-        router
-        to="/login"
-      >
+    <div v-if="$store.state.user.userId===''" class="login-box">
+      <v-btn text router to="/login">
         login
       </v-btn>
-      <v-btn
-        text
-        router
-        to="/join"
-      >
+      <v-btn text router to="/join">
         join
       </v-btn>
     </div>
-    <div
-      v-else
-      class="login-box"
-    >
+    <div v-else class="login-box">
       <v-btn text>
         {{ $store.state.user.userId }}
       </v-btn>
 
-      <v-btn
-        text
-        @click="logOut"
-      >
+      <v-btn text @click="logOut">
         logout
       </v-btn>
       <!--      엄준식은 살아있다-->
@@ -39,35 +22,21 @@
     <div>
       <div class="menu-Bar">
         <div class="text-center">
-          <v-menu
-            v-for="(menu,index) in menuList"
-            :key="index"
-            offset-y
-          >
+          <v-menu v-for="(menu,index) in menuList" :key="index" offset-y>
             <template #activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
+              <v-btn color="primary" dark v-bind="attrs" v-on="on">
                 {{ menu }}
               </v-btn>
             </template>
             <v-list>
-              <v-list-item
-                v-for="(content, index2) in contents[index]"
-                :key="index2"
-                router
-                :to="content.route"
-              >
+              <v-list-item v-for="(content, index2) in contents[index]" :key="index2" router :to="content.route">
                 <v-list-item-title>{{ content.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
         </div>
       </div>
-      <v-divider class="divider-padding" />
+      <v-divider class="divider-padding"/>
     </div>
     <!--    <img-->
     <!--      :src="dd"-->
@@ -84,8 +53,8 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
-    photo: `/api/photo/`+"userImage/1648100757821img.jpg",
-    menuList:[
+    photo: `/api/photo/` + "userImage/1648100757821img.jpg",
+    menuList: [
       "여행지",
       "여행계획",
       "시설",
@@ -118,11 +87,12 @@ export default {
         {title: '게스트하우스', route: '/store'}
       ],
       [
-        {title: '가방예약', route: '/BagReserveView'},
+        {title: '가방예약', route: '/SelectionOrder'},
         {title: '이용안내', route: '/UsageGuideView'},
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},
-        {title: '배송조회', route: '/TrackingView'}
+        {title: '배송조회', route: '/TrackingView'},
+        {title: '보관조회', route: '/StorageView'}
       ],
       [
         {title: '가이드 리스트', route: '/guideview'},
@@ -147,31 +117,31 @@ export default {
       ]
     ],
   }),
-  mounted(){
-    if(this.$store.state.user.userId!==''){
+  mounted() {
+    if (this.$store.state.user.userId !== '') {
       axios.get("/api/user/photo")
-        .then( (res)=> {
+        .then((res) => {
           console.log(res.data)
-          this.photo = `/api/photo/`+res.data
+          this.photo = `/api/photo/` + res.data
         })
     }
 
   },
   methods: {
-    logOut(){
+    logOut() {
       console.log(22)
       axios({
-        url:'/api/logout',
-        method:'post'
+        url: '/api/logout',
+        method: 'post'
       })
-      .then((res)=>{
-        console.log(res)
-        this.$store.dispatch('user/setUser','')
-        this.$router.push("/")
-      })
-      .catch((err)=>{
-        console.error(err)
-      })
+        .then((res) => {
+          console.log(res)
+          this.$store.dispatch('user/setUser', '')
+          this.$router.push("/")
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
     // store(a){
     //   this.$router.push({path:a.route, params:{'value':a.title}})

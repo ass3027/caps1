@@ -61,40 +61,29 @@
       <!--          </v-btn>-->
       <!--        </li>-->
       <!--      </ul>-->
-      <v-simple-table dark>
+      <v-simple-table >
         <thead>
-          <tr>
-            <th
-              v-for="(key,index) in keys"
-              :key="index"
-              class="text-left">
-              {{ key }}
-            </th>
-            <th>삭제</th>
-          </tr>
+        <tr>
+          <th v-for="(key,index) in keys" :key="index" class="text-left">
+            {{ key }}
+          </th>
+        </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(plan,index) in plan_list"
-            :key="index"
-          >
-            <td>
-              {{ plan.plan_id }}
-            </td>
-            <td>{{ plan.plan_name }}</td>
-            <td>{{ plan.user_id }}</td>
-            <td>{{ plan.plan_start }}</td>
-            <td>{{ plan.plan_end }}</td>
-            <td>
-              <v-btn
-                @submit.prevent
-                @click="deletePlan(plan.plan_id)"
-                color="light-green"
-              >
-                삭제
-              </v-btn>
-            </td>
-          </tr>
+        <tr v-for="(plan,index) in plan_list" :key="index">
+          <td>
+            {{ plan.plan_id }}
+          </td>
+          <td>{{ plan.plan_name }}</td>
+          <td>{{ plan.user_id }}</td>
+          <td>{{ plan.plan_start }}</td>
+          <td>{{ plan.plan_end }}</td>
+          <td>
+            <v-btn @submit.prevent @click="deletePlan(plan.plan_id)" color="light-green">
+              삭제
+            </v-btn>
+          </td>
+        </tr>
         </tbody>
 
       </v-simple-table>
@@ -142,7 +131,7 @@ export default {
           plan_start: this.plan_start,
           plan_end: this.plan_end,
           user_id: this.user_id,
-          keys:[]
+          keys: []
         }
       })
         .then((res) => {
