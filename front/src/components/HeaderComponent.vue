@@ -34,10 +34,7 @@
         logout
       </v-btn>
       <!--      엄준식은 살아있다-->
-      <img
-        :src="photo"
-        style="width:150px;height:150px"
-       alt="">
+
     </div>
     <div>
       <div class="menu-Bar">
@@ -87,7 +84,7 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
-    photo: `/api/photo/`+"userImage/1648100757821img.jpg",
+    photo: '',
     menuList:[
       "여행지",
       "여행계획",
@@ -155,6 +152,10 @@ export default {
       axios.get("/api/user/photo")
         .then( (res)=> {
           console.log(res.data)
+          if(res.data==='') {
+            this.$store.dispatch('user/setUser','')
+            return;
+          }
           this.photo = `/api/photo/`+res.data
         })
     }
@@ -169,8 +170,7 @@ export default {
       })
       .then((res)=>{
         console.log(res)
-        this.$store.commit('user/updateUserId','')
-        this.$store.commit('user/updatePlanId','')
+        this.$store.dispatch('user/setUser','')
         this.$router.push("/")
       })
       .catch((err)=>{

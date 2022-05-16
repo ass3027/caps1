@@ -21,14 +21,13 @@
           type="date"
         >
         <v-text-field v-model="schName" placeholder="일정이름" style="width:30%"></v-text-field>
-        <v-btn @click="apply()">
-          Apply
+        <v-btn @click="create()">
+          create
         </v-btn>
         <v-btn @click="save()">
           save
         </v-btn>
         <div
-          v-if="buttonClicked"
           :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}"
         >
           <DateComponent
@@ -54,9 +53,7 @@ import axios from "axios";
 /* eslint-disable */
 
 export default {
-
-
-  name      : 'CalenderView',
+  name: 'CalenderView',
   components: {
     DateComponent,
     PlannerHeader,
@@ -64,7 +61,7 @@ export default {
   },
   data() {
     return {
-      schName: '',
+      schName: 'gg',
       geocoder     : '',
       marker       : 0,
       startDate    : '',
@@ -86,20 +83,47 @@ export default {
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
       .then( (res)=>{
         console.log(res)
-        this.scheduleList=res.data
+        const scheduleList=res.data.scheduleList
+        const plan = res.data.plan
 
-        const tempDate = this.scheduleList.plan.plan_start;
-        for (let i = 0; tempDate <= this.scheduleList.plan.plan_end; i++) {
+        this.startDate = plan.plan_start
+        this.endDate = plan.plan_end
+        this.schName = plan.plan_name
+
+        const tempDate = new Date(plan.plan_start);
+        const endDate = new Date(plan.plan_end)
+        for (let i = 0; tempDate <= endDate; i++) {
           this.dateArr.push( this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
           tempDate.setDate(tempDate.getDate() + 1)
         }
+        console.log(this.dateArr)
+        //없으면 만들기
+        if(scheduleList.length === 0) {
+          this.create()
+          return;
+        }
+        const calendar = {};
+        calendar["planId"] = plan.plan_id
+        calendar["SchName"] = plan.plan_name
+        calendar["expectExpenses"] = 1000
+        calendar["date"]=[]
+
+        this.dateArr.forEach( (it)=>{
+          calendar.date[it]= new Map();
+        })
+        //여기서 부터
+        scheduleList.forEach( (it)=>{
+          console.log(it.sch_endTime.substring(0,10))
+            calendar.date[it.sch_endTime.substring(0,10)].set(
+              parseInt( it.sch_startTime.substring(12,13) ),it.place)
+        })
+
+        this.$store.commit('calendar/updateCalendar',calendar)
+        console.log(1)
       })
       .catch( (err)=>{
         console.error(err)
       })
-  },
-  watch(){
-
   },
 
   computed:{
@@ -109,55 +133,56 @@ export default {
   },
   methods: {
 
-    apply() {
+    create() {
       let calendar = []
-      this.dateArr = []
-      this.buttonClicked = true
-      this.startDateC = new Date(this.startDate)
-      this.endDateC = new Date(this.endDate)
-      if(this.schName === '') {
-        alert("이름이 없습니다")
-        return;
-      }
 
-      if (this.startDateC > this.endDateC) {
-        alert("잘못된 날짜 설정 입니다");
-        return;
-      }
+      //플래너 생성때 쓸내용
+      // if(this.schName === '') {
+      //   alert("이름이 없습니다")
+      //   return;
+      // }
+      //
+      // if (this.startDateC > this.endDateC) {
+      //   alert("잘못된 날짜 설정 입니다");
+      //   return;
+      // }
 
-      if (this.startDateC >= this.endDateC) return;
-// 날짜 계산
-      const tempDate = this.startDateC;
-      for (let i = 0; tempDate <= this.endDateC; i++) {
-        this.dateArr.push( this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
-        tempDate.setDate(tempDate.getDate() + 1)
-      }
-
-//이거는 플래너가 비었을떄? 저장된 값이 없을때 스케쥴 배열  길이가 0일때
       calendar["planId"] = this.$store.state.user.planId
       calendar["SchName"] = this.schName
       calendar["expectExpenses"] = 1000
       calendar["date"]=[]
 
       this.dateArr.forEach( (it) => {
-        calendar.date[it] = new Map();
+        console.log(it)
+        const a = [];
+        for (let i = 0; i < 24; i++) {
+          a.push(" ")
+        }
+        this.calendar[it] = a
+
       })
 
       console.log(calendar)
-      this.calendar.forEach((key,data) => {
-
-        console.log(key + ", data:" + data)
-
-
-      })
+      // this.calendar.forEach((key,data) => {
+      //   console.log(key + ", data:" + data)
+      // })
 
       this.$store.commit('calendar/updateCalendar', calendar)
 
     },
+    // selecting(tag) {
+    //   const check = this.sameCheck(tag);
+    //   if (check) this.selectedTag = tag;
+    //   console.log(tag);
+    //   return check
+    // },
+    // sameCheck(tag) {
+    //   return this.selectedTag !== tag;
+    // },
 
     applyMapData(mapData) {
       console.log("calendar: " + mapData)
-      this.$store.dispatch('calendar/changeCalendarDate',mapData)
+      this.$store.commit('calendar/updateCalendarDate',mapData)
     },
 
     save() {
@@ -201,6 +226,7 @@ export default {
       axios.post('/api/planner/Schedule',data)
       .then ((res) => {
         console.log(res)
+        alert("success")
       })
       .catch ( (err)=> {
         console.log(err)

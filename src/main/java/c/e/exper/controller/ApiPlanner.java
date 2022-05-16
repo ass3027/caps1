@@ -171,7 +171,7 @@ public class ApiPlanner {
 
     @GetMapping("/Schedule/{planId}")
     public Map<String,Object> getSchedule(@PathVariable String planId) throws Exception{
-        System.out.println(planId);
+        System.out.println("planId:"+planId);
         Map<String,Object> data = new HashMap<>();
         Optional<PlannerDAO> plan = plannerMapper.selectById(planId);
         if(plan.isEmpty()) {
@@ -195,6 +195,8 @@ public class ApiPlanner {
     @PostMapping("/Schedule")
     public void addSchedule(@RequestBody List<ScheduleDTO> scheduleList){
         System.out.println(scheduleList.get(0).getSch_endTime());
+
+        scheduleMapper.deleteByPlanId(scheduleList.get(0).getPlan_id());
         scheduleList.forEach( it->
                 scheduleMapper.insert(it.toDAO())
         ); // Lamda can be replaced with method reference

@@ -70,12 +70,12 @@ export default {
               alert("fail")
             }
             else {
-              console.log(this.username)
-              this.$store.commit('user/updateUserId',this.id)
+              //this.$store.commit('user/updateUserId',this.id)
+              this.$store.dispatch('user/setUser',this.id)
               console.log(this.$store.state.user.userId)
-              console.log(this.$store.state.id)
+              console.log(this.$store.state.user.planId)
               this.$router.push("/")
-              location.reload()
+              //location.reload()
             }
           })
           .catch((err) => {

@@ -2,16 +2,16 @@
   <v-app>
     <h1>배송조회</h1>
     <ul>
-      <li
-        v-for="(data,index) in list"
-        :key="index"
-      >
+      <li v-for="(data,index) in list" :key="index">
         주문번호:{{ data.ord_id }}
-        금액: {{data.order_amount}}
-        출발키퍼: {{data.keep_start}}
-        도착키퍼: {{data.keep_end}}
+        금액: {{ data.ord_amount }}
+        출발키퍼: {{ data.keep_start }}
+        도착키퍼: {{ data.keep_end }}
       </li>
     </ul>
+    <template>
+      <v-data-table :headers="headers" :items="desserts"  class="elevation-1"></v-data-table>
+    </template>
   </v-app>
 </template>
 
@@ -20,20 +20,103 @@ import axios from "axios";
 
 export default {
   name: "TrackingView",
-  data(){
+  data() {
     return {
-      list:[]
+      list: [],
+      headers: [
+        {text: '주문번호', align: 'start', sortable: false, value: 'name',},
+        {text: '금액', value: 'calories'},
+        {text: '출발키퍼', value: 'fat'},
+        {text: '도착키퍼', value: 'carbs'},
+        {text: '기타', value: 'protein'},
+        {text: '기타', value: 'iron'},
+      ],
+      desserts: [
+        {
+          name: 'Ice cream sandwich',
+          calories: 237,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3,
+          iron: '1%',
+        },
+        {
+          name: 'Eclair',
+          calories: 262,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0,
+          iron: '7%',
+        },
+        {
+          name: 'Cupcake',
+          calories: 305,
+          fat: 3.7,
+          carbs: 67,
+          protein: 4.3,
+          iron: '8%',
+        },
+        {
+          name: 'Gingerbread',
+          calories: 356,
+          fat: 16.0,
+          carbs: 49,
+          protein: 3.9,
+          iron: '16%',
+        },
+        {
+          name: 'Jelly bean',
+          calories: 375,
+          fat: 0.0,
+          carbs: 94,
+          protein: 0.0,
+          iron: '0%',
+        },
+        {
+          name: 'Lollipop',
+          calories: 392,
+          fat: 0.2,
+          carbs: 98,
+          protein: 0,
+          iron: '2%',
+        },
+        {
+          name: 'Honeycomb',
+          calories: 408,
+          fat: 3.2,
+          carbs: 87,
+          protein: 6.5,
+          iron: '45%',
+        },
+        {
+          name: 'Donut',
+          calories: 452,
+          fat: 25.0,
+          carbs: 51,
+          protein: 4.9,
+          iron: '22%',
+        },
+        {
+          name: 'KitKat',
+          calories: 518,
+          fat: 26.0,
+          carbs: 65,
+          protein: 7,
+          iron: '6%',
+        },
+      ],
+
     }
   },
   mounted() {
     this.a()
   },
-  methods:{
-    a(){
-      axios.get("/api/bag/"+this.$store.state.user.userId)
-      .then((res)=>{
-        this.list=res.data
-      })
+  methods: {
+    a() {
+      axios.get("/api/bag/" + this.$store.state.user.userId)
+        .then((res) => {
+          this.list = res.data
+        })
     }
   }
 
