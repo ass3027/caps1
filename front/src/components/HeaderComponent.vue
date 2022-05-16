@@ -87,7 +87,7 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
-    photo: `/api/photo/`+"userImage/1648100757821img.jpg",
+    photo: '',
     menuList:[
       "여행지",
       "여행계획",
@@ -155,6 +155,9 @@ export default {
       axios.get("/api/user/photo")
         .then( (res)=> {
           console.log(res.data)
+          if(res.data === ''){
+            this.$store.dispatch('user/setUser','')
+          }
           this.photo = `/api/photo/`+res.data
         })
     }
