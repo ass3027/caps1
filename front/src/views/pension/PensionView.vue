@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TravelHeader from "@/components/store/StoreHeader";
+import TravelHeader from "@/components/store/PlaceHeader";
 export default {
   name: "PensionView",
   components: {TravelHeader}

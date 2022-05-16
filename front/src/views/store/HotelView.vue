@@ -14,9 +14,9 @@
 </template>
 <script>
 
-import StoreHeader from '@/components/store/StoreHeader.vue';
-import StoreLeftbar from '@/components/store/StoreLeftbar.vue';
-import StoreMain from '@/components/store/StoreMain.vue';
+import StoreHeader from '@/components/store/PlaceHeader.vue';
+import StoreLeftbar from '@/components/store/PlaceLeft.vue';
+import StoreMain from '@/components/store/PlaceMain.vue';
 
 export default {
   name: "HotelView",

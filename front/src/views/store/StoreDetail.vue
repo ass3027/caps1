@@ -8,23 +8,23 @@
           <div class="d-flex flex-column">
             <div class="col-12 px-md-2 d-none d-md-block">
               <div class="" style="cursor: pointer">
-                <img :src="'/api/photo/' + products[0].pic_name" alt="" style="width: 100%" class="image" @click="showMainImage()">
+                <v-img v-if=" this.temp===1" :src="'/api/photo/' + this.products[this.index].pic_name" alt="" style="width: 100%" class="image" @click="showMainImage()"/>
               </div>
             </div>
 
-            <div class="d-block d-md-none col-12 px-0">
-              <b-carousel v-model="slide" controls :interval="0">
-                <b-carousel-slide v-for="(product, index) in this.products" :key="index" :img-src="image">
-                </b-carousel-slide>
-              </b-carousel>
-            </div>
+<!--            <div class="d-block d-md-none col-12 px-0">-->
+<!--              <b-carousel v-model="slide" controls :interval="0">-->
+<!--                <b-carousel-slide v-for="(product, index) in this.products" :key="index" :img-src="image">-->
+<!--                </b-carousel-slide>-->
+<!--              </b-carousel>-->
+<!--            </div>-->
 
             <div class="col-12 d-none d-md-block my-4">
               <div class="row">
                 <div class="col-3" v-for="(product, index) in products" :key="index">
-                  <div class="thumbnail" @click="changeMainImage(image)">
-                    <v-img :src="'/api/photo/' + product.pic_name" style="width: 100%" alt="" class="image"
-                           :class="mainImage === image ? 'activess' : ''"></v-img>
+                  <div class="thumbnail" @click="changeMainImage(index)">
+                    <v-img :src="'/api/photo/' + product.pic_name" style="width:100%" alt="" class="image"
+                           :class="mainImage === product.pic_name ? 'activess' : ''"></v-img>
                   </div>
                 </div>
               </div>
@@ -36,7 +36,7 @@
             <div class="container">
               <div>
               <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
-                Packless Traval
+                Packless Travel
               </span>
               </div>
 
@@ -96,7 +96,6 @@ export default {
       title: '5성급 편안호텔',
       price: "125.000",
       count: 1,
-      mainImage: require('@/image/product1.png'),
       images: [
         // require('@/image/product1.png'),
         // require('@/image/product3.png'),
@@ -105,20 +104,24 @@ export default {
       ],
       products: [],
 
+
       showImageModal: false,
       slide: 0,
+      temp:0,
+      index:0
     }
   },
 
-  mounted() {
+  created() {
     axios({
       method: 'GET',
       url: '/api/product',
       params: {'store_id': this.store_id}
     })
-      .then(res => {
+      .then((res) => {
         this.products = res.data
-        console.log(res.data)
+        this.temp++
+        console.log(this.products)
       })
       .catch((err) => {
         console.log(err)
@@ -129,6 +132,10 @@ export default {
     this.cartItems = items;
   },
   computed: {
+    mainImage: function(){
+      return this.products[this.index].pic_name
+    } ,
+
     cartItemsCount() {
       return this.cartItems.length;
     }
@@ -137,30 +144,12 @@ export default {
     showMainImage() {
       this.showImageModal = true;
     },
-    changeMainImage(image) {
-      this.mainImage = image;
+    changeMainImage(index) {
+      this.index = index;
     },
     calcPrice(item) {
       return parseFloat(parseFloat(item.price).toFixed(2) * item.quantity).toFixed(2);
     },
-    submit() {
-      var existingEntries = JSON.parse(localStorage.getItem("myCart"));
-      if (existingEntries == null) existingEntries = [];
-
-      var entry = {
-        title: this.title,
-        price: this.price,
-        quantity: this.count,
-        image: this.mainImage,
-      };
-      localStorage.setItem("latestItem", JSON.stringify(entry));
-
-      // Save allEntries back to local storage
-      existingEntries.push(entry);
-      localStorage.setItem("myCart", JSON.stringify(existingEntries));
-      // console.log('myCart', JSON.parse(localStorage.getItem('myCart')));
-      this.cartItems = JSON.parse(localStorage.getItem('myCart'));
-    }
   }
 }
 </script>
