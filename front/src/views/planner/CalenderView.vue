@@ -53,9 +53,7 @@ import axios from "axios";
 /* eslint-disable */
 
 export default {
-
-
-  name      : 'CalenderView',
+  name: 'CalenderView',
   components: {
     DateComponent,
     PlannerHeader,
