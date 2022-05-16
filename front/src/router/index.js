@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from '../store/index'
 
 import JoinView from "../views/auth/JoinView.vue";
 import LoginView from "@/views/auth/LoginView";
@@ -28,7 +29,6 @@ import CalenderView from "@/views/planner/CalenderView";
 
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
-import MotelView from "@/views/store/MotelView";
 
 import PensionView from "@/views/pension/PensionView";
 
@@ -39,13 +39,10 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
-import Hoteltest from "@/views/store/StoreTest";
 
 import ProductReviewView from "@/views/ProductReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
-
-import StoreView from "@/views/store/StoreView";
 import StoreDetail from "@/views/store/StoreDetail";
 
 import LocationUpdate from "@/views/LocationUpdate";
@@ -53,10 +50,18 @@ import LocationUpdate from "@/views/LocationUpdate";
 
 Vue.use(VueRouter);
 
+const checkLogin = () => (to,from,next) =>{
+  if(store.state.user.userId==='') {
+    return('/login');
+  }
+  return next();
+}
+
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
-  {path: '/supplies', name: 'supplies', component: SuppliesVue},
+
+  {path: '/supplies', name: 'supplies', component: SuppliesVue, beforeEnter: checkLogin()},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},

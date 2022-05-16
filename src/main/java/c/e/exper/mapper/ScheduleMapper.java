@@ -24,5 +24,5 @@ public interface ScheduleMapper {
 //    List<String> selectNameById(@Param("id")String id);
 
     @Delete("Delete From Schedule Where plan_id=#{id}")
-    void delete(@Param("id") String id);
+    void deleteByPlanId(@Param("id") String id);
 }

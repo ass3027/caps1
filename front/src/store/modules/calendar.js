@@ -8,6 +8,7 @@ export default {
   mutations:{
     updateCalendar(state,calendar){
       state.calendar = calendar
+      console.log(state.calendar)
     },
     updateCalendarDate(state,mapData){
       if(state.selectTime===0 || state.selectDate==='') return
