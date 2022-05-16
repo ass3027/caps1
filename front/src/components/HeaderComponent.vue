@@ -155,8 +155,9 @@ export default {
       axios.get("/api/user/photo")
         .then( (res)=> {
           console.log(res.data)
-          if(res.data === ''){
+          if(res.data==='') {
             this.$store.dispatch('user/setUser','')
+            return;
           }
           this.photo = `/api/photo/`+res.data
         })
@@ -172,8 +173,7 @@ export default {
       })
       .then((res)=>{
         console.log(res)
-        this.$store.commit('user/updateUserId','')
-        this.$store.commit('user/updatePlanId','')
+        this.$store.dispatch('user/setUser','')
         this.$router.push("/")
       })
       .catch((err)=>{

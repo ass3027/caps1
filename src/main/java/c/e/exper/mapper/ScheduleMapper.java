@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface ScheduleMapper {
 
-    @Insert("insert into SCHEDULE values(default,null,#{plan_id},#{pl_id, jdbcType=VARCHAR},#{sch_name},#{sch_startTime,jdbcType=TIMESTAMP},#{sch_endTime,jdbcType=TIMESTAMP},#{expect_expenses})")
+    @Insert("insert into SCHEDULE values(default,null,#{plan_id},#{pl_id, jdbcType=VARCHAR},#{sch_name},#{sch_startTime,jdbcType=TIMESTAMP},#{sch_endTime,jdbcType=TIMESTAMP},#{expect_expenses},#{place})")
     void insert(ScheduleDAO schedule);
 
     @Select("Select * from Schedule")
@@ -24,5 +24,5 @@ public interface ScheduleMapper {
 //    List<String> selectNameById(@Param("id")String id);
 
     @Delete("Delete From Schedule Where plan_id=#{id}")
-    void delete(@Param("id") String id);
+    void deleteByPlanId(@Param("id") String id);
 }

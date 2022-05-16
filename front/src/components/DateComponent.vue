@@ -8,7 +8,7 @@
     <div
       v-for="(index) in 24"
       :id="index"
-      :class ="{dd:true,selecting:selectedTime==index}"
+      :class ="{dd:true,selecting:selectedTime===index}"
       :key="index"
       @click="select(index)"
 
@@ -35,7 +35,7 @@ export default {
   },
   computed : {
     plan : function() {
-      return this.$store.state.calendar.calendar.date[''+this.date]
+      return this.$store.state.calendar.calendar.date[this.date]
     },
 
   },

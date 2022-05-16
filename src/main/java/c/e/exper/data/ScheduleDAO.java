@@ -22,6 +22,7 @@ public class ScheduleDAO {
     Date sch_startTime;
     Date sch_endTime;
     String expect_expenses;
+    String place;
 
 
     public ScheduleDTO toDTO() {
@@ -35,6 +36,7 @@ public class ScheduleDAO {
                 .sch_startTime(formatter.format(this.sch_startTime))
                 .sch_endTime(formatter.format(this.sch_endTime))
                 .expect_expenses(this.expect_expenses)
+                .place(this.place)
                 .build();
 
 

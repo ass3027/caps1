@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <v-row justify="center">
       <v-btn
         class="white--text"

@@ -13,8 +13,5 @@ module.exports = {
       }
     },
   },
-
-
-
   //indexPath: "../static/index.html",
 }
