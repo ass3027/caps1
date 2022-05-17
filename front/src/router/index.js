@@ -51,16 +51,20 @@ import BookMarkView from "@/views/auth/BookMarkView";
 import MyDataView from "@/views/auth/MyDataView";
 import QuestionsView from "@/views/auth/QuestionsView";
 import WritingView from "@/views/auth/WritingView";
+import DetailPageView from "@/views/auth/DetailPageView";
+import WritingModView from "@/views/auth/WritingModView";
 
 Vue.use(VueRouter);
 
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
-  {path: "/mypage", name:'Mypage', component: MypageView},
-  {path: "/mydata", name:'Mydata', component: MyDataView},
+  {path: "/myPage", name:'MyPage', component: MypageView},
+  {path: "/myData", name:'MyData', component: MyDataView},
   {path: "/questions", name:'Questions', component: QuestionsView},
   {path: "/writing", name:'Writing', component: WritingView},
+  {path: "/detailPage/:id", name:'DetailPage', component: DetailPageView},
+  {path: "/detailPage/:id/writingMod", name:'WritingMod', component: WritingModView},
   {path: "/bookmark", name:'Bookmark', component: BookMarkView},
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},

@@ -1,125 +1,138 @@
 <template>
   <div id="app">
-  <div>
-<!--    <router-link to="list"></router-link>-->
-    <h1>마이페이지</h1>
-    <header>
-      <nav>
-        <button @click="bookmark" type="submit">즐겨찾기</button> |
-        <button @click="pay" type="submit">수익관리</button> |
-        <button @click="mydata" type="submit">내정보수정 </button> |
-        <button @click="questions" type="submit">1대1문의</button>
-      </nav>
-    </header>
+    <div>
+      <!--    <router-link to="list"></router-link>-->
+      <h1>마이페이지</h1>
+      <header>
+        <nav>
+          <button type="submit" @click="bookmark">즐겨찾기</button> |
+          <button type="submit" @click="pay">수익관리</button> |
+          <button type="submit" @click="mydata">내정보수정</button> |
+          <button type="submit" @click="questions">1대1문의</button>
+        </nav>
+      </header>
 
-<!--  <div id="container">-->
-<!--    <v-container>-->
-
-
-    <form class = "container" @submit.prevent="onsubmit">
-      <h1>회원정보</h1>
-
-      <div class="textForm">
-        <p class="a">이름</p>
-        <input
-          type="text"
-          name="name"
-          class="name"
-          placeholder="이름"
-          v-model="user_name"
-        >
-      </div>
-
-<!--  <div class="textForm">-->
-<!--      <v-text-field-->
-<!--        type="text"-->
-<!--        name="name"-->
-<!--        class="name"-->
-<!--        placeholder="이름"-->
-<!--        v-model="user_name"-->
-<!--        :counter="20" label="이름" required-->
-<!--      ></v-text-field>-->
+      <!--  <div id="container">-->
+      <!--    <v-container>-->
 
 
-<!--  <div class="textForm">-->
-<!--        <v-text-field-->
-<!--          type="text"-->
-<!--          name="userId"-->
-<!--          class="id"-->
-<!--          placeholder="아이디"-->
-<!--          v-model="user_id"-->
-<!--          :counter="20" label="아이디" required-->
-<!--        ></v-text-field>-->
-<!--  </div>-->
-<!--  </div>-->
+      <form
+        class="container"
+        @submit.prevent="onsubmit"
+      >
+        <h1>회원정보</h1>
+
+        <div class="textForm">
+          <p class="a">
+            이름
+          </p>
+          <input
+            v-model="user_name"
+            type="text"
+            name="name"
+            class="name"
+            placeholder="이름"
+          >
+        </div>
+
+        <!--  <div class="textForm">-->
+        <!--      <v-text-field-->
+        <!--        type="text"-->
+        <!--        name="name"-->
+        <!--        class="name"-->
+        <!--        placeholder="이름"-->
+        <!--        v-model="user_name"-->
+        <!--        :counter="20" label="이름" required-->
+        <!--      ></v-text-field>-->
 
 
-<!--  <div class="textForm">-->
-<!--        <v-text-field-->
-<!--          type="text"-->
-<!--          name="user pw"-->
-<!--          class="pw"-->
-<!--          placeholder="비밀번호를 입력하세요"-->
-<!--          v-model="user_pw"-->
-<!--          :counter="20" label="비밀번호" required-->
-<!--        ></v-text-field>-->
-<!--  </div>-->
-
-<!--  <div class="textForm">-->
-<!--        <v-text-field-->
-<!--          type="text"-->
-<!--          name="user phone"-->
-<!--          class="phone"-->
-<!--          placeholder="전화번호"-->
-<!--          v-model="user_phone"-->
-<!--          :counter="20" label="전화번호" required-->
-<!--        ></v-text-field>-->
-<!--  </div>-->
+        <!--  <div class="textForm">-->
+        <!--        <v-text-field-->
+        <!--          type="text"-->
+        <!--          name="userId"-->
+        <!--          class="id"-->
+        <!--          placeholder="아이디"-->
+        <!--          v-model="user_id"-->
+        <!--          :counter="20" label="아이디" required-->
+        <!--        ></v-text-field>-->
+        <!--  </div>-->
+        <!--  </div>-->
 
 
+        <!--  <div class="textForm">-->
+        <!--        <v-text-field-->
+        <!--          type="text"-->
+        <!--          name="user pw"-->
+        <!--          class="pw"-->
+        <!--          placeholder="비밀번호를 입력하세요"-->
+        <!--          v-model="user_pw"-->
+        <!--          :counter="20" label="비밀번호" required-->
+        <!--        ></v-text-field>-->
+        <!--  </div>-->
 
-  <div class="textForm">
-        <p class="a">아이디</p>
-        <input
-          type="text"
-          name="userId"
-          class="id"
-          placeholder="아이디"
-          v-model="user_id"
-        >
-  </div>
-
-      <div class ="textForm">
-        <p class="a">비밀번호</p>
-        <input
-          type="password"
-          name="user pw"
-          class="pw"
-          placeholder="비밀번호를 입력하세요"
-          v-model="user_pw" />
-      </div>
-
-      <div class ="textForm">
-        <p class="a">연락처</p>
-        <input
-          type="text"
-          name="user phone"
-          class="phone"
-          placeholder="휴대폰"
-          v-model="user_phone"/>
-      </div>
+        <!--  <div class="textForm">-->
+        <!--        <v-text-field-->
+        <!--          type="text"-->
+        <!--          name="user phone"-->
+        <!--          class="phone"-->
+        <!--          placeholder="전화번호"-->
+        <!--          v-model="user_phone"-->
+        <!--          :counter="20" label="전화번호" required-->
+        <!--        ></v-text-field>-->
+        <!--  </div>-->
 
 
-<!--      <v-row>-->
-<!--        <v-col-->
-<!--        cols="10"-->
-<!--        md="3">-->
-<!--          <div class="aa">-->
-<!--            <v-text-field-->
-<!--              v-model="user_id" :counter="20" label="아이디" required/>-->
-<!--          </div>-->
-<!--        </v-col>-->
-<!--      </v-row>-->
+
+        <div class="textForm">
+          <p class="a">
+            아이디
+          </p>
+          <input
+            v-model="user_id"
+            type="text"
+            name="userId"
+            class="id"
+            placeholder="아이디"
+          >
+        </div>
+
+        <div class="textForm">
+          <p class="a">
+            비밀번호
+          </p>
+          <input
+            v-model="user_pw"
+            type="password"
+            name="user pw"
+            class="pw"
+            placeholder="비밀번호를 입력하세요"
+          >
+        </div>
+
+        <div class="textForm">
+          <p class="a">
+            연락처
+          </p>
+          <input
+            v-model="user_phone"
+            type="text"
+            name="user phone"
+            class="phone"
+            placeholder="휴대폰"
+          >
+        </div>
+
+
+        <!--      <v-row>-->
+        <!--        <v-col-->
+        <!--        cols="10"-->
+        <!--        md="3">-->
+        <!--          <div class="aa">-->
+        <!--            <v-text-field-->
+        <!--              v-model="user_id" :counter="20" label="아이디" required/>-->
+        <!--          </div>-->
+        <!--        </v-col>-->
+        <!--      </v-row>-->
 
 
       <!--            <div class="email">-->
@@ -129,24 +142,22 @@
 
 
 
-<!--      </v-container>-->
+        <!--      </v-container>-->
       <!--            <div class="address">-->
       <!--                <label for="address">주소 : </label>-->
       <!--                <input type="text" id="address" v-model="address">-->
       <!--            </div>-->
 
 
-<!--      <div id="button">-->
-<!--        <v-btn v-on:click="login" elevation="3" type="button">로그인</v-btn>-->
-<!--        <v-btn v-on:click="main" elevation="3" type="button">메인으로 이동</v-btn>-->
-<!--        <v-btn v-on:click="Modify" elevation="3" type="button">정보 수정하기</v-btn>-->
-<!--      </div>-->
-
-        </form>
-      </div>
+        <!--      <div id="button">-->
+        <!--        <v-btn v-on:click="login" elevation="3" type="button">로그인</v-btn>-->
+        <!--        <v-btn v-on:click="main" elevation="3" type="button">메인으로 이동</v-btn>-->
+        <!--        <v-btn v-on:click="Modify" elevation="3" type="button">정보 수정하기</v-btn>-->
+        <!--      </div>-->
+      </form>
     </div>
+  </div>
 <!--  </div>-->
-
 </template>
 
 <script>

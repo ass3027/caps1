@@ -1,76 +1,99 @@
 <template>
+  <div>
+    <h1>마이페이지</h1>
+    <header>
+      <nav>
+        <button type="submit" @click="bookmark">즐겨찾기</button> |
+        <button type="submit" @click="pay">수익관리</button> |
+        <button type="submit" @click="mydata">내정보수정</button> |
+        <button type="submit" @click="questions">1대1문의</button>
+      </nav>
+    </header>
 
-    <div>
-      <h1>마이페이지</h1>
-      <header>
-        <nav>
-          <button @click="bookmark" type="submit">즐겨찾기</button> |
-          <button @click="pay" type="submit">수익관리</button> |
-          <button @click="mydata" type="submit">내정보수정 </button> |
-          <button @click="questions" type="submit">1대1문의</button>
-        </nav>
-      </header>
+    <h1>회원정보수정</h1>
+    <div class="container">
+      <v-text-field
+        v-model="user_name"
+        type="text"
+        name="name"
+        class="name"
+        placeholder="이름"
+        :counter="7"
+        label="이름"
+        required
+      />
 
-      <h1>회원정보수정</h1>
-         <div class="container">
-         <v-text-field
-             type="text"
-             name="name"
-             class="name"
-             placeholder="이름"
-             v-model="user_name"
-             :counter="7" label="이름" required
-         ></v-text-field>
+      <v-text-field
+        v-model="user_id"
+        type="text"
+        name="userId"
+        class="id"
+        placeholder="아이디"
+        :counter="30"
+        label="아이디"
+        required
+      />
 
-         <v-text-field
-               type="text"
-               name="userId"
-               class="id"
-               placeholder="아이디"
-               v-model="user_id"
-               :counter="30" label="아이디" required
-         ></v-text-field>
+      <v-text-field
+        v-model="user_pw"
+        type="password"
+        name="user pw"
+        class="pw"
+        placeholder="비밀번호를 입력하세요"
+        :counter="100"
+        label="비밀번호"
+        required
+      />
 
-         <v-text-field
-               type="password"
-               name="user pw"
-               class="pw"
-               placeholder="비밀번호를 입력하세요"
-               v-model="user_pw"
-               :counter="100" label="비밀번호" required
-         ></v-text-field>
+      <!--         <v-text-field-->
+      <!--             type="text"-->
+      <!--             name="user pw"-->
+      <!--             class="pw"-->
+      <!--             placeholder="비밀번호를 다시 입력해주세요"-->
+      <!--             v-model="user_pw"-->
+      <!--             :counter="100" label="비밀번호확인" required-->
+      <!--         ></v-text-field>-->
 
-<!--         <v-text-field-->
-<!--             type="text"-->
-<!--             name="user pw"-->
-<!--             class="pw"-->
-<!--             placeholder="비밀번호를 다시 입력해주세요"-->
-<!--             v-model="user_pw"-->
-<!--             :counter="100" label="비밀번호확인" required-->
-<!--         ></v-text-field>-->
-
-         <v-text-field
-               type="text"
-               name="user phone"
-               class="phone"
-               placeholder="전화번호"
-               v-model="user_phone"
-               :counter="20" label="전화번호" required
-         ></v-text-field>
+      <v-text-field
+        v-model="user_phone"
+        type="text"
+        name="user phone"
+        class="phone"
+        placeholder="전화번호"
+        :counter="20"
+        label="전화번호"
+        required
+      />
 
 
 
-        <div id="button">
-          <v-btn v-on:click="login" elevation="3" type="button">로그인</v-btn>
-          <v-btn v-on:click="main" elevation="3" type="button">메인으로 이동</v-btn>
-          <v-btn v-on:click="Modify" elevation="3" type="button"> 수정완료 </v-btn>
-        </div>
-
-       </div>
+      <div id="button">
+        <v-btn
+          elevation="3"
+          type="button"
+          @click="login"
+        >
+          로그인
+        </v-btn>
+        <v-btn
+          elevation="3"
+          type="button"
+          @click="main"
+        >
+          메인으로 이동
+        </v-btn>
+        <v-btn
+          elevation="3"
+          type="button"
+          @click="Modify"
+        >
+          수정완료
+        </v-btn>
+      </div>
     </div>
+  </div>
 
   <!--  </div>-->
-
 </template>
 
 <script>

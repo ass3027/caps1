@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
@@ -64,17 +65,7 @@ public class ApiUser {
 
     @GetMapping("/data/{userId}")
     public UserDAO getUserInfo(@PathVariable String userId){
-        System.out.println(userId); //주소로 받아온 데이터
-//        System.out.println("pp");
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());// 서버에서 가지고있는 아이디 정보
-        Optional<UserDAO> result = userMapper.selectId(SecurityContextHolder.getContext().getAuthentication().getName());
-//        if(result.isEmpty()){
-//            return ;
-//        }
-        System.out.println(result.get().getUser_id());
-        System.out.println(result.get().getUser_name());
-
-        return result.get();
+        return userMapper.selectId(userId).get();
         //void=>아무것도 반환하지 않을때
     }
 
@@ -90,32 +81,6 @@ public class ApiUser {
         return result;
 
     }
-
-    @PostMapping("/Writing")
-    public boolean getListInfo(InquiryDAO inquiryDAO){
-        System.out.println(inquiryDAO);
-        boolean result = inquiryMapper.insert(inquiryDAO);
-        return result;
-    }
-
-//    @GetMapping("/Writing")
-//    public boolean
-//        public boolean insert(){return "Writing/insert";}
-
-
-//    @GetMapping("/Writing")
-//    public InquiryDAO getListInfo(@PathVariable String userId) {
-//        System.out.println(userId);
-//        Optional<InquiryDAO> result = inquiryMapper.selectId(SecurityContextHolder.getContext().getAuthentication().getName());
-//        return result.get();
-//    }
-
-//
-
-//    @RequestMapping(value = "data", method = RequestMethod.POST)
-//    public String update(@ModelAttribute ) {
-//    }
-
 
     @PostMapping("/join")
     public boolean join(UserDTO user,HttpServletRequest req) {

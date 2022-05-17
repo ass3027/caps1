@@ -1,12 +1,11 @@
 <template>
   <div>
-
     <header>
       <nav>
-        <button @click="bookmark" type="submit">즐겨찾기</button> |
-        <button @click="pay" type="submit">수익관리</button> |
-        <button @click="mydata" type="submit">내정보수정 </button> |
-        <button @click="questions" type="submit">1대1문의</button>
+        <button type="submit" @click="bookmark">즐겨찾기</button> |
+        <button type="submit" @click="pay">수익관리</button> |
+        <button type="submit" @click="myData">내정보수정</button> |
+        <button type="submit" @click="questions">1대1문의</button>
       </nav>
     </header>
 
@@ -16,47 +15,60 @@
       class="d-flex"
       cols="12"
       sm="10"
-    ></v-col>
+    />
     <v-select
+      v-model="inq_type"
       :items="items"
       label="분류"
-      v-model="inq_type"
       outlined
-    ></v-select>
+    />
 
     <v-text-field
+      v-model="user_id"
       type="text"
       label="아이디"
-      v-model = "user_id"
-    ></v-text-field>
+    />
 
     <v-text-field
+      v-model="inq_title"
       type="text"
       label="제목"
-      v-model = "inq_title"
-    ></v-text-field>
+    />
 
     <v-textarea
+      v-model="inq_body"
       type="text"
       label="내용"
-      v-model="inq_body"
       maxlenght="5"
-    ></v-textarea>
+    />
 
 
-    <v-row style="width:50%" >
-      첨부파일1 <v-file-input elevation="5" >파일선택</v-file-input><br>
+    <v-row style="width:50%">
+      :::첨부파일1 <v-file-input elevation="5">
+        파일선택
+      </v-file-input><br>
     </v-row>
     <v-row style="width:50%">
-      첨부파일2 <v-file-input >파일선택</v-file-input>
+      :::첨부파일2 <v-file-input>파일선택</v-file-input>
     </v-row>
 
-    <div id="button" >
-      <v-btn v-on:click="check" type="button" color="pink">등록</v-btn>
-      <v-btn v-on:click="cancel" type="button">취소</v-btn>
+    <div id="button">
+      <v-btn
+        type="button"
+        color="pink"
+        @click="check"
+      >
+        등록
+      </v-btn>
+      <v-btn
+        type="button"
+        @click="cancel"
+      >
+        취소
+      </v-btn>
     </div>
 
-<!--    <p>{{user_id}}</p>-->
+    <!--    <p>{{user_id}}</p>-->
   </div>
 </template>
 
@@ -130,7 +142,7 @@ export default {
     },
     pay() {
     },
-    mydata() {
+    myData() {
       this.$router.push('/MyData')
     },
     questions() {

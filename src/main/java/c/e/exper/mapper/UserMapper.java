@@ -22,11 +22,9 @@ public interface UserMapper { //디비접근
 
     @Update("UPDATE USERS SET user_pw=#{user.user_pw}, user_phone=#{user.user_phone}, user_name=#{user.user_name} WHERE user_id=#{user.user_id}")
     boolean updateUserInfo(@Param("user") UserDAO user);
-
-
-
   //반환데이터형식(반환값) //함수이름               데이터형식 //매개변수
   //반환해주는것!
+
 
 
 
