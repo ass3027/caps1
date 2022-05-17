@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class ApiStore {
+public class ApiPlace {
 
     final
     StoreMapper storeMapper;
@@ -25,7 +25,7 @@ public class ApiStore {
     final
     PictureMapper pictureMapper;
 
-    public ApiStore(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper) {
+    public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper) {
         this.storeMapper = storeMapper;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
@@ -33,8 +33,6 @@ public class ApiStore {
 
     @GetMapping("/store/{category}")
     public List<StoreDAO> getStoreByCategory(@PathVariable String category){
-
-//      System.out.println(category);
 
         List<StoreDAO> result = storeMapper.selectByCategory(category);
 
