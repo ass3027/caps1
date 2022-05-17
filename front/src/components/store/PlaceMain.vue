@@ -53,7 +53,7 @@
 </template>
 <script>
 export default {
-  name: "StoreMain",
+  name: "PlaceMain",
   data() {
     return {
       dd: `/api/photo/` + "userImage/1648100757821img.jpg",

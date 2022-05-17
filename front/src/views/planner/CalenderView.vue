@@ -12,14 +12,20 @@
         id="plan"
         style="float:right;width:60%;height:100%;overflow-x:auto;"
       >
-        <input
-          v-model="startDate"
-          type="date"
-        >
-        <input
-          v-model="endDate"
-          type="date"
-        >
+        <v-col>
+          <input
+            v-model="startDate"
+            type="date"
+          >
+          <input
+            v-model="endDate"
+            type="date"
+          >
+          <v-btn>
+            날짜 변경
+          </v-btn>
+        </v-col>
+
         <v-text-field v-model="schName" placeholder="일정이름" style="width:30%"></v-text-field>
         <v-btn @click="create()">
           create
@@ -86,6 +92,12 @@ export default {
         const scheduleList=res.data.scheduleList
         const plan = res.data.plan
 
+        console.log(scheduleList)
+
+        this.startDate = plan.plan_start
+        this.endDate = plan.plan_end
+        this.schName = plan.plan_name
+
         const tempDate = new Date(plan.plan_start);
         const endDate = new Date(plan.plan_end)
         for (let i = 0; tempDate <= endDate; i++) {
@@ -104,11 +116,19 @@ export default {
         calendar["expectExpenses"] = 1000
         calendar["date"]=[]
 
+        this.dateArr.forEach( (it)=>{
+          calendar.date[it]= new Map();
+        })
         //여기서 부터
         scheduleList.forEach( (it)=>{
 
+          console.log(it.sch_endTime.substring(0,10))
+            calendar.date[it.sch_endTime.substring(0,10)].set(
+              parseInt( it.sch_startTime.substring(12,13) ),it.place)
         })
-        this.$store.commit('updateCalendarDate',)
+
+        this.$store.commit('calendar/updateCalendar',calendar)
+        console.log(1)
       })
       .catch( (err)=>{
         console.error(err)
@@ -215,6 +235,7 @@ export default {
       axios.post('/api/planner/Schedule',data)
       .then ((res) => {
         console.log(res)
+        alert("success")
       })
       .catch ( (err)=> {
         console.log(err)

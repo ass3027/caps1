@@ -185,7 +185,7 @@ public class ApiPlanner {
         List<ScheduleDTO> convertResult = new ArrayList<>();
         list.forEach( it->
                 convertResult.add(it.toDTO()));
-
+        System.out.println("일정:" + convertResult.get(0).getPlace());
         data.put("plan",plan.get());
         data.put("scheduleList",convertResult);
 
@@ -195,6 +195,8 @@ public class ApiPlanner {
     @PostMapping("/Schedule")
     public void addSchedule(@RequestBody List<ScheduleDTO> scheduleList){
         System.out.println(scheduleList.get(0).getSch_endTime());
+
+        scheduleMapper.deleteByPlanId(scheduleList.get(0).getPlan_id());
         scheduleList.forEach( it->
                 scheduleMapper.insert(it.toDAO())
         ); // Lamda can be replaced with method reference

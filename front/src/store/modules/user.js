@@ -6,6 +6,12 @@ export default {
         userId: '',
         planId:0,
     },
+    getters:{
+      isLogin(state){
+        return state.userId !== '';
+
+      }
+    },
     mutations:{
         updateUserId(state,newId){
             state.userId = newId

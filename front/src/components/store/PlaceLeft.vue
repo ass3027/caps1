@@ -104,7 +104,7 @@
 import axios from "axios";
 
 export default {
-  name: 'StoreLeftbar',
+  name: 'PlaceLeft',
   data() {
     return {
       startDate: new Date(
@@ -140,7 +140,7 @@ export default {
       url    : `/api/store/${this.category}`,
     })
       .then((res)=>{
-        this.$store.commit('stores/updateStore', res.data)
+        this.$store.commit('place/updateStore', res.data)
       })
 
       this.settingstart = this.startDate;

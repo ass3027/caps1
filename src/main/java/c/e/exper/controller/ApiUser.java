@@ -51,6 +51,7 @@ public class ApiUser {
     @GetMapping("/photo")
     public String getUserPicture(){
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(user_id);
         return pictureMapper.selectPicnameByUserId(user_id);
     }
     

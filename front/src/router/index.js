@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import user from '../store/modules/user'
 
 import JoinView from "../views/auth/JoinView.vue";
 import LoginView from "@/views/auth/LoginView";
@@ -28,7 +29,6 @@ import CalenderView from "@/views/planner/CalenderView";
 
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
-import MotelView from "@/views/store/MotelView";
 
 import PensionView from "@/views/pension/PensionView";
 
@@ -39,24 +39,33 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
-import Hoteltest from "@/views/store/StoreTest";
 
 import ProductReviewView from "@/views/ProductReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
-
-import StoreView from "@/views/store/StoreView";
 import StoreDetail from "@/views/store/StoreDetail";
 
 import LocationUpdate from "@/views/LocationUpdate";
 
-
+import {store} from "@/store"
 Vue.use(VueRouter);
+
+const checkLogin = () => (to,from,next) =>{
+
+  if(user.state.userId==='') {
+
+    console.log(user.state.userId)
+    return({path:'/login'});
+  }
+  return next();
+}
+
 
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
-  {path: '/supplies', name: 'supplies', component: SuppliesVue},
+
+  {path: '/supplies', name: 'supplies', component: SuppliesVue, beforeEnter: checkLogin()},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
@@ -107,6 +116,16 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeResolve( (to,from,next) =>{
+  if(to.path==='/login' || to.path==='/join' || to.path==='/'){
+    next();
+  }else if(!store.getters['user/isLogin']) {
+    console.log("dd")
+    next('/login')
+  }else next();
+
 })
 
 export default router
