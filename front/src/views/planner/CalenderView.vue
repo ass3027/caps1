@@ -12,14 +12,20 @@
         id="plan"
         style="float:right;width:60%;height:100%;overflow-x:auto;"
       >
-        <input
-          v-model="startDate"
-          type="date"
-        >
-        <input
-          v-model="endDate"
-          type="date"
-        >
+        <v-col>
+          <input
+            v-model="startDate"
+            type="date"
+          >
+          <input
+            v-model="endDate"
+            type="date"
+          >
+          <v-btn>
+            날짜 변경
+          </v-btn>
+        </v-col>
+
         <v-text-field v-model="schName" placeholder="일정이름" style="width:30%"></v-text-field>
         <v-btn @click="create()">
           create
@@ -86,6 +92,8 @@ export default {
         const scheduleList=res.data.scheduleList
         const plan = res.data.plan
 
+        console.log(scheduleList)
+
         this.startDate = plan.plan_start
         this.endDate = plan.plan_end
         this.schName = plan.plan_name
@@ -113,6 +121,7 @@ export default {
         })
         //여기서 부터
         scheduleList.forEach( (it)=>{
+
           console.log(it.sch_endTime.substring(0,10))
             calendar.date[it.sch_endTime.substring(0,10)].set(
               parseInt( it.sch_startTime.substring(12,13) ),it.place)

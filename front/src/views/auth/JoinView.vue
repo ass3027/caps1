@@ -34,6 +34,7 @@
         <v-row>
           <v-text-field
             v-model="user_phone"
+
             type="text"
             placeholder="PHONE"
           />

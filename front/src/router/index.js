@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from '../store/index'
+import user from '../store/modules/user'
 
 import JoinView from "../views/auth/JoinView.vue";
 import LoginView from "@/views/auth/LoginView";
@@ -47,15 +47,19 @@ import StoreDetail from "@/views/store/StoreDetail";
 
 import LocationUpdate from "@/views/LocationUpdate";
 
-
+import {store} from "@/store"
 Vue.use(VueRouter);
 
 const checkLogin = () => (to,from,next) =>{
-  if(store.state.user.userId==='') {
-    return('/login');
+
+  if(user.state.userId==='') {
+
+    console.log(user.state.userId)
+    return({path:'/login'});
   }
   return next();
 }
+
 
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
@@ -112,6 +116,16 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeResolve( (to,from,next) =>{
+  if(to.path==='/login' || to.path==='/join' || to.path==='/'){
+    next();
+  }else if(!store.getters['user/isLogin']) {
+    console.log("dd")
+    next('/login')
+  }else next();
+
 })
 
 export default router

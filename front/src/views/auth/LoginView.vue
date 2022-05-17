@@ -8,6 +8,7 @@
         />
         <v-text-field
           v-model="pw"
+          type="password"
           placeholder="PW"
         />
         <v-btn @click="login()">

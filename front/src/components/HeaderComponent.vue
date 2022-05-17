@@ -1,26 +1,7 @@
 <template>
   <v-app class="header-layout">
     <div
-      v-if="$store.state.user.userId===''"
-      class="login-box"
-    >
-      <v-btn
-        text
-        router
-        to="/login"
-      >
-        login
-      </v-btn>
-      <v-btn
-        text
-        router
-        to="/join"
-      >
-        join
-      </v-btn>
-    </div>
-    <div
-      v-else
+      v-if="isLogin"
       class="login-box"
     >
       <v-btn text>
@@ -37,7 +18,27 @@
       <img
         :src="photo"
         style="width:150px;height:150px"
-       alt="">
+        alt="">
+    </div>
+    <div
+      v-else
+      class="login-box"
+    >
+
+      <v-btn
+        text
+        router
+        to="/login"
+      >
+        login
+      </v-btn>
+      <v-btn
+        text
+        router
+        to="/join"
+      >
+        join
+      </v-btn>
     </div>
     <div>
       <div class="menu-Bar">
@@ -150,6 +151,13 @@ export default {
       ]
     ],
   }),
+  computed:{
+    isLogin() {
+      console.log(this.$store.state.user.userId)
+      console.log(this.$store.getters['user/isLogin'])
+      return this.$store.getters['user/isLogin']
+    }
+  },
   mounted(){
     if(this.$store.state.user.userId!==''){
       axios.get("/api/user/photo")
