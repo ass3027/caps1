@@ -4,8 +4,8 @@ export default {
     placeInfo: [],
   },
   mutations:{
-    updateStore(state, newStore){
-      state.placeInfo = newStore
+    updatePlace(state, newPlace){
+      state.placeInfo = newPlace
       console.log("Vuex Place")
     },
   }

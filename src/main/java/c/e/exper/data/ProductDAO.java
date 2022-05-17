@@ -13,6 +13,7 @@ public class ProductDAO {
     String pd_id;
     String pd_name;
     String pd_price;
-    String store_id;
+    String pl_id;
+    String pd_info;
     String pic_name;
 }

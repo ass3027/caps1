@@ -87,7 +87,7 @@ import axios from "axios";
 
 export default {
   name: 'ProductPage',
-  props: ['store_id'],
+  props: ['pl_id'],
   components: {
     StoreReviewView
   },
@@ -104,7 +104,6 @@ export default {
       ],
       products: [],
 
-
       showImageModal: false,
       slide: 0,
       temp:0,
@@ -116,7 +115,7 @@ export default {
     axios({
       method: 'GET',
       url: '/api/product',
-      params: {'store_id': this.store_id}
+      params: {'pl_id': this.pl_id}
     })
       .then((res) => {
         this.products = res.data
