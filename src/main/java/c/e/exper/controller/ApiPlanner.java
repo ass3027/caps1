@@ -185,7 +185,7 @@ public class ApiPlanner {
         List<ScheduleDTO> convertResult = new ArrayList<>();
         list.forEach( it->
                 convertResult.add(it.toDTO()));
-
+        System.out.println("일정:" + convertResult.get(0).getPlace());
         data.put("plan",plan.get());
         data.put("scheduleList",convertResult);
 

@@ -1,80 +1,130 @@
 <template>
-  <div>
-    <PlannerHeader />
-    <select
-      v-model="plan_id"
-      style="border-style:solid "
-      @change="reload"
-    >
-      <option
-        v-for="(plan,index) in plan_list"
-        :key="index"
-        :value="plan.plan_id"
-      >
-        {{ plan.plan_name }}
-      </option>
-    </select>
-    <div class="float-right">
-      <select v-model="selected_plan">
-        <option />
-      </select>
-    </div>
-    <div >
-      <h2>현재 멤버</h2>
-      <ul
-        v-for="(data,key) in plan_user_list"
-        :key="key"
-      >
-        <li>id : {{ data.user_id }} / plan_id : {{data.plan_id}}</li>
-      </ul>
-    </div>
-    <div class="float-right">
-      <h2>멤버 초대</h2>
-      <hr>
-      <label>
-        회원ID <input
-          v-model="input_id"
-          placeholder="내용을 입력해주세요"
-        >
-        <button
-          class="button"
-          @click="invite"
-        >
-          초대
-        </button>
-      </label>
-    </div>
-    <hr>
-    <div>
-      초대 현황
-      <hr>
+  <div style="padding-left: 15px">
+    <PlannerHeader/>
+    <v-row>
+      <v-col cols="12"
+             sm="3"
+             md="4">
+        <v-card>
+          <h2>현재 멤버</h2>
+          <v-spacer/>
+          <v-divider/>
+          <ul
+            v-for="(data,key) in plan_user_list"
+            :key="key"
+          >
+            <li>id : {{ data.user_id }} / 플래너 아이디 : {{ data.plan_id }}</li>
+          </ul>
+        </v-card>
 
-      내가 초대한
-      <ul>
-        <li
-          v-for="(data,index) in invite_list_plan"
-          :key="index"
-        >
-          {{ data.user_id }} / {{ data.plan_id }}
-        </li>
-      </ul>
-      <hr>
-      내가 초대된
-      <ul>
-        <li
-          v-for="(data,index) in invite_list_user"
-          :key="index"
-        >
-          {{ data.user_id }} / {{ data.plan_id }}
+      </v-col>
+
+    </v-row>
+    <v-row>
+      <v-divider/>
+    </v-row>
+    <v-row>
+      <v-col
+        sm="4"
+      >
+        <v-card style="padding-bottom: 4px">
+          <h2>멤버 초대</h2>
+          회원ID
+          <v-text-field
+            v-model="input_id"
+            placeholder="내용을 입력해주세요"
+            md="4"
+          />
           <button
             class="button"
-            @click="accept(data)"
+            @click="invite"
           >
-            수락
+            초대
           </button>
-        </li>
-      </ul>
-    </div>
+        </v-card>
+      </v-col>
+      <v-divider vertical/>
+      <v-col>
+
+
+        <v-card>
+          <h2>내가 초대한</h2>
+          <v-simple-table
+            dark
+          >
+            <thead>
+            <tr>
+              <th>아이디</th>
+              <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+              v-for="(data,index) in invite_list_plan"
+              :key="index"
+            >
+              <th class="text-center">
+                {{ data.user_id }}
+              </th>
+              <th class="text-center">
+                {{ data.plan_id }}
+              </th>
+            </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-divider/>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <v-card>
+          <h2>초대 현황</h2>
+          <v-divider/>
+
+          <h4>내가 초대된</h4>
+          <v-simple-table
+            dark
+          >
+            <thead>
+            <tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+              v-for="(data,index) in invite_list_user"
+              :key="index"
+            >
+              <th class="text-center">
+                {{ data.user_id }}
+              </th>
+              <th class="text-center">
+                {{ data.plan_id }}
+              </th>
+              <th>
+                <v-btn
+                  class="button"
+                  @click="accept(data)"
+                >
+                  수락
+                </v-btn>
+              </th>
+            </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
+
+      </v-col>
+    </v-row>
+
+
   </div>
 </template>
 
@@ -87,37 +137,34 @@ export default {
   components: {PlannerHeader},
   data() {
     return {
-      plan_user_list  : ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
-      input_id         : '',
-      plan_id         : 0,
+      plan_user_list: ['ㅁ', 'ㄴ', 'ㅇ', 'ㄹ'],
+      input_id: '',
       invite_list_user: [],
       invite_list_plan: [],
-      selected_plan   : 0,
-      plan_list:[]
+
+      plan_list: []
     }
   },
   computed: {
     user_id() {
       return this.$store.state.user.userId
     },
+    plan_id() {
+      return this.$store.state.user.planId
+    },
   },
   mounted() {
-    this.plan_id = this.$store.state.user.planId;
-    console.log("mounted")
     this.updateInvite()
     this.loadAffiliated()
-    this.getPlanListByUserId()
-
-
   },
   methods: {
-    reload(){
+    reload() {
       this.updateInvite()
       this.loadAffiliated()
     },
     loadAffiliated() {
       axios({
-        url   : `/api/planner/affiliating?plan_id=${this.plan_id}`,
+        url: `/api/planner/affiliating?plan_id=${this.plan_id}`,
         method: 'get'
       })
         .then((res) => {
@@ -130,9 +177,9 @@ export default {
     invite() {
       console.log("axios 어떻게 쓰더라?? 개망ㅋㅋ")
       axios({
-        url   : `/api/planner/invite`,
+        url: `/api/planner/invite`,
         method: 'post',
-        data  : {
+        data: {
           user_id: this.input_id,
           plan_id: this.plan_id,
         }
@@ -151,7 +198,7 @@ export default {
     },
     updateInvite() {
       axios({
-        url   : `/api/planner/inviteListPlan?id=${this.plan_id}`,
+        url: `/api/planner/inviteListPlan?id=${this.plan_id}`,
         method: 'get'
       })
         .then((res) => {
@@ -162,7 +209,7 @@ export default {
         });
 
       axios({
-        url   : `/api/planner/inviteListUser?id=${this.id}`,
+        url: `/api/planner/inviteListUser?id=${this.id}`,
         method: 'get'
       })
         .then((res) => {
@@ -174,9 +221,9 @@ export default {
     },
     accept(data) {
       axios({
-        url   : '/api/planner/affiliating',
+        url: '/api/planner/affiliating',
         method: 'post',
-        data  : data
+        data: data
       })
         .then(() => {
           alert("success")
@@ -186,20 +233,6 @@ export default {
           console.log(err);
         })
     },
-    getPlanListByUserId() {
-      axios({
-        url:'/api/planner/'+this.user_id,
-        method:'get'
-      })
-      .then( (res)=>{
-        this.plan_list=res.data
-        this.plan_id=this.plan_list[0].plan_id
-      })
-      .catch( (err)=>{
-        console.error(err)
-      })
-    }
-
   }
 
 }

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from '../store/index'
 
 import JoinView from "../views/auth/JoinView.vue";
 import LoginView from "@/views/auth/LoginView";
@@ -43,25 +42,36 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 import ProductReviewView from "@/views/ProductReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
+
+import MypageView from "@/views/auth/MypageView";
+
+
 import StoreDetail from "@/views/store/StoreDetail";
 
 import LocationUpdate from "@/views/LocationUpdate";
+import BookMarkView from "@/views/auth/BookMarkView";
+import MyDataView from "@/views/auth/MyDataView";
+import QuestionsView from "@/views/auth/QuestionsView";
+import WritingView from "@/views/auth/WritingView";
+import DetailPageView from "@/views/auth/DetailPageView";
+import WritingModView from "@/views/auth/WritingModView";
 
-
+import {store} from "@/store"
 Vue.use(VueRouter);
-
-const checkLogin = () => (to,from,next) =>{
-  if(store.state.user.userId==='') {
-    return('/login');
-  }
-  return next();
-}
 
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
+  {path: "/myPage", name:'MyPage', component: MypageView},
+  {path: "/myData", name:'MyData', component: MyDataView},
+  {path: "/questions", name:'Questions', component: QuestionsView},
+  {path: "/writing", name:'Writing', component: WritingView},
+  {path: "/detailPage/:id", name:'DetailPage', component: DetailPageView},
+  {path: "/detailPage/:id/writingMod", name:'WritingMod', component: WritingModView},
+  {path: "/bookmark", name:'Bookmark', component: BookMarkView},
+  {path: '/supplies', name: 'supplies', component: SuppliesVue},
 
-  {path: '/supplies', name: 'supplies', component: SuppliesVue, beforeEnter: checkLogin()},
+  {path: '/supplies', name: 'supplies', component: SuppliesVue},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
@@ -112,6 +122,16 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeResolve( (to,from,next) =>{
+  if(to.path==='/login' || to.path==='/join' || to.path==='/'){
+    next();
+  }else if(!store.getters['user/isLogin']) {
+    console.log("dd")
+    next('/login')
+  }else next();
+
 })
 
 export default router
