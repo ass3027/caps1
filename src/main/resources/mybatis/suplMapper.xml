@@ -20,6 +20,7 @@
         FROM suplies s inner join plan_supl p
         ON s.supl_id = p.supl_id
         where p.PLAN_ID = #{id}
+        order by 5,2
     </select>
 
     <select id="findAllSupl" resultMap="suplResult">
