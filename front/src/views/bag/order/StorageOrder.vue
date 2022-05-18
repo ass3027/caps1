@@ -1,77 +1,72 @@
 <template>
   <v-app id="app">
-
     <div class='Bag-order'>
       가방 보관 신청서
     </div>
-
     <v-form v-model="valid">
       <v-container>
         <h3>짐 종류와 수량</h3>
-
         <v-container class="d-flex flex-column mb-6">
-          <v-card v-for="(bagType,index) in bagType " :key="index" class="d-inline-flex p-2" outlined tile><h3>{{ bagType.title }}</h3>
+          <v-row v-for="(bagType,index) in bagType " :key="index">
+            {{ bagType.title }}
             <v-checkbox v-model="checkedName" :value="bagType.value"/>
-          </v-card>
+          </v-row>
+
           <v-card>
-            <h1>가방 합계가격: {{ bagTypeChoose }} 원</h1>
+            <h1>가방 합계가격: {{ bagAmount }} 원</h1>
           </v-card>
         </v-container>
+      </v-container>
 
-        <v-row
-          justify="space-around">
-          <v-col
-            cols="12"
-            md="12"
-          >
-            <v-card
-              class="d-flex pa-2"
-              outlined
-              tile
-            >
+      <v-container justify="space-around">
+        <v-row>
+          <DateTimePicker :label="'맡길날짜'" @date="changeEntrustTime"></DateTimePicker>
+          <DateTimePicker :label="'찾을날짜'" @date="changeWithdrawTime"></DateTimePicker>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-card>
+              <h3>맡길장소</h3>
               <AddressComponent @addressData="startAddress"></AddressComponent>
             </v-card>
-            <br>
-
-            <v-text-field v-model="checkBagTime" label="맡길 시간" required></v-text-field>
-            <v-text-field v-model="pickUpTime" label="찾을시간" required></v-text-field>
           </v-col>
-        </v-row>
-        <div>
-          <v-btn depressed color="primary" @click="addOrder">
-            작성 완료
-          </v-btn>
-        </div>
-      </v-container>
-    </v-form>
-    <!--    <div id="mapcomponent"><MapComponent/></div>-->
 
+        </v-row>
+      </v-container>
+      <v-btn depressed color="primary" @click="addOrder">
+        작성 완료
+      </v-btn>
+    </v-form>
     <router-view/>
   </v-app>
 
 </template>
 
 <script>
-
-// import MapComponent from "@/components/MapComponent";
 import AddressComponent from "@/components/AddressComponent"
+import DateTimePicker from "@/views/bag/order/DateTimePicker"
 import axios from "axios";
 
 export default {
   components: {
     // MapComponent
-    AddressComponent
-
+    AddressComponent,
+    DateTimePicker
   },
   data() {
     return {
       checkedName: [],
       overlay: false,
       valid: '',
-      keepStart: '',
-      keepEnd: '',
-
       checkBagTime: '',
+      //시작날짜
+      entrustTime: '',
+      //도착날짜
+      withdrawTime: '',
+      //시작장소
+      entrustAddress: '',
+      //도착장소
+      withdrawAddress: '',
 
       bagType: [
         {title: '기내용 캐리어(57cm 미만) 11,000원', value: 11000},
@@ -83,39 +78,46 @@ export default {
       ],
     }
   },
-
   computed: {
-    bagTypeChoose() {
+    bagAmount() {
       var a = 0;
       this.checkedName.forEach(i => {
         a = a + i;
       })
+      console.log(a)
       return a;
     },
   },
+
   methods: {
+    changeEntrustTime(date) {
+      this.entrustTime = date;
+    },
+    changeWithdrawTime(date) {
+      this.withdrawTime = date;
+    },
     addOrder() {
-      const bag = {
+      let storageBag = {
         ord_id: 301,
-        user_id: 199,
-        keep_start: this.keepStart,
-        keep_end: this.keepEnd,
+        ord_amount: this.bagAmount, //금액
+        user_id: this.$store.state.user.userId, // UserId
+        keep_start: this.entrustAddress, //맡길장소
+        entrust_time: this.entrustTime, //맡길시간
+        withdraw_time:this.withdrawTime,  //찾을시간
+        ord_selection: 'storage', //물품보관
       }
-      console.log(bag);
       axios
-        .post('/api/addOrder', bag)
+        .post('/api/stAddOrder', storageBag)
         .then((res) => {
-          console.log(res)
+          console.log(storageBag)
+          alert('주문완료!')
         })
     },
     startAddress(address) {
-      this.keepStart = address
-      console.log(this.keepStart)
+      this.entrustAddress = address
+      console.log(this.entrustAddress)
     },
-    endAddress(address) {
-      this.keepEnd = address
-      console.log(this.keepEnd)
-    }
+
   },
   watch: {
     overlay(val) {
@@ -124,10 +126,7 @@ export default {
       }, 2000)
     },
   },
-
-
 }
-
 </script>
 
 <style scoped>
@@ -136,8 +135,4 @@ export default {
   font-size: xx-large;
 }
 
-#mapcomponent {
-  width: 1000px;
-  height: 300px;
-}
 </style>

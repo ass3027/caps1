@@ -22,6 +22,7 @@ import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";
 import SelectionOrder from "../views/bag/order/SelectionOrder";
+import StorageOrder from "@/views/bag/order/StorageOrder"
 
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
@@ -80,6 +81,7 @@ const routes = [
   {path: '/TransportOrder', name: 'TransportOrder', component: TransportOrder},
   {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
   {path: '/StorageView', name: 'StorageView', component: StorageView},
+  {path: '/StorageOrder', name: 'StorageOrder', component: StorageOrder},
 
  // { path: "/OrderView", name: "OrderView", component: OrderView },
   {path: '/plInvite', name: 'plInvite', component: PlInviteView},

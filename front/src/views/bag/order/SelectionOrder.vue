@@ -1,7 +1,6 @@
 <template>
 
   <v-app id="app">
-    <HeaderComponent />
     <div class="Bag-order">
       가방예약
     </div>
@@ -21,24 +20,25 @@
         가방 보관
       </v-btn>
 
-      <v-btn depressed color="primary" @click="$router.push({name:'TransportView'})">
+      <v-btn depressed color="primary" @click="$router.push({name:'TransportOrder'})">
         가방배송
       </v-btn>
     </v-row>
 
-    <router-view />
+    <router-view/>
   </v-app>
 </template>
 
 <script>
-import HeaderComponent from '@/components/HeaderComponent.vue'
+import axios from "axios";
 
 export default {
   components: {},
   data: () => ({
-    transport: '/TransportOrder.vue',
+
     return: {}
   }),
+
 }
 </script>
 

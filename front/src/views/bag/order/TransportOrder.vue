@@ -1,28 +1,28 @@
 <template>
   <v-app id="app">
+    <div class='Bag-order'>
+      가방 운송 신청서
+    </div>
     <v-form v-model="valid">
-      <v-container>
-        <h3>짐 종류와 수량</h3>
-        <v-container class="d-flex flex-column mb-6">
-          <v-row v-for="(bagType,index) in bagType " :key="index">
-            {{ bagType.title }}
-            <v-checkbox v-model="checkedName" :value="bagType.value"/>
-          </v-row>
 
-          <v-card>
-            <h1>가방 합계가격: {{ bagAmount }} 원</h1>
-          </v-card>
-        </v-container>
+      <h3>짐 종류와 수량</h3>
+      <v-container class="d-flex flex-column mb-6">
+        <v-row v-for="(bagType,index) in bagType " :key="index">
+          {{ bagType.title }}
+          <v-checkbox v-model="checkedName" :value="bagType.value"/>
+        </v-row>
+
+        <v-card>
+          <h1>가방 합계가격: {{ bagAmount }} 원</h1>
+        </v-card>
       </v-container>
-      <v-container fluid class="pa-0">
+
+      <v-container justify="space-around">
         <v-row>
           <DateTimePicker :label="'시작날짜'" @date="changeEntrustTime"></DateTimePicker>
           <DateTimePicker :label="'종료날짜'" @date="changeWithdrawTime"></DateTimePicker>
         </v-row>
-      </v-container>
-
-      <v-container justify="space-around">
-        <v-row md="6">
+        <v-row>
           <v-col>
             <v-card>
               <h3>출발장소</h3>
@@ -66,9 +66,9 @@ export default {
       overlay: false,
       valid: '',
       checkBagTime: '',
-      pickUpTime: '',
+
       //시작날짜
-      entrustTime:'',
+      entrustTime: '',
       //도착날짜
       withdrawTime: '',
       //시작장소
@@ -87,8 +87,6 @@ export default {
     }
   },
   computed: {
-
-
     bagAmount() {
       var a = 0;
       this.checkedName.forEach(i => {
@@ -100,29 +98,30 @@ export default {
   },
 
   methods: {
-    changeEntrustTime(date){
-      this.entrustTime =date;
+    changeEntrustTime(date) {
+      this.entrustTime = date;
     },
-    changeWithdrawTime(date){
+    changeWithdrawTime(date) {
       this.withdrawTime = date;
     },
     addOrder() {
-      let bag = {
-        ord_id: 301,
-        ord_amount: this.bagAmount,
-        user_id: this.$store.state.user.userId,
-        keep_start: this.entrustAddress,
-        keep_end: this.withdrawAddress,
-        entrust_time:this.entrustTime,
-        withdraw_time: this.withdrawTime,
+      let transportBag = {
+        ord_id: 301,  //주문번호
+        ord_amount: this.bagAmount, //금액
+        user_id: this.$store.state.user.userId, //userid
+        keep_start: this.entrustAddress,  //시작장소
+        keep_end: this.withdrawAddress, //도착장소
+        entrust_time: this.entrustTime, //시작시간
+        withdraw_time: this.withdrawTime, //도착시간
+        ord_selection: 'Transport', //물품배송
       }
       axios
-        .post('/api/addOrder', bag)
+        .post('/api/trAddOrder', transportBag)
         .then((res) => {
+          console.log(transportBag)
           alert("주문 완료!")
         })
     },
-
     startAddress(address) {
       this.entrustAddress = address
       console.log(this.entrustAddress)
@@ -131,7 +130,6 @@ export default {
       this.withdrawAddress = address
       console.log(this.withdrawAddress)
     },
-
   },
   watch: {
     overlay(val) {
@@ -142,11 +140,9 @@ export default {
   },
 }
 </script>
-
 <style scoped>
 .Bag-order {
   margin: 10px;
   font-size: xx-large;
 }
-
 </style>

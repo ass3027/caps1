@@ -12,6 +12,7 @@
     <input id="detailAddress" type="text" placeholder="상세주소"><br>
     <input id="extraAddress" type="text" placeholder="참고항목">
   </div>
+
 </template>
 
 <script>

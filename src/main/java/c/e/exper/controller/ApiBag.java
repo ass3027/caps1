@@ -5,6 +5,7 @@ import c.e.exper.data.BagDTO;
 import c.e.exper.mapper.BagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -14,15 +15,23 @@ public class ApiBag {
    
    final BagMapper bagMapper;
    
+   
    @Autowired
    public ApiBag(BagMapper bagMapper) {
       this.bagMapper = bagMapper;
    }
    
-   @PostMapping("/addOrder")
-   public String addOrder(@RequestBody BagDAO bag){
-      System.out.println(bag);
-      bagMapper.insert(bag);
+   @PostMapping("/stAddOrder")
+   public String storageAddOrder(@RequestBody BagDAO storageBag) {
+      System.out.println(storageBag);
+      bagMapper.storageInsert(storageBag);
+      return "";
+   }
+   
+   @PostMapping("/trAddOrder")
+   public String transportAddOrder(@RequestBody BagDAO transportBag) {
+      System.out.println(transportBag);
+      bagMapper.transportInsert(transportBag);
       return "";
    }
    
