@@ -1,11 +1,10 @@
 <template>
-  <div>Travel Test...</div>
+  <h1>ㅇㅇ</h1>
 </template>
 
 <script>
 export default {
-  name: "TravelTest",
-  components: {}
+  name: "BookmarkView"
 }
 </script>
 

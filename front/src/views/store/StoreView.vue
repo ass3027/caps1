@@ -4,19 +4,19 @@
     class="main"
   >
     <div class="body">
-      <StoreHeader :category="category"/>
+      <StoreHeader :category="category" />
       <div class="body-form">
-        <StoreLeftbar/>
-        <StoreMain/>
+        <StoreLeftbar />
+        <StoreMain />
       </div>
     </div>
   </v-container>
 </template>
 <script>
 
-import StoreHeader from '@/components/store/StoreHeader.vue';
-import StoreLeftbar from '@/components/store/StoreLeftbar.vue';
-import StoreMain from '@/components/store/StoreMain.vue';
+import StoreHeader from '@/components/store/PlaceHeader.vue';
+import StoreLeftbar from '@/components/store/PlaceLeft.vue';
+import StoreMain from '@/components/store/PlaceMain.vue';
 
 export default {
   name: "StoreView",
@@ -31,15 +31,15 @@ export default {
       category: this.$route.params.value
     }
   },
-  created() {
-    this.category = this.$route.params.value
-    console.log(this.category)
-  },
   watch: {
     '$route.params.value'(now) {
       console.log('a')
       this.category = now
     }
+  },
+  created() {
+    this.category = this.$route.params.value
+    console.log(this.category)
   }
 }
 </script>

@@ -36,8 +36,12 @@
       일정 복제하기
     </v-btn>
     <div v-if="$store.state.user.userId==share.user_id">
-      <v-btn @click="edit">수정</v-btn>
-      <v-btn @click="del">삭제</v-btn>
+      <v-btn @click="edit">
+        수정
+      </v-btn>
+      <v-btn @click="del">
+        삭제
+      </v-btn>
     </div>
     <h2>공유된 횟수:{{ share.share_count }}</h2>
   </v-card>

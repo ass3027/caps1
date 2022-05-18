@@ -1,6 +1,7 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.PictureDAO;
+import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.StoreDAO;
 import c.e.exper.data.StoreDTO;
 import c.e.exper.mapper.StoreMapper;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class ApiStore {
+public class ApiPlace {
 
     final
     StoreMapper storeMapper;
@@ -25,40 +26,35 @@ public class ApiStore {
     final
     PictureMapper pictureMapper;
 
-    public ApiStore(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper) {
+    public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper) {
         this.storeMapper = storeMapper;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
     }
 
-    @GetMapping("/store/{category}")
-    public List<StoreDAO> getStoreByCategory(@PathVariable String category){
-
-//      System.out.println(category);
-
-        List<StoreDAO> result = storeMapper.selectByCategory(category);
-
-        return result;
+    @GetMapping("/place/{category}")
+    public List<PlaceDAO> getStoreByCategory(@PathVariable String category){
+        return storeMapper.selectByCategory(category);
     }
 
     @GetMapping("/getHotel")
-    public List<StoreDAO> hotel(){
+    public List<PlaceDAO> hotel(){
         System.out.println("컨트롤러임");
 
         return storeMapper.findAll();
     }
 
-    @GetMapping("/getHotelPic")
-    public List<PictureDAO> hotelPic(){
-        System.out.println("호텔 사진 컨트롤러임");
-        List<PictureDAO> data = storeMapper.selectStorePic();
-        System.out.println(data.size());
-        for(int a=0;a<data.size();a++){
-            System.out.println(data.get(a));
-        }
-
-        return data;
-    }
+//    @GetMapping("/getHotelPic")
+//    public List<PictureDAO> hotelPic(){
+//        System.out.println("호텔 사진 컨트롤러임");
+//        List<PictureDAO> data = storeMapper.selectStorePic();
+//        System.out.println(data.size());
+//        for(int a=0;a<data.size();a++){
+//            System.out.println(data.get(a));
+//        }
+//
+//        return data;
+//    }
 
     @PostMapping("/hoteladd")
     public boolean hoteladd(StoreDTO store, HttpServletRequest req){
@@ -71,6 +67,7 @@ public class ApiStore {
                 .store_id(store.getStore_id())
                 .user_id(store.getUser_id())
                 .pl_id(store.getPl_id())
+                .store_name(store.getStore_name())
                 .store_phone(store.getStore_phone())
                 .category(store.getCategory())
                 .pic_name(filePath)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{$store.state.user.userId}}님에게 추천하는 여행지들</h2>
+    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>
     <v-carousel>
       <v-carousel-item
         v-for="(item,i) in items"
@@ -14,7 +14,6 @@
 
           <h3>{{i+1}}.{{item.pl_name}}</h3>
           <v-btn>일정에추가</v-btn>
-
         </div>
       </v-carousel-item>
     </v-carousel>

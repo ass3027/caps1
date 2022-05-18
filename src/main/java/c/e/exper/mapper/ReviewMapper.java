@@ -36,6 +36,14 @@ public interface ReviewMapper {
 
     @Select("select * from review where booK_id in (select BOOK.BOOK_ID from BOOK where PD_ID = #{pd_id})")
     public List<Review> findAllReviewForProduct(@Param("pd_id") String pd_id);
+    
+    /* 키퍼 아이디로 모든 리뷰 조회 */
+    @Select("select * from REVIEW where ORD_ID in (select ORD_ID from ORDERS where KEEP_START = #{keep_id} or KEEP_END = #{keep_id})")
+    public List<Review> findAllReviewForKeep(@Param("keep_id") String keep_id);
+    
+    /* 운송원 아이디로 모든 리뷰 조회*/
+    @Select("select * from REVIEW where ORD_ID in (select ORD_ID from ORDERS where DELIVERY_ID = #{delivery_id})")
+    public List<Review> findAllReviewForDelivery(@Param("delivery_id") String delivery_id);
 
     @Update("update review set rev_content = #{review.rev_content} where review_id = #{review.rev_id}")
     public int updateReview(@Param("review") Review review);

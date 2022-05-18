@@ -64,7 +64,6 @@
         </div>
       </div>
       <div>
-        {{ $store.state.asdf }}
         <div>호텔유형</div>
         <div>
           <v-checkbox
@@ -104,7 +103,7 @@
 import axios from "axios";
 
 export default {
-  name: 'StoreLeftbar',
+  name: 'PlaceLeft',
   data() {
     return {
       startDate: new Date(
@@ -137,13 +136,13 @@ export default {
   created() {
     axios({
       method : 'get',
-      url    : `/api/store/${this.category}`,
+      url    : `/api/place/${this.category}`,
     })
       .then((res)=>{
-        this.$store.commit('stores/updateStore', res.data)
+        this.$store.commit('place/updatePlace', res.data)
       })
 
-    this.settingstart = this.startDate;
+      this.settingstart = this.startDate;
     this.settingend = this.endDate;
   },
   methods: {

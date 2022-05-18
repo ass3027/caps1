@@ -22,6 +22,6 @@ public interface InviteMapper {
     @Select("SELECT * FROM Invite WHERE plan_id = #{inviteDAO.plan_id} AND user_id=#{inviteDAO.user_id}")
     Optional<InviteDAO> selectById(@Param("inviteDAO") InviteDAO inviteDAO);
 
-    @Delete("Delete From Affiliated Where user_id=#{user_id} AND plan_id=#{plan_id}")
+    @Delete("Delete From Invite Where user_id=#{user_id} AND plan_id=#{plan_id}")
     void deleteById(@Param("user_id") String user_id, @Param("plan_id") String plan_id);
 }

@@ -1,15 +1,7 @@
 <template>
   <form class="joinGuide">
     <h2>가이드 등록</h2>
-    <div class="textForm">
-      <input
-        v-model="user_id"
-        name="userId"
-        type="text"
-        class="id"
-        placeholder="아이디"
-      >
-    </div>
+    <h1>{{$store.state.user.userId}}</h1>
 
     <div class="textForm">
       <input
@@ -56,14 +48,16 @@ export default {
   },
   methods:{
     onsubmit(){
+      if (this.$store.state.user.userId===''){
+        alert("로그인후 이용해주세요")
+      }
       var sendform= new FormData();
 
-      sendform.append('user_id', this.user_id);
+      sendform.append('user_id',this.$store.state.user.userId );
       sendform.append('guide_license', this.guide_license);
       sendform.append('guide_intro', this.guide_intro);
 
-      if(this.user_id == '')
-        alert('아이디를 확인하세요')
+
 
 
       if(this.guide_intro == '')
@@ -80,6 +74,9 @@ export default {
         if (res.data == 'ok') {
           alert('ok');
           window.location.href = '/';
+        }
+        else{
+          alert('가입 성공')
         }
       });
 

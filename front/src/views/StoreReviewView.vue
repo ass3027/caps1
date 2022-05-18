@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h1>{{ productId }}</h1>
-
-
     <v-row justify="center">
       <v-btn
         class="white--text"
@@ -43,12 +40,12 @@ import ReviewList from "@/components/review/ReviewList";
 import axios from "axios";
 
 export default {
-  name: 'ReviewView',
+  name: 'StoreReviewView',
   components: {
     ReviewForm,
     ReviewList,
   },
-  props:['productId'],
+  props:['storeId'],
   data(){
     return{
       reviews:[],
@@ -65,11 +62,11 @@ export default {
 
       var sendForm = new FormData()
 
-      sendForm.append('pd_id', ""+this.productId)
+      console.log('storeId: ' + this.storeId)
 
       axios({
         method: 'GET',
-        url:'http://localhost:8080/api/productReview?pd_id='+this.productId,
+        url:'http://localhost:8080/api/storeReview?store_id='+this.storeId,
 
       })
         .then(res => {

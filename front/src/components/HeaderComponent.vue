@@ -1,26 +1,7 @@
 <template>
   <v-app class="header-layout">
     <div
-      v-if="$store.state.user.userId===''"
-      class="login-box"
-    >
-      <v-btn
-        text
-        router
-        to="/login"
-      >
-        login
-      </v-btn>
-      <v-btn
-        text
-        router
-        to="/join"
-      >
-        join
-      </v-btn>
-    </div>
-    <div
-      v-else
+      v-if="isLogin"
       class="login-box"
     >
       <v-btn text>
@@ -36,8 +17,28 @@
       <!--      엄준식은 살아있다-->
       <img
         :src="photo"
-        style="width:50px;height:50px"
+        style="width:150px;height:150px"
+        alt="">
+    </div>
+    <div
+      v-else
+      class="login-box"
+    >
+
+      <v-btn
+        text
+        router
+        to="/login"
       >
+        login
+      </v-btn>
+      <v-btn
+        text
+        router
+        to="/join"
+      >
+        join
+      </v-btn>
     </div>
     <div>
       <div class="menu-Bar">
@@ -87,7 +88,7 @@ export default {
 
   name: 'HelloWorld',
   data: () => ({
-    photo: `/api/photo/`+"userImage/1648100757821img.jpg",
+    photo: '',
     menuList:[
       "여행지",
       "여행계획",
@@ -150,11 +151,22 @@ export default {
       ]
     ],
   }),
+  computed:{
+    isLogin() {
+      console.log(this.$store.state.user.userId)
+      console.log(this.$store.getters['user/isLogin'])
+      return this.$store.getters['user/isLogin']
+    }
+  },
   mounted(){
     if(this.$store.state.user.userId!==''){
-      axios.get("/api/user")
+      axios.get("/api/user/photo")
         .then( (res)=> {
           console.log(res.data)
+          if(res.data==='') {
+            this.$store.dispatch('user/setUser','')
+            return;
+          }
           this.photo = `/api/photo/`+res.data
         })
     }
@@ -169,8 +181,7 @@ export default {
       })
       .then((res)=>{
         console.log(res)
-        this.$store.commit('user/updateUserId','')
-        this.$store.commit('user/updatePlanId','')
+        this.$store.dispatch('user/setUser','')
         this.$router.push("/")
       })
       .catch((err)=>{
