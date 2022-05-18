@@ -186,6 +186,7 @@
             v-model="dialogDel"
             persistent
             max-width="290"
+            :retain-focus="false"
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -240,6 +241,7 @@
                   v-model="dialogAdd"
                   persistent
                   max-width="290"
+                  :retain-focus="false"
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
