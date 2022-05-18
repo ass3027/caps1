@@ -113,10 +113,11 @@ public class ApiSupl {
     }
 
     @PutMapping("/doneSupl")
-    public String doneSupl(@RequestBody Plan_Suplies p){
+    public String doneSupl(@RequestBody Plan_Suplies p,@RequestParam("done")boolean done){
         System.out.println(p.getPlan_supl_id());
         System.out.println(p.getStatus());
-        if(p.getStatus().equals("true")){
+        System.out.println(done);
+        if(!done){
             System.out.println("이건가?");
             SuplMapper.updateStatusById(p.getPlan_supl_id(),"0");
         } else{
@@ -142,6 +143,16 @@ public class ApiSupl {
         SuplMapper.deleteSuplies(p.getPlan_supl_id());
 
         return "del good";
+    }
+
+    @PutMapping("/updateSuplOne")
+    public String updateSuplOne(
+            @RequestParam("plan_supl_id")String plan_supl_id,
+            @RequestParam("name")String name){
+        System.out.println("id="+plan_supl_id+"바뀔내용"+name);
+        SuplMapper.updateName(name,plan_supl_id);
+
+        return "update good";
     }
 
     @PutMapping("/updateQuantity")

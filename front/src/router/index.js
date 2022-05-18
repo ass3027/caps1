@@ -4,8 +4,7 @@ import VueRouter from "vue-router";
 import JoinView from "../views/auth/JoinView.vue";
 import LoginView from "@/views/auth/LoginView";
 
-import ImportSuppliesView from "@/views/ImportSuppliesView";
-import SuppliesVue from '../views/SuppliesView';
+import SuppliesVue from '../views/supply/SuppliesView';
 import PlannerShareView from '../views/share/PlannerShareView'
 import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
@@ -72,7 +71,6 @@ const routes = [
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
 
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
-  {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
   {path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView},
