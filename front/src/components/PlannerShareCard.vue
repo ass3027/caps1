@@ -6,16 +6,6 @@
         <v-col cols="auto" v-for="(pic,index) in shareSet.pic_name" :key="index">
           <img :src="'/api/photo/'+pic.pic_name" alt="My Image">
         </v-col>
-<!--        <v-col cols="auto">-->
-<!--          <img :src="'/api/photo/'+shareSet.pic_name[1].pic_name" alt="My Image">-->
-<!--        </v-col>-->
-<!--        <v-col cols="auto">-->
-<!--          <img :src="'/api/photo/'+shareSet.pic_name[2].pic_name" alt="My Image">-->
-<!--        </v-col>-->
-<!--        <v-col cols="auto">-->
-<!--          <img :src="'/api/photo/'+shareSet.pic_name[3].pic_name" alt="My Image">-->
-<!--        </v-col>-->
-
         <v-col cols="auto">
           <img src="/api/photo/shareImage/....png" alt="My Image">
         </v-col>
@@ -46,8 +36,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
-
 
 export default {
   name: "PlannerShareCard",

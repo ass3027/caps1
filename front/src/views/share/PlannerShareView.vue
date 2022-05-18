@@ -1,66 +1,26 @@
 <template>
   <v-container>
     <v-row
-    justify="center"
+      justify="center"
     >
       <v-col
-      cols="9"
+        cols="9"
       >
-        <h2>플래너 공유 게시판</h2>
-        <v-simple-table
-          dark
-          dense
-        >
-          <thead>
-          <tr>
-            <th class="text-center">
-              게시글번호
-            </th>
-            <th class="text-center">
-              제목
-            </th>
-            <th class="text-center">
-              장소
-            </th>
-            <th class="text-center">
-              작성시간
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr
-            v-for="(item,index) in tableSets"
-            :key="index"
-            class="text-center"
+
+        <v-row justify="space-between">
+          <h2>플래너 공유 게시판</h2>
+          <v-btn @click="loginCheck">
+            글 작성하기
+          </v-btn>
+        </v-row>
+        <v-row justify="center">
+          <v-col
+            v-for="(item,index) in tableSets" :key="index" cols="12"
             @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
           >
-            <td>
-              {{ item.share_id }}
-            </td>
-            <td>
-              {{ item.share_title }}
-            </td>
-            <td>
-              {{ item.share_place }}
-            </td>
-
-            <td>{{ item.share_created }}</td>
-          </tr>
-          </tbody>
-        </v-simple-table>
-        <v-btn @click="loginCheck">
-          작성하기
-        </v-btn>
-        <v-container>
-          <v-row justify="center">
-            <v-col
-              v-for="(item,index) in tableSets" :key="index" cols="12"
-              @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
-            >
-              <planner-share-card :shareSet="item"></planner-share-card>
-            </v-col>
-          </v-row>
-        </v-container>
+            <planner-share-card :shareSet="item"></planner-share-card>
+          </v-col>
+        </v-row>
         <place-recommend></place-recommend>
         <best-place></best-place>
 
@@ -70,11 +30,11 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 import PlaceRecommend from "@/components/PlaceRecommend";
 import bestPlace from "@/components/BestPlace";
 import PlannerShareCard from "@/components/PlannerShareCard";
-
 
 
 export default {

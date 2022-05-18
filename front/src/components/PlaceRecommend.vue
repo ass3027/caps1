@@ -10,8 +10,7 @@
         reverse-transition="fade-transition"
         transition="fade-transition"
       >
-
-        <div class="innerText">
+        <div class="innerText" v-if="item.pl_name!=''">
 
           <h3>{{i+1}}.{{item.pl_name}}</h3>
           <v-btn>일정에추가</v-btn>
@@ -30,18 +29,6 @@ export default {
   data () {
     return {
       items: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-        },
       ],
     }
   },
@@ -49,14 +36,22 @@ export default {
     axios
       .get('/api/recPlace')
       .then(res=>{
-        console.log(res.data)
         res.data.forEach(i=>{
           if(i.pic_name==null){
             i.pic_name="placeImage/noImage.png"
           }
         })
-        console.log(res.data)
         this.items=res.data
+
+
+        if(res.data.length==0){
+          this.items=[
+            {
+              pl_name:'',
+              pic_name:'placeImage/no_place.png'
+            }
+          ]
+        }
 
       })
   }

@@ -30,18 +30,6 @@ export default {
   data () {
     return {
       items: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-        },
       ],
     }
   },
@@ -49,14 +37,11 @@ export default {
     axios
       .get('/api/bestPlace')
       .then(res=>{
-        console.log(res.data)
         res.data.forEach(i=>{
           if(i.pic_name==null){
             i.pic_name="placeImage/noImage.png"
           }
         })
-        console.log("??????????????????")
-        console.log(res.data)
         this.items=res.data
 
       })
