@@ -7,7 +7,7 @@
       <PlaceHeader :category="category" />
       <div class="body-form">
         <PlaceLeft />
-        <PlaceMain />
+        <PlaceMain :option="option" />
       </div>
     </div>
   </v-container>
@@ -28,7 +28,12 @@ export default {
   },
   data() {
     return {
-      category: 'HOTEL'
+      category: 'HOTEL',
+      option: [
+        {title: "5성급", value: "1"},
+        {title: "특1급", value: "2"},
+        {title: "특급", value: "3"}
+      ]
     }
   }
 }

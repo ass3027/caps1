@@ -32,9 +32,9 @@ public class ApiPlace {
         this.pictureMapper = pictureMapper;
     }
 
-    @GetMapping("/place/{category}")
-    public List<PlaceDAO> getStoreByCategory(@PathVariable String category){
-        return storeMapper.selectByCategory(category);
+    @GetMapping("/place/{category}/{options}")
+    public List<PlaceDAO> getStoreByCategory(@PathVariable String category, @PathVariable String options){
+        return storeMapper.selectByCategory(category, options);
     }
 
     @GetMapping("/getHotel")

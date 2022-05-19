@@ -23,6 +23,6 @@ public interface StoreMapper {
 
     @Select("SELECT PLACE.PL_ID, PLACE.ADDRESS, PLACE.ADDRESS_SI, PLACE.ADDRESS_DONG, PLACE.STORE_PHONE, PLACE.CATEGORY, PLACE.STORE_ID, PLACE.STORE_INFO, PLACE.STORE_NAME, PICTURES.PIC_NAME" +
             " FROM PLACE, PICTURES WHERE PLACE.PL_ID = PICTURES.PL_ID AND PLACE.CATEGORY=#{CATEGORY}")
-    List<PlaceDAO> selectByCategory(String category);
+    List<PlaceDAO> selectByCategory(String category, String options);
 
 }
