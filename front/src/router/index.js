@@ -43,6 +43,7 @@ import Hoteltest from "@/views/store/StoreTest";
 
 import ReviewView from "@/views/ReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
+import StoreReviewView from "@/views/StoreReviewView";
 
 import StoreView from "@/views/store/StoreView";
 import StoreDetail from "@/views/store/StoreDetail";
@@ -90,6 +91,8 @@ const routes = [
 
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
+  {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true},
+
 
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true},

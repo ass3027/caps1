@@ -71,7 +71,7 @@ public class ReviewService {
 
     public List<Review> 상품아이디_모든리뷰_조회(String pd_id) { return reviewMapper.findAllReviewForProduct(pd_id); }
 
-    public List<Review> 가게아이디_모든리뷰_조회(String store_id) { return reviewMapper.findAllReviewForStore(store_id); }
+    public List<Review> 가게아이디_모든리뷰_조회(String store_name) { return reviewMapper.findAllReviewForStore(store_name); }
 
     public List<Review> 키퍼아이디_모든리뷰_조회(String keep_id) { return reviewMapper.findAllReviewForKeep(keep_id); }
 

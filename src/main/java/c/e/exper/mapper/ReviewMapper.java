@@ -43,8 +43,16 @@ public interface ReviewMapper {
     public List<Review> findAllReviewForProduct(@Param("pd_id") String pd_id);
 
     /* 가게 아이디로 모든 리뷰 조회*/
-    @Select("select * from review where book_id in (select book_id from book where pd_id in (select pd_id from product where store_id = #{store_id}))")
-    public List<Review> findAllReviewForStore(@Param("store_id") String store_id);
+    @Select("SELECT review.*\n" +
+            "FROM   review,\n" +
+            "       book\n" +
+            "WHERE  review.book_id = book.book_id\n" +
+            "  AND book.pd_id IN (SELECT product.pd_id\n" +
+            "                     FROM   product\n" +
+            "                                left outer join place\n" +
+            "                                                ON product.pl_id = place.pl_id\n" +
+            "                     WHERE  store_name = #{store_name})")
+    public List<Review> findAllReviewForStore(@Param("store_name") String store_name);
 
     /* 키퍼 아이디로 모든 리뷰 조회 */
     @Select("select * from REVIEW where ORD_ID in (select ORD_ID from ORDERS where KEEP_START = #{keep_id} or KEEP_END = #{keep_id})")

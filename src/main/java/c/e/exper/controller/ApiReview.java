@@ -64,10 +64,12 @@ public class ApiReview {
     }
 
     @GetMapping("/storeReview")
-    public List<Review> findStoreReview(String store_id) {
-        System.out.println("[findStoreReview]store_id: " + store_id);
-
-        return reviewService.가게아이디_모든리뷰_조회(store_id);
+    public List<Review> findStoreReview(@RequestParam String store_name) {
+        System.out.println("[findStoreReview]store_name: " + store_name);
+        List<Review> 가게아이디_모든리뷰_조회 = reviewService.가게아이디_모든리뷰_조회(store_name);
+        가게아이디_모든리뷰_조회.forEach(System.out::println);
+        System.out.println(가게아이디_모든리뷰_조회.isEmpty());
+        return 가게아이디_모든리뷰_조회;
     }
 
     @GetMapping("/keeperReview")
