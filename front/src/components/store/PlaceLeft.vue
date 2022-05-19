@@ -63,12 +63,8 @@
       </div>
       <div>
         <div>호텔유형</div>
-        <div>
-          <v-checkbox
-            v-model="options"
-            label="5성급"
-            value=""
-          />
+        <div v-for="(option, i) in option " :key="i">
+          <v-checkbox :label="option.title" :value="option.value" v-model="checkOptions" />
         </div>
       </div>
       <!--      <div>-->
@@ -99,7 +95,7 @@ import axios from "axios";
 
 export default {
   name: 'PlaceLeft',
-  props: [ option ],
+  props: [ 'option' ],
   data() {
     return {
       startDate: new Date(
@@ -118,7 +114,7 @@ export default {
       disabletoday: new Date().toISOString().substr(0, 10),
       peopleCount: 1,
       category: "hotel",
-      options: ['']
+      checkOptions: []
     };
   },
   computed: {},
@@ -127,7 +123,7 @@ export default {
   created() {
     axios({
       method: 'get',
-      url: `/api/place/${this.category}/${this.options}`,
+      url: `/api/place/${this.category}`,
     })
       .then((res) => {
         this.$store.commit('place/updatePlace', res.data)

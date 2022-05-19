@@ -4,10 +4,10 @@
     class="main"
   >
     <div class="body">
-      <PlaceHeader :category="category" />
+      <PlaceHeader :category="category"/>
       <div class="body-form">
-        <PlaceLeft />
-        <PlaceMain :option="option" />
+        <PlaceLeft :option="option"/>
+        <PlaceMain />
       </div>
     </div>
   </v-container>
@@ -24,7 +24,6 @@ export default {
     PlaceHeader,
     PlaceMain,
     PlaceLeft
-
   },
   data() {
     return {
