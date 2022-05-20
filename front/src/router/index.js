@@ -46,6 +46,8 @@ import ReviewCreateView from "@/views/ReviewCreateView";
 
 import StoreView from "@/views/store/StoreView";
 import StoreDetail from "@/views/store/StoreDetail";
+import GuideSearch from "@/views/guide/GuideSearch";
+import GuideProduct from "@/views/guide/GuideProduct";
 
 
 Vue.use(VueRouter);
@@ -85,17 +87,16 @@ const routes = [
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
-
+  {path: "/GuideView/Search/:keyword", name:"GuideSearch", component: GuideSearch, props:true},
+  {path: "/GuideProduct", name:"GuideProduct", component: GuideProduct},
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
 
-<<<<<<< HEAD
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView},
 
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 
-=======
->>>>>>> e6f1c20f4916173c73180cdb1e1032344acecc2f
+
 
 ];
 

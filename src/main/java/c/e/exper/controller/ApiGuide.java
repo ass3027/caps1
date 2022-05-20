@@ -23,13 +23,22 @@ public class ApiGuide {
 
     @GetMapping("/guide")
     public List<GuideDAO> findAllGuide() {
-        return guideService.가이드_조회();
+        System.out.println("가이드조회");
+        return guideService.가이드_조회(); 
+
     }
+
     @GetMapping("/guide/{id}")
     public GuideDAO findAllGuide(@PathVariable("id") String id) {
 
         return guideService.가이드_조회1(id);
     }
+    @GetMapping("/guide/search/{keyword}")
+    public List<GuideDAO> selectList(@PathVariable("keyword") String keyword){
+        System.out.println("[api/guide/search] keyword: " + keyword);
+        return guideService.가이드_검색(keyword);
+    }
+
     @PostMapping("/gjoin")
     public void insertGuide(GuideDAO guideDAO) {
 
@@ -43,6 +52,16 @@ public class ApiGuide {
         guideService.가이드_상품등록(gitemDAO);
 
     }
+
+    @GetMapping("/gitem")
+    public List<GItemDAO> findAllProduct(){
+        System.out.println("가이드상품조회");
+        return guideService.가이드상품_조회();
+    }
+
+
+
+
 
 
 
