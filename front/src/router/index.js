@@ -41,6 +41,7 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 import ProductReviewView from "@/views/ProductReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
+import StoreReviewView from "@/views/StoreReviewView";
 
 import MypageView from "@/views/auth/MypageView";
 
@@ -106,6 +107,8 @@ const routes = [
   {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true},
   {path: "/StoreReviewView/:storeId", name: "StoreReviewView", component: StoreReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
+  {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true},
+
 
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true},

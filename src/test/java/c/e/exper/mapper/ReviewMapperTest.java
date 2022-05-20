@@ -82,6 +82,15 @@ public class ReviewMapperTest {
         System.out.println("수정 컬럼 수: " + mapper.updateReview(review));
     }
 
+    @Test
+    public void findAllReviewForStore() {
+
+        List<Review> reviews = mapper.findAllReviewForStore("편안호텔");
+
+        reviews.forEach(System.out::println);
+    }
+
+
 
 
 }

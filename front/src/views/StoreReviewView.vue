@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div id="review" style="padding-top: 70px">
+    <!--
     <v-row justify="center">
       <v-btn
         class="white--text"
@@ -25,8 +26,10 @@
         </v-btn>
       </v-overlay>
     </v-row>
-    <br>
+    <br>-->
+
     <review-list
+
       :reviews="reviews"
       @deleteReview="getReviews"
       @reveiws-updated="reviewsUpdated"
@@ -35,17 +38,17 @@
 </template>
 
 <script>
-import ReviewForm from "@/components/review/ReviewForm";
+// import ReviewForm from "@/components/review/ReviewForm";
 import ReviewList from "@/components/review/ReviewList";
 import axios from "axios";
 
 export default {
   name: 'StoreReviewView',
   components: {
-    ReviewForm,
+    // ReviewForm,
     ReviewList,
   },
-  props:['storeId'],
+  props:['store_name'],
   data(){
     return{
       reviews:[],
@@ -53,7 +56,7 @@ export default {
       zIndex: 100,
     }
   },
-  created() {
+  mounted() {
     this.getReviews()
   },
   methods:{
@@ -62,11 +65,14 @@ export default {
 
       var sendForm = new FormData()
 
-      console.log('storeId: ' + this.storeId)
+      console.log('store_name: ' + this.store_name)
 
       axios({
         method: 'GET',
-        url:'http://localhost:8080/api/storeReview?store_id='+this.storeId,
+        url:'http://localhost:8080/api/storeReview',
+        params: {
+          store_name:this.store_name
+        }
 
       })
         .then(res => {
