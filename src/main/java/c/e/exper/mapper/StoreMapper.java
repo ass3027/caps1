@@ -21,8 +21,29 @@ public interface StoreMapper {
 //    @Select("select pic_name, store_id from PICTURES where store_id is not null")
 //    List<PictureDAO> selectStorePic();
 
-    @Select("SELECT PLACE.PL_ID, PLACE.ADDRESS, PLACE.ADDRESS_SI, PLACE.ADDRESS_DONG, PLACE.STORE_PHONE, PLACE.CATEGORY, PLACE.STORE_ID, PLACE.STORE_INFO, PLACE.STORE_NAME, PICTURES.PIC_NAME" +
-            " FROM PLACE, PICTURES WHERE PLACE.PL_ID = PICTURES.PL_ID AND PLACE.CATEGORY=#{CATEGORY}")
+    @Select("SELECT PLACE.PL_ID,\n" +
+            "       OPTION_ID,\n" +
+            "       PLACE.ADDRESS,\n" +
+            "       PLACE.ADDRESS_SI,\n" +
+            "       PLACE.ADDRESS_DONG,\n" +
+            "       PLACE.STORE_PHONE,\n" +
+            "       PLACE.CATEGORY,\n" +
+            "       PLACE.STORE_ID,\n" +
+            "       PLACE.STORE_INFO,\n" +
+            "       PLACE.STORE_NAME,\n" +
+            "       PICTURES.PIC_NAME\n" +
+            "FROM PLACE,\n" +
+            "     PICTURES,\n" +
+            "     OPTION_PLACE\n" +
+            "WHERE PLACE.PL_ID = PICTURES.PL_ID\n" +
+            "  and place.PL_ID = OPTION_PLACE.PL_ID\n" +
+            "  AND PLACE.CATEGORY = #{category}\n" +
+            "order by 1")
     List<PlaceDAO> selectByCategory(String category);
 
+//    @Select("select a.PL_ID, pl_name, ADDRESS,  OPTION_ID\n" +
+//            "from OPTION_PLACE a, PLACE b\n" +
+//            "where a.PL_ID =b.PL_ID\n" +
+//            "  and OPTION_ID in (#{checkOptions})")
+//    List<PlaceDAO> selectByCategory2(ArrayList)
 }
