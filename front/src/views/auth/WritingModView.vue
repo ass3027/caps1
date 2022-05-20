@@ -1,42 +1,47 @@
 <template>
-<div>
-  <h1>게시판 수정하기</h1>
+  <div>
+    <h1>게시판 수정하기</h1>
 
-  <v-col
-    class="d-flex"
-    cols="12"
-    sm="10"
-  />
-  <v-select
-    v-model="post.inq_type"
-    :items="items"
-    label="분류"
-    outlined
-  />
+    <v-col
+      class="d-flex"
+      cols="12"
+      sm="10"
+    />
+    <v-select
+      v-model="post.inq_type"
+      :items="items"
+      label="분류"
+      outlined
+    />
 
-  <v-text-field
-    v-model="post.user_id"
-    type="text"
-    label="아이디"
-  />
+    <v-text-field
+      v-model="post.user_id"
+      type="text"
+      label="아이디"
+    />
 
-  <v-text-field
-    v-model="post.inq_title"
-    type="text"
-    label="제목"
-  />
+    <v-text-field
+      v-model="post.inq_title"
+      type="text"
+      label="제목"
+    />
 
-  <v-textarea
-    v-model="post.inq_body"
-    type="text"
-    label="내용"
-    maxlenght="5"
-  />
-  <div id ="button">
-    <v-btn elevation="3" type="button" @click="Modify">수정</v-btn>
+    <v-textarea
+      v-model="post.inq_body"
+      type="text"
+      label="내용"
+      maxlenght="5"
+    />
+    <div id="button">
+      <v-btn
+        elevation="3"
+        type="button"
+        @click="Modify"
+      >
+        수정
+      </v-btn>
+    </div>
   </div>
-
-</div>
 </template>
 
 <script>

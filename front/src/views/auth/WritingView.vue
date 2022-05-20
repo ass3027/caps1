@@ -2,10 +2,30 @@
   <div>
     <header>
       <nav>
-        <button type="submit" @click="bookmark">즐겨찾기</button> |
-        <button type="submit" @click="pay">수익관리</button> |
-        <button type="submit" @click="myData">내정보수정</button> |
-        <button type="submit" @click="questions">1대1문의</button>
+        <button
+          type="submit"
+          @click="bookmark"
+        >
+          즐겨찾기
+        </button> |
+        <button
+          type="submit"
+          @click="pay"
+        >
+          수익관리
+        </button> |
+        <button
+          type="submit"
+          @click="myData"
+        >
+          내정보수정
+        </button> |
+        <button
+          type="submit"
+          @click="questions"
+        >
+          1대1문의
+        </button>
       </nav>
     </header>
 

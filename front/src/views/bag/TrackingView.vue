@@ -2,7 +2,10 @@
   <v-app>
     <h1>배송조회</h1>
     <ul>
-      <li v-for="(data,index) in list" :key="index">
+      <li
+        v-for="(data,index) in list"
+        :key="index"
+      >
         주문번호:{{ data.ord_id }}
         금액: {{ data.ord_amount }}
         출발키퍼: {{ data.keep_start }}
@@ -10,7 +13,11 @@
       </li>
     </ul>
     <template>
-      <v-data-table :headers="headers" :items="desserts"  class="elevation-1"></v-data-table>
+      <v-data-table
+        :headers="headers"
+        :items="desserts"
+        class="elevation-1"
+      />
     </template>
   </v-app>
 </template>

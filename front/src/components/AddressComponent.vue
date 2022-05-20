@@ -1,16 +1,35 @@
 <template>
   <div class="address">
-
     <div>
-      우편번호 : <input v-model="postcode" type="text" placeholder="우편번호">
-      <input type="button" value="우편번호 찾기" @click="execDaumPostcode()"><br>
+      우편번호 : <input
+        v-model="postcode"
+        type="text"
+        placeholder="우편번호"
+      >
+      <input
+        type="button"
+        value="우편번호 찾기"
+        @click="execDaumPostcode()"
+      ><br>
     </div>
 
     <div>
-      <input v-model="address" type="text" placeholder="주소"><br>
+      <input
+        v-model="address"
+        type="text"
+        placeholder="주소"
+      ><br>
     </div>
-    <input id="detailAddress" type="text" placeholder="상세주소"><br>
-    <input id="extraAddress" type="text" placeholder="참고항목">
+    <input
+      id="detailAddress"
+      type="text"
+      placeholder="상세주소"
+    ><br>
+    <input
+      id="extraAddress"
+      type="text"
+      placeholder="참고항목"
+    >
   </div>
 </template>
 

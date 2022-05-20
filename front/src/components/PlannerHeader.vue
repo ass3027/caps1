@@ -13,7 +13,10 @@
         {{ plan.plan_name }}
       </option>
     </select>
-    <p v-if=" plan_id==='' " class="warningText">
+    <p
+      v-if=" plan_id==='' "
+      class="warningText"
+    >
       플래너를 선택해주세요!
     </p>
     <!--    <v-select-->

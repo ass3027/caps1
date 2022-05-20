@@ -2,10 +2,30 @@
   <div>
     <header>
       <nav>
-        <button type="submit" @click="bookmark">즐겨찾기</button> |
-        <button type="submit" @click="pay">수익관리</button> |
-        <button type="submit" @click="mydata">내정보수정</button> |
-        <button type="submit" @click="questions">1대1문의</button>
+        <button
+          type="submit"
+          @click="bookmark"
+        >
+          즐겨찾기
+        </button> |
+        <button
+          type="submit"
+          @click="pay"
+        >
+          수익관리
+        </button> |
+        <button
+          type="submit"
+          @click="mydata"
+        >
+          내정보수정
+        </button> |
+        <button
+          type="submit"
+          @click="questions"
+        >
+          1대1문의
+        </button>
       </nav>
     </header>
     <h2>게시판 목록</h2>
@@ -28,19 +48,34 @@
     >
       <thead>
         <tr>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             게시글번호
           </th>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             제목
           </th>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             날짜
           </th>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             아이디
           </th>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             조회수
           </th>
         </tr>
@@ -51,19 +86,34 @@
           :key="index"
           @click="detail(post.inq_id)"
         >
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             {{ post.inq_id }}
           </th>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             {{ post.inq_title }}
           </th>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             {{ post.inq_time }}
           </th>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             {{ post.user_id }}
           </th>
-          <th class="text-center" style="font-size:20px;">
+          <th
+            class="text-center"
+            style="font-size:20px;"
+          >
             {{ post.inq_count }}
           </th>
         </tr>
