@@ -35,4 +35,30 @@ class DeliveryMapperTest {
     void findDuserIdByordId() {
         System.out.println(mapper.findDuserIdByOrdId("100"));
     }
+
+    @Test
+    void distanceCalc() {
+        double lat1 = 35.8967;
+        double lon1 = 128.6229;
+        double lat2 = 36.8967;
+        double lon2 = 129.6229;
+
+        double theta = lon1 - lon2;
+
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        dist = dist * 1609344 * 1000;
+        System.out.println(dist+"kilometer");
+
+    }
+
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 130.00);
+    }
+
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
 }
