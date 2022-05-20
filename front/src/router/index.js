@@ -39,7 +39,7 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
 import ProductReviewView from "@/views/ProductReviewView";
-import StoreReviewView from "@/views/StoreReviewView";
+
 import ReviewCreateView from "@/views/ReviewCreateView";
 import StoreReviewView from "@/views/StoreReviewView";
 
@@ -107,7 +107,7 @@ const routes = [
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
   {path: "/GuideView/Search/:keyword", name:"GuideSearch", component: GuideSearch, props:true},
   {path: "/GuideProduct", name:"GuideProduct", component: GuideProduct},
-  {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
+
 
   {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true},
   {path: "/StoreReviewView/:storeId", name: "StoreReviewView", component: StoreReviewView, props: true},
