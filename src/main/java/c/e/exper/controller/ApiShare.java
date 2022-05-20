@@ -8,11 +8,7 @@ import c.e.exper.mapper.ShareMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,8 +38,11 @@ public class ApiShare {
 
 
     @GetMapping("/getSharePosts")
-    public List<Share> getSharePosts() {
-        List<Share> s = shareMapper.findAllShares();
+    public List<ShareDTO> getSharePosts() {
+        List<ShareDTO> s = shareMapper.findAllShares();
+        s.forEach((i)->{
+            i.setPic_name(shareMapper.findPicturesById(i.getShare_id()));
+        });
 //        for(int i =0;i<s.size();i++){
 //            Date d = s.get(i).getShare_created();
 //            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
@@ -84,9 +83,9 @@ public class ApiShare {
 
     @PostMapping("/addPostPic")
     public String addPostPic(@RequestBody List<SharePictureDAO> pictures) {
-        for (int i = 0; i < pictures.size(); i++) {
-            System.out.println(pictures.get(i));
-            shareMapper.insertSharesPictures(pictures.get(i));
+        for (SharePictureDAO picture : pictures) {
+            System.out.println(picture);
+            shareMapper.insertSharesPictures(picture);
         }
 
         return "good2";
@@ -120,7 +119,7 @@ public class ApiShare {
         System.out.println(share_id);
         ArrayList a = new ArrayList();
         Share s = shareMapper.findShareById(share_id);
-        List<Schedule> schedules = scheduleMapper.selectAllById(s.getPlan_id());
+        List<ScheduleDAO> schedules = scheduleMapper.selectAllById(s.getPlan_id());
         List<SharePictureDAO> pic = shareMapper.findPicturesById(share_id);
 
         a.add(s);
@@ -151,12 +150,12 @@ public class ApiShare {
         plannerMapper.insert(p);
         System.out.println(p.getPlan_id());
 
-        List<Schedule> s = scheduleMapper.selectAllById(plan_id);
+        List<ScheduleDAO> s = scheduleMapper.selectAllById(plan_id);
         System.out.println(s);
-        for(int i=0;i< s.size();i++){
-            s.get(i).setPlan_id(p.getPlan_id());
-            System.out.println(s.get(i));
-            scheduleMapper.insert(s.get(i));
+        for (ScheduleDAO scheduleDAO : s) {
+            scheduleDAO.setPlan_id(p.getPlan_id());
+            System.out.println(scheduleDAO);
+            scheduleMapper.insert(scheduleDAO);
         }
 
         shareMapper.updateShareCount(share_id);
@@ -189,9 +188,9 @@ public class ApiShare {
         System.out.println("아아여기요"+share_id);
         shareMapper.deleteSharePic(share_id);
 
-        for (int i = 0; i < pictures.size(); i++) {
-            System.out.println(pictures.get(i));
-            shareMapper.insertSharesPictures(pictures.get(i));
+        for (SharePictureDAO picture : pictures) {
+            System.out.println(picture);
+            shareMapper.insertSharesPictures(picture);
         }
 
         return "수정완료";

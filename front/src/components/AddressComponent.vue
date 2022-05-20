@@ -1,6 +1,5 @@
 <template>
   <div class="address">
-    <h3>장소</h3>
     <div>
       우편번호 : <input
         v-model="postcode"
@@ -13,7 +12,7 @@
         @click="execDaumPostcode()"
       ><br>
     </div>
-    
+
     <div>
       <input
         v-model="address"
@@ -38,7 +37,7 @@
 
 export default {
   props:{
-  
+
   },
   data() {
     return {
@@ -51,7 +50,7 @@ export default {
     execDaumPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          
+
           if (this.extraAddress !== "") {
             this.extraAddress = "";
           }
@@ -62,7 +61,7 @@ export default {
             // 사용자가 지번 주소를 선택했을 경우(J)
             this.address = data.jibunAddress;
           }
-          
+
           // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
           if (data.userSelectedType === "R") {
             // 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -89,9 +88,9 @@ export default {
           this.postcode = data.zonecode;
         },
       }).open();
-      
+
     },
-    
+
   },
 };
 </script>

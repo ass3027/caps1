@@ -14,7 +14,7 @@
       </option>
     </select>
     <p
-      v-if=" plan_id=='' "
+      v-if=" plan_id==='' "
       class="warningText"
     >
       플래너를 선택해주세요!
@@ -59,11 +59,10 @@ export default {
     },
     getPlanListByUserId() {
       axios({
-        url: '/api/plan/' + this.user_id,
+        url: '/api/planner/' + this.user_id,
         method: 'get'
       })
         .then((res) => {
-          console.log(res)
           if (res.data.length === 0) {
             this.plan_list = [{
               "plan_name": "없음"

@@ -4,8 +4,7 @@ import VueRouter from "vue-router";
 import JoinView from "../views/auth/JoinView.vue";
 import LoginView from "@/views/auth/LoginView";
 
-import ImportSuppliesView from "@/views/ImportSuppliesView";
-import SuppliesVue from '../views/SuppliesView';
+import SuppliesVue from '../views/supply/SuppliesView';
 import PlannerShareView from '../views/share/PlannerShareView'
 import PlannerShareDetailsViewView from '../views/share/PlannerShareDetailsView'
 import PlannerShareWriteView from '../views/share/PlannerShareWriteView'
@@ -28,7 +27,6 @@ import CalenderView from "@/views/planner/CalenderView";
 
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
-import MotelView from "@/views/store/MotelView";
 
 import PensionView from "@/views/pension/PensionView";
 
@@ -39,30 +37,50 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
-import Hoteltest from "@/views/store/StoreTest";
 
-import ReviewView from "@/views/ReviewView";
+import ProductReviewView from "@/views/ProductReviewView";
+import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
+import StoreReviewView from "@/views/StoreReviewView";
 
-import StoreView from "@/views/store/StoreView";
+import MypageView from "@/views/auth/MypageView";
+
+
 import StoreDetail from "@/views/store/StoreDetail";
 import GuideSearch from "@/views/guide/GuideSearch";
 import GuideProduct from "@/views/guide/GuideProduct";
 
+import LocationUpdate from "@/views/LocationUpdate";
+import BookMarkView from "@/views/auth/BookMarkView";
+import MyDataView from "@/views/auth/MyDataView";
+import QuestionsView from "@/views/auth/QuestionsView";
+import WritingView from "@/views/auth/WritingView";
+import DetailPageView from "@/views/auth/DetailPageView";
+import WritingModView from "@/views/auth/WritingModView";
 
+import {store} from "@/store"
 Vue.use(VueRouter);
 
 const routes = [
   {path: '/join', name: 'join', component: JoinView},
   {path: "/login", name: "login", component: LoginView},
+  {path: "/myPage", name:'MyPage', component: MypageView},
+  {path: "/myData", name:'MyData', component: MyDataView},
+  {path: "/questions", name:'Questions', component: QuestionsView},
+  {path: "/writing", name:'Writing', component: WritingView},
+  {path: "/detailPage/:id", name:'DetailPage', component: DetailPageView},
+  {path: "/detailPage/:id/writingMod", name:'WritingMod', component: WritingModView},
+  {path: "/bookmark", name:'Bookmark', component: BookMarkView},
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
-  {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
+
+  {path: '/supplies', name: 'supplies', component: SuppliesVue},
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},
   {path: '/share/write', name: 'shareWrite', component: PlannerShareWriteView},
   {path: '/share/edit', name: 'shareEdit', component: PlannerShareEditView, props:true},
+
   {path: '/hotel', name: 'hotel', component: HotelView,},
-  {path: '/hotel/:store_name', name: 'hotel', component: StoreDetail, props: true},
+  {path: '/hotel/:pl_id', name: 'hotel', component: StoreDetail, props: true},
   {path: '/storeadd', name: 'storeadd', component: StoreAdd,},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
@@ -90,7 +108,14 @@ const routes = [
   {path: "/GuideView/Search/:keyword", name:"GuideSearch", component: GuideSearch, props:true},
   {path: "/GuideProduct", name:"GuideProduct", component: GuideProduct},
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true},
+
+  {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true},
+  {path: "/StoreReviewView/:storeId", name: "StoreReviewView", component: StoreReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
+  {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true},
+
+  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true},
+  {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true},
 
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView},
 
@@ -104,6 +129,16 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeResolve( (to,from,next) =>{
+  if(to.path==='/login' || to.path==='/join' || to.path==='/'){
+    next();
+  }else if(!store.getters['user/isLogin']) {
+    console.log("dd")
+    next('/login')
+  }else next();
+
 })
 
 export default router

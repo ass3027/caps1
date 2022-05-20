@@ -1,9 +1,11 @@
 package c.e.exper.service;
 
 import c.e.exper.mapper.DeliveryMapper;
+import c.e.exper.mapper.LocationMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,24 +14,28 @@ import java.util.Map;
 public class DeliveryService {
 
     final DeliveryMapper deliveryMapper;
+    final LocationMapper locationMapper;
 
-    public DeliveryService(DeliveryMapper deliveryMapper) {
+    public DeliveryService(DeliveryMapper deliveryMapper, LocationMapper locationMapper) {
         this.deliveryMapper = deliveryMapper;
+        this.locationMapper = locationMapper;
     }
 
-    public void 운송원_위치_업데이트(String user_id, String x, String y) {
+    public void 운송원_위치_업데이트(String user_id, double x, double y) {
 
-        deliveryMapper.updateDuserLatitude(x, user_id);
-        deliveryMapper.updateDuserLongitude(y, user_id);
+        if(locationMapper.locationExist("2", user_id))
+            locationMapper.updateLocation(x, y, "2", user_id);
+        else
+            locationMapper.insertLocation("2", user_id, x, y);
 
     }
 
-    public Map<String, String> 운송원_위치_조회(String user_id) {
-        Map<String, String> location = new HashMap<>();
-        location.put("latitude", deliveryMapper.findLatitudeById(user_id));
-        location.put("longitude", deliveryMapper.findLongitudeById(user_id));
+    public Map<String, BigDecimal> 운송원_위치_조회(String user_id) {
 
-        return location;
+        Map<String, BigDecimal> stringDoubleMap = locationMapper.selectLocation("2", user_id);
+
+        System.out.println("[DeliveryService]" + stringDoubleMap);
+        return stringDoubleMap;
     }
 
     public String 주문서_운송원ID_조회(String ord_id) {

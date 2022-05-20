@@ -1,9 +1,6 @@
 package c.e.exper.mapper;
 
-import c.e.exper.data.PictureDAO;
-import c.e.exper.data.StoreDAO;
-import c.e.exper.data.StoreDTO;
-import c.e.exper.data.UserDAO;
+import c.e.exper.data.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,11 +16,13 @@ public interface StoreMapper {
     void insert(@Param("store")StoreDAO store);
 
     @Select("select * from STORE")
-    List<StoreDAO> findAll();
+    List<PlaceDAO> findAll();
 
-    @Select("select pic_name, store_id from PICTURES where store_id is not null")
-    List<PictureDAO> selectStorePic();
+//    @Select("select pic_name, store_id from PICTURES where store_id is not null")
+//    List<PictureDAO> selectStorePic();
 
-    @Select("Select s.*,p.pic_name From Store s,Pictures p Where s.category=#{category} and s.store_id=p.store_id")
-    List<StoreDAO> selectByCategory(String category);
+    @Select("SELECT PLACE.PL_ID, PLACE.ADDRESS, PLACE.ADDRESS_SI, PLACE.ADDRESS_DONG, PLACE.STORE_PHONE, PLACE.CATEGORY, PLACE.STORE_ID, PLACE.STORE_INFO, PLACE.STORE_NAME, PICTURES.PIC_NAME" +
+            " FROM PLACE, PICTURES WHERE PLACE.PL_ID = PICTURES.PL_ID AND PLACE.CATEGORY=#{CATEGORY}")
+    List<PlaceDAO> selectByCategory(String category);
+
 }

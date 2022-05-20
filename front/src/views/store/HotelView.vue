@@ -4,30 +4,35 @@
     class="main"
   >
     <div class="body">
-      <StoreHeader :category="category" />
+      <PlaceHeader :category="category"/>
       <div class="body-form">
-        <StoreLeftbar />
-        <StoreMain />
+        <PlaceLeft :option="option"/>
+        <PlaceMain />
       </div>
     </div>
   </v-container>
 </template>
 <script>
 
-import StoreHeader from '@/components/store/StoreHeader.vue';
-import StoreLeftbar from '@/components/store/StoreLeftbar.vue';
-import StoreMain from '@/components/store/StoreMain.vue';
+import PlaceLeft from "@/components/store/PlaceLeft";
+import PlaceMain from "@/components/store/PlaceMain";
+import PlaceHeader from "@/components/store/PlaceHeader";
 
 export default {
   name: "HotelView",
   components: {
-    StoreHeader,
-    StoreLeftbar,
-    StoreMain,
+    PlaceHeader,
+    PlaceMain,
+    PlaceLeft
   },
   data() {
     return {
-      category: 'HOTEL'
+      category: 'HOTEL',
+      option: [
+        {title: "5성급", value: "1"},
+        {title: "특1급", value: "2"},
+        {title: "특급", value: "3"}
+      ]
     }
   }
 }

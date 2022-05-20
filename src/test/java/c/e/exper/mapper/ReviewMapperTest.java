@@ -48,10 +48,9 @@ public class ReviewMapperTest {
     }
 
     @Test
-    public void findAllReviewForReview() {
-        List<Review> allReviewForReview = mapper.findAllReviewForReview("102");
-
-        allReviewForReview.forEach(review -> System.out.println(review));
+    public void findAllReviewForKeep() {
+        List<Review> reviews = mapper.findAllReviewForKeep("100");
+        System.out.println(reviews);
     }
 
     @Test
@@ -60,6 +59,13 @@ public class ReviewMapperTest {
 
         allReviewForProduct.forEach(review -> System.out.println(review));
 
+    }
+
+    @Test
+    public void findAllReviewForDelivery() {
+        List<Review> allReviewForDelivery = mapper.findAllReviewForDelivery("100");
+
+        allReviewForDelivery.forEach(review -> System.out.println(review));
     }
 
     @Test
@@ -75,6 +81,15 @@ public class ReviewMapperTest {
 
         System.out.println("수정 컬럼 수: " + mapper.updateReview(review));
     }
+
+    @Test
+    public void findAllReviewForStore() {
+
+        List<Review> reviews = mapper.findAllReviewForStore("편안호텔");
+
+        reviews.forEach(System.out::println);
+    }
+
 
 
 

@@ -68,7 +68,7 @@ class ReviewServiceTest {
 
     @Test
     void 리뷰아이디_리뷰_조회() {
-        System.out.println(reviewMapper.findAllReviewForReview("102"));
+//        System.out.println(reviewMapper.findAllReviewForReview("102"));
     }
 
 

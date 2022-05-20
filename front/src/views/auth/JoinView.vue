@@ -34,6 +34,7 @@
         <v-row>
           <v-text-field
             v-model="user_phone"
+
             type="text"
             placeholder="PHONE"
           />
@@ -130,7 +131,7 @@ export default {
 
       axios({
         method: 'post',
-        url: '/api/join',
+        url: '/api/user/join',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
