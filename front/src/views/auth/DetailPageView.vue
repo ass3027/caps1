@@ -33,10 +33,15 @@
       label="내용"
       maxlenght="5"
     />
-    <div id ="button">
-      <v-btn elevation="3" type="button" @click="Modify">수정</v-btn>
+    <div id="button">
+      <v-btn
+        elevation="3"
+        type="button"
+        @click="Modify"
+      >
+        수정
+      </v-btn>
     </div>
-
   </div>
 </template>
 

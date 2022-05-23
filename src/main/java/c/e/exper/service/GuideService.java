@@ -26,6 +26,8 @@ public class GuideService {
         return guideMapper.selectAll();
     }
 
+    public List<GuideDAO> 가이드_검색(String keyword){ return guideMapper.selectBykeyword(keyword);}
+
     public GuideDAO 가이드_조회1(String id) {
         return guideMapper.selectById(id);
     }
@@ -38,5 +40,10 @@ public class GuideService {
 
         System.out.println(gitemDAO);
         gitemMapper.insert(gitemDAO);
+    }
+    public List<GItemDAO> 가이드상품_조회(){
+
+        return gitemMapper.selectAll();
+
     }
 }

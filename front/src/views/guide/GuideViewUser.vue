@@ -93,7 +93,9 @@ export default {
   },
   mounted() {
     this.importGuide()
+
   },
+
   methods:{
     reserve(){
     },
@@ -104,8 +106,8 @@ export default {
         url : `/api/guide/`+ this.user_id,
       })
         .then((res)=>{
-          console.log(res.data)
           this.lists = res.data;
+          console.log(res.data + "상세보기")
         })
     }
   }

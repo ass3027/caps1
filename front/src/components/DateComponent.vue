@@ -8,15 +8,15 @@
     <div
       v-for="(index) in 24"
       :id="index"
-      :class ="{dd:true,selecting:selectedTime===index}"
       :key="index"
+      :class="{dd:true,selecting:selectedTime===index}"
       @click="select(index)"
-
     >
-      <div >{{index}}시</div>
-      <div v-if="plan.get(index)"> {{plan.get(index)}} </div>
+      <div>{{ index }}시</div>
+      <div v-if="plan.get(index)">
+        {{ plan.get(index) }}
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -33,12 +33,6 @@ export default {
     //   required:false
     // }
   },
-  computed : {
-    plan : function() {
-      return this.$store.state.calendar.calendar.date[this.date]
-    },
-
-  },
   data() {
     return {
       height: 500,
@@ -50,6 +44,12 @@ export default {
       selectedTag: '',
       style: "width:100,height:2,border:2,top:selected",
     }
+  },
+  computed : {
+    plan : function() {
+      return this.$store.state.calendar.calendar.date[this.date]
+    },
+
   },
   methods: {
 

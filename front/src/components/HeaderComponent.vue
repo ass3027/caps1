@@ -18,13 +18,13 @@
       <img
         :src="photo"
         style="width:150px;height:150px"
-        alt="">
+        alt=""
+      >
     </div>
     <div
       v-else
       class="login-box"
     >
-
       <v-btn
         text
         router
@@ -133,7 +133,7 @@ export default {
         {title: '가이드 등록', route: '/GuideRegister'},
         {title: '가이드 예약 ', route: '/GuideReserve'},
         {title: '가이드 상품 등록', route: '/GuideProductReg'},
-        {title: 'Guide5', route: '/Guide'}
+        {title: '가이드 상품', route: '/GuideProduct'}
       ],
       [
         {title: '공유', route: '/share'},

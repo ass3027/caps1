@@ -1,6 +1,6 @@
 <template>
   <div id="이재영시발럼">
-    <PlannerHeader/>
+    <PlannerHeader />
     <v-container style="padding-left:10px">
       <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
         <MapComponent
@@ -26,7 +26,11 @@
           </v-btn>
         </v-col>
 
-        <v-text-field v-model="schName" placeholder="일정이름" style="width:30%"></v-text-field>
+        <v-text-field
+          v-model="schName"
+          placeholder="일정이름"
+          style="width:30%"
+        />
         <v-btn @click="create()">
           create
         </v-btn>
@@ -46,7 +50,6 @@
         </div>
       </div>
     </v-container>
-
   </div>
 </template>
 

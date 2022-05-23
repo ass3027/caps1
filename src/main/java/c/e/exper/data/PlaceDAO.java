@@ -24,4 +24,5 @@ public class PlaceDAO {
     String store_info;
     String user_id;
     String pic_name;
+    String option_id;
 }
