@@ -32,7 +32,9 @@ export default {
         axios.get('/api/planner/'+newId)
           .then( (res)=>{
             console.log(res.data[0].plan_id)
-            commit('updatePlanId',res.data[0].plan_id)
+            if(res.data.length!==0){
+              commit('updatePlanId',res.data[0].plan_id)
+            }
           })
           .catch( (err)=>{
             console.log(err)
