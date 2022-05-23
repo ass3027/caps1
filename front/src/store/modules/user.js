@@ -3,12 +3,12 @@ import axios from 'axios'
 export default {
     namespaced:true,
     state: {
-        userId: '',
+        userId: 'anonymousUser',
         planId:0,
     },
     getters:{
       isLogin(state){
-        return state.userId !== '';
+        return state.userId !== 'anonymousUser';
 
       }
     },
@@ -31,10 +31,11 @@ export default {
         }
         axios.get('/api/planner/'+newId)
           .then( (res)=>{
-            console.log(res.data[0].plan_id)
+            let plan_id = 0
             if(res.data.length!==0){
-              commit('updatePlanId',res.data[0].plan_id)
+              plan_id = res.data[0].plan_id
             }
+            commit('updatePlanId',plan_id)
           })
           .catch( (err)=>{
             console.log(err)

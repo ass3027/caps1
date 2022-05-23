@@ -88,7 +88,11 @@ export default {
   },
   mounted() {
     //가끔 plan Id 가 업다고 뜸 로직 문제..??
-    console.log(this.$store.state.user.planId)
+    if(this.$store.state.user.planId === 0) {
+      console.log("업서영")
+      this.create()
+      return;
+    }
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
       .then( (res)=>{
         console.log(res)
@@ -109,10 +113,6 @@ export default {
         }
         console.log(this.dateArr)
         //없으면 만들기
-        if(scheduleList.length === 0) {
-          this.create()
-          return;
-        }
         const calendar = {};
         calendar["planId"] = plan.plan_id
         calendar["SchName"] = plan.plan_name
@@ -148,17 +148,6 @@ export default {
     create() {
       let calendar = []
 
-      //플래너 생성때 쓸내용
-      // if(this.schName === '') {
-      //   alert("이름이 없습니다")
-      //   return;
-      // }
-      //
-      // if (this.startDateC > this.endDateC) {
-      //   alert("잘못된 날짜 설정 입니다");
-      //   return;
-      // }
-
       calendar["planId"] = this.$store.state.user.planId
       calendar["SchName"] = this.schName
       calendar["expectExpenses"] = 1000
@@ -175,22 +164,10 @@ export default {
       })
 
       console.log(calendar)
-      // this.calendar.forEach((key,data) => {
-      //   console.log(key + ", data:" + data)
-      // })
 
       this.$store.commit('calendar/updateCalendar', calendar)
 
     },
-    // selecting(tag) {
-    //   const check = this.sameCheck(tag);
-    //   if (check) this.selectedTag = tag;
-    //   console.log(tag);
-    //   return check
-    // },
-    // sameCheck(tag) {
-    //   return this.selectedTag !== tag;
-    // },
 
     applyMapData(mapData) {
       console.log("calendar: " + mapData)
