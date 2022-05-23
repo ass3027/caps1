@@ -16,7 +16,7 @@ import LocationCheckView from "@/views/LocationCheckView";
 //가방 보관
 import BagReserveView from '../views/bag/order/SelectionOrder.vue'
 import TrackingView from "@/views/bag/TrackingView";
-import StorageView from "@/views/bag/StorageView";
+
 
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
@@ -80,7 +80,7 @@ const routes = [
   {path: '/UsageGuideView', name: 'UsageGuideView', component: UsageGuideView},
   {path: '/TransportOrder', name: 'TransportOrder', component: TransportOrder},
   {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
-  {path: '/StorageView', name: 'StorageView', component: StorageView},
+
   {path: '/StorageOrder', name: 'StorageOrder', component: StorageOrder},
 
  // { path: "/OrderView", name: "OrderView", component: OrderView },

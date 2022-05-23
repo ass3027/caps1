@@ -12,10 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ApiBag {
-   
    final BagMapper bagMapper;
-   
-   
    @Autowired
    public ApiBag(BagMapper bagMapper) {
       this.bagMapper = bagMapper;
@@ -27,19 +24,15 @@ public class ApiBag {
       bagMapper.storageInsert(storageBag);
       return "";
    }
-   
    @PostMapping("/trAddOrder")
    public String transportAddOrder(@RequestBody BagDAO transportBag) {
       System.out.println(transportBag);
       bagMapper.transportInsert(transportBag);
       return "";
    }
-   
    @GetMapping("/bag/{user_id}")
    public List<BagDAO> SearchOrder(@PathVariable String user_id) {
-      
       return bagMapper.selectByUserId(user_id);
    }
-   
 }
 

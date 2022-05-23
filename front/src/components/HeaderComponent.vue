@@ -92,7 +92,7 @@ export default {
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},
         {title: '배송조회', route: '/TrackingView'},
-        {title: '보관조회', route: '/StorageView'}
+
       ],
       [
         {title: '가이드 리스트', route: '/guideview'},
