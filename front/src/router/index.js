@@ -39,12 +39,14 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
 import ProductReviewView from "@/views/ProductReviewView";
-import StoreReviewView from "@/views/StoreReviewView";
+
 import ReviewCreateView from "@/views/ReviewCreateView";
 import MypageView from "@/views/auth/MypageView";
 
 
 import StoreDetail from "@/views/store/StoreDetail";
+import GuideSearch from "@/views/guide/GuideSearch";
+import GuideProduct from "@/views/guide/GuideProduct";
 
 import LocationUpdate from "@/views/LocationUpdate";
 import BookMarkView from "@/views/auth/BookMarkView";
@@ -101,18 +103,22 @@ const routes = [
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
+  {path: "/GuideView/Search/:keyword", name:"GuideSearch", component: GuideSearch, props:true},
+  {path: "/GuideProduct", name:"GuideProduct", component: GuideProduct},
+
 
   {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true},
   {path: "/StoreReviewView/:storeId", name: "StoreReviewView", component: StoreReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true},
 
-
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true},
 
+  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView},
 
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
+
 
 
 ];

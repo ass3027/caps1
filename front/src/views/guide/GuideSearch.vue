@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-
+    <h1>{{this.keyword}}</h1>
     <v-row
       cols="0"
       md="0"
@@ -16,17 +16,12 @@
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">
-              이름:{{item.user_name}}
-            </div>
-            <div>
-              자격증:{{item.guide_license}}
+              {{ item.guide_license }}
             </div>
             <v-list-item-title class="text-h5 mb-1">
-              ID:{{ item.user_id }}
+              {{ item.user_id }}
             </v-list-item-title>
-            <v-list-item-subtitle>
-              소개:{{ item.guide_intro }}
-            </v-list-item-subtitle>
+            <v-list-item-subtitle>{{ item.guide_intro }}</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-card-actions>
@@ -50,74 +45,44 @@
         <v-card-actions />
       </v-card>
     </v-row>
-    <div>
-      <h1>검색</h1>
-      <input
-        name="keyword"
-        type="text"
-        style="border: #1e90cc solid"
-        v-model="keyword"
-        class="search"
-      >
-    </div>
-    <v-btn
-     class="btn2"
-     @click="onsubmit()"
-    >
-      Search
-    </v-btn>
-
   </div>
 
 </template>
 
 <script>
 import axios from "axios";
-
-
 export default {
-  name: 'GuideView',
-  components: {
+  name: "GuideSearch.vue",
+  components:{
 
   },
   data(){
     return{
-      lists: [],
-      keyword:'',
+      lists:[],
     }
   },
-
-
+  props:['keyword'],
   mounted() {
-    this.importGuide()
 
+    console.log("keyword: " + this.keyword)
+    this.importGuide()
   },
   methods:{
-    view(item){
-
-      this.$router.push("/GuideView/" + item.user_id)
-    },
-    onsubmit(){
-      console.log(this.keyword)
-     this.$router.push("/GuideView/Search/" + this.keyword)
-
-    },
-
-
     importGuide(){
       axios({
         method: 'get',
-        url   : '/api/guide',
+        url   : '/api/guide/search/' + this.keyword,
       })
         .then((res) => {
           this.lists = res.data;
+          console.log("asdsa" + res.data);
         })
+    }
     },
 
-  }
 }
-
 </script>
+
 <style>
 .card {
   position: relative;
