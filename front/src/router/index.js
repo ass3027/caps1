@@ -21,6 +21,8 @@ import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportView from "../views/bag/order/TransportView";
 
+import StoreReviewView from "@/views/StoreReviewView";
+
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
@@ -108,7 +110,6 @@ const routes = [
 
 
   {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true},
-  {path: "/StoreReviewView/:storeId", name: "StoreReviewView", component: StoreReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true},
 
