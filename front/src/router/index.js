@@ -71,7 +71,7 @@ const routes = [
   {path: "/bookmark", name:'Bookmark', component: BookMarkView},
   {path: '/supplies', name: 'supplies', component: SuppliesVue},
 
-  {path: '/supplies', name: 'supplies', component: SuppliesVue, beforeEnter: checkLogin()},
+  {path: '/supplies', name: 'supplies', component: SuppliesVue},
   {path: '/supplies/sets', name: 'ImportSupplies', component: ImportSuppliesView},
   {path: '/share', name: 'share', component: PlannerShareView},
   {path: '/share/:id', name: 'shareDetails', component: PlannerShareDetailsViewView},

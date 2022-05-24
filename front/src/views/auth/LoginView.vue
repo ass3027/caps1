@@ -31,7 +31,7 @@
 import axios from 'axios'
 
 export default {
-  name: "LoginView.vue",
+  name: "LoginView",
   beforeRouteEnter(to,from,next){
     console.log(to)
     console.log(from)

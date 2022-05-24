@@ -1,5 +1,4 @@
 <template>
-
   <v-app id="app">
     <HeaderComponent />
     <div class="Bag-order">

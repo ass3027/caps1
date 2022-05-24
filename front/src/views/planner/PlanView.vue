@@ -1,6 +1,6 @@
 <template>
   <div style="padding-left: 15px">
-    <PlannerHeader/>
+    <PlannerHeader />
 
 
     <h2>플래너 생성</h2>
@@ -9,50 +9,50 @@
       <v-col>
         <h3>플래너 이름</h3>
         <v-text-field
+          v-model="plan_name"
           placeholder="name"
           solo
-          v-model="plan_name"
           style="width:200px"
         />
       </v-col>
     </v-row>
     <h3>시작날짜 및 종료날짜</h3>
-    <v-row justify="center" style="width:50%">
-
+    <v-row
+      justify="center"
+      style="width:50%"
+    >
       <v-col>
         <v-date-picker
-          style="width:50%;height:350px;"
           v-model="plan_range"
+          style="width:50%;height:350px;"
           type="date"
           range
         />
-
       </v-col>
     </v-row>
 
     <v-row>
       <v-btn
+        color="blue"
         @click="addPlan"
         @submit.prevent
-        color="blue"
       >
         생성
       </v-btn>
     </v-row>
-    <div style="padding:40px"></div>
+    <div style="padding:40px" />
     <v-row>
       <h2>현재 플래너 목록</h2>
     </v-row>
     <v-row>
-
-
       <v-simple-table dark>
         <thead>
           <tr>
             <th
               v-for="(key,index) in keys"
               :key="index"
-              class="text-left">
+              class="text-left"
+            >
               {{ key }}
             </th>
             <th>삭제</th>
@@ -73,21 +73,18 @@
             <td>{{ plan.plan_end }}</td>
             <td>
               <v-btn
+                color="light-green"
                 @submit.prevent
                 @click="deletePlan(plan.plan_id)"
-                color="light-green"
               >
                 삭제
               </v-btn>
             </td>
           </tr>
         </tbody>
-
       </v-simple-table>
-
     </v-row>
-    <div style="padding:40px"></div>
-
+    <div style="padding:40px" />
   </div>
 </template>
 

@@ -1,14 +1,16 @@
 <template>
   <div style="padding-left: 15px">
-    <PlannerHeader/>
+    <PlannerHeader />
     <v-row>
-      <v-col cols="12"
-             sm="3"
-             md="4">
+      <v-col
+        cols="12"
+        sm="3"
+        md="4"
+      >
         <v-card>
           <h2>현재 멤버</h2>
-          <v-spacer/>
-          <v-divider/>
+          <v-spacer />
+          <v-divider />
           <ul
             v-for="(data,key) in plan_user_list"
             :key="key"
@@ -16,12 +18,10 @@
             <li>id : {{ data.user_id }} / 플래너 아이디 : {{ data.plan_id }}</li>
           </ul>
         </v-card>
-
       </v-col>
-
     </v-row>
     <v-row>
-      <v-divider/>
+      <v-divider />
     </v-row>
     <v-row>
       <v-col
@@ -43,33 +43,31 @@
           </button>
         </v-card>
       </v-col>
-      <v-divider vertical/>
+      <v-divider vertical />
       <v-col>
-
-
         <v-card>
           <h2>내가 초대한</h2>
           <v-simple-table
             dark
           >
             <thead>
-            <tr>
-              <th>아이디</th>
-              <th>이름</th>
-            </tr>
+              <tr>
+                <th>아이디</th>
+                <th>이름</th>
+              </tr>
             </thead>
             <tbody>
-            <tr
-              v-for="(data,index) in invite_list_plan"
-              :key="index"
-            >
-              <th class="text-center">
-                {{ data.user_id }}
-              </th>
-              <th class="text-center">
-                {{ data.plan_id }}
-              </th>
-            </tr>
+              <tr
+                v-for="(data,index) in invite_list_plan"
+                :key="index"
+              >
+                <th class="text-center">
+                  {{ data.user_id }}
+                </th>
+                <th class="text-center">
+                  {{ data.plan_id }}
+                </th>
+              </tr>
             </tbody>
           </v-simple-table>
         </v-card>
@@ -77,54 +75,51 @@
     </v-row>
 
     <v-row>
-      <v-divider/>
+      <v-divider />
     </v-row>
 
     <v-row>
       <v-col>
         <v-card>
           <h2>초대 현황</h2>
-          <v-divider/>
+          <v-divider />
 
           <h4>내가 초대된</h4>
           <v-simple-table
             dark
           >
             <thead>
-            <tr>
-            <th>아이디</th>
-            <th>이름</th>
-            <th></th>
-            </tr>
+              <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th />
+              </tr>
             </thead>
             <tbody>
-            <tr
-              v-for="(data,index) in invite_list_user"
-              :key="index"
-            >
-              <th class="text-center">
-                {{ data.user_id }}
-              </th>
-              <th class="text-center">
-                {{ data.plan_id }}
-              </th>
-              <th>
-                <v-btn
-                  class="button"
-                  @click="accept(data)"
-                >
-                  수락
-                </v-btn>
-              </th>
-            </tr>
+              <tr
+                v-for="(data,index) in invite_list_user"
+                :key="index"
+              >
+                <th class="text-center">
+                  {{ data.user_id }}
+                </th>
+                <th class="text-center">
+                  {{ data.plan_id }}
+                </th>
+                <th>
+                  <v-btn
+                    class="button"
+                    @click="accept(data)"
+                  >
+                    수락
+                  </v-btn>
+                </th>
+              </tr>
             </tbody>
           </v-simple-table>
         </v-card>
-
       </v-col>
     </v-row>
-
-
   </div>
 </template>
 

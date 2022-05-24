@@ -18,13 +18,13 @@
       <img
         :src="photo"
         style="width:150px;height:150px"
-        alt="">
+        alt=""
+      >
     </div>
     <div
       v-else
       class="login-box"
     >
-
       <v-btn
         text
         router
