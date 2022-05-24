@@ -21,8 +21,6 @@ import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportView from "../views/bag/order/TransportView";
 
-import StoreReviewView from "@/views/StoreReviewView";
-
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
@@ -39,9 +37,7 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 import ProductReviewView from "@/views/ProductReviewView";
-import ReviewCreateView from "@/views/ReviewCreateView";
 import StoreReviewView from "@/views/StoreReviewView";
-
 import ReviewCreateView from "@/views/ReviewCreateView";
 import MypageView from "@/views/auth/MypageView";
 
@@ -200,26 +196,25 @@ const router = new VueRouter({
 router.beforeResolve((to, from, next) => {
   if (to.path === "/login" || to.path === "/join" || to.path === "/") {
     next();
-  }else  {
-    const dd = async ()=> {
+  } else {
+    const dd = async () => {
       try {
         const id = await axios.get("/api/user/id");
-        await store.dispatch("user/setUser",id.data);
-        if("anonymousUser" !== id.data) {
+        await store.dispatch("user/setUser", id.data);
+        if ("anonymousUser" !== id.data) {
           console.log("login")
           const photo = await axios.get("/api/user/photo")
-          EventBus.$emit("photoUpdate",photo.data)
+          EventBus.$emit("photoUpdate", photo.data)
           next()
         } else {
           console.log("not login")
           next('/login');
         }
-      }
-      catch(err) {
+      } catch (err) {
         console.log(err)
       }
     }
     dd()
   }
-
+})
 export default router;
