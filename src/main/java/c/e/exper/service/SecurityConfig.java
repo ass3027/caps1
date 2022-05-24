@@ -1,5 +1,6 @@
 package c.e.exper.service;
 
+import c.e.exper.mapper.PictureMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +27,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 
 @Configuration
 @EnableWebSecurity
@@ -34,8 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     final
     CustomDetailService customDetailService;
 
-    public SecurityConfig(CustomDetailService customDetailService) {
+    @Autowired
+    PictureMapper pictureMapper;
+
+
+
+    public SecurityConfig(CustomDetailService customDetailService, PictureMapper pictureMapper) {
         this.customDetailService = customDetailService;
+
     }
 
     @Bean
@@ -57,8 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/api/login")
-                .successHandler(loginSucessHandler)
-                .failureHandler(loginfailureHandler)
+                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandler)
 //                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
@@ -101,7 +110,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    AuthenticationSuccessHandler loginSucessHandler = (request, response, authentication) -> response.addHeader("gg","gg");
+    AuthenticationSuccessHandler loginSuccessHandler = (request, response, authentication) ->{
+        User user = (User) authentication.getPrincipal();
+        System.out.println("name"+user.getUsername());
+        String picture = pictureMapper.selectPicnameByUserId(user.getUsername());
+        System.out.println(picture);
+        response.addHeader("photo",picture);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
 
-    AuthenticationFailureHandler loginfailureHandler = (request, response, exception) -> response.addHeader("gg","ss");
+        response.getWriter().write(pictureMapper.selectPicnameByUserId(user.getUsername()));
+    };
+
+
+    AuthenticationFailureHandler loginFailureHandler = (request, response, exception) -> response.addHeader("gg","ss");
 }
