@@ -48,7 +48,7 @@ export default {
     // ReviewForm,
     ReviewList,
   },
-  props:['store_name'],
+  props:{'store_name': String},
   data(){
     return{
       reviews:[],

@@ -10,6 +10,9 @@ import java.util.List;
 public interface ReviewMapper {
 
 
+    /* 장소 번호로 장소명 찾기 */
+    @Select("select store_name from place where store_id = #{store_id}")
+    public String findPlName(@Param("store_id") String store_id);
 
     @Select("select * from review")
     public List<Review> findAllReview();

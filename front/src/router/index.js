@@ -39,7 +39,6 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 
 
 import ProductReviewView from "@/views/ProductReviewView";
-import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import StoreReviewView from "@/views/StoreReviewView";
 
@@ -78,7 +77,7 @@ const routes = [
   {path: '/share/edit', name: 'shareEdit', component: PlannerShareEditView, props:true},
 
   {path: '/hotel', name: 'hotel', component: HotelView,},
-  {path: '/hotel/:pl_id', name: 'hotel', component: StoreDetail, props: true},
+  {path: '/hotel/:store_id', name: 'hotel', component: StoreDetail, props: true},
   {path: '/storeadd', name: 'storeadd', component: StoreAdd,},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
@@ -105,7 +104,6 @@ const routes = [
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
 
   {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true},
-  {path: "/StoreReviewView/:storeId", name: "StoreReviewView", component: StoreReviewView, props: true},
   {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true},
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true},
 
