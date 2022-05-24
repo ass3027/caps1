@@ -27,14 +27,15 @@
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
+    <button @click="dd2">ss</button>
     <div
       v-for="(placeInfo, aIdx) in place.placeInfo"
       :key="aIdx"
       class="hotelcard"
-      @click="gostoreInfo(placeInfo)"
+      @click="goStoreInfo(placeInfo)"
     >
       <br><br>
-      {{ placeInfo.store_name }}
+      {{ placeInfo.pl_name }}
       <v-card
         v-if="placeInfo.pic_name"
         width="300%"
@@ -68,10 +69,13 @@ export default {
   },
 
   methods: {
-    gostoreInfo(placeInfo) {
+    goStoreInfo(placeInfo) {
       console.log('storeInfo:' + placeInfo);
       this.$router.push(`hotel/${placeInfo.store_id}`);
     },
+    dd2(){
+      console.log(this.place.placeInfo)
+    }
   },
 };
 </script>

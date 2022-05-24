@@ -18,11 +18,10 @@ public class PlaceDAO {
     String address_dong;
     String pl_info;
     String store_phone;
-    String store_name;
     String category;
     String store_id;
-    String store_info;
     String user_id;
     String pic_name;
     String option_id;
+    String keeper_ox;
 }
