@@ -2,6 +2,7 @@ package c.e.exper.controller;
 
 
 import c.e.exper.data.Review;
+import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.service.FileServiceImpl;
 import c.e.exper.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,13 @@ public class ApiReview {
 
     private final ReviewService reviewService;
     private final FileServiceImpl fileService;
+    private final ReviewMapper reviewMapper;
 
     @Autowired
-    public ApiReview(ReviewService reviewService, FileServiceImpl fileService) {
+    public ApiReview(ReviewService reviewService, FileServiceImpl fileService, ReviewMapper reviewMapper) {
         this.reviewService = reviewService;
         this.fileService = fileService;
+        this.reviewMapper = reviewMapper;
     }
 
 
@@ -110,5 +113,14 @@ public class ApiReview {
         System.out.println("pay_id: " +pay_id);
         return reviewService.findByPay(pay_id);
     }
+
+    @GetMapping("/findPlName")
+    public String findPlName(String store_id) {
+        System.out.println("[findPlName] store_id: " + store_id);
+        String store_name = reviewMapper.findPlName(store_id);
+        System.out.println("[findPlName] pl_name: " + store_name);
+        return store_name;
+    }
+
 
 }

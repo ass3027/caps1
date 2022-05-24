@@ -77,7 +77,7 @@
           </div>
         </div>
       </div>
-    <StoreReviewView :store-id="store_id"/>
+    <StoreReviewView :store_name="store_name"/>
   </div>
 </template>
 
@@ -87,7 +87,7 @@ import axios from "axios";
 
 export default {
   name: 'ProductPage',
-  props: ['pl_id'],
+  props: ['store_id'],
   components: {
     StoreReviewView
   },
@@ -107,7 +107,9 @@ export default {
       showImageModal: false,
       slide: 0,
       temp:0,
-      index:0
+      index:0,
+
+      store_name:'',
     }
   },
 
@@ -115,7 +117,7 @@ export default {
     axios({
       method: 'GET',
       url: '/api/product',
-      params: {'pl_id': this.pl_id}
+      params: {'pl_id': this.store_id}
     })
       .then((res) => {
         this.products = res.data
@@ -124,6 +126,15 @@ export default {
       })
       .catch((err) => {
         console.log(err)
+      })
+
+    axios({
+      method: 'GET',
+      url: '/api/findPlName',
+      params: {'store_id': this.store_id}
+    })
+      .then((res) => {
+        this.store_name = res.data
       })
 
     const items = JSON.parse(localStorage.getItem('myCart'));
