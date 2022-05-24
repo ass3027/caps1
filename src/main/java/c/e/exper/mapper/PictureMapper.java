@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface PictureMapper {
 
-    @Insert("Insert Into Pictures Values(#{pic.pic_name},#{pic.ord_id, jdbcType=VARCHAR},#{pic.gitem_id, jdbcType=VARCHAR},#{pic.pl_id, jdbcType=VARCHAR},#{pic.keep_id, jdbcType=VARCHAR},#{pic.rev_id, jdbcType=VARCHAR},#{pic.pd_id, jdbcType=VARCHAR},#{pic.book_id, jdbcType=VARCHAR},#{pic.plan_id, jdbcType=VARCHAR},#{pic.store_id, jdbcType=VARCHAR},#{pic.user_id, jdbcType=VARCHAR})")
+    @Insert("Insert Into Pictures(PIC_NAME,USER_ID) Values(#{pic.pic_name},#{pic.user_id, jdbcType=VARCHAR})")
     void InsertUser(@Param("pic") PictureDAO pictureDAO);
 
     @Select("select * from pictures where plan_id=#{plan_id}")
@@ -21,10 +21,10 @@ public interface PictureMapper {
     @Select("Select pic_name From Pictures Where user_id=#{user_id}")
     String selectPicnameByUserId(String user_id);
 
-    @Insert("Insert Into Pictures Values(#{pic.pic_name},#{pic.ord_id, jdbcType=VARCHAR},#{pic.gitem_id, jdbcType=VARCHAR},#{pic.pl_id, jdbcType=VARCHAR},#{pic.keep_id, jdbcType=VARCHAR},#{pic.rev_id, jdbcType=VARCHAR},#{pic.pd_id, jdbcType=VARCHAR},#{pic.book_id, jdbcType=VARCHAR},#{pic.plan_id, jdbcType=VARCHAR},#{pic.store_id},#{pic.user_id, jdbcType=VARCHAR})")
+    @Insert("Insert Into Pictures(PIC_NAME,PL_ID) Values(#{pic.pic_name},#{pic.pl_id})")
     void InsertStore(@Param("pic") PictureDAO pictureDAO);
 
-    @Insert("Insert Into Pictures Values(#{pic.pic_name},#{pic.ord_id, jdbcType=VARCHAR},#{pic.gitem_id, jdbcType=VARCHAR},#{pic.pl_id, jdbcType=VARCHAR},#{pic.keep_id, jdbcType=VARCHAR},#{pic.rev_id, jdbcType=VARCHAR},#{pic.pd_id, jdbcType=VARCHAR},#{pic.book_id, jdbcType=VARCHAR},#{pic.plan_id, jdbcType=VARCHAR},#{pic.store_id, jdbcType=VARCHAR},#{pic.user_id, jdbcType=VARCHAR})")
+    @Insert("Insert Into Pictures(PIC_NAME,PLAN_ID) Values(#{pic.pic_name},#{pic.plan_id})")
     void InsertPlan(@Param("pic") PictureDAO pictureDAO);
 
 

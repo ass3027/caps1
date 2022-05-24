@@ -64,8 +64,9 @@
       <div>
         <div>호텔유형</div>
         <div v-for="(option, i) in option " :key="i">
-          <v-checkbox :label="option.title" :value="option.value" v-model="checkOptions" />
+          <v-checkbox :label="option.title" :value="option.title" v-model="checkOptions" />
         </div>
+        {{checkOptions}}
       </div>
       <!--      <div>-->
       <!--        <div>인원</div>-->
@@ -150,12 +151,16 @@ export default {
       //   }
     },
     setting() {
-      let ratingList = [];
-      this.rating.forEach(aItem => {
-        if (aItem.type) {
-          ratingList.push(aItem.name);
-        }
-      });
+      alert(this.checkOptions)
+      this.$store.commit('place/optionPlace', this.checkOptions)
+
+
+      // let ratingList = [];
+      // this.rating.forEach(aItem => {
+      //   if (aItem.type) {
+      //     ratingList.push(aItem.name);
+      //   }
+      // });
 
       // let postData = {
       //     date: { start: this.settingstart, end: this.settingend },
