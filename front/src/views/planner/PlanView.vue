@@ -42,10 +42,10 @@
     </v-row>
     <div style="padding:40px" />
     <v-row>
-      <h2>현재 플래너 목록</h2>
+      <h2>현재 소속된 플래너 목록</h2>
     </v-row>
     <v-row>
-      <v-simple-table dark>
+      <v-simple-table>
         <thead>
           <tr>
             <th
@@ -55,6 +55,7 @@
             >
               {{ key }}
             </th>
+            <th>phone</th>
             <th>삭제</th>
           </tr>
         </thead>

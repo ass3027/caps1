@@ -38,8 +38,11 @@ public class ApiShare {
 
 
     @GetMapping("/getSharePosts")
-    public List<Share> getSharePosts() {
-        List<Share> s = shareMapper.findAllShares();
+    public List<ShareDTO> getSharePosts() {
+        List<ShareDTO> s = shareMapper.findAllShares();
+        s.forEach((i)->{
+            i.setPic_name(shareMapper.findPicturesById(i.getShare_id()));
+        });
 //        for(int i =0;i<s.size();i++){
 //            Date d = s.get(i).getShare_created();
 //            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");

@@ -52,8 +52,8 @@
           >
             <thead>
               <tr>
-                <th>아이디</th>
-                <th>이름</th>
+                <th class="text-center">아이디</th>
+                <th class="text-center">이름</th>
               </tr>
             </thead>
             <tbody>

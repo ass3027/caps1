@@ -89,6 +89,7 @@
       <v-btn elevation="3" type="button" @click="Modify">수정</v-btn>
       <v-btn elevation="3" type="button" style="margin: 10px" @click="Delete">삭제</v-btn>
     </div>
+
   </div>
 </template>
 

@@ -36,11 +36,9 @@
                     />
                   </div>
                 </v-card-text>
-
-                <v-divider />
-
+                <v-divider/>
                 <v-card-actions>
-                  <v-spacer />
+                  <v-spacer/>
                   <v-btn
                     color="primary"
                     text
@@ -64,39 +62,32 @@
         </div>
       </div>
       <div>
-        {{ $store.state.asdf }}
         <div>호텔유형</div>
-        <div>
-          <v-checkbox
-            v-for="(ratingItem, aIdx) in rating"
-            :key="aIdx"
-            v-model="ratingItem.type"
-            hide-details
-            :label="`${ratingItem.name}`"
-            class="margin-0"
-          />
+        <div v-for="(option, i) in option " :key="i">
+          <v-checkbox :label="option.title" :value="option.title" v-model="checkOptions" />
         </div>
+        {{checkOptions}}
       </div>
-      <div>
-        <div>인원</div>
-        <div class="flex itemcenter">
-          <v-btn
-            text
-            icon
-            @click="minusPeople()"
-          >
-            <v-icon>mdi-minus</v-icon>
-          </v-btn>
-          <div>{{ peopleCount }}</div>
-          <v-btn
-            text
-            icon
-            @click="plusPeople()"
-          >
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-        </div>
-      </div>
+      <!--      <div>-->
+      <!--        <div>인원</div>-->
+      <!--        <div class="flex itemcenter">-->
+      <!--          <v-btn-->
+      <!--            text-->
+      <!--            icon-->
+      <!--            @click="minusPeople()"-->
+      <!--          >-->
+      <!--            <v-icon>mdi-minus</v-icon>-->
+      <!--          </v-btn>-->
+      <!--          <div>{{ peopleCount }}</div>-->
+      <!--          <v-btn-->
+      <!--            text-->
+      <!--            icon-->
+      <!--            @click="plusPeople()"-->
+      <!--          >-->
+      <!--            <v-icon>mdi-plus</v-icon>-->
+      <!--          </v-btn>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </v-card>
   </div>
 </template>
@@ -105,6 +96,7 @@ import axios from "axios";
 
 export default {
   name: 'PlaceLeft',
+  props: [ 'option' ],
   data() {
     return {
       startDate: new Date(
@@ -121,29 +113,24 @@ export default {
       settingend: '',
       IsDataForm: false,
       disabletoday: new Date().toISOString().substr(0, 10),
-      rating: [
-        { name: 'star5', type: false },
-        { name: 'star4', type: false },
-        { name: 'star3', type: false }
-      ],
       peopleCount: 1,
-      category:"hotel"
+      category: "hotel",
+      checkOptions: []
     };
   },
-  computed: {
-  },
+  computed: {},
   mounted() {
   },
   created() {
     axios({
-      method : 'get',
-      url    : `/api/store/${this.category}`,
+      method: 'get',
+      url: `/api/place/${this.category}`,
     })
-      .then((res)=>{
-        this.$store.commit('place/updateStore', res.data)
+      .then((res) => {
+        this.$store.commit('place/updatePlace', res.data)
       })
 
-      this.settingstart = this.startDate;
+    this.settingstart = this.startDate;
     this.settingend = this.endDate;
   },
   methods: {
@@ -155,22 +142,25 @@ export default {
       } else {
         alert('날짜를 확인하세요');
       }
-    },
-    plusPeople() {
-      this.peopleCount = this.peopleCount + 1;
-    },
-    minusPeople() {
-      if (this.peopleCount > 1) {
-        this.peopleCount = this.peopleCount - 1;
-      }
+      // plusPeople() {
+      //   this.peopleCount = this.peopleCount + 1;
+      // },
+      // minusPeople() {
+      //   if (this.peopleCount > 1) {
+      //     this.peopleCount = this.peopleCount - 1;
+      //   }
     },
     setting() {
-      let ratingList = [];
-      this.rating.forEach(aItem => {
-        if (aItem.type) {
-          ratingList.push(aItem.name);
-        }
-      });
+      alert(this.checkOptions)
+      this.$store.commit('place/optionPlace', this.checkOptions)
+
+
+      // let ratingList = [];
+      // this.rating.forEach(aItem => {
+      //   if (aItem.type) {
+      //     ratingList.push(aItem.name);
+      //   }
+      // });
 
       // let postData = {
       //     date: { start: this.settingstart, end: this.settingend },
@@ -199,16 +189,19 @@ export default {
   justify-content: center;
   margin-top: 2%;
 }
+
 .card-size {
   width: 90%;
-  height: 80%;
+  height: 100%;
   padding: 10px;
 }
+
 .modal-data {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .margin-0 {
   margin: 0px;
 }
@@ -217,9 +210,11 @@ export default {
 .flex {
   display: flex;
 }
+
 .justifycenter {
   justify-content: center;
 }
+
 .itemcenter {
   align-items: center;
 }

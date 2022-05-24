@@ -46,17 +46,6 @@
           />
         </v-row>
       </v-container>
-
-
-
-
-
-
-
-
-
-
-
       <v-file-input
         ref="refImage"
         v-model="user_photo"
@@ -89,7 +78,7 @@ export default {
       user_phone: '',
       user_name: '',
       user_birth: '',
-      user_photo: '',
+      user_photo: {},
       role: 'user',
     };
   },

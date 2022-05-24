@@ -15,4 +15,7 @@ public interface GItemMapper {
     @Insert("INSERT INTO gitem VALUES(#{gitem.gitem_id},#{gitem.user_id},#{gitem.pl_id},#{gitem.introduce},#{gitem.usage_time},#{gitem.require_time})")
     void insert(@Param("gitem") GItemDAO gitem);
 
+    @Select("SELECT * FROM gitem")
+    List<GItemDAO> selectAll();
+
 }

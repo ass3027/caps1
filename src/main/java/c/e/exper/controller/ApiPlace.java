@@ -1,6 +1,7 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.PictureDAO;
+import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.StoreDAO;
 import c.e.exper.data.StoreDTO;
 import c.e.exper.mapper.StoreMapper;
@@ -31,32 +32,29 @@ public class ApiPlace {
         this.pictureMapper = pictureMapper;
     }
 
-    @GetMapping("/store/{category}")
-    public List<StoreDAO> getStoreByCategory(@PathVariable String category){
-
-        List<StoreDAO> result = storeMapper.selectByCategory(category);
-
-        return result;
+    @GetMapping("/place/{category}")
+    public List<PlaceDAO> getStoreByCategory(@PathVariable String category){
+        return storeMapper.selectByCategory(category);
     }
 
     @GetMapping("/getHotel")
-    public List<StoreDAO> hotel(){
+    public List<PlaceDAO> hotel(){
         System.out.println("컨트롤러임");
 
         return storeMapper.findAll();
     }
 
-    @GetMapping("/getHotelPic")
-    public List<PictureDAO> hotelPic(){
-        System.out.println("호텔 사진 컨트롤러임");
-        List<PictureDAO> data = storeMapper.selectStorePic();
-        System.out.println(data.size());
-        for(int a=0;a<data.size();a++){
-            System.out.println(data.get(a));
-        }
-
-        return data;
-    }
+//    @GetMapping("/getHotelPic")
+//    public List<PictureDAO> hotelPic(){
+//        System.out.println("호텔 사진 컨트롤러임");
+//        List<PictureDAO> data = storeMapper.selectStorePic();
+//        System.out.println(data.size());
+//        for(int a=0;a<data.size();a++){
+//            System.out.println(data.get(a));
+//        }
+//
+//        return data;
+//    }
 
     @PostMapping("/hoteladd")
     public boolean hoteladd(StoreDTO store, HttpServletRequest req){

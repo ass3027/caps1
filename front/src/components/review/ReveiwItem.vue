@@ -1,47 +1,46 @@
 <template>
-  <v-container>
-    <v-card
-      class="mx-auto"
-      outlined
+  <v-card
+    class="ma-0 pa-0"
+    outlined
+    style="width: 100%; height: 300px"
+  >
+    <v-list-item
+      class="pa-0"
     >
-      <v-list-item three-line>
-        <v-list-item-content>
-          <v-list-item-title class="text-h5 mb-1">
-            <v-row>
-              <v-col
-                cols="12"
-                class="mb-0 pb-0"
-              >
-                <v-rating
-                  v-model="rev_rating"
-                  background-color="purple lighten-3"
-                  color="purple"
-                  readonly
-                  small
-                />
-              </v-col>
+      <v-list-item-content>
+        <v-row>
+          <v-col
+            cols="12"
+            class="mb-0 pb-0"
+          >
+            <v-rating
+              v-model="rev_rating"
+              background-color="purple lighten-3"
+              color="purple"
+              readonly
+              small
+            />
+          </v-col>
+
+          <p class="text-body  red--text">
+            {{ reg_date }}
+          </p>
 
 
-              <v-col class="ml-2 pt-0">
-                <p class="text-body-2 red--text">
-                  {{ reg_date }}
-                </p>
-              </v-col>
-            </v-row>
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ review.rev_content }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
 
-        <v-list-item-avatar
-          tile
-          size="150"
-          color="grey"
-        />
-      </v-list-item>
-    </v-card>
-  </v-container>
+        </v-row>
+        <v-list-item-subtitle>
+          {{ review.rev_content }}
+        </v-list-item-subtitle>
+      </v-list-item-content>
+
+      <v-list-item-avatar
+        tile
+        size="150"
+        color="grey"
+      />
+    </v-list-item>
+  </v-card>
 </template>
 
 <script>

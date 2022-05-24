@@ -1,5 +1,5 @@
 <template>
-  <div id="이재영시발럼">
+  <v-container>
     <PlannerHeader />
     <v-container style="padding-left:10px">
       <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
@@ -8,9 +8,10 @@
         />
       </div>
 
-      <div
+
+      <v-container
         id="plan"
-        style="float:right;width:60%;height:100%;overflow-x:auto;"
+        style="float:right;width:60%; "
       >
         <v-col>
           <input
@@ -31,26 +32,48 @@
           placeholder="일정이름"
           style="width:30%"
         />
-        <v-btn @click="create()">
-          create
-        </v-btn>
-        <v-btn @click="save()">
-          save
-        </v-btn>
-        <div
-          :style="{width:'calc(100%)',height:'100%',overflowX:'auto'}"
+        <v-row>
+          <v-col>
+            <v-btn @click="create()">
+              create
+            </v-btn>
+            <v-btn @click="save()">
+              save
+            </v-btn>
+          </v-col>
+        </v-row>
+<!--        <v-row>-->
+<!--          <v-col-->
+<!--            v-for="(data,key) in 3"-->
+<!--            :key="key"-->
+<!--          >-->
+<!--            <v-card>-->
+<!--              <p>dd</p>-->
+<!--            </v-card>-->
+<!--          </v-col>-->
+<!--        </v-row>-->
+        <v-row
+          style="height:100%;"
+          class="overflow-x-auto"
         >
-          <DateComponent
+          <v-col
             v-for="(date,index) in dateArr "
             :id="index+`s`"
             :key="index"
-            :date="date"
-            :style="{width:'30%',float:'left' }"
-          />
-        </div>
-      </div>
+            style="width:600px;height:600px;float:left;"
+            class="overflow-y-auto"
+            sm="20"
+
+          >
+            <DateComponent
+              :date="date"
+            />
+          </v-col>
+
+        </v-row>
+      </v-container>
     </v-container>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -88,7 +111,11 @@ export default {
   },
   mounted() {
     //가끔 plan Id 가 업다고 뜸 로직 문제..??
-    console.log(this.$store.state.user.planId)
+    if(this.$store.state.user.planId === 0) {
+      console.log("업서영")
+      this.create()
+      return;
+    }
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
       .then( (res)=>{
         console.log(res)
@@ -109,10 +136,6 @@ export default {
         }
         console.log(this.dateArr)
         //없으면 만들기
-        if(scheduleList.length === 0) {
-          this.create()
-          return;
-        }
         const calendar = {};
         calendar["planId"] = plan.plan_id
         calendar["SchName"] = plan.plan_name
@@ -148,17 +171,6 @@ export default {
     create() {
       let calendar = []
 
-      //플래너 생성때 쓸내용
-      // if(this.schName === '') {
-      //   alert("이름이 없습니다")
-      //   return;
-      // }
-      //
-      // if (this.startDateC > this.endDateC) {
-      //   alert("잘못된 날짜 설정 입니다");
-      //   return;
-      // }
-
       calendar["planId"] = this.$store.state.user.planId
       calendar["SchName"] = this.schName
       calendar["expectExpenses"] = 1000
@@ -175,22 +187,10 @@ export default {
       })
 
       console.log(calendar)
-      // this.calendar.forEach((key,data) => {
-      //   console.log(key + ", data:" + data)
-      // })
 
       this.$store.commit('calendar/updateCalendar', calendar)
 
     },
-    // selecting(tag) {
-    //   const check = this.sameCheck(tag);
-    //   if (check) this.selectedTag = tag;
-    //   console.log(tag);
-    //   return check
-    // },
-    // sameCheck(tag) {
-    //   return this.selectedTag !== tag;
-    // },
 
     applyMapData(mapData) {
       console.log("calendar: " + mapData)

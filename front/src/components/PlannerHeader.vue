@@ -63,7 +63,6 @@ export default {
         method: 'get'
       })
         .then((res) => {
-          console.log(res)
           if (res.data.length === 0) {
             this.plan_list = [{
               "plan_name": "없음"

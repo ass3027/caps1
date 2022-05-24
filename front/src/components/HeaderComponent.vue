@@ -83,10 +83,18 @@
 
 <script>
 import axios from "axios";
+import {EventBus} from "@/eventBus/eventBus";
 
 export default {
 
   name: 'HelloWorld',
+  created(){
+    EventBus.$on("photoUpdate",(photo)=>{
+      console.log(11)
+      console.log(decodeURI(photo))
+      this.photo = "/api/photo/"+decodeURI(photo)
+    })
+  },
   data: () => ({
     photo: '',
     menuList:[
@@ -133,7 +141,7 @@ export default {
         {title: '가이드 등록', route: '/GuideRegister'},
         {title: '가이드 예약 ', route: '/GuideReserve'},
         {title: '가이드 상품 등록', route: '/GuideProductReg'},
-        {title: 'Guide5', route: '/Guide'}
+        {title: '가이드 상품', route: '/GuideProduct'}
       ],
       [
         {title: '공유', route: '/share'},
@@ -156,21 +164,7 @@ export default {
       console.log(this.$store.state.user.userId)
       console.log(this.$store.getters['user/isLogin'])
       return this.$store.getters['user/isLogin']
-    }
-  },
-  mounted(){
-    if(this.$store.state.user.userId!==''){
-      axios.get("/api/user/photo")
-        .then( (res)=> {
-          console.log(res.data)
-          if(res.data==='') {
-            this.$store.dispatch('user/setUser','')
-            return;
-          }
-          this.photo = `/api/photo/`+res.data
-        })
-    }
-
+    },
   },
   methods: {
     logOut(){
@@ -181,7 +175,7 @@ export default {
       })
       .then((res)=>{
         console.log(res)
-        this.$store.dispatch('user/setUser','')
+        this.$store.dispatch('user/setUser','anonymousUser')
         this.$router.push("/")
       })
       .catch((err)=>{

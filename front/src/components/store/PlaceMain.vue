@@ -28,23 +28,23 @@
       </v-carousel-item>
     </v-carousel>
     <div
-      v-for="(storeInfo, aIdx) in hotel.storeInfo"
+      v-for="(placeInfo, aIdx) in place.placeInfo"
       :key="aIdx"
       class="hotelcard"
-      @click="gostoreInfo(storeInfo)"
+      @click="gostoreInfo(placeInfo)"
     >
       <br><br>
-      {{ storeInfo.store_name }}
+      {{ placeInfo.store_name }}
       <v-card
-        v-if="storeInfo.pic_name"
+        v-if="placeInfo.pic_name"
         width="300%"
         height="200px"
       >
         <v-img
-          v-if="storeInfo.pic_name"
+          v-if="placeInfo.pic_name"
           width="100%"
           height="100%"
-          :src="'/api/photo/' + storeInfo.pic_name"
+          :src="'/api/photo/' + placeInfo.pic_name"
           alt="실허어엄"
         />
       </v-card>
@@ -62,15 +62,15 @@ export default {
     };
   },
   computed: {
-    hotel() {
-      return this.$store.state.stores;
+    place() {
+      return this.$store.state.place;
     },
   },
 
   methods: {
-    gostoreInfo(storeInfo) {
-      console.log('storeInfo:' + storeInfo);
-      this.$router.push(`hotel/${storeInfo.store_id}`);
+    gostoreInfo(placeInfo) {
+      console.log('storeInfo:' + placeInfo);
+      this.$router.push(`hotel/${placeInfo.store_id}`);
     },
   },
 };

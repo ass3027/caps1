@@ -4,30 +4,36 @@
     class="main"
   >
     <div class="body">
-      <StoreHeader :category="category" />
+      <PlaceHeader :category="category"/>
       <div class="body-form">
-        <StoreLeftbar />
-        <StoreMain />
+        <PlaceLeft :option="option"/>
+        <PlaceMain />
       </div>
     </div>
   </v-container>
 </template>
 <script>
 
-import StoreHeader from '@/components/store/PlaceHeader.vue';
-import StoreLeftbar from '@/components/store/PlaceLeft.vue';
-import StoreMain from '@/components/store/PlaceMain.vue';
+import PlaceLeft from "@/components/store/PlaceLeft";
+import PlaceMain from "@/components/store/PlaceMain";
+import PlaceHeader from "@/components/store/PlaceHeader";
 
 export default {
   name: "HotelView",
   components: {
-    StoreHeader,
-    StoreLeftbar,
-    StoreMain,
+    PlaceHeader,
+    PlaceMain,
+    PlaceLeft
   },
   data() {
     return {
-      category: 'HOTEL'
+      category: 'HOTEL',
+      option: [
+        {title: "pool", value: "1"},
+        {title: "spa", value: "2"},
+        {title: "restaurant", value: "3"},
+        {title: "golf", value: "3"}
+      ]
     }
   }
 }
