@@ -27,5 +27,14 @@ public interface UserMapper { //디비접근
 
 
 
+    /* user 전화번호 올바른 형식으로 업데이트 */
+    @Update("update users set user_phone=#{phone_num} where user_id = #{user_id}")
+    void updateUserPhone(@Param("phone_num")String phone_num, @Param("user_id") String user_id);
+
+    @Select("SELECT user_id FROM users")
+    List<String> selectAllId();
+    /* user 전화번호 올바른 형식으로 업데이트 */
+
+
 
 }

@@ -21,7 +21,6 @@ import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportView from "../views/bag/order/TransportView";
 
-import StoreReviewView from "@/views/StoreReviewView";
 
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
@@ -39,7 +38,6 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 
 import ProductReviewView from "@/views/ProductReviewView";
-import ReviewCreateView from "@/views/ReviewCreateView";
 import StoreReviewView from "@/views/StoreReviewView";
 
 import ReviewCreateView from "@/views/ReviewCreateView";
