@@ -1,6 +1,6 @@
 <template>
   <div class="header-layout">
-    <div class="login-box" />
+    <!--<div class="login-box" />-->
     <div>
       <div>Packless Travel</div>
       <div class="hotel-list-form">
@@ -42,10 +42,10 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
-.login-box {
-  display: flex;
-  justify-content: flex-end;
-}
+/*.login-box {*/
+/*  display: flex;*/
+/*  justify-content: flex-end;*/
+/*}*/
 .hotel-list-form {
   display: flex;
   align-items: center;

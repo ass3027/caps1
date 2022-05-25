@@ -39,6 +39,7 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 
 import ProductReviewView from "@/views/ProductReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
+
 import ReviewCreateView from "@/views/ReviewCreateView";
 import MypageView from "@/views/auth/MypageView";
 
@@ -54,6 +55,8 @@ import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
 import WritingModView from "@/views/auth/WritingModView";
 
+import { store } from "@/store";
+import TestView from "@/views/TestView";
 import {store} from "@/store"
 import axios from "axios";
 import {EventBus} from "@/eventBus/eventBus";
@@ -185,7 +188,7 @@ const routes = [
     component: LocationCheckView,
   },
 
-  { path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView },
+  { path: "/TestView", name: "TestView", component: TestView },
 ];
 
 const router = new VueRouter({
