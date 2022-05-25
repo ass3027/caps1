@@ -28,6 +28,7 @@ public interface StoreMapper {
             "       PLACE.ADDRESS_DONG,\n" +
             "       PLACE.STORE_PHONE,\n" +
             "       PLACE.CATEGORY,\n" +
+            "       PLACE.PL_NAME,\n" +
             "       PLACE.STORE_ID,\n" +
             "       PICTURES.PIC_NAME\n" +
             "FROM PLACE,\n" +
