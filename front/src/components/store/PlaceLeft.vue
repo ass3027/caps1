@@ -66,7 +66,6 @@
         <div v-for="(option, i) in option " :key="i">
           <v-checkbox :label="option.title" :value="option.title" v-model="checkOptions" />
         </div>
-        {{checkOptions}}
       </div>
       <!--      <div>-->
       <!--        <div>인원</div>-->

@@ -39,7 +39,6 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 
 import ProductReviewView from "@/views/ProductReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
-
 import ReviewCreateView from "@/views/ReviewCreateView";
 import MypageView from "@/views/auth/MypageView";
 
@@ -55,7 +54,10 @@ import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
 import WritingModView from "@/views/auth/WritingModView";
 
-import { store } from "@/store";
+import {store} from "@/store"
+import axios from "axios";
+import {EventBus} from "@/eventBus/eventBus";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -195,10 +197,25 @@ const router = new VueRouter({
 router.beforeResolve((to, from, next) => {
   if (to.path === "/login" || to.path === "/join" || to.path === "/") {
     next();
-  } else if (!store.getters["user/isLogin"]) {
-    console.log("dd");
-    next("/login");
-  } else next();
-});
-
+  } else {
+    const dd = async () => {
+      try {
+        const id = await axios.get("/api/user/id");
+        await store.dispatch("user/setUser", id.data);
+        if ("anonymousUser" !== id.data) {
+          console.log("login")
+          const photo = await axios.get("/api/user/photo")
+          EventBus.$emit("photoUpdate", photo.data)
+          next()
+        } else {
+          console.log("not login")
+          next('/login');
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    dd()
+  }
+})
 export default router;

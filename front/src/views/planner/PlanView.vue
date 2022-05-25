@@ -45,7 +45,7 @@
       <h2>현재 소속된 플래너 목록</h2>
     </v-row>
     <v-row>
-      <v-simple-table dark>
+      <v-simple-table>
         <thead>
           <tr>
             <th

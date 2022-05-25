@@ -50,8 +50,8 @@ public class ApiUser {
         return userMapper.selectId(user_id).get();
     }
 
-    @GetMapping("/exper")
-    public String exper() {
+    @GetMapping("/id")
+    public String getId() {
 
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
@@ -59,7 +59,6 @@ public class ApiUser {
     @GetMapping("/photo")
     public String getUserPicture(){
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(user_id);
         return pictureMapper.selectPicnameByUserId(user_id);
     }
     

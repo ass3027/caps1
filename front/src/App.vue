@@ -49,6 +49,7 @@ export default {
         { title: "Review", icon: "mdi-vue-dashboard", to: "/ReviewView" },
         { title: "Plan", icon: "mdi-vue-dashboard", to: "/plan" },
         { title: "Join", icon: "mdi-vue-dashboard", to: "/join" },
+        { title: "MyPage", icon: "mdi-vue-dashboard", to: "/MyPage"}
       ],
     };
   },
