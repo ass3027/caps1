@@ -44,12 +44,16 @@ export default {
 
   data() {
     return {
+<<<<<<< Updated upstream
       drawer: false,
       items: [
         { title: "Review", icon: "mdi-vue-dashboard", to: "/ReviewView" },
         { title: "Plan", icon: "mdi-vue-dashboard", to: "/plan" },
         { title: "Join", icon: "mdi-vue-dashboard", to: "/join" },
       ],
+=======
+
+>>>>>>> Stashed changes
     };
   },
 };

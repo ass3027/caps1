@@ -1,9 +1,11 @@
 package c.e.exper.service;
 
 import c.e.exper.data.PictureDAO;
+import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.Review;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.ReviewMapper;
+import c.e.exper.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,12 @@ public class ReviewService {
 
     final ReviewMapper reviewMapper;
     final PictureMapper pictureMapper;
+    final UserMapper userMapper;
 
-    public ReviewService(ReviewMapper reviewMapper, PictureMapper pictureMapper) {
+    public ReviewService(ReviewMapper reviewMapper, PictureMapper pictureMapper, UserMapper userMapper) {
         this.reviewMapper = reviewMapper;
         this.pictureMapper = pictureMapper;
+        this.userMapper = userMapper;
     }
 
 
@@ -26,6 +30,7 @@ public class ReviewService {
 
         return reviewMapper.findAllReview();
     }
+
 
     // 조건: 기등록 리뷰가 았을 시 등록 불가(결제번호)
     public int 리뷰_등록(Review review) {

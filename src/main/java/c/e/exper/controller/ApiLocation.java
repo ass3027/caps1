@@ -1,11 +1,13 @@
 package c.e.exper.controller;
 
 
+import c.e.exper.data.DuserDAO;
 import c.e.exper.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -43,5 +45,10 @@ public class ApiLocation {
     public String findDuserIdByOrdId(String ord_id) {
         System.out.println("ord_id: " + ord_id);
         return deliveryService.주문서_운송원ID_조회(ord_id);
+    }
+
+    @GetMapping("/location/getDusers")
+    public List<DuserDAO> getDusers(@RequestBody Map<String, String> coord) {
+
     }
 }

@@ -59,6 +59,7 @@
 
         <v-chip>7:30PM</v-chip>
 
+<<<<<<< Updated upstream
         <v-chip>8:00PM</v-chip>
 
         <v-chip>9:00PM</v-chip>
@@ -75,6 +76,21 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+=======
+                <div class="col-4 col-md-12 my-1">
+                <span class="" style="font-weight: 700; color: rgb(183, 183, 183); text-decoration: line-through;">
+                  $250.00
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <StoreReviewView :store_name="store_name"/>
+  </div>
+>>>>>>> Stashed changes
 </template>
 
 <script>

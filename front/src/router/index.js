@@ -49,7 +49,21 @@ import StoreView from "@/views/store/StoreView";
 import StoreDetail from "@/views/store/StoreDetail";
 
 import LocationUpdate from "@/views/LocationUpdate";
+<<<<<<< Updated upstream
 
+=======
+import BookMarkView from "@/views/auth/BookMarkView";
+import MyDataView from "@/views/auth/MyDataView";
+import QuestionsView from "@/views/auth/QuestionsView";
+import WritingView from "@/views/auth/WritingView";
+import DetailPageView from "@/views/auth/DetailPageView";
+import WritingModView from "@/views/auth/WritingModView";
+
+import { store } from "@/store";
+import TestView from "@/views/TestView";
+import axios from "axios";
+import {EventBus} from "@/eventBus/eventBus";
+>>>>>>> Stashed changes
 
 Vue.use(VueRouter);
 
