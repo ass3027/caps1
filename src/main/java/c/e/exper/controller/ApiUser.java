@@ -14,16 +14,19 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import c.e.exper.service.ReviewService;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import java.security.Principal;
 import java.security.Security;
+
+
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.Random;
+import java.util.regex.Pattern;
 
 
 
@@ -33,7 +36,7 @@ import java.util.regex.Pattern;
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/user")
 public class ApiUser {
 
     final
@@ -63,17 +66,21 @@ public class ApiUser {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/exper")
-    public String exper() {
+    @GetMapping("/find")
+    public UserDAO findUser(String user_id) {
+        return userMapper.selectId(user_id).get();
+    }
+
+    @GetMapping("/id")
+    public String getId() {
 
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
-    @GetMapping("/user")
+    @GetMapping("/photo")
     public String getUserPicture(){
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        String pic = pictureMapper.selectByUserId(user_id);
-        return pic;
+        return pictureMapper.selectPicnameByUserId(user_id);
     }
     
 
@@ -91,6 +98,17 @@ public class ApiUser {
                         user.getUser_pw()
                 )
         );
+
+
+        // 폰 번호가 형식에 안 맞을 경우 랜덤 값
+        if ( !Pattern.matches("^010[0-9]{8}$", user.getUser_phone())) {
+            user.setUser_phone(getRandomPhone());
+            System.out.println("[user_phone:]" + user.getUser_phone());
+        }
+        // 유저 이름이 형식에 안 맞을 경우 랜덤 값(2~5글자 사이의 한글)
+        if(!Pattern.matches("^[가-힣]{2,5}$", user.getUser_name())) {
+            user.setUser_name(randomHangulName());
+        }
 
         //파일 이름 저장 밑 파일 실제 저장
         //경로 이상함
@@ -132,7 +150,6 @@ public class ApiUser {
 //        }
 //        System.out.println("count: " + i);
     }
-
 
     public String getRandomPhone(){
 

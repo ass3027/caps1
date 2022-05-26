@@ -17,6 +17,11 @@ public class PlaceDAO {
     String address_si;
     String address_gu;
     String address_dong;
+
+    String address_si;
+    String address_gu;
+    String address_dong;
+    String pl_info;
     String store_phone;
     String category;
     String store_id;
@@ -39,4 +44,7 @@ public class PlaceDAO {
     String title;
     String zipcode;
 
+    String pic_name;
+    String option_id;
+    String keeper_ox;
 }

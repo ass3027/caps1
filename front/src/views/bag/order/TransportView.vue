@@ -1,110 +1,121 @@
 <template>
   <v-app id="app">
-    <div class="Bag-order">
-      가방운송 신청서
-    </div>
-
     <v-form v-model="valid">
       <v-container>
         <h3>짐 종류와 수량</h3>
-
-        <div class="d-flex flex-column mb-6">
-          <v-card
+        <v-container class="d-flex flex-column mb-6">
+          <v-row
             v-for="(bagType,index) in bagType "
             :key="index"
-            class="d-inline-flex p-2"
-            outlined
-            tile
           >
             {{ bagType.title }}
+            <v-checkbox
+              v-model="checkedName"
+              :value="bagType.value"
+            />
+          </v-row>
+
+          <v-card>
+            <h1>가방 합계가격: {{ bagAmount }} 원</h1>
           </v-card>
-        </div>
+        </v-container>
+      </v-container>
+      <v-container
+        fluid
+        class="pa-0"
+      >
+        <v-row>
+          <DateTimePicker
+            :label="'시작날짜'"
+            @date="changeEntrustTime"
+          />
+          <DateTimePicker
+            :label="'종료날짜'"
+            @date="changeWithdrawTime"
+          />
+        </v-row>
+      </v-container>
 
-        <v-row
-          justify="space-around"
-        >
-          <v-col
-            cols="12"
-            md="6"
-          >
-            <span>이용날짜</span>
-            <v-expansion-panels>
-              <v-expansion-panel>
-                <v-expansion-panel-header />
-                <v-expansion-panel-content>
-                  <v-date-picker
-                    v-model="picker"
-                    show-adjacent-months
-                  />
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-
-            <v-card
-              class="d-flex pa-2"
-              outlined
-              tile
-            >
-              <h3>시작</h3><br>
+      <v-container justify="space-around">
+        <v-row md="6">
+          <v-col>
+            <v-card>
+              <h3>출발장소</h3>
               <AddressComponent @addressData="startAddress" />
             </v-card>
-            <v-card
-              class="d-flex pa-2"
-              outlined
-              tile
-            >
-              <h3>도착</h3><br>
+          </v-col>
+          <v-col>
+            <v-card>
+              <h3>도착장소</h3>
               <AddressComponent @addressData="endAddress" />
             </v-card>
           </v-col>
         </v-row>
-        <div>
-          <v-btn
-            depressed
-            color="primary"
-            @click="addOrder"
-          >
-            작성 완료
-          </v-btn>
-        </div>
       </v-container>
+      <br>
+
+      <div>
+        <v-btn
+          depressed
+          color="primary"
+          @click="addOrder"
+        >
+          작성 완료
+        </v-btn>
+      </div>
     </v-form>
-    <!--    <div id="mapcomponent"><MapComponent/></div>-->
 
     <router-view />
   </v-app>
 </template>
 
 <script>
-
-// import MapComponent from "@/components/MapComponent";
 import AddressComponent from "@/components/AddressComponent"
+import DateTimePicker from "@/views/bag/order/DateTimePicker"
 import axios from "axios";
 
 export default {
   components: {
-    // MapComponent
-    AddressComponent
-
+    AddressComponent,
+    DateTimePicker
   },
   data() {
     return {
-      picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      checkedName: [],
       overlay: false,
       valid: '',
-      keepStart: '',
-      keepEnd: '',
       checkBagTime: '',
       pickUpTime: '',
+      //시작날짜
+      entrustTime:'',
+      //도착날짜
+      withdrawTime: '',
+      //시작장소
+      entrustAddress: '',
+      //도착장소
+      withdrawAddress: '',
+
       bagType: [
-        {title: '기내용 캐리어(57cm 미만) 10,000원'},
-        {title: '화물용 캐리어(57cm 이상 67cm 미만) 15000원'},
-        {title: '특대형 캐리어(67cm 이상 또는 20kg 이상) 20000원'},
-        {title: '백팩 소형(40L 미만 그리고 10kg 미만) 10000원'},
-        {title: '백팩 대형(40L 이상 또는 10kg 이상) 15000원'},
-        {title: '기타물품 별도문의'}
+        {title: '기내용 캐리어(57cm 미만) 11,000원', value: 11000},
+        {title: '화물용 캐리어(57cm 이상 67cm 미만) 16,000원', value: 16000},
+        {title: '특대형 캐리어(67cm 이상 또는 20kg 이상) 20,000원', value: 20000},
+        {title: '백팩 소형(40L 미만 그리고 10kg 미만) 10,000원', value: 10000},
+        {title: '백팩 대형(40L 이상 또는 10kg 이상) 15,000원', value: 15000},
+        {title: '기타물품 별도문의', value: 30000}
       ],
     }
+  },
+  computed: {
+
+
+    bagAmount() {
+      var a = 0;
+      this.checkedName.forEach(i => {
+        a = a + i;
+      })
+      console.log(a)
+      return a;
+    },
   },
   watch: {
     overlay(val) {
@@ -115,33 +126,40 @@ export default {
   },
 
   methods: {
+    changeEntrustTime(date){
+      this.entrustTime =date;
+    },
+    changeWithdrawTime(date){
+      this.withdrawTime = date;
+    },
     addOrder() {
-      const bag = {
+      let bag = {
         ord_id: 301,
+        ord_amount: this.bagAmount,
         user_id: this.$store.state.user.userId,
-        keep_start: this.keepStart,
-        keep_end: this.keepEnd,
+        keep_start: this.entrustAddress,
+        keep_end: this.withdrawAddress,
+        entrust_time:this.entrustTime,
+        withdraw_time: this.withdrawTime,
       }
-      console.log(bag);
       axios
         .post('/api/addOrder', bag)
         .then((res) => {
           alert("주문 완료!")
         })
     },
+
     startAddress(address) {
-      this.keepStart = address
-      console.log(this.keepStart)
+      this.entrustAddress = address
+      console.log(this.entrustAddress)
     },
     endAddress(address) {
-      this.keepEnd = address
-      console.log(this.keepEnd)
-    }
+      this.withdrawAddress = address
+      console.log(this.withdrawAddress)
+    },
+
   },
-
-
 }
-
 </script>
 
 <style scoped>
@@ -150,8 +168,4 @@ export default {
   font-size: xx-large;
 }
 
-/*#mapcomponent {*/
-/*  width: 1000px;*/
-/*  height: 300px;*/
-/*}*/
 </style>

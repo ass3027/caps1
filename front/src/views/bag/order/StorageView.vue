@@ -8,7 +8,7 @@
       <v-container>
         <h3>짐 종류와 수량</h3>
 
-        <div class="d-flex flex-column mb-6">
+        <v-container class="d-flex flex-column mb-6">
           <v-card
             v-for="(bagType,index) in bagType "
             :key="index"
@@ -16,9 +16,16 @@
             outlined
             tile
           >
-            {{ bagType.title }}
+            <h3>{{ bagType.title }}</h3>
+            <v-checkbox
+              v-model="checkedName"
+              :value="bagType.value"
+            />
           </v-card>
-        </div>
+          <v-card>
+            <h1>가방 합계가격: {{ bagTypeChoose }} 원</h1>
+          </v-card>
+        </v-container>
 
         <v-row
           justify="space-around"
@@ -32,26 +39,17 @@
               outlined
               tile
             >
-              <div />
-            </v-card>
-            <v-card>
-              <h3>
-                맡길
-                <AddressComponent @addressData="startAddress" />
-              </h3>
+              <AddressComponent @addressData="startAddress" />
             </v-card>
             <br>
 
             <v-text-field
               v-model="checkBagTime"
-
               label="맡길 시간"
               required
             />
-
             <v-text-field
               v-model="pickUpTime"
-
               label="찾을시간"
               required
             />
@@ -88,21 +86,33 @@ export default {
   },
   data() {
     return {
+      checkedName: [],
       overlay: false,
       valid: '',
       keepStart: '',
       keepEnd: '',
+
       checkBagTime: '',
-      pickUpTime: '',
+
       bagType: [
-        {title: '기내용 캐리어(57cm 미만) 10,000원'},
-        {title: '화물용 캐리어(57cm 이상 67cm 미만) 15000원'},
-        {title: '특대형 캐리어(67cm 이상 또는 20kg 이상) 20000원'},
-        {title: '백팩 소형(40L 미만 그리고 10kg 미만) 10000원'},
-        {title: '백팩 대형(40L 이상 또는 10kg 이상) 15000원'},
-        {title: '기타물품 별도문의'}
+        {title: '기내용 캐리어(57cm 미만) 11,000원', value: 11000},
+        {title: '화물용 캐리어(57cm 이상 67cm 미만) 16,000원', value: 16000},
+        {title: '특대형 캐리어(67cm 이상 또는 20kg 이상) 20,000원', value: 20000},
+        {title: '백팩 소형(40L 미만 그리고 10kg 미만) 10,000원', value: 10000},
+        {title: '백팩 대형(40L 이상 또는 10kg 이상) 15,000원', value: 15000},
+        {title: '기타물품 별도문의', value: 30000}
       ],
     }
+  },
+
+  computed: {
+    bagTypeChoose() {
+      var a = 0;
+      this.checkedName.forEach(i => {
+        a = a + i;
+      })
+      return a;
+    },
   },
   watch: {
     overlay(val) {
@@ -111,7 +121,6 @@ export default {
       }, 2000)
     },
   },
-
   methods: {
     addOrder() {
       const bag = {

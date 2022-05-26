@@ -1,4 +1,4 @@
-//const { defineConfig } = require('@vue/cli-service')
+    //const { defineConfig } = require('@vue/cli-service')
 module.exports = {
 
   transpileDependencies: [
@@ -13,8 +13,5 @@ module.exports = {
       }
     },
   },
-
-
-
   //indexPath: "../static/index.html",
 }

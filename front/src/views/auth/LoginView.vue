@@ -8,6 +8,7 @@
         />
         <v-text-field
           v-model="pw"
+          type="password"
           placeholder="PW"
         />
         <v-btn @click="login()">
@@ -30,7 +31,7 @@
 import axios from 'axios'
 
 export default {
-  name: "LoginView.vue",
+  name: "LoginView",
   beforeRouteEnter(to,from,next){
     console.log(to)
     console.log(from)
@@ -70,12 +71,12 @@ export default {
               alert("fail")
             }
             else {
-              console.log(this.username)
-              this.$store.commit('user/updateUserId',this.id)
-              console.log(this.$store.state.user)
-              console.log(this.$store.state.id)
+              //this.$store.commit('user/updateUserId',this.id)
+              this.$store.dispatch('user/setUser',this.id)
+              //res.headers.gg를 header컴포넌트로 보내야하는딩
+              console.log(res.headers.gg)
               this.$router.push("/")
-              location.reload()
+              //location.reload()
             }
           })
           .catch((err) => {
@@ -84,7 +85,7 @@ export default {
     },
     getId() {
       axios({
-        url   : '/api/exper',
+        url   : '/api/user/exper',
         method: 'get'
       })
           .then((res) => {

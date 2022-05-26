@@ -34,6 +34,7 @@
         <v-row>
           <v-text-field
             v-model="user_phone"
+
             type="text"
             placeholder="PHONE"
           />
@@ -45,17 +46,6 @@
           />
         </v-row>
       </v-container>
-
-
-
-
-
-
-
-
-
-
-
       <v-file-input
         ref="refImage"
         v-model="user_photo"
@@ -88,7 +78,7 @@ export default {
       user_phone: '',
       user_name: '',
       user_birth: '',
-      user_photo: '',
+      user_photo: {},
       role: 'user',
     };
   },
@@ -130,7 +120,7 @@ export default {
 
       axios({
         method: 'post',
-        url: '/api/join',
+        url: '/api/user/join',
         headers: {
           'Content-Type': 'multipart/form-data',
         },

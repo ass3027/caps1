@@ -2,20 +2,16 @@ package c.e.exper.service;
 
 import c.e.exper.data.Review;
 import c.e.exper.mapper.ReviewMapper;
-<<<<<<< Updated upstream
+import c.e.exper.mapper.UserMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-=======
 import c.e.exper.mapper.UserMapper;
 import org.json.JSONObject;
->>>>>>> Stashed changes
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-<<<<<<< Updated upstream
 import java.util.List;
-=======
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -25,7 +21,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
->>>>>>> Stashed changes
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ReviewServiceTest {
@@ -33,6 +36,38 @@ class ReviewServiceTest {
     @Autowired ReviewService reviewService;
     @Autowired ReviewMapper reviewMapper;
 
+    @Autowired UserMapper userMapper;
+
+
+    public String getRandomPhone(){
+
+        char[] charaters = {'0','1','2','3','4','5','6','7','8','9'};
+
+        StringBuffer sb = new StringBuffer();
+        sb.append('0');
+        sb.append('1');
+        sb.append('0');
+
+
+        Random rn = new Random();
+
+        for( int i = 0 ; i < 8 ; i++ ){
+
+            sb.append( charaters[ rn.nextInt( charaters.length ) ] );
+
+        }
+
+        return sb.toString();
+
+    }
+
+
+    @Test
+    void test() {
+
+        List<String> users_id = userMapper.selectAllId();
+        users_id.forEach(i -> userMapper.updateUserPhone(getRandomPhone(), i));
+    }
 
     @Test
     void 모든_리뷰_조회() {
@@ -86,8 +121,6 @@ class ReviewServiceTest {
 //        System.out.println(reviewMapper.findAllReviewForReview("102"));
     }
 
-<<<<<<< Updated upstream
-=======
     @Test
     void 정규식_테스트() {
 
@@ -159,10 +192,6 @@ class ReviewServiceTest {
         return 성.get(0) + 이름.get(0) + 이름.get(1);
     }
 
-
-
-
->>>>>>> Stashed changes
 
 
 }

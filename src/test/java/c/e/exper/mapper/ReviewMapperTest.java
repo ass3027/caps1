@@ -89,9 +89,8 @@ public class ReviewMapperTest {
     @Test
     public void findAllReviewForStore() {
 
-        List<Review> reviews = mapper.findAllReviewForStore("편안호텔");
 
-        reviews.forEach(System.out::println);
+        mapper.findAllReviewForStore("편안 호텔").forEach(System.out::println);
     }
 
     @Test
