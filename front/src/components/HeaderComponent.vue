@@ -24,8 +24,8 @@
         <div class="text-center">
           <v-menu v-for="(menu,index) in menuList" :key="index" offset-y>
             <template #activator="{ on, attrs }">
-              <v-btn color="primary" dark v-bind="attrs" v-on="on">
-                {{ menu }}
+              <v-btn class="primary" v-bind="attrs" v-on="on">
+                <nav dark>{{ menu }}</nav>
               </v-btn>
             </template>
             <v-list>
