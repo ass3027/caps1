@@ -22,4 +22,5 @@ public interface LocationMapper {
 
     @Select("select count(*) from location where loc_group = #{loc_group} and loc_index = #{loc_index}")
     public boolean locationExist(@Param("loc_group") String loc_group, @Param("loc_index") String loc_index);
+
 }

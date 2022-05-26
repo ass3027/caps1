@@ -5,10 +5,22 @@ import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.mapper.UserMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import c.e.exper.mapper.UserMapper;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.regex.Pattern;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -122,6 +134,42 @@ class ReviewServiceTest {
 
     }
 
+    @Test
+    void API_테스트() throws Exception {
+
+        String responsData = apiGet("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList", "ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&areaCode=35&MobileOS=ETC&MobileApp=AppTest&numOfRows=2913&_type=json");
+        System.out.println(responsData);
+    }
+
+    String apiGet(String urlData, String parameters) throws Exception {
+        String USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:35.0) Gecko/20100101 Firefox/35.0";
+        String totalUrl = "";
+        if(parameters != null && parameters.length() > 0 && !parameters.equals("") && !parameters.contains("null")){
+            totalUrl = urlData.trim().toString() + "?" + parameters.trim().toString();
+        } else {
+            totalUrl = urlData.trim().toString();
+        }
+
+        URL url = new URL(totalUrl);
+
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+        con.setRequestMethod("GET");
+        con.setRequestProperty("User-Agent", USER_AGENT);
+
+        int responseCode = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        return response.toString();
+    }
+
 
     public static String randomHangulName() {
         List<String> 성 = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
@@ -143,8 +191,6 @@ class ReviewServiceTest {
         Collections.shuffle(이름);
         return 성.get(0) + 이름.get(0) + 이름.get(1);
     }
-
-
 
 
 

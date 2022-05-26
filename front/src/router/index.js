@@ -62,6 +62,7 @@ import {store} from "@/store"
 import axios from "axios";
 import {EventBus} from "@/eventBus/eventBus";
 
+
 Vue.use(VueRouter);
 
 const routes = [

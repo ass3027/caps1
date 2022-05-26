@@ -18,6 +18,7 @@ export default {
 
   data() {
     return {
+<<<<<<< Updated upstream
       drawer: false,
       items: [
         { title: "Review", icon: "mdi-vue-dashboard", to: "/ReviewView" },
@@ -25,6 +26,9 @@ export default {
         { title: "Join", icon: "mdi-vue-dashboard", to: "/join" },
         { title: "MyPage", icon: "mdi-vue-dashboard", to: "/MyPage"}
       ],
+=======
+
+>>>>>>> Stashed changes
     };
   },
 };
