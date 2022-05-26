@@ -1,7 +1,7 @@
 <template>
   <form class="joinGItem">
     <h2>가이드 상품 등록</h2>
-    <h1>{{$store.state.user.userId}}</h1>
+    <h1>{{ $store.state.user.userId }}</h1>
     <div class="textForm">
       <input
         v-model="gitem_id"

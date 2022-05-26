@@ -1,6 +1,7 @@
 package c.e.exper.mapper;
 
 import c.e.exper.data.Share;
+import c.e.exper.data.ShareDTO;
 import c.e.exper.data.SharePictureDAO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.security.core.parameters.P;
@@ -20,7 +21,7 @@ public interface ShareMapper {
     public long insertTest(String param1, String param2);
 
     @Select("select * from shares order by TO_NUMBER(SHARE_ID)desc")
-    public List<Share> findAllShares();
+    public List<ShareDTO> findAllShares();
 
     @Select("select * from shares where SHARE_ID=#{share_id}")
     public Share findShareById(String share_id);

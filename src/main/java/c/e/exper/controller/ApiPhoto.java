@@ -24,7 +24,7 @@ public class ApiPhoto {
             @PathVariable String folderName,
             @PathVariable String fileName, HttpServletRequest req) throws Exception{
 
-        //System.out.println("GET 이미지(folderName: " + folderName + " fileName: " + fileName + ")");
+        System.out.println("GET 이미지(folderName: " + folderName + " fileName: " + fileName + ")");
 
         InputStream in = null;
         ResponseEntity<byte[]> entity;

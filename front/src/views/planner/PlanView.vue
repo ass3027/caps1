@@ -1,96 +1,91 @@
 <template>
-  <div>
-    <PlannerHeader/>
-    <hr>
+  <div style="padding-left: 15px">
+    <PlannerHeader />
 
-    <p>planner make</p>
+
+    <h2>플래너 생성</h2>
+    <hr>
     <v-row>
       <v-col>
-        plan Name
+        <h3>플래너 이름</h3>
         <v-text-field
+          v-model="plan_name"
           placeholder="name"
           solo
-          v-model="plan_name"
           style="width:200px"
         />
       </v-col>
     </v-row>
-    <v-row justify="center" style="width:100%">
+    <h3>시작날짜 및 종료날짜</h3>
+    <v-row
+      justify="center"
+      style="width:50%"
+    >
       <v-col>
         <v-date-picker
+          v-model="plan_range"
           style="width:50%;height:350px;"
-          v-model="plan_start"
           type="date"
-
-        />
-
-      </v-col>
-      <v-col>
-        <v-date-picker
-          style="width:50%;height:350px"
-          v-model="plan_end"
-          type="date"
+          range
         />
       </v-col>
     </v-row>
 
     <v-row>
       <v-btn
+        color="blue"
         @click="addPlan"
         @submit.prevent
-        color="blue"
       >
         생성
       </v-btn>
     </v-row>
-    <div style="padding:40px"></div>
+    <div style="padding:40px" />
     <v-row>
-
-      <!--      <ul>-->
-      <!--        <li-->
-      <!--          v-for="(plan,index) in plan_list"-->
-      <!--          :key="index"-->
-      <!--        >-->
-      <!--          ID : {{ plan.plan_id }} / NAME : {{ plan.plan_name }}-->
-      <!--          <v-btn-->
-      <!--            @submit.prevent-->
-      <!--            @click="deletePlan(plan.plan_id)"-->
-      <!--            color="light-green"-->
-      <!--          >-->
-      <!--            삭제-->
-      <!--          </v-btn>-->
-      <!--        </li>-->
-      <!--      </ul>-->
-      <v-simple-table >
+      <h2>현재 소속된 플래너 목록</h2>
+    </v-row>
+    <v-row>
+      <v-simple-table>
         <thead>
-        <tr>
-          <th v-for="(key,index) in keys" :key="index" class="text-left">
-            {{ key }}
-          </th>
-        </tr>
+          <tr>
+            <th
+              v-for="(key,index) in keys"
+              :key="index"
+              class="text-left"
+            >
+              {{ key }}
+            </th>
+            <th>phone</th>
+            <th>삭제</th>
+          </tr>
         </thead>
         <tbody>
-        <tr v-for="(plan,index) in plan_list" :key="index">
-          <td>
-            {{ plan.plan_id }}
-          </td>
-          <td>{{ plan.plan_name }}</td>
-          <td>{{ plan.user_id }}</td>
-          <td>{{ plan.plan_start }}</td>
-          <td>{{ plan.plan_end }}</td>
-          <td>
-            <v-btn @submit.prevent @click="deletePlan(plan.plan_id)" color="light-green">
-              삭제
-            </v-btn>
-          </td>
-        </tr>
+          <tr
+
+            v-for="(plan,index) in plan_list"
+            :key="index"
+          >
+            <td>
+              {{ plan.plan_id }}
+            </td>
+            <td>{{ plan.plan_name }}</td>
+            <td>{{ plan.user_id }}</td>
+            <td>{{ plan.plan_start }}</td>
+            <td>{{ plan.plan_end }}</td>
+            <td>
+              <v-btn
+                color="light-green"
+                @submit.prevent
+                @click="deletePlan(plan.plan_id)"
+              >
+                삭제
+              </v-btn>
+            </td>
+          </tr>
         </tbody>
-
       </v-simple-table>
-
     </v-row>
-    <div style="padding:40px"></div>
-
+    <div style="padding:40px" />
   </div>
 </template>
 
@@ -107,14 +102,20 @@ export default {
   data() {
     return {
       plan_name: '',
-      plan_start: '',
-      plan_end: '',
-      plan_list: ''
+      plan_list: '',
+      plan_range:[],
+      keys:[]
     }
   },
   computed: {
     user_id() {
       return this.$store.state.user.userId
+    },
+    plan_start(){
+      return this.plan_range[0]
+    },
+    plan_end(){
+      return this.plan_range[1]
     },
   },
   mounted() {
@@ -122,6 +123,11 @@ export default {
   },
   methods: {
     addPlan() {
+      if(this.plan_start>this.plan_end){
+        const temp = this.plan_range[0]
+        this.plan_range[0] = this.plan_range[1]
+        this.plan_range[1] = temp
+      }
       axios({
         method: 'post',
         url: '/api/planner/',
@@ -131,7 +137,7 @@ export default {
           plan_start: this.plan_start,
           plan_end: this.plan_end,
           user_id: this.user_id,
-          keys: []
+          keys:[]
         }
       })
         .then((res) => {

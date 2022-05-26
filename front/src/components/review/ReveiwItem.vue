@@ -1,50 +1,52 @@
 <template>
-  <v-container>
-    <v-card
-      class="mx-auto"
-      outlined
-    >
-      <v-list-item three-line>
-        <v-list-item-content>
-          <v-list-item-title class="text-h5 mb-1">
-            <v-row>
-              <v-col
-                cols="12"
-                class="mb-0 pb-0"
-              >
-                <v-rating
-                  v-model="rev_rating"
-                  background-color="purple lighten-3"
-                  color="purple"
-                  readonly
-                  small
-                />
-              </v-col>
+  <li
+      class="ma-0 py-5 pr-5"
+    style="width: 100%; height: 300px"
+  >
+    <div class="review-lists">
+      <div class="review-user">
+
+        <div>{{user.user_name}}</div>
+      </div>
+      <v-list-item-content>
+        <v-row>
+          <v-col
+            cols="12"
+            class="mb-0 pb-0"
+          >
+            <v-rating
+              v-model="rev_rating"
+              background-color="purple lighten-3"
+              color="purple"
+              readonly
+              small
+            />
+          </v-col>
+
+          <p class="text-body  red--text">
+            {{ reg_date }}
+          </p>
 
 
-              <v-col class="ml-2 pt-0">
-                <p class="text-body-2 red--text">
-                  {{ reg_date }}
-                </p>
-              </v-col>
-            </v-row>
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ review.rev_content }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
 
-        <v-list-item-avatar
-          tile
-          size="150"
-          color="grey"
-        />
-      </v-list-item>
-    </v-card>
-  </v-container>
+        </v-row>
+        <v-list-item-subtitle>
+          {{ review.rev_content }}
+        </v-list-item-subtitle>
+      </v-list-item-content>
+
+      <v-list-item-avatar
+        tile
+        size="150"
+        color="grey"
+      />
+    </div>
+  </li>
 </template>
 
 <script>
+
+import axios from "axios";
 
 export default {
   name:'ReviewItem',
@@ -56,6 +58,7 @@ export default {
   data() {
     return {
       rev_rating: this.review.rev_rating,
+      user: null,
     }
   },
   computed: {
@@ -64,7 +67,21 @@ export default {
     }
   },
   mounted() {
+    axios({
+      method: 'GET',
+      url:'http://localhost:8080/api/user/find',
+      params: {
+        user_id: this.review.user_id
+      }
 
+    })
+      .then(res => {
+        console.log("[user/find]" + res.data)
+        this.user = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     console.log(this.review.rev_content)
   }
 }

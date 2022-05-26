@@ -1,7 +1,7 @@
 <template>
   <form class="joinGuide">
     <h2>가이드 등록</h2>
-    <h1>{{$store.state.user.userId}}</h1>
+    <h1>{{ $store.state.user.userId }}</h1>
 
     <div class="textForm">
       <input

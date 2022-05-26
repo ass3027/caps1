@@ -1,154 +1,182 @@
 <template>
-  <!--  <div id="app">-->
-  <div>
-    <h1>마이페이지</h1>
-
-
-    <router-link to="list" />
-    <header>
-      <nav>
-        <button><span>즐겨찾기</span></button> |
-        <button><span>결제수단</span></button> |
-        <button><span>1대1문의</span></button>
-      </nav>
-    </header>
-
-    <div id="container">
-      <form @submit.prevent="submitForm">
-        <v-container>
-          <v-row>
-            <v-col
-              cols="3"
-              md="2"
-            >
-              <div class="name">
-                <v-text-field
-                  v-model="user_name"
-                  :counter="10"
-                  label="이름"
-                  required
-                />
-              <!--<label for="name">이름: </label>-->
-              <!--<input type="text" id="name"  placeholder="NAME"-->
-              <!--v-model="user_name" />-->
-              </div>
-            </v-col>
-          </v-row>
-
-          <!--            <div class="age">-->
-          <!--                <label for="age">생년월일 : </label>-->
-          <!--                <input type="text" id="age" v-model="age" />-->
-          <!--            </div>-->
-
-          <v-row>
-            <v-col
-              cols="3"
-              md="2"
-            >
-              <div class="id">
-                <v-text-field
-                  v-model="user_id"
-                  :counter="20"
-                  label="아이디"
-                  required
-                />
-              </div>
-            </v-col>
-          </v-row>
-
-          <!--      <div class="id">-->
-          <!--        <label for="id">아이디: </label>-->
-          <!--        <input-->
-          <!--          id="id" v-model="user_id" type="text">-->
-          <!--      </div>-->
-
-          <v-row>
-            <v-col
-              cols="3"
-              md="2"
-            >
-              <div class="pw">
-                <v-text-field
-                  v-model="user_pw"
-                  :counter="20"
-                  label="비밀번호"
-                  required
-                />
-              </div>
-            </v-col>
-          </v-row>
-
-          <!--      <div class="pw">-->
-          <!--        <label for="pw">비밀번호 : </label>-->
-          <!--        <input-->
-          <!--          id="pw" v-model="user_pw" type="pw">-->
-          <!--      </div>-->
-
-          <!--            <div class="email">-->
-          <!--                <label for="email">email : </label>-->
-          <!--                <input type="text" id="email" v-model="email" />-->
-          <!--            </div>-->
-
-          <v-row>
-            <v-col
-              cols="3"
-              md="2"
-            >
-              <div class="phone">
-                <v-text-field
-                  v-model="user_phone"
-                  :counter="20"
-                  label="연락처"
-                  type="text"
-                  placeholder="핸드폰번호 입력"
-                  required
-                />
-              </div>
-            </v-col>
-          </v-row>
-
-
-
-          <!--      <div class="phone">-->
-          <!--        <label for="phone">연락처 : </label>-->
-          <!--        <input-->
-          <!--          id="phone" v-model="user_phone" type="text" placeholder="핸드폰번호 입력" maxlength="13">-->
-          <!--      </div>-->
-        <!--              <input type="text" name="phone"/>- -->
-        <!--              <input type="text" name="phone"/>- -->
-        <!--              <input type="text" name="phone"/>-->
-        </v-container>
-        <!--            <div class="address">-->
-        <!--                <label for="address">주소 : </label>-->
-        <!--                <input type="text" id="address" v-model="address">-->
-        <!--            </div>-->
-        <!--            <button type="submit">로그인</button>-->
-        <!--            <button type="submit">메인으로 이동<el/button>-->
-
-        <div id="button">
-          <v-btn
-            elevation="3"
-            @click="login"
+  <div id="app">
+    <div>
+      <!--    <router-link to="list"></router-link>-->
+      <h1>마이페이지</h1>
+      <header>
+        <nav>
+          <button
+            type="submit"
+            @click="bookmark"
           >
-            로그인
-          </v-btn>
-          <v-btn
-            elevation="3"
-            @click="main"
+            즐겨찾기
+          </button> |
+          <button
+            type="submit"
+            @click="pay"
           >
-            메인으로 이동
-          </v-btn>
-          <v-btn
-            elevation="2"
-            @click="Modify"
+            수익관리
+          </button> |
+          <button
+            type="submit"
+            @click="mydata"
           >
-            정보 수정하기
-          </v-btn>
+            내정보수정
+          </button> |
+          <button
+            type="submit"
+            @click="questions"
+          >
+            1대1문의
+          </button>
+        </nav>
+      </header>
+
+      <!--  <div id="container">-->
+      <!--    <v-container>-->
+
+
+      <form
+        class="container"
+        @submit.prevent="onsubmit"
+      >
+        <h1>회원정보</h1>
+
+        <div class="textForm">
+          <p class="a">
+            이름
+          </p>
+          <input
+            v-model="user_name"
+            type="text"
+            name="name"
+            class="name"
+            placeholder="이름"
+          >
         </div>
+
+        <!--  <div class="textForm">-->
+        <!--      <v-text-field-->
+        <!--        type="text"-->
+        <!--        name="name"-->
+        <!--        class="name"-->
+        <!--        placeholder="이름"-->
+        <!--        v-model="user_name"-->
+        <!--        :counter="20" label="이름" required-->
+        <!--      ></v-text-field>-->
+
+
+        <!--  <div class="textForm">-->
+        <!--        <v-text-field-->
+        <!--          type="text"-->
+        <!--          name="userId"-->
+        <!--          class="id"-->
+        <!--          placeholder="아이디"-->
+        <!--          v-model="user_id"-->
+        <!--          :counter="20" label="아이디" required-->
+        <!--        ></v-text-field>-->
+        <!--  </div>-->
+        <!--  </div>-->
+
+
+        <!--  <div class="textForm">-->
+        <!--        <v-text-field-->
+        <!--          type="text"-->
+        <!--          name="user pw"-->
+        <!--          class="pw"-->
+        <!--          placeholder="비밀번호를 입력하세요"-->
+        <!--          v-model="user_pw"-->
+        <!--          :counter="20" label="비밀번호" required-->
+        <!--        ></v-text-field>-->
+        <!--  </div>-->
+
+        <!--  <div class="textForm">-->
+        <!--        <v-text-field-->
+        <!--          type="text"-->
+        <!--          name="user phone"-->
+        <!--          class="phone"-->
+        <!--          placeholder="전화번호"-->
+        <!--          v-model="user_phone"-->
+        <!--          :counter="20" label="전화번호" required-->
+        <!--        ></v-text-field>-->
+        <!--  </div>-->
+
+
+
+        <div class="textForm">
+          <p class="a">
+            아이디
+          </p>
+          <input
+            v-model="user_id"
+            type="text"
+            name="userId"
+            class="id"
+            placeholder="아이디"
+          >
+        </div>
+
+        <div class="textForm">
+          <p class="a">
+            비밀번호
+          </p>
+          <input
+            v-model="user_pw"
+            type="password"
+            name="user pw"
+            class="pw"
+            placeholder="비밀번호를 입력하세요"
+          >
+        </div>
+
+        <div class="textForm">
+          <p class="a">
+            연락처
+          </p>
+          <input
+            v-model="user_phone"
+            type="text"
+            name="user phone"
+            class="phone"
+            placeholder="휴대폰"
+          >
+        </div>
+
+
+        <!--      <v-row>-->
+        <!--        <v-col-->
+        <!--        cols="10"-->
+        <!--        md="3">-->
+        <!--          <div class="aa">-->
+        <!--            <v-text-field-->
+        <!--              v-model="user_id" :counter="20" label="아이디" required/>-->
+        <!--          </div>-->
+        <!--        </v-col>-->
+        <!--      </v-row>-->
+
+
+      <!--            <div class="email">-->
+      <!--                <label for="email">email : </label>-->
+      <!--                <input type="text" id="email" v-model="email" />-->
+      <!--            </div>-->
+
+
+
+        <!--      </v-container>-->
+      <!--            <div class="address">-->
+      <!--                <label for="address">주소 : </label>-->
+      <!--                <input type="text" id="address" v-model="address">-->
+      <!--            </div>-->
+
+
+        <!--      <div id="button">-->
+        <!--        <v-btn v-on:click="login" elevation="3" type="button">로그인</v-btn>-->
+        <!--        <v-btn v-on:click="main" elevation="3" type="button">메인으로 이동</v-btn>-->
+        <!--        <v-btn v-on:click="Modify" elevation="3" type="button">정보 수정하기</v-btn>-->
+        <!--      </div>-->
       </form>
     </div>
   </div>
-
 <!--  </div>-->
 </template>
 
@@ -168,10 +196,11 @@ export default {
     axios.get('/api/data/'+ this.$store.state.user.userId)
     .then(res=> {
       this.user_id = res.data.user_id
-      // this.user_pw = res.data.user_pw //공백으로 둬야하나?
+      this.user_pw = res.data.user_pw //공백으로 둬야하나?
       this.user_phone = res.data.user_phone
       this.user_name = res.data.user_name
       console.log(res.data)
+
     }).catch((error)=>{
       this.error=error
       console.log(res.data)
@@ -180,43 +209,130 @@ export default {
     })
   },
   methods:{
-    submitForm(){
+    onsubmit(){
         console.log("성공")
     },
     login(){
-        window.open("/login")
+        this.$router.push("/login")
         // this.$router.go();
         console.log("성공")
     },
     main(){
-      window.open("/home")
+      this.$router.push("/BookMark")
       console.log("성공")
     },
     Modify(){
-      alert("정보수정을 하시겠습니까?")
-      alert("수정완료되었습니다")
-      window.open("/home")
+      // alert("정보수정을 하시겠습니까?")
+      // alert("수정완료되었습니다")
+      axios.post("/api/Mypage")
+      this.$router.push("/mydata")
       console.log("성공")
+    },
+    bookmark(){
+      this.$router.push("/BookMark")
+    },
+    pay(){
+      this.$router.push("/pay")
+    },
+    questions(){
+      this.$router.push("/Questions")
+    },
+    mydata(){
+      this.$router.push("/MyData")
     }
   }
 }
 </script>
 
 <style scoped>
-#container{text-align:center;}
+
+.container{
+  text-align: center;
+  position: center;
+
+}
 header{
   position: center;
   top: 0;
   left: 0;
   right: 0;
-
   height: 75px;
   padding: 1rem;
   color: white;
-  background: #1e90cc;
+  background: #147ed0;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+#button{
+  position: center;
+
+}
+.textForm {
+  text-align: center;
+  position: center;
+  font-size: 25px;
+  text-decoration: underline;
+  border-bottom: 2px solid #adadad;
+  margin: 30px;
+  padding: 10px 10px;
+
+}
+
+.id {
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+  font-size: 25px;
+  text-decoration: cornflowerblue;
+  text-underline-position: under;
+
+}
+
+.name{
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+  font-size: 25px;
+  text-decoration: #5eaf13;
+  text-underline: #5eaf13;
+
+}
+.pw{
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+  font-size: 25px;
+}
+.phone{
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+  font-size: 25px;
+}
+.a {
+  text-align:left;
+  text-decoration: none;
+  /*display: inline;*/
+  /*box-shadow: inset 0 -10px 0 hsla(53, 90%, 83%, 0.93);*/
+}
+
+
 </style>
