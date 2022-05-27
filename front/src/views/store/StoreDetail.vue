@@ -87,7 +87,7 @@ import axios from "axios";
 
 export default {
   name: 'ProductPage',
-  props: ['store_id'],
+  props: ['pl_id'],
   components: {
     StoreReviewView
   },
@@ -117,7 +117,7 @@ export default {
     axios({
       method: 'GET',
       url: '/api/product',
-      params: {'pl_id': this.store_id}
+      params: {'pl_id': this.pl_id}
     })
       .then((res) => {
         this.products = res.data
@@ -136,19 +136,12 @@ export default {
       .then((res) => {
         this.store_name = res.data
       })
-
-    const items = JSON.parse(localStorage.getItem('myCart'));
-    // console.log('items', items);
-    this.cartItems = items;
   },
   computed: {
     mainImage: function(){
       return this.products[this.index].pic_name
     } ,
 
-    cartItemsCount() {
-      return this.cartItems.length;
-    }
   },
   methods: {
     showMainImage() {

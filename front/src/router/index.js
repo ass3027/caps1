@@ -57,7 +57,6 @@ import WritingModView from "@/views/auth/WritingModView";
 
 import { store } from "@/store";
 import TestView from "@/views/TestView";
-import {store} from "@/store"
 import axios from "axios";
 import {EventBus} from "@/eventBus/eventBus";
 
@@ -100,7 +99,7 @@ const routes = [
 
   { path: "/hotel", name: "hotel", component: HotelView },
   {
-    path: "/hotel/:store_id",
+    path: "/hotel/:pl_id",
     name: "hotel",
     component: StoreDetail,
     props: true,

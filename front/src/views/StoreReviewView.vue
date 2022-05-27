@@ -87,8 +87,6 @@ export default {
       this.getReviews()
     }
   }
-
-
 }
 </script>
 
