@@ -46,6 +46,6 @@ public class DeliveryService {
 
 
     public List<DuserDAO> 근처_운송원_조회(double x, double y) {
-        locationMapper
+        return null;
     }
 }

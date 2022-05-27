@@ -58,7 +58,6 @@ import WritingModView from "@/views/auth/WritingModView";
 
 import { store } from "@/store";
 import TestView from "@/views/TestView";
-import {store} from "@/store"
 import axios from "axios";
 import {EventBus} from "@/eventBus/eventBus";
 

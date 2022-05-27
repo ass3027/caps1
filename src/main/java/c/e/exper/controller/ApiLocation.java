@@ -49,6 +49,6 @@ public class ApiLocation {
 
     @GetMapping("/location/getDusers")
     public List<DuserDAO> getDusers(@RequestBody Map<String, String> coord) {
-
+ return null;
     }
 }
