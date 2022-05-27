@@ -5,7 +5,6 @@
   <!---->
   <!---->
   <v-app
-    id="gnb"
     class="header-layout"
   >
     <div id="userMenu">
@@ -52,7 +51,10 @@
       </div>
     </div>
     <div>
-      <div class="menu-Bar">
+      <div
+        id="gnb"
+        class="menu-Bar gnb_stop"
+      >
         <div style="margin-top: 20px">
           <v-menu
             v-for="(menu,index) in menuList"
@@ -82,6 +84,7 @@
           </v-menu>
         </div>
       </div>
+
       <v-divider style="margin-top: 10px" />
     </div>
   </v-app>
@@ -91,16 +94,13 @@
 import axios from "axios";
 import {EventBus} from "@/eventBus/eventBus";
 
+
+
+
+
 export default {
 
   name: 'HelloWorld',
-  created(){
-    EventBus.$on("photoUpdate",(photo)=>{
-      console.log(11)
-      console.log(decodeURI(photo))
-      this.photo = "/api/photo/"+decodeURI(photo)
-    })
-  },
   data: () => ({
     photo: '',
     menuList:[
@@ -173,6 +173,13 @@ export default {
       return this.$store.getters['user/isLogin']
     },
   },
+  created(){
+    EventBus.$on("photoUpdate",(photo)=>{
+      console.log(11)
+      console.log(decodeURI(photo))
+      this.photo = "/api/photo/"+decodeURI(photo)
+    })
+  },
   methods: {
     logOut(){
       console.log(22)
@@ -199,9 +206,17 @@ export default {
 <style>
 #gnb {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
+/*.gnb_stop {*/
+/*  z-index: 300;*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  width: 100%;*/
+/*  height: 67px;*/
+/*  background-color: white;*/
+/*}*/
 
 .login-box {
   display: block;
@@ -212,6 +227,7 @@ export default {
 .menu-Bar {
   display: flex;
   justify-content: center;
+
 }
 
 /*.text-center {*/
