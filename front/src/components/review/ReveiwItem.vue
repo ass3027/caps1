@@ -1,12 +1,11 @@
 <template>
   <li
-      class="ma-0 py-5 pr-5"
+    class="ma-0 py-5 pr-5"
     style="width: 100%; height: 300px"
   >
     <div class="review-lists">
       <div class="review-user">
-
-        <div>{{user.user_name}}</div>
+        <div>{{ user.user_name }}</div>
       </div>
       <v-list-item-content>
         <v-row>

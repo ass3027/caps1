@@ -1,6 +1,5 @@
 <template>
   <div class="card">
-
     <v-row
       cols="0"
       md="0"
@@ -19,7 +18,7 @@
               이름:{{ item.user_name }}
             </div>
             <div>
-              자격증:<br>{{item.guide_license}}
+              자격증:<br>{{ item.guide_license }}
             </div>
             <v-list-item-title class="text-h5 mb-1">
               ID:{{ item.user_id }}
@@ -52,7 +51,13 @@
     </v-row>
     <div>
       <h1>검색</h1>
-      <input name="keyword" type="text" style="border: #1e90cc solid" v-model="keyword" class="search">
+      <input
+        v-model="keyword"
+        name="keyword"
+        type="text"
+        style="border: #1e90cc solid"
+        class="search"
+      >
     </div>
     <v-btn
       class="btn2"
@@ -60,9 +65,7 @@
     >
       Search
     </v-btn>
-
   </div>
-
 </template>
 
 <script>

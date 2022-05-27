@@ -31,7 +31,6 @@
       placeholder="참고항목"
     >
   </div>
-
 </template>
 
 <script>

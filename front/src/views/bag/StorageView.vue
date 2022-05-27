@@ -1,8 +1,12 @@
 <template>
   <v-app>
     <h1>보관조회</h1>
-    <v-data-table :headers="headers" :items="orderList" :items-per-page="5" class="elevation-1">
-    </v-data-table>
+    <v-data-table
+      :headers="headers"
+      :items="orderList"
+      :items-per-page="5"
+      class="elevation-1"
+    />
   </v-app>
 </template>
 
