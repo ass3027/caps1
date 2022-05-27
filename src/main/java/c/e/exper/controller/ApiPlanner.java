@@ -190,7 +190,7 @@ public class ApiPlanner {
             System.out.println("일정:" + convertResult.get(0).getPlace());
             data.put("scheduleList",convertResult);
         } else{
-            data.put("scheduleList",null);
+            data.put("scheduleList",new int[0]);
         }
 
 

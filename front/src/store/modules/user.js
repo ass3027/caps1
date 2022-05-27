@@ -22,24 +22,27 @@ export default {
       }
     },
     actions:{
-      setUser({commit},newId) {
+      setUser: function ({commit, state}, newId) {
 
-        commit('updateUserId',newId)
-        if(newId==='') {
-          commit('updatePlanId',0)
+        commit('updateUserId', newId)
+        if (newId === '') {
+          commit('updatePlanId', 0)
           return;
         }
-        axios.get('/api/planner/'+newId)
-          .then( (res)=>{
-            let plan_id = 0
-            if(res.data.length!==0){
-              plan_id = res.data[0].plan_id
-            }
-            commit('updatePlanId',plan_id)
-          })
-          .catch( (err)=>{
-            console.log(err)
-          })
+        if (state.planId === 0) {
+          console.log("plan Update")
+          axios.get('/api/planner/' + newId)
+            .then((res) => {
+              let plan_id = 0
+              if (res.data.length !== 0) {
+                plan_id = res.data[0].plan_id
+              }
+              commit('updatePlanId', plan_id)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        }
 
 
       }

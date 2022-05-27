@@ -111,7 +111,6 @@ export default {
     //가끔 plan Id 가 업다고 뜸 로직 문제..??
     if(this.$store.state.user.planId === 0) {
       console.log("업서영")
-      this.create()
       return;
     }
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
@@ -149,6 +148,7 @@ export default {
           console.log(it.sch_endTime.substring(0,10))
             calendar.date[it.sch_endTime.substring(0,10)].set(
               parseInt( it.sch_startTime.substring(12,13) ),it.place)
+          //이거 객체화 해서 저장해야하무
         })
 
         this.$store.commit('calendar/updateCalendar',calendar)
@@ -175,7 +175,6 @@ export default {
       calendar["date"]=[]
 
       this.dateArr.forEach( (it) => {
-        console.log(it)
         const a = [];
         for (let i = 0; i < 24; i++) {
           a.push(" ")

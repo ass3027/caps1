@@ -5,18 +5,67 @@
         <h3 class="text-center">
           {{ date }}
         </h3>
-        <v-card
-          v-for="(key,index) in plan.keys()"
-          :id="index"
-          :key="index"
-          :class="{dd:true,selecting:selectedTime===key}"
-          @click="select(key)"
+        <template
+          v-if="plan.size!==undefined"
         >
-          <div>{{ key }}시</div>
-          <div>
-            {{ plan.get(key) }}
-          </div>
-        </v-card>
+          <v-dialog
+            v-model="detailDialog"
+            persistent
+            v-for="(key,index) in plan.keys()"
+            :id="index"
+            :key="index"
+          >
+            <template
+              v-slot:activator="{ attrs}"
+            >
+              <v-card
+                v-bind="attrs"
+                @click="select(key)"
+                :class="{dd:true,selecting:selectedTime===key}"
+                width="500"
+              >
+                <div>{{ key }}시</div>
+                <div>
+                  {{ plan.get(key) }}
+                </div>
+              </v-card>
+            </template>
+            <template v-slot:default="dialog">
+              <v-card>
+                <v-card-title>
+                  일정 상세보기
+                </v-card-title>
+
+                <v-card-text>
+                  {{ plan.get(key) }}
+                </v-card-text>
+
+                <v-divider />
+                <v-card-actions>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="dialog.value = false"
+                  >
+                    닫기
+                  </v-btn>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="alert('ㅎㅎ')"
+                  >
+                    추가
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </template>
+          </v-dialog>
+
+
+
+
+        </template>
+
       </v-col>
     </v-row>
     <v-row>
@@ -98,6 +147,7 @@ export default {
       addTime:0,
       availableTimeList:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
       plan:{},
+      detailDialog:false
     }
   },
   created() {
@@ -107,11 +157,17 @@ export default {
   },
   methods: {
     updatePlan: function () {
+      //이게 맞나?
       if(this.$store.state.calendar.calendar.date !==undefined) this.plan = this.$store.state.calendar.calendar.date[this.date]
-      console.log(this.plan)
     },
     select(index) {
       //console.log(e.target.id);
+      const selected = this.$store.state.calendar
+      if( this.date === selected.selectDate && index === selected.selectTime){
+        this.detailDialog=true;
+        return;
+      }
+
       const a = {
         "date": this.date,
         "time": index
@@ -123,8 +179,8 @@ export default {
       this.selectedTime = index
     },
     updateAvailableTimeList: function () {
-      console.log(this.plan)
-      if(this.plan === {}) return;
+
+      if(this.plan.size === undefined) return;
       const arr = []
       for (let key of this.plan.keys()) {
         arr.push(key)
