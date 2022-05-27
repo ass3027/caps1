@@ -1,5 +1,6 @@
 package c.e.exper.service;
 
+import c.e.exper.data.DuserDAO;
 import c.e.exper.mapper.DeliveryMapper;
 import c.e.exper.mapper.LocationMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -42,4 +44,8 @@ public class DeliveryService {
         return deliveryMapper.findDuserIdByOrdId(ord_id);
     }
 
+
+    public List<DuserDAO> 근처_운송원_조회(double x, double y) {
+        return null;
+    }
 }

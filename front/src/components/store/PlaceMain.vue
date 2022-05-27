@@ -70,7 +70,7 @@ export default {
   methods: {
     goStoreInfo(placeInfo) {
       console.log('storeInfo:' + placeInfo);
-      this.$router.push(`hotel/${placeInfo.store_id}`);
+      this.$router.push(`hotel/${placeInfo.pl_id}`);
     },
   },
 };

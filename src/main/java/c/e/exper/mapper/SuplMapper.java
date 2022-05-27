@@ -37,13 +37,16 @@ public interface SuplMapper {
     @Delete("delete from PLAN_SUPL where PLAN_SUPL_ID=#{id}")
     public void deleteSuplies(@Param("id") String id);
 
-    @Select("select c.PL_ID, c.pl_name , e.supl_id , e.SUPL_NAME\n" +
-            "from PLANNER a, SCHEDULE b, place c,  PL_SUPL d, SUPLIES e\n" +
-            "where a.PLAN_ID=b.PLAN_ID\n" +
-            "and b.PL_ID = c.pl_id\n" +
-            "and c.pl_id = d.PL_ID\n" +
-            "and d.SUPL_ID = e.SUPL_ID\n" +
-            "and a.PLAN_ID=#{id}\n" +
-            "order by to_number(c.PL_ID)")
+    @Select("select a.PL_ID, a.pl_name , c.supl_id , c.SUPL_NAME\n" +
+            "from (select pl_id, PL_NAME\n" +
+            "      from PLACE\n" +
+            "      where PL_ID in (select PL_ID\n" +
+            "                      from SCHEDULE\n" +
+            "                      where PLAN_ID = #{id})) a,\n" +
+            "     PL_SUPL b,\n" +
+            "     SUPLIES c\n" +
+            "where a.PL_ID = b.PL_ID\n" +
+            "  and b.SUPL_ID = c.SUPL_ID\n" +
+            "order by to_number(a.PL_ID)")
     public List<ImportSuppliesDTO> findSuppliesSets(@Param("id")String id);
 }

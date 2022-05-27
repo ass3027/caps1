@@ -7,6 +7,7 @@ import LoginView from "@/views/auth/LoginView";
 
 
 //성호형??
+import testBshView from "@/views/supply/TestBshView";
 import SuppliesVue from "../views/supply/SuppliesView";
 import PlannerShareView from "../views/share/PlannerShareView";
 import PlannerShareDetailsViewView from "../views/share/PlannerShareDetailsView";
@@ -18,12 +19,14 @@ import LocationCheckView from "@/views/LocationCheckView";
 //벙식??
 import BagReserveView from "../views/bag/order/BagReserveView.vue";
 import TrackingView from "@/views/bag/TrackingView";
-import StorageView from "@/views/bag/order/StorageView";
+
+
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
-import TransportView from "../views/bag/order/TransportView";
+import TransportOrder from "../views/bag/order/TransportOrder";
+import SelectionOrder from "../views/bag/order/SelectionOrder";
+import StorageOrder from "@/views/bag/order/StorageOrder"
 
-//이세진
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
@@ -43,12 +46,12 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 import GuideSearch from "@/views/guide/GuideSearch";
 import GuideProduct from "@/views/guide/GuideProduct";
 
+
 //세운??
 import ProductReviewView from "@/views/ProductReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
-import LocationUpdate from "@/views/LocationUpdate";
 import ReviewCreateView from "@/views/ReviewCreateView";
-
+import LocationUpdate from "@/views/LocationUpdate";
 //민아
 import MypageView from "@/views/auth/MypageView";
 import BookMarkView from "@/views/auth/BookMarkView";
@@ -58,14 +61,13 @@ import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
 import WritingModView from "@/views/auth/WritingModView";
 import MINA from "@/views/MINA";
+import TestView from "@/views/TestView";
 
 import {store} from "@/store"
 import axios from "axios";
 import {EventBus} from "@/eventBus/eventBus";
 
 Vue.use(VueRouter);
-
-
 
 const routes = [
   //민아
@@ -89,7 +91,7 @@ const routes = [
 
   //혁태
   { path: "/hotel", name: "hotel", component: HotelView },
-  { path: "/hotel/:store_id", name: "hotel", component: StoreDetail, props: true,},
+  { path: "/hotel/:pl_id", name: "hotel", component: StoreDetail, props: true,},
   { path: "/storeadd", name: "storeadd", component: StoreAdd },
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},

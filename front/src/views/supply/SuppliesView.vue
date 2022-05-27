@@ -237,8 +237,8 @@
                   <v-list-item-title>{{ set[0].pl_name }} Set</v-list-item-title>
                 </v-list-item-content>
                 <v-dialog
-                  v-model="dialogAdd"
-                  persistent
+                  v-model="dialogAdd[i]"
+
                   max-width="290"
                   :retain-focus="false"
                 >
@@ -256,21 +256,21 @@
                       준비물 세트 추가
                     </v-card-title>
                     <v-card-text>
-                      준비물 세트를 추가하시겠습니까?
+                      {{set[0].pl_name}}준비물 세트를 추가하시겠습니까?
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer />
                       <v-btn
                         color="green darken-1"
                         text
-                        @click="addSet(set)"
+                        @click="addSet(set,i)"
                       >
                         예
                       </v-btn>
                       <v-btn
                         color="gray"
                         text
-                        @click="dialogAdd = false"
+                        @click="closeDialog(i)"
                       >
                         아니요
                       </v-btn>
@@ -319,7 +319,7 @@ export default {
       editMode: false,
       selectedListFID: '',
       selectedListBID: '',
-      dialogAdd: false,
+      dialogAdd: [],
       dialogDel: false,
 
       tasks: [],
@@ -335,6 +335,7 @@ export default {
           {pl_id: 0, pl_name: "기본", supl_id: "14", supl_name: "신용카드"},
           {pl_id: 0, pl_name: "기본", supl_id: "15", supl_name: "보조 배터리"},
           {pl_id: 0, pl_name: "기본", supl_id: "4", supl_name: "선크림"},
+
         ]
       ],
 
@@ -400,7 +401,6 @@ export default {
             else return i.done = true
           })
           this.tasks = res.data;
-          console.log(res.data)
         })
 
     },
@@ -529,6 +529,7 @@ export default {
 
       axios.get('/api/getSets/' + this.$store.state.user.planId)
         .then((res) => {
+
           var outerArray = [
             [
               {pl_id: 0, pl_name: "기본", supl_id: "2", supl_name: "휴대폰 충전기"},
@@ -549,14 +550,17 @@ export default {
             if (i.pl_id != id) {
 
               outerArray.push(innerArray);
+              this.dialogAdd.push(false)
               innerArray = [];
               id = i.pl_id;
             }
             innerArray.push(i);
-
           })
           outerArray.push(innerArray);
+          this.dialogAdd.push(false)
+          this.dialogAdd.push(false)
           this.sets = outerArray;
+
         })
 
     },
@@ -579,16 +583,26 @@ export default {
           this.getMyList();
         })
     },
-    addSet(set) {
-      this.dialogAdd = false
+    addSet(set,i) {
+      console.log(this.dialogAdd)
+
+      this.dialogAdd[i] = false
       axios.post("/api/sendList", set, {
         params: {
           plan_id: this.$store.state.user.planId
         }
       }).then(() => {
         this.getMyList()
+        console.log(this.dialogAdd)
       })
 
+    },
+    closeDialog(i){
+      console.log(this.dialogAdd)
+      this.dialogAdd[i] = false
+      this.dialogAdd.push(false)
+      this.dialogAdd.pop()
+      console.log(this.dialogAdd)
     },
     alignList() {
       alert("최신순정렬")

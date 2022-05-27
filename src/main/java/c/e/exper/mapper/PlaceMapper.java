@@ -47,23 +47,18 @@ public interface PlaceMapper {
 
     @Select("select pl_id, PL_NAME, PIC_NAME\n" +
             "from (\n" +
-            "     select *\n" +
-            "     from place a,\n" +
-            "          (select d.PL_ID, count(d.PL_ID) as count\n" +
-            "           from users a,\n" +
-            "                PLANNER b,\n" +
-            "                SCHEDULE c,\n" +
-            "                place d\n" +
-            "           where a.USER_ID = b.USER_ID\n" +
-            "             and b.PLAN_ID = c.PLAN_ID\n" +
-            "             and c.PL_ID = d.PL_ID\n" +
-            "           group by d.PL_ID\n" +
-            "           order by 2 desc) b\n" +
-            "              left outer join PICTURES c\n" +
-            "                              on b.PL_ID = c.PL_ID\n" +
-            "     where a.PL_ID = b.PL_ID\n" +
-            "     order by count desc\n" +
-            ")\n" +
+            "         select a.PL_ID, PL_NAME, PIC_NAME, count\n" +
+            "         from (select d.PL_ID, count(d.PL_ID) as count\n" +
+            "               from SCHEDULE c,\n" +
+            "                    place d\n" +
+            "               where c.PL_ID = d.PL_ID\n" +
+            "               group by d.PL_ID) a,\n" +
+            "              PICTURES b,\n" +
+            "              place c\n" +
+            "         where a.PL_ID = b.PL_ID\n" +
+            "           and c.PL_ID = a.PL_ID\n" +
+            "         order by count desc\n" +
+            "     )\n" +
             "where ROWNUM <= 5")
     public List<Place> findBestPlace();
 
