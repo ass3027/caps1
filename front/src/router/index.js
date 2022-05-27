@@ -17,10 +17,7 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 
 //벙식??
-import BagReserveView from "../views/bag/order/BagReserveView.vue";
 import TrackingView from "@/views/bag/TrackingView";
-
-
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";
@@ -102,15 +99,16 @@ const routes = [
   { path: "/planPic", name: "planPic", component: PlannerPicView },
 
   //봉식
-  { path: "/BagReserveView", name: "OrderView", component: BagReserveView },
   { path: "/FareView", name: "FareView", component: FareView },
   { path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
-  { path: "/TransportView", name: "TransportView", component: TransportView },
+  { path: "/TransportOrder", name: "TransportOrder", component: TransportOrder },
   { path: "/TrackingView", name: "TrackingView", component: TrackingView },
-  { path: "/StorageView", name: "StorageView", component: StorageView },
-
+  { path: "/StorageOrder", name: "StorageOrder", component: StorageOrder },
+  { path: "/SelectionOrder", name: "SelectionOrder", component: SelectionOrder },
   // { path: "/OrderView", name: "OrderView", component: OrderView },
 
+
+  //진한
   {path: "/GuideView", name: "GuideView", component: GuideView},
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
