@@ -1,26 +1,24 @@
 <template>
-  <v-container
-  >
-    <planner-header></planner-header>
+  <v-container>
+    <planner-header />
     <!--  제목과 남은할일,완료된수  -->
     <v-row
       justify="start"
-
     >
-
-      <v-spacer></v-spacer>
-      <v-spacer></v-spacer>
-      <v-col cols="5" class="">
-
+      <v-spacer />
+      <v-spacer />
+      <v-col
+        cols="5"
+        class=""
+      >
         <h2 class="text-h4 success--text pl-4">
           준비물:&nbsp;
           <v-fade-transition>
-        <span :key="`tasks-${tasks.length}`">
-          {{ tasks.length }}
-        </span>
+            <span :key="`tasks-${tasks.length}`">
+              {{ tasks.length }}
+            </span>
           </v-fade-transition>
         </h2>
-
       </v-col>
       <v-col
         cols="5"
@@ -28,68 +26,68 @@
         <v-row
           align="center"
         >
-          <v-divider vertical></v-divider>
+          <v-divider vertical />
 
           <v-col cols="4">
-            <p class="primary--text">남은 준비물 수: {{ remainingTasks }}</p>
+            <p class="primary--text">
+              남은 준비물 수: {{ remainingTasks }}
+            </p>
           </v-col>
-          <v-divider vertical></v-divider>
+          <v-divider vertical />
 
           <v-col cols="4">
-            <p class="grey--text">완료된 준비물 수: {{ completedTasks }}</p>
-
+            <p class="grey--text">
+              완료된 준비물 수: {{ completedTasks }}
+            </p>
           </v-col>
 
           완료율
           <v-progress-circular
             :value="progress"
             class="mr-2"
-          ></v-progress-circular>
-          <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
+          />
+          <v-spacer />
+          <v-spacer />
         </v-row>
       </v-col>
     </v-row>
     <v-row>
-      <v-divider class="mt-4"></v-divider>
+      <v-divider class="mt-4" />
     </v-row>
     <!--  준비물리스트  -->
     <v-row
       justify="center"
     >
-      <v-col cols="1"></v-col>
+      <v-col cols="1" />
       <!--      <v-btn @click="alignList">hi</v-btn>-->
 
       <v-col
         cols="5"
       >
-
         <v-card v-if="tasks.length > 0">
           <template v-for="(task, i) in tasks">
             <v-divider
               v-if="i !== 0"
               :key="`${i}-divider`"
-            ></v-divider>
+            />
             <v-list-item :key="`${i}-${task.name}`">
               <v-row justify="space-between">
                 <v-col cols="6">
                   <v-list-item-action>
                     <v-checkbox
-                      @click="changeDone(task)"
                       v-model="task.done"
                       :color="task.done && 'grey' || 'primary'"
+                      @click="changeDone(task)"
                     >
-                      <template v-slot:label>
+                      <template #label>
                         <div
                           :class="task.done && 'grey--text'&&'del' || 'primary--text'"
                           class="ml-4"
                           v-text="task.name"
-                        ></div>
+                        />
                       </template>
                     </v-checkbox>
-
                   </v-list-item-action>
-
                 </v-col>
 
                 <v-col cols="6">
@@ -112,10 +110,16 @@
                   >
                     -1
                   </v-btn>
-                  <v-icon color="orange" @click="editStart(task,i)">
+                  <v-icon
+                    color="orange"
+                    @click="editStart(task,i)"
+                  >
                     mdi-square-edit-outline
                   </v-icon>
-                  <v-icon color="error" @click="deleteOne(task,i)">
+                  <v-icon
+                    color="error"
+                    @click="deleteOne(task,i)"
+                  >
                     mdi-trash-can-outline
                   </v-icon>
 
@@ -127,11 +131,8 @@
                       mdi-check
                     </v-icon>
                   </v-scroll-x-transition>
-
-
                 </v-col>
               </v-row>
-
             </v-list-item>
           </template>
         </v-card>
@@ -144,13 +145,12 @@
           v-model="inputItem"
           label="준비물을 적어주세요"
           solo
-          @keydown.enter="inputList"
           height="200px"
           class="mb-4"
           :class="{'editMode':editMode,}"
-
+          @keydown.enter="inputList"
         >
-          <template v-slot:append>
+          <template #append>
             <v-fade-transition>
               <v-icon
                 v-if="inputItem&&!editMode"
@@ -162,21 +162,19 @@
 
             <v-icon
               v-if="editMode"
-              @click="editOne"
               color="green"
+              @click="editOne"
             >
               mdi-check-circle-outline
             </v-icon>
 
             <v-icon
               v-if="editMode"
-              @click="editCancel"
               color="red"
+              @click="editCancel"
             >
               mdi-close-circle-outline
             </v-icon>
-
-
           </template>
         </v-text-field>
 
@@ -188,7 +186,7 @@
             max-width="290"
             :retain-focus="false"
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 class="mb-8 mr-10"
                 color="error"
@@ -207,7 +205,7 @@
                 정말로 제거하시겠습니까?
               </v-card-text>
               <v-card-actions>
-                <v-spacer></v-spacer>
+                <v-spacer />
                 <v-btn
                   color="error"
                   text
@@ -225,16 +223,17 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-
         </v-row>
 
         <!--    여행지추천 준비물세트    -->
-        <v-card v-for="(set,i) in sets" :key="i">
+        <v-card
+          v-for="(set,i) in sets"
+          :key="i"
+        >
           <v-list>
             <v-list-group>
-              <template v-slot:activator>
+              <template #activator>
                 <v-list-item-content>
-
                   <v-list-item-title>{{ set[0].pl_name }} Set</v-list-item-title>
                 </v-list-item-content>
                 <v-dialog
@@ -243,7 +242,7 @@
                   max-width="290"
                   :retain-focus="false"
                 >
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-btn
                       dark
                       v-bind="attrs"
@@ -260,7 +259,7 @@
                       준비물 세트를 추가하시겠습니까?
                     </v-card-text>
                     <v-card-actions>
-                      <v-spacer></v-spacer>
+                      <v-spacer />
                       <v-btn
                         color="green darken-1"
                         text
@@ -285,17 +284,16 @@
                 :key="i"
                 link
               >
-                <v-list-item-title v-text="supl.supl_name"></v-list-item-title>
-                <v-btn @click="addSupl(supl)">추가</v-btn>
+                <v-list-item-title v-text="supl.supl_name" />
+                <v-btn @click="addSupl(supl)">
+                  추가
+                </v-btn>
               </v-list-item>
-
             </v-list-group>
           </v-list>
         </v-card>
       </v-col>
     </v-row>
-
-
   </v-container>
 </template>
 

@@ -26,9 +26,6 @@
           <p class="text-body  red--text">
             {{ reg_date }}
           </p>
-
-
-
         </v-row>
         <v-list-item-subtitle>
           {{ review.rev_content }}
