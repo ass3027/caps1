@@ -56,7 +56,14 @@
           class="overflow-x-auto"
           style="display: grid;grid-auto-flow: column;height:100%;"
         >
-          <v-col v-for="(date,index) in dateArr " :id="index+`s`" :key="index" style="width:600px;height:600px;float:left;" class="overflow-y-auto" sm="20">
+          <v-col
+            v-for="(date,index) in dateArr "
+            :id="index+`s`"
+            :key="index"
+            style="width:600px;height:600px;float:left;"
+            class="overflow-y-auto"
+            sm="20"
+          >
             <DateComponent
               :date="date"
             />

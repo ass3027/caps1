@@ -256,7 +256,7 @@
                       준비물 세트 추가
                     </v-card-title>
                     <v-card-text>
-                      {{set[0].pl_name}}준비물 세트를 추가하시겠습니까?
+                      {{ set[0].pl_name }}준비물 세트를 추가하시겠습니까?
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer />

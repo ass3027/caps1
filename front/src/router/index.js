@@ -7,7 +7,6 @@ import LoginView from "@/views/auth/LoginView";
 
 
 //성호형??
-import testBshView from "@/views/supply/TestBshView";
 import SuppliesVue from "../views/supply/SuppliesView";
 import PlannerShareView from "../views/share/PlannerShareView";
 import PlannerShareDetailsViewView from "../views/share/PlannerShareDetailsView";
@@ -60,6 +59,7 @@ import WritingModView from "@/views/auth/WritingModView";
 import MINA from "@/views/MINA";
 import TestView from "@/views/TestView";
 
+import axios from 'axios'
 import {store} from "@/store"
 import GuideProductTime from "@/views/guide/GuideProductTime";
 
@@ -106,12 +106,14 @@ const routes = [
   {path: "/StorageOrder", name: StorageOrder, component: StorageOrder},
   {path: "/FareView", name: "FareView", component: FareView},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
-  {path: "/TransportView", name: "TransportView", component: TransportView},
+  {path: "/TransportOrder", name: "TransportView", component: TransportOrder},
   {path: "/TrackingView", name: "TrackingView", component: TrackingView},
-  {path: "/StorageView", name: "StorageView", component: StorageView},
+  {path: "/StorageOrder", name: "StorageView", component: StorageOrder},
 
   // { path: "/OrderView", name: "OrderView", component: OrderView },
 
+
+  //진한
   {path: "/GuideView", name: "GuideView", component: GuideView},
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},

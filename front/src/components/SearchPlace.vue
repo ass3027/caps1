@@ -17,26 +17,31 @@
       <v-card>
         <v-list-item>
           <div v-if="lists.length != 0">
-            <div v-for="(date,index) in lists" :key="index">
+            <div
+              v-for="(date,index) in lists"
+              :key="index"
+            >
               <div v-if="date.areacode==2">
-              장소명: {{ date.title }}
-              주소명:{{ date.addr1 }}
-              지역코드:{{ date.areacode }}
+                장소명: {{ date.title }}
+                주소명:{{ date.addr1 }}
+                지역코드:{{ date.areacode }}
               </div>
             </div>
           </div>
         </v-list-item>
       </v-card>
 
-      <v-card>
+      <v-card />
 
-      </v-card>
-
-      <v-divider></v-divider>
+      <v-divider />
 
       <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="dialog = false">
+        <v-spacer />
+        <v-btn
+          color="primary"
+          text
+          @click="dialog = false"
+        >
           완료
         </v-btn>
       </v-card-actions>

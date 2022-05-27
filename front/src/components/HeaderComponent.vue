@@ -1,5 +1,4 @@
 <template>
-
   <v-app
     id="gnb"
     class="header-layout"
