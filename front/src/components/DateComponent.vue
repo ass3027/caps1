@@ -2,7 +2,9 @@
   <div>
     <v-row style="height:400px">
       <v-col>
-        <h3 class="text-center">{{ date }}</h3>
+        <h3 class="text-center">
+          {{ date }}
+        </h3>
         <v-card
           v-for="(key,index) in plan.keys()"
           :id="index"
@@ -22,7 +24,7 @@
         v-model="dialog"
         width="500"
       >
-        <template v-slot:activator="{ on, attrs}">
+        <template #activator="{ on, attrs}">
           <v-btn
             color="red lighten-2"
             dark
@@ -40,12 +42,12 @@
 
           <v-card-text>
             <v-select
-              :items="availableTimeList"
               v-model="addTime"
+              :items="availableTimeList"
             />
           </v-card-text>
 
-          <v-divider/>
+          <v-divider />
           <v-card-actions>
             <v-btn
               color="primary"
@@ -62,13 +64,11 @@
               추가
             </v-btn>
           </v-card-actions>
-
         </v-card>
       </v-dialog>
       <v-btn
         @click="deleting()"
       >
-
         일정삭제
       </v-btn>
     </v-row>
@@ -83,11 +83,6 @@ export default {
       type: String,
       required: true
     },
-  },
-  created() {
-    this.updatePlan()
-    this.updateAvailableTimeList()
-
   },
   data() {
     return {
@@ -104,6 +99,11 @@ export default {
       availableTimeList:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
       plan:{},
     }
+  },
+  created() {
+    this.updatePlan()
+    this.updateAvailableTimeList()
+
   },
   methods: {
     updatePlan: function () {

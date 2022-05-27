@@ -4,9 +4,9 @@
     class="main"
   >
     <div class="body">
-      <PlaceHeader :category="category"/>
+      <PlaceHeader :category="category" />
       <div class="body-form">
-        <PlaceLeft :option="option"/>
+        <PlaceLeft :option="option" />
         <PlaceMain />
       </div>
     </div>

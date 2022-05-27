@@ -88,13 +88,6 @@ import {EventBus} from "@/eventBus/eventBus";
 export default {
 
   name: 'HelloWorld',
-  created(){
-    EventBus.$on("photoUpdate",(photo)=>{
-      console.log(11)
-      console.log(decodeURI(photo))
-      this.photo = "/api/photo/"+decodeURI(photo)
-    })
-  },
   data: () => ({
     photo: '',
     menuList:[
@@ -165,6 +158,13 @@ export default {
       console.log(this.$store.getters['user/isLogin'])
       return this.$store.getters['user/isLogin']
     },
+  },
+  created(){
+    EventBus.$on("photoUpdate",(photo)=>{
+      console.log(11)
+      console.log(decodeURI(photo))
+      this.photo = "/api/photo/"+decodeURI(photo)
+    })
   },
   methods: {
     logOut(){
