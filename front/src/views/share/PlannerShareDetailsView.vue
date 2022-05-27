@@ -97,6 +97,9 @@ export default {
           console.log(res)
           alert("복제성공")
         })
+      .catch((err)=>{
+        console.log(err)
+      })
     },
     edit() {
       this.$router.push({

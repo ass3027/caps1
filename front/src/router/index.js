@@ -43,6 +43,7 @@ import StoreReviewView from "@/views/StoreReviewView";
 
 import ReviewCreateView from "@/views/ReviewCreateView";
 import MypageView from "@/views/auth/MypageView";
+import testBshView from "@/views/supply/TestBshView";
 
 import StoreDetail from "@/views/store/StoreDetail";
 import GuideSearch from "@/views/guide/GuideSearch";
@@ -82,6 +83,7 @@ const routes = [
 
   { path: "/supplies", name: "supplies", component: SuppliesVue },
   { path: "/share", name: "share", component: PlannerShareView },
+  {path:"/bsh", name:"bsh", component: testBshView},
   {
     path: "/share/:id",
     name: "shareDetails",
