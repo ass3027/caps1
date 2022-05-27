@@ -59,6 +59,7 @@ import WritingModView from "@/views/auth/WritingModView";
 import MINA from "@/views/MINA";
 import TestView from "@/views/TestView";
 
+import axios from 'axios'
 import {store} from "@/store"
 import GuideProductTime from "@/views/guide/GuideProductTime";
 
