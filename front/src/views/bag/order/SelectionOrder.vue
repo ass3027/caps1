@@ -30,12 +30,6 @@
       </v-col>
     </v-row>
 
-
-    <v-row justify="space-around">
-
-
-    </v-row>
-
     <router-view/>
   </v-app>
 </template>
