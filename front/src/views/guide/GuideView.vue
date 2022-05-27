@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
 
+  <div class="card">
     <v-row
       cols="0"
       md="0"
@@ -19,13 +19,13 @@
               이름:{{item.user_name}}
             </div>
             <div>
-              자격증:{{item.guide_license}}
+              자격증:<br>{{item.guide_license}}
             </div>
             <v-list-item-title class="text-h5 mb-1">
               ID:{{ item.user_id }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              소개:{{ item.guide_intro }}
+              소개<br>{{ item.guide_intro }}
             </v-list-item-subtitle>
           </v-list-item-content>
 
@@ -111,6 +111,7 @@ export default {
       })
         .then((res) => {
           this.lists = res.data;
+          console.log("asdasd" + res)
         })
     },
 

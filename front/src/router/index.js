@@ -59,6 +59,7 @@ import DetailPageView from "@/views/auth/DetailPageView";
 import WritingModView from "@/views/auth/WritingModView";
 
 import {store} from "@/store"
+import GuideProductTime from "@/views/guide/GuideProductTime";
 Vue.use(VueRouter);
 
 const routes = [
@@ -107,6 +108,7 @@ const routes = [
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props:true},
   {path: "/GuideView/Search/:keyword", name:"GuideSearch", component: GuideSearch, props:true},
   {path: "/GuideProduct", name:"GuideProduct", component: GuideProduct},
+  {path: "/GuideProductTime/:gitem_id", name:"GuideProductTime", component: GuideProductTime, props:true},
 
 
   {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true},
