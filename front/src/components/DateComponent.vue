@@ -1,8 +1,8 @@
 <template>
-  <div >
-    <v-row>
+  <div>
+    <v-row style="height:400px">
       <v-col>
-        <h4>{{ date }}</h4>
+        <h3 class="text-center">{{ date }}</h3>
         <v-card
           v-for="(key,index) in plan.keys()"
           :id="index"
@@ -41,6 +41,7 @@
           <v-card-text>
             <v-select
               :items="availableTimeList"
+              v-model="addTime"
             />
           </v-card-text>
 
@@ -53,15 +54,21 @@
             >
               닫기
             </v-btn>
+            <v-btn
+              color="primary"
+              text
+              @click="add"
+            >
+              추가
+            </v-btn>
           </v-card-actions>
+
         </v-card>
       </v-dialog>
-      <v-btn>
-        일정추가
-      </v-btn>
       <v-btn
-        @click="exper"
+        @click="deleting()"
       >
+
         일정삭제
       </v-btn>
     </v-row>
@@ -77,6 +84,11 @@ export default {
       required: true
     },
   },
+  created() {
+    this.updatePlan()
+    this.updateAvailableTimeList()
+
+  },
   data() {
     return {
       height: 500,
@@ -87,34 +99,17 @@ export default {
       length: 0,
       selectedTag: '',
       style: "width:100,height:2,border:2,top:selected",
-      dialog:false,
+      dialog: false,
+      addTime:0,
+      availableTimeList:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+      plan:{},
     }
-  },
-  computed: {
-    plan: function () {
-      return this.$store.state.calendar.calendar.date[this.date]
-    },
-    availableTimeList: function(){
-      const arr = []
-      for(let key of this.plan.keys()){
-        arr.push(key)
-      }
-      const available = []
-      for(let key in 24){
-        available.push(key)
-      }
-      console.log(available)
-      available.filter( (it)=>{
-        return arr.find(it) === undefined;
-
-      })
-      console.log(available)
-      return available
-    }
-
   },
   methods: {
-
+    updatePlan: function () {
+      if(this.$store.state.calendar.calendar.date !==undefined) this.plan = this.$store.state.calendar.calendar.date[this.date]
+      console.log(this.plan)
+    },
     select(index) {
       //console.log(e.target.id);
       const a = {
@@ -127,24 +122,40 @@ export default {
       console.log(this.plan)
       this.selectedTime = index
     },
-    exper: function(){
+    updateAvailableTimeList: function () {
+      console.log(this.plan)
+      if(this.plan === {}) return;
       const arr = []
-      for(let key of this.plan.keys()){
+      for (let key of this.plan.keys()) {
         arr.push(key)
       }
-      const available = []
-      for(let key=0;key<24;key++){
+      let available = []
+      for (let key = 0; key < 24; key++) {
         available.push(key)
       }
-      console.log(available)
-      const result = available.filter( (it)=>{
-        return arr.find(it) === undefined;
-
+      available = available.filter((it) => {
+        return !(arr.includes(it));
       })
-      console.log(result)
-      return result
-    }
+      available.forEach((it) => it + "시")
 
+      this.availableTimeList =  available;
+    },
+    add(){
+      const a = {
+        "date": this.date,
+        "time": this.addTime
+      }
+      this.$store.commit('calendar/updateSelect', a)
+      this.$store.commit('calendar/updateCalendarDate','')
+      this.updateAvailableTimeList()
+      this.updatePlan();
+      this.dialog = false
+    },
+    deleting(){
+      this.$store.commit("calendar/deleteCalendarDate")
+      //this.$store.commit("calendar/reload")
+      //const a = this.plan
+    }
   }
 }
 </script>

@@ -180,14 +180,20 @@ public class ApiPlanner {
         }
 
         List<ScheduleDAO> list = scheduleMapper.selectAllById(planId);
-        System.out.println(list.size());
 
-        List<ScheduleDTO> convertResult = new ArrayList<>();
-        list.forEach( it->
-                convertResult.add(it.toDTO()));
-        System.out.println("일정:" + convertResult.get(0).getPlace());
         data.put("plan",plan.get());
-        data.put("scheduleList",convertResult);
+
+        if(list.size()!=0){
+            List<ScheduleDTO> convertResult = new ArrayList<>();
+            list.forEach(it ->
+                    convertResult.add(it.toDTO()));
+            System.out.println("일정:" + convertResult.get(0).getPlace());
+            data.put("scheduleList",convertResult);
+        } else{
+            data.put("scheduleList",null);
+        }
+
+
 
         return data;
     }

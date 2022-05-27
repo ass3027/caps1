@@ -59,6 +59,8 @@ import {EventBus} from "@/eventBus/eventBus";
 
 Vue.use(VueRouter);
 
+import MINA from "@/views/MINA";
+
 const routes = [
   { path: "/join", name: "join", component: JoinView },
   { path: "/login", name: "login", component: LoginView },
@@ -185,6 +187,8 @@ const routes = [
   },
 
   { path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView },
+  //민아 실험
+  { path:"/mina",component: MINA}
 ];
 
 const router = new VueRouter({
