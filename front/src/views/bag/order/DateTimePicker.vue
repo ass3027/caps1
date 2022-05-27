@@ -1,6 +1,7 @@
 <template>
   <v-col cols="4" sm="6" md="4">
     <v-dialog ref="dialog" v-model="dateModal" :return-value.sync="date" persistent  width="290px">
+
       <template v-slot:activator="{ on }">
         <v-text-field v-model="date" :label="`${label}`" readonly v-on="on"></v-text-field>
       </template>
