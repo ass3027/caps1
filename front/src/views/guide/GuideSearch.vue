@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h1>{{this.keyword}}</h1>
+    <h1>{{ keyword }}</h1>
     <v-row
       cols="0"
       md="0"
@@ -46,7 +46,6 @@
       </v-card>
     </v-row>
   </div>
-
 </template>
 
 <script>
@@ -56,12 +55,12 @@ export default {
   components:{
 
   },
+  props:['keyword'],
   data(){
     return{
       lists:[],
     }
   },
-  props:['keyword'],
   mounted() {
 
     console.log("keyword: " + this.keyword)

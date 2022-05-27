@@ -1,5 +1,8 @@
 <template>
-  <div id="review" style="padding-top: 70px">
+  <div
+    id="review"
+    style="padding-top: 70px"
+  >
     <!--
     <v-row justify="center">
       <v-btn
@@ -48,7 +51,7 @@ export default {
     // ReviewForm,
     ReviewList,
   },
-  props:['store_name'],
+  props:{'store_name': String},
   data(){
     return{
       reviews:[],
@@ -87,8 +90,6 @@ export default {
       this.getReviews()
     }
   }
-
-
 }
 </script>
 

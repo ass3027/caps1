@@ -32,52 +32,57 @@
           </div>
         </div>
 
-          <div class="col-12 col-md-6 text-left my-3">
-            <div class="container">
-              <div>
+        <div class="col-12 col-md-6 text-left my-3">
+          <div class="container">
+            <div>
               <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
                 Packless Travel
               </span>
-              </div>
+            </div>
 
-              <div class="mt-2 mb-4" >
-              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem" >
+            <div class="mt-2 mb-4">
+              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
                 {{ products[0].store_id }}
               </span>
-              </div>
+            </div>
 
-              <div class="my-3">
+            <div class="my-3">
               <span class="text-muted">
                 개인 바베큐 됩니다.
               </span>
-              </div>
+            </div>
 
-              <div class="row">
-                <div class="col-8 col-md-12 d-flex flex-row align-items-center">
-                  <div>
+            <div class="row">
+              <div class="col-8 col-md-12 d-flex flex-row align-items-center">
+                <div>
                   <span style="font-size: 24px; font-weight: 900">
                     ${{ parseFloat(price).toFixed(2) }}
                   </span>
-                  </div>
-                  <div class="">
-                  <span class="mx-3 discount px-2 py-1 rounded"
-                        style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)">
+                </div>
+                <div class="">
+                  <span
+                    class="mx-3 discount px-2 py-1 rounded"
+                    style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)"
+                  >
                     50%
                   </span>
-                  </div>
                 </div>
+              </div>
 
-                <div class="col-4 col-md-12 my-1">
-                <span class="" style="font-weight: 700; color: rgb(183, 183, 183); text-decoration: line-through;">
+              <div class="col-4 col-md-12 my-1">
+                <span
+                  class=""
+                  style="font-weight: 700; color: rgb(183, 183, 183); text-decoration: line-through;"
+                >
                   $250.00
                 </span>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    <StoreReviewView :store-id="store_id"/>
+    </div>
+    <StoreReviewView :store_name="store_name" />
   </div>
 </template>
 
@@ -107,7 +112,9 @@ export default {
       showImageModal: false,
       slide: 0,
       temp:0,
-      index:0
+      index:0,
+
+      store_name:'',
     }
   },
 
@@ -126,18 +133,20 @@ export default {
         console.log(err)
       })
 
-    const items = JSON.parse(localStorage.getItem('myCart'));
-    // console.log('items', items);
-    this.cartItems = items;
+    axios({
+      method: 'GET',
+      url: '/api/findPlName',
+      params: {'store_id': this.store_id}
+    })
+      .then((res) => {
+        this.store_name = res.data
+      })
   },
   computed: {
     mainImage: function(){
       return this.products[this.index].pic_name
     } ,
 
-    cartItemsCount() {
-      return this.cartItems.length;
-    }
   },
   methods: {
     showMainImage() {

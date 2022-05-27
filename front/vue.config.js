@@ -1,4 +1,4 @@
-//const { defineConfig } = require('@vue/cli-service')
+    //const { defineConfig } = require('@vue/cli-service')
 module.exports = {
 
   transpileDependencies: [
@@ -10,7 +10,8 @@ module.exports = {
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true // cross origin 허용
-      }
+      },
+
     },
   },
   //indexPath: "../static/index.html",

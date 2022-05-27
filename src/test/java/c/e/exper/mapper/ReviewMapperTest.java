@@ -13,6 +13,10 @@ public class ReviewMapperTest {
     @Autowired
     private ReviewMapper mapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
+
 
     // 주문서 리뷰 등록
     @Test
@@ -85,9 +89,13 @@ public class ReviewMapperTest {
     @Test
     public void findAllReviewForStore() {
 
-        List<Review> reviews = mapper.findAllReviewForStore("편안호텔");
 
-        reviews.forEach(System.out::println);
+        mapper.findAllReviewForStore("편안 호텔").forEach(System.out::println);
+    }
+
+    @Test
+    public void testtest() {
+        System.out.println(userMapper.checkExist(String.valueOf(600062)));
     }
 
 

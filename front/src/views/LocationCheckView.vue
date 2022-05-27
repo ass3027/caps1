@@ -1,10 +1,21 @@
 <template>
   <div>
     <h1>Location Check {{ ord_id }}</h1>
-    <div id="map" style="width:100%;height:350px;"></div>
+    <div
+      id="map"
+      style="width:100%;height:350px;"
+    />
     <p>{{ latitude }}</p>
     <p>{{ longitude }}</p>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4UG2Fm0E98LhE2dlNxiAXx?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    <iframe
+      style="border-radius:12px"
+      src="https://open.spotify.com/embed/track/4UG2Fm0E98LhE2dlNxiAXx?utm_source=generator"
+      width="100%"
+      height="80"
+      frameBorder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    />
   </div>
 </template>
 

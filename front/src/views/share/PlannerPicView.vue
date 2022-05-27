@@ -40,7 +40,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('/api/getPlanPic',{
+    axios.get('/api/planner/getPlanPic',{
       params:{
         plan_id:this.$store.state.user.planId,
       }
@@ -49,6 +49,9 @@ export default {
       console.log("?")
       console.log(res.data)
       this.photos=res.data;
+    })
+    .catch((err)=>{
+      alert(err)
     })
   },
   methods: {
@@ -72,7 +75,7 @@ export default {
 
       axios({
         method: 'post',
-        url: '/api/addPlanPic',
+        url: '/api/planner/addPlanPic',
         headers: {
           'Content-Type': 'multipart/form-data',
         },

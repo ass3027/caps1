@@ -10,65 +10,130 @@ import java.util.List;
 public interface ReviewMapper {
 
 
+    /* 장소 번호로 장소명 찾기 */
+    @Select("""
+            SELECT pl_name
+            FROM place
+            where store_id = #{store_id}""")
+    public String findPlName(@Param("store_id") String store_id);
 
-    @Select("select * from review")
+    @Select("""
+            SELECT *
+            FROM review""")
     public List<Review> findAllReview();
 
     public String addReview(Review review);
 
     /* 주문서 리뷰 등록 */
-    @Insert("insert into review(REV_ID, USER_ID, REV_CONTENT, REV_RATING, ORD_ID) values (REVIEW_SEQ.nextval, #{review.user_id}, #{review.rev_content}, #{review.rev_rating}, #{review.ord_id})")
+    @Insert("""
+            INSERT INTO review(rev_id,
+                               user_id,
+                               rev_content,
+                               rev_rating,
+                               ord_id)
+            VALUES (REVIEW_SEQ.nextval,
+                    #{review.user_id},
+                    #{review.rev_content},
+                    #{review.rev_rating},
+                    #{review.ord_id})""")
     public int addOrderReview(@Param("review") Review review);
 
     /* 예약 리뷰 등록 */
-    @Insert("insert into review( USER_ID, REV_CONTENT, REV_RATING, BOOK_ID) values ( #{review.user_id}, #{review.rev_content}, #{review.rev_rating}, #{review.book_id})")
+    @Insert("""
+            INSERT INTO review(user_id,
+                               rev_content,
+                               rev_rating,
+                               book_id)
+            VALUES ( #{review.user_id},
+                     #{review.rev_content},
+                     #{review.rev_rating},
+                     #{review.book_id})""")
     public int addBookReview(@Param("review") Review review);
 
     /* 리뷰 아이디로 리뷰 조회 */
-    @Select("select * from review where REV_ID = #{rev_id}")
+    @Select("""
+            SELECT *
+            FROM review
+            WHERE rev_id = #{rev_id}""")
     public Review selectReview(@Param("rev_id") String rev_id);
 
 
     /* 리뷰 아이디로 리뷰 삭제 */
-    @Delete("delete from review where REV_ID = #{rev_id}")
+    @Delete("""
+            DELETE FROM review
+            WHERE rev_id = #{rev_id}""")
     public int deleteReview(@Param("rev_id") String rev_id);
 
-    @Select("select * from review where book_id in (select BOOK.BOOK_ID from BOOK where PD_ID = (select b.PD_ID from REVIEW r, BOOK b where r.REV_ID = #{rev_id} and r.BOOK_ID = b.BOOK_ID))")
+    @Select("""
+            SELECT *
+            FROM review
+            WHERE book_id IN (SELECT book.book_id
+                              FROM book
+                              WHERE pd_id = (SELECT b.pd_id
+                                             FROM review r, book b
+                                             WHERE r.rev_id = #{rev_id}
+                                             AND r.book_id = b.book_id))""")
     public List<Review> findAllReviewForReview(@Param("rev_id") String rev_id);
 
     /* 리뷰 아이디로 상품 아이디 */
-    @Select("select PD_ID from REVIEW r, BOOK b where r.REV_ID = #{rev_id} and r.BOOK_ID = b.BOOK_ID")
+    @Select("""
+            SELECT pd_id
+            FROM review r, book b
+            WHERE r.rev_id = #{rev_id}
+              AND r.book_id = b.book_id""")
     public String findProductForReview(@Param("rev_id") String rev_id);
 
-    /* 상품 아이디로 모든 리뷰 조회 */
-    @Select("select * from review where booK_id in (select BOOK.BOOK_ID from BOOK where PD_ID = #{pd_id})")
+    /* 상품 아이디로 모든 리뷰 조1회 */
+    @Select("""
+            SELECT *
+            FROM   review
+            WHERE  booK_id IN (SELECT book.book_id
+                               FROM book
+                               WHERE pd_id = #{pd_id})""")
     public List<Review> findAllReviewForProduct(@Param("pd_id") String pd_id);
 
-    /* 가게 아이디로 모든 리뷰 조회*/
-    @Select("SELECT review.*\n" +
-            "FROM   review,\n" +
-            "       book\n" +
-            "WHERE  review.book_id = book.book_id\n" +
-            "  AND book.pd_id IN (SELECT product.pd_id\n" +
-            "                     FROM   product\n" +
-            "                                left outer join place\n" +
-            "                                                ON product.pl_id = place.pl_id\n" +
-            "                     WHERE  store_name = #{store_name})")
-    public List<Review> findAllReviewForStore(@Param("store_name") String store_name);
+    /* 가게 이름으로 모든 리뷰 조회*/
+    @Select("""
+            SELECT review.*
+            FROM   review,
+                   book
+            WHERE  review.book_id = book.book_id
+              AND  book.pd_id IN (SELECT product.pd_id
+                                  FROM   product, place
+                                  WHERE  pl_name = #{pl_name}
+                                  AND    product.pl_id = place.pl_id)""")
+    public List<Review> findAllReviewForStore(@Param("pl_name") String pl_name);
 
     /* 키퍼 아이디로 모든 리뷰 조회 */
-    @Select("select * from REVIEW where ORD_ID in (select ORD_ID from ORDERS where KEEP_START = #{keep_id} or KEEP_END = #{keep_id})")
+    @Select("""
+            SELECT *
+            FROM review
+            WHERE ord_id IN (SELECT ord_id
+                             FROM   orders
+                             WHERE keep_start = #{keep_id}
+                                OR keep_end   = #{keep_id})""")
     public List<Review> findAllReviewForKeep(@Param("keep_id") String keep_id);
 
     /* 운송원 아이디로 모든 리뷰 조회*/
-    @Select("select * from REVIEW where ORD_ID in (select ORD_ID from ORDERS where DELIVERY_ID = #{delivery_id})")
+    @Select("""
+            SELECT *
+            FROM review
+            WHERE ord_id IN (SELECT ord_id
+                             FROM orders
+                             WHERE delivery_id = #{delivery_id})""")
     public List<Review> findAllReviewForDelivery(@Param("delivery_id") String delivery_id);
 
 //    @Select("select * from REVIEW where BOOK_ID in ()")
 
-    @Update("update review set rev_content = #{review.rev_content} where review_id = #{review.rev_id}")
+    @Update("""
+            UPDATE review
+            SET rev_content = #{review.rev_content}
+            WHERE review_id = #{review.rev_id}""")
     public int updateReview(@Param("review") Review review);
 
-    @Select("select BOOK_ID from BOOK where PAY_ID = #{pay_id}")
+    @Select("""
+            SELECT book_id
+            FROM book
+            WHERE pay_id = #{pay_id}""")
     public String findByPay(@Param("pay_id") String pay_id);
 }

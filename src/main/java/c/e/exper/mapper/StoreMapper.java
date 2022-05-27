@@ -28,15 +28,14 @@ public interface StoreMapper {
             "       PLACE.ADDRESS_DONG,\n" +
             "       PLACE.STORE_PHONE,\n" +
             "       PLACE.CATEGORY,\n" +
+            "       PLACE.PL_NAME,\n" +
             "       PLACE.STORE_ID,\n" +
-            "       PLACE.STORE_INFO,\n" +
-            "       PLACE.STORE_NAME,\n" +
             "       PICTURES.PIC_NAME\n" +
             "FROM PLACE,\n" +
             "     PICTURES,\n" +
             "     OPTION_PLACE\n" +
             "WHERE PLACE.PL_ID = PICTURES.PL_ID\n" +
-            "  and place.PL_ID = OPTION_PLACE.PL_ID\n" +
+            "  AND PLACE.PL_ID = OPTION_PLACE.PL_ID\n" +
             "  AND PLACE.CATEGORY = #{category}\n" +
             "order by 1")
     List<PlaceDAO> selectByCategory(String category);

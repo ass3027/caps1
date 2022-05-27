@@ -1,12 +1,13 @@
 <template>
-  <v-card
-    class="ma-0 pa-0"
-    outlined
+  <li
+      class="ma-0 py-5 pr-5"
     style="width: 100%; height: 300px"
   >
-    <v-list-item
-      class="pa-0"
-    >
+    <div class="review-lists">
+      <div class="review-user">
+
+        <div>{{user.user_name}}</div>
+      </div>
       <v-list-item-content>
         <v-row>
           <v-col
@@ -25,9 +26,6 @@
           <p class="text-body  red--text">
             {{ reg_date }}
           </p>
-
-
-
         </v-row>
         <v-list-item-subtitle>
           {{ review.rev_content }}
@@ -39,11 +37,13 @@
         size="150"
         color="grey"
       />
-    </v-list-item>
-  </v-card>
+    </div>
+  </li>
 </template>
 
 <script>
+
+import axios from "axios";
 
 export default {
   name:'ReviewItem',
@@ -55,6 +55,7 @@ export default {
   data() {
     return {
       rev_rating: this.review.rev_rating,
+      user: null,
     }
   },
   computed: {
@@ -63,7 +64,21 @@ export default {
     }
   },
   mounted() {
+    axios({
+      method: 'GET',
+      url:'http://localhost:8080/api/user/find',
+      params: {
+        user_id: this.review.user_id
+      }
 
+    })
+      .then(res => {
+        console.log("[user/find]" + res.data)
+        this.user = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     console.log(this.review.rev_content)
   }
 }

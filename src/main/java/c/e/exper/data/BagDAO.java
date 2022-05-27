@@ -14,7 +14,7 @@ import java.sql.Date;
 public class BagDAO {
    String ord_id;    //주문번호
    String pay_id;    //결제번호
-   String user_id;   //회원ID
+   String user_id;   //UserId
    String ord_amount;   //금액
    String keep_status;  //보관현황
    String entrust_time;   //맡길 시간
@@ -24,4 +24,5 @@ public class BagDAO {
    String delivery_id;  //운송원ID
    String call_time;
    String delivery_status;
+   String ord_selection;   //주문선택
 }
