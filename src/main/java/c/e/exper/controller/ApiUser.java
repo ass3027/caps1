@@ -1,22 +1,36 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.PictureDAO;
+import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.UserDAO;
 import c.e.exper.data.UserDTO;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
+import c.e.exper.service.ReviewService;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
+import java.security.Principal;
+import java.security.Security;
 
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
+
+
+
+import java.util.*;
 import java.util.regex.Pattern;
 
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
@@ -40,12 +54,16 @@ public class ApiUser {
     final
     FileService fileService;
 
-    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper) {
+    final ReviewService reviewService;
+
+
+    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper, ReviewService reviewService) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
         this.suplMapper = suplMapper;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
+        this.reviewService = reviewService;
     }
 
     @GetMapping("/find")
@@ -118,6 +136,20 @@ public class ApiUser {
         return true;
     }
 
+    @PostMapping("/apiTest")
+    public void apiTest(@RequestBody List<PlaceDAO> data) {
+
+//        data.forEach( function(it) {
+//            userMapper.insertPlace(it);
+//            count++;
+//        });
+//        int i;
+//        for(i = 0; i < data.size(); i++) {
+//            userMapper.insertPlace(data.get(i));
+//
+//        }
+//        System.out.println("count: " + i);
+    }
 
     public String getRandomPhone(){
 

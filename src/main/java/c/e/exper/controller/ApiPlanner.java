@@ -161,7 +161,8 @@ public class ApiPlanner {
 
         PictureDAO pictureDAO = new PictureDAO();
         pictureDAO.setPic_name(filePath);
-        pictureDAO.setUser_id(pictureDTO.getUser_id());
+//        공유사진등록할떄 유저아이디 등록하는거
+//        pictureDAO.setUser_id(pictureDTO.getUser_id());
         pictureDAO.setPlan_id(pictureDTO.getPlan_id());
 
         pictureMapper.InsertPlan(pictureDAO);
@@ -185,7 +186,6 @@ public class ApiPlanner {
         List<ScheduleDTO> convertResult = new ArrayList<>();
         list.forEach( it->
                 convertResult.add(it.toDTO()));
-        System.out.println("일정:" + convertResult.get(0).getPlace());
         data.put("plan",plan.get());
         data.put("scheduleList",convertResult);
 

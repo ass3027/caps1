@@ -51,12 +51,6 @@
         </v-btn>
       </div>
     </div>
-
-    <!---->
-    <!---->
-    <!---->
-    <!---->
-    <!---->
     <div>
       <div class="menu-Bar">
         <div style="margin-top: 20px">
@@ -142,11 +136,12 @@ export default {
         {title: '게스트하우스', route: '/store'}
       ],
       [
-        {title: '가방예약', route: '/BagReserveView'},
+        {title: '가방예약', route: '/SelectionOrder'},
         {title: '이용안내', route: '/UsageGuideView'},
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},
-        {title: '배송조회', route: '/TrackingView'}
+        {title: '배송조회', route: '/TrackingView'},
+
       ],
       [
         {title: '가이드 리스트', route: '/guideview'},
@@ -204,7 +199,6 @@ export default {
 <style>
 #gnb {
   display: flex;
-  height: 20vh;
   flex-direction: column;
   justify-content: space-between;
 }

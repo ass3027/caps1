@@ -10,7 +10,8 @@ module.exports = {
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true // cross origin 허용
-      }
+      },
+
     },
   },
   //indexPath: "../static/index.html",

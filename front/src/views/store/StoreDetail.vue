@@ -46,11 +46,6 @@
               </span>
               </div>
 
-              <div class="my-3">
-              <span class="text-muted">
-                개인 바베큐 됩니다.
-              </span>
-              </div>
 
               <div class="row">
                 <div class="col-8 col-md-12 d-flex flex-row align-items-center">
@@ -77,6 +72,8 @@
           </div>
         </div>
       </div>
+
+    <StoreReviewView :store_name="store_name"/>
     <StoreReviewView :store_name="store_name"/>
   </div>
 </template>
