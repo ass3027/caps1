@@ -17,7 +17,6 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 
 //벙식??
-import BagReserveView from "../views/bag/order/BagReserveView.vue";
 import TrackingView from "@/views/bag/TrackingView";
 
 
