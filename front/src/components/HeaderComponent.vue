@@ -199,7 +199,6 @@ export default {
 <style>
 #gnb {
   display: flex;
-  height: 20vh;
   flex-direction: column;
   justify-content: space-between;
 }
