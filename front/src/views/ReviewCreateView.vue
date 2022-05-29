@@ -2,6 +2,7 @@
   <review-form
     :book_id="book_id"
   />
+
 </template>
 
 <script>

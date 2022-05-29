@@ -197,28 +197,28 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeResolve((to, from, next) => {
-  if (to.path === "/login" || to.path === "/join" || to.path === "/") {
-    next();
-  } else {
-    const dd = async () => {
-      try {
-        const id = await axios.get("/api/user/id");
-        await store.dispatch("user/setUser", id.data);
-        if ("anonymousUser" !== id.data) {
-          console.log("login")
-          const photo = await axios.get("/api/user/photo")
-          EventBus.$emit("photoUpdate", photo.data)
-          next()
-        } else {
-          console.log("not login")
-          next('/login');
-        }
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    dd()
-  }
-})
+// router.beforeResolve((to, from, next) => {
+//   if (to.path === "/login" || to.path === "/join" || to.path === "/") {
+//     next();
+//   } else {
+//     const dd = async () => {
+//       try {
+//         const id = await axios.get("/api/user/id");
+//         await store.dispatch("user/setUser", id.data);
+//         if ("anonymousUser" !== id.data) {
+//           console.log("login")
+//           const photo = await axios.get("/api/user/photo")
+//           EventBus.$emit("photoUpdate", photo.data)
+//           next()
+//         } else {
+//           console.log("not login")
+//           next('/login');
+//         }
+//       } catch (err) {
+//         console.log(err)
+//       }
+//     }
+//     dd()
+//   }
+// })
 export default router;

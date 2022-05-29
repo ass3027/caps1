@@ -53,7 +53,7 @@
     <div>
       <div
         id="gnb"
-        class="menu-Bar gnb_stop"
+        class="menu-Bar"
       >
         <div style="margin-top: 20px">
           <v-menu
@@ -165,8 +165,10 @@ export default {
         {title: 'Customer5', route: '/Customer'}
       ]
     ],
+    scroll: null,
   }),
   computed:{
+
     isLogin() {
       console.log(this.$store.state.user.userId)
       console.log(this.$store.getters['user/isLogin'])
@@ -179,6 +181,18 @@ export default {
       console.log(decodeURI(photo))
       this.photo = "/api/photo/"+decodeURI(photo)
     })
+  },
+  mounted() {
+    var gnb = document.getElementById("gnb")
+
+    document.addEventListener('scroll', function (){
+      this.scroll = window.scrollY
+      if(window.scrollY > 36)
+        gnb.classList.add('gnb_stop')
+      else
+        gnb.classList.remove('gnb_stop')
+      console.log(this.scroll)
+    });
   },
   methods: {
     logOut(){
@@ -208,15 +222,15 @@ export default {
   display: flex;
   justify-content: center;
 }
-/*.gnb_stop {*/
-/*  z-index: 300;*/
-/*  position: fixed;*/
-/*  top: 0;*/
-/*  left: 0;*/
-/*  width: 100%;*/
-/*  height: 67px;*/
-/*  background-color: white;*/
-/*}*/
+.gnb_stop {
+  z-index: 300;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 67px;
+  background-color: white;
+}
 
 .login-box {
   display: block;
