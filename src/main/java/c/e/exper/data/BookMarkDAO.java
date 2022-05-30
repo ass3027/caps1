@@ -5,19 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class InquiryDAO {
-    
-    String inq_id;
-    String inq_title;
-    String inq_body;
-    Date inq_time;
+public class BookMarkDAO {
+
+    String bookmark_num;
     String user_id;
-    String inq_type;
-    Integer inq_count;
+    String pl_id;
 }

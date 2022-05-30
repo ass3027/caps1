@@ -23,6 +23,7 @@ public interface UserMapper { //디비접근
     Optional<UserDAO> selectId(String user_id);
 //    (@Param("user_id") 생략가능
 
+
     @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null)")
     void insert(@Param("user") UserDAO user);
 

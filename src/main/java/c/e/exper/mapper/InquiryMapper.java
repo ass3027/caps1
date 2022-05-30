@@ -46,4 +46,5 @@ public interface InquiryMapper {//디비접근
     @Update("UPDATE INQUIRY SET inq_count = inq_count + 1 where inq_id=#{inq_id}")
     void updateCount(String inq_id);
 
+
 }

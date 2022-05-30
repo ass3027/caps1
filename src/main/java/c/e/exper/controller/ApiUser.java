@@ -33,6 +33,8 @@ import java.util.regex.Pattern;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import java.util.Optional;
+
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
 @RestController
@@ -83,6 +85,29 @@ public class ApiUser {
         return pictureMapper.selectPicnameByUserId(user_id);
     }
     
+    //마이페이지
+    @GetMapping("/data/{id}")
+    public UserDAO getUserInfoById(@PathVariable String id){
+         //반환데이터형식
+        return userMapper.selectId(id).get();
+    }
+
+
+    //아이디 중복 확인
+    @GetMapping("/userid")
+    public boolean getUserIdCheck( //반환타입,함수명
+        @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
+        Optional<UserDAO> id = userMapper.selectId(pp); //
+        return id.isEmpty();
+//        if (id.isEmpty()){
+//            return true;
+//        }else {
+//            return false;
+//        }
+    }
+
+    //내정보수정
+
 
     @PostMapping("/join")
     public boolean join(UserDTO user,HttpServletRequest req) {
