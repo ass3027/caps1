@@ -74,7 +74,6 @@
       </div>
 
     <StoreReviewView :store_name="store_name"/>
-    <StoreReviewView :store_name="store_name"/>
   </div>
 </template>
 
