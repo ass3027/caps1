@@ -4,6 +4,7 @@
     class="main"
   >
     <div class="body">
+      <br><br>
       <PlaceHeader :category="category" />
       <div class="body-form">
         <PlaceLeft :option="option" />

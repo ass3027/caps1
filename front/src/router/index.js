@@ -88,7 +88,7 @@ const routes = [
 
   //혁태
   {path: "/hotel", name: "hotel", component: HotelView},
-  {path: "/hotel/:pl_id", name: "hotel", component: StoreDetail, props: true,},
+  {path: "/hotel/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
   {path: "/storeadd", name: "storeadd", component: StoreAdd},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},

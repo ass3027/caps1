@@ -52,6 +52,8 @@
   </div>
 </template>
 <script>
+import StoreDetail from "@/views/store/StoreDetail";
+
 export default {
   name: "PlaceMain",
   data() {
@@ -69,8 +71,8 @@ export default {
 
   methods: {
     goStoreInfo(placeInfo) {
-      console.log('storeInfo:' + placeInfo);
-      this.$router.push(`hotel/${placeInfo.pl_id}`);
+      console.log(placeInfo);
+      this.$router.push({name: 'hotelDetail', params:{pl_id :placeInfo.pl_id}, query:{pl_name: placeInfo.pl_name}});
     },
   },
 };
