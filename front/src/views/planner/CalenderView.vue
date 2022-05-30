@@ -60,7 +60,7 @@
             v-for="(date,index) in dateArr "
             :id="index+`s`"
             :key="index"
-            style="width:300px;height:600px;float:left;"
+            style="width:600px;height:600px;float:left;"
             class="overflow-y-auto"
             sm="20"
           >

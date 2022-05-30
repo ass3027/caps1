@@ -1,10 +1,14 @@
 <template>
   <v-app id="app">
-    <div class='Bag-order'>
-      <p class="text-center">가방 보관 신청서</p>
+    <div class="Bag-order">
+      <p class="text-center">
+        가방 보관 신청서
+      </p>
     </div>
     <v-form v-model="valid">
       <v-container justify="space-around">
+        <h3>출발장소</h3>
+        <search-place />
         <h3>짐 종류와 수량</h3>
 
         <v-card>
@@ -13,9 +17,12 @@
               <v-toolbar-title>
                 {{ bagType[0].title }}
               </v-toolbar-title>
-              <v-spacer/>
-              {{bagType[0].value}}원
-              <v-checkbox v-model="checkedName" :value="bagType[0].value"/>
+              <v-spacer />
+              {{ bagType[0].value }}원
+              <v-checkbox
+                v-model="checkedName"
+                :value="bagType[0].value"
+              />
             </v-row>
           </v-card-title>
         </v-card>
@@ -26,9 +33,12 @@
               <v-toolbar-title>
                 {{ bagType[1].title }}
               </v-toolbar-title>
-              <v-spacer/>
-              {{bagType[1].value}}원
-              <v-checkbox v-model="checkedName" :value="bagType[1].value"/>
+              <v-spacer />
+              {{ bagType[1].value }}원
+              <v-checkbox
+                v-model="checkedName"
+                :value="bagType[1].value"
+              />
             </v-row>
           </v-card-title>
         </v-card>
@@ -39,9 +49,12 @@
               <v-toolbar-title>
                 {{ bagType[2].title }}
               </v-toolbar-title>
-              <v-spacer/>
-              {{bagType[2].value}}원
-              <v-checkbox v-model="checkedName" :value="bagType[2].value"/>
+              <v-spacer />
+              {{ bagType[2].value }}원
+              <v-checkbox
+                v-model="checkedName"
+                :value="bagType[2].value"
+              />
             </v-row>
           </v-card-title>
         </v-card>
@@ -52,9 +65,12 @@
               <v-toolbar-title>
                 {{ bagType[3].title }}
               </v-toolbar-title>
-              <v-spacer/>
-              {{bagType[3].value}}원
-              <v-checkbox v-model="checkedName" :value="bagType[3].value"/>
+              <v-spacer />
+              {{ bagType[3].value }}원
+              <v-checkbox
+                v-model="checkedName"
+                :value="bagType[3].value"
+              />
             </v-row>
           </v-card-title>
         </v-card>
@@ -65,9 +81,12 @@
               <v-toolbar-title>
                 {{ bagType[4].title }}
               </v-toolbar-title>
-              <v-spacer/>
-              {{bagType[4].value}}원
-              <v-checkbox v-model="checkedName" :value="bagType[4].value"/>
+              <v-spacer />
+              {{ bagType[4].value }}원
+              <v-checkbox
+                v-model="checkedName"
+                :value="bagType[4].value"
+              />
             </v-row>
           </v-card-title>
         </v-card>
@@ -78,9 +97,12 @@
               <v-toolbar-title>
                 {{ bagType[5].title }}
               </v-toolbar-title>
-              <v-spacer/>
-              {{bagType[5].value}}원
-              <v-checkbox v-model="checkedName" :value="bagType[5].value"/>
+              <v-spacer />
+              {{ bagType[5].value }}원
+              <v-checkbox
+                v-model="checkedName"
+                :value="bagType[5].value"
+              />
             </v-row>
           </v-card-title>
         </v-card>
@@ -93,38 +115,47 @@
 
       <v-card>
         <v-row>
-          <DateTimePicker :label="'맡길날짜'" @date="changeEntrustTime"></DateTimePicker>
-          <DateTimePicker :label="'찾을날짜'" @date="changeWithdrawTime"></DateTimePicker>
+          <DateTimePicker
+            :label="'맡길날짜'"
+            @date="changeEntrustTime"
+          />
+          <DateTimePicker
+            :label="'찾을날짜'"
+            @date="changeWithdrawTime"
+          />
         </v-row>
-
       </v-card>
 
       <v-row>
         <v-col>
           <v-card>
             <h3>맡길장소</h3>
-            <AddressComponent @addressData="startAddress"></AddressComponent>
+            <AddressComponent @addressData="startAddress" />
           </v-card>
         </v-col>
-
       </v-row>
 
-      <v-btn depressed color="primary" @click="addOrder">
+      <v-btn
+        depressed
+        color="primary"
+        @click="addOrder"
+      >
         작성 완료
       </v-btn>
     </v-form>
-    <router-view/>
+    <router-view />
   </v-app>
-
 </template>
 
 <script>
 import AddressComponent from "@/components/AddressComponent"
 import DateTimePicker from "@/views/bag/order/DateTimePicker"
 import axios from "axios";
+import SearchPlace from "@/components/SearchPlace";
 
 export default {
   components: {
+    SearchPlace,
     // MapComponent
     AddressComponent,
     DateTimePicker
@@ -164,6 +195,13 @@ export default {
       return a;
     },
   },
+  watch: {
+    overlay(val) {
+      val && setTimeout(() => {
+        this.overlay = false
+      }, 2000)
+    },
+  },
 
   methods: {
     changeEntrustTime(date) {
@@ -194,13 +232,6 @@ export default {
       console.log(this.entrustAddress)
     },
 
-  },
-  watch: {
-    overlay(val) {
-      val && setTimeout(() => {
-        this.overlay = false
-      }, 2000)
-    },
   },
 }
 </script>

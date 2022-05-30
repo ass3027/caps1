@@ -1,42 +1,50 @@
 <template>
-
   <v-app id="app">
     <div class="Bag-order">
-      <p class="text-center">가방예약</p>
+      <p class="text-center">
+        가방예약
+      </p>
     </div>
 
     <v-row justify="space-around">
-      <v-col cols="6" sm="2" class="mx-auto">
+      <v-col
+        cols="6"
+        sm="2"
+        class="mx-auto"
+      >
         <v-row justify="center">
-          <v-img src="@/image/storage1.png"/>
+          <v-img src="@/image/storage1.png" />
         </v-row>
         <v-row justify="center">
-          <v-btn color="primary" @click="$router.push({name:'StorageOrder'})">
+          <v-btn
+            color="primary"
+            @click="$router.push({name:'StorageOrder'})"
+          >
             가방 보관
           </v-btn>
         </v-row>
-
       </v-col>
-      <v-divider vertical></v-divider>
-      <v-col cols="6" sm="2" class="mx-auto">
+      <v-divider vertical />
+      <v-col
+        cols="6"
+        sm="2"
+        class="mx-auto"
+      >
         <v-row justify="center">
-          <v-img src="@/image/transport1.png"/>
+          <v-img src="@/image/transport1.png" />
         </v-row>
         <v-row justify="center">
-          <v-btn color="primary" @click="$router.push({name:'TransportOrder'})">
+          <v-btn
+            color="primary"
+            @click="$router.push({name:'TransportOrder'})"
+          >
             가방배송
           </v-btn>
         </v-row>
       </v-col>
     </v-row>
 
-
-    <v-row justify="space-around">
-
-
-    </v-row>
-
-    <router-view/>
+    <router-view />
   </v-app>
 </template>
 

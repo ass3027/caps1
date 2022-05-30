@@ -9,20 +9,20 @@
           v-if="plan.size!==undefined"
         >
           <v-dialog
-            v-model="detailDialog"
-            persistent
             v-for="(key,index) in plan.keys()"
             :id="index"
             :key="index"
+            v-model="detailDialog"
+            persistent
           >
             <template
-              v-slot:activator="{ attrs}"
+              #activator="{ attrs}"
             >
               <v-card
                 v-bind="attrs"
-                @click="select(key)"
                 :class="{dd:true,selecting:selectedTime===key}"
                 width="500"
+                @click="select(key)"
               >
                 <div>{{ key }}시</div>
                 <div>
@@ -30,7 +30,7 @@
                 </div>
               </v-card>
             </template>
-            <template v-slot:default="dialog">
+            <template #default="dialog">
               <v-card>
                 <v-card-title>
                   일정 상세보기
@@ -60,12 +60,7 @@
               </v-card>
             </template>
           </v-dialog>
-
-
-
-
         </template>
-
       </v-col>
     </v-row>
     <v-row>

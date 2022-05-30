@@ -15,8 +15,9 @@ public class GItemDAO {
     String user_id;
     String pl_id;
     String introduce;
-    String usage_time;
+    String st_date;
     String require_time;
+    String end_date;
 
 
 }
