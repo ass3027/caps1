@@ -20,7 +20,7 @@ export default {
   components: {
     ReviewList,
   },
-  props:{'store_name': String},
+  props:{'store_id': String},
   data(){
     return{
       reviews:[],
@@ -35,20 +35,19 @@ export default {
 
     getReviews(){
 
-      var sendForm = new FormData()
 
-      console.log('store_name: ' + this.store_name)
+      console.log('store_id: ' + this.store_id)
 
       axios({
         method: 'GET',
         url:'http://localhost:8080/api/storeReview',
         params: {
-          store_name:this.store_name
+          store_id:this.store_id
         }
 
       })
         .then(res => {
-          console.log(res.data)
+          console.log("store_reviews: "+res.data)
           this.reviews = res.data
         })
         .catch((err) => {

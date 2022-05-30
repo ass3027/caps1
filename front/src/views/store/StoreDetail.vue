@@ -43,6 +43,8 @@
               <div class="mt-2 mb-4" >
               <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem" >
                 {{ products[0].store_id }}
+
+                {{products[0].pd_id}}
               </span>
               </div>
 
@@ -72,8 +74,7 @@
           </div>
         </div>
       </div>
-
-    <StoreReviewView :store_name="store_name"/>
+      <StoreReviewView :store_id="store_id"/>
   </div>
 </template>
 
@@ -105,7 +106,6 @@ export default {
       temp:0,
       index:0,
 
-      store_name:'',
     }
   },
 
@@ -122,15 +122,6 @@ export default {
       })
       .catch((err) => {
         console.log(err)
-      })
-
-    axios({
-      method: 'GET',
-      url: '/api/findPlName',
-      params: {'store_id': this.store_id}
-    })
-      .then((res) => {
-        this.store_name = res.data
       })
 
     const items = JSON.parse(localStorage.getItem('myCart'));

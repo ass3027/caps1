@@ -1,5 +1,7 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.OrderDAO;
+import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.UserDAO;
 import org.apache.ibatis.annotations.Insert;
@@ -81,6 +83,12 @@ public interface UserMapper { //디비접근
     @Select("SELECT user_id FROM users")
     List<String> selectAllId();
     /* user 전화번호 올바른 형식으로 업데이트 */
+
+    @Select("SELECT * FROM PAYMENT WHERE CARD_NUM IN (SELECT CARD_NUM FROM CARD WHERE USER_ID = #{user_id})")
+    List<PaymentDAO> selectUserPayments(@Param("user_id") String user_id);
+
+    @Select("SELECT * FROM ORDERS WHERE USER_ID IN #{user_id}")
+    List<OrderDAO> selectUserOrders(@Param("user_id") String user_id);
 
 
 

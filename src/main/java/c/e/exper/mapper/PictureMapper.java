@@ -6,10 +6,12 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface PictureMapper {
 
     @Insert("Insert Into Pictures(PIC_NAME,USER_ID) Values(#{pic.pic_name},#{pic.user_id, jdbcType=VARCHAR})")
@@ -20,6 +22,9 @@ public interface PictureMapper {
 
     @Select("Select pic_name From Pictures Where user_id=#{user_id}")
     String selectPicnameByUserId(String user_id);
+
+    @Select("SELECT pic_name FROM pictures WHERE rev_id=#{rev_id}")
+    String selectPicnameByRevId(String rev_id);
 
     @Insert("Insert Into Pictures(PIC_NAME,PL_ID) Values(#{pic.pic_name},#{pic.pl_id})")
     void InsertStore(@Param("pic") PictureDAO pictureDAO);

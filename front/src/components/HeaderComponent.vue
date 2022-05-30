@@ -191,7 +191,6 @@ export default {
         gnb.classList.add('gnb_stop')
       else
         gnb.classList.remove('gnb_stop')
-      console.log(this.scroll)
     });
   },
   methods: {
