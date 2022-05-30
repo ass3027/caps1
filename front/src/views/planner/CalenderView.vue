@@ -2,16 +2,14 @@
   <v-container>
     <PlannerHeader />
     <v-container style="padding-left:10px">
-      <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
-        <MapComponent
-          @mapDataTransfer="applyMapData"
-        />
+      <div style="width:60%;height:750px;position:relative;overflow:hidden;float:left">
+        <MapComponent/>
       </div>
 
 
       <v-container
         id="plan"
-        style="float:right;width:60%; "
+        style="float:right;width:40%; "
       >
         <v-col>
           <input
@@ -60,7 +58,7 @@
             v-for="(date,index) in dateArr "
             :id="index+`s`"
             :key="index"
-            style="width:600px;height:600px;float:left;"
+            style="width:300px;height:600px;float:left;"
             class="overflow-y-auto"
             sm="20"
           >
@@ -144,10 +142,18 @@ export default {
         })
         //여기서 부터
         scheduleList.forEach( (it)=>{
+          const partialData = {
+            gitem_id:it.gitem_id,
+            pl_id:it.pl_id,
+            expect_expenses: it.expect_expenses,
+            mapX:it.mapX,
+            mapY:it.mapY,
+            address:it.place
+          }
 
           console.log(it.sch_endTime.substring(0,10))
             calendar.date[it.sch_endTime.substring(0,10)].set(
-              parseInt( it.sch_startTime.substring(12,13) ),it.place)
+              parseInt( it.sch_startTime.substring(12,13) ), partialData)
           //이거 객체화 해서 저장해야하무
         })
 
@@ -189,11 +195,6 @@ export default {
 
     },
 
-    applyMapData(mapData) {
-      console.log("calendar: " + mapData)
-      this.$store.commit('calendar/updateCalendarDate',mapData)
-    },
-
     save() {
       console.log(this.calendar)
       let data = []
@@ -202,8 +203,8 @@ export default {
         console.log(this.calendar.date[a])
         console.log(a)
         for ( let [key,value] of this.calendar.date[a]){
-          let startHour
-          let endHour;
+          let startHour,
+          endHour;
           if(parseInt(key)<9){
             startHour= "0"+key
             endHour = "0"+(parseInt(key)+1)
@@ -216,13 +217,15 @@ export default {
             endHour = (parseInt(key)+1)
           }
           temp = {
-            gitem_id : null,
+            gitem_id : value.gitem_id,
             plan_id : this.calendar.planId,
-            place : value,
+            place : value.address,
+            mapX:value.mapX,
+            mapY:value.mapY,
             sch_name : this.schName,
             sch_startTime: a + ` ${startHour}:00:00`,
             sch_endTime: a + ` ${endHour}:00:00`,
-            expect_expenses : this.calendar.expectExpenses,
+            expect_expenses : value.expect_expenses,
           }
           console.log(a + ` ${key}:00:00`)
           data.push(temp)

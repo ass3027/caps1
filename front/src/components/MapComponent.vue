@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import {EventBus} from "@/eventBus/eventBus";
+
 export default {
   name: "MapComponent",
   data() {
@@ -73,7 +75,8 @@ export default {
       markers   : [],
       ps        : {},
       keyword   : '',
-      places    : []
+      places    : [],
+      clickLine:{}
     }
   },
   mounted() {
@@ -89,6 +92,9 @@ export default {
 
       document.head.appendChild(script);
 
+      EventBus.$on("changeDate",(date)=>{
+
+      })
     }
   },
   methods: {
@@ -151,16 +157,16 @@ export default {
             console.log(clickPosition)
             //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
             let detailAddr = '';
-            let mapData = 0;
+            let mapAddress = 0;
 
             if (result[0].address === undefined && result[0].road_address == undefined) {
               detailAddr += `<div>주소를 찾을 수 없습니다</div>`
             } else {
               if (result[0].road_address != undefined) {
-                mapData = result[0].road_address
+                mapAddress = result[0].road_address
                 detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
               }
-              mapData = result[0].address.address_name
+              mapAddress = result[0].address.address_name
               detailAddr += '<div >지번 주소 : ' + result[0].address.address_name + '</div>';
             }
 
@@ -171,11 +177,15 @@ export default {
 
             this.infowindow.open(this.map, this.marker);
 
+            const mapData = {
+              address:mapAddress,
+              mapY:clickPosition.La,
+              mapX:clickPosition.Ma
+          }
 
-
-            console.log(mapData)
-            if (mapData !== 0) {
-              this.$emit('mapDataTransfer', mapData)
+            console.log(mapAddress)
+            if (mapAddress !== 0) {
+              this.$store.commit('calendar/updateCalendarDate', mapData)
             }
 
 
@@ -336,6 +346,17 @@ export default {
       // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
       this.map.panTo(moveLatLon);
       this.map.setLevel(3)
+    },
+
+    distanceView(markers){
+      this.clickLine = new kakao.maps.Polyline({
+        map: this.map, // 선을 표시할 지도입니다
+        path: markers, // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
+        strokeWeight: 3, // 선의 두께입니다
+        strokeColor: '#db4040', // 선의 색깔입니다
+        strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+        strokeStyle: 'solid' // 선의 스타일입니다
+      });
     }
 
     // removeAllChildNods(el) {
@@ -371,7 +392,7 @@ export default {
 .map_wrap {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 100%;
 }
 
 #menu_wrap {

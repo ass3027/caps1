@@ -1,7 +1,7 @@
 <template>
-  <div :class="{border:$store.state.calendar.selectDate===date}">
-    <v-row style="height:400px">
-      <v-col>
+  <v-container :class="{border:$store.state.calendar.selectDate===date}">
+    <v-row style="height:400px;">
+      <v-col width="300">
         <h3 class="text-center">
           {{ date }}
         </h3>
@@ -21,7 +21,7 @@
               <v-card
                 v-bind="attrs"
                 :class="{dd:true,selecting:selectedTime===key}"
-                width="500"
+                width="300"
                 @click="select(key)"
               >
                 <div>{{ key }}시</div>
@@ -64,59 +64,61 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-dialog
-        v-model="dialog"
-        width="500"
-      >
-        <template #activator="{ on, attrs}">
-          <v-btn
-            color="red lighten-2"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
-            일정추가
-          </v-btn>
-        </template>
-
-        <v-card>
-          <v-card-title>
-            시간선택
-          </v-card-title>
-
-          <v-card-text>
-            <v-select
-              v-model="addTime"
-              :items="availableTimeList"
-            />
-          </v-card-text>
-
-          <v-divider />
-          <v-card-actions>
+      <v-col align-self="auto"> <!--이런게 있긴함  -->
+        <v-dialog
+          v-model="dialog"
+          width="500"
+        >
+          <template #activator="{ on, attrs}">
             <v-btn
-              color="primary"
-              text
-              @click="dialog = false"
+              color="red lighten-2"
+              dark
+              v-bind="attrs"
+              v-on="on"
             >
-              닫기
+              일정추가
             </v-btn>
-            <v-btn
-              color="primary"
-              text
-              @click="add"
-            >
-              추가
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <v-btn
-        @click="deleting()"
-      >
-        일정삭제
-      </v-btn>
+          </template>
+
+          <v-card>
+            <v-card-title>
+              시간선택
+            </v-card-title>
+
+            <v-card-text>
+              <v-select
+                v-model="addTime"
+                :items="availableTimeList"
+              />
+            </v-card-text>
+
+            <v-divider />
+            <v-card-actions>
+              <v-btn
+                color="primary"
+                text
+                @click="dialog = false"
+              >
+                닫기
+              </v-btn>
+              <v-btn
+                color="primary"
+                text
+                @click="add"
+              >
+                추가
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-btn
+          @click="deleting()"
+        >
+          일정삭제
+        </v-btn>
+      </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -195,8 +197,9 @@ export default {
         "date": this.date,
         "time": this.addTime
       }
+
       this.$store.commit('calendar/updateSelect', a)
-      this.$store.commit('calendar/updateCalendarDate','')
+      this.$store.commit('calendar/updateCalendarDate', undefined)
       this.updateAvailableTimeList()
       this.updatePlan();
       this.dialog = false
