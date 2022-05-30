@@ -149,16 +149,24 @@ public class ApiShare {
         System.out.println(p.getPlan_id());
         plannerMapper.insert(p);
         System.out.println(p.getPlan_id());
+        System.out.println("?1");
 
         List<ScheduleDAO> s = scheduleMapper.selectAllById(plan_id);
         System.out.println(s);
+        System.out.println("?2");
+
         for (ScheduleDAO scheduleDAO : s) {
+            System.out.println("?3");
             scheduleDAO.setPlan_id(p.getPlan_id());
             System.out.println(scheduleDAO);
+            System.out.println("?4");
             scheduleMapper.insert(scheduleDAO);
+            System.out.println("?");
         }
+        System.out.println("??");
 
         shareMapper.updateShareCount(share_id);
+        System.out.println("???");
 
         return "성공";
     }

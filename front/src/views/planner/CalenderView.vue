@@ -42,19 +42,19 @@
             </v-btn>
           </v-col>
         </v-row>
-<!--        <v-row>-->
-<!--          <v-col-->
-<!--            v-for="(data,key) in 3"-->
-<!--            :key="key"-->
-<!--          >-->
-<!--            <v-card>-->
-<!--              <p>dd</p>-->
-<!--            </v-card>-->
-<!--          </v-col>-->
-<!--        </v-row>-->
+        <!--        <v-row>-->
+        <!--          <v-col-->
+        <!--            v-for="(data,key) in 3"-->
+        <!--            :key="key"-->
+        <!--          >-->
+        <!--            <v-card>-->
+        <!--              <p>dd</p>-->
+        <!--            </v-card>-->
+        <!--          </v-col>-->
+        <!--        </v-row>-->
         <v-row
-          style="height:100%;"
           class="overflow-x-auto"
+          style="display: grid;grid-auto-flow: column;height:100%;"
         >
           <v-col
             v-for="(date,index) in dateArr "
@@ -63,13 +63,11 @@
             style="width:600px;height:600px;float:left;"
             class="overflow-y-auto"
             sm="20"
-
           >
             <DateComponent
               :date="date"
             />
           </v-col>
-
         </v-row>
       </v-container>
     </v-container>
@@ -113,7 +111,6 @@ export default {
     //가끔 plan Id 가 업다고 뜸 로직 문제..??
     if(this.$store.state.user.planId === 0) {
       console.log("업서영")
-      this.create()
       return;
     }
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
@@ -151,6 +148,7 @@ export default {
           console.log(it.sch_endTime.substring(0,10))
             calendar.date[it.sch_endTime.substring(0,10)].set(
               parseInt( it.sch_startTime.substring(12,13) ),it.place)
+          //이거 객체화 해서 저장해야하무
         })
 
         this.$store.commit('calendar/updateCalendar',calendar)
@@ -177,7 +175,6 @@ export default {
       calendar["date"]=[]
 
       this.dateArr.forEach( (it) => {
-        console.log(it)
         const a = [];
         for (let i = 0; i < 24; i++) {
           a.push(" ")

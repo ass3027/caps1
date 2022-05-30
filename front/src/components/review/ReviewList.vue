@@ -1,15 +1,14 @@
 <template>
   <v-container class="px-5">
     <div>
-
       <h3>Review {{ reviews.length }}</h3>
       <!--/.title-->
       <ul
+        v-for="(review, index) in reviews"
+        :key="index"
         class="pl-0"
         style="list-style: none"
-        v-for="(review, index) in reviews"
-        :key="index">
-
+      >
         <ReviewItem
           :review="review"
           @deleteReview="deleteReview"

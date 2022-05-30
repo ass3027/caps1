@@ -16,4 +16,5 @@ public class Place {
     String pl_location;
     String pl_info;
     String pic_name;
+
 }

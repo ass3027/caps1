@@ -22,7 +22,10 @@ export default {
 
       console.log("placeOriginal")
       placeOriginal.forEach(i => console.log(i.option_id))
+      //옵션체크
       let result1 = placeOriginal.filter(i => checkOptions.includes(i.option_id) )
+
+      //중복제거
       state.placeInfo = result1.reduce(function(acc, current) {
         if (acc.findIndex(({ pl_id }) => pl_id === current.pl_id) === -1) {
           acc.push(current);

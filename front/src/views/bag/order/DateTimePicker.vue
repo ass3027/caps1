@@ -9,8 +9,6 @@
       v-model="dateModal"
       :return-value.sync="date"
       persistent
-      lazy
-      full-width
       width="290px"
     >
       <template #activator="{ on }">
@@ -48,14 +46,11 @@
       v-model="timeModal"
       :return-value.sync="time"
       persistent
-      lazy
-      full-width
       width="290px"
     >
       <v-time-picker
         v-if="timeModal"
         v-model="time"
-        full-width
       >
         <v-spacer />
         <v-btn

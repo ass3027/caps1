@@ -2,33 +2,7 @@
   <v-app>
     <v-main>
       <HeaderComponent />
-      <v-app-bar-nav-icon @click="drawer = !drawer" />
 
-      <v-navigation-drawer
-        v-model="drawer"
-        app
-        temporary
-      >
-        <v-list
-          nav
-          dense
-        >
-          <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            link
-            :to="item.to"
-          >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
 
       <router-view />
     </v-main>

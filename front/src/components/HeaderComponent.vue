@@ -1,48 +1,54 @@
 <template>
-  <v-app class="header-layout">
-    <div
-      v-if="isLogin"
-      class="login-box"
-    >
-      <v-btn text>
-        {{ $store.state.user.userId }}
-      </v-btn>
+  <v-app
+    id="gnb"
+    class="header-layout"
+  >
+    <div id="userMenu">
+      <!--로그인 박스(로그인 O)-->
+      <div
+        v-if="isLogin"
+        class="login-box"
+      >
+        <v-btn text>
+          {{ $store.state.user.userId }}
+        </v-btn>
 
-      <v-btn
-        text
-        @click="logOut"
+        <v-btn
+          text
+          @click="logOut"
+        >
+          logout
+        </v-btn>
+        <img
+          :src="photo"
+          style="width:50px;height:50px"
+          alt=""
+        >
+      </div>
+      <!--로그인 박스(로그인 X)-->
+      <div
+        v-else
+        class="login-box"
       >
-        logout
-      </v-btn>
-      <!--      엄준식은 살아있다-->
-      <img
-        :src="photo"
-        style="width:150px;height:150px"
-        alt=""
-      >
-    </div>
-    <div
-      v-else
-      class="login-box"
-    >
-      <v-btn
-        text
-        router
-        to="/login"
-      >
-        login
-      </v-btn>
-      <v-btn
-        text
-        router
-        to="/join"
-      >
-        join
-      </v-btn>
+        <v-btn
+          text
+          router
+          to="/login"
+        >
+          login
+        </v-btn>
+        <v-btn
+          text
+          router
+          to="/join"
+        >
+          join
+        </v-btn>
+      </div>
     </div>
     <div>
       <div class="menu-Bar">
-        <div class="text-center">
+        <div style="margin-top: 20px">
           <v-menu
             v-for="(menu,index) in menuList"
             :key="index"
@@ -71,13 +77,8 @@
           </v-menu>
         </div>
       </div>
-      <v-divider class="divider-padding" />
+      <v-divider style="margin-top: 10px" />
     </div>
-    <!--    <img-->
-    <!--      :src="dd"-->
-    <!--      alt="실허어엄"-->
-    <!--      style="width:100px;height:100px"-->
-    <!--    >-->
   </v-app>
 </template>
 
@@ -88,13 +89,6 @@ import {EventBus} from "@/eventBus/eventBus";
 export default {
 
   name: 'HelloWorld',
-  created(){
-    EventBus.$on("photoUpdate",(photo)=>{
-      console.log(11)
-      console.log(decodeURI(photo))
-      this.photo = "/api/photo/"+decodeURI(photo)
-    })
-  },
   data: () => ({
     photo: '',
     menuList:[
@@ -130,11 +124,12 @@ export default {
         {title: '게스트하우스', route: '/store'}
       ],
       [
-        {title: '가방예약', route: '/BagReserveView'},
+        {title: '가방예약', route: '/SelectionOrder'},
         {title: '이용안내', route: '/UsageGuideView'},
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},
-        {title: '배송조회', route: '/TrackingView'}
+        {title: '배송조회', route: '/TrackingView'},
+
       ],
       [
         {title: '가이드 리스트', route: '/guideview'},
@@ -166,6 +161,13 @@ export default {
       return this.$store.getters['user/isLogin']
     },
   },
+  created(){
+    EventBus.$on("photoUpdate",(photo)=>{
+      console.log(11)
+      console.log(decodeURI(photo))
+      this.photo = "/api/photo/"+decodeURI(photo)
+    })
+  },
   methods: {
     logOut(){
       console.log(22)
@@ -189,17 +191,17 @@ export default {
 };
 </script>
 
-<style scoped>
-.header-layout {
+<style>
+#gnb {
   display: flex;
-  height: 20vh;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .login-box {
-  display: flex;
-  justify-content: flex-end;
+  display: block;
+  /*justify-content: flex-end;*/
+  float: right;
 }
 
 .menu-Bar {
@@ -207,11 +209,11 @@ export default {
   justify-content: center;
 }
 
-.text-center {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
+/*.text-center {*/
+/*  margin-top: 20px;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
 
 /*.hotel-list-form {*/
 /*  display: flex;*/
@@ -226,8 +228,8 @@ export default {
 /*  width: 50%;*/
 /*}*/
 
-.divider-padding {
-  margin-top: 10px;
-}
+/*.divider-padding {*/
+/*  margin-top: 10px;*/
+/*}*/
 </style>
 

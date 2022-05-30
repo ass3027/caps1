@@ -1,6 +1,5 @@
 <template>
   <div class="card">
-
     <v-row
       cols="0"
       md="0"
@@ -16,16 +15,16 @@
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">
-              이름:{{item.user_name}}
+              이름:{{ item.user_name }}
             </div>
             <div>
-              자격증:{{item.guide_license}}
+              자격증:<br>{{ item.guide_license }}
             </div>
             <v-list-item-title class="text-h5 mb-1">
               ID:{{ item.user_id }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              소개:{{ item.guide_intro }}
+              소개<br>{{ item.guide_intro }}
             </v-list-item-subtitle>
           </v-list-item-content>
 
@@ -53,22 +52,20 @@
     <div>
       <h1>검색</h1>
       <input
+        v-model="keyword"
         name="keyword"
         type="text"
         style="border: #1e90cc solid"
-        v-model="keyword"
         class="search"
       >
     </div>
     <v-btn
-     class="btn2"
-     @click="onsubmit()"
+      class="btn2"
+      @click="onsubmit()"
     >
       Search
     </v-btn>
-
   </div>
-
 </template>
 
 <script>
@@ -111,6 +108,7 @@ export default {
       })
         .then((res) => {
           this.lists = res.data;
+          console.log("asdasd" + res)
         })
     },
 
