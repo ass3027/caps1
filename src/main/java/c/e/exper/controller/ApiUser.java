@@ -7,11 +7,14 @@ import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+
+import java.util.Optional;
 
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
@@ -54,6 +57,29 @@ public class ApiUser {
         return pictureMapper.selectPicnameByUserId(user_id);
     }
     
+    //마이페이지
+    @GetMapping("/data/{id}")
+    public UserDAO getUserInfoById(@PathVariable String id){
+         //반환데이터형식
+        return userMapper.selectId(id).get();
+    }
+
+
+    //아이디 중복 확인
+    @GetMapping("/userid")
+    public boolean getUserIdCheck( //반환타입,함수명
+        @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
+        Optional<UserDAO> id = userMapper.selectId(pp); //
+        return id.isEmpty();
+//        if (id.isEmpty()){
+//            return true;
+//        }else {
+//            return false;
+//        }
+    }
+
+    //내정보수정
+
 
     @PostMapping("/join")
     public boolean join(UserDTO user,HttpServletRequest req) {

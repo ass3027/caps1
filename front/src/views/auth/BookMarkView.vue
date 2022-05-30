@@ -16,19 +16,28 @@
             <v-icon left>
               mdi-heart
             </v-icon>
+           모두보기
+          </v-tab>
+
+          <v-tab>
+            <v-icon left>
+              mdi-heart
+            </v-icon>
             키퍼
           </v-tab>
+
           <v-tab>
             <v-icon left>
               mdi-bookmark
             </v-icon>
-            장소
+            숙소
           </v-tab>
+
           <v-tab>
             <v-icon left>
               mdi-access-point
             </v-icon>
-            Option 3
+            관광지
           </v-tab>
 
           <v-tab-item>
@@ -75,6 +84,8 @@
               </v-card-text>
             </v-card>
           </v-tab-item>
+
+
           <v-tab-item>
             <v-card flat>
               <v-card-text>
