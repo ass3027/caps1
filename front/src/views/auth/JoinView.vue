@@ -15,9 +15,13 @@
               ss
             </v-text-field>
           </v-col>
-          <v-btn style="margin: 25px" v-on:click="idCheck">아이디 중복 확인하기</v-btn>
-<!--          <button @click="idCheck">ㅇㅇ</button>-->
-
+          <v-btn
+            style="margin: 25px"
+            @click="idCheck"
+          >
+            아이디 중복 확인하기
+          </v-btn>
+          <!--          <button @click="idCheck">ㅇㅇ</button>-->
         </v-row>
 
         <v-row>
@@ -62,7 +66,9 @@
         style="width:400px;height:400px"
       />
 
-      <v-btn @click="submit()">submit</v-btn>
+      <v-btn @click="submit()">
+        submit
+      </v-btn>
     </form>
   </div>
 </template>
