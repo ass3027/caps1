@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{border:$store.state.calendar.selectDate===date}">
     <v-row style="height:400px">
       <v-col>
         <h3 class="text-center">
@@ -153,7 +153,6 @@ export default {
   created() {
     this.updatePlan()
     this.updateAvailableTimeList()
-
   },
   methods: {
     updatePlan: function () {
@@ -221,7 +220,10 @@ export default {
   border-style: solid;
   height: 8vh;
   margin-bottom: 5px;
+}
 
+.border {
+  border: solid #5eaf13;
 }
 
 .selecting {
