@@ -14,6 +14,8 @@ import PlannerShareWriteView from "../views/share/PlannerShareWriteView";
 import PlannerPicView from "@/views/share/PlannerPicView";
 import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
+import testBshView from "@/views/supply/TestBshView";
+import TestBshDetailView from "@/views/supply/TestBshDetailView";
 
 //봉식
 import TrackingView from "@/views/bag/TrackingView";
@@ -63,6 +65,7 @@ import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
 import GuideProductTime from "@/views/guide/GuideProductTime";
+import testBshDetailView from "@/views/supply/TestBshDetailView";
 
 Vue.use(VueRouter);
 
@@ -85,6 +88,8 @@ const routes = [
   {path: "/share/:id", name: "shareDetails", component: PlannerShareDetailsViewView,},
   {path: "/share/write", name: "shareWrite", component: PlannerShareWriteView,},
   {path: "/share/edit", name: "shareEdit", component: PlannerShareEditView, props: true,},
+  {path: "/bsh", name: "bsh", component: testBshView},
+  {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView,props:true},
 
   //혁태
   {path: "/hotel", name: "hotel", component: HotelView},
