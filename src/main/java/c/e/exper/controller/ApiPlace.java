@@ -49,10 +49,10 @@ public class ApiPlace {
       return storeMapper.findAll();
    }
    
-   @GetMapping("/place2")
-   public List<PlaceDAO> placeList() {
+   @GetMapping("/place2/{areacode}/{cat1}")
+   public List<PlaceDAO> placeList(@PathVariable String areacode,@PathVariable String cat1) {
       System.out.println("장소조회1111111");
-      return place2Service.장소_조회();
+      return place2Service.장소_조회(areacode,cat1);
    }
 
 //    @GetMapping("/getHotelPic")

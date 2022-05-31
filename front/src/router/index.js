@@ -62,6 +62,7 @@ import TestView from "@/views/TestView";
 import axios from 'axios'
 import {store} from "@/store"
 import GuideProductTime from "@/views/guide/GuideProductTime";
+import {EventBus} from "@/eventBus/eventBus";
 
 Vue.use(VueRouter);
 
@@ -106,9 +107,9 @@ const routes = [
   {path: "/StorageOrder", name: StorageOrder, component: StorageOrder},
   {path: "/FareView", name: "FareView", component: FareView},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
-  {path: "/TransportOrder", name: "TransportView", component: TransportOrder},
+  {path: "/TransportOrder", name: "TransportOrder", component: TransportOrder},
   {path: "/TrackingView", name: "TrackingView", component: TrackingView},
-  {path: "/StorageOrder", name: "StorageView", component: StorageOrder},
+  {path: "/StorageOrder", name: "StorageOrder", component: StorageOrder},
 
   // { path: "/OrderView", name: "OrderView", component: OrderView },
 

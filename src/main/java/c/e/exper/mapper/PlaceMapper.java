@@ -7,8 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface PlaceMapper {
-   @Select("select title,addr1,zipcode,addr2,firstImage2,areacode from place2")
-   public List<PlaceDAO> selectByPlace();
+   @Select("select title,addr1,zipcode,addr2,firstImage2,areacode,cat1,firstImage2,MAPX,MAPY from place2 where areacode=#{areacode} and cat1=#{cat1} ")
+   public List<PlaceDAO> selectByPlace(String areacode,String cat1);
     
     @Select("select title,addr1,zipcode,addr2,firstImage2,areacode from place2 where areacode=#{areacode}")
     public List<PlaceDAO> selectByPlaceTo(int areacode);
@@ -63,5 +63,6 @@ public interface PlaceMapper {
          "     )\n" +
          "where ROWNUM <= 5")
    public List<Place> findBestPlace();
+   
    
 }

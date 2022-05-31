@@ -15,7 +15,10 @@ public class Place2Service {
       this.placeMapper = placeMapper;
    }
    
-   public List<PlaceDAO> 장소_조회() {
-      return placeMapper.selectByPlace();
+   public List<PlaceDAO> 장소_조회(String areacode,String cat1) {
+      return placeMapper.selectByPlace(areacode, cat1);
    }
+//   public List<PlaceDAO> 지역_조회(){
+//      return placeMapper.selectByPlaceTo(int areacode);
+//   }
 }

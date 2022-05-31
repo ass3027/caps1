@@ -1,53 +1,72 @@
 <template>
-  <div class="text-center">
-    <!--    <v-dialog-->
-    <!--      v-model="dialog"-->
-    <!--      width="1500" h-->
-    <!--    >-->
-    <!--      <template v-slot:activator="{ on, attrs }">-->
-    <!--        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">-->
-    <!--          장소-->
-    <!--        </v-btn>-->
-    <!--      </template>-->
-
-    <v-card>
-      <v-card-title class="text-h5 grey lighten-2">
-        장소를 검색하세요
-      </v-card-title>
-      <v-card>
-        <v-list-item>
-          <div v-if="lists.length != 0">
-            <div
-              v-for="(date,index) in lists"
-              :key="index"
-            >
-              <div v-if="date.areacode==2">
-                장소명: {{ date.title }}
-                주소명:{{ date.addr1 }}
-                지역코드:{{ date.areacode }}
-              </div>
-            </div>
-          </div>
-        </v-list-item>
-      </v-card>
-
-      <v-card />
-
-      <v-divider />
-
-      <v-card-actions>
-        <v-spacer />
-        <v-btn
-          color="primary"
-          text
-          @click="dialog = false"
-        >
-          완료
+  <v-app>
+    <v-dialog v-model="dialog" width="1500">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
+          장소
         </v-btn>
-      </v-card-actions>
-    </v-card>
-    <!--    </v-dialog>-->
-  </div>
+      </template>
+
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          장소를 검색하세요
+        </v-card-title>
+
+
+        <v-card class="align-center">
+          <v-row>
+            <v-col>
+              <v-select :style="{width:'150px',marginLeft:'270px'}"
+                        label="검색조건" v-model="searchCon" :items="items" item-text="text"
+                        :value="lists.areacode"/>
+            </v-col>
+            <v-col>
+              <v-text-field  dense outlined label="검색키워드" full-width
+                            :style="{marginTop:'10px'}"/>
+            </v-col>
+            <v-col>
+              <v-btn color="primary" @click="placeTitle" :style="{width:'100px', marginRight:'30px', marginTop:'10px'}">
+                검색
+              </v-btn>
+            </v-col>
+          </v-row>
+
+
+          <v-sheet class="pa-3">
+            <v-row class="align-center">
+              <v-skeleton-loader class="mx-auto" max-width="300" type="card" cols="auto" v-for="(data,index) in calData"
+                                 :key="index">
+                <v-card width="400px" height="300px" cols="auto" class="ma-3">
+
+                  <v-row justify="center">
+                    <img :src="data.firstimage2" width="200px" height="150px" class="ma-2"/>
+                  </v-row>
+                  <v-row>
+                    <v-card-subtitle>장소명: {{ data.title }} ({{ data.zipcode }})<br>
+                      주소명:{{ data.addr1 }}
+                    </v-card-subtitle>
+                    <v-col>
+                      <v-card-actions style="position: absolute; bottom: 0; right: 0">
+                        <v-spacer/>
+                        <v-btn depressed color="primary"  @click="ChoiceLodging(data.title)">숙소선택</v-btn>
+                      </v-card-actions>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-skeleton-loader>
+            </v-row>
+            <div class="text-center">
+              <v-pagination
+                v-model="curPageNum"
+                :length="numOfPages"
+              ></v-pagination>
+            </div>
+          </v-sheet>
+
+        </v-card>
+      </v-card>
+    </v-dialog>
+  </v-app>
 </template>
 
 <script>
@@ -56,27 +75,76 @@ import axios from "axios";
 export default {
   data() {
     return {
+
+      dataPerPage: 10,
+      curPageNum: 1,
       dialog: false,
       lists: [],
-
+      searchCon: '',
+      items: [
+        {text: '서울', value: '1'},
+        {text: '인천', value: '2'},
+        {text: '대전', value: '3'},
+        {text: '대구', value: '4'},
+        {text: '광주', value: '5'},
+        {text: '부산', value: '6'},
+        {text: '울산', value: '7'},
+        {text: '세종특별자치시', value: '8'},
+        {text: '경기도', value: '31'},
+        {text: '강원도', value: '32'},
+        {text: '충청북도', value: '33'},
+        {text: '충청남도', value: '34'},
+        {text: '경상북도', value: '35'},
+        {text: '경상남도', value: '36'},
+        {text: '전라북도', value: '37'},
+        {text: '전라남도', value: '38'},
+        {text: '제주도', value: '39'},
+      ],
     }
   },
   mounted() {
-    this.placeTitle()
 
   },
+  computed: {
+    startOffset() {
+      return ((this.curPageNum - 1) * this.dataPerPage);
+    },
+    endOffset() {
+      return (this.startOffset + this.dataPerPage);
+    },
+    numOfPages() {
+      return Math.ceil(this.lists.length / this.dataPerPage);
+    },
+    calData() {
+      return this.lists.slice(this.startOffset, this.endOffset);
+    }
+  },
+
   methods: {
+    a() {
+      while (this.items.length !== 0) {
+        this.items.pop()
+      }
+    },
+    ChoiceLodging:function (lodging) {
+      this.dialog=false
+      this.$emit('childEvent',lodging)
+    },
+    closeDialog(){
+      this.dialog = false;
+    },
     placeTitle() {
       axios({
         method: "get",
-        url: "/api/place2"
+        url: `/api/place2/${this.searchCon}/B02`
       })
         .then((res) => {
           this.lists = res.data;
           console.log(res);
         })
     }
-  }
+  },
+
 
 }
 </script>
