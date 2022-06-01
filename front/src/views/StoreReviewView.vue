@@ -20,7 +20,12 @@ export default {
   components: {
     ReviewList,
   },
-  props:{'store_id': String},
+  props:{
+    // 상품, 주문서 등
+    // 상품ID, 주문서ID 등
+    'type': String,
+    'store_id': String
+  },
   data(){
     return{
       reviews:[],
@@ -29,13 +34,13 @@ export default {
     }
   },
   mounted() {
+    // type에 따라 메소드를 나누고 분기 처리
     this.getReviews()
+
   },
   methods:{
 
     getReviews(){
-
-
       console.log('store_id: ' + this.store_id)
 
       axios({
