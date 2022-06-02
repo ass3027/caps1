@@ -18,11 +18,12 @@
             <v-col>
               <v-select :style="{width:'150px',marginLeft:'270px'}"
                         label="검색조건" v-model="searchCon" :items="items" item-text="text"
-                        :value="lists.areacode"/>
+                        :value="lists.areaCode"/>
             </v-col>
             <v-col>
-              <v-text-field  dense outlined label="검색키워드" full-width
-                            :style="{marginTop:'10px'}"/>
+              <v-text-field dense outlined label="검색키워드" full-width
+                            :style="{marginTop:'10px'}"
+                            v-model="keyword"/>
             </v-col>
             <v-col>
               <v-btn color="primary" @click="placeTitle" :style="{width:'100px', marginRight:'30px', marginTop:'10px'}">
@@ -48,7 +49,8 @@
                     <v-col>
                       <v-card-actions style="position: absolute; bottom: 0; right: 0">
                         <v-spacer/>
-                        <v-btn depressed color="primary"  @click="ChoiceLodging(data.title)">숙소선택</v-btn>
+                        <v-btn depressed color="primary" @click="ChoiceLodging(data.title)">숙소선택</v-btn>
+
                       </v-card-actions>
                     </v-col>
                   </v-row>
@@ -56,10 +58,14 @@
               </v-skeleton-loader>
             </v-row>
             <div class="text-center">
-              <v-pagination
-                v-model="curPageNum"
-                :length="numOfPages"
-              ></v-pagination>
+              <v-pagination v-model="curPageNum"
+                            :length="numOfPages"
+                            class="my-4"
+                            :total-visible="10">
+                <!--        v-model : 현재 활성화(보여지고있는)되어있는 Page의 번호.
+                            :length : v-bind:length의 약어로 length 속성은 총 page의 사이즈를 나타냅니다.-->
+
+              </v-pagination>
             </div>
           </v-sheet>
 
@@ -73,9 +79,11 @@
 import axios from "axios";
 
 export default {
+  components: {},
   data() {
     return {
-
+      keyword: '',
+      searchData: [],
       dataPerPage: 10,
       curPageNum: 1,
       dialog: false,
@@ -117,7 +125,13 @@ export default {
     },
     calData() {
       return this.lists.slice(this.startOffset, this.endOffset);
-    }
+    },
+    // calData1() {
+    //   this.searchData = this.lists.filter((data) => {
+    //     return data.subject.toLowerCase().includes(this.search.toLowerCase())
+    //   }).slice(0);
+    //   return this.searchData.slice(this.startOffset, this.endOffset)
+    // }
   },
 
   methods: {
@@ -125,26 +139,48 @@ export default {
       while (this.items.length !== 0) {
         this.items.pop()
       }
-    },
-    ChoiceLodging:function (lodging) {
-      this.dialog=false
-      this.$emit('childEvent',lodging)
-    },
-    closeDialog(){
-      this.dialog = false;
-    },
-    placeTitle() {
-      axios({
-        method: "get",
-        url: `/api/place2/${this.searchCon}/B02`
-      })
-        .then((res) => {
-          this.lists = res.data;
-          console.log(res);
-        })
     }
-  },
-
+    ,
+    ChoiceLodging: function (lodging) {
+      this.dialog = false
+      this.$emit('childEvent', lodging)
+    }
+    ,
+    closeDialog() {
+      this.dialog = false;
+    }
+    ,
+    placeTitle() {
+      if (this.keyword == '') {
+        axios({
+          method: "get",
+          url: `/api/place/${this.searchCon}/B02`
+        })
+          .then((res) => {
+            this.lists = res.data;
+            console.log('검색응답' + res);
+          })
+      } else {
+        axios({
+          method: "get",
+          url: `/api/place/${this.searchCon}/B02/${this.keyword}`
+        })
+          .then((res) => {
+            this.lists = res.data;
+            console.log('키워드응답' + res);
+            this.curPageNum=1
+          })
+      }
+    },
+    // placeCount(){
+    //   axios({
+    //     method:'get',
+    //     url:`/api/place/${this.searchCon}/B02`
+    //
+    //   })
+    // }
+  }
+  ,
 
 }
 </script>

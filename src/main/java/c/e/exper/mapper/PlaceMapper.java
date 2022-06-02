@@ -7,11 +7,71 @@ import java.util.List;
 
 @Mapper
 public interface PlaceMapper {
-   @Select("select title,addr1,zipcode,addr2,firstImage2,areacode,cat1,firstImage2,MAPX,MAPY from place2 where areacode=#{areacode} and cat1=#{cat1} ")
-   public List<PlaceDAO> selectByPlace(String areacode,String cat1);
-    
-    @Select("select title,addr1,zipcode,addr2,firstImage2,areacode from place2 where areacode=#{areacode}")
-    public List<PlaceDAO> selectByPlaceTo(int areacode);
+   //   @Select("select title,addr1,zipcode,addr2,firstImage2,areaCode,cat1,firstImage2,MAPX,MAPY " +
+//         "from place " +
+//         "where areaCode=#{areaCode} " +
+//         "and cat1=#{cat1} " +
+//         "and rownum<=9 " +
+//         "and zipcode>=6")
+//   public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
+
+   @Select("select title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY " +
+         "from place " +
+         "where areaCode=#{areaCode} " +
+         "and cat1=#{cat1}")
+   public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
+   
+   @Select("select title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY " +
+         "from place " +
+         "where areaCode=#{areaCode} " +
+         "and cat1=#{cat1} " +
+         "and title like '%'||#{keyword}||'%'")
+   public List<PlaceDAO> keywordByPlace(String areaCode, String cat1,String keyword);
+   
+//   @Select("select title,\n" +
+//         "       addr1,\n" +
+//         "       zipcode,\n" +
+//         "       addr2,\n" +
+//         "       firstImage2,\n" +
+//         "       areaCode,\n" +
+//         "       cat1,\n" +
+//         "       MAPX,\n" +
+//         "       MAPY\n" +
+//         "from (\n" +
+//         "         select seq,\n" +
+//         "                title,\n" +
+//         "                addr1,\n" +
+//         "                zipcode,\n" +
+//         "                addr2,\n" +
+//         "                firstImage2,\n" +
+//         "                areaCode,\n" +
+//         "                cat1,\n" +
+//         "                MAPX,\n" +
+//         "                MAPY\n" +
+//         "         from (\n" +
+//         "                  select rownum as seq,\n" +
+//         "                         title,\n" +
+//         "                         addr1,\n" +
+//         "                         zipcode,\n" +
+//         "                         addr2,\n" +
+//         "                         firstImage2,\n" +
+//         "                         areaCode,\n" +
+//         "                         cat1,\n" +
+//         "                         MAPX,\n" +
+//         "                         MAPY\n" +
+//         "                  from (\n" +
+//         "                           select *\n" +
+//         "                           from place\n" +
+//         "                           where cat1 = #{cat1}\n" +
+//         "                             and areaCode = #{areaCode}\n" +
+//         "                           order by pl_id desc\n" +
+//         "                       )\n" +
+//         "              )\n" +
+//         "         where seq >= 6\n" +
+//         "     )\n" +
+//         "where rownum <= 9")
+//   public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
+   
    
    @Select("select a.user_id, count(a.user_id) as count\n" +
          "from users a, PLANNER b, SCHEDULE c\n" +

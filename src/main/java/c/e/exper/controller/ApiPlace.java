@@ -7,8 +7,7 @@ import c.e.exper.data.StoreDTO;
 import c.e.exper.mapper.StoreMapper;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
-import c.e.exper.service.Place2Service;
-import org.springframework.beans.factory.annotation.Autowired;
+import c.e.exper.service.PlaceService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +27,13 @@ public class ApiPlace {
    PictureMapper pictureMapper;
    
    final
-   Place2Service place2Service;
+   PlaceService placeService;
    
-   public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, Place2Service place2Service) {
+   public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, PlaceService placeService) {
       this.storeMapper = storeMapper;
       this.fileService = fileService;
       this.pictureMapper = pictureMapper;
-      this.place2Service = place2Service;
+      this.placeService = placeService;
    }
    
    @GetMapping("/place/{category}")
@@ -49,11 +48,23 @@ public class ApiPlace {
       return storeMapper.findAll();
    }
    
-   @GetMapping("/place2/{areacode}/{cat1}")
-   public List<PlaceDAO> placeList(@PathVariable String areacode,@PathVariable String cat1) {
+   @GetMapping("/place/{areaCode}/{cat1}")
+   public List<PlaceDAO> placeList(@PathVariable String areaCode,@PathVariable String cat1) {
       System.out.println("장소조회1111111");
-      return place2Service.장소_조회(areacode,cat1);
+      return placeService.장소_조회(areaCode,cat1);
    }
+   @GetMapping("/place/{areaCode}/{cat1}/{keyword}")
+   public List<PlaceDAO> keywordList(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable("keyword")String keyword) {
+      System.out.println("/place/{areaCode}/{cat1}/{keyword} : " + keyword);
+      return placeService.장소_검색(areaCode,cat1,keyword);
+   }
+   
+   
+//   @GetMapping("/place/{areaCode}/{cat1}/{pageNumber}")
+//   public List<PlaceDAO> placeCount(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable int pageNumber) {
+//      System.out.println("갯수");
+//      return placeService.장소_조회(areaCode,cat1,pageNumber);
+//   }
 
 //    @GetMapping("/getHotelPic")
 //    public List<PictureDAO> hotelPic(){
