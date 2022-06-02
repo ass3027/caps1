@@ -77,7 +77,7 @@
           </v-menu>
         </div>
       </div>
-      <v-divider style="margin-top: 10px" />
+      <v-divider style="margin-top: 10px"/>
     </div>
   </v-app>
 </template>
@@ -91,7 +91,7 @@ export default {
   name: 'HelloWorld',
   data: () => ({
     photo: '',
-    menuList:[
+    menuList: [
       "여행지",
       "여행계획",
       "시설",
@@ -154,35 +154,35 @@ export default {
       ]
     ],
   }),
-  computed:{
+  computed: {
     isLogin() {
       console.log(this.$store.state.user.userId)
       console.log(this.$store.getters['user/isLogin'])
       return this.$store.getters['user/isLogin']
     },
   },
-  created(){
-    EventBus.$on("photoUpdate",(photo)=>{
+  created() {
+    EventBus.$on("photoUpdate", (photo) => {
       console.log(11)
       console.log(decodeURI(photo))
-      this.photo = "/api/photo/"+decodeURI(photo)
+      this.photo = "/api/photo/" + decodeURI(photo)
     })
   },
   methods: {
-    logOut(){
+    logOut() {
       console.log(22)
       axios({
-        url:'/api/logout',
-        method:'post'
+        url: '/api/logout',
+        method: 'post'
       })
-      .then((res)=>{
-        console.log(res)
-        this.$store.dispatch('user/setUser','anonymousUser')
-        this.$router.push("/")
-      })
-      .catch((err)=>{
-        console.error(err)
-      })
+        .then((res) => {
+          console.log(res)
+          this.$store.dispatch('user/setUser', 'anonymousUser')
+          this.$router.push("/")
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
     // store(a){
     //   this.$router.push({path:a.route, params:{'value':a.title}})
