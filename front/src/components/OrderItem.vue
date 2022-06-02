@@ -1,24 +1,22 @@
 <template>
   <div>
-    [ORDERS_COMPONENTS]
-
-    <div v-for="order in orders" :key="order.ord_id">
-      <OrderItem :order="order" />
+    <br>
+    <div>
+      [ORDER_ITEM]
+      {{ order }}
     </div>
-</div>
+
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import OrderItem from "@/components/OrderItem";
 
 export default {
-  name: 'OrdersComponent',
-  components: {
-    OrderItem
+  name: 'OrderItem',
+  props: {
+    order: Object
   },
-
-  props:{'user_id': String},
   data() {
     return {
       orders: [],
