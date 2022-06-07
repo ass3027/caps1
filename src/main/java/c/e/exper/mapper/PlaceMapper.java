@@ -63,5 +63,12 @@ public interface PlaceMapper {
          "     )\n" +
          "where ROWNUM <= 5")
    public List<Place> findBestPlace();
-   
+
+   @Select("""
+           SELECT *
+           FROM PLACE
+           WHERE cat3 = #{category} 
+           and firstimage is not null and tel is not null
+           """)
+   public List<PlaceDAO> findByCategory(@Param("category") String category);
 }

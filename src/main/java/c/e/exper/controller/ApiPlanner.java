@@ -193,9 +193,6 @@ public class ApiPlanner {
         } else{
             data.put("scheduleList",new int[0]);
         }
-
-
-
         return data;
     }
 

@@ -30,7 +30,7 @@ import CalenderView from "@/views/planner/CalenderView";
 //혁태??
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
-import PensionView from "@/views/pension/PensionView";
+import PensionView from "@/views/store/PensionView";
 import StoreDetail from "@/views/store/StoreDetail";
 
 //진한??
@@ -87,12 +87,12 @@ const routes = [
   {path: "/share/edit", name: "shareEdit", component: PlannerShareEditView, props: true,},
 
   //혁태
+  {path: "/place/:category", name: "place", component: HotelView, props: true},
   {path: "/hotel", name: "hotel", component: HotelView},
-  {path: "/hotel/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
-  {path: "/storeadd", name: "storeadd", component: StoreAdd},
+  {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
+  {path: "/placeadd", name: "plaeadd", component: StoreAdd},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
-  {path: "/pension", name: "pension", component: PensionView},
 
   //세진
   {path: "/calender", name: "calender", component: CalenderView},

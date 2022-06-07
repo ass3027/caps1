@@ -38,7 +38,6 @@ public class PlaceDAO {
     String sigungucode;
     String title;
     String zipcode;
-
     String pic_name;
     String option_id;
 }

@@ -7,7 +7,7 @@
       <br><br>
       <PlaceHeader :category="category" />
       <div class="body-form">
-        <PlaceLeft :option="option" :category="category"/>
+        <PlaceLeft :option="option" />
         <PlaceMain />
       </div>
     </div>
@@ -20,23 +20,15 @@ import PlaceMain from "@/components/store/PlaceMain";
 import PlaceHeader from "@/components/store/PlaceHeader";
 
 export default {
-  name: "HotelView",
-  // props: [ 'category' ],
+  name: "PensionView",
   components: {
     PlaceHeader,
     PlaceMain,
     PlaceLeft
   },
-  created() {
-    this.category = this.$route.params.category
-    console.log(this.category)
-  },
-  mounted(){
-
-  },
   data() {
     return {
-      category: '',
+      category: 'PENSION',
       option: [
         {title: "pool", value: "1"},
         {title: "spa", value: "2"},

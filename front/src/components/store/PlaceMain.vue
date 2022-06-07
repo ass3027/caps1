@@ -28,23 +28,24 @@
       </v-carousel-item>
     </v-carousel>
     <div
-      v-for="(placeInfo, aIdx) in place.placeInfo"
+      v-for="(placeInfo, aIdx) in place.place"
+
       :key="aIdx"
       class="hotelcard"
       @click="goStoreInfo(placeInfo)"
     >
       <br><br>
-      {{ placeInfo.pl_name }}
+      {{ placeInfo.title }}
       <v-card
-        v-if="placeInfo.pic_name"
-        width="300%"
-        height="200px"
+        v-if="placeInfo.firstimage!=''"
+        width="100%"
+        height="250px"
       >
         <v-img
-          v-if="placeInfo.pic_name"
+          v-if="placeInfo.firstimage"
           width="100%"
-          height="100%"
-          :src="'/api/photo/' + placeInfo.pic_name"
+          height="250px"
+          :src="placeInfo.firstimage"
           alt="실허어엄"
         />
       </v-card>
@@ -72,7 +73,8 @@ export default {
   methods: {
     goStoreInfo(placeInfo) {
       console.log(placeInfo);
-      this.$router.push({name: 'hotelDetail', params:{pl_id :placeInfo.pl_id}, query:{pl_name: placeInfo.pl_name}});
+      this.$router.push({name:'hotelDetail', params:{pl_id : placeInfo.pl_id}})
+      // this.$router.push({name: 'hotelDetail', params:{pl_id :placeInfo.pl_id}, query:{pl_name: placeInfo.pl_name}});
     },
   },
 };

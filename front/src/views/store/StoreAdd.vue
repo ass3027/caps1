@@ -62,7 +62,7 @@
 import axios from "axios";
 
 export default {
-  name: "HotelAdd",
+  name: "PlaceAdd",
   components: {
     // HelloWorld,
   },

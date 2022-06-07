@@ -16,8 +16,7 @@ public class ApiProduct {
     ProductMapper productMapper;
 
     @GetMapping("/product")
-    public List<ProductDAO> findStoreProduct(@RequestParam("pl_id")String pl_id){
-        System.out.println("store_id: ");
+    public List<ProductDAO> findStoreProduct(@RequestParam("pl_id")String pl_id) {
         return productMapper.findStoreProduct(pl_id);
     }
 }

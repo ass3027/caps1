@@ -1,9 +1,7 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.PictureDAO;
-import c.e.exper.data.PlaceDAO;
-import c.e.exper.data.StoreDAO;
-import c.e.exper.data.StoreDTO;
+import c.e.exper.data.*;
+import c.e.exper.mapper.PlaceMapper;
 import c.e.exper.mapper.StoreMapper;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
@@ -12,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -38,14 +38,15 @@ public class ApiPlace {
    }
    
    @GetMapping("/place/{category}")
-   public List<PlaceDAO> getStoreByCategory(@PathVariable String category) {
-      return storeMapper.selectByCategory(category);
+   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
+      System.out.println("장소 카테고리");
+      System.out.println(category);
+      System.out.println(place2Service.카테고리별_조회(category));
+      return place2Service.카테고리별_조회(category);
    }
    
    @GetMapping("/getHotel")
    public List<PlaceDAO> hotel() {
-      System.out.println("컨트롤러임");
-      
       return storeMapper.findAll();
    }
    
@@ -67,8 +68,8 @@ public class ApiPlace {
 //        return data;
 //    }
    
-   @PostMapping("/hoteladd")
-   public boolean hoteladd(StoreDTO store, HttpServletRequest req) {
+   @PostMapping("/placeadd")
+   public boolean placeadd(StoreDTO store, HttpServletRequest req) {
       
       System.out.println("호텔 추가 컨트롤러임");
       

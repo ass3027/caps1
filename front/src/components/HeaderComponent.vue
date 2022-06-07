@@ -116,12 +116,12 @@ export default {
         {title: '플래너 사진', route: '/planPic'}
       ],
       [
-        {title: '호텔', route: '/hotel'},
-        {title: '모텔', route: '/store'},
-        {title: '펜션', route: '/store'},
-        {title: '글램핑', route: '/store'},
-        {title: '리조트', route: '/store'},
-        {title: '게스트하우스', route: '/store'}
+        {title: '호텔' ,route: '/place/hotel'},
+        {title: '모텔', route: '/place/motel'},
+        {title: '펜션', route: '/place'},
+        {title: '글램핑', route: '/place'},
+        {title: '리조트', route: '/place'},
+        {title: '게스트하우스', route: '/place'}
       ],
       [
         {title: '가방예약', route: '/SelectionOrder'},
@@ -129,7 +129,6 @@ export default {
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},
         {title: '배송조회', route: '/TrackingView'},
-
       ],
       [
         {title: '가이드 리스트', route: '/guideview'},
