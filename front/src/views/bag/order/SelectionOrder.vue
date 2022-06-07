@@ -19,6 +19,7 @@
           <v-btn
             color="primary"
             @click="$router.push({name:'StorageOrder'})"
+            class="ma-3"
           >
             가방 보관
           </v-btn>
@@ -37,6 +38,7 @@
           <v-btn
             color="primary"
             @click="$router.push({name:'TransportOrder'})"
+            class="ma-3"
           >
             가방배송
           </v-btn>

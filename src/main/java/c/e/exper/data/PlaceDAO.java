@@ -24,7 +24,7 @@ public class PlaceDAO {
     String keeper_ox;
     String addr1;
     String addr2;
-    String areacode;
+    String areaCode;
     String cat1;
     String cat2;
     String cat3;
@@ -38,6 +38,8 @@ public class PlaceDAO {
     String sigungucode;
     String title;
     String zipcode;
+    int seq;
+
     String pic_name;
     String option_id;
 }

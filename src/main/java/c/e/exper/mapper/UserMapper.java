@@ -34,9 +34,9 @@ public interface UserMapper { //디비접근
 
 //    @Insert("""
 //            insert into
-//            place2(pl_id,pl_name,address,pl_info,address_si,address_gu,
+//            place(pl_id,pl_name,address,pl_info,address_si,address_gu,
 //            address_dong,store_phone,category,store_id,user_id,keeper_ox,
-//            addr1,addr2,areacode,cat1,cat2,cat3,contentid,contentypeid,
+//            addr1,addr2,areaCode,cat1,cat2,cat3,contentid,contentypeid,
 //            firstimage,firstimage2,mapx,mapy,tel,sigungucode,title,zipcode
 //            )
 //            select
@@ -54,7 +54,7 @@ public interface UserMapper { //디비접근
 //                #{place.keeper_ox,jdbcType = VARCHAR},
 //                #{place.addr1,jdbcType = VARCHAR},
 //                #{place.addr2,jdbcType = VARCHAR},
-//                #{place.areacode,jdbcType = VARCHAR},
+//                #{place.areaCode,jdbcType = VARCHAR},
 //                #{place.cat1,jdbcType = VARCHAR},
 //                #{place.cat2,jdbcType = VARCHAR},
 //                #{place.cat3,jdbcType = VARCHAR},
@@ -68,10 +68,10 @@ public interface UserMapper { //디비접근
 //                #{place.sigungucode,jdbcType = VARCHAR},
 //                #{place.title,jdbcType = VARCHAR},
 //                #{place.zipcode,jdbcType = VARCHAR}
-//            from dual where not exists (select 1 from place2 where pl_id = #{place.contentid})""")
+//            from dual where not exists (select 1 from place where pl_id = #{place.contentid})""")
 //    void insertPlace(@Param("place") PlaceDAO place);
 
-    @Select("SELECT pl_id FROM place2 WHERE pl_id=#{pl_id}")
+    @Select("SELECT pl_id FROM place WHERE pl_id=#{pl_id}")
     boolean checkExist(@Param("pl_id") String pl_id);
 
 
