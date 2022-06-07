@@ -167,6 +167,12 @@ export default {
       console.log(decodeURI(photo))
       this.photo = "/api/photo/"+decodeURI(photo)
     })
+
+    axios.get('/api/user/id')
+      .then((res)=>{
+        this.$store.dispatch('user/setUser',res.data)
+        console.log(this.$store.state.user.userId)
+      })
   },
   methods: {
     logOut(){

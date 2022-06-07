@@ -1,3 +1,5 @@
+import {EventBus} from "@/eventBus/eventBus";
+
 export default {
   namespaced:true,
   state: {
@@ -46,6 +48,7 @@ export default {
       state.calendar.date[state.selectDate] = new Map(convertedMap.sort((a, b) => a[0] - b[0]));
 
       console.log(state.calendar)
+      EventBus.$emit('updateCalendar')
     },
     updateSelect(state,data){
       state.selectDate = data.date

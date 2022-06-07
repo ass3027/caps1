@@ -1,14 +1,15 @@
 <template>
   <v-container :class="{border:$store.state.calendar.selectDate===date}">
-    <v-row style="height:400px;">
-      <v-col width="300">
-        <h3 class="text-center">
+    <v-row style="height:400px;" >
+      <v-col width="300" align="center" >
+        <h2 class="text-center">
           {{ date }}
-        </h3>
+        </h2>
         <template
           v-if="plan.size!==undefined"
         >
           <v-dialog
+
             v-for="(key,index) in plan.keys()"
             :id="index"
             :key="index"
@@ -24,9 +25,11 @@
                 width="300"
                 @click="select(key)"
               >
-                <div>{{ key }}시</div>
+                <div><h3>{{ key }}시</h3></div>
                 <div>
-                  {{ plan.get(key) }}
+                  {{ plan.get(key).mapX }}
+                  {{ plan.get(key).mapY }}
+                  {{ plan.get(key).address }}
                 </div>
               </v-card>
             </template>
@@ -63,8 +66,8 @@
         </template>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col align-self="auto"> <!--이런게 있긴함  -->
+    <v-row justify="center">
+      <v-col justify="center" align="center"> <!--이런게 있긴함  -->
         <v-dialog
           v-model="dialog"
           width="500"
@@ -122,6 +125,8 @@
 </template>
 
 <script>
+import {EventBus} from "@/eventBus/eventBus";
+
 export default {
   name: "DateComponent",
   props: {
@@ -150,6 +155,7 @@ export default {
   created() {
     this.updatePlan()
     this.updateAvailableTimeList()
+    EventBus.$on('updateCalendar', this.updatePlan)
   },
   methods: {
     updatePlan: function () {
@@ -173,6 +179,9 @@ export default {
       console.log(this.$store.state.calendar.selectDate)
       console.log(this.plan)
       this.selectedTime = index
+
+      EventBus.$emit('updateDate',this.date)
+
     },
     updateAvailableTimeList: function () {
 
