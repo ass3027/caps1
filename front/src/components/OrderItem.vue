@@ -2,8 +2,23 @@
   <div>
     <br>
     <div>
-      [ORDER_ITEM]
-      {{ order }}
+      [ORDER_ITEM] <br>
+      ord_id:           {{ order.ord_id }} <br>
+      user_id:          {{ order.user_id }} <br>
+      ord_amount:       {{ order.ord_amount }} <br>
+      entrust_time:     {{ order.entrust_time }} <br>
+      withdraw_time:    {{ order.withdraw_time }} <br>
+      keep_start:       {{ order.keep_start }} <br>
+      keep_end:         {{ order.keep_end }} <br>
+      delivery_id:      {{ order.delivery_id }} <br>
+      call_time:        {{ order.call_time }} <br>
+      status:           {{ order.status }} <br>
+      pay_id:           {{ order.pay_id }} <br>
+      ord_selection:    {{ order.ord_selection }} <br>
+
+    </div>
+    <div>
+
     </div>
 
   </div>
@@ -19,31 +34,24 @@ export default {
   },
   data() {
     return {
-      orders: [],
-
+      keep_start: Object,
+      keep_end: Object,
     }
   },
   computed:{
 
   },
-  created(){
-
-  },
   mounted() {
-
-    console.log("[user_id]: "+this.user_id)
-    axios({
-      method: 'GET',
-      url: 'api/user/orders',
-      params: {
-        user_id: this.user_id
-      }
-    }).then(res => {
-      console.log(`[Orders]:`);
-      console.log(res.data);
-      this.orders = res.data
-    })
-
+    if(this.order.keep_start !== null)
+      axios({
+        method: 'GET',
+        url: 'api/keep/find',
+        params: {
+          keep_id: this.order.keep_start
+        }
+      }).then(res => {
+        console.log(res.data)
+      })
   },
   methods: {
 

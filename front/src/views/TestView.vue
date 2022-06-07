@@ -60,23 +60,32 @@
 
 <!--  </div>-->
   <div>
-    <OrdersComponent user_id="sw" />
+    <DuserOrdersComponent :user_id="user_id"/>
+<!--      <OrdersComponent :user_id="user_id" />-->
   </div>
+
 </template>
 
 <script>
-import OrdersComponent from "@/components/OrdersComponent";
+// import OrdersComponent from "@/components/OrdersComponent";
+import DuserOrdersComponent from "@/components/DuserOrdersComponent";
+// import OrdersComponent from "@/components/OrdersComponent";
+
 
 
 export default {
 
   name: 'TestView',
   components: {
-    OrdersComponent
+    // OrdersComponent,
+    DuserOrdersComponent
+    // OrdersComponent
+
   },
 
   data() {
     return {
+      user_id: this.$store.state.user.userId
     }
   },
   method: {
@@ -85,6 +94,7 @@ export default {
     }
   },
   mounted() {
+    console.log("[current_user_id]" + this.user_id)
 
     // setInterval(function () {
     //   console.log(window.scrollY)

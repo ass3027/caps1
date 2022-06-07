@@ -1,9 +1,6 @@
 package c.e.exper.mapper;
 
-import c.e.exper.data.Place;
-import c.e.exper.data.Share;
-import c.e.exper.data.SharePictureDAO;
-import c.e.exper.data.recommendDTO;
+import c.e.exper.data.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -61,5 +58,8 @@ public interface PlaceMapper {
             "     )\n" +
             "where ROWNUM <= 5")
     public List<Place> findBestPlace();
+
+    @Select("select * from place where pl_id = #{keep_id}")
+    public PlaceDAO findKeep(@Param("keep_id") String keep_id);
 
 }

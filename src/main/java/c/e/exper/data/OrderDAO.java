@@ -26,5 +26,6 @@ public class OrderDAO {
     String delevery_status;
     String pay_id;
     String ord_selection;
+    String ord_request;
 
 }

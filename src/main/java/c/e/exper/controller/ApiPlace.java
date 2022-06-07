@@ -4,10 +4,10 @@ import c.e.exper.data.PictureDAO;
 import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.StoreDAO;
 import c.e.exper.data.StoreDTO;
+import c.e.exper.mapper.PlaceMapper;
 import c.e.exper.mapper.StoreMapper;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,10 +26,14 @@ public class ApiPlace {
     final
     PictureMapper pictureMapper;
 
-    public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper) {
+    final
+    PlaceMapper placeMapper;
+
+    public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, PlaceMapper placeMapper) {
         this.storeMapper = storeMapper;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
+        this.placeMapper = placeMapper;
     }
 
     @GetMapping("/place/{category}")
@@ -86,5 +90,12 @@ public class ApiPlace {
         pictureMapper.InsertStore(pictureDAO);
 
         return true;
+    }
+
+    @GetMapping("/keep/find")
+    public PlaceDAO findKeep(String keep_id){
+
+        System.out.println("[/api/keep/find] "+keep_id);
+        return placeMapper.findKeep(keep_id);
     }
 }

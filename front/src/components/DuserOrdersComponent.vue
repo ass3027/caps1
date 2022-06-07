@@ -1,8 +1,8 @@
 <template>
   <div>
-    [DUSER_ORDERS_COMPONENTS]
-
-    <div v-for="order in orders" :key="order.ord_id">
+    [DUSER_ORDERS_COMPONENTS] {{ user_id }}
+    <br>
+    <div v-for="order in orders" :key="order.ord_id" class="mt-5">
       <DuserOrderItem :order="order"/>
     </div>
 
@@ -23,6 +23,8 @@ export default {
   data() {
     return {
       orders: [],
+      latitude: null,
+      longitude: null,
     }
   },
   computed:{
@@ -32,22 +34,52 @@ export default {
 
   },
   mounted() {
+    this.test().then(
+      )
 
-    console.log("[user_id]: "+this.user_id)
-    axios({
-      method: 'GET',
-      url: 'api/user/orders',
-      params: {
-        user_id: this.user_id
-      }
-    }).then(res => {
-      console.log(`[Orders]:`);
-      console.log(res.data);
-      this.orders = res.data
-    })
 
   },
   methods: {
+    test: async function test() {
+      await navigator.geolocation.getCurrentPosition((position) => {
+
+        axios.post('/api/location/update', {
+          'user_id': this.user_id,
+          'latitude': position.coords.latitude,
+          'longitude': position.coords.longitude,
+        }).then(() => {
+          console.log("this.user_id: " + this.user_id)
+
+          axios({
+            method: 'GET',
+            url: '/api/duser/orders',
+            params:  {
+              'user_id': this.user_id
+            }
+          }).then(res => {
+            console.log(`[Orders]:`);
+            console.log(res.data);
+            this.orders = res.data
+          })
+        })
+
+
+      })
+    },
+
+    getCurrentPosition() {
+
+    }
+
+    ,getOrderList() {
+
+
+    },
+    updateLocation(latitude, longitude){
+      console.log(latitude + " " + longitude)
+
+
+    }
 
   }
 };

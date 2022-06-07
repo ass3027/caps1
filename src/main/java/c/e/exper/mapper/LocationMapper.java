@@ -1,6 +1,7 @@
 package c.e.exper.mapper;
 
 
+import c.e.exper.data.PlaceDAO;
 import org.apache.ibatis.annotations.*;
 
 import java.math.BigDecimal;
@@ -18,9 +19,17 @@ public interface LocationMapper {
     public int updateLocation(@Param("latitude") double latitude, @Param("longitude") double longitude, @Param("loc_group") String loc_group, @Param("loc_index") String loc_index);
 
     @Select("select latitude, longitude from location where loc_group = #{loc_group} and loc_index = #{loc_index}")
-    public Map<String, BigDecimal> selectLocation(@Param("loc_group") String loc_group, @Param("loc_index") String loc_index);
+    public Map<String, Double> selectLocation(@Param("loc_group") String loc_group, @Param("loc_index") String loc_index);
 
     @Select("select count(*) from location where loc_group = #{loc_group} and loc_index = #{loc_index}")
     public boolean locationExist(@Param("loc_group") String loc_group, @Param("loc_index") String loc_index);
+
+    @Select("""
+            SELECT pl_id
+            FROM place2
+            WHERE mapx > #{minLongitude} and mapx < #{maxLongitude}
+            AND   mapy > #{minLatitude}  and mapy < #{maxLatitude}""")
+    public List<String> findNearPlace(@Param("minLongitude") Double minLongitude, @Param("maxLongitude") Double maxLongitude,
+                                        @Param("minLatitude") Double minLatitude, @Param("maxLatitude") Double maxLatitude);
 
 }
