@@ -17,6 +17,7 @@ import LocationCheckView from "@/views/LocationCheckView";
 import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
 
+
 //봉식
 import TrackingView from "@/views/bag/TrackingView";
 import FareView from "../views/bag/FareView";
@@ -24,7 +25,6 @@ import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";
 import SelectionOrder from "../views/bag/order/SelectionOrder";
 import StorageOrder from "@/views/bag/order/StorageOrder"
-
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
@@ -43,6 +43,7 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 import GuideSearch from "@/views/guide/GuideSearch";
 import GuideProduct from "@/views/guide/GuideProduct";
+import GuideProductTime from "@/views/guide/GuideProductTime";
 
 
 //세운??
@@ -64,8 +65,7 @@ import TestView from "@/views/TestView";
 import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
-import GuideProductTime from "@/views/guide/GuideProductTime";
-import testBshDetailView from "@/views/supply/TestBshDetailView";
+
 
 Vue.use(VueRouter);
 
@@ -106,7 +106,6 @@ const routes = [
   {path: "/planPic", name: "planPic", component: PlannerPicView},
 
   //봉식
-
   {path: "/TransportOrder", name: TransportOrder, component: TransportOrder},
   {path: "/SelectionOrder", name: SelectionOrder, component: SelectionOrder},
   {path: "/StorageOrder", name: StorageOrder, component: StorageOrder},

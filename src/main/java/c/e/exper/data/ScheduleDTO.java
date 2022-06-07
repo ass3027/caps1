@@ -26,6 +26,10 @@ public class ScheduleDTO {
     String expect_expenses;
     String place;
 
+    double mapX;
+
+    double mapY;
+
     public ScheduleDAO toDAO() {
         try{
             SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -40,6 +44,8 @@ public class ScheduleDTO {
                     .sch_endTime(sDate.parse(this.sch_endTime))
                     .expect_expenses(this.expect_expenses)
                     .place(this.place)
+                    .mapX(this.mapX)
+                    .mapY(this.mapY)
                     .build();
         }
         catch (ParseException e){

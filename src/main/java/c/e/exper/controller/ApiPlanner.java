@@ -201,9 +201,12 @@ public class ApiPlanner {
         System.out.println(scheduleList.get(0).getSch_endTime());
 
         scheduleMapper.deleteByPlanId(scheduleList.get(0).getPlan_id());
-        scheduleList.forEach( it->
-                scheduleMapper.insert(it.toDAO())
-        ); // Lamda can be replaced with method reference
+        scheduleList.forEach( it->{
+            System.out.println(33);
+            System.out.println(it.getPlace());
+                System.out.println(it.toDAO().getSch_endTime());
+                scheduleMapper.insert(it.toDAO());
+        }); // Lamda can be replaced with method reference
     }
 
 
