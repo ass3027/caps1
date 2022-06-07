@@ -62,6 +62,7 @@ import TestView from "@/views/TestView";
 import axios from 'axios'
 import {store} from "@/store"
 import GuideProductTime from "@/views/guide/GuideProductTime";
+import {EventBus} from "@/eventBus/eventBus";
 
 Vue.use(VueRouter);
 

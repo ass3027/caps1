@@ -50,4 +50,8 @@ public class GuideService {
       return gitemMapper.selectAll();
       
    }
+   public void 가이드상품_삭제1(String id){
+      gitemMapper.deleteGitemOne(id);
+
+   }
 }

@@ -2,10 +2,7 @@ package c.e.exper.mapper;
 
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.GuideDAO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,5 +14,8 @@ public interface GItemMapper {
 
     @Select("SELECT * FROM gitem")
     List<GItemDAO> selectAll();
+
+    @Delete("Delete from gitem where gitem_id = #{id}")
+    void deleteGitemOne( String id);
 
 }

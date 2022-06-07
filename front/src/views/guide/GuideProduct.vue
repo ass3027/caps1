@@ -17,9 +17,16 @@
             <div class="text-overline mb-4">
               상품아이디:{{ item.gitem_id }}
               <v-btn
+                v-if="item.user_id==$store.state.user.userId"
                 @click="view(item)"
               >
-                시간 등록
+                시간등록
+              </v-btn>
+              <v-btn
+                v-if="item.user_id==$store.state.user.userId"
+                @click="deleteItem(item.gitem_id)"
+              >
+                삭제
               </v-btn>
             </div>
             <div>
@@ -60,6 +67,21 @@ export default {
   methods:{
     view(item){
       this.$router.push("/GuideProductTime/" + item.gitem_id)
+    },
+    deleteItem(id){
+      axios({
+        method:'delete',
+        url: '/api/dgitemOne',
+        headers:{
+          'Content-Type': 'multipart/form-data',
+        },
+        params:{
+          'id' : id
+        }
+      })
+      .then(()=>{
+        console.log("oo");
+      })
     },
 
     importGitem(){

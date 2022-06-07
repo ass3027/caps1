@@ -59,6 +59,12 @@ public class ApiGuide {
         return guideService.가이드상품_조회();
     }
 
+    @DeleteMapping("/dgitemOne")
+    public void dgitemOne(String id){
+        System.out.println(id);
+        guideService.가이드상품_삭제1(id);
+    }
+
 
 
 
