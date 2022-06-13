@@ -2,6 +2,7 @@ package c.e.exper.mapper;
 
 import c.e.exper.data.*;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
