@@ -7,7 +7,9 @@
         >
           {{ start_addr_short }}
         </div>
-        <div>
+        <div
+          class="order_time_info"
+        >
           {{ order.entrust_time.slice(11, 16) }}
         </div>
       </div>
@@ -23,7 +25,9 @@
         >
           {{ end_addr_short }}
         </div>
-        <div>
+        <div
+          class="order_time_info"
+        >
           {{ order.withdraw_time.slice(11, 16) }}
         </div>
       </div>
@@ -93,10 +97,8 @@ export default {
           keep_id: this.order.keep_start
         }
       }).then(res => {
-        console.log(res.data)
         this.keep_start = res.data
 
-        console.log("[DuserOrderItem mounted]")
         this.addr_short = this.keep_start.addr1.split(' ')[2]
 
       })
@@ -109,7 +111,6 @@ export default {
           keep_id: this.order.keep_end
         }
       }).then(res => {
-        console.log(res.data)
         this.keep_end = res.data
 
       })
@@ -121,16 +122,7 @@ export default {
         ord_id: this.order.ord_id
       }
     }).then(res => {
-      console.log("[baginfo_get]")
       this.ord_bag_info = res.data
-
-      var test = this.ord_bag_info
-
-      console.log("=============================")
-      console.log(typeof test[0])
-      console.log("=============================")
-
-
     })
   },
   methods: {
@@ -140,8 +132,11 @@ export default {
 </script>
 
 <style>
+.order_time_info{
+  font-size: larger;
+}
 .short_addr{
-  font-size: large;
+  font-size: x-large;
 }
 #orderItem>div{
   float: left;
