@@ -60,14 +60,14 @@
 
   <!--  </div>-->
   <div>
-    <DuserOrdersComponent :user_id="user_id" />
+    <DuserOrdersComponent :userId="userId" />
     <!--      <OrdersComponent :user_id="user_id" />-->
   </div>
 </template>
 
 <script>
 // import OrdersComponent from "@/components/OrdersComponent";
-import DuserOrdersComponent from "@/components/DuserOrdersComponent";
+import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
 // import OrdersComponent from "@/components/OrdersComponent";
 
 
@@ -84,7 +84,7 @@ export default {
 
   data() {
     return {
-      user_id: this.$store.state.user.userId
+      userId: this.$store.state.user.userId
     }
   },
   method: {
@@ -93,7 +93,7 @@ export default {
     }
   },
   mounted() {
-    console.log("[current_user_id]" + this.user_id)
+    console.log("[current_user_id]" + this.userId)
 
     // setInterval(function () {
     //   console.log(window.scrollY)

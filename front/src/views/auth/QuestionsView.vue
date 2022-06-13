@@ -2,36 +2,56 @@
   <div>
     <header>
       <nav>
-        <button type="submit" @click="bookmark">즐겨찾기</button> |
-        <button type="submit" @click="pay">수익관리</button> |
-        <button type="submit" @click="myData">내정보수정</button> |
-        <button type="submit" @click="questions">1대1문의</button>
+        <button
+          type="submit"
+          @click="bookmark"
+        >
+          즐겨찾기
+        </button> |
+        <button
+          type="submit"
+          @click="pay"
+        >
+          수익관리
+        </button> |
+        <button
+          type="submit"
+          @click="myData"
+        >
+          내정보수정
+        </button> |
+        <button
+          type="submit"
+          @click="questions"
+        >
+          1대1문의
+        </button>
       </nav>
     </header>
     <h2>게시판 목록</h2>
 
     <v-text-field
+      v-model="keyword"
       class="mx-4"
       flat
       hide-details
       label="Search"
       prepend-inner-icon="mdi-magnify"
       solo-inverted
-      v-model="keyword"
-    ></v-text-field>
+    />
 
-<!--    <div class="searchWrap">-->
-<!--      <input-->
-<!--        v-model="keyword"-->
-<!--        type="text"-->
-<!--        @keyup.enter="Search"-->
-<!--      >-->
-<!--      <a-->
-<!--        href="javascript:;"-->
-<!--        class="btnSearch btn"-->
-<!--        @click="Search"-->
-<!--      >검색</a>-->
-<!--    </div>-->
+    <!--    <div class="searchWrap">-->
+    <!--      <input-->
+    <!--        v-model="keyword"-->
+    <!--        type="text"-->
+    <!--        @keyup.enter="Search"-->
+    <!--      >-->
+    <!--      <a-->
+    <!--        href="javascript:;"-->
+    <!--        class="btnSearch btn"-->
+    <!--        @click="Search"-->
+    <!--      >검색</a>-->
+    <!--    </div>-->
 
     <v-simple-table
       skyblue
@@ -109,10 +129,21 @@
           </th>
         </tr>
       </tbody>
-      <v-btn :disabled="pageNum === 0" v-on:click="prevPage" class="page-btn">이전</v-btn>
-      <span class="page-count">{{pageNum + 1}} / {{pageCount}} 페이지</span>
-      <v-btn :disabled="pageNum >= pageCount-1" v-on:click="nextPage" class="page-btn">다음</v-btn>
-
+      <v-btn
+        :disabled="pageNum === 0"
+        class="page-btn"
+        @click="prevPage"
+      >
+        이전
+      </v-btn>
+      <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
+      <v-btn
+        :disabled="pageNum >= pageCount-1"
+        class="page-btn"
+        @click="nextPage"
+      >
+        다음
+      </v-btn>
     </v-simple-table>
     {{ user_id }}
     {{ inq_title }}
@@ -148,6 +179,17 @@ import DetailPageView from "@/views/auth/DetailPageView";
 
 export default {
   name: "QuestionsView",
+  props:{
+    listArray: {
+      type: Array,
+      required: true
+    },
+    pageSize: {
+      type: Number,
+      required: false,
+      default: 10
+    }
+  },
   data() {
     return {
       pageNum : 0,
@@ -161,16 +203,21 @@ export default {
       // tableList:[]
     }
   },
-  props:{
-    listArray: {
-      type: Array,
-      required: true
-    },
-    pageSize: {
-      type: Number,
-      required: false,
-      default: 10
-    }
+   computed:{
+     pageCount() {
+        let listLeng = this.post_list.length,
+          listSize= this.pageSize,
+          page = Math.floor(listLeng/listSize);
+        if (listLeng % listSize > 0) page += 1;
+
+        return page;
+      },
+     paged_post_list() {
+       const start = this.pageNum * this.pageSize,
+       end = start + this.pageSize;
+       return this.post_list().slice(start, end);
+       // paged_post_list()
+     }
   },
   mounted() {
     axios.get("/api/inquiry/Questions/" )
@@ -237,22 +284,6 @@ export default {
     keyword(){
 
     }
-  },
-   computed:{
-     pageCount() {
-        let listLeng = this.post_list.length,
-          listSize= this.pageSize,
-          page = Math.floor(listLeng/listSize);
-        if (listLeng % listSize > 0) page += 1;
-
-        return page;
-      },
-     paged_post_list() {
-       const start = this.pageNum * this.pageSize,
-       end = start + this.pageSize;
-       return this.post_list().slice(start, end);
-       // paged_post_list()
-     }
   }
 }
 </script>

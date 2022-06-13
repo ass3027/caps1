@@ -1,12 +1,11 @@
 <template>
   <li
-      class="ma-0 py-5 pr-5"
+    class="ma-0 py-5 pr-5"
     style="width: 100%; height: 300px"
   >
     <div class="review-lists">
       <div class="review-user">
-
-        <div>{{user.user_name}}</div>
+        <div>{{ user.user_name }}</div>
       </div>
       <v-list-item-content>
         <v-row>
@@ -26,21 +25,21 @@
           <p class="text-body  red--text">
             {{ reg_date }}
           </p>
-
-
-
         </v-row>
         <v-list-item-subtitle>
           {{ review.rev_content }}
         </v-list-item-subtitle>
       </v-list-item-content>
 
-<!--      <v-list-item-avatar-->
-<!--        tile-->
-<!--        size="150"-->
-<!--        color="grey"-->
-<!--      />-->
-      <img :src="rev_img" style="width: 200px"/>
+      <!--      <v-list-item-avatar-->
+      <!--        tile-->
+      <!--        size="150"-->
+      <!--        color="grey"-->
+      <!--      />-->
+      <img
+        :src="rev_img"
+        style="width: 200px"
+      >
     </div>
   </li>
 </template>

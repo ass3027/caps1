@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <v-row>
       <v-col>
         <h4>{{ date }}</h4>
@@ -22,7 +22,7 @@
         v-model="dialog"
         width="500"
       >
-        <template v-slot:activator="{ on, attrs}">
+        <template #activator="{ on, attrs}">
           <v-btn
             color="red lighten-2"
             dark
@@ -44,7 +44,7 @@
             />
           </v-card-text>
 
-          <v-divider/>
+          <v-divider />
           <v-card-actions>
             <v-btn
               color="primary"

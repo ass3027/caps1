@@ -36,9 +36,9 @@
                     />
                   </div>
                 </v-card-text>
-                <v-divider/>
+                <v-divider />
                 <v-card-actions>
-                  <v-spacer/>
+                  <v-spacer />
                   <v-btn
                     color="primary"
                     text
@@ -63,8 +63,15 @@
       </div>
       <div>
         <div>호텔유형</div>
-        <div v-for="(option, i) in option " :key="i">
-          <v-checkbox :label="option.title" :value="option.title" v-model="checkOptions" />
+        <div
+          v-for="(option, i) in option "
+          :key="i"
+        >
+          <v-checkbox
+            v-model="checkOptions"
+            :label="option.title"
+            :value="option.title"
+          />
         </div>
       </div>
       <!--      <div>-->

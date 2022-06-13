@@ -1,15 +1,20 @@
 <template>
   <v-app id="app">
-    <div class='Bag-order'>
+    <div class="Bag-order">
       가방 운송 신청서
     </div>
     <v-form v-model="valid">
-
       <h3>짐 종류와 수량</h3>
       <v-container class="d-flex flex-column mb-6">
-        <v-row v-for="(bagType,index) in bagType " :key="index">
+        <v-row
+          v-for="(bagType,index) in bagType "
+          :key="index"
+        >
           {{ bagType.title }}
-          <v-checkbox v-model="checkedName" :value="bagType.value"/>
+          <v-checkbox
+            v-model="checkedName"
+            :value="bagType.value"
+          />
         </v-row>
 
         <v-card>
@@ -19,20 +24,26 @@
 
       <v-container justify="space-around">
         <v-row>
-          <DateTimePicker :label="'시작날짜'" @date="changeEntrustTime"></DateTimePicker>
-          <DateTimePicker :label="'종료날짜'" @date="changeWithdrawTime"></DateTimePicker>
+          <DateTimePicker
+            :label="'시작날짜'"
+            @date="changeEntrustTime"
+          />
+          <DateTimePicker
+            :label="'종료날짜'"
+            @date="changeWithdrawTime"
+          />
         </v-row>
         <v-row>
           <v-col>
             <v-card>
               <h3>출발장소</h3>
-              <AddressComponent @addressData="startAddress"></AddressComponent>
+              <AddressComponent @addressData="startAddress" />
             </v-card>
           </v-col>
           <v-col>
             <v-card>
               <h3>도착장소</h3>
-              <AddressComponent @addressData="endAddress"></AddressComponent>
+              <AddressComponent @addressData="endAddress" />
             </v-card>
           </v-col>
         </v-row>
@@ -40,13 +51,17 @@
       <br>
 
       <div>
-        <v-btn depressed color="primary" @click="addOrder">
+        <v-btn
+          depressed
+          color="primary"
+          @click="addOrder"
+        >
           작성 완료
         </v-btn>
       </div>
     </v-form>
 
-    <router-view/>
+    <router-view />
   </v-app>
 </template>
 
@@ -96,6 +111,13 @@ export default {
       return a;
     },
   },
+  watch: {
+    overlay(val) {
+      val && setTimeout(() => {
+        this.overlay = false
+      }, 2000)
+    },
+  },
 
   methods: {
     changeEntrustTime(date) {
@@ -129,13 +151,6 @@ export default {
     endAddress(address) {
       this.withdrawAddress = address
       console.log(this.withdrawAddress)
-    },
-  },
-  watch: {
-    overlay(val) {
-      val && setTimeout(() => {
-        this.overlay = false
-      }, 2000)
     },
   },
 }

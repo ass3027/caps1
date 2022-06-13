@@ -1,11 +1,9 @@
-<template>
-
-</template>
+<template />
 
 <script>
 
 export default {
-  name: "tourList"
+  name: "TourList"
 
 }
 </script>

@@ -10,9 +10,11 @@
         reverse-transition="fade-transition"
         transition="fade-transition"
       >
-        <div class="innerText" v-if="item.pl_name!=''">
-
-          <h3>{{i+1}}.{{item.pl_name}}</h3>
+        <div
+          v-if="item.pl_name!=''"
+          class="innerText"
+        >
+          <h3>{{ i+1 }}.{{ item.pl_name }}</h3>
           <v-btn>일정에추가</v-btn>
         </div>
       </v-carousel-item>

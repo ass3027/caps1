@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>Location Check {{ ord_id }}</h1>
-    <div id="map" style="width:100%;height:350px;"></div>
+    <div
+      id="map"
+      style="width:100%;height:350px;"
+    />
     <p>{{ latitude }}</p>
     <p>{{ longitude }}</p>
   </div>
@@ -102,8 +105,8 @@ export default {
         || lat.split('.').length > 2 || lon.split('.').length > 2
         || +lat > 90 || +lat < -90
         || +lon > 180 || +lon < -180) ){
-          if(this.marker == null) this.marker = new kakao.maps.Marker();
-          else this.marker.setMap(null);
+        if(this.marker == null) this.marker = new kakao.maps.Marker();
+        else this.marker.setMap(null);
         if(map != null) {
             this.marker.setPosition(new kakao.maps.LatLng(lat, lon));
 

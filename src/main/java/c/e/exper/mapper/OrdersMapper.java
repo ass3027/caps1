@@ -48,4 +48,14 @@ public interface OrdersMapper {
                             WHERE ord_id = #{ord_id}) GROUP BY bag_size
             """)
     public List<Map<String, Character>> findOrdersBaginfo(@Param("ord_id") String ord_id);
+
+
+    @Select("""
+            SELECT *
+            FROM orders
+            WHERE ord_id = #{ord_id}
+            """)
+    public OrderDAO findOrder(@Param("ord_id") String ord_id);
+
+
 }

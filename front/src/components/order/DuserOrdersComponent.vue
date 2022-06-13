@@ -1,17 +1,21 @@
 <template>
   <div>
-    [DUSER_ORDERS_COMPONENTS] {{ user_id }}
+    [DUSER_ORDERS_COMPONENTS] {{ userId }}
     <br>
-    <div v-for="order in orders" :key="order.ord_id" class="mt-5">
+    <div
+      v-for="order in orders"
+      :key="order.ord_id"
+      class="mt-5"
+      @click="select(order.ord_id)"
+    >
       <DuserOrderItem :order="order"/>
     </div>
-
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import DuserOrderItem from "@/components/DuserOrderItem";
+import DuserOrderItem from "@/components/order/DuserOrderItem";
 
 
 export default {
@@ -19,7 +23,7 @@ export default {
   components: {
     DuserOrderItem
   },
-  props:{'user_id': String},
+  props:{'userId': String},
   data() {
     return {
       orders: [],
@@ -44,17 +48,17 @@ export default {
       await navigator.geolocation.getCurrentPosition((position) => {
 
         axios.post('/api/location/update', {
-          'user_id': this.user_id,
+          'user_id': this.userId,
           'latitude': position.coords.latitude,
           'longitude': position.coords.longitude,
         }).then(() => {
-          console.log("this.user_id: " + this.user_id)
+          console.log("user_id: " + this.userId)
 
           axios({
             method: 'GET',
             url: '/api/duser/orders',
             params:  {
-              'user_id': this.user_id
+              'user_id': this.userId
             }
           }).then(res => {
             console.log(`[Orders]:`);
@@ -62,24 +66,12 @@ export default {
             this.orders = res.data
           })
         })
-
-
       })
     },
-
-    getCurrentPosition() {
-
-    }
-
-    ,getOrderList() {
-
-
+    select(ord_id) {
+      console.log("clicked " + ord_id)
+      this.$router.push("/orderDetail/" + ord_id).catch(()=>{})
     },
-    updateLocation(latitude, longitude){
-      console.log(latitude + " " + longitude)
-
-
-    }
 
   }
 };

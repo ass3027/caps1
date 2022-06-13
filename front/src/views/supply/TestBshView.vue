@@ -3,19 +3,21 @@
     <v-container>
       <v-row>
         <v-col>
-          {{exchangeRate}}
+          {{ exchangeRate }}
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-for="(status,i) in dialogAdd" :key="i">
-          {{i}}{{status}}
+        <v-col
+          v-for="(status,i) in dialogAdd"
+          :key="i"
+        >
+          {{ i }}{{ status }}
           <v-btn @click="changeBoolean(i)">
             상태변경
           </v-btn>
         </v-col>
       </v-row>
     </v-container>
-
   </div>
 </template>
 

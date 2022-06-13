@@ -42,16 +42,16 @@
             </v-btn>
           </v-col>
         </v-row>
-<!--        <v-row>-->
-<!--          <v-col-->
-<!--            v-for="(data,key) in 3"-->
-<!--            :key="key"-->
-<!--          >-->
-<!--            <v-card>-->
-<!--              <p>dd</p>-->
-<!--            </v-card>-->
-<!--          </v-col>-->
-<!--        </v-row>-->
+        <!--        <v-row>-->
+        <!--          <v-col-->
+        <!--            v-for="(data,key) in 3"-->
+        <!--            :key="key"-->
+        <!--          >-->
+        <!--            <v-card>-->
+        <!--              <p>dd</p>-->
+        <!--            </v-card>-->
+        <!--          </v-col>-->
+        <!--        </v-row>-->
         <v-row
           style="height:100%;"
           class="overflow-x-auto"
@@ -63,13 +63,11 @@
             style="width:600px;height:600px;float:left;"
             class="overflow-y-auto"
             sm="20"
-
           >
             <DateComponent
               :date="date"
             />
           </v-col>
-
         </v-row>
       </v-container>
     </v-container>

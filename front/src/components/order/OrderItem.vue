@@ -15,12 +15,8 @@
       status:           {{ order.status }} <br>
       pay_id:           {{ order.pay_id }} <br>
       ord_selection:    {{ order.ord_selection }} <br>
-
     </div>
-    <div>
-
-    </div>
-
+    <div />
   </div>
 </template>
 

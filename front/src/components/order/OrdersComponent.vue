@@ -2,15 +2,18 @@
   <div>
     [ORDERS_COMPONENTS]
 
-    <div v-for="order in orders" :key="order.ord_id">
+    <div
+      v-for="order in orders"
+      :key="order.ord_id"
+    >
       <OrderItem :order="order" />
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-import OrderItem from "@/components/OrderItem";
+import OrderItem from "@/components/order/OrderItem";
 
 export default {
   name: 'OrdersComponent',

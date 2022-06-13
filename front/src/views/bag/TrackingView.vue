@@ -1,11 +1,20 @@
 <template>
   <v-app>
     <h1>물품조회</h1>
-    <v-overflow-btn class="my-2" label="조회 목록" :items="dropdown_edit" counter item-value="text">
-    </v-overflow-btn>
+    <v-overflow-btn
+      class="my-2"
+      label="조회 목록"
+      :items="dropdown_edit"
+      counter
+      item-value="text"
+    />
     <h3>배송조회</h3>
-    <v-data-table :headers="headers" :items="orderList" :items-per-page="5" class="elevation-1">
-    </v-data-table>
+    <v-data-table
+      :headers="headers"
+      :items="orderList"
+      :items-per-page="5"
+      class="elevation-1"
+    />
   </v-app>
 </template>
 

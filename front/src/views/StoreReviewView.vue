@@ -1,6 +1,8 @@
 <template>
-  <div id="review" style="padding-top: 70px">
-
+  <div
+    id="review"
+    style="padding-top: 70px"
+  >
     <review-list
 
       :reviews="reviews"

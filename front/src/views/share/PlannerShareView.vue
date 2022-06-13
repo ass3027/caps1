@@ -6,7 +6,6 @@
       <v-col
         cols="9"
       >
-
         <v-row justify="space-between">
           <h2>플래너 공유 게시판</h2>
           <v-btn @click="loginCheck">
@@ -15,15 +14,16 @@
         </v-row>
         <v-row justify="center">
           <v-col
-            v-for="(item,index) in tableSets" :key="index" cols="12"
+            v-for="(item,index) in tableSets"
+            :key="index"
+            cols="12"
             @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
           >
-            <planner-share-card :shareSet="item"></planner-share-card>
+            <planner-share-card :share-set="item" />
           </v-col>
         </v-row>
-        <place-recommend></place-recommend>
-        <best-place></best-place>
-
+        <place-recommend />
+        <best-place />
       </v-col>
     </v-row>
   </v-container>
@@ -32,7 +32,7 @@
 <script>
 
 import axios from 'axios';
-import PlaceRecommend from "@/components/PlaceRecommend";
+import PlaceRecommend from "@/components/order/PlaceRecommend";
 import bestPlace from "@/components/BestPlace";
 import PlannerShareCard from "@/components/PlannerShareCard";
 

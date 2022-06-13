@@ -11,6 +11,8 @@ import PlannerShareWriteView from "../views/share/PlannerShareWriteView";
 import PlannerPicView from "@/views/share/PlannerPicView";
 import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
+import OrderDetail from "@/components/order/OrderDetail";
+
 
 //가방 보관
 import BagReserveView from '../views/bag/order/SelectionOrder.vue'
@@ -188,7 +190,9 @@ const routes = [
     component: LocationCheckView,
   },
 
+  { path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true },
   { path: "/TestView", name: "TestView", component: TestView },
+
 ];
 
 const router = new VueRouter({
