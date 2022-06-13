@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <v-row style="height:400px">
-      <v-col>
-        <h3 class="text-center">
+  <v-container :class="{border:$store.state.calendar.selectDate===date}">
+    <v-row style="height:400px;" >
+      <v-col width="300" align="center" >
+        <h2 class="text-center">
           {{ date }}
-        </h3>
+        </h2>
         <template
           v-if="plan.size!==undefined"
         >
           <v-dialog
+
             v-for="(key,index) in plan.keys()"
             :id="index"
             :key="index"
@@ -21,12 +22,14 @@
               <v-card
                 v-bind="attrs"
                 :class="{dd:true,selecting:selectedTime===key}"
-                width="500"
+                width="300"
                 @click="select(key)"
               >
-                <div>{{ key }}시</div>
+                <div><h3>{{ key }}시</h3></div>
                 <div>
-                  {{ plan.get(key) }}
+                  {{ plan.get(key).mapX }}
+                  {{ plan.get(key).mapY }}
+                  {{ plan.get(key).address }}
                 </div>
               </v-card>
             </template>
@@ -63,63 +66,67 @@
         </template>
       </v-col>
     </v-row>
-    <v-row>
-      <v-dialog
-        v-model="dialog"
-        width="500"
-      >
-        <template #activator="{ on, attrs}">
-          <v-btn
-            color="red lighten-2"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
-            일정추가
-          </v-btn>
-        </template>
-
-        <v-card>
-          <v-card-title>
-            시간선택
-          </v-card-title>
-
-          <v-card-text>
-            <v-select
-              v-model="addTime"
-              :items="availableTimeList"
-            />
-          </v-card-text>
-
-          <v-divider />
-          <v-card-actions>
+    <v-row justify="center">
+      <v-col justify="center" align="center"> <!--이런게 있긴함  -->
+        <v-dialog
+          v-model="dialog"
+          width="500"
+        >
+          <template #activator="{ on, attrs}">
             <v-btn
-              color="primary"
-              text
-              @click="dialog = false"
+              color="red lighten-2"
+              dark
+              v-bind="attrs"
+              v-on="on"
             >
-              닫기
+              일정추가
             </v-btn>
-            <v-btn
-              color="primary"
-              text
-              @click="add"
-            >
-              추가
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <v-btn
-        @click="deleting()"
-      >
-        일정삭제
-      </v-btn>
+          </template>
+
+          <v-card>
+            <v-card-title>
+              시간선택
+            </v-card-title>
+
+            <v-card-text>
+              <v-select
+                v-model="addTime"
+                :items="availableTimeList"
+              />
+            </v-card-text>
+
+            <v-divider />
+            <v-card-actions>
+              <v-btn
+                color="primary"
+                text
+                @click="dialog = false"
+              >
+                닫기
+              </v-btn>
+              <v-btn
+                color="primary"
+                text
+                @click="add"
+              >
+                추가
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-btn
+          @click="deleting()"
+        >
+          일정삭제
+        </v-btn>
+      </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
+import {EventBus} from "@/eventBus/eventBus";
+
 export default {
   name: "DateComponent",
   props: {
@@ -148,7 +155,7 @@ export default {
   created() {
     this.updatePlan()
     this.updateAvailableTimeList()
-
+    EventBus.$on('updateCalendar', this.updatePlan)
   },
   methods: {
     updatePlan: function () {
@@ -172,6 +179,9 @@ export default {
       console.log(this.$store.state.calendar.selectDate)
       console.log(this.plan)
       this.selectedTime = index
+
+      EventBus.$emit('updateDate',this.date)
+
     },
     updateAvailableTimeList: function () {
 
@@ -196,8 +206,9 @@ export default {
         "date": this.date,
         "time": this.addTime
       }
+
       this.$store.commit('calendar/updateSelect', a)
-      this.$store.commit('calendar/updateCalendarDate','')
+      this.$store.commit('calendar/updateCalendarDate', undefined)
       this.updateAvailableTimeList()
       this.updatePlan();
       this.dialog = false
@@ -216,7 +227,10 @@ export default {
   border-style: solid;
   height: 8vh;
   margin-bottom: 5px;
+}
 
+.border {
+  border: solid #5eaf13;
 }
 
 .selecting {
