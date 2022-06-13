@@ -19,9 +19,9 @@ public class Place2Service {
       this.placeMapper = placeMapper;
    }
    
-   public List<PlaceDAO> 장소_조회() {
-      return placeMapper.selectByPlace();
-   }
+//   public List<PlaceDAO> 장소_조회() {
+//      return placeMapper.selectByPlace();
+//   }
 
 
    public List<PlaceDAO> 카테고리별_조회(String category) {
@@ -39,8 +39,6 @@ public class Place2Service {
             };
             break;
       }
-
-      System.out.println(categoryPlace.size());
 
       return categoryPlace;
    }

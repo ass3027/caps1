@@ -95,7 +95,7 @@ const routes = [
   {path: "/place/:category", name: "place", component: HotelView, props: true},
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
-  {path: "/placeadd", name: "plaeadd", component: StoreAdd},
+  {path: "/placeadd", name: "placeAdd", component: StoreAdd},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 
