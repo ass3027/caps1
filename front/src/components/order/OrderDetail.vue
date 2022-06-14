@@ -1,30 +1,77 @@
 <template>
-  <div style="border: 2px solid black; height: 200px; margin: 0 10px; padding: 20px 15px; width: 35%; margin: 0 auto">
-    <div>
-      <p style="display: inline">배송경로</p>
-      <div style="display: inline; float: right">주문번호 #{{ order.ord_id }}</div>
+  <table style="display:table; border: 2px solid black; height: 200px; margin: 0 10px; padding: 20px 15px; width: 35%; margin: 0 auto">
+    <div style="margin-top: 10px">
+      <p style="display: inline; font-size: large; margin-left: 5px">
+        배송경로
+      </p>
+      <div style="display: inline; float: right; font-size: large; margin-right: 5px">
+        주문번호 #{{ order.ord_id }}
+      </div>
     </div>
 
     <div
       id="map"
       style="width:100%;height:350px;"
     />
-    <div id="order_info">
-      <div>금액</div> <div>{{ order.ord_amount }} 원</div>
-      <div>픽업/완료</div>
-      <div>{{ entrust_time }}</div>
-      <div>{{ withdraw_time }}</div>
-      <div>출발지</div>
-      <div>{{ keep_start.addr1 }}</div>
-      <div>도착지</div>
-      <div>{{ keep_end.addr1 }}</div>
-      <div>나로부터</div>
-      <div>물품정보</div>
-      <div>요청사항</div>
-    </div>
+    <!--    <div id="order_info">-->
+    <!--      <div>금액 {{ order.ord_amount }} 원</div>-->
+    <!--      <div>픽업/완료 {{ entrust_time }}     {{ withdraw_time }}</div>-->
+    <!--      <div>출발지 {{ keep_start.addr1 }}</div>-->
+    <!--      <div>{{ degree_start_end }}Km</div>-->
+    <!--      <div>도착지 {{ keep_end.addr1 }}</div>-->
+    <!--      <div>나로부터</div>-->
+    <!--      <div>물품정보</div>-->
+    <!--      <div>요청사항</div>-->
+    <!--    </div>-->
+    <table>
+      <thead scope="row">
+        <tr>
 
-    {{ degree_start_end  }}
-  </div>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>금액</th>
+          <td>{{ order.ord_amount }} 원</td>
+        </tr>
+        <tr>
+          <th>픽업/완료</th>
+          <td>
+            <div>
+              {{ entrust_time }}
+            </div>
+            <div>
+              {{ withdraw_time }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>출발지</th>
+          <td>{{ keep_start.addr1 }}</td>
+        </tr>
+        <tr>
+          <th>도착지</th>
+          <td>{{ keep_end.addr1 }}</td>
+        </tr>
+        <tr>
+          <th>거리</th>
+          <td>{{ degree_start_end }}Km</td>
+        </tr>
+        <tr>
+          <th>나로부터</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>물품정보</th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>요청사항</th>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </table>
   <!-- 출발키퍼 주소 --> <!-- 거리 --> <!-- 도착키퍼 주소 -->    <!-- 운송품에 대한 간략한 정보 -->
   <!-- 운송원과 출발키퍼사이의 거리 -->                         <!-- 금액 -->
 
@@ -161,11 +208,91 @@ export default {
 </script>
 
 <style>
+
+body {
+  padding:1.5em;
+  background: #f5f5f5
+}
+
+td div {
+  display: inline-block;
+  width: 50%;
+}
+
+table {
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+th {
+  text-align: left;
+
+
+}
+
+
+td, th {
+  padding: 1em .5em;
+  vertical-align: middle;
+}
+
+td {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+}
+
+a {
+  color: #73685d;
+}
+
+@media all and (max-width: 768px) {
+
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  th {
+    text-align: right;
+  }
+
+  table {
+    position: relative;
+    padding-bottom: 0;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+
+  tbody {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  tr {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  th {
+    border-bottom: 1px solid #a39485;
+  }
+
+  td {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+
+}
 #order_info {
   margin-top: 15px;
   border: 1px solid black;
-  display: grid;
-  grid-template-columns: 25% 25% 50%;
+
 }
 .order_time_info{
   font-size: larger;

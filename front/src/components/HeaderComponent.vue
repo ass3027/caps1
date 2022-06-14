@@ -51,8 +51,8 @@
       </div>
     </div>
     <div>
+      <!--      id="gnb"-->
       <div
-        id="gnb"
         class="menu-Bar"
       >
         <div style="margin-top: 20px">
