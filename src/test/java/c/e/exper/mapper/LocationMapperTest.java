@@ -1,6 +1,5 @@
 package c.e.exper.mapper;
 
-import c.e.exper.data.PlaceDAO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,8 +31,7 @@ class LocationMapperTest {
 
     @Test
     void selectDuserLocation() {
-        Map<String, Double> stringDoubleMap = mapper.selectLocation("2", "101");
-        System.out.println(stringDoubleMap.get("LATITUDE"));
+
     }
 
     @Test
@@ -49,5 +47,10 @@ class LocationMapperTest {
                 latitude-0.05, latitude+0.05);
         nearPlaces.forEach(System.out::println);
         System.out.println("nearPlaces Size: " + nearPlaces.size());
+    }
+
+    @Test
+    void findDuserLocation() {
+        System.out.println(mapper.findDuserLocation("sw"));
     }
 }

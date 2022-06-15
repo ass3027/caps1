@@ -2,14 +2,15 @@
   <div>
     [DUSER_ORDERS_COMPONENTS] {{ userId }}
     <br>
-    <div
+    <table
       v-for="order in orders"
       :key="order.ord_id"
       class="mt-5"
+      style="width: 50%; margin: 0 auto"
       @click="select(order.ord_id)"
     >
       <DuserOrderItem :order="order"/>
-    </div>
+    </table>
   </div>
 </template>
 

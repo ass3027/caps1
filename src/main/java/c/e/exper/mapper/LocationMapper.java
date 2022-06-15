@@ -1,7 +1,6 @@
 package c.e.exper.mapper;
 
 
-import c.e.exper.data.PlaceDAO;
 import org.apache.ibatis.annotations.*;
 
 import java.math.BigDecimal;
@@ -18,8 +17,12 @@ public interface LocationMapper {
     @Update("update location set latitude = #{latitude}, longitude = #{longitude} where loc_group = #{loc_group} and loc_index = #{loc_index}")
     public int updateLocation(@Param("latitude") double latitude, @Param("longitude") double longitude, @Param("loc_group") String loc_group, @Param("loc_index") String loc_index);
 
-    @Select("select latitude, longitude from location where loc_group = #{loc_group} and loc_index = #{loc_index}")
-    public Map<String, Double> selectLocation(@Param("loc_group") String loc_group, @Param("loc_index") String loc_index);
+    @Select("""
+            SELECT latitude, longitude
+            FROM delivery_user
+            WHERE user_id = #{duser_id}
+            """)
+    public Map<String, BigDecimal> findDuserLocation(@Param("duser_id") String duser_id);
 
     @Select("select count(*) from location where loc_group = #{loc_group} and loc_index = #{loc_index}")
     public boolean locationExist(@Param("loc_group") String loc_group, @Param("loc_index") String loc_index);

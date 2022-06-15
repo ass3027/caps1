@@ -31,11 +31,11 @@ public class ApiLocation {
     }
 
     @GetMapping("/location/check")
-    public Map<String, Double> checkLocation(@RequestParam("duser_id") String duser_id) {
+    public Map<String, BigDecimal> checkLocation(@RequestParam("duser_id") String duser_id) {
         System.out.println("user_id: " + duser_id);
-        Map<String, Double> doubleMap = deliveryService.운송원_위치_조회(duser_id);
-        System.out.println("[ApiLocation]" + doubleMap);
-        return doubleMap;
+        Map<String, BigDecimal> lnglat = deliveryService.운송원_위치_조회(duser_id);
+        System.out.println("[ApiLocation]" + lnglat);
+        return lnglat;
     }
 
     // 주문서 아이디로 운송원 아이디

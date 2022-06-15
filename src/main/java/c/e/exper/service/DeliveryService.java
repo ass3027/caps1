@@ -8,6 +8,7 @@ import c.e.exper.mapper.OrdersMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -35,9 +36,9 @@ public class DeliveryService {
 
     }
 
-    public Map<String, Double> 운송원_위치_조회(String user_id) {
+    public Map<String, BigDecimal> 운송원_위치_조회(String user_id) {
 
-        Map<String, Double> stringDoubleMap = locationMapper.selectLocation("2", user_id);
+        Map<String, BigDecimal> stringDoubleMap = locationMapper.findDuserLocation(user_id);
 
         System.out.println("[DeliveryService]" + stringDoubleMap);
         return stringDoubleMap;
@@ -57,7 +58,7 @@ public class DeliveryService {
         // 위치 얻고
         // 근처의 키퍼 얻고
         // 주문서에서 where 키퍼, 주문상태
-        Map<String, Double> user_location = locationMapper.selectLocation("2", user_id);
+        Map<String, BigDecimal> user_location = locationMapper.findDuserLocation(user_id);
         System.out.println(user_location);
 
         double longitude = Double.parseDouble(String.valueOf(user_location.get("LONGITUDE"))); // +- 경도 10분(1분 = 1.48km)

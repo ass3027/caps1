@@ -8,7 +8,6 @@
         주문번호 #{{ order.ord_id }}
       </div>
     </div>
-
     <div
       id="map"
       style="width:100%;height:350px;"
@@ -59,7 +58,7 @@
         </tr>
         <tr>
           <th>나로부터</th>
-          <td></td>
+          <td>{{ degree_user_start }}Km</td>
         </tr>
         <tr>
           <th>물품정보</th>
@@ -109,22 +108,40 @@ export default {
       ord_bag_info: Object,
       map: null,
       degree_start_end: null,
-      userId: this.$store.state.user.userId
+      userId: this.$store.state.user.userId,
+      user_lng: null,
+      user_lat: null
     }
   },
   computed: {
     entrust_time: function(){
-      var text = this.order.entrust_time
+      var text = this.order.entrust_time || ''
       var result = text.substring(5,7) + "/" +text.substring(8,10) + " " + text.substring(11, 16)
+      // var result = this.order.entrust_time
       return result
     },
     withdraw_time: function () {
-      var text = this.order.withdraw_time
+      var text = this.order.withdraw_time || ''
       var result = text.substring(5,7) + "/" +text.substring(8,10) + " " + text.substring(11, 16)
+      // var result = this.order.withdraw_time
       return result
+    },
+    degree_user_start: function() {
+      var a = this.getDistanceFromLatLonInKm(this.keep_start.mapy, this.keep_start.mapx, this.user_lat, this.user_lng)
+      return a.toFixed(2) // 자릿수 반올림
     }
   },
   created() {
+    axios.get("/api/location/check?duser_id=" + this.userId).then(res => {
+
+      var location = Object.keys(res.data).map(function(key) {
+        return res.data[key];
+      });
+
+      this.user_lng = location[0]
+      this.user_lat = location[1]
+    })
+
     axios({
       method: 'GET',
       url: '/api/orders/order/',

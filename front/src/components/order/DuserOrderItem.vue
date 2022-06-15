@@ -1,6 +1,7 @@
 <template>
-  <div style="border: 2px solid black; height: 200px; margin: 0 10px; padding: 20px 15px;">
+  <div style="height: 200px; margin: 0 10px; padding: 20px 15px;">
     <div id="orderItem">
+
       <div>
         <div
           class="short_addr"

@@ -185,13 +185,13 @@ export default {
   mounted() {
     var gnb = document.getElementById("gnb")
 
-    document.addEventListener('scroll', function (){
-      this.scroll = window.scrollY
-      if(window.scrollY > 36)
-        gnb.classList.add('gnb_stop')
-      else
-        gnb.classList.remove('gnb_stop')
-    });
+    // document.addEventListener('scroll', function (){
+    //   this.scroll = window.scrollY
+    //   if(window.scrollY > 36)
+    //     gnb.classList.add('gnb_stop')
+    //   else
+    //     gnb.classList.remove('gnb_stop')
+    // });
   },
   methods: {
     logOut(){
