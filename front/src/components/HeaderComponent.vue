@@ -6,6 +6,7 @@
   <!---->
   <v-app
     class="header-layout"
+    style="min-width: 650px"
   >
     <div id="userMenu">
       <!--로그인 박스(로그인 O)-->
@@ -50,43 +51,57 @@
         </v-btn>
       </div>
     </div>
+
+    <div id="headerLogo">
+      <h1 class="logo" style="text-align: center">
+        <a href="/" style="display: inline-block">
+          <img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" style="display: block; width: 103px; height: 79px">
+        </a>
+      </h1>
+    </div>
+
     <div>
-      <!--      id="gnb"-->
       <div
         class="menu-Bar"
+        style="width: 1050px"
       >
-        <div style="margin-top: 20px">
-          <v-menu
-            v-for="(menu,index) in menuList"
-            :key="index"
-            offset-y
-          >
-            <template #activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                {{ menu }}
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(content, index2) in contents[index]"
-                :key="index2"
-                router
-                :to="content.route"
-              >
-                <v-list-item-title>{{ content.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </div>
-      </div>
+        <v-menu
+          v-for="(menu,index) in menuList"
+          :key="index"
+          offset-y
+        >
+          <template #activator="{ on, attrs }">
+            <div
+              style="display: flex; justify-content: center; width: 30%; text-align: center; height: 55px"
+            >
+            <span
+              v-bind="attrs"
+              v-on="on"
+              style="padding-top: 15px"
+            >
+              {{ menu }}
+            </span>
+            </div>
+          </template>
 
-      <v-divider style="margin-top: 10px" />
+          <v-list>
+            <v-list-item
+              v-for="(content, index2) in contents[index]"
+              :key="index2"
+              router
+              :to="content.route"
+              style="display: flex; justify-content: center"
+            >
+              <span>{{ content.title }}</span>
+            </v-list-item>
+          </v-list>
+
+        </v-menu>
+
+        <v-divider style="margin-top: 10px" />
+      </div>
     </div>
+
   </v-app>
 </template>
 
@@ -114,11 +129,11 @@ export default {
     ],
     contents: [
       [
-        // {title: 'travel1', route: '/travel'},
-        // {title: 'travel2', route: '/travel'},
-        // {title: 'travel3', route: '/travel'},
-        // {title: 'travel4', route: '/travel'},
-        // {title: 'travel5', route: '/travel'}
+        {title: 'travel1', route: '/travel'},
+        {title: 'travel2', route: '/travel'},
+        {title: 'travel3', route: '/travel'},
+        {title: 'travel4', route: '/travel'},
+        {title: 'travel5', route: '/travel'}
       ],
       [
         {title: '플래너 생성', route: '/plan'},
@@ -183,15 +198,10 @@ export default {
     })
   },
   mounted() {
-    var gnb = document.getElementById("gnb")
+    // TODO document why this method 'mounted' is empty
 
-    // document.addEventListener('scroll', function (){
-    //   this.scroll = window.scrollY
-    //   if(window.scrollY > 36)
-    //     gnb.classList.add('gnb_stop')
-    //   else
-    //     gnb.classList.remove('gnb_stop')
-    // });
+
+
   },
   methods: {
     logOut(){
@@ -217,19 +227,19 @@ export default {
 </script>
 
 <style>
-#gnb {
-  display: flex;
-  justify-content: center;
-}
-.gnb_stop {
-  z-index: 300;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 67px;
-  background-color: white;
-}
+/*#gnb {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
+/*.gnb_stop {*/
+/*  z-index: 300;*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  width: 100%;*/
+/*  height: 67px;*/
+/*  background-color: white;*/
+/*}*/
 
 .login-box {
   display: block;
@@ -240,7 +250,8 @@ export default {
 .menu-Bar {
   display: flex;
   justify-content: center;
-
+  margin: 0 auto;
+  width: 100%;
 }
 
 /*.text-center {*/
