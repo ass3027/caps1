@@ -5,7 +5,7 @@
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
-        :src="'/api/photo/'+item.pic_name"
+        :src="item.firstimage"
 
         reverse-transition="fade-transition"
         transition="fade-transition"
@@ -37,6 +37,7 @@ export default {
     axios
       .get('/api/recPlace')
       .then(res=>{
+        console.log(res.data)
         res.data.forEach(i=>{
           if(i.pic_name==null){
             i.pic_name="placeImage/noImage.png"

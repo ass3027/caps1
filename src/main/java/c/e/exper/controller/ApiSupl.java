@@ -38,6 +38,11 @@ public class ApiSupl {
         return SuplMapper.findAllSupl();
     }
 
+    @GetMapping("/getPlaceSupl/{pl_id}")
+    public List<ImportSuppliesDTO> getPlaceSupl(@PathVariable("pl_id")String pl_id) {
+        return SuplMapper.findPlacesSupplies(pl_id);
+    }
+
     @GetMapping("/getSets/{plan_id}")
     public List<ImportSuppliesDTO> getSets(@PathVariable("plan_id")String plan_id) {
         return SuplMapper.findSuppliesSets(plan_id);

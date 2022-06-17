@@ -16,6 +16,7 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
+import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
 
 
 //봉식
@@ -65,6 +66,7 @@ import TestView from "@/views/TestView";
 import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
+import placeSuppliesView from "@/views/supply/PlaceSuppliesView";
 
 
 Vue.use(VueRouter);
@@ -90,6 +92,7 @@ const routes = [
   {path: "/share/edit", name: "shareEdit", component: PlannerShareEditView, props: true,},
   {path: "/bsh", name: "bsh", component: testBshView},
   {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView,props:true},
+  {path: "/placeSupplies", name: "placeSupplies", component: PlaceSuppliesView},
 
   //혁태
   {path: "/place/:category", name: "place", component: HotelView, props: true},

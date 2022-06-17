@@ -90,7 +90,8 @@ export default {
         params: {
           share_id: this.share.share_id,
           plan_id: this.share.plan_id,
-          user_id: this.$store.state.user.userId
+          user_id: this.$store.state.user.userId,
+          share_title: this.share.share_title
         }
       })
         .then((res) => {

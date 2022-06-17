@@ -15,6 +15,7 @@ public interface SuplMapper {
 
     public List<Plan_Suplies> findMyAllSupl(String id);
 
+    @Select("select * from SUPLIES")
     public List<Suplies> findAllSupl();
 
     public Suplies findSuplByName(String suplName);
@@ -37,8 +38,8 @@ public interface SuplMapper {
     @Delete("delete from PLAN_SUPL where PLAN_SUPL_ID=#{id}")
     public void deleteSuplies(@Param("id") String id);
 
-    @Select("select a.PL_ID, a.pl_name , c.supl_id , c.SUPL_NAME\n" +
-            "from (select pl_id, PL_NAME\n" +
+    @Select("select a.PL_ID, a.title , c.supl_id , c.SUPL_NAME\n" +
+            "from (select pl_id, title\n" +
             "      from PLACE\n" +
             "      where PL_ID in (select PL_ID\n" +
             "                      from SCHEDULE\n" +
@@ -48,5 +49,16 @@ public interface SuplMapper {
             "where a.PL_ID = b.PL_ID\n" +
             "  and b.SUPL_ID = c.SUPL_ID\n" +
             "order by to_number(a.PL_ID)")
-    public List<ImportSuppliesDTO> findSuppliesSets(@Param("id")String id);
+    public List<ImportSuppliesDTO> findSuppliesSets(@Param("id")String id)
+            ;
+    @Select("select a.PL_ID, a.title , c.supl_id , c.SUPL_NAME\n" +
+            "from (select pl_id, title\n" +
+            "      from PLACE\n" +
+            "      where PL_ID = #{pl_id}) a,\n"+
+            "     PL_SUPL b,\n" +
+            "     SUPLIES c\n" +
+            "where a.PL_ID = b.PL_ID\n" +
+            "  and b.SUPL_ID = c.SUPL_ID\n" +
+            "order by to_number(a.PL_ID)")
+    public List<ImportSuppliesDTO> findPlacesSupplies(String pl_id);
 }
