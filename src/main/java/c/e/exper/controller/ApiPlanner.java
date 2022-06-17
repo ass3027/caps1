@@ -162,7 +162,7 @@ public class ApiPlanner {
         PictureDAO pictureDAO = new PictureDAO();
         pictureDAO.setPic_name(filePath);
 //        공유사진등록할떄 유저아이디 등록하는거
-//        pictureDAO.setUser_id(pictureDTO.getUser_id());
+        pictureDAO.setUser_id(pictureDTO.getUser_id());
         pictureDAO.setPlan_id(pictureDTO.getPlan_id());
 
         pictureMapper.InsertPlan(pictureDAO);
@@ -178,28 +178,30 @@ public class ApiPlanner {
         if(plan.isEmpty()) {
             System.out.println("isEmpty");
             throw new Exception();
-        }
+        }else data.put("plan",plan.get());
+
 
         List<ScheduleDAO> list = scheduleMapper.selectAllById(planId);
-        System.out.println(list.size());
+        List<ScheduleDTO> converted  = new ArrayList<>();
+        list.forEach( it->{
+            System.out.println(it.getPl_id());
+            converted.add(it.toDTO());
+        });
 
-        List<ScheduleDTO> convertResult = new ArrayList<>();
-        list.forEach( it->
-                convertResult.add(it.toDTO()));
-        data.put("plan",plan.get());
-        data.put("scheduleList",convertResult);
 
+        data.put("scheduleList",converted);
         return data;
     }
 
     @PostMapping("/Schedule")
     public void addSchedule(@RequestBody List<ScheduleDTO> scheduleList){
-        System.out.println(scheduleList.get(0).getSch_endTime());
+        System.out.println(scheduleList.get(0).getPl_id());
 
         scheduleMapper.deleteByPlanId(scheduleList.get(0).getPlan_id());
-        scheduleList.forEach( it->
-                scheduleMapper.insert(it.toDAO())
-        ); // Lamda can be replaced with method reference
+        scheduleList.forEach( it->{
+            System.out.println(33);
+            scheduleMapper.insert(it.toDAO());
+        }); // Lamda can be replaced with method reference
     }
 
 

@@ -7,6 +7,10 @@
     </div>
     <v-form v-model="valid">
       <v-container justify="space-around">
+        <h3>맡길장소</h3>
+        <search-place @childEvent="getEmitData"/>
+
+        <div>맡길장소: {{ lodging }}</div>
         <h3>짐 종류와 수량</h3>
 
         <v-card>
@@ -15,7 +19,7 @@
               <v-toolbar-title>
                 {{ bagType[0].title }}
               </v-toolbar-title>
-              <v-spacer />
+              <v-spacer/>
               {{ bagType[0].value }}원
               <v-checkbox
                 v-model="checkedName"
@@ -31,7 +35,7 @@
               <v-toolbar-title>
                 {{ bagType[1].title }}
               </v-toolbar-title>
-              <v-spacer />
+              <v-spacer/>
               {{ bagType[1].value }}원
               <v-checkbox
                 v-model="checkedName"
@@ -47,7 +51,7 @@
               <v-toolbar-title>
                 {{ bagType[2].title }}
               </v-toolbar-title>
-              <v-spacer />
+              <v-spacer/>
               {{ bagType[2].value }}원
               <v-checkbox
                 v-model="checkedName"
@@ -63,7 +67,7 @@
               <v-toolbar-title>
                 {{ bagType[3].title }}
               </v-toolbar-title>
-              <v-spacer />
+              <v-spacer/>
               {{ bagType[3].value }}원
               <v-checkbox
                 v-model="checkedName"
@@ -79,7 +83,7 @@
               <v-toolbar-title>
                 {{ bagType[4].title }}
               </v-toolbar-title>
-              <v-spacer />
+              <v-spacer/>
               {{ bagType[4].value }}원
               <v-checkbox
                 v-model="checkedName"
@@ -95,7 +99,7 @@
               <v-toolbar-title>
                 {{ bagType[5].title }}
               </v-toolbar-title>
-              <v-spacer />
+              <v-spacer/>
               {{ bagType[5].value }}원
               <v-checkbox
                 v-model="checkedName"
@@ -128,7 +132,7 @@
         <v-col>
           <v-card>
             <h3>맡길장소</h3>
-            <AddressComponent @addressData="startAddress" />
+            <AddressComponent @addressData="startAddress"/>
           </v-card>
         </v-col>
       </v-row>
@@ -149,15 +153,18 @@
 import AddressComponent from "@/components/AddressComponent"
 import DateTimePicker from "@/views/bag/order/DateTimePicker"
 import axios from "axios";
+import SearchPlace from "@/components/SearchPlace";
 
 export default {
   components: {
+    SearchPlace,
     // MapComponent
     AddressComponent,
     DateTimePicker
   },
   data() {
     return {
+      lodging: '',
       checkedName: [],
       overlay: false,
       valid: '',
@@ -200,6 +207,10 @@ export default {
   },
 
   methods: {
+    getEmitData: function (lodging) {
+      this.lodging = lodging
+      console.log("받은데이터" + lodging)
+    },
     changeEntrustTime(date) {
       this.entrustTime = date;
     },

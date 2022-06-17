@@ -73,6 +73,7 @@
             :value="option.title"
           />
         </div>
+        {{ checkOptions }}
       </div>
       <!--      <div>-->
       <!--        <div>인원</div>-->
@@ -102,7 +103,7 @@ import axios from "axios";
 
 export default {
   name: 'PlaceLeft',
-  props: [ 'option' ],
+  props: [ 'option', 'category' ],
   data() {
     return {
       startDate: new Date(
@@ -120,24 +121,25 @@ export default {
       IsDataForm: false,
       disabletoday: new Date().toISOString().substr(0, 10),
       peopleCount: 1,
-      category: "hotel",
       checkOptions: []
     };
   },
   computed: {},
   mounted() {
-  },
-  created() {
     axios({
-      method: 'get',
+      method: 'GET',
       url: `/api/place/${this.category}`,
     })
       .then((res) => {
-        this.$store.commit('place/updatePlace', res.data)
+        this.$store.commit('place/PlaceUpdate', res.data)
+        console.log(res.data)
       })
-
+    console.log(this.category)
+  },
+  created() {
     this.settingstart = this.startDate;
     this.settingend = this.endDate;
+    console.log(this.category)
   },
   methods: {
     SetDataForm() {
@@ -159,31 +161,6 @@ export default {
     setting() {
       alert(this.checkOptions)
       this.$store.commit('place/optionPlace', this.checkOptions)
-
-
-      // let ratingList = [];
-      // this.rating.forEach(aItem => {
-      //   if (aItem.type) {
-      //     ratingList.push(aItem.name);
-      //   }
-      // });
-
-      // let postData = {
-      //     date: { start: this.settingstart, end: this.settingend },
-      //     ratings: ratingList,
-      //     people: this.peopleCount
-      // };
-
-      // 적용 눌렀을떄말고도 로드하기위해서 created로 이동
-      // axios({
-      //   method : 'get',
-      //   url    : `/api/store/${this.category}`,
-      // })
-      //   .then((res)=>{
-      //     console.log("z")
-      //     this.$store.commit('stores/updateStore', res.data)
-      //   })
-
     }
   },
 };

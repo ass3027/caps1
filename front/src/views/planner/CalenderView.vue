@@ -1,19 +1,18 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <PlannerHeader />
-    <v-container style="padding-left:10px">
-      <div style="width:40%;height:100%;position:relative;overflow:hidden;float:left">
-        <MapComponent
-          @mapDataTransfer="applyMapData"
-        />
+    <v-container
+      fluid
+      style="padding-left:10px;padding-right:20px; width: 100%; min-width: 1270px">
+      <div style="width:60%;height:750px;position:relative;overflow:hidden;float:left">
+        <MapComponent/>
       </div>
-
 
       <v-container
         id="plan"
-        style="float:right;width:60%; "
+        style="float:right;width:40%; height: 750px; "
       >
-        <v-col>
+        <v-col style="width:100%;height: 10%;">
           <input
             v-model="startDate"
             type="date"
@@ -30,9 +29,9 @@
         <v-text-field
           v-model="schName"
           placeholder="일정이름"
-          style="width:30%"
+          style="width:30%;height: 10%;"
         />
-        <v-row>
+        <v-row style="width:100%;height: 10%;">
           <v-col>
             <v-btn @click="create()">
               create
@@ -53,21 +52,39 @@
         <!--          </v-col>-->
         <!--        </v-row>-->
         <v-row
-          style="height:100%;"
           class="overflow-x-auto"
+          style="display: grid;grid-auto-flow: column;height:70%;"
         >
-          <v-col
-            v-for="(date,index) in dateArr "
-            :id="index+`s`"
-            :key="index"
-            style="width:600px;height:600px;float:left;"
-            class="overflow-y-auto"
-            sm="20"
+          <V-carousel
+            style="width:100%;height:100%;float:left;"
+            :cycle=false
+            :continuous="false"
+            justify="center"
           >
-            <DateComponent
-              :date="date"
-            />
-          </v-col>
+            <v-row justify="center" style="width: 100%" >
+            <v-carousel-item
+              v-for="(date,index) in dateArr "
+              :id="index+`s`"
+              :key="index"
+            >
+              <DateComponent
+                :date="date"
+              />
+            </v-carousel-item>
+            </v-row>
+          </V-carousel>
+<!--          <v-col-->
+<!--            v-for="(date,index) in dateArr "-->
+<!--            :id="index+`s`"-->
+<!--            :key="index"-->
+<!--            style="width:300px;height:600px;float:left;"-->
+<!--            class="overflow-y-auto"-->
+<!--            sm="20"-->
+<!--          >-->
+<!--            <DateComponent-->
+<!--              :date="date"-->
+<!--            />-->
+<!--          </v-col>-->
         </v-row>
       </v-container>
     </v-container>
@@ -111,7 +128,6 @@ export default {
     //가끔 plan Id 가 업다고 뜸 로직 문제..??
     if(this.$store.state.user.planId === 0) {
       console.log("업서영")
-      this.create()
       return;
     }
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
@@ -145,10 +161,19 @@ export default {
         })
         //여기서 부터
         scheduleList.forEach( (it)=>{
+          const partialData = {
+            gitem_id:it.gitem_id,
+            pl_id:it.pl_id,
+            expect_expenses: it.expect_expenses,
+            mapX:it.mapX,
+            mapY:it.mapY,
+            address:it.place
+          }
 
           console.log(it.sch_endTime.substring(0,10))
             calendar.date[it.sch_endTime.substring(0,10)].set(
-              parseInt( it.sch_startTime.substring(12,13) ),it.place)
+              parseInt( it.sch_startTime.substring(12,13) ), partialData)
+          //이거 객체화 해서 저장해야하무
         })
 
         this.$store.commit('calendar/updateCalendar',calendar)
@@ -175,7 +200,6 @@ export default {
       calendar["date"]=[]
 
       this.dateArr.forEach( (it) => {
-        console.log(it)
         const a = [];
         for (let i = 0; i < 24; i++) {
           a.push(" ")
@@ -190,21 +214,17 @@ export default {
 
     },
 
-    applyMapData(mapData) {
-      console.log("calendar: " + mapData)
-      this.$store.commit('calendar/updateCalendarDate',mapData)
-    },
-
     save() {
       console.log(this.calendar)
+      console.log(this.$store.state.calendar.calendar)
       let data = []
       let temp = {}
       for ( let a in this.calendar.date) {
         console.log(this.calendar.date[a])
         console.log(a)
         for ( let [key,value] of this.calendar.date[a]){
-          let startHour
-          let endHour;
+          let startHour,
+          endHour;
           if(parseInt(key)<9){
             startHour= "0"+key
             endHour = "0"+(parseInt(key)+1)
@@ -217,13 +237,16 @@ export default {
             endHour = (parseInt(key)+1)
           }
           temp = {
-            gitem_id : null,
+            gitem_id : value.gitem_id,
             plan_id : this.calendar.planId,
-            place : value,
+            place : value.address,
+            pl_id:value.pl_id,
+            mapX:value.mapX,
+            mapY:value.mapY,
             sch_name : this.schName,
             sch_startTime: a + ` ${startHour}:00:00`,
             sch_endTime: a + ` ${endHour}:00:00`,
-            expect_expenses : this.calendar.expectExpenses,
+            expect_expenses : value.expect_expenses,
           }
           console.log(a + ` ${key}:00:00`)
           data.push(temp)
@@ -261,6 +284,8 @@ export default {
 }
 </script>
 <style>
-
+*{
+  margin :0 auto;
+}
 </style>
 

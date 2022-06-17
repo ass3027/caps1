@@ -21,7 +21,6 @@
                   alt=""
                   style="width: 100%"
                   class="image"
-                  @click="showMainImage()"
                 />
               </div>
             </div>
@@ -68,12 +67,15 @@
 
             <div class="mt-2 mb-4">
               <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ products[0].store_id }}
-
-                {{ products[0].pd_id }}
+                {{ $route.query.pl_name }}
               </span>
             </div>
 
+            <div class="my-3">
+              <span class="text-muted">
+                개인 바베큐 됩니다.
+              </span>
+            </div>
 
             <div class="row">
               <div class="col-8 col-md-12 d-flex flex-row align-items-center">
@@ -103,22 +105,30 @@
             </div>
           </div>
         </div>
+        <hr>
+        <div>
+          <div>
+            <place-product/>
+          </div>
+        </div>
       </div>
     </div>
-    <StoreReviewView :store_id="store_id" />
+    <StoreReviewView :store_name="store_name"/>
   </div>
 </template>
 
 <script>
 import StoreReviewView from "@/views/StoreReviewView";
 import axios from "axios";
+import PlaceProduct from "@/components/store/PlaceProduct";
 
 export default {
   name: 'ProductPage',
   components: {
+    PlaceProduct,
     StoreReviewView
   },
-  props: ['store_id'],
+  props: [ 'pl_id' ],
   data() {
     return {
       title: '5성급 편안호텔',
@@ -134,44 +144,47 @@ export default {
 
       showImageModal: false,
       slide: 0,
-      temp:0,
-      index:0,
+      temp: 0,
+      index: 0,
 
+      store_name: '',
     }
   },
   computed: {
-    mainImage: function(){
+    mainImage: function () {
       return this.products[this.index].pic_name
-    } ,
-
-    cartItemsCount() {
-      return this.cartItems.length;
-    }
+    },
   },
 
   created() {
     axios({
       method: 'GET',
       url: '/api/product',
-      params: {'pl_id': this.store_id}
+      params: {'pl_id': this.pl_id}
     })
       .then((res) => {
         this.products = res.data
         this.temp++
-        console.log(this.products)
       })
       .catch((err) => {
         console.log(err)
       })
 
-    const items = JSON.parse(localStorage.getItem('myCart'));
-    // console.log('items', items);
-    this.cartItems = items;
+    axios({
+      method: 'GET',
+      url: '/api/findPlName',
+      params: {'store_id': this.store_id}
+    })
+      .then((res) => {
+        this.store_name = res.data
+      })
+
+    console.log(this.$route)
   },
   methods: {
-    showMainImage() {
-      this.showImageModal = true;
-    },
+    // showMainImage() {
+    //   this.showImageModal = true;
+    // },
     changeMainImage(index) {
       this.index = index;
     },

@@ -33,11 +33,24 @@
     </div>
     <div class="textForm">
       <input
-        v-model="usage_time"
+        v-model="st_date"
         name="guideIntro"
-        type="datetime-local"
+        type="date"
         class="intro"
-        placeholder="날짜"
+        data-placeholder="시작날짜"
+        required
+        aria-required="true"
+      >
+    </div>
+    <div class="textForm">
+      <input
+        v-model="end_date"
+        name="guideIntro"
+        type="date"
+        class="intro"
+        data-placeholder="종료날짜"
+        required
+        aria-required="true"
       >
     </div>
     <div class="textForm">
@@ -46,9 +59,10 @@
         name="guideIntro"
         type="text"
         class="intro"
-        placeholder="시간"
+        placeholder="요구시간"
       >
     </div>
+
     <v-btn
       class="btn"
       @click="onsubmit()"
@@ -73,8 +87,9 @@ export default {
       user_id:'',
       pl_id:'',
       introduce:'',
-      usage_time:'',
-      require_time:''
+      st_date:'',
+      require_time:'',
+      end_date:''
     }
   },
   methods:{
@@ -88,8 +103,9 @@ export default {
       sendform.append('user_id', this.$store.state.user.userId);
       sendform.append('pl_id', this.pl_id);
       sendform.append('introduce', this.introduce);
-      sendform.append('usage_time', this.usage_time);
+      sendform.append('st_date', this.st_date);
       sendform.append('require_time', this.require_time);
+      sendform.append('end_date', this.end_date);
 
 
 
@@ -207,4 +223,7 @@ export default {
 .btn:hover {
   background-position: right;
 }
+input[type="date"]::before {content:attr(data-placeholder);width:100%}
+input[type="date"]:focus::before,
+input[type="date"]:valid::before {display:none}
 </style>

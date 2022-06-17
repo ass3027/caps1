@@ -15,7 +15,11 @@
               ss
             </v-text-field>
           </v-col>
+          <v-btn style="margin: 25px" v-on:click="idCheck">아이디 중복 확인하기</v-btn>
+<!--          <button @click="idCheck">ㅇㅇ</button>-->
+
         </v-row>
+
         <v-row>
           <v-text-field
             v-model="user_pw"
@@ -58,9 +62,7 @@
         style="width:400px;height:400px"
       />
 
-      <v-btn @click="submit()">
-        submit
-      </v-btn>
+      <v-btn @click="submit()">submit</v-btn>
     </form>
   </div>
 </template>
@@ -80,6 +82,7 @@ export default {
       user_birth: '',
       user_photo: {},
       role: 'user',
+      checked:false
     };
   },
   methods: {
@@ -109,6 +112,11 @@ export default {
     submit: function () {
       var sendform = new FormData();
 
+
+      if (this.checked === false){
+        alert("아이디중복 버튼을 눌러주세요")
+        return
+      }
       sendform.append('user_id', this.user_id);
       sendform.append('user_pw', this.user_pw);
       sendform.append('user_phone', this.user_phone);
@@ -127,16 +135,53 @@ export default {
         data: sendform,
       }).then((res) => {
         console.log(res.data)
-        if (res.data === true) {
 
-          alert('회원가입 성공');
-          this.$router.push('/')
+         if (res.data) {
+           alert('회원가입 성공');
+           this.$router.push("/")
+          // this.$router.push("/join")
+        } else  {
+           alert('회원가입 실패');
         }
-        else{
-          alert('회원가입 실패')
-        }
+
+
+        // if (res.data === true) {
+        //   alert('회원가입 성공');
+        //   this.$router.push('/')
+        // } else {
+        //   alert('회원가입 실패')
+        // }
+        //
+        // if (this.checked == false){
+        //   alert("아이디중복버튼을 눌러주세요")
+        // } else {
+        //   alert("실패");
+        // }
       });
     },
+    idCheck(){
+      axios.get('/api/user/userid',{ //객체
+        params:{
+          user_id:this.user_id
+        }
+      })
+      .then((res) =>{
+        console.log(res)
+        // console.log(res.data.user_id)
+        console.log(res.data)
+        if(res.data === false){
+           alert("중복된 아이디 입니다")
+         }else {
+          this.checked = true
+           alert("사용가능한 아이디입니다.")
+         }
+        // if (this.checked == false){
+        //   alert("버튼누르셈")
+        // }else if (this.checked == true){
+        //   alert("ㅇㅇ")
+        // }
+      })
+    }
   },
 };
 // components: {

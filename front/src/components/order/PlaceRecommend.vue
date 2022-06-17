@@ -11,7 +11,7 @@
         transition="fade-transition"
       >
         <div
-          v-if="item.pl_name!=''"
+          v-if="item.pl_name!==''"
           class="innerText"
         >
           <h3>{{ i+1 }}.{{ item.pl_name }}</h3>
@@ -45,7 +45,7 @@ export default {
         this.items=res.data
 
 
-        if(res.data.length==0){
+        if(res.data.length===0){
           this.items=[
             {
               pl_name:'',

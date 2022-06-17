@@ -1,9 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+//기본
 import JoinView from "../views/auth/JoinView.vue";
 import LoginView from "@/views/auth/LoginView";
 
+
+//성호형??
 import SuppliesVue from "../views/supply/SuppliesView";
 import PlannerShareView from "../views/share/PlannerShareView";
 import PlannerShareDetailsViewView from "../views/share/PlannerShareDetailsView";
@@ -18,113 +21,109 @@ import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
 //가방 보관
 import BagReserveView from '../views/bag/order/SelectionOrder.vue'
 import TrackingView from "@/views/bag/TrackingView";
+import testBshView from "@/views/supply/TestBshView";
+import TestBshDetailView from "@/views/supply/TestBshDetailView";
 
 
+//봉식
+import TrackingView from "@/views/bag/TrackingView";
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";
 import SelectionOrder from "../views/bag/order/SelectionOrder";
 import StorageOrder from "@/views/bag/order/StorageOrder"
-
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
 
+//혁태??
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
+import PensionView from "@/views/store/PensionView";
+import StoreDetail from "@/views/store/StoreDetail";
 
-import PensionView from "@/views/pension/PensionView";
-
+//진한??
 import GuideView from "@/views/guide/GuideView";
 import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
-
-import ProductReviewView from "@/views/ProductReviewView";
-import StoreReviewView from "@/views/StoreReviewView";
-
-import ReviewCreateView from "@/views/ReviewCreateView";
-import MypageView from "@/views/auth/MypageView";
-import testBshView from "@/views/supply/TestBshView";
-
-import StoreDetail from "@/views/store/StoreDetail";
 import GuideSearch from "@/views/guide/GuideSearch";
 import GuideProduct from "@/views/guide/GuideProduct";
+import GuideProductTime from "@/views/guide/GuideProductTime";
 
+
+//세운??
+import ProductReviewView from "@/views/ProductReviewView";
+import StoreReviewView from "@/views/StoreReviewView";
+import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
+//민아
+import MypageView from "@/views/auth/MypageView";
 import BookMarkView from "@/views/auth/BookMarkView";
 import MyDataView from "@/views/auth/MyDataView";
 import QuestionsView from "@/views/auth/QuestionsView";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
 import WritingModView from "@/views/auth/WritingModView";
-
-import { store } from "@/store";
+import MINA from "@/views/MINA";
 import TestView from "@/views/TestView";
-import axios from "axios";
-import {EventBus} from "@/eventBus/eventBus";
+
+import { EventBus} from "@/eventBus/eventBus";
+import axios from 'axios'
+import {store} from "@/store"
 
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: "/join", name: "join", component: JoinView },
-  { path: "/login", name: "login", component: LoginView },
-  { path: "/myPage", name: "MyPage", component: MypageView },
-  { path: "/myData", name: "MyData", component: MyDataView },
-  { path: "/questions", name: "Questions", component: QuestionsView },
-  { path: "/writing", name: "Writing", component: WritingView },
-  { path: "/detailPage/:id", name: "DetailPage", component: DetailPageView },
-  {
-    path: "/detailPage/:id/writingMod",
-    name: "WritingMod",
-    component: WritingModView,
-  },
-  { path: "/bookmark", name: "Bookmark", component: BookMarkView },
-  { path: "/supplies", name: "supplies", component: SuppliesVue },
+  //민아
+  {path: "/join", name: "join", component: JoinView},
+  {path: "/login", name: "login", component: LoginView},
+  {path: "/myPage", name: "MyPage", component: MypageView},
+  {path: "/myData", name: "MyData", component: MyDataView},
+  {path: "/questions", name: "Questions", component: QuestionsView},
+  {path: "/writing", name: "Writing", component: WritingView},
+  {path: "/detailPage/:id", name: "DetailPage", component: DetailPageView},
+  {path: "/detailPage/:id/writingMod", name: "WritingMod", component: WritingModView,},
+  {path: "/bookmark", name: "Bookmark", component: BookMarkView},
 
-  { path: "/supplies", name: "supplies", component: SuppliesVue },
-  { path: "/share", name: "share", component: PlannerShareView },
-  {path:"/bsh", name:"bsh", component: testBshView},
-  {
-    path: "/share/:id",
-    name: "shareDetails",
-    component: PlannerShareDetailsViewView,
-  },
-  {
-    path: "/share/write",
-    name: "shareWrite",
-    component: PlannerShareWriteView,
-  },
-  {
-    path: "/share/edit",
-    name: "shareEdit",
-    component: PlannerShareEditView,
-    props: true,
-  },
+  //성호
+  {path: "/supplies", name: "supplies", component: SuppliesVue},
+  {path: "/supplies", name: "supplies", component: SuppliesVue},
+  {path: "/share", name: "share", component: PlannerShareView},
+  {path: "/share/:id", name: "shareDetails", component: PlannerShareDetailsViewView,},
+  {path: "/share/write", name: "shareWrite", component: PlannerShareWriteView,},
+  {path: "/share/edit", name: "shareEdit", component: PlannerShareEditView, props: true,},
+  {path: "/bsh", name: "bsh", component: testBshView},
+  {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView,props:true},
 
-  { path: "/hotel", name: "hotel", component: HotelView },
-  {
-    path: "/hotel/:store_id",
-    name: "hotel",
-    component: StoreDetail,
-    props: true,
-  },
-  { path: "/storeadd", name: "storeadd", component: StoreAdd },
+  //혁태
+  {path: "/place/:category", name: "place", component: HotelView, props: true},
+  {path: "/hotel", name: "hotel", component: HotelView},
+  {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
+  {path: "/placeadd", name: "placeAdd", component: StoreAdd},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 
-  { path: "/pension", name: "pension", component: PensionView },
+  //세진
+  {path: "/calender", name: "calender", component: CalenderView},
+  {path: "/plInvite", name: "plInvite", component: PlInviteView},
+  {path: "/plan", name: "plan", component: PlanView},
+  {path: "/planPic", name: "planPic", component: PlannerPicView},
 
-  {path: '/calender', name: 'calender', component: CalenderView},
-  {path: '/SelectionOrder', name: 'SelectionOrder', component: SelectionOrder},
-  {path: '/FareView', name: 'FareView', component: FareView},
-  {path: '/UsageGuideView', name: 'UsageGuideView', component: UsageGuideView},
-  {path: '/TransportOrder', name: 'TransportOrder', component: TransportOrder},
-  {path: '/TrackingView', name: 'TrackingView', component: TrackingView},
+  //봉식
+  {path: "/TransportOrder", name: TransportOrder, component: TransportOrder},
+  {path: "/SelectionOrder", name: SelectionOrder, component: SelectionOrder},
+  {path: "/StorageOrder", name: StorageOrder, component: StorageOrder},
+  {path: "/FareView", name: "FareView", component: FareView},
+  {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
+  {path: "/TransportOrder", name: "TransportOrder", component: TransportOrder},
+  {path: "/TrackingView", name: "TrackingView", component: TrackingView},
+  {path: "/StorageOrder", name: "StorageOrder", component: StorageOrder},
 
-  {path: '/StorageOrder', name: 'StorageOrder', component: StorageOrder},
+  // { path: "/OrderView", name: "OrderView", component: OrderView },
+
 
   // { path: "/OrderView", name: "OrderView", component: OrderView },
   { path: "/plInvite", name: "plInvite", component: PlInviteView },
@@ -196,6 +195,28 @@ const routes = [
   { path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true },
   { path: "/TestView", name: "TestView", component: TestView },
 
+  //진한
+  {path: "/GuideView", name: "GuideView", component: GuideView},
+  {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
+  {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
+  {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
+  {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props: true},
+  {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true},
+  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
+  {path: "/GuideProductTime/:gitem_id", name: "GuideProductTime", component: GuideProductTime, props: true},
+
+
+  //세운
+  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
+  {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},
+  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView,},
+  {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true,},
+  {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true,},
+  {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
+  {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
+
+  //민아 실험
+  {path: "/mina", component: MINA}
 ];
 
 const router = new VueRouter({
