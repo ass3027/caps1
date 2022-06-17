@@ -36,13 +36,13 @@ public class ApiPlace {
       this.placeService = placeService;
    }
    
-   @GetMapping("/place/{category}")
-   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
-      System.out.println("장소 카테고리");
-      System.out.println(category);
-      System.out.println(place2Service.카테고리별_조회(category));
-      return place2Service.카테고리별_조회(category);
-   }
+//   @GetMapping("/place/{category}")
+//   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
+//      System.out.println("장소 카테고리");
+//      System.out.println(category);
+//      System.out.println(placeService.카테고리별_조회(category));
+//      return placeService.카테고리별_조회(category);
+//   }
    
    @GetMapping("/getHotel")
    public List<PlaceDAO> hotel() {
@@ -58,6 +58,11 @@ public class ApiPlace {
    public List<PlaceDAO> keywordList(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable("keyword")String keyword) {
       System.out.println("/place/{areaCode}/{cat1}/{keyword} : " + keyword);
       return placeService.장소_검색(areaCode,cat1,keyword);
+   }
+
+   @GetMapping("/place/{keyWord}")
+   public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord){
+      return placeService.searchByKeyWord(keyWord);
    }
    
    

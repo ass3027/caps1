@@ -21,6 +21,10 @@ public class PlaceService {
    public List<PlaceDAO> 장소_검색(String areaCode,String cat1,String keyword) {
       return placeMapper.keywordByPlace(areaCode, cat1,keyword);
    }
+
+   public List<PlaceDAO> searchByKeyWord(String keyWord){
+      return placeMapper.SearchPlaceByKeyword(keyWord);
+   }
    
 //   public List<PlaceDAO> 지역_조회(){
 //      return placeMapper.selectByPlaceTo(int areaCode);
