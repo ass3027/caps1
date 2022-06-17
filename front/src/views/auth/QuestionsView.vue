@@ -2,36 +2,56 @@
   <div>
     <header>
       <nav>
-        <button type="submit" @click="bookmark">즐겨찾기</button> |
-        <button type="submit" @click="pay">수익관리</button> |
-        <button type="submit" @click="myData">내정보수정</button> |
-        <button type="submit" @click="questions">1대1문의</button>
+        <button
+          type="submit"
+          @click="bookmark"
+        >
+          즐겨찾기
+        </button> |
+        <button
+          type="submit"
+          @click="pay"
+        >
+          수익관리
+        </button> |
+        <button
+          type="submit"
+          @click="myData"
+        >
+          내정보수정
+        </button> |
+        <button
+          type="submit"
+          @click="questions"
+        >
+          1대1문의
+        </button>
       </nav>
     </header>
     <h2>게시판 목록</h2>
 
     <v-text-field
+      v-model="keyword"
       class="mx-4"
       flat
       hide-details
       label="Search"
       prepend-inner-icon="mdi-magnify"
       solo-inverted
-      v-model="keyword"
-    ></v-text-field>
+    />
 
-<!--    <div class="searchWrap">-->
-<!--      <input-->
-<!--        v-model="keyword"-->
-<!--        type="text"-->
-<!--        @keyup.enter="Search"-->
-<!--      >-->
-<!--      <a-->
-<!--        href="javascript:;"-->
-<!--        class="btnSearch btn"-->
-<!--        @click="Search"-->
-<!--      >검색</a>-->
-<!--    </div>-->
+    <!--    <div class="searchWrap">-->
+    <!--      <input-->
+    <!--        v-model="keyword"-->
+    <!--        type="text"-->
+    <!--        @keyup.enter="Search"-->
+    <!--      >-->
+    <!--      <a-->
+    <!--        href="javascript:;"-->
+    <!--        class="btnSearch btn"-->
+    <!--        @click="Search"-->
+    <!--      >검색</a>-->
+    <!--    </div>-->
 
     <v-simple-table
       skyblue
@@ -132,6 +152,17 @@ import axios from "axios";
 
 export default {
   name: "QuestionsView",
+  props:{
+    listArray: {
+      type: Array,
+      required: true
+    },
+    pageSize: {
+      type: Number,
+      required: false,
+      default: 10
+    }
+  },
   data() {
     return {
       pageNum : 0,

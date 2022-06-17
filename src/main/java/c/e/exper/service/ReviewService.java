@@ -31,6 +31,14 @@ public class ReviewService {
         return reviewMapper.findAllReview();
     }
 
+    public List<Review> 가게_모든리뷰_조회(String pl_name) {
+        List<Review> allReviewForStore = reviewMapper.findAllReviewForStore(pl_name);
+
+        allReviewForStore.forEach(i -> i.setRev_img_filename(pictureMapper.selectPicnameByRevId(i.getRev_id())));
+
+        return allReviewForStore;
+    }
+
 
     // 조건: 기등록 리뷰가 았을 시 등록 불가(결제번호)
     public int 리뷰_등록(Review review) {

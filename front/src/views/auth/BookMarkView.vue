@@ -106,8 +106,6 @@
 
 
   </div>
-
-</div>
 </template>
 
 <script>

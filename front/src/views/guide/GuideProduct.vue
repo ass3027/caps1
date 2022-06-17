@@ -35,15 +35,7 @@
             <v-list-item-subtitle>
               소개:{{ item.introduce }} <h4>자세히보기</h4>
             </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-card-actions />
-      </v-card>
-    </v-row>
-  </div>
-</template>
 <script>
-import axios from "axios";
 
 export default {
   name: "GuideProduct.vue",

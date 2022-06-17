@@ -145,7 +145,7 @@
         작성 완료
       </v-btn>
     </v-form>
-    <router-view/>
+    <router-view />
   </v-app>
 </template>
 

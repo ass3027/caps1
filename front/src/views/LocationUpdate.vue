@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     locationUpdate(){
-
+      console.log(this.latitude +" "+ this.longitude)
       axios.post('/api/location/update', {
         'user_id': this.duser_id,
         'latitude': this.latitude,
@@ -44,7 +44,6 @@ export default {
 
         this.locationUpdate()
       })
-
     }
 
 

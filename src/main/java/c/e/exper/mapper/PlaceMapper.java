@@ -83,6 +83,9 @@ public interface PlaceMapper {
    public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
 */
 
+    @Select("select * from place where pl_id = #{keep_id}")
+    public PlaceDAO findKeep(@Param("keep_id") String keep_id);
+
 
     @Select("""
             select a.user_id, count(a.user_id) as count
