@@ -27,9 +27,13 @@ public class ApiRecommend {
         System.out.println(id);
         List<recommendDTO> similarUsers = placeMapper.findSimilarUser(id);
         System.out.println(similarUsers);
+        if(similarUsers.isEmpty()){
+            System.out.println("EMPTYYYYYYYYY");
+            List<PlaceDAO> Empty=null;
+            return Empty;
+        }
         String similarUser = similarUsers.get(0).getUser_id();
         System.out.println(similarUser);
-
         List<PlaceDAO> places = placeMapper.findRecPlace(id,similarUser);
         System.out.println(places);
 
