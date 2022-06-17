@@ -42,8 +42,6 @@ public class Place2Service {
          }
       }
 
-      System.out.println(categoryPlace.size());
-
       return categoryPlace;
    }
 }
