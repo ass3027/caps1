@@ -57,5 +57,25 @@ public interface OrdersMapper {
             """)
     public OrderDAO findOrder(@Param("ord_id") String ord_id);
 
+    @Select("""
+            SELECT status
+            FROM orders
+            WHERE ord_id = #{ord_id}
+            """)
+    public String checkOrderStatus(@Param("ord_id") String ord_id);
+
+    @Update("""
+            UPDATE orders
+            SET status = #{statusToChange}
+            WHERE ord_id = #{ord_id}
+            """)
+    public boolean updateStatus(@Param("ord_id") String ord_id, @Param("statusToChange") String status);
+
+    @Update("""
+            UPDATE orders
+            SET delivery_id = #{user_id}
+            WHERE ord_id = #{ord_id}
+            """)
+    public boolean updateDeliveryId(@Param("ord_id") String ord_id, @Param("user_id") String user_id);
 
 }

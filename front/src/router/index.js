@@ -12,6 +12,7 @@ import PlannerPicView from "@/views/share/PlannerPicView";
 import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 import OrderDetail from "@/components/order/OrderDetail";
+import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
 
 
 //가방 보관
@@ -190,6 +191,8 @@ const routes = [
     component: LocationCheckView,
   },
 
+
+  { path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
   { path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true },
   { path: "/TestView", name: "TestView", component: TestView },
 

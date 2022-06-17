@@ -60,7 +60,7 @@
 
   <!--  </div>-->
   <div>
-    <DuserOrdersComponent :userId="userId" />
+    <DuserOrdersComponent/>
     <!--      <OrdersComponent :user_id="user_id" />-->
   </div>
 </template>

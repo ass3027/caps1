@@ -1,5 +1,5 @@
 <template>
-  <table style="display:table; border: 2px solid black; height: 200px; margin: 0 10px; padding: 20px 15px; width: 35%; margin: 0 auto">
+  <table style="display:table; border: 2px solid black; height: 200px; margin: 0 10px; padding: 20px 15px; width: 40%; margin: 0 auto">
     <div style="margin-top: 10px">
       <p style="display: inline; font-size: large; margin-left: 5px">
         배송경로
@@ -22,7 +22,7 @@
     <!--      <div>물품정보</div>-->
     <!--      <div>요청사항</div>-->
     <!--    </div>-->
-    <table>
+    <table id="order_detail">
       <thead scope="row">
         <tr>
 
@@ -62,14 +62,31 @@
         </tr>
         <tr>
           <th>물품정보</th>
-          <td></td>
+          <td>
+            <span
+              v-for="(i, index) in ord_bag_info"
+              :key="index"
+            >
+              {{ i['BAG_SIZE'] }}x{{ i['CNT']}}
+              <span v-if="index !== ord_bag_info.length-1">, </span>
+            </span>
+          </td>
         </tr>
         <tr>
           <th>요청사항</th>
-          <td></td>
+          <td>{{ order.ord_request }}</td>
         </tr>
       </tbody>
     </table>
+    <div>
+      <v-btn
+        class="btn_type2"
+        height="54px"
+        color="white"
+        @click="requestMatch()">
+        매칭요청
+      </v-btn>
+    </div>
   </table>
   <!-- 출발키퍼 주소 --> <!-- 거리 --> <!-- 도착키퍼 주소 -->    <!-- 운송품에 대한 간략한 정보 -->
   <!-- 운송원과 출발키퍼사이의 거리 -->                         <!-- 금액 -->
@@ -105,7 +122,7 @@ export default {
       order: Object,
       keep_start: Object,
       keep_end: Object,
-      ord_bag_info: Object,
+      ord_bag_info: null,
       map: null,
       degree_start_end: null,
       userId: this.$store.state.user.userId,
@@ -142,13 +159,7 @@ export default {
       this.user_lat = location[1]
     })
 
-    axios({
-      method: 'GET',
-      url: '/api/orders/order/',
-      params: {
-        ord_id: this.ordId
-      }
-    }).then(res => {
+    axios.get("/api/orders/order?ord_id=" + this.ordId).then(res => {
       this.order = res.data
       console.log("[api/orders/order/]: ")
       console.log(this.order)
@@ -167,7 +178,15 @@ export default {
           }
         })
       })
+    }).then(() => {
+      axios.get("/api/orders/baginfo/" + this.order.ord_id).then(res => {
+        this.ord_bag_info = res.data
+        console.log('order.ord_id', this.order.ord_id)
+        console.log('ord_bag_info', this.ord_bag_info)
+      })
     })
+
+
   },
   mounted() {
 
@@ -218,13 +237,38 @@ export default {
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
       var d = R * c; // Distance in km
       return d;
-    }
+    },
 
+
+    requestMatch() {
+      axios.get("/api/orders/match/" + this.ordId + "/" + this.userId).then(res => {
+        console.log("매칭결과:", res.data)
+      })
+    }
   }
 };
 </script>
 
 <style>
+
+.btn_type2 {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 54px;
+  border-radius: 3px;
+  text-align: center;
+  border: 1px solid black;
+  margin-top: 10px;
+  background-color: #1e90cc;
+}
+
+#order_detail > tbody > tr > td {
+  width: 80%;
+}
+#order_detail > tbody > tr > th {
+  width: 20%;
+}
 
 body {
   padding:1.5em;

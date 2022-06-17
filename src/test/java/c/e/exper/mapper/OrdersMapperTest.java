@@ -18,7 +18,7 @@ class OrdersMapperTest {
 
     @Test
     void findOrdersForKeepID() {
-
+        System.out.println(ordersMapper.findOrdersBaginfo("1108"));
     }
 
     @Test
@@ -39,5 +39,10 @@ class OrdersMapperTest {
         ordersBagsize.forEach(i -> {
             System.out.println(i.get("CNT"));
         });
+    }
+
+    @Test
+    void checkOrderStatus() {
+        System.out.println(ordersMapper.checkOrderStatus("1112"));
     }
 }

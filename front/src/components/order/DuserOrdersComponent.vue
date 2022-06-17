@@ -1,16 +1,64 @@
 <template>
-  <div>
+  <div id="duser_orders">
     [DUSER_ORDERS_COMPONENTS] {{ userId }}
     <br>
-    <table
-      v-for="order in orders"
-      :key="order.ord_id"
-      class="mt-5"
-      style="width: 50%; margin: 0 auto"
-      @click="select(order.ord_id)"
-    >
-      <DuserOrderItem :order="order"/>
-    </table>
+    <div>
+      <span>
+        배송 가능
+      </span>
+      <table
+        v-for="order in orders"
+        :key="order.ord_id"
+        class="mt-5"
+        style="margin: 0 auto"
+        @click="select(order.ord_id)"
+      >
+        <DuserOrderItem
+          :order="order"
+          :latitude="latitude"
+          :longitude="longitude"
+        />
+      </table>
+    </div>
+
+    <div>
+      <span>
+        배송 중
+      </span>
+      <table
+        v-for="order in orders"
+        :key="order.ord_id"
+        class="mt-5"
+        style="margin: 0 auto"
+        @click="select(order.ord_id)"
+      >
+        <DuserOrderItem
+          :order="order"
+          :latitude="latitude"
+          :longitude="longitude"
+        />
+      </table>
+    </div>
+
+    <div>
+      <span>
+        배송 완료
+      </span>
+      <table
+        v-for="order in orders"
+        :key="order.ord_id"
+        class="mt-5"
+        style="margin: 0 auto"
+        @click="select(order.ord_id)"
+      >
+        <DuserOrderItem
+          :order="order"
+          :latitude="latitude"
+          :longitude="longitude"
+        />
+      </table>
+    </div>
+
   </div>
 </template>
 
@@ -24,9 +72,9 @@ export default {
   components: {
     DuserOrderItem
   },
-  props:{'userId': String},
   data() {
     return {
+      userId: this.$store.state.user.userId,
       orders: [],
       latitude: null,
       longitude: null,
@@ -39,21 +87,23 @@ export default {
 
   },
   mounted() {
-    this.test().then(
-      )
+    this.test().then()
+
+
 
 
   },
   methods: {
     test: async function test() {
       await navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
 
         axios.post('/api/location/update', {
           'user_id': this.userId,
           'latitude': position.coords.latitude,
           'longitude': position.coords.longitude,
         }).then(() => {
-          console.log("user_id: " + this.userId)
 
           axios({
             method: 'GET',
@@ -63,12 +113,13 @@ export default {
             }
           }).then(res => {
             console.log(`[Orders]:`);
-            console.log(res.data);
             this.orders = res.data
+            console.log('this.orders', this.orders);
           })
         })
       })
     },
+
     select(ord_id) {
       console.log("clicked " + ord_id)
       this.$router.push("/orderDetail/" + ord_id).catch(()=>{})
@@ -79,6 +130,17 @@ export default {
 </script>
 
 <style>
+
+#duser_orders{
+  width: 80%;
+  margin: 0 auto;
+}
+
+#duser_orders>div{
+  width: 30%;
+  display: inline-block;
+  margin: 1.66%;
+}
 #gnb {
   display: flex;
   justify-content: center;
