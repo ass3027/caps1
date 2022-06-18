@@ -47,8 +47,15 @@ public class ApiPlace {
    
    @GetMapping("/place/{category}")
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
-      return place2Service.카테고리별_조회(category);
+      return placeService.카테고리별_조회(category);
    }
+
+   @GetMapping("/place/{category}/{searchCon}")
+   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category, @PathVariable String areaCode) {
+      return placeService.카테고리_지역_조회(category, areaCode);
+   }
+
+
 //   @GetMapping("/place/{category}")
 //   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
 //      System.out.println("장소 카테고리");
@@ -73,10 +80,10 @@ public class ApiPlace {
       return placeService.장소_검색(areaCode,cat1,keyword);
    }
 
-   @GetMapping("/place/{keyWord}")
-   public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord){
-      return placeService.searchByKeyWord(keyWord);
-   }
+//   @GetMapping("/place/{keyWord}")
+//   public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord){
+//      return placeService.searchByKeyWord(keyWord);
+//   }
 
    
 //   @GetMapping("/place/{areaCode}/{cat1}/{pageNumber}")
