@@ -172,21 +172,10 @@ export default {
       user_id: '',
       inq_count: 0,
       post_list:[],
-      pageSize: 5
+      // pageSize: 5
       // paged_post_list:[]
       // tableList:[]
     }
-  },
-  props:{ //매개변수, 값을 받아올떄 쓰는아이
-    // listArray: {
-    //   type: Array,
-    //   required: true
-    // },
-    // pageSize: {
-    //   type: Number,
-    //   required: false,
-    //   default: 10
-    // }
   },
   mounted() {
     axios.get("/api/inquiry/Questions/" ,

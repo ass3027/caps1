@@ -26,7 +26,6 @@ import TestBshDetailView from "@/views/supply/TestBshDetailView";
 
 
 //봉식
-import TrackingView from "@/views/bag/TrackingView";
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";

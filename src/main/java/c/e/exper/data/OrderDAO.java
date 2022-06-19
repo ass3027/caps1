@@ -21,9 +21,9 @@ public class OrderDAO {
     String withdraw_time;
     String keep_start;
     String keep_end;
-    String delevery_id;
+    String delivery_id;
     Date call_time;
-    String delevery_status;
+    String status;
     String pay_id;
     String ord_selection;
     String ord_request;
