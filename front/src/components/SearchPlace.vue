@@ -1,77 +1,70 @@
 <template>
   <v-app>
-    <v-dialog v-model="dialog" width="1500">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on" style="width:95px">
-          장소검색
-        </v-btn>
-      </template>
 
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          장소를 검색하세요
-        </v-card-title>
+    <v-card>
+      <v-card-title class="text-h5 grey lighten-2">
+        장소를 검색하세요
+      </v-card-title>
 
 
-        <v-card class="align-center">
-          <v-row>
-            <v-col>
-              <v-select :style="{width:'150px',marginLeft:'270px'}"
-                        label="검색조건" v-model="searchCon" :items="items" item-text="text"
-                        :value="lists.areaCode"/>
-            </v-col>
-            <v-col>
-              <v-text-field dense outlined label="검색키워드" full-width
-                            :style="{marginTop:'10px'}"
-                            v-model="keyword"/>
-            </v-col>
-            <v-col>
-              <v-btn color="primary" @click="placeTitle" :style="{width:'100px', marginRight:'30px', marginTop:'10px'}">
-                검색
-              </v-btn>
-            </v-col>
+      <v-card class="align-center">
+        <v-row>
+          <v-col>
+            <v-select :style="{width:'150px',marginLeft:'270px'}"
+                      label="검색조건" v-model="searchCon" :items="items" item-text="text"
+                      :value="lists.areaCode"/>
+          </v-col>
+          <v-col>
+            <v-text-field dense outlined label="검색키워드" full-width
+                          :style="{marginTop:'10px'}"
+                          v-model="keyword"/>
+          </v-col>
+          <v-col>
+            <v-btn color="primary" @click="placeTitle" :style="{width:'100px', marginRight:'30px', marginTop:'10px'}">
+              검색
+            </v-btn>
+          </v-col>
+        </v-row>
+
+
+        <v-sheet class="pa-3">
+          <v-row class="align-center">
+            <v-skeleton-loader class="mx-auto" max-width="300" type="card" cols="auto" v-for="(data,index) in calData"
+                               :key="index">
+              <v-card width="400px" height="300px" cols="auto" class="ma-3">
+
+                <v-row justify="center">
+                  <img :src="data.firstimage2" width="200px" height="150px" class="ma-2" alt=""/>
+                </v-row>
+                <v-row>
+                  <v-card-subtitle>장소명: {{ data.title }} ({{ data.zipcode }})<br>
+                    주소명:{{ data.addr1 }}
+                  </v-card-subtitle>
+                  <v-col>
+                    <v-card-actions style="position: absolute; bottom: 0; right: 0">
+                      <v-spacer/>
+                      <v-btn depressed color="primary" @click="ChoiceLodging(data)">숙소선택</v-btn>
+
+                    </v-card-actions>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-skeleton-loader>
           </v-row>
+          <div class="text-center">
+            <v-pagination v-model="curPageNum"
+                          :length="numOfPages"
+                          class="my-4"
+                          :total-visible="10">
+              <!--        v-model : 현재 활성화(보여지고있는)되어있는 Page의 번호.
+                          :length : v-bind:length의 약어로 length 속성은 총 page의 사이즈를 나타냅니다.-->
 
+            </v-pagination>
+          </div>
+        </v-sheet>
 
-          <v-sheet class="pa-3">
-            <v-row class="align-center">
-              <v-skeleton-loader class="mx-auto" max-width="300" type="card" cols="auto" v-for="(data,index) in calData"
-                                 :key="index">
-                <v-card width="400px" height="300px" cols="auto" class="ma-3">
-
-                  <v-row justify="center">
-                    <img :src="data.firstimage2" width="200px" height="150px" class="ma-2" alt=""/>
-                  </v-row>
-                  <v-row>
-                    <v-card-subtitle>장소명: {{ data.title }} ({{ data.zipcode }})<br>
-                      주소명:{{ data.addr1 }}
-                    </v-card-subtitle>
-                    <v-col>
-                      <v-card-actions style="position: absolute; bottom: 0; right: 0">
-                        <v-spacer/>
-                        <v-btn depressed color="primary" @click="ChoiceLodging(data)">숙소선택</v-btn>
-
-                      </v-card-actions>
-                    </v-col>
-                  </v-row>
-                </v-card>
-              </v-skeleton-loader>
-            </v-row>
-            <div class="text-center">
-              <v-pagination v-model="curPageNum"
-                            :length="numOfPages"
-                            class="my-4"
-                            :total-visible="10">
-                <!--        v-model : 현재 활성화(보여지고있는)되어있는 Page의 번호.
-                            :length : v-bind:length의 약어로 length 속성은 총 page의 사이즈를 나타냅니다.-->
-
-              </v-pagination>
-            </div>
-          </v-sheet>
-
-        </v-card>
       </v-card>
-    </v-dialog>
+    </v-card>
   </v-app>
 </template>
 
