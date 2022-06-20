@@ -14,8 +14,8 @@ public class PlaceService {
    public PlaceService(PlaceMapper placeMapper) {
       this.placeMapper = placeMapper;
    }
-
-   public List<PlaceDAO> 장소_조회(String areaCode,String cat1) {
+   
+   public List<PlaceDAO> 장소_조회(String areaCode,String cat1){
       return placeMapper.selectByPlace(areaCode, cat1);
    }
    public List<PlaceDAO> 장소_검색(String areaCode,String cat1,String keyword) {

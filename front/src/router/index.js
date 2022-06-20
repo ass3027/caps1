@@ -129,11 +129,9 @@ const routes = [
   {path: "/StorageOrder", name: StorageOrder, component: StorageOrder},
   {path: "/FareView", name: "FareView", component: FareView},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
+  {path: "/StorageOrder", name: "StorageOrder", component: StorageOrder},
   {path: "/TransportOrder", name: "TransportOrder", component: TransportOrder},
   {path: "/TrackingView", name: "TrackingView", component: TrackingView},
-  {path: "/StorageOrder", name: "StorageOrder", component: StorageOrder},
-
-  // { path: "/OrderView", name: "OrderView", component: OrderView },
 
 
   // { path: "/OrderView", name: "OrderView", component: OrderView },
