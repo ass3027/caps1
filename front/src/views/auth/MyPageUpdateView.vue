@@ -1,114 +1,74 @@
 <template>
   <div>
-    <h1>마이페이지</h1>
-    <header>
-      <nav>
-        <button
-          type="submit"
-          @click="bookmark"
-        >
-          즐겨찾기
-        </button> |
-        <button
-          type="submit"
-          @click="pay"
-        >
-          수익관리
-        </button> |
-        <button
-          type="submit"
-          @click="mydata"
-        >
-          내정보수정
-        </button> |
-        <button
-          type="submit"
-          @click="questions"
-        >
-          1대1문의
-        </button>
-      </nav>
-    </header>
-
+<MyPageHeader></MyPageHeader>
     <h1>회원정보수정</h1>
     <div class="container">
-      <v-text-field
-        v-model="user_name"
-        type="text"
-        name="name"
-        class="name"
-        placeholder="이름"
-        :counter="7"
-        label="이름"
-        required
-      />
+      <v-row>
+        <v-text-field
+          v-model="user_name"
+          type="text"
+          name="name"
+          class="name"
+          placeholder="이름"
+          :counter="7"
+          label="이름"
+          required
+        />
+      </v-row>
 
-      <v-text-field
-        v-model="user_id"
-        type="text"
-        name="userId"
-        class="id"
-        placeholder="아이디"
-        :counter="30"
-        label="아이디"
-        required
-      />
+      <v-row>
+        <v-text-field
+          v-model="user_id"
+          type="text"
+          name="userId"
+          class="id"
+          placeholder="아이디"
+          :counter="30"
+          label="아이디"
+          required
+        />
+      </v-row>
 
-      <v-text-field
-        v-model="user_pw"
-        type="password"
-        name="user pw"
-        class="pw"
-        placeholder="비밀번호를 입력하세요"
-        :counter="100"
-        label="비밀번호"
-        required
-      />
+      <v-row>
+        <v-text-field
+          v-model="user_pw"
+          type="password"
+          name="user pw"
+          class="pw"
+          placeholder="비밀번호를 입력하세요"
+          :counter="100"
+          label="비밀번호"
+          required
+        />
+      </v-row>
 
-      <!--         <v-text-field-->
-      <!--             type="text"-->
-      <!--             name="user pw"-->
-      <!--             class="pw"-->
-      <!--             placeholder="비밀번호를 다시 입력해주세요"-->
-      <!--             v-model="user_pw"-->
-      <!--             :counter="100" label="비밀번호확인" required-->
-      <!--         ></v-text-field>-->
+      <v-row>
+        <v-text-field
+          v-model="user_phone"
+          type="text"
+          name="user phone"
+          class="phone"
+          placeholder="전화번호"
+          :counter="20"
+          label="전화번호"
+          required
+        />
+      </v-row>
 
-      <v-text-field
-        v-model="user_phone"
-        type="text"
-        name="user phone"
-        class="phone"
-        placeholder="전화번호"
-        :counter="20"
-        label="전화번호"
-        required
-      />
-
-
+      <v-row>
+        <v-select
+          v-model="preference"
+          :items="items"
+          label="선호하는 여행방식을 골라주세요"
+          dense
+          class="preference"
+        ></v-select>
+      </v-row>
 
       <div id="button">
-        <v-btn
-          elevation="3"
-          type="button"
-          @click="login"
-        >
-          로그인
-        </v-btn>
-        <v-btn
-          elevation="3"
-          type="button"
-          @click="main"
-        >
-          메인으로 이동
-        </v-btn>
-        <v-btn
-          elevation="3"
-          type="button"
-          @click="Modify"
-        >
-          수정완료
-        </v-btn>
+        <v-btn elevation="3" type="button" @click="login">로그인</v-btn>
+        <v-btn elevation="3" type="button" @click="main">메인으로 이동</v-btn>
+        <v-btn elevation="3" type="button" @click="Modify">수정완료</v-btn>
       </div>
     </div>
   </div>
@@ -117,8 +77,12 @@
 </template>
 
 <script>
+import MyPageHeader from "@/components/store/MyPageHeader";
 import axios from "axios";
 export default {
+  components:{
+    MyPageHeader
+  },
   data(){
     return{
       user_id: '',
@@ -126,6 +90,8 @@ export default {
       user_phone: '',
       user_name: '',
       user_photo: '',
+      preference:'',
+      items:['사진인증형','맛집탐방형', '관광형', '휴식형']
     };
   },
   mounted() {
@@ -135,6 +101,7 @@ export default {
         // this.user_pw = res.data.user_pw //공백으로 둬야하나?
         this.user_phone = res.data.user_phone
         this.user_name = res.data.user_name
+        this.preference = res.data. preference
         // console.log(res.data)
 
       })
@@ -163,10 +130,12 @@ export default {
       sendform.append("user_name", this.user_name)
       sendform.append("user_pw", this.user_pw)
       sendform.append("user_phone", this.user_phone)
+      sendform.append("preference", this.preference)
+
 
       axios({
         method:'post',
-        url: '/api/MyData',
+        url: '/api/user/dataUpdate',
         headers:{
           "Content-Type" : 'multipart/form-data', //사진같은 다양한 파일을 올릴때
         },
@@ -177,7 +146,7 @@ export default {
         console.log(res.data)
         if (res.data === true) {
           alert('정보수정이 완료되었습니다.');
-          this.$router.push('/Mypage')
+          this.$router.push('/MyPage')
         }
         else{
           alert('다시 확인해주세요')
@@ -269,6 +238,15 @@ header{
 }
 
 .phone{
+  width: 100%;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:20px;
+  height:60px;
+  background: none;
+}
+.preference{
   width: 100%;
   border:none;
   outline:none;

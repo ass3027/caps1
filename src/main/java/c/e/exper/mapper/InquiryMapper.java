@@ -14,7 +14,9 @@ public interface InquiryMapper {//디비접근
     @Insert("INSERT INTO inquiry(inq_title, inq_body, user_id, inq_type)VALUES(#{inq.inq_title},#{inq.inq_body},#{inq.user_id},#{inq.inq_type})")
     //시퀀스를 쓴 쿼리
     boolean insert(@Param("inq") InquiryDAO inq);
-    //void                                  //매개변수(내가 정해주는거?)
+    //void
+    //
+    // 매개변수(내가 정해주는거?)
 
     @Select("SELECT * FROM USERS WHERE user_id=#{user_id}")
     Optional<InquiryDAO> selectId (String user_id);
@@ -25,8 +27,8 @@ public interface InquiryMapper {//디비접근
     @Select("SELECT inq_id, inq_title, inq_time, user_id, inq_count FROM INQUIRY ORDER BY inq_id")
     List<InquiryDAO> list();
 
-
     //게시글 상세페이지 보기
+
     @Select("SELECT inq_title, inq_body, user_id, inq_type, inq_time FROM INQUIRY where inq_id=#{inq_id}")
     Optional<InquiryDAO> listPage(String inq_id);
 

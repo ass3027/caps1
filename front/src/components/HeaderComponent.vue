@@ -9,21 +9,14 @@
         v-if="isLogin"
         class="login-box"
       >
-        <v-btn text>
+        <v-btn text @click="MyPage">
           {{ $store.state.user.userId }}
         </v-btn>
 
-        <v-btn
-          text
-          @click="logOut"
-        >
+        <v-btn text @click="logOut">
           logout
         </v-btn>
-        <img
-          :src="photo"
-          style="width:50px;height:50px"
-          alt=""
-        >
+        <img :src="photo" style="width:50px;height:50px" alt="">
       </div>
       <!--로그인 박스(로그인 X)-->
       <div
@@ -146,8 +139,8 @@ export default {
         {title: 'Community5', route: '/Community'}
       ],
       [
-        {title: 'Customer1 ', route: '/Customer'},
-        {title: 'Customer2', route: '/Customer'},
+        {title: '문의사항 ', route: '/Questions'},
+        {title: '문의사항 등록', route: '/writing'},
         {title: 'Customer3', route: '/Customer'},
         {title: 'Customer4', route: '/Customer'},
         {title: 'Customer5', route: '/Customer'}
@@ -187,6 +180,9 @@ export default {
     // store(a){
     //   this.$router.push({path:a.route, params:{'value':a.title}})
     // }
+    MyPage(){
+      this.$router.push("/MyPage")
+    },
   }
 };
 </script>

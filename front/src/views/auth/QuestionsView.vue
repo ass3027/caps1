@@ -1,35 +1,7 @@
 <template>
   <div>
-    <header>
-      <nav>
-        <button
-          type="submit"
-          @click="bookmark"
-        >
-          즐겨찾기
-        </button> |
-        <button
-          type="submit"
-          @click="pay"
-        >
-          수익관리
-        </button> |
-        <button
-          type="submit"
-          @click="myData"
-        >
-          내정보수정
-        </button> |
-        <button
-          type="submit"
-          @click="questions"
-        >
-          1대1문의
-        </button>
-      </nav>
-    </header>
+<MyPageHeader></MyPageHeader>
     <h2>게시판 목록</h2>
-
     <v-text-field
       v-model="keyword"
       class="mx-4"
@@ -40,18 +12,14 @@
       solo-inverted
     />
 
-    <!--    <div class="searchWrap">-->
-    <!--      <input-->
-    <!--        v-model="keyword"-->
-    <!--        type="text"-->
-    <!--        @keyup.enter="Search"-->
-    <!--      >-->
-    <!--      <a-->
-    <!--        href="javascript:;"-->
-    <!--        class="btnSearch btn"-->
-    <!--        @click="Search"-->
-    <!--      >검색</a>-->
-    <!--    </div>-->
+    <v-data-table
+      dense
+      :headers="post_list"
+      :items="dd"
+      item-key="name"
+      class="elevation-1"
+      ></v-data-table>
+
 
     <v-simple-table
       skyblue
@@ -156,22 +124,18 @@
         등록
       </v-btn>
       <!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
-      <v-btn
-        type="button"
-        @click="write"
-      >
-        글쓰기
-      </v-btn>
+      <v-btn type="button" @click="write">글쓰기</v-btn>
     </div>
   </div>
 </template>
 
 <script>
-
+import MyPageHeader from "@/components/store/MyPageHeader";
 import axios from "axios";
-
-
 export default {
+  components:{
+    MyPageHeader
+  },
   name: "QuestionsView",
   props:{ //매개변수, 값을 받아올떄 쓰는아이
     // listArray: {
@@ -193,7 +157,7 @@ export default {
       user_id: '',
       inq_count: 0,
       post_list:[],
-      pageSize: 5
+      pageSize: 10
       // paged_post_list:[]
       // tableList:[]
     }
@@ -215,10 +179,7 @@ export default {
      }
   },
   mounted() {
-    axios.get("/api/inquiry/Questions/" ,
-      {params:{
-        inq_id: this.inq_id
-        }})
+    axios.get("/api/inquiry/Questions/")
 
     .then(res=>{
       console.log(res.data)

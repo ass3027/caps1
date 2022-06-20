@@ -19,4 +19,8 @@ public class UserDAO {
     String user_name;
     Date   user_birth;
     String role;
+    String guser_intro; //가이드유저?
+    String gender; //성별
+    String preference; //여행선호도
+
 }
