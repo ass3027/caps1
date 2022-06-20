@@ -53,39 +53,25 @@
         <v-card-actions />
       </v-card>
     </v-row>
-    <div>
-      <input
-        v-model="keyword"
-        name="keyword"
-        type="text"
-        style="border: #1e90cc solid"
-        class="search"
-      >
-    </div>
-    <v-btn
-      class="btn2"
-      @click="onsubmit()"
-    >
-      Search
-    </v-btn>
+
   </div>
 </template>
+
 <script>
 import axios from "axios";
 
 export default {
-  name: "GuideProduct.vue",
+  name: "GuideProductSearch.vue",
 
   data(){
     return{
       lists:[],
-      keyword:'',
     }
   },
+  props:['keyword'],
   mounted() {
     this.importGitem()
   },
-
   methods:{
     view(item){
       this.$router.push("/GuideProductTime/" + item.gitem_id)
@@ -93,33 +79,11 @@ export default {
     views(item){
       this.$router.push("/GuideProduct/" + item.gitem_id)
     },
-    onsubmit(){
-      console.log(this.keyword)
-      this.$router.push("/GuideProduct/Search/" + this.keyword)
-
-    },
-
-    deleteItem(id){
-      axios({
-        method:'delete',
-        url: '/api/dgitemOne',
-        headers:{
-          'Content-Type': 'multipart/form-data',
-        },
-        params:{
-          'id' : id
-        }
-      })
-      .then(()=>{
-        console.log("oo");
-        this.importGitem()
-      })
-    },
 
     importGitem(){
       axios({
         method:'get',
-        url   :'/api/gitem',
+        url   :'/api/gitem/search/' + this.keyword,
       })
       .then((res)=>{
         this.lists = res.data;
@@ -129,10 +93,6 @@ export default {
 }
 </script>
 
-<style>
-.card {
-  position: relative;
-  display: flex;
-}
+<style scoped>
 
 </style>

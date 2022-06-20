@@ -33,10 +33,22 @@ public class ApiGuide {
 
         return guideService.가이드_조회1(id);
     }
+
+    @GetMapping("/gitemview/{id}")
+    public GItemDAO findGitem(@PathVariable("id") String id){
+        System.out.println("상품 상세보기");
+        return guideService.가이드_상품조회1(id);
+    }
+
     @GetMapping("/guide/search/{keyword}")
     public List<GuideDAO> selectList(@PathVariable("keyword") String keyword){
         System.out.println("[api/guide/search] keyword: " + keyword);
         return guideService.가이드_검색(keyword);
+    }
+
+    @GetMapping("/gitem/search/{keyword}")
+    public List<GItemDAO> selectListItem(@PathVariable("keyword") String keyword){
+        return guideService.가이드상품_검색(keyword);
     }
 
     @PostMapping("/gjoin")
@@ -52,18 +64,36 @@ public class ApiGuide {
         guideService.가이드_상품등록(gitemDAO);
 
     }
+    @PostMapping("/gitjoin")
+    public void insertTimeGitem(GItemDAO gitemDAO){
+        System.out.println("시간등록");
+        guideService.가이드_시간등록(gitemDAO);
+    }
 
     @GetMapping("/gitem")
     public List<GItemDAO> findAllProduct(){
         System.out.println("가이드상품조회");
         return guideService.가이드상품_조회();
     }
+    @GetMapping("/gtime/{id}")
+    public List<GItemDAO> findTime(@PathVariable("id") String id){
+        System.out.println("시간조회");
+        return guideService.가이드상품_시간조회(id);
+    }
+
 
     @DeleteMapping("/dgitemOne")
     public void dgitemOne(String id){
         System.out.println(id);
         guideService.가이드상품_삭제1(id);
     }
+
+    @PutMapping("/gitemTimeUpdate")
+    public int timeUpdate(int id){
+        System.out.println(id+"시간수정");
+        return guideService.시간_수정(id);
+    }
+
 
 
 

@@ -63,6 +63,8 @@ import axios from 'axios'
 import {store} from "@/store"
 import GuideProductTime from "@/views/guide/GuideProductTime";
 import {EventBus} from "@/eventBus/eventBus";
+import GuideProductView from "@/views/guide/GuideProductView";
+import GuideProductSearch from "@/views/guide/GuideProductSearch";
 
 Vue.use(VueRouter);
 
@@ -123,7 +125,8 @@ const routes = [
   {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true},
   {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
   {path: "/GuideProductTime/:gitem_id", name: "GuideProductTime", component: GuideProductTime, props: true},
-
+  {path: "/GuideProduct/:gitem_id", name:"GuideProductView",component: GuideProductView, props:true},
+  {path: "/GuideProduct/Search/:keyword", name:"GuideProductSearch",component: GuideProductSearch,props: true},
 
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
