@@ -37,7 +37,7 @@
               <li><a class="link" href="https://www.instagram.com/bong__6" onclick="window.open(this.href, 'pop', 'width=1330,height=660,scrollbars=yes');return false;">1조 소개영상</a></li>
               <li><a class="link" href="https://www.instagram.com/bong__6" target="_blank">인재채용</a></li>
               <li><a class="link" href="https://www.instagram.com/bong__6">이용약관</a></li>
-              <li><a class="link emph" href="https://www.instagram.com/bong__6">개인정보처리방침</a></li>
+              <li><a class="link" href="https://www.instagram.com/bong__6">개인정보처리방침</a></li>
               <li><a class="link" href="https://www.instagram.com/bong__6">이용안내</a></li>
             </ul>
             법인명 (상호) : 주식회사 봉식 <span class="bar">I</span> 사업자등록번호 : 010-934-8972 <a href="http://www.ftc.go.kr/bizCommPop.do?wrkr_no=2618123567&amp;apv_perm_no=" target="_blank" class="link">사업자정보 확인</a>

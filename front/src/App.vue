@@ -4,7 +4,7 @@
       <HeaderComponent />
 
 
-      <router-view style="border-bottom: 1px solid #f7f7f7; padding-bottom: 60px"/>
+      <router-view style="border-bottom: 1px solid #f7f7f7; padding-bottom: 60px; min-width: 1050px; margin: 0 auto"/>
 
 
       <FooterComponent />

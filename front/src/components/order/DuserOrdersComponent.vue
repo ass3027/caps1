@@ -141,6 +141,9 @@ export default {
     },
 
     changeStatus(status) {
+
+      console.log('changeStatus, status:', status)
+
       this.status = status
       var selected = document.getElementById('status'+status)
 

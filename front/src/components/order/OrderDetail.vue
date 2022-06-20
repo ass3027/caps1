@@ -222,13 +222,15 @@ export default {
     requestMatch() {
       axios.get("/api/orders/match/" + this.order.ord_id + "/" + this.userId).then(res => {
         console.log("매칭결과:", res.data)
+        alert("매칭결과: " + res.data)
+        this.$router.go();
       })
     },
 
     orderArrival() {
       axios.post("/api/orders/arrival/" + this.order.ord_id).then(res =>{
         alert(res.data)
-        this.$router.push('testview')
+        this.$router.go();
       })
     }
 
