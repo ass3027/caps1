@@ -67,12 +67,11 @@ public class ApiReview {
     }
 
     @GetMapping("/storeReview")
-    public List<Review> findStoreReview(@RequestParam String store_name) {
-        System.out.println("[findStoreReview]store_name: " + store_name);
-        List<Review> 가게아이디_모든리뷰_조회 = reviewService.가게이름_모든리뷰_조회(store_name);
-        가게아이디_모든리뷰_조회.forEach(System.out::println);
-        System.out.println(가게아이디_모든리뷰_조회.isEmpty());
-        return 가게아이디_모든리뷰_조회;
+    public List<Review> findStoreReview(@RequestParam String store_id) {
+        System.out.println("[findPlName] store_id: " + store_id);
+        String pl_name = reviewMapper.findPlName(store_id);
+
+        return reviewService.가게_모든리뷰_조회(pl_name);
     }
 
     @GetMapping("/keeperReview")
@@ -81,6 +80,7 @@ public class ApiReview {
 
         return reviewService.키퍼아이디_모든리뷰_조회(keep_id);
     }
+
 
     @GetMapping("/deliverReview")
     public List<Review> findDeliveryReview(String delivery_id) {
@@ -114,13 +114,6 @@ public class ApiReview {
         return reviewService.findByPay(pay_id);
     }
 
-    @GetMapping("/findPlName")
-    public String findPlName(String store_id) {
-        System.out.println("[findPlName] store_id: " + store_id);
-        String store_name = reviewMapper.findPlName(store_id);
-        System.out.println("[findPlName] pl_name: " + store_name);
-        return store_name;
-    }
 
 
 }

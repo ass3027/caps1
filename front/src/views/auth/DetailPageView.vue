@@ -81,6 +81,7 @@
       </v-card-text>
     </v-card>
 
+
     <div id="button">
       <v-row justify="center">
         <div v-if="$store.state.user.userId == post.user_id">

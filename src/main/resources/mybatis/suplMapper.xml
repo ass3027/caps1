@@ -23,10 +23,6 @@
         order by 5,2
     </select>
 
-    <select id="findAllSupl" resultMap="suplResult">
-        SELECT  *
-        FROM suplies
-    </select>
 
     <select id="findSuplByName" resultMap="suplResult">
         select *

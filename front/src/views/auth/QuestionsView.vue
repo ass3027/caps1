@@ -1,6 +1,9 @@
 <template>
   <div>
+  
 <MyPageHeader></MyPageHeader>
+
+
     <h2>게시판 목록</h2>
     <v-text-field
       v-model="keyword"
@@ -11,6 +14,7 @@
       prepend-inner-icon="mdi-magnify"
       solo-inverted
     />
+    
 
     <v-data-table
       dense
@@ -19,7 +23,7 @@
       item-key="name"
       class="elevation-1"
       ></v-data-table>
-
+      
 
     <v-simple-table
       skyblue
@@ -137,6 +141,7 @@ export default {
     MyPageHeader
   },
   name: "QuestionsView",
+  
   props:{ //매개변수, 값을 받아올떄 쓰는아이
     // listArray: {
     //   type: Array,
@@ -147,6 +152,7 @@ export default {
     //   required: false,
     //   default: 10
     // }
+    
   },
   data() {
     return {
@@ -157,11 +163,13 @@ export default {
       user_id: '',
       inq_count: 0,
       post_list:[],
+      
       pageSize: 10
       // paged_post_list:[]
       // tableList:[]
     }
   },
+  
    computed:{
      pageCount() {
        // let page = Math.floor(this.post_list.length/this.pageSize);
@@ -178,6 +186,7 @@ export default {
        // paged_post_list()
      }
   },
+  
   mounted() {
     axios.get("/api/inquiry/Questions/")
 

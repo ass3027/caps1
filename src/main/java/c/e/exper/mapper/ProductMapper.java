@@ -22,5 +22,4 @@ public interface ProductMapper {
             PRODUCT.PL_ID = #{pl_id}
             """)
     public List<ProductDAO> findStoreProduct(@Param("pl_id")String pl_id);
-
 }

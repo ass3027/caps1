@@ -1,48 +1,74 @@
 <template>
-  <div />
+
+
+  <div>
+
+    <DuserOrdersComponent/>
+    <!--      <OrdersComponent :user_id="user_id" />-->
+  </div>
 </template>
 
 <script>
+// import OrdersComponent from "@/components/OrdersComponent";
+import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
+import axios from "axios";
+// import OrdersComponent from "@/components/OrdersComponent";
 
-import axios from 'axios'
+
 
 export default {
+
   name: 'TestView',
+  components: {
+    // OrdersComponent,
+    DuserOrdersComponent
+    // OrdersComponent
+
+  },
+
   data() {
     return {
-      info: null
+      userId: this.$store.state.user.userId,
+      user: Object
     }
   },
-  mounted() {
-
-    axios({
-      method: 'GET',
-      url:'http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&areaCode=39&MobileOS=ETC&MobileApp=AppTest&numOfRows=10000&_type=json',
-      params: {
-
-      }
-
-    })
-      .then(res => {
-        console.log(res.data.response.body.items.item)
-        this.info = res.data
-        axios({
-          method: 'POST',
-          url: '/api/user/apiTest',
-          data: res.data.response.body.items.item
-        })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-
-
+  method: {
+    scrollEvents() {
+      this.scroll = window.scrollY
     }
+  },
+  created() {
+      axios({
+        method: 'GET',
+        url: '/api/user/find',
+        params: {
+          'user_id': this.userId
+        }
+      }).then(res => {
+          this.user = res.data
+      })
+    },
+  mounted() {
+    console.log("[current_user_id]" + this.userId)
+
+    // setInterval(function () {
+    //   console.log(window.scrollY)
+    // }, 300)
+
+  },
 
 }
 
 </script>
 
-<style scoped>
+<style>
+/*.tit{*/
+/*  height: 36px;*/
+/*  font-weight: 700;*/
+/*  font-size: 24px;*/
+/*  line-height: 36px;*/
+/*  color: #333;*/
+/*  letter-spacing: -.5px;*/
+/*}*/
 
 </style>

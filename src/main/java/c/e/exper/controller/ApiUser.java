@@ -1,9 +1,6 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.PictureDAO;
-import c.e.exper.data.PlaceDAO;
-import c.e.exper.data.UserDAO;
-import c.e.exper.data.UserDTO;
+import c.e.exper.data.*;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
@@ -144,9 +141,12 @@ public class ApiUser {
             user.setUser_name(randomHangulName());
         }
 
+
         //파일 이름 저장 밑 파일 실제 저장
         //경로 이상함
         String filePath = fileService.photoSave(user.getUser_photo(),req,"userImage");
+
+        System.out.println("[filePath]" + filePath);
 
         //파일 경로를 넣은 DAO 생성
         UserDAO daoUser = UserDAO.builder()
@@ -155,6 +155,7 @@ public class ApiUser {
                 .user_birth(user.getUser_birth())
                 .user_name(user.getUser_name())
                 .user_phone(user.getUser_phone())
+
                 .role(user.getRole())
                 .gender(user.getGender())
                 .preference(user.getPreference())
@@ -174,6 +175,13 @@ public class ApiUser {
         return true;
     }
 
+    @GetMapping("/orders")
+    public List<OrderDAO> getUserOrders(String user_id){
+        List<OrderDAO> orderDAOS = userMapper.selectUserOrders(user_id);
+
+        return orderDAOS;
+    }
+
     @PostMapping("/apiTest")
     public void apiTest(@RequestBody List<PlaceDAO> data) {
 
@@ -187,6 +195,19 @@ public class ApiUser {
 //
 //        }
 //        System.out.println("count: " + i);
+    }
+
+    @GetMapping("/role/{user_id}")
+    public String getUserRole(@PathVariable("user_id") String user_id){
+
+        if(userMapper.checkGuide(user_id)){
+            return "가이드";
+        } else if (userMapper.checkDeliveryUser(user_id)) {
+            return "운송원";
+        } else {
+            return "일반";
+        }
+
     }
 
     public String getRandomPhone(){

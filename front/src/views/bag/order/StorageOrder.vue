@@ -1,117 +1,46 @@
 <template>
-  <v-app id="app">
+  <v-app id="app" style="max-width: 1050px; margin: 0 auto">
     <div class="Bag-order">
       <p class="text-center">
         가방 보관 신청서
       </p>
     </div>
     <v-form v-model="valid">
-      <v-container justify="space-around">
-        <h3>출발장소</h3>
-        <search-place />
+      <div>
+        <h3>맡길장소</h3>
+
+        <v-dialog v-model="dialog">
+          <search-place @childEvent="getEmitData"/>
+        </v-dialog>
+
+        <v-btn class="btn_type2" @click="dialog = true">
+          장소검색
+        </v-btn>
+
+        <div style="margin-top: 10px">맡길장소: {{ lodging }}</div>
         <h3>짐 종류와 수량</h3>
-
-        <v-card>
-          <v-card-title>
-            <v-row align="center">
-              <v-toolbar-title>
-                {{ bagType[0].title }}
-              </v-toolbar-title>
-              <v-spacer />
-              {{ bagType[0].value }}원
-              <v-checkbox
-                v-model="checkedName"
-                :value="bagType[0].value"
-              />
-            </v-row>
-          </v-card-title>
-        </v-card>
-
-        <v-card>
-          <v-card-title>
-            <v-row align="center">
-              <v-toolbar-title>
-                {{ bagType[1].title }}
-              </v-toolbar-title>
-              <v-spacer />
-              {{ bagType[1].value }}원
-              <v-checkbox
-                v-model="checkedName"
-                :value="bagType[1].value"
-              />
-            </v-row>
-          </v-card-title>
-        </v-card>
-
-        <v-card>
-          <v-card-title>
-            <v-row align="center">
-              <v-toolbar-title>
-                {{ bagType[2].title }}
-              </v-toolbar-title>
-              <v-spacer />
-              {{ bagType[2].value }}원
-              <v-checkbox
-                v-model="checkedName"
-                :value="bagType[2].value"
-              />
-            </v-row>
-          </v-card-title>
-        </v-card>
-
-        <v-card>
-          <v-card-title>
-            <v-row align="center">
-              <v-toolbar-title>
-                {{ bagType[3].title }}
-              </v-toolbar-title>
-              <v-spacer />
-              {{ bagType[3].value }}원
-              <v-checkbox
-                v-model="checkedName"
-                :value="bagType[3].value"
-              />
-            </v-row>
-          </v-card-title>
-        </v-card>
-
-        <v-card>
-          <v-card-title>
-            <v-row align="center">
-              <v-toolbar-title>
-                {{ bagType[4].title }}
-              </v-toolbar-title>
-              <v-spacer />
-              {{ bagType[4].value }}원
-              <v-checkbox
-                v-model="checkedName"
-                :value="bagType[4].value"
-              />
-            </v-row>
-          </v-card-title>
-        </v-card>
-
-        <v-card>
-          <v-card-title>
-            <v-row align="center">
-              <v-toolbar-title>
-                {{ bagType[5].title }}
-              </v-toolbar-title>
-              <v-spacer />
-              {{ bagType[5].value }}원
-              <v-checkbox
-                v-model="checkedName"
-                :value="bagType[5].value"
-              />
-            </v-row>
-          </v-card-title>
-        </v-card>
-
+        <div id="selection_bag">
+            <v-card v-for="(item, index) in bagType" :key="index">
+              <v-card-title>
+                <v-row align="center">
+                  <v-toolbar-title>
+                    {{item.title }}
+                  </v-toolbar-title>
+                  <v-spacer/>
+                  {{ item.value }}원
+                  <v-checkbox
+                    v-model="checkedName"
+                    :value="item.value"
+                  />
+                </v-row>
+              </v-card-title>
+            </v-card>
+          </div>
 
         <v-card>
           <v-card-title>가방 합계가격: {{ bagAmount }} 원</v-card-title>
         </v-card>
-      </v-container>
+      </div>
 
       <v-card>
         <v-row>
@@ -130,7 +59,7 @@
         <v-col>
           <v-card>
             <h3>맡길장소</h3>
-            <AddressComponent @addressData="startAddress" />
+            <AddressComponent @addressData="startAddress"/>
           </v-card>
         </v-col>
       </v-row>
@@ -162,6 +91,7 @@ export default {
   },
   data() {
     return {
+      lodging: '',
       checkedName: [],
       overlay: false,
       valid: '',
@@ -183,6 +113,7 @@ export default {
         {title: '백팩 대형(40L 이상 또는 10kg 이상)', value: 15000},
         {title: '기타물품 별도문의', value: 30000}
       ],
+      dialog: false,
     }
   },
   computed: {
@@ -204,6 +135,10 @@ export default {
   },
 
   methods: {
+    getEmitData: function (lodging) {
+      this.lodging = lodging
+      console.log("받은데이터" + lodging)
+    },
     changeEntrustTime(date) {
       this.entrustTime = date;
     },
@@ -241,5 +176,17 @@ export default {
   margin: 10px;
   font-size: xx-large;
 }
+
+.btn_type2 {
+  display: block;
+  overflow: hidden;
+  height: 54px;
+  border-radius: 3px;
+  text-align: center;
+  border: 1px solid black;
+  color: #333;
+  margin-top: 10px;
+}
+
 
 </style>

@@ -10,14 +10,17 @@
     >
       <div class="option">
         <div>
-          <form @submit.prevent="searchPlaces()">
+          <form @submit.prevent>
             키워드 : <input
-              v-model="keyword"
-              type="text"
-              size="15"
-            >
-            <button type="submit">
-              검색하기
+            v-model="keyWord"
+            type="text"
+            size="15"
+          >
+            <button @click="searchPlaces()">
+              지도검색
+            </button>
+            <button @click="OurDbSearch()">
+              장소검색
             </button>
           </form>
         </div>
@@ -28,24 +31,24 @@
           v-for="(place,index) in places"
           :key="index"
           class="item"
-          @mouseover="displayInfowindow(marker[index],place.place_name)"
-          @mouseout="infowindow.close()"
+          @mouseover="displayinfoWindow(markers[index],place.place_name)"
+          @mouseout="infoWindow.close()"
         >
-          <span :class="[`markerbg marker_${index+1}`]" />
+          <span :class="[`markerbg marker_${index+1}`]"/>
           <div class="info1">
             <h5 @click="logLocationInfo(place)">
               {{ place.place_name }}
             </h5>
             <template v-if="place.road_address_name">
               <span>{{ place.road_address_name }}</span>
-              <span class="jibun gray">{{ place.adress_name }}</span>
+              <span class="jibun gray">{{ place.address_name }}</span>
             </template>
             <span v-else>{{ place.address_name }}</span>
             <span class="tel">{{ place.phone }}</span>
           </div>
         </li>
       </ul>
-      <div id="pagination" />
+      <div id="pagination"/>
     </div>
     <ul
       v-for="(data,index) in [0,1,2,3,4,5]"
@@ -62,18 +65,27 @@
 </template>
 
 <script>
+import {EventBus} from "@/eventBus/eventBus";
+import axios from 'axios'
+
 export default {
   name: "MapComponent",
   data() {
     return {
-      geocoder  : {},
-      marker    : 0,
-      infowindow: {},
-      map       : {},
-      markers   : [],
-      ps        : {},
-      keyword   : '',
-      places    : []
+      geocoder: {},
+      marker: 0,
+      infoWindow: {},
+      map: {},
+      markers: [],
+      ps: {},
+      keyWord: '복현',
+      places: [],
+      placePositionArray:[],
+      path:{},
+      pathMarkers:[],
+      markerImage:{},
+      eachDistance:[],
+      checkDBSearch:false,
     }
   },
   mounted() {
@@ -89,6 +101,46 @@ export default {
 
       document.head.appendChild(script);
 
+
+      EventBus.$on("updateDate", (date) => {
+        const schedule = this.$store.state.calendar.calendar.date[date]
+        this.placePositionArray = []
+        console.log(this.pathMarkers)
+        this.removePathMarker()
+
+        let tempMarker
+        let index=1
+        let distanceOverlay
+        let position
+        for(let it of schedule.values()){
+          if(it.mapX!==0&&it.mapY!==0){
+            position = new kakao.maps.LatLng(it.mapX,it.mapY)
+
+            this.placePositionArray.push(position)
+
+            tempMarker =  new kakao.maps.Marker({
+              position:position,
+              image:this.markerImage
+            })
+            tempMarker.setMap(this.map)
+
+            distanceOverlay = new kakao.maps.CustomOverlay({
+              content: '<div style="position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;"><span class="number">' + index + '번째</span></div>',
+              position: new kakao.maps.LatLng(it.mapX+0.001,it.mapY),
+              yAnchor: 1,
+              zIndex: 2
+            });
+            distanceOverlay.setMap(this.map)
+
+            this.pathMarkers.push({'marker':tempMarker,'overlay':distanceOverlay})
+            index++
+          }
+        }
+        console.log(this.pathMarkers)
+        this.getEachDistance()
+        this.path.setPath(this.placePositionArray);
+        EventBus.$emit('passDistance',this.eachDistance)
+      })
     }
   },
   methods: {
@@ -103,6 +155,13 @@ export default {
         center,
         level: 5,
       };
+
+      //마커이미지 이벤트버스 리스너에서 쓸거
+      this.markerImage = new kakao.maps.MarkerImage(
+        'https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png',
+        new kakao.maps.Size(31, 35),
+        {offset: new kakao.maps.Point(14, 35)}
+      )
 
       //장소 검색 객체 생성
       this.ps = new kakao.maps.services.Places();
@@ -134,7 +193,7 @@ export default {
 
       this.marker.setDraggable(true);
 
-      this.infowindow = new kakao.maps.InfoWindow({zindex: 1});
+      this.infoWindow = new kakao.maps.InfoWindow({zindex: 1});
 
 
       kakao.maps.event.addListener(this.map, 'click', (mouseEvent) => {
@@ -151,42 +210,75 @@ export default {
             console.log(clickPosition)
             //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
             let detailAddr = '';
-            let mapData = 0;
+            let mapAddress = 0;
 
             if (result[0].address === undefined && result[0].road_address == undefined) {
               detailAddr += `<div>주소를 찾을 수 없습니다</div>`
             } else {
               if (result[0].road_address != undefined) {
-                mapData = result[0].road_address
+                mapAddress = result[0].road_address
                 detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
               }
-              mapData = result[0].address.address_name
+              mapAddress = result[0].address.address_name
               detailAddr += '<div >지번 주소 : ' + result[0].address.address_name + '</div>';
             }
 
             const content = '<div >' + detailAddr + '</div>';
 
 
-            this.infowindow.setContent(content);
+            this.infoWindow.setContent(content);
 
-            this.infowindow.open(this.map, this.marker);
+            this.infoWindow.open(this.map, this.marker);
 
-
-
-            console.log(mapData)
-            if (mapData !== 0) {
-              this.$emit('mapDataTransfer', mapData)
+            const mapData = {
+              address: mapAddress,
+              mapY: clickPosition.La,
+              mapX: clickPosition.Ma,
+              pl_id:undefined
             }
 
-
+            console.log(mapAddress)
+            if (mapAddress !== 0) {
+              this.$store.commit('calendar/updateCalendarDate', mapData)
+            }
           }
-
-
         })
+      })
+      //경로 띄우기
+      this.showPath()
 
+    },
+    showPath(){
+      console.log(this.placePositionArray)
 
+      this.path = new kakao.maps.Polyline({
+        map:this.map,
+        path:this.placePositionArray,
+        strokeWeight: 3, // 선의 두께입니다
+        strokeColor: '#db4040', // 선의 색깔입니다
+        strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+        strokeStyle: 'solid' // 선의 스타일입니다
       })
     },
+    getEachDistance(){
+      this.eachDistance = []
+      const tempPolyline = new kakao.maps.Polyline({
+        map:null,
+        path:[],
+        strokeWeight: 3, // 선의 두께입니다
+        strokeColor: '#db4040', // 선의 색깔입니다
+        strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+        strokeStyle: 'solid' // 선의 스타일입니다
+      })
+      for(let i=0;i<this.placePositionArray.length-1;i++){
+        tempPolyline.setPath(this.placePositionArray.slice(i,i+2))
+        this.eachDistance.push( Math.floor( tempPolyline.getLength() ) )
+      }
+      console.log(this.eachDistance)
+    },
+    // showDistance(){
+    //
+    // }
     searchAddrFromCoords(coords, callback) {
       this.geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
     },
@@ -195,20 +287,48 @@ export default {
     },
 
     searchPlaces() {
-
-      if (!this.keyword.replace(/^\s+|\s+$/g, '')) {
+      this.checkDBSearch = false
+      if (!this.keyWord.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요')
         return false;
       }
 
-      this.ps.keywordSearch(this.keyword, this.placesSearchCB);
+      this.ps.keywordSearch(this.keyWord, this.placesSearchCB);
     },
 
-    placesSearchCB(data, status, pagination) {
+    OurDbSearch(){
+      this.checkDBSearch = true
+      axios.get(`/api/place/${this.keyWord}`)
+        .then( (res)=>{
+          console.log(res.data)
+          const converted = []
+
+          for(let i=0,it;i<30&&i<res.data.length;i++){
+            it=res.data[i]
+            converted.push({
+              "address_name":it.addr1,
+              "category_group_code":it.cat1,
+              "category_group_name":it.cat2,
+              "category_name":it.cat3,
+              "distance":undefined,
+              "id":it.pl_id,
+              "phone":it.store_phone,
+              "place_name":it.title,
+              "place_url":undefined,
+              "road_address_name":it.addr2,
+              "x":it.mapx,
+              "y":it.mapy,
+            })
+          }
+          this.placesSearchCB(converted,kakao.maps.services.Status.OK)
+        })
+    },
+
+    placesSearchCB(data, status) {
       if (status === kakao.maps.services.Status.OK) {
         this.displayPlaces(data);
 
-        this.displayPagination(pagination);
+        //this.displayPagination(pagination);
 
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
@@ -219,7 +339,6 @@ export default {
         alert('검색 결과 중 오류가 발생했습니다');
       }
     },
-
     displayPlaces(places) {
       this.places = places;
       console.log(this.places)
@@ -232,28 +351,21 @@ export default {
 
       for (let i = 0; i < places.length; i++) {
         //마커 생성 및 지도 표시
-
-
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
-
         // itemEl = this.getListItem(i, places[i]); //검색 결과 항목 element 생성
-
         this.addMarker(placePosition, i);
-
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
-        console.log()
         kakao.maps.event.addListener(this.markers[i], 'mouseover', () => {
-          this.displayInfowindow(this.markers[i], places[i].place_name);
+          this.displayinfowindow(this.markers[i], places[i].place_name);
         });
 
         kakao.maps.event.addListener(this.markers[i], 'mouseout', () => {
-          this.infowindow.close();
+          this.infoWindow.close();
         })
-
-
       }
+      console.log(this.markers)
 
       menuEl.scrollTop = 0;
       this.map.setBounds(bounds);
@@ -264,14 +376,14 @@ export default {
       var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
         imageSize = new kakao.maps.Size(36, 37),
         imgOptions = {
-          spriteSize  : new kakao.maps.Size(36, 691),
+          spriteSize: new kakao.maps.Size(36, 691),
           spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10),
-          offset      : new kakao.maps.Point(13, 37)
+          offset: new kakao.maps.Point(13, 37)
         },
         markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
         marker = new kakao.maps.Marker({
           position: position, // 마커의 위치
-          image   : markerImage
+          image: markerImage
         });
       title + 1//????에러피하기
       marker.setMap(this.map); // 지도 위에 마커를 표출합니다
@@ -286,11 +398,21 @@ export default {
       }
       this.markers = [];
     },
+    //귀찮아서 이렇게 할게요 ㅠ
+    removePathMarker() {
+      console.log(this.pathMarkers)
+      for (let i = 0; i < this.pathMarkers.length; i++) {
+        this.pathMarkers[i].marker.setMap(null);
+        this.pathMarkers[i].overlay.setMap(null);
+      }
+      this.pathMarkers = [];
+    },
     removeMarker2(index) {
       console.log(this.markers)
       this.markers[index].setMap(null);
     },
     displayPagination(pagination) {
+      console.log(pagination)
       var paginationEl = document.getElementById('pagination'),
         fragment = document.createDocumentFragment(),
         i;
@@ -319,23 +441,48 @@ export default {
       }
       paginationEl.appendChild(fragment);
     },
-    displayInfowindow(marker, title) {
-      var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+    displayinfoWindow(marker, title) {
+      let content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
 
-      this.infowindow.setContent(content);
-      this.infowindow.open(this.map, marker);
+      this.infoWindow.setContent(content);
+      this.infoWindow.open(this.map, marker);
     },
 
     logLocationInfo(place) {
       console.log(place)
       console.log(place.place_name)
       // 이동할 위도 경도 위치를 생성합니다
-      var moveLatLon = new kakao.maps.LatLng(place.y, place.x);
+      let moveLatLon = new kakao.maps.LatLng(place.y, place.x);
 
       // 지도 중심을 부드럽게 이동시킵니다
       // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
       this.map.panTo(moveLatLon);
       this.map.setLevel(3)
+      let id = undefined
+      if(this.checkDBSearch){
+        id= place.id
+      }
+      const mapData = {
+        address: place.address_name,
+        mapY: place.x,
+        mapX: place.y,
+        pl_id:id
+      }
+      // ㅋㅋ 왜바꿔야 됄까..
+
+      this.$store.commit('calendar/updateCalendarDate', mapData)
+
+    },
+
+    distanceView(markers) {
+      this.clickLine = new kakao.maps.Polyline({
+        map: this.map, // 선을 표시할 지도입니다
+        path: markers, // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
+        strokeWeight: 3, // 선의 두께입니다
+        strokeColor: '#db4040', // 선의 색깔입니다
+        strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+        strokeStyle: 'solid' // 선의 스타일입니다
+      });
     }
 
     // removeAllChildNods(el) {
@@ -350,6 +497,15 @@ export default {
 </script>
 
 <style scoped>
+.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}
+.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
+.dotOverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.number {font-weight:bold;color:#ee6152;}
+.dotOverlay:after {content:'';position:absolute;margin-left:-6px;left:50%;bottom:-8px;width:11px;height:8px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white_small.png')}
+.distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
+.distanceInfo .label {display:inline-block;width:50px;}
+.distanceInfo:after {content:none;}
+
 .map {
   width: 40%;
   height: 40%;
@@ -371,7 +527,7 @@ export default {
 .map_wrap {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 100%;
 }
 
 #menu_wrap {

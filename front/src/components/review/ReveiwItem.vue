@@ -31,11 +31,15 @@
         </v-list-item-subtitle>
       </v-list-item-content>
 
-      <v-list-item-avatar
-        tile
-        size="150"
-        color="grey"
-      />
+      <!--      <v-list-item-avatar-->
+      <!--        tile-->
+      <!--        size="150"-->
+      <!--        color="grey"-->
+      <!--      />-->
+      <img
+        :src="rev_img"
+        style="width: 200px"
+      >
     </div>
   </li>
 </template>
@@ -54,15 +58,20 @@ export default {
   data() {
     return {
       rev_rating: this.review.rev_rating,
-      user: null,
+      user: {},
     }
   },
   computed: {
     reg_date: function() {
       return this.review.reg_date.substring(0,10);
+    },
+    rev_img: function() {
+      return "http://localhost:8080/api/photo/"+this.review.rev_img_filename;
     }
   },
   mounted() {
+    console.log("[REVIEW]")
+    console.log(this.review)
     axios({
       method: 'GET',
       url:'http://localhost:8080/api/user/find',
@@ -72,7 +81,9 @@ export default {
 
     })
       .then(res => {
-        console.log("[user/find]" + res.data)
+        console.log("[user/find]" )
+        console.log(res.data)
+
         this.user = res.data
       })
       .catch((err) => {

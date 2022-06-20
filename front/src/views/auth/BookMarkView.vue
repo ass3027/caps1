@@ -1,7 +1,9 @@
 <template>
   <div>
+  
     <MyPageHeader></MyPageHeader>
     <div id="card">
+    
       <template>
         <v-card>
           <v-toolbar
@@ -13,6 +15,7 @@
           </v-toolbar>
           <v-tabs vertical>
             <v-tab>
+            
               <v-icon left >mdi-bookmark</v-icon>
               모두보기
             </v-tab>
@@ -54,11 +57,14 @@
               </v-card>
             </v-tab-item>
 
+
+
           </v-tabs>
         </v-card>
       </template>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -127,7 +133,7 @@ export default {
 </script>
 
 <style scoped>
-#card{
+#card {
   margin: 50px;
 
 

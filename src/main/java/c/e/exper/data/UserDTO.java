@@ -25,5 +25,6 @@ public class UserDTO {
     String gender; //성별
     String preference; //여행선호도
     String GUSER_INTRO; //가이드유저?
+  
 
 }

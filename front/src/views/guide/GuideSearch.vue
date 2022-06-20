@@ -16,12 +16,19 @@
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">
-              {{ item.guide_license }}
+              이름:{{ item.user_name }}
+            </div>
+            <div>
+              자격증:<br>{{ item.guide_license }}
             </div>
             <v-list-item-title class="text-h5 mb-1">
-              {{ item.user_id }}
+              ID:{{ item.user_id }}
+
+
             </v-list-item-title>
-            <v-list-item-subtitle>{{ item.guide_intro }}</v-list-item-subtitle>
+            <v-list-item-subtitle>
+              소개<br>{{ item.guser_intro }}
+            </v-list-item-subtitle>
           </v-list-item-content>
 
           <v-card-actions>
@@ -39,7 +46,7 @@
             tile
             size="80"
             color="grey"
-          />
+          ><img v-bind:src="img(item.pic_name)"></v-list-item-avatar>
         </v-list-item>
 
         <v-card-actions />
@@ -76,8 +83,16 @@ export default {
           this.lists = res.data;
           console.log("asdsa" + res.data);
         })
+    },
+    img(fileName){
+      return "http://localhost:8081/api/photo/" + fileName
+    },
+    view(item){
+
+      this.$router.push("/GuideView/" + item.user_id)
     }
     },
+
 
 }
 </script>

@@ -234,7 +234,7 @@
             <v-list-group>
               <template #activator>
                 <v-list-item-content>
-                  <v-list-item-title>{{ set[0].pl_name }} Set</v-list-item-title>
+                  <v-list-item-title>{{ set[0].title}} Set</v-list-item-title>
                 </v-list-item-content>
                 <v-dialog
                   v-model="dialogAdd[i]"
@@ -256,7 +256,7 @@
                       준비물 세트 추가
                     </v-card-title>
                     <v-card-text>
-                      {{ set[0].pl_name }}준비물 세트를 추가하시겠습니까?
+                      {{ set[0].title }}준비물 세트를 추가하시겠습니까?
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer />
@@ -532,19 +532,20 @@ export default {
 
           var outerArray = [
             [
-              {pl_id: 0, pl_name: "기본", supl_id: "2", supl_name: "휴대폰 충전기"},
-              {pl_id: 0, pl_name: "기본", supl_id: "58", supl_name: "물"},
-              {pl_id: 0, pl_name: "기본", supl_id: "60", supl_name: "마스크"},
-              {pl_id: 0, pl_name: "기본", supl_id: "43", supl_name: "스킨/로션"},
-              {pl_id: 0, pl_name: "기본", supl_id: "23", supl_name: "물티슈"},
-              {pl_id: 0, pl_name: "기본", supl_id: "14", supl_name: "신용카드"},
-              {pl_id: 0, pl_name: "기본", supl_id: "14", supl_name: "신용카드"},
-              {pl_id: 0, pl_name: "기본", supl_id: "15", supl_name: "보조 배터리"},
-              {pl_id: 0, pl_name: "기본", supl_id: "4", supl_name: "선크림"},
+              {pl_id: 0, title: "기본", supl_id: "2", supl_name: "휴대폰 충전기"},
+              {pl_id: 0, title: "기본", supl_id: "58", supl_name: "물"},
+              {pl_id: 0, title: "기본", supl_id: "60", supl_name: "마스크"},
+              {pl_id: 0, title: "기본", supl_id: "43", supl_name: "스킨/로션"},
+              {pl_id: 0, title: "기본", supl_id: "23", supl_name: "물티슈"},
+              {pl_id: 0, title: "기본", supl_id: "14", supl_name: "신용카드"},
+              {pl_id: 0, title: "기본", supl_id: "14", supl_name: "신용카드"},
+              {pl_id: 0, title: "기본", supl_id: "15", supl_name: "보조 배터리"},
+              {pl_id: 0, title: "기본", supl_id: "4", supl_name: "선크림"},
             ]
           ];
           var innerArray = [];
           var id = res.data[0].pl_id;
+          console.log(res.data)
           res.data.forEach((i) => {
 
             if (i.pl_id != id) {

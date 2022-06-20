@@ -4,11 +4,17 @@ import c.e.exper.data.PictureDAO;
 import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.StoreDAO;
 import c.e.exper.data.StoreDTO;
+import c.e.exper.mapper.PlaceMapper;
+import c.e.exper.mapper.StoreMapper;
+import c.e.exper.mapper.PictureMapper;
+import c.e.exper.service.FileService;
+import c.e.exper.data.*;
+import c.e.exper.mapper.PlaceMapper;
 import c.e.exper.mapper.StoreMapper;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
 import c.e.exper.service.Place2Service;
-import org.springframework.beans.factory.annotation.Autowired;
+import c.e.exper.service.PlaceService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,32 +34,69 @@ public class ApiPlace {
    PictureMapper pictureMapper;
    
    final
-   Place2Service place2Service;
-   
-   public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, Place2Service place2Service) {
+   PlaceService placeService;
+
+   final PlaceMapper placeMapper;
+
+   final Place2Service place2Service;
+
+   public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, PlaceService placeService, PlaceMapper placeMapper, Place2Service place2Service) {
       this.storeMapper = storeMapper;
       this.fileService = fileService;
       this.pictureMapper = pictureMapper;
+      this.placeService = placeService;
+      this.placeMapper = placeMapper;
       this.place2Service = place2Service;
    }
    
    @GetMapping("/place/{category}")
-   public List<PlaceDAO> getStoreByCategory(@PathVariable String category) {
-      return storeMapper.selectByCategory(category);
+   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
+      return place2Service.카테고리별_조회(category);
    }
+//   @GetMapping("/place/{category}")
+//   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
+//      System.out.println("장소 카테고리");
+//      System.out.println(category);
+//      System.out.println(placeService.카테고리별_조회(category));
+//      return placeService.카테고리별_조회(category);
+//   }
+
+//   @GetMapping("/getHotel")
+//   public List<PlaceDAO> hotel() {
+//      return storeMapper.findAll();
+//   }
    
-   @GetMapping("/getHotel")
-   public List<PlaceDAO> hotel() {
-      System.out.println("컨트롤러임");
-      
-      return storeMapper.findAll();
-   }
-   
-   @GetMapping("/place2")
-   public List<PlaceDAO> placeList() {
+   @GetMapping("/place/{areaCode}/{cat1}")
+   public List<PlaceDAO> placeList(@PathVariable String areaCode,@PathVariable String cat1) {
       System.out.println("장소조회1111111");
-      return place2Service.장소_조회();
+      return placeService.장소_조회(areaCode,cat1);
    }
+   @GetMapping("/place/{areaCode}/{cat1}/{keyword}")
+   public List<PlaceDAO> keywordList(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable("keyword")String keyword) {
+      System.out.println("/place/{areaCode}/{cat1}/{keyword} : " + keyword);
+      return placeService.장소_검색(areaCode,cat1,keyword);
+   }
+
+   @GetMapping("/placeA01/{keyword}")
+   public List<PlaceDAO> keywordByPlaceA01(@PathVariable("keyword")String keyword) {
+      System.out.println("/placeA01/" + keyword);
+      return placeMapper.keywordByPlaceA01(keyword);
+   }
+
+
+
+
+   @GetMapping("/place/{keyWord}")
+   public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord){
+      return placeService.searchByKeyWord(keyWord);
+   }
+
+   
+//   @GetMapping("/place/{areaCode}/{cat1}/{pageNumber}")
+//   public List<PlaceDAO> placeCount(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable int pageNumber) {
+//      System.out.println("갯수");
+//      return placeService.장소_조회(areaCode,cat1,pageNumber);
+//   }
 
 //    @GetMapping("/getHotelPic")
 //    public List<PictureDAO> hotelPic(){
@@ -67,8 +110,8 @@ public class ApiPlace {
 //        return data;
 //    }
    
-   @PostMapping("/hoteladd")
-   public boolean hoteladd(StoreDTO store, HttpServletRequest req) {
+   @PostMapping("/placeadd")
+   public boolean placeadd(StoreDTO store, HttpServletRequest req) {
       
       System.out.println("호텔 추가 컨트롤러임");
       
