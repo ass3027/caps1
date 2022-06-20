@@ -47,6 +47,9 @@
             <v-card v-for="(supply,i) in placeSupplies" :key="i" @click="deletePlSupply(supply)">
               <p>{{ supply.supl_name }}</p>
             </v-card>
+            <p v-if="selectedPlace!=''&&placeSupplies==''">
+              준비물 없음
+            </p>
           </v-container>
         </v-col>
 
