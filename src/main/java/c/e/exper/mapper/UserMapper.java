@@ -92,5 +92,21 @@ public interface UserMapper { //디비접근
     List<OrderDAO> selectUserOrders(@Param("user_id") String user_id);
 
 
+    @Select("""
+            SELECT count(*)
+            FROM guide_license
+            WHERE USER_ID = #{user_id}
+            """)
+    boolean checkGuide(@Param("user_id") String user_id);
+
+    @Select("""
+            SELECT count(*)
+            FROM delivery_user
+            WHERE USER_ID = #{user_id}
+            """)
+    boolean checkDeliveryUser(@Param("user_id") String user_id);
+
+
+
 
 }

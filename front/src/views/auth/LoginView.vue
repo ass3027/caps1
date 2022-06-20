@@ -63,7 +63,7 @@ export default {
     }
   },
   methods: {
-    login() {
+    async login() {
       if (this.id === '') {
         alert("id를 입력하세요")
         return
@@ -74,6 +74,9 @@ export default {
       var loginData = new FormData();
       loginData.append('username', this.id)
       loginData.append('password', this.pw)
+      console.log('this.id', this.id)
+      console.log('this.pw', this.pw)
+
       axios({
         url   : '/api/login',
         method: 'post',
@@ -91,9 +94,10 @@ export default {
             }
             else {
               //this.$store.commit('user/updateUserId',this.id)
+              console.log('test', this.id)
+
               this.$store.dispatch('user/setUser',this.id)
               //res.headers.gg를 header컴포넌트로 보내야하는딩
-              console.log(res.headers.gg)
               this.$router.push("/")
               //location.reload()
             }
@@ -101,6 +105,9 @@ export default {
           .catch((err) => {
             console.log(err)
           })
+    },
+    async updateUser(){
+
     },
     getId() {
       axios({

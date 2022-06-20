@@ -184,6 +184,19 @@ public class ApiUser {
 //        System.out.println("count: " + i);
     }
 
+    @GetMapping("/role/{user_id}")
+    public String getUserRole(@PathVariable("user_id") String user_id){
+
+        if(userMapper.checkGuide(user_id)){
+            return "가이드";
+        } else if (userMapper.checkDeliveryUser(user_id)) {
+            return "운송원";
+        } else {
+            return "일반";
+        }
+
+    }
+
     public String getRandomPhone(){
 
         char[] charaters = {'0','1','2','3','4','5','6','7','8','9'};
