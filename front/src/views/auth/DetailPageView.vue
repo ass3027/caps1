@@ -82,42 +82,14 @@
     </v-card>
 
 
-    <!--    <v-col-->
-    <!--      class="d-flex"-->
-    <!--      cols="12"-->
-    <!--      sm="10"-->
-    <!--    />-->
-    <!--    <v-select-->
-    <!--      v-model="inq_type"-->
-    <!--      :items="items"-->
-    <!--      label="분류"-->
-    <!--      outlined-->
-    <!--    />-->
-
-
-    <!--    <v-text-field-->
-    <!--      v-model="user_id"-->
-    <!--      type="text"-->
-    <!--      label="아이디"-->
-    <!--    />-->
-
-
-    <!--    <v-text-field-->
-    <!--      v-model="post.inq_title"-->
-    <!--      type="text"-->
-    <!--      label="제목"-->
-    <!--    />-->
-
-    <!--    <v-textarea-->
-    <!--      v-model="post.inq_body"-->
-    <!--      type="text"-->
-    <!--      label="내용"-->
-    <!--      maxlenght="5"-->
-    <!--    />-->
     <div id="button">
-      <v-btn elevation="3" type="button" @click="Modify">수정</v-btn>
-      <v-btn elevation="3" type="button" style="margin: 10px" @click="PageList">목록</v-btn>
-      <v-btn elevation="3" type="button" style="margin: 10px" @click="Delete">삭제</v-btn>
+      <v-row justify="center">
+        <div v-if="$store.state.user.userId == post.user_id">
+          <v-btn elevation="3" type="button" @click="Modify">수정</v-btn>
+          <v-btn elevation="3" type="button" style="margin: 10px" @click="Delete">삭제</v-btn>
+        </div>
+        <v-btn elevation="3" type="button" style="margin: 10px" @click="PageList">목록</v-btn>
+      </v-row>
 
     </div>
   </div>
@@ -139,8 +111,8 @@ export default {
       ans_title:'',
       ans_body:'',
       ans_time:'',
-      items:['여행시설문의','가방관리문의','가이드문의', '기타문의'],
-      post:{},
+      items:['여행시설문의','가방관리문의','가이드문의', '기타문의'], //배열
+      post:{}, //객체
       ans:{}
     }
   },
@@ -151,10 +123,13 @@ export default {
       }
     })
     .then(res=>{
-      // console.log(res)
-      // console.log(res.data["answer"].ans_body)
+      // console.log(res.data.inquiry)
+      // console.log(res.data.answer.ans_id)
       this.post = res.data["inquiry"];
-      // console.log(this.post)
+      console.log(this.post.user_id)
+      // console.log(res.data.inquiry.user_id)
+      console.log(this.$store.state.user.userId)
+      // console.log(this.ans)
       // console.log(this.post.inq_body)
       this.ans = res.data["answer"];
       // console.log(this.ans)
@@ -172,18 +147,25 @@ export default {
     //   })
   },
   methods:{
-    Modify(){
+    Modify(){ //수정
       this.$router.push(`/detailPage/${this.$route.params.id}/WritingMod`)
       console.log("사이트가 움직인다")
   },
-    Delete(){
+    Delete(){ //삭제
+      if (confirm("삭제하시겠습니까?") ){ //조건을 걸고싶으면 밑에 if문 써서 조검 달아줌
+        alert("삭제되셨습니다.")
+      }else{
+        return; //종료(밑에꺼까지 실행안됨!)
+      }
       axios.delete("/api/inquiry/DetailPage" ,{
         params: {
-          inq_id: this.$route.params.id
+          inq_id: this.$route.params.id,
          }
       })
       .then(res=>{
-        alert("삭제하시겠습니까?")
+        console.log(this.$store.state.user.userId)
+        // console.log(res.data)
+        // alert("삭제하시겠습니까?")
         alert(res.data)
         this.$router.push('/Questions')
       })

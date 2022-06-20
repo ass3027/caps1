@@ -1,36 +1,6 @@
 <template>
   <div>
-    <header>
-      <nav>
-        <button
-          type="submit"
-          @click="bookmark"
-        >
-          즐겨찾기
-        </button> |
-        <button
-          type="submit"
-          @click="pay"
-        >
-          수익관리
-        </button> |
-        <button
-          type="submit"
-          @click="myData"
-        >
-          내정보수정
-        </button> |
-        <button
-          type="submit"
-          @click="questions"
-        >
-          1대1문의
-        </button>
-      </nav>
-    </header>
-
     <h1>문의사항</h1>
-
     <v-col
       class="d-flex"
       cols="12"
@@ -73,19 +43,8 @@
     </v-row>
 
     <div id="button">
-      <v-btn
-        type="button"
-        color="pink"
-        @click="check"
-      >
-        등록
-      </v-btn>
-      <v-btn
-        type="button"
-        @click="cancel"
-      >
-        취소
-      </v-btn>
+      <v-btn type="button" color="pink" @click="check">등록</v-btn>
+      <v-btn type="button" @click="cancel">취소</v-btn>
     </div>
 
     <!--    <p>{{user_id}}</p>-->
@@ -132,12 +91,14 @@ export default {
       sendform.append("user_id", this.user_id)
       sendform.append("inq_title", this.inq_title)
       sendform.append("inq_body", this.inq_body)
+      console.log(sendform)
+      // sendform.get("inq_type")
 
       // sendform.append("user_phone", this.user_phone)
 
       axios({
         method:'post',
-        url: '/api/Writing',
+        url: '/api/inquiry/Writing',
         headers:{
           "Content-Type" : 'multipart/form-data', //사진같은 다양한 파일을 올릴때
         },

@@ -1,7 +1,9 @@
 <template>
   <div>
+  
+    <MyPageHeader></MyPageHeader>
     <div id="card">
-
+    
       <template>
         <v-card>
           <v-toolbar
@@ -13,123 +15,119 @@
           </v-toolbar>
           <v-tabs vertical>
             <v-tab>
-              <v-icon left>
-                mdi-heart
-              </v-icon>
+            
+              <v-icon left >mdi-bookmark</v-icon>
               모두보기
             </v-tab>
+            <v-tab >키퍼</v-tab>
+            <v-tab >숙소</v-tab>
+            <v-tab>관광지</v-tab>
 
-            <v-tab>
-              <v-icon left>
-                mdi-heart
-              </v-icon>
-              키퍼
-            </v-tab>
-
-            <v-tab>
-              <v-icon left>
-                mdi-bookmark
-              </v-icon>
-              숙소
-            </v-tab>
-
-            <v-tab>
-              <v-icon left>
-                mdi-access-point
-              </v-icon>
-              관광지
-            </v-tab>
-
-            <v-tab-item>
+            <v-tab-item
+              v-for="(posts,index) in postArray"
+              :key="index"
+            >
               <v-card flat>
-                <v-card-text>
-                  <p>
-                    Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non
-                    metus. Sed a libero.
-                  </p>
-
-                  <p>
-                    Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel, lacus. Aenean tellus metus, bibendum
-                    sed, posuere ac, mattis non, nunc. Aliquam lobortis. Aliquam lobortis. Suspendisse non nisl sit amet
-                    velit hendrerit rutrum.
-                  </p>
-
-                  <p class="mb-0">
-                    Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt
-                    et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
-                  </p>
-                </v-card-text>
+                <v-col
+                  v-for="(post, index) in posts"
+                  :key="index" style="display:flex;float:left; width:400px"
+                >
+                  <v-card
+                    @click="url(post.pl.id)"
+                    style="width: 400px; height: 450px"
+                    >
+                    <v-img
+                      class="white--text align-end"
+                      height="200px"
+                      v-bind:src="post.firstimage"
+                    />
+                    <v-card-subtitle class="text--primary">
+                      <p>{{post.addr1}}</p>
+                      <p>{{post.title}}</p>
+                      <p>{{post.tel}}</p>
+                      <p>{{post.user_id}}</p>
+                    </v-card-subtitle>
+                    <v-btn
+                      color="orange"
+                      text
+                      @click="url"
+                    >사이트 이동하기</v-btn>
+                  </v-card>
+                </v-col>
               </v-card>
             </v-tab-item>
 
 
-            <v-tab-item>
-              <v-card flat>
-                <v-card-text>
-                  <p>
-                    Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus,
-                    vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam
-                    libero, non adipiscing dolor urna a orci. Curabitur ligula sapien, tincidunt non, euismod vitae,
-                    posuere imperdiet, leo. Nunc sed turpis.
-                  </p>
 
-                  <p>
-                    Suspendisse feugiat. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis
-                    tellus, vitae iaculis lacus elit id tortor. Proin viverra, ligula sit amet ultrices semper, ligula
-                    arcu tristique sapien, a accumsan nisi mauris ac eros. In hac habitasse platea dictumst. Fusce ac
-                    felis sit amet ligula pharetra condimentum.
-                  </p>
-
-                  <p>
-                    Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero.
-                    Nam commodo suscipit quam. In consectetuer turpis ut velit. Sed cursus turpis vitae tortor. Aliquam
-                    eu nunc.
-                  </p>
-
-                  <p>
-                    Etiam ut purus mattis mauris sodales aliquam. Ut varius tincidunt libero. Aenean viverra rhoncus
-                    pede. Duis leo. Fusce fermentum odio nec arcu.
-                  </p>
-
-                  <p class="mb-0">
-                    Donec venenatis vulputate lorem. Aenean viverra rhoncus pede. In dui magna, posuere eget, vestibulum
-                    et, tempor auctor, justo. Fusce commodo aliquam arcu. Suspendisse enim turpis, dictum sed, iaculis
-                    a, condimentum nec, nisi.
-                  </p>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-
-
-            <v-tab-item>
-              <v-card flat>
-                <v-card-text>
-                  <p>
-                    Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula
-                    sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui
-                    magna, posuere eget, vestibulum et, tempor auctor, justo.
-                  </p>
-
-                  <p class="mb-0">
-                    Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a,
-                    auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-                    Nam at tortor in tellus interdum sagittis.
-                  </p>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
           </v-tabs>
         </v-card>
       </template>
     </div>
   </div>
-
-
 </template>
 
 <script>
+import MyPageHeader from "@/components/store/MyPageHeader";
+import axios from "axios";
 export default {
-  name: "BookmarkView"
+  components:{
+    MyPageHeader
+  },
+  data(){
+    return{
+      pl_id:'',
+      addr1:'',
+      title:'',
+      tel:'',
+      user_id:'',
+      firstimage:'',
+      postArray:[] //배열
+    }
+  },
+  mounted() {
+    axios.get("/api/bookmark/BookMark")
+    .then((res)=>{
+      console.log(res.data.all)
+      this.postArray.push(res.data);
+    })
+
+    // this.all()
+    // this.keeper()
+    // this.hotel()
+  },
+  methods:{
+    // all(){
+    //   axios.get('/api/bookmark/BookMark')
+    //     .then((res)=>{
+    //       console.log(this.postArray) //pp
+    //       this.postArray.push(res.data);
+    //       console.log(this.posts)
+    //
+    //     })
+    // },
+    url(){ //사이트이동하기
+      this.$router.push("/")
+    },
+    // keeper(){
+    // // this.$router.push("bookmark/keeper")
+    // //   console.log(this.posts.user_id)
+    //   axios.get("/api/bookmark/keeper",{
+    //   })
+    //     .then((res)=>{
+    //       console.log(res)
+    //       this.postArray.push(res.data);
+    //     })
+    // },
+    // hotel(){
+    //   // this.$router.push("/")
+    //   axios.get("/api/bookmark/hotel")
+    //   .then((res)=>{
+    //     console.log(res)
+    //     this.postArray.push(res.data);
+    //     console.log(res.data)
+    //   })
+    // }
+  }
 }
 </script>
 
