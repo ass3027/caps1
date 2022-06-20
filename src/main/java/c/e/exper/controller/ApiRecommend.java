@@ -1,6 +1,7 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.Place;
+import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.recommendDTO;
 import c.e.exper.mapper.PlaceMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,23 +22,27 @@ public class ApiRecommend {
     }
 
     @GetMapping("/recPlace")
-    public List<Place> recPlace(){
+    public List<PlaceDAO> recPlace(){
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(id);
         List<recommendDTO> similarUsers = placeMapper.findSimilarUser(id);
         System.out.println(similarUsers);
+        if(similarUsers.isEmpty()){
+            System.out.println("EMPTYYYYYYYYY");
+            List<PlaceDAO> Empty=null;
+            return Empty;
+        }
         String similarUser = similarUsers.get(0).getUser_id();
         System.out.println(similarUser);
-
-        List<Place> places = placeMapper.findRecPlace(id,similarUser);
+        List<PlaceDAO> places = placeMapper.findRecPlace(id,similarUser);
         System.out.println(places);
 
         return places;
     }
     @GetMapping("/bestPlace")
-    public List<Place> bestPlace(){
+    public List<PlaceDAO> bestPlace(){
 
-        List<Place> places = placeMapper.findBestPlace();
+        List<PlaceDAO> places = placeMapper.findBestPlace();
         System.out.println(places);
 
         return places;

@@ -172,7 +172,6 @@ export default {
       user_id: '',
       inq_count: 0,
       post_list:[],
-      // pageSize: 5
       // paged_post_list:[]
       // tableList:[]
     }

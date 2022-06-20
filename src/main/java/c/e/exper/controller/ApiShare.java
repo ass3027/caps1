@@ -132,7 +132,8 @@ public class ApiShare {
     @GetMapping("/copyPlanner")
     public String copyPlanner(@RequestParam("plan_id") String plan_id,
                                  @RequestParam("user_id") String user_id,
-                              @RequestParam("share_id") String share_id
+                              @RequestParam("share_id") String share_id,
+                              @RequestParam("share_title") String share_title
 
     ) {
         System.out.println(plan_id);
@@ -147,6 +148,7 @@ public class ApiShare {
         System.out.println(p);
         p.setUser_id(user_id);
         System.out.println(p.getPlan_id());
+        p.setPlan_name("copy of "+share_title);
         plannerMapper.insert(p);
         System.out.println(p.getPlan_id());
         System.out.println("?1");

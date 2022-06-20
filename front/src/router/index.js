@@ -16,16 +16,19 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 import OrderDetail from "@/components/order/OrderDetail";
 import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
-
+import placeSuppliesView from "@/views/supply/PlaceSuppliesView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/SelectionOrder.vue'
 import TrackingView from "@/views/bag/TrackingView";
 import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
+import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
 
 
 //봉식
+
+// import TrackingView from "@/views/bag/TrackingView";
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";
@@ -50,6 +53,9 @@ import GuideViewUser from "@/views/guide/GuideViewUser";
 import GuideSearch from "@/views/guide/GuideSearch";
 import GuideProduct from "@/views/guide/GuideProduct";
 import GuideProductTime from "@/views/guide/GuideProductTime";
+import GuideProductView from "@/views/guide/GuideProductView";
+import GuideProductSearch from "@/views/guide/GuideProductSearch";
+
 
 
 //세운??
@@ -71,7 +77,6 @@ import TestView from "@/views/TestView";
 import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
-
 
 Vue.use(VueRouter);
 
@@ -96,6 +101,7 @@ const routes = [
   {path: "/share/edit", name: "shareEdit", component: PlannerShareEditView, props: true,},
   {path: "/bsh", name: "bsh", component: testBshView},
   {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView,props:true},
+  {path: "/placeSupplies", name: "placeSupplies", component: PlaceSuppliesView},
 
   //혁태
   {path: "/place/:category", name: "place", component: HotelView, props: true},
@@ -203,7 +209,8 @@ const routes = [
   {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true},
   {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
   {path: "/GuideProductTime/:gitem_id", name: "GuideProductTime", component: GuideProductTime, props: true},
-
+  {path: "/GuideProduct/:gitem_id", name:"GuideProductView",component: GuideProductView, props:true},
+  {path: "/GuideProduct/Search/:keyword", name:"GuideProductSearch",component: GuideProductSearch,props: true},
 
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
