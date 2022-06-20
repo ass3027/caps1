@@ -16,6 +16,13 @@ public interface PlaceMapper {
 //         "and zipcode>=6")
 //   public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
 
+  
+   @Select("""select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+           from place
+           where cat1='A01'
+           and title like '%'||#{keyword}||'%'""")
+   List<PlaceDAO> keywordByPlaceA01(String keyword);
+
     @Select("""
             select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
             from place
@@ -86,66 +93,74 @@ public interface PlaceMapper {
     @Select("select * from place where pl_id = #{keep_id}")
     public PlaceDAO findKeep(@Param("keep_id") String keep_id);
 
+   @Select("""
+           select a.user_id, count(a.user_id) as count
+           from users a,
+                PLANNER b,
+                SCHEDULE c
+           where a.USER_ID = b.USER_ID
+             and b.PLAN_ID = c.PLAN_ID
+             and pl_id in (
+               select distinct c.PL_ID
+               from SCHEDULE c
+               where c.PLAN_ID in (select PLAN_ID
+                                   from PLANNER
+                                   where user_id=#{user_id})
+               and c.PL_ID is not null
+           )
+             and a.USER_ID != #{user_id}
+           group by a.user_id
+           order by 2 desc""")
+   List<recommendDTO> findSimilarUser(String user_id);
+   
+   @Select("""
+           select a.PL_ID, a.title, FIRSTIMAGE, b.PIC_NAME
+           from (
+                    select d.PL_ID, d.title, d.FIRSTIMAGE
+                    from users a,
+                         PLANNER b,
+                         SCHEDULE c,
+                         place d
+                    where a.USER_ID = b.USER_ID
+                      and b.PLAN_ID = c.PLAN_ID
+                      and c.PL_ID = d.PL_ID
+                      and a.user_id = #{similarUser_id}
+                      and c.pl_id not in (
+                        select c.pl_id
+                        from users a,
+                             PLANNER b,
+                             SCHEDULE c
+                        where a.USER_ID = b.USER_ID
+                          and b.PLAN_ID = c.PLAN_ID
+                          and a.user_id = #{user_id}
+                          and c.PL_ID is not null
+                    )) a
+                    left outer join PICTURES b
+                                    on a.PL_ID = b.PL_ID""")
+   List<PlaceDAO> findRecPlace(String user_id, String similarUser_id);
+   
+   @Select("""
+           select pl_id, title, FIRSTIMAGE
+           from (
+                    select a.PL_ID, title,FIRSTIMAGE,count
+                    from (select d.PL_ID, count(d.PL_ID) as count
+                          from SCHEDULE c,
+                               place d
+                          where c.PL_ID = d.PL_ID
+                          group by d.PL_ID) a,
+                         place c
+                    where c.PL_ID = a.PL_ID
+                    order by count desc
+                )
+           where ROWNUM <= 5""")
+   List<PlaceDAO> findBestPlace();
 
-    @Select("""
-            select a.user_id, count(a.user_id) as count
-            from users a, PLANNER b, SCHEDULE c
-            where a.USER_ID=b.USER_ID
-              and b.PLAN_ID=c.PLAN_ID
-              and pl_id in (
-                select pl_id
-                from users a, PLANNER b, SCHEDULE c
-                where a.USER_ID=b.USER_ID
-                  and b.PLAN_ID=c.PLAN_ID
-                  and a.user_id=#{user_id}
-            )
-              and a.USER_ID != #{user_id}
-            group by a.user_id
-            order by 2 desc""")
-    List<recommendDTO> findSimilarUser(String user_id);
+   @Select("""
+           SELECT *
+           FROM PLACE
+           WHERE cat3 = #{category} 
+           and firstimage is not null and tel is not null""")
+   List<PlaceDAO> findByCategory(@Param("category") String category);
 
-    @Select("""
-            select a.PL_ID,a.pl_name,b.PIC_NAME
-            from (select d.PL_ID,d.PL_NAME
-            from users a, PLANNER b, SCHEDULE c, place d
-            where a.USER_ID=b.USER_ID
-              and b.PLAN_ID=c.PLAN_ID
-              and c.PL_ID=d.PL_ID
-              and a.user_id=#{similarUser_id}
-              and c.pl_id not in (
-                select c.pl_id
-                from users a, PLANNER b, SCHEDULE c
-                where a.USER_ID=b.USER_ID
-              and b.PLAN_ID=c.PLAN_ID
-              and a.user_id=#{user_id}
-                )) a
-                left outer join PICTURES b
-                    on a.PL_ID=b.PL_ID""")
-    List<Place> findRecPlace(String user_id, String similarUser_id);
 
-    @Select("""
-            select pl_id, PL_NAME, PIC_NAME
-            from (
-                     select a.PL_ID, PL_NAME, PIC_NAME, count
-                     from (select d.PL_ID, count(d.PL_ID) as count
-                           from SCHEDULE c,
-                                place d
-                           where c.PL_ID = d.PL_ID
-                           group by d.PL_ID) a,
-                          PICTURES b,
-                          place c
-                     where a.PL_ID = b.PL_ID
-                       and c.PL_ID = a.PL_ID
-                     order by count desc
-                 )
-            where ROWNUM <= 5""")
-    List<Place> findBestPlace();
-
-    @Select("""
-            SELECT *
-            FROM PLACE
-            WHERE cat3 = #{category}
-            and firstimage is not null and tel is not null
-            """)
-    List<PlaceDAO> findByCategory(@Param("category") String category);
 }

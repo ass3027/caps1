@@ -5,13 +5,13 @@
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
-        :src="'/api/photo/'+item.pic_name"
+        :src="item.firstimage"
 
         reverse-transition="fade-transition"
         transition="fade-transition"
       >
         <div class="innerText">
-          <h3>{{ i+1 }}.{{ item.pl_name }}</h3>
+          <h3>{{ i+1 }}.{{ item.title }}</h3>
           <v-btn>일정에추가</v-btn>
         </div>
       </v-carousel-item>
@@ -34,6 +34,8 @@ export default {
     axios
       .get('/api/bestPlace')
       .then(res=>{
+        console.log(res.data)
+
         res.data.forEach(i=>{
           if(i.pic_name==null){
             i.pic_name="placeImage/noImage.png"
