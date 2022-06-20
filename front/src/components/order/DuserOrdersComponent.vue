@@ -186,7 +186,7 @@ export default {
 }
 
 #duser_orders{
-  width: 80%;
+  width: 1050px;
   margin: 0 auto;
 }
 
