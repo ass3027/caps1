@@ -4,7 +4,8 @@
   >
 
     <div id="userMenu">
-      <ul class="list_menu"><!----> <!---->
+    
+<ul class="list_menu"><!----> <!---->
         <li class="menu menu_user"  v-if="isLogin">
           <a class="link_menu grade_comm">
             <span class="ico_grade grade0" style="padding: 0; margin: 0 10px 0 0;">{{ user_role }}</span>
@@ -242,6 +243,7 @@ export default {
   },
   computed: {
 
+
     isLogin() {
       console.log(this.$store.state.user.userId)
       console.log(this.$store.getters['user/isLogin'])
@@ -287,6 +289,9 @@ export default {
     // store(a){
     //   this.$router.push({path:a.route, params:{'value':a.title}})
     // }
+    MyPage(){
+      this.$router.push("/MyPage")
+    },
   }
 };
 </script>

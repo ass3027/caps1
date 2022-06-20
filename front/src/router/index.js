@@ -66,7 +66,7 @@ import LocationUpdate from "@/views/LocationUpdate";
 //민아
 import MypageView from "@/views/auth/MypageView";
 import BookMarkView from "@/views/auth/BookMarkView";
-import MyDataView from "@/views/auth/MyDataView";
+import MyDataView from "@/views/auth/MyPageUpdateView";
 import QuestionsView from "@/views/auth/QuestionsView";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
@@ -78,6 +78,11 @@ import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
 
+import GuideProductTime from "@/views/guide/GuideProductTime";
+import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
+
+
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -85,12 +90,13 @@ const routes = [
   {path: "/join", name: "join", component: JoinView},
   {path: "/login", name: "login", component: LoginView},
   {path: "/myPage", name: "MyPage", component: MypageView},
-  {path: "/myData", name: "MyData", component: MyDataView},
+  {path: "/myPageUpdate", name: "MyPageUpdate", component: MyPageUpdateView},
   {path: "/questions", name: "Questions", component: QuestionsView},
   {path: "/writing", name: "Writing", component: WritingView},
   {path: "/detailPage/:id", name: "DetailPage", component: DetailPageView},
   {path: "/detailPage/:id/writingMod", name: "WritingMod", component: WritingModView,},
-  {path: "/bookmark", name: "Bookmark", component: BookMarkView},
+  {path: "/bookmark", name: "BookMark", component: BookMarkView},
+
 
   //성호
   {path: "/supplies", name: "supplies", component: SuppliesVue},
@@ -221,7 +227,7 @@ const routes = [
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 
-  //민아 실험
+  //민아 실험?
   {path: "/mina", component: MINA}
 ];
 

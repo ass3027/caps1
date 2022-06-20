@@ -104,6 +104,15 @@ public class ApiUser {
     }
 
     //내정보수정
+    @PostMapping("/dataUpdate")
+    public boolean getUserdataUpdate(UserDAO userDAO){
+        userDAO.setUser_pw(
+                passwordEncoder().encode(
+                        userDAO.getUser_pw()
+                )
+        );
+        return userMapper.updateUserInfo(userDAO);
+    }
 
 
     @PostMapping("/join")
@@ -148,7 +157,11 @@ public class ApiUser {
                 .user_phone(user.getUser_phone())
 
                 .role(user.getRole())
+                .gender(user.getGender())
+                .preference(user.getPreference())
+                .guser_intro("")
                 .build();
+        System.out.println(daoUser);
 
         userMapper.insert(daoUser);
 

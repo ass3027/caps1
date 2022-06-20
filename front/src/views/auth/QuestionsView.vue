@@ -1,35 +1,10 @@
 <template>
   <div>
-    <header>
-      <nav>
-        <button
-          type="submit"
-          @click="bookmark"
-        >
-          즐겨찾기
-        </button> |
-        <button
-          type="submit"
-          @click="pay"
-        >
-          수익관리
-        </button> |
-        <button
-          type="submit"
-          @click="myData"
-        >
-          내정보수정
-        </button> |
-        <button
-          type="submit"
-          @click="questions"
-        >
-          1대1문의
-        </button>
-      </nav>
-    </header>
-    <h2>게시판 목록</h2>
+  
+<MyPageHeader></MyPageHeader>
 
+
+    <h2>게시판 목록</h2>
     <v-text-field
       v-model="keyword"
       class="mx-4"
@@ -39,19 +14,16 @@
       prepend-inner-icon="mdi-magnify"
       solo-inverted
     />
+    
 
-    <!--    <div class="searchWrap">-->
-    <!--      <input-->
-    <!--        v-model="keyword"-->
-    <!--        type="text"-->
-    <!--        @keyup.enter="Search"-->
-    <!--      >-->
-    <!--      <a-->
-    <!--        href="javascript:;"-->
-    <!--        class="btnSearch btn"-->
-    <!--        @click="Search"-->
-    <!--      >검색</a>-->
-    <!--    </div>-->
+    <v-data-table
+      dense
+      :headers="post_list"
+      :items="dd"
+      item-key="name"
+      class="elevation-1"
+      ></v-data-table>
+      
 
     <v-simple-table
       skyblue
@@ -129,39 +101,58 @@
           </th>
         </tr>
       </tbody>
-      <v-btn :disabled="pageNum === 0" v-on:click="prevPage" class="page-btn">이전</v-btn>
-      <span class="page-count">{{pageNum + 1}} / {{pageCount}} 페이지</span>
-      <v-btn :disabled="pageNum+1 >= pageCount" v-on:click="nextPage" class="page-btn">다음</v-btn>
-
+      <v-btn
+        :disabled="pageNum === 0"
+        class="page-btn"
+        @click="prevPage"
+      >
+        이전
+      </v-btn>
+      <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
+      <v-btn
+        :disabled="pageNum+1 >= pageCount"
+        class="page-btn"
+        @click="nextPage"
+      >
+        다음
+      </v-btn>
     </v-simple-table>
     {{ user_id }}
     {{ inq_title }}
     <div id="button">
-      <v-btn type="button" color="pink" @click="check">등록</v-btn>
-<!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
-      <v-btn type="button" @click="write">글쓰기
+      <v-btn
+        type="button"
+        color="pink"
+        @click="check"
+      >
+        등록
       </v-btn>
+      <!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
+      <v-btn type="button" @click="write">글쓰기</v-btn>
     </div>
   </div>
 </template>
 
 <script>
-
+import MyPageHeader from "@/components/store/MyPageHeader";
 import axios from "axios";
-
-
 export default {
+  components:{
+    MyPageHeader
+  },
   name: "QuestionsView",
-  props:{
-    listArray: {
-      type: Array,
-      required: true
-    },
-    pageSize: {
-      type: Number,
-      required: false,
-      default: 10
-    }
+  
+  props:{ //매개변수, 값을 받아올떄 쓰는아이
+    // listArray: {
+    //   type: Array,
+    //   required: true
+    // },
+    // pageSize: {
+    //   type: Number,
+    //   required: false,
+    //   default: 10
+    // }
+    
   },
   data() {
     return {
@@ -172,15 +163,32 @@ export default {
       user_id: '',
       inq_count: 0,
       post_list:[],
+      
+      pageSize: 10
       // paged_post_list:[]
       // tableList:[]
     }
   },
+  
+   computed:{
+     pageCount() {
+       // let page = Math.floor(this.post_list.length/this.pageSize);
+       //  if (this.post_list.length % this.pageSize > 0) page += 1;
+       return Math.floor((this.post_list.length - 1) / this.pageSize) + 1
+      },
+     paged_post_list() {
+       const start = this.pageNum * this.pageSize,
+         //  start =      0 * 10 = 0
+       end = start + this.pageSize;
+       // end = 0 + 10 = 10
+       return this.post_list.slice(start, end);
+       //  0~9번째 까지
+       // paged_post_list()
+     }
+  },
+  
   mounted() {
-    axios.get("/api/inquiry/Questions/" ,
-      {params:{
-        inq_id: this.inq_id
-        }})
+    axios.get("/api/inquiry/Questions/")
 
     .then(res=>{
       console.log(res.data)
@@ -235,22 +243,6 @@ export default {
     keyword(){
 
     }
-  },
-   computed:{
-     pageCount() {
-       // let page = Math.floor(this.post_list.length/this.pageSize);
-       //  if (this.post_list.length % this.pageSize > 0) page += 1;
-       return Math.floor((this.post_list.length - 1) / this.pageSize) + 1
-      },
-     paged_post_list() {
-       const start = this.pageNum * this.pageSize,
-         //  start =      0 * 10 = 0
-       end = start + this.pageSize;
-       // end = 0 + 10 = 10
-       return this.post_list.slice(start, end);
-       //  0~9번째 까지
-       // paged_post_list()
-     }
   }
 }
 </script>
