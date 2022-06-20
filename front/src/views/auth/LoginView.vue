@@ -74,6 +74,9 @@ export default {
       var loginData = new FormData();
       loginData.append('username', this.id)
       loginData.append('password', this.pw)
+      console.log('this.id', this.id)
+      console.log('this.pw', this.pw)
+
       axios({
         url   : '/api/login',
         method: 'post',

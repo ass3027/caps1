@@ -95,7 +95,7 @@ export default {
     this.test().then()
 
 
-    axios.get('/api/duser/orders/' + this.userId + '/2').then(res => {
+    axios.get('http://localhost:8080/api/duser/orders/' + this.userId + '/2').then(res => {
       this.orders_shipping = res.data
       console.log('test', this.orders_shipping)
     })

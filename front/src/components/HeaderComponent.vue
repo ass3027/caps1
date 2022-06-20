@@ -48,9 +48,19 @@
     </div>
 
     <div id="headerLogo">
-      <h1 class="logo" style="text-align: center">
-        <a href="/" style="display: inline-block">
-          <img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" style="display: block; width: 103px; height: 79px">
+      <h1
+        class="logo"
+        style="text-align: center"
+      >
+        <a
+          href="/"
+          style="display: inline-block"
+        >
+          <img
+            src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png"
+            alt="마켓컬리 로고"
+            style="display: block; width: 103px; height: 79px"
+          >
         </a>
       </h1>
     </div>
@@ -69,13 +79,13 @@
             <div
               style="display: flex; justify-content: center; width: 30%; text-align: center; height: 55px"
             >
-            <span
-              v-bind="attrs"
-              v-on="on"
-              style="padding-top: 15px"
-            >
-              {{ menu }}
-            </span>
+              <span
+                v-bind="attrs"
+                style="padding-top: 15px"
+                v-on="on"
+              >
+                {{ menu }}
+              </span>
             </div>
           </template>
 
@@ -90,13 +100,11 @@
               <span>{{ content.title }}</span>
             </v-list-item>
           </v-list>
-
         </v-menu>
 
         <v-divider style="margin-top: 10px" />
       </div>
     </div>
-
   </v-app>
 </template>
 
