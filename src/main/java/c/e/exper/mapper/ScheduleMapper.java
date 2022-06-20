@@ -1,6 +1,7 @@
 package c.e.exper.mapper;
 
 import c.e.exper.data.ScheduleDAO;
+import c.e.exper.data.ScheduleDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -14,8 +15,17 @@ public interface ScheduleMapper {
     @Select("Select * from Schedule")
     List<ScheduleDAO> selectAll();
 
-    @Select("Select * from Schedule where plan_id=#{id}")
-    List<ScheduleDAO> selectAllById(@Param("id")String id);
+    @Select("""
+            Select s.*,r.title
+            From Schedule s, ( Select title,PL_ID
+                               From place p
+                               Where p.pl_id in (Select PL_ID
+                                                 From SCHEDULE
+                                                WHERE PLAN_ID=#{plan_id})) r
+            Where s.pl_id=r.PL_ID(+)
+            And PLAN_ID= #{plan_id}
+            """)
+    List<ScheduleDAO> selectAllById(@Param("plan_id")String id);
 
 //    @Select("Select * from Schedule where sch_name=#{name}")
 //    List<ScheduleDAO> selectAllByName(@Param("name")String name);

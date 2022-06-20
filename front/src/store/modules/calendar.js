@@ -24,11 +24,11 @@ export default {
 
         scheduleData = {
           gitem_id: previousData.gitem_id,
-          pl_id: previousData.pl_id,
+          pl_id: mapData.pl_id,
           expect_expenses: previousData.expect_expenses,
           mapX: mapData.mapX,
           mapY: mapData.mapY,
-          place: mapData.address
+          address: mapData.address
         }
       } else {
         scheduleData = {
@@ -47,8 +47,15 @@ export default {
 
       state.calendar.date[state.selectDate] = new Map(convertedMap.sort((a, b) => a[0] - b[0]));
 
+      if(mapData===undefined) state.selectTime = 30
+
       console.log(state.calendar)
       EventBus.$emit('updateCalendar')
+      EventBus.$emit('updateDate',state.selectDate)//경로 새로고침?
+    },
+    updateCalendarDetail(state,schedule){
+        console.log(schedule)
+        state.calendar.date[state.selectDate].set(state.selectTime,schedule)
     },
     updateSelect(state,data){
       state.selectDate = data.date
@@ -59,8 +66,9 @@ export default {
       state.calendar.date[state.selectDate].delete(state.selectTime)
       const convertedMap = [...state.calendar.date[state.selectDate]]
       state.calendar.date[state.selectDate] = new Map(convertedMap.sort((a, b) => a[0] - b[0]));
-
-      console.log(state.calendar.date[state.selectDate].delete(state.selectTime))
+      // console.log(state.calendar.date[state.selectDate].delete(state.selectTime))
+      EventBus.$emit('updateCalendar')
+      EventBus.$emit('updateDate',state.selectDate)//경로 새로고침?
 
     },
     // reload(state){

@@ -37,13 +37,11 @@
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-card-actions />
       </v-card>
     </v-row>
   </div>
 </template>
 <script>
-import axios from "axios";
 
 export default {
   name: "GuideProduct.vue",

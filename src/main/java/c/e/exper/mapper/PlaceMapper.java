@@ -2,12 +2,13 @@ package c.e.exper.mapper;
 
 import c.e.exper.data.*;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 @Mapper
 public interface PlaceMapper {
-   //   @Select("select title,addr1,zipcode,addr2,firstImage2,areaCode,cat1,firstImage2,MAPX,MAPY " +
+    //   @Select("select title,addr1,zipcode,addr2,firstImage2,areaCode,cat1,firstImage2,MAPX,MAPY " +
 //         "from place " +
 //         "where areaCode=#{areaCode} " +
 //         "and cat1=#{cat1} " +
@@ -15,25 +16,34 @@ public interface PlaceMapper {
 //         "and zipcode>=6")
 //   public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
 
-   @Select("select title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY " +
-         "from place " +
-         "where areaCode=#{areaCode} " +
-         "and cat1=#{cat1}")
-   List<PlaceDAO> selectByPlace(String areaCode, String cat1);
-   
-   @Select("select title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY " +
-         "from place " +
-         "where areaCode=#{areaCode} " +
-         "and cat1=#{cat1} " +
-         "and title like '%'||#{keyword}||'%'")
-   List<PlaceDAO> keywordByPlace(String areaCode, String cat1, String keyword);
-
-   @Select("select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY " +
-           "from place " +
-           "where cat1='A01' " +
-           "and title like '%'||#{keyword}||'%'")
+  
+   @Select("""select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+           from place
+           where cat1='A01'
+           and title like '%'||#{keyword}||'%'""")
    List<PlaceDAO> keywordByPlaceA01(String keyword);
 
+    @Select("""
+            select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+            from place
+            where areaCode=#{areaCode}
+            and cat1=#{cat1}""")
+    List<PlaceDAO> selectByPlace(String areaCode, String cat1);
+
+    @Select("""
+            select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+            from place
+            where areaCode=#{areaCode}
+            and cat1=#{cat1}
+            and title like '%'||#{keyword}||'%'""")
+    List<PlaceDAO> keywordByPlace(String areaCode, String cat1, String keyword);
+
+    @Select("""
+            select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+            from place
+            where title like '%'||#{keyword}||'%'""")
+    List<PlaceDAO> SearchPlaceByKeyword(String keyword);
+   
 /*
    @Select("select title,\n" +
          "       addr1,\n" +
@@ -80,6 +90,8 @@ public interface PlaceMapper {
    public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
 */
 
+    @Select("select * from place where pl_id = #{keep_id}")
+    public PlaceDAO findKeep(@Param("keep_id") String keep_id);
 
    @Select("""
            select a.user_id, count(a.user_id) as count

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PlaceDAO {
     String pl_id;
-    String pl_name;
+    //String pl_name;
     String address;
     String pl_info;
     String address_si;
@@ -32,8 +32,8 @@ public class PlaceDAO {
     String contentypeid;
     String firstimage;
     String firstimage2;
-    String mapx;
-    String mapy;
+    Double mapx;
+    Double mapy;
     String tel;
     String sigungucode;
     String title;

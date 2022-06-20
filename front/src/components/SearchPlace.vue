@@ -2,8 +2,8 @@
   <v-app>
     <v-dialog v-model="dialog" width="1500">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
-          장소
+        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on" style="width:95px">
+          장소검색
         </v-btn>
       </template>
 
@@ -40,7 +40,7 @@
                 <v-card width="400px" height="300px" cols="auto" class="ma-3">
 
                   <v-row justify="center">
-                    <img :src="data.firstimage2" width="200px" height="150px" class="ma-2"/>
+                    <img :src="data.firstimage2" width="200px" height="150px" class="ma-2" alt=""/>
                   </v-row>
                   <v-row>
                     <v-card-subtitle>장소명: {{ data.title }} ({{ data.zipcode }})<br>
@@ -49,7 +49,7 @@
                     <v-col>
                       <v-card-actions style="position: absolute; bottom: 0; right: 0">
                         <v-spacer/>
-                        <v-btn depressed color="primary" @click="ChoiceLodging(data.title)">숙소선택</v-btn>
+                        <v-btn depressed color="primary" @click="ChoiceLodging(data)">숙소선택</v-btn>
 
                       </v-card-actions>
                     </v-col>
@@ -82,13 +82,13 @@ export default {
   components: {},
   data() {
     return {
-      keyword: '',
+      keyword: 'gd',
       searchData: [],
       dataPerPage: 10,
       curPageNum: 1,
       dialog: false,
       lists: [],
-      searchCon: '',
+      searchCon: '1',
       items: [
         {text: '서울', value: '1'},
         {text: '인천', value: '2'},
@@ -151,7 +151,7 @@ export default {
     }
     ,
     placeTitle() {
-      if (this.keyword == '') {
+      if (this.keyword === '') {
         axios({
           method: "get",
           url: `/api/place/${this.searchCon}/B02`

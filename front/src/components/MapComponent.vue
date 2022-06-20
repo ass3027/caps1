@@ -12,14 +12,14 @@
         <div>
           <form @submit.prevent>
             키워드 : <input
-            v-model="keyword"
+            v-model="keyWord"
             type="text"
             size="15"
           >
             <button @click="searchPlaces()">
               지도검색
             </button>
-            <button @click="dbSearch()">
+            <button @click="OurDbSearch()">
               장소검색
             </button>
           </form>
@@ -31,7 +31,7 @@
           v-for="(place,index) in places"
           :key="index"
           class="item"
-          @mouseover="displayInfoWindow(markers[index],place.place_name)"
+          @mouseover="displayinfoWindow(markers[index],place.place_name)"
           @mouseout="infoWindow.close()"
         >
           <span :class="[`markerbg marker_${index+1}`]"/>
@@ -41,7 +41,7 @@
             </h5>
             <template v-if="place.road_address_name">
               <span>{{ place.road_address_name }}</span>
-              <span class="jibun gray">{{ place.adress_name }}</span>
+              <span class="jibun gray">{{ place.address_name }}</span>
             </template>
             <span v-else>{{ place.address_name }}</span>
             <span class="tel">{{ place.phone }}</span>
@@ -66,6 +66,7 @@
 
 <script>
 import {EventBus} from "@/eventBus/eventBus";
+import axios from 'axios'
 
 export default {
   name: "MapComponent",
@@ -77,13 +78,14 @@ export default {
       map: {},
       markers: [],
       ps: {},
-      keyword: '',
+      keyWord: '복현',
       places: [],
       placePositionArray:[],
       path:{},
       pathMarkers:[],
       markerImage:{},
       eachDistance:[],
+      checkDBSearch:false,
     }
   },
   mounted() {
@@ -103,7 +105,7 @@ export default {
       EventBus.$on("updateDate", (date) => {
         const schedule = this.$store.state.calendar.calendar.date[date]
         this.placePositionArray = []
-
+        console.log(this.pathMarkers)
         this.removePathMarker()
 
         let tempMarker
@@ -111,29 +113,33 @@ export default {
         let distanceOverlay
         let position
         for(let it of schedule.values()){
-          position = new kakao.maps.LatLng(it.mapX,it.mapY)
+          if(it.mapX!==0&&it.mapY!==0){
+            position = new kakao.maps.LatLng(it.mapX,it.mapY)
 
-          this.placePositionArray.push(position)
+            this.placePositionArray.push(position)
 
-          tempMarker =  new kakao.maps.Marker({
-            position:position,
-            image:this.markerImage
-          })
-          tempMarker.setMap(this.map)
+            tempMarker =  new kakao.maps.Marker({
+              position:position,
+              image:this.markerImage
+            })
+            tempMarker.setMap(this.map)
 
-          distanceOverlay = new kakao.maps.CustomOverlay({
-            content: '<div style="position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;"><span class="number">' + index + '번째</span></div>',
-            position: new kakao.maps.LatLng(it.mapX+0.001,it.mapY),
-            yAnchor: 1,
-            zIndex: 2
-          });
-          distanceOverlay.setMap(this.map)
+            distanceOverlay = new kakao.maps.CustomOverlay({
+              content: '<div style="position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;"><span class="number">' + index + '번째</span></div>',
+              position: new kakao.maps.LatLng(it.mapX+0.001,it.mapY),
+              yAnchor: 1,
+              zIndex: 2
+            });
+            distanceOverlay.setMap(this.map)
 
-          this.pathMarkers.push({'marker':tempMarker,'overlay':distanceOverlay})
-          index++
+            this.pathMarkers.push({'marker':tempMarker,'overlay':distanceOverlay})
+            index++
+          }
         }
+        console.log(this.pathMarkers)
         this.getEachDistance()
         this.path.setPath(this.placePositionArray);
+        EventBus.$emit('passDistance',this.eachDistance)
       })
     }
   },
@@ -227,7 +233,8 @@ export default {
             const mapData = {
               address: mapAddress,
               mapY: clickPosition.La,
-              mapX: clickPosition.Ma
+              mapX: clickPosition.Ma,
+              pl_id:undefined
             }
 
             console.log(mapAddress)
@@ -280,20 +287,44 @@ export default {
     },
 
     searchPlaces() {
-
-      if (!this.keyword.replace(/^\s+|\s+$/g, '')) {
+      this.checkDBSearch = false
+      if (!this.keyWord.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요')
         return false;
       }
 
-      this.ps.keywordSearch(this.keyword, this.placesSearchCB);
+      this.ps.keywordSearch(this.keyWord, this.placesSearchCB);
     },
 
-    dbSearch(){
-      console.log(this.keyword)
+    OurDbSearch(){
+      this.checkDBSearch = true
+      axios.get(`/api/place/${this.keyWord}`)
+        .then( (res)=>{
+          console.log(res.data)
+          const converted = []
+
+          for(let i=0,it;i<30&&i<res.data.length;i++){
+            it=res.data[i]
+            converted.push({
+              "address_name":it.addr1,
+              "category_group_code":it.cat1,
+              "category_group_name":it.cat2,
+              "category_name":it.cat3,
+              "distance":undefined,
+              "id":it.pl_id,
+              "phone":it.store_phone,
+              "place_name":it.title,
+              "place_url":undefined,
+              "road_address_name":it.addr2,
+              "x":it.mapx,
+              "y":it.mapy,
+            })
+          }
+          this.placesSearchCB(converted,kakao.maps.services.Status.OK)
+        })
     },
 
-    placesSearchCB(data, status, pagination) {
+    placesSearchCB(data, status) {
       if (status === kakao.maps.services.Status.OK) {
         this.displayPlaces(data);
 
@@ -320,27 +351,19 @@ export default {
 
       for (let i = 0; i < places.length; i++) {
         //마커 생성 및 지도 표시
-
-
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
-
         // itemEl = this.getListItem(i, places[i]); //검색 결과 항목 element 생성
-
         this.addMarker(placePosition, i);
-
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
-        console.log(this.markers[i])
         kakao.maps.event.addListener(this.markers[i], 'mouseover', () => {
-          this.displayInfowindow(this.markers[i], places[i].place_name);
+          this.displayinfowindow(this.markers[i], places[i].place_name);
         });
 
         kakao.maps.event.addListener(this.markers[i], 'mouseout', () => {
           this.infoWindow.close();
         })
-
-
       }
       console.log(this.markers)
 
@@ -377,6 +400,7 @@ export default {
     },
     //귀찮아서 이렇게 할게요 ㅠ
     removePathMarker() {
+      console.log(this.pathMarkers)
       for (let i = 0; i < this.pathMarkers.length; i++) {
         this.pathMarkers[i].marker.setMap(null);
         this.pathMarkers[i].overlay.setMap(null);
@@ -417,7 +441,7 @@ export default {
       }
       paginationEl.appendChild(fragment);
     },
-    displayInfoWindow(marker, title) {
+    displayinfoWindow(marker, title) {
       let content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
 
       this.infoWindow.setContent(content);
@@ -428,18 +452,23 @@ export default {
       console.log(place)
       console.log(place.place_name)
       // 이동할 위도 경도 위치를 생성합니다
-      var moveLatLon = new kakao.maps.LatLng(place.y, place.x);
+      let moveLatLon = new kakao.maps.LatLng(place.y, place.x);
 
       // 지도 중심을 부드럽게 이동시킵니다
       // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
       this.map.panTo(moveLatLon);
       this.map.setLevel(3)
-
+      let id = undefined
+      if(this.checkDBSearch){
+        id= place.id
+      }
       const mapData = {
         address: place.address_name,
-        mapY: place.y,
-        mapX: place.x
+        mapY: place.x,
+        mapX: place.y,
+        pl_id:id
       }
+      // ㅋㅋ 왜바꿔야 됄까..
 
       this.$store.commit('calendar/updateCalendarDate', mapData)
 

@@ -9,6 +9,8 @@
       placeholder="장소번호"
     />
 
+    <address-component/>
+
     <v-text-field
       v-model="store_id"
       type="text"
@@ -85,10 +87,12 @@
 
 <script>
 import axios from "axios";
+import AddressComponent from "@/components/AddressComponent";
 
 export default {
   name: "PlaceAdd",
   components: {
+    AddressComponent
     // HelloWorld,
   },
 
@@ -96,7 +100,7 @@ export default {
     return {
       pl_id : '',
       store_id: '',
-      user_id: this.$store.state.user_id,
+      user_id: this.$store.state.userId,
       addr1: '',
       addr2: '',
       areacode: '',

@@ -1,55 +1,118 @@
 <template>
-  <v-container>
-    <h1>{{ book_id }}</h1>
-    <v-card
-      class="mx-auto"
+  <!--  <v-container>-->
+  <!--    <h1>{{ book_id }}</h1>-->
+  <!--    <v-card-->
+
+  <!--    >-->
+  <!--      <v-card-actions style="margin-bottom: 10px">-->
+  <!--        <v-rating-->
+  <!--          v-model="rev_rating"-->
+  <!--          background-color="gray"-->
+  <!--          color="yellow accent-4"-->
+  <!--          dense-->
+  <!--          half-increments-->
+  <!--          size="30"-->
+  <!--        />-->
+  <!--      </v-card-actions>-->
+
+  <!--      <v-row class="mx-auto">-->
+  <!--        <v-col cols="12">-->
+  <!--          <v-textarea-->
+  <!--            v-model="rev_content"-->
+  <!--            placeholder="리뷰는 최대 1,000자까지 등록 가능합니다."-->
+  <!--          />-->
+  <!--        </v-col>-->
+  <!--        <v-spacer />-->
+  <!--        <v-col>-->
+  <!--          <input-->
+  <!--            ref="refImage"-->
+  <!--            type="file"-->
+  <!--            placeholder="photo"-->
+  <!--            @change="imageSet($event)"-->
+  <!--          >-->
+
+  <!--          <div-->
+  <!--            id="pictures"-->
+  <!--            style="width: 150px; height: 150px"-->
+  <!--          />-->
+  <!--        </v-col>-->
+  <!--      </v-row>-->
+
+  <!--      <v-card-actions>-->
+  <!--        <v-spacer />-->
+  <!--        <v-btn-->
+  <!--          width="150px"-->
+  <!--          @click="onSubmit"-->
+  <!--        >-->
+  <!--          리뷰 등록-->
+  <!--        </v-btn>-->
+  <!--      </v-card-actions>-->
+  <!--    </v-card>-->
+  <!--    <input v-model="rev_photo">-->
+  <!--  </v-container>-->
+
+  <div>
+    <div>
+      <h2>후기 작성</h2>
+    </div>
+    <form
+      action=""
+      enctype="multipart/form-data"
     >
-      <v-card-actions style="margin-bottom: 10px">
-        <v-rating
-          v-model="rev_rating"
-          background-color="gray"
-          color="yellow accent-4"
-          dense
-          half-increments
-          size="30"
-        />
-      </v-card-actions>
+      <input
+        type="hidden"
+        name="mode"
+      >
+      <input
+        type="hidden"
+        name="goodsno"
+      >
+      <input
+        type="hidden"
+        name="ordno"
+      >
+      <input
+        type="hidden"
+        name="package_goodsno"
+      >
+      <input
+        type="hidden"
+        name="sno"
+      >
+      <input
+        type="hidden"
+        name="referer"
+      >
+      <input
+        type="hidden"
+        name="name"
+      >
 
-      <v-row class="mx-auto">
-        <v-col cols="12">
-          <v-textarea
-            v-model="rev_content"
-            placeholder="리뷰는 최대 1,000자까지 등록 가능합니다."
-          />
-        </v-col>
-        <v-spacer />
-        <v-col>
-          <input
-            ref="refImage"
-            type="file"
-            placeholder="photo"
-            @change="imageSet($event)"
-          >
-
+      <div class="write_board">
+        <div style="padding: 20px 15px; border-top: 2px solid #5f0080; ">
+          <div style="float: left; width: 80px; margin-right: 25px; ">
+            <img
+              style="width: 80px"
+              src="http://img-cf.kurly.com/shop/data/goods/1622609196762s0.jpg"
+            >
+          </div>
           <div
-            id="pictures"
-            style="width: 150px; height: 150px"
-          />
-        </v-col>
-      </v-row>
-
-      <v-card-actions>
-        <v-spacer />
-        <v-btn
-          width="150px"
-          @click="onSubmit"
-        >
-          리뷰 등록
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-    <input v-model="rev_photo">
-  </v-container>
+            class="desc"
+            style="vertical-align: middle; line-height: 1; display: table; height: 104px"
+          >
+            <div
+              class="inner_desc"
+              style="display: table-cell; vertical-align: middle; height: 104px;"
+            >
+              <div style="height: 28px">
+                [ardo] 냉동 완두콩 400g
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
