@@ -17,7 +17,8 @@ public interface PlaceMapper {
 //   public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
 
   
-   @Select("""select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+   @Select("""
+           select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
            from place
            where cat1='A01'
            and title like '%'||#{keyword}||'%'""")
