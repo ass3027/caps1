@@ -22,9 +22,10 @@
             </div>
             <v-list-item-title class="text-h5 mb-1">
               ID:{{ item.user_id }}
+
             </v-list-item-title>
             <v-list-item-subtitle>
-              소개<br>{{ item.guide_intro }}
+              소개<br>{{ item.guser_intro }}
             </v-list-item-subtitle>
           </v-list-item-content>
 
@@ -43,7 +44,7 @@
             tile
             size="80"
             color="grey"
-          />
+          ><img v-bind:src="img(item.pic_name)"></v-list-item-avatar>
         </v-list-item>
 
         <v-card-actions />
@@ -51,6 +52,7 @@
     </v-row>
     <div>
       <h1>검색</h1>
+
       <input
         v-model="keyword"
         name="keyword"
@@ -98,6 +100,9 @@ export default {
       console.log(this.keyword)
      this.$router.push("/GuideView/Search/" + this.keyword)
 
+    },
+    img(fileName){
+      return "http://localhost:8081/api/photo/" + fileName
     },
 
 

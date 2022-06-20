@@ -1,6 +1,5 @@
 <template>
   <v-card
-    :loading="loading"
     class="mx-auto my-12"
     max-width="374"
   >
@@ -14,7 +13,7 @@
 
     <v-img
       height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      v-bind:src="img(lists.pic_name)"
     />
 
     <v-card-title>{{ lists.user_id }}</v-card-title>
@@ -47,7 +46,7 @@
 
     <v-divider class="mx-4" />
 
-    <v-card-title>Tonight's availability</v-card-title>
+    <v-card-title>{{lists.user_name}}</v-card-title>
 
     <v-card-text>
       <v-chip-group
@@ -98,6 +97,9 @@ export default {
 
   methods:{
     reserve(){
+    },
+    img(fileName){
+      return "http://localhost:8081/api/photo/" + fileName
     },
 
     importGuide() {

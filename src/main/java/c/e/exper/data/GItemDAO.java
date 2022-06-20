@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class GItemDAO {
-
     String gitem_id;
     String user_id;
     String pl_id;
@@ -18,6 +17,9 @@ public class GItemDAO {
     String st_date;
     String require_time;
     String end_date;
-
-
+    int time_num;
+    String st_time;
+    String end_time;
+    String book_whether;
+    String title;
 }
