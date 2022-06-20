@@ -31,24 +31,24 @@ public class ApiInquiry {
     @PostMapping("/Writing")
     public boolean getListSendfo(InquiryDAO inquiryDAO) {
         System.out.println(inquiryDAO);
-        boolean result = inquiryMapper.insert(inquiryDAO);
-        return result;
+        return inquiryMapper.insert(inquiryDAO);
     }
 
     //게시판목록
     @GetMapping("/Questions")
-    public List<InquiryDAO> getListInfo() {
+    public List<InquiryDAO> getListInfo( @RequestParam("inq_id") String inq_id) {
+        inquiryMapper.updateCount(inq_id);
         return inquiryMapper.list();
     }
 
 
     //상세페이지
     @GetMapping("/DetailPage")
-    public Map<String,Object> getListPageDetails(
+    public Map<String,Object> getListPageDetails( //(객체)
             @RequestParam("inq_id") String inq_id){
-        System.out.println(inq_id);
+//        System.out.println(inq_id);
+//        inquiryMapper.updateCount(inq_id);
         Optional<InquiryDAO> inquiry = inquiryMapper.listPage(inq_id);
-        inquiryMapper.updateCount(inq_id);
         Optional<AnswerDAO> answer = inquiryMapper.answerListPage(inq_id);
         Map<String,Object> returnData = new HashMap<>();
         if (inquiry.isEmpty()) {
@@ -71,8 +71,7 @@ public class ApiInquiry {
     //게시글 수정하기
     @PostMapping("WritingMod")
     public boolean getListPageModUpdate(InquiryDAO inquiryDAO) {
-        boolean result = inquiryMapper.updateListPageInfo(inquiryDAO);
-        return result;
+        return inquiryMapper.updateListPageInfo(inquiryDAO);
     }
 
     //게시글 삭제하기
@@ -92,13 +91,13 @@ public class ApiInquiry {
 //    }
 
 
-/*
-    @RequestMapping("/Questions")
-    public void ListPageCount(
-        @RequestParam("inq_id")String inq_id){
-        inquiryMapper.updateCount(inq_id);
-    }
-*/
+
+//    @RequestMapping("/Questions")
+//    public void ListPageCount(
+//        @RequestParam("inq_id")String inq_id){
+//        inquiryMapper.updateCount(inq_id);
+//    }
+
 
 
 

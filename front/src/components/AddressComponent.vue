@@ -21,14 +21,10 @@
       ><br>
     </div>
     <input
+      v-model="detailAddress"
       id="detailAddress"
       type="text"
       placeholder="상세주소"
-    ><br>
-    <input
-      id="extraAddress"
-      type="text"
-      placeholder="참고항목"
     >
   </div>
 </template>
@@ -44,6 +40,7 @@ export default {
       postcode: "",
       address: "",
       extraAddress: "",
+      detailAddress: "",
     };
   },
   methods: {

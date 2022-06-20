@@ -22,4 +22,5 @@ public class UserDTO {
     Date   user_birth;
     String role;
     MultipartFile user_photo;
+
 }

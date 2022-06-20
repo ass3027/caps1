@@ -1,7 +1,7 @@
 <template>
   <v-app
-    id="gnb"
     class="header-layout"
+    style="min-width: 650px"
   >
     <div id="userMenu">
       <!--로그인 박스(로그인 O)-->
@@ -46,39 +46,57 @@
         </v-btn>
       </div>
     </div>
-    <div>
-      <div class="menu-Bar">
-        <div style="margin-top: 20px">
-          <v-menu
-            v-for="(menu,index) in menuList"
-            :key="index"
-            offset-y
-          >
-            <template #activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                {{ menu }}
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(content, index2) in contents[index]"
-                :key="index2"
-                router
-                :to="content.route"
-              >
-                <v-list-item-title>{{ content.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </div>
-      </div>
-      <v-divider style="margin-top: 10px" />
+
+    <div id="headerLogo">
+      <h1 class="logo" style="text-align: center">
+        <a href="/" style="display: inline-block">
+          <img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" style="display: block; width: 103px; height: 79px">
+        </a>
+      </h1>
     </div>
+
+    <div>
+      <div
+        class="menu-Bar"
+        style="width: 1050px"
+      >
+        <v-menu
+          v-for="(menu,index) in menuList"
+          :key="index"
+          offset-y
+        >
+          <template #activator="{ on, attrs }">
+            <div
+              style="display: flex; justify-content: center; width: 30%; text-align: center; height: 55px"
+            >
+            <span
+              v-bind="attrs"
+              v-on="on"
+              style="padding-top: 15px"
+            >
+              {{ menu }}
+            </span>
+            </div>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="(content, index2) in contents[index]"
+              :key="index2"
+              router
+              :to="content.route"
+              style="display: flex; justify-content: center"
+            >
+              <span>{{ content.title }}</span>
+            </v-list-item>
+          </v-list>
+
+        </v-menu>
+
+        <v-divider style="margin-top: 10px" />
+      </div>
+    </div>
+
   </v-app>
 </template>
 
@@ -86,12 +104,16 @@
 import axios from "axios";
 import {EventBus} from "@/eventBus/eventBus";
 
+
+
+
+
 export default {
 
   name: 'HelloWorld',
   data: () => ({
     photo: '',
-    menuList:[
+    menuList: [
       "여행지",
       "여행계획",
       "시설",
@@ -102,11 +124,11 @@ export default {
     ],
     contents: [
       [
-        // {title: 'travel1', route: '/travel'},
-        // {title: 'travel2', route: '/travel'},
-        // {title: 'travel3', route: '/travel'},
-        // {title: 'travel4', route: '/travel'},
-        // {title: 'travel5', route: '/travel'}
+        {title: 'travel1', route: '/travel'},
+        {title: 'travel2', route: '/travel'},
+        {title: 'travel3', route: '/travel'},
+        {title: 'travel4', route: '/travel'},
+        {title: 'travel5', route: '/travel'}
       ],
       [
         {title: '플래너 생성', route: '/plan'},
@@ -116,12 +138,12 @@ export default {
         {title: '플래너 사진', route: '/planPic'}
       ],
       [
-        {title: '호텔', route: '/hotel'},
-        {title: '모텔', route: '/store'},
-        {title: '펜션', route: '/store'},
-        {title: '글램핑', route: '/store'},
-        {title: '리조트', route: '/store'},
-        {title: '게스트하우스', route: '/store'}
+        {title: '호텔' ,route: '/place/hotel'},
+        {title: '모텔', route: '/place/motel'},
+        {title: '펜션', route: '/place'},
+        {title: '글램핑', route: '/place'},
+        {title: '리조트', route: '/place'},
+        {title: '게스트하우스', route: '/place'}
       ],
       [
         {title: '가방예약', route: '/SelectionOrder'},
@@ -129,7 +151,6 @@ export default {
         {title: '요금', route: '/FareView'},
         {title: '후기', route: '/ReviewView'},
         {title: '배송조회', route: '/TrackingView'},
-
       ],
       [
         {title: '가이드 리스트', route: '/guideview'},
@@ -153,8 +174,10 @@ export default {
         {title: 'Customer5', route: '/Customer'}
       ]
     ],
+    scroll: null,
   }),
   computed:{
+
     isLogin() {
       console.log(this.$store.state.user.userId)
       console.log(this.$store.getters['user/isLogin'])
@@ -168,21 +191,27 @@ export default {
       this.photo = "/api/photo/"+decodeURI(photo)
     })
   },
+  mounted() {
+    // TODO document why this method 'mounted' is empty
+
+
+
+  },
   methods: {
-    logOut(){
+    logOut() {
       console.log(22)
       axios({
-        url:'/api/logout',
-        method:'post'
+        url: '/api/logout',
+        method: 'post'
       })
-      .then((res)=>{
-        console.log(res)
-        this.$store.dispatch('user/setUser','anonymousUser')
-        this.$router.push("/")
-      })
-      .catch((err)=>{
-        console.error(err)
-      })
+        .then((res) => {
+          console.log(res)
+          this.$store.dispatch('user/setUser', 'anonymousUser')
+          this.$router.push("/")
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
     // store(a){
     //   this.$router.push({path:a.route, params:{'value':a.title}})
@@ -192,11 +221,19 @@ export default {
 </script>
 
 <style>
-#gnb {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+/*#gnb {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
+/*.gnb_stop {*/
+/*  z-index: 300;*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  width: 100%;*/
+/*  height: 67px;*/
+/*  background-color: white;*/
+/*}*/
 
 .login-box {
   display: block;
@@ -207,6 +244,8 @@ export default {
 .menu-Bar {
   display: flex;
   justify-content: center;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /*.text-center {*/

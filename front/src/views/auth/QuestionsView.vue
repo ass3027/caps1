@@ -93,7 +93,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(post,index) in post_list"
+          v-for="(post,index) in paged_post_list"
           :key="index"
           @click="listPage(post.inq_id)"
         >
@@ -129,43 +129,17 @@
           </th>
         </tr>
       </tbody>
-      <v-btn
-        :disabled="pageNum === 0"
-        class="page-btn"
-        @click="prevPage"
-      >
-        이전
-      </v-btn>
-      <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
-      <v-btn
-        :disabled="pageNum >= pageCount-1"
-        class="page-btn"
-        @click="nextPage"
-      >
-        다음
-      </v-btn>
+      <v-btn :disabled="pageNum === 0" v-on:click="prevPage" class="page-btn">이전</v-btn>
+      <span class="page-count">{{pageNum + 1}} / {{pageCount}} 페이지</span>
+      <v-btn :disabled="pageNum+1 >= pageCount" v-on:click="nextPage" class="page-btn">다음</v-btn>
+
     </v-simple-table>
     {{ user_id }}
     {{ inq_title }}
     <div id="button">
-      <v-btn
-        type="button"
-        color="pink"
-        @click="check"
-      >
-        등록
-      </v-btn>
-      <v-btn
-        type="button"
-        @click="cancel"
-      >
-        취소
-      </v-btn>
-      <v-btn
-        type="button"
-        @click="write"
-      >
-        글쓰기
+      <v-btn type="button" color="pink" @click="check">등록</v-btn>
+<!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
+      <v-btn type="button" @click="write">글쓰기
       </v-btn>
     </div>
   </div>
@@ -174,8 +148,7 @@
 <script>
 
 import axios from "axios";
-import inquiryView from "@/views/bag/InquiryView";
-import DetailPageView from "@/views/auth/DetailPageView";
+
 
 export default {
   name: "QuestionsView",
@@ -203,24 +176,12 @@ export default {
       // tableList:[]
     }
   },
-   computed:{
-     pageCount() {
-        let listLeng = this.post_list.length,
-          listSize= this.pageSize,
-          page = Math.floor(listLeng/listSize);
-        if (listLeng % listSize > 0) page += 1;
-
-        return page;
-      },
-     paged_post_list() {
-       const start = this.pageNum * this.pageSize,
-       end = start + this.pageSize;
-       return this.post_list().slice(start, end);
-       // paged_post_list()
-     }
-  },
   mounted() {
-    axios.get("/api/inquiry/Questions/" )
+    axios.get("/api/inquiry/Questions/" ,
+      {params:{
+        inq_id: this.inq_id
+        }})
+
     .then(res=>{
       console.log(res.data)
       this.post_list = res.data;
@@ -259,16 +220,6 @@ export default {
       this.fnGetList();
     },
     listPage(index) {
-      // axios.get("api/inquiry/Questions", {
-      //   params:{
-      //     inq_id:this.$route.params.id
-      //   }
-      // })
-      // .then(res=>{
-      //   // this.post_list = res.data;
-      //   // console.log(res.data.inq_count)
-      //   this.inq_count = res.data.inq_count;
-      // })
       this.$router.push({
         name: 'DetailPage', params: {id: index}
       }).catch((error)=>{
@@ -284,6 +235,22 @@ export default {
     keyword(){
 
     }
+  },
+   computed:{
+     pageCount() {
+       // let page = Math.floor(this.post_list.length/this.pageSize);
+       //  if (this.post_list.length % this.pageSize > 0) page += 1;
+       return Math.floor((this.post_list.length - 1) / this.pageSize) + 1
+      },
+     paged_post_list() {
+       const start = this.pageNum * this.pageSize,
+         //  start =      0 * 10 = 0
+       end = start + this.pageSize;
+       // end = 0 + 10 = 10
+       return this.post_list.slice(start, end);
+       //  0~9번째 까지
+       // paged_post_list()
+     }
   }
 }
 </script>
@@ -294,6 +261,6 @@ export default {
   text-align: center;
   padding: 100px;
 }
-.searchWrap{border:1px solid #888; border-radius:5px; text-align:center; padding:20px 0; margin-bottom:40px;}
+
 
 </style>

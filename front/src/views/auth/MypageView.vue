@@ -193,7 +193,7 @@ export default {
     };
   },
   mounted() {
-    axios.get('/api/data/'+ this.$store.state.user.userId)
+    axios.get('/api/user/data/'+ this.$store.state.user.userId)
     .then(res=> {
       this.user_id = res.data.user_id
       this.user_pw = res.data.user_pw //공백으로 둬야하나?
@@ -202,9 +202,7 @@ export default {
       console.log(res.data)
 
     }).catch((error)=>{
-      this.error=error
-      console.log(res.data)
-      console.log(res.data.user_id)
+      console.log(error)
       // console.log(res.data.user_name)
     })
   },
@@ -265,10 +263,7 @@ header{
   justify-content: space-between;
   align-items: center;
 }
-#button{
-  position: center;
 
-}
 .textForm {
   text-align: center;
   position: center;
@@ -285,7 +280,6 @@ header{
   border:none;
   outline:none;
   color: #636e72;
-  font-size:16px;
   height:25px;
   background: none;
   font-size: 25px;
@@ -299,7 +293,6 @@ header{
   border:none;
   outline:none;
   color: #636e72;
-  font-size:16px;
   height:25px;
   background: none;
   font-size: 25px;
@@ -315,7 +308,6 @@ header{
   font-size:16px;
   height:25px;
   background: none;
-  font-size: 25px;
 }
 .phone{
   width: 100%;
@@ -325,7 +317,6 @@ header{
   font-size:16px;
   height:25px;
   background: none;
-  font-size: 25px;
 }
 .a {
   text-align:left;

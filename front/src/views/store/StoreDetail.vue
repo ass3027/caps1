@@ -21,7 +21,6 @@
                   alt=""
                   style="width: 100%"
                   class="image"
-                  @click="showMainImage()"
                 />
               </div>
             </div>
@@ -68,7 +67,7 @@
 
             <div class="mt-2 mb-4">
               <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ products[0].store_id }}
+                {{ $route.query.pl_name }}
               </span>
             </div>
 
@@ -106,22 +105,30 @@
             </div>
           </div>
         </div>
+        <hr>
+        <div>
+          <div>
+            <place-product/>
+          </div>
+        </div>
       </div>
     </div>
-    <StoreReviewView :store_name="store_name" />
+    <StoreReviewView :store_name="store_name"/>
   </div>
 </template>
 
 <script>
 import StoreReviewView from "@/views/StoreReviewView";
 import axios from "axios";
+import PlaceProduct from "@/components/store/PlaceProduct";
 
 export default {
   name: 'ProductPage',
   components: {
+    PlaceProduct,
     StoreReviewView
   },
-  props: ['pl_id'],
+  props: [ 'pl_id' ],
   data() {
     return {
       title: '5성급 편안호텔',
@@ -137,17 +144,16 @@ export default {
 
       showImageModal: false,
       slide: 0,
-      temp:0,
-      index:0,
+      temp: 0,
+      index: 0,
 
-      store_name:'',
+      store_name: '',
     }
   },
   computed: {
-    mainImage: function(){
+    mainImage: function () {
       return this.products[this.index].pic_name
-    } ,
-
+    },
   },
 
   created() {
@@ -159,7 +165,6 @@ export default {
       .then((res) => {
         this.products = res.data
         this.temp++
-        console.log(this.products)
       })
       .catch((err) => {
         console.log(err)
@@ -173,11 +178,13 @@ export default {
       .then((res) => {
         this.store_name = res.data
       })
+
+    console.log(this.$route)
   },
   methods: {
-    showMainImage() {
-      this.showImageModal = true;
-    },
+    // showMainImage() {
+    //   this.showImageModal = true;
+    // },
     changeMainImage(index) {
       this.index = index;
     },

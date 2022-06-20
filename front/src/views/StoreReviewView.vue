@@ -48,10 +48,14 @@ import axios from "axios";
 export default {
   name: 'StoreReviewView',
   components: {
-    // ReviewForm,
     ReviewList,
   },
-  props:{'store_name': String},
+  props:{
+    // 상품, 주문서 등
+    // 상품ID, 주문서ID 등
+    'type': String,
+    'store_id': String
+  },
   data(){
     return{
       reviews:[],
@@ -60,26 +64,25 @@ export default {
     }
   },
   mounted() {
+    // type에 따라 메소드를 나누고 분기 처리
     this.getReviews()
+
   },
   methods:{
 
     getReviews(){
-
-      var sendForm = new FormData()
-
-      console.log('store_name: ' + this.store_name)
+      console.log('store_id: ' + this.store_id)
 
       axios({
         method: 'GET',
         url:'http://localhost:8080/api/storeReview',
         params: {
-          store_name:this.store_name
+          store_id:this.store_id
         }
 
       })
         .then(res => {
-          console.log(res.data)
+          console.log("store_reviews: "+res.data)
           this.reviews = res.data
         })
         .catch((err) => {

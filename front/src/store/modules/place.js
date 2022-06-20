@@ -3,8 +3,13 @@ export default {
   state: {
     placeInfo: [],
     placeOriginal:[],
+    place:[],
   },
   mutations:{
+    PlaceUpdate(state, placeNew){
+      state.place = placeNew;
+    },
+
     updatePlace(state, newPlace){
       state.placeOriginal = newPlace
       state.placeInfo = newPlace.reduce(function(acc, current) {

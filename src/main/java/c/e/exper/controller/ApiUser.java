@@ -1,9 +1,6 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.PictureDAO;
-import c.e.exper.data.PlaceDAO;
-import c.e.exper.data.UserDAO;
-import c.e.exper.data.UserDTO;
+import c.e.exper.data.*;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
@@ -32,6 +29,8 @@ import java.util.regex.Pattern;
 
 import java.util.*;
 import java.util.regex.Pattern;
+
+import java.util.Optional;
 
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
@@ -83,6 +82,29 @@ public class ApiUser {
         return pictureMapper.selectPicnameByUserId(user_id);
     }
     
+    //마이페이지
+    @GetMapping("/data/{id}")
+    public UserDAO getUserInfoById(@PathVariable String id){
+         //반환데이터형식
+        return userMapper.selectId(id).get();
+    }
+
+
+    //아이디 중복 확인
+    @GetMapping("/userid")
+    public boolean getUserIdCheck( //반환타입,함수명
+        @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
+        Optional<UserDAO> id = userMapper.selectId(pp); //
+        return id.isEmpty();
+//        if (id.isEmpty()){
+//            return true;
+//        }else {
+//            return false;
+//        }
+    }
+
+    //내정보수정
+
 
     @PostMapping("/join")
     public boolean join(UserDTO user,HttpServletRequest req) {
@@ -110,9 +132,12 @@ public class ApiUser {
             user.setUser_name(randomHangulName());
         }
 
+
         //파일 이름 저장 밑 파일 실제 저장
         //경로 이상함
         String filePath = fileService.photoSave(user.getUser_photo(),req,"userImage");
+
+        System.out.println("[filePath]" + filePath);
 
         //파일 경로를 넣은 DAO 생성
         UserDAO daoUser = UserDAO.builder()
@@ -121,6 +146,7 @@ public class ApiUser {
                 .user_birth(user.getUser_birth())
                 .user_name(user.getUser_name())
                 .user_phone(user.getUser_phone())
+
                 .role(user.getRole())
                 .build();
 
@@ -134,6 +160,13 @@ public class ApiUser {
         pictureMapper.InsertUser(pictureDAO);
 
         return true;
+    }
+
+    @GetMapping("/orders")
+    public List<OrderDAO> getUserOrders(String user_id){
+        List<OrderDAO> orderDAOS = userMapper.selectUserOrders(user_id);
+
+        return orderDAOS;
     }
 
     @PostMapping("/apiTest")

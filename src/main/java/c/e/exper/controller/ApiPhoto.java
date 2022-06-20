@@ -1,16 +1,15 @@
 package c.e.exper.controller;
 
+import c.e.exper.mapper.PictureMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -19,17 +18,24 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping("/api/photo")
 public class ApiPhoto {
 
+    final PictureMapper pictureMapper;
+
+    public ApiPhoto(PictureMapper pictureMapper) {
+        this.pictureMapper = pictureMapper;
+    }
+
+
     @GetMapping("/{folderName}/{fileName}")
     public ResponseEntity<byte[]> photo(
             @PathVariable String folderName,
-            @PathVariable String fileName, HttpServletRequest req) throws Exception{
+            @PathVariable String fileName, HttpServletRequest req) throws Exception {
 
         System.out.println("GET 이미지(folderName: " + folderName + " fileName: " + fileName + ")");
 
         InputStream in = null;
         ResponseEntity<byte[]> entity;
 
-        String path = req.getSession().getServletContext().getRealPath("/")+folderName+"/"+fileName;
+        String path = req.getSession().getServletContext().getRealPath("/") + folderName + "/" + fileName;
 //        String path2 = req.getSession().getServletContext().getRealPath("/")+"\\"+folderName+"\\"+fileName;
 
         try {
@@ -56,15 +62,40 @@ public class ApiPhoto {
             }
 
             entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }finally {
+        } finally {
             if (in != null) in.close();
 
         }
 
 
         return entity;
+    }
+
+    @DeleteMapping("/{folderName}/{fileName}")
+    public ResponseEntity<Boolean> delPhoto(
+            @PathVariable String folderName,
+            @PathVariable String fileName,
+            HttpServletRequest req) {
+
+        try{
+            String safeFile = req.getSession().getServletContext().getRealPath("/") +folderName+"/" +fileName;
+            System.out.println(safeFile);
+
+            File file = new File(safeFile);
+            boolean result = file.delete();
+            System.out.println(result);
+            if(result){
+                System.out.println(folderName+"/" +fileName);
+                pictureMapper.deletePicture(folderName+"/" +fileName);
+            }
+
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

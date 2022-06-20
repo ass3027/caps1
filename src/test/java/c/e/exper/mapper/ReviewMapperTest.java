@@ -95,7 +95,7 @@ public class ReviewMapperTest {
 
     @Test
     public void testtest() {
-        System.out.println(userMapper.checkExist(String.valueOf(600062)));
+
     }
 
 

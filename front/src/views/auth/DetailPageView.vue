@@ -115,21 +115,10 @@
     <!--      maxlenght="5"-->
     <!--    />-->
     <div id="button">
-      <v-btn
-        elevation="3"
-        type="button"
-        @click="Modify"
-      >
-        수정
-      </v-btn>
-      <v-btn
-        elevation="3"
-        type="button"
-        style="margin: 10px"
-        @click="Delete"
-      >
-        삭제
-      </v-btn>
+      <v-btn elevation="3" type="button" @click="Modify">수정</v-btn>
+      <v-btn elevation="3" type="button" style="margin: 10px" @click="PageList">목록</v-btn>
+      <v-btn elevation="3" type="button" style="margin: 10px" @click="Delete">삭제</v-btn>
+
     </div>
   </div>
 </template>
@@ -200,6 +189,9 @@ export default {
       })
       // this.$router.push('/')
       // console.log("사이트가 삭제된다")
+    },
+    PageList(){
+      this.$router.push("/Questions")
     }
 }
 

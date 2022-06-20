@@ -3,30 +3,10 @@
     <h1>마이페이지</h1>
     <header>
       <nav>
-        <button
-          type="submit"
-          @click="bookmark"
-        >
-          즐겨찾기
-        </button> |
-        <button
-          type="submit"
-          @click="pay"
-        >
-          수익관리
-        </button> |
-        <button
-          type="submit"
-          @click="mydata"
-        >
-          내정보수정
-        </button> |
-        <button
-          type="submit"
-          @click="questions"
-        >
-          1대1문의
-        </button>
+        <button type="submit" @click="bookmark">즐겨찾기</button> |
+        <button type="submit" @click="pay">수익관리</button> |
+        <button type="submit" @click="mydata">내정보수정</button> |
+        <button type="submit" @click="questions">1대1문의</button>
       </nav>
     </header>
 
@@ -129,7 +109,7 @@ export default {
     };
   },
   mounted() {
-    axios.get('/api/data/'+ this.$store.state.user.userId)
+    axios.get('/api/user/data/'+ this.$store.state.user.userId)
       .then( (res)=> {
         this.user_id = res.data.user_id
         // this.user_pw = res.data.user_pw //공백으로 둬야하나?

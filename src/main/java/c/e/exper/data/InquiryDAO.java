@@ -20,5 +20,4 @@ public class InquiryDAO {
     String user_id;
     String inq_type;
     Integer inq_count;
-
 }

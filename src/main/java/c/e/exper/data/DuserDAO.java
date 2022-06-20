@@ -17,5 +17,4 @@ public class DuserDAO {
     String duser_latitude;
     String duser_longitude;
 
-
 }

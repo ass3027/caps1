@@ -50,7 +50,6 @@
             </v-btn>
           </v-list-item-content>
         </v-list-item>
-        <v-card-actions />
       </v-card>
     </v-row>
     <div>
@@ -71,7 +70,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 
 export default {
   name: "GuideProduct.vue",
