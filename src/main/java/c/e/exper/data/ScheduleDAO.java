@@ -31,7 +31,8 @@ public class ScheduleDAO {
 
 
     public ScheduleDTO toDTO() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //System.out.println(formatter.format(this.sch_startTime));
 
         return ScheduleDTO.builder()
                 .sch_number(this.sch_number)

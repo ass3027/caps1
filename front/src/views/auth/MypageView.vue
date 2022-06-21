@@ -1,188 +1,70 @@
 <template>
-  <div id="app">
+  <div id="app" style="width: 1050px; padding-top: 65px">
     <div>
-      <!--    <router-link to="list"></router-link>-->
-      <h1>마이페이지</h1>
-      <header>
-        <nav>
-          <button
-            type="submit"
-            @click="bookmark"
-          >
-            즐겨찾기
-          </button> |
-          <button
-            type="submit"
-            @click="pay"
-          >
-            수익관리
-          </button> |
-          <button
-            type="submit"
-            @click="mydata"
-          >
-            내정보수정
-          </button> |
-          <button
-            type="submit"
-            @click="questions"
-          >
-            1대1문의
-          </button>
-        </nav>
-      </header>
-
-      <!--  <div id="container">-->
-      <!--    <v-container>-->
-
-
-      <form
-        class="container"
-        @submit.prevent="onsubmit"
-      >
-        <h1>회원정보</h1>
-
-        <div class="textForm">
-          <p class="a">
-            이름
-          </p>
-          <input
-            v-model="user_name"
-            type="text"
-            name="name"
-            class="name"
-            placeholder="이름"
-          >
-        </div>
-
-        <!--  <div class="textForm">-->
-        <!--      <v-text-field-->
-        <!--        type="text"-->
-        <!--        name="name"-->
-        <!--        class="name"-->
-        <!--        placeholder="이름"-->
-        <!--        v-model="user_name"-->
-        <!--        :counter="20" label="이름" required-->
-        <!--      ></v-text-field>-->
-
-
-        <!--  <div class="textForm">-->
-        <!--        <v-text-field-->
-        <!--          type="text"-->
-        <!--          name="userId"-->
-        <!--          class="id"-->
-        <!--          placeholder="아이디"-->
-        <!--          v-model="user_id"-->
-        <!--          :counter="20" label="아이디" required-->
-        <!--        ></v-text-field>-->
-        <!--  </div>-->
-        <!--  </div>-->
-
-
-        <!--  <div class="textForm">-->
-        <!--        <v-text-field-->
-        <!--          type="text"-->
-        <!--          name="user pw"-->
-        <!--          class="pw"-->
-        <!--          placeholder="비밀번호를 입력하세요"-->
-        <!--          v-model="user_pw"-->
-        <!--          :counter="20" label="비밀번호" required-->
-        <!--        ></v-text-field>-->
-        <!--  </div>-->
-
-        <!--  <div class="textForm">-->
-        <!--        <v-text-field-->
-        <!--          type="text"-->
-        <!--          name="user phone"-->
-        <!--          class="phone"-->
-        <!--          placeholder="전화번호"-->
-        <!--          v-model="user_phone"-->
-        <!--          :counter="20" label="전화번호" required-->
-        <!--        ></v-text-field>-->
-        <!--  </div>-->
+      <MyPageHeader/>
+      <div style="width: 820px; float: right;">
+        <h2>회원정보</h2>
+        <v-container  >
+          <v-row justify="center">
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+                v-model="user_name"
+                label="이름"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="user_id"
+                label="아이디"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="gender"
+                label="성별"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="user_phone"
+                label="연락처"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="preference"
+                label="내가 선호하는 여행방식"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
 
 
 
-        <div class="textForm">
-          <p class="a">
-            아이디
-          </p>
-          <input
-            v-model="user_id"
-            type="text"
-            name="userId"
-            class="id"
-            placeholder="아이디"
-          >
-        </div>
 
-        <div class="textForm">
-          <p class="a">
-            비밀번호
-          </p>
-          <input
-            v-model="user_pw"
-            type="password"
-            name="user pw"
-            class="pw"
-            placeholder="비밀번호를 입력하세요"
-          >
-        </div>
-
-        <div class="textForm">
-          <p class="a">
-            연락처
-          </p>
-          <input
-            v-model="user_phone"
-            type="text"
-            name="user phone"
-            class="phone"
-            placeholder="휴대폰"
-          >
-        </div>
-
-
-        <!--      <v-row>-->
-        <!--        <v-col-->
-        <!--        cols="10"-->
-        <!--        md="3">-->
-        <!--          <div class="aa">-->
-        <!--            <v-text-field-->
-        <!--              v-model="user_id" :counter="20" label="아이디" required/>-->
-        <!--          </div>-->
-        <!--        </v-col>-->
-        <!--      </v-row>-->
-
-
-      <!--            <div class="email">-->
-      <!--                <label for="email">email : </label>-->
-      <!--                <input type="text" id="email" v-model="email" />-->
-      <!--            </div>-->
-
-
-
-        <!--      </v-container>-->
-      <!--            <div class="address">-->
-      <!--                <label for="address">주소 : </label>-->
-      <!--                <input type="text" id="address" v-model="address">-->
-      <!--            </div>-->
-
-
-        <!--      <div id="button">-->
-        <!--        <v-btn v-on:click="login" elevation="3" type="button">로그인</v-btn>-->
-        <!--        <v-btn v-on:click="main" elevation="3" type="button">메인으로 이동</v-btn>-->
-        <!--        <v-btn v-on:click="Modify" elevation="3" type="button">정보 수정하기</v-btn>-->
-        <!--      </div>-->
-      </form>
     </div>
   </div>
 <!--  </div>-->
 </template>
-
 <script>
+import MyPageHeader from "@/components/store/MyPageHeader";
 import axios from "axios";
 export default {
+  components:{
+    MyPageHeader
+  },
+
   data(){
     return{
       user_id: '',
@@ -190,6 +72,9 @@ export default {
       user_phone: '',
       user_name: '',
       user_photo: '',
+      gender: '',
+      preference:''
+
     };
   },
   mounted() {
@@ -199,7 +84,10 @@ export default {
       this.user_pw = res.data.user_pw //공백으로 둬야하나?
       this.user_phone = res.data.user_phone
       this.user_name = res.data.user_name
+      this.gender = res.data.gender
+      this.preference = res.data.preference
       console.log(res.data)
+      console.log(this.$store.state.user.userId)
 
     }).catch((error)=>{
       console.log(error)
@@ -263,66 +151,22 @@ header{
   justify-content: space-between;
   align-items: center;
 }
+/** {*/
+/*  position: center;*/
+/*  margin: 0px;*/
+/*  padding: 0px;*/
+/*  text-decoration: none;*/
+/*  font-family:sans-serif;*/
+/*}*/
 
-.textForm {
+
+.box{
   text-align: center;
   position: center;
-  font-size: 25px;
-  text-decoration: underline;
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
-
-}
-
-.id {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  height:25px;
-  background: none;
-  font-size: 25px;
-  text-decoration: cornflowerblue;
-  text-underline-position: under;
-
-}
-
-.name{
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  height:25px;
-  background: none;
-  font-size: 25px;
-  text-decoration: #5eaf13;
-  text-underline: #5eaf13;
-
-}
-.pw{
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-.phone{
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-.a {
-  text-align:left;
-  text-decoration: none;
-  /*display: inline;*/
-  /*box-shadow: inset 0 -10px 0 hsla(53, 90%, 83%, 0.93);*/
+  font-size: 20px;
+  /*border-bottom: 2px solid #adadad;*/
+  margin: 20px;
+  padding: 0px 10px;
 }
 
 

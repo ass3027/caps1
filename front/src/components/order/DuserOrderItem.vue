@@ -1,6 +1,13 @@
 <template>
-  <div style="height: 200px; margin: 0 10px; padding: 20px 15px;">
+  <table
+    @click="dialog = true"
+  >
+    <v-dialog v-model="dialog" scrollable width="500px" >
+      <order-detail :order="order"/>
+    </v-dialog>
+
     <div id="orderItem">
+
       <div
         class="order_time_info"
         style="width: 80%; border-right: thin solid #ccc; padding-right: 20px;"
@@ -24,9 +31,10 @@
             </span>
           </div>
           <div>
-            <v-icon>
+            <v-icon style="display: block">
               mdi-arrow-right-thin
             </v-icon>
+            <span>{{ degree_start_end }}Km</span>
           </div>
           <div>
             <div
@@ -42,7 +50,7 @@
           </div>
         </div>
 
-        <div style="margin-top: 20px">
+        <div style="margin: 20px auto;">
           <span style="font-size: large">
             나로부터 {{ degree_user_start }}Km 이내
           </span>
@@ -50,7 +58,7 @@
 
 
       </div>
-      <div style="width: 20%" class="bag_info">
+      <div style="width: 20%; padding-left: 10px" class="bag_info">
         <div
           v-for="(i, index) in ord_bag_info"
           :key="index"
@@ -65,7 +73,7 @@
 
     </div>
 
-  </div>
+  </table>
   <!-- 출발키퍼 주소 --> <!-- 거리 --> <!-- 도착키퍼 주소 -->    <!-- 운송품에 대한 간략한 정보 -->
   <!-- 운송원과 출발키퍼사이의 거리 -->                         <!-- 금액 -->
 
@@ -88,10 +96,13 @@
 
 <script>
 import axios from "axios";
-
+import OrderDetail from "@/components/order/OrderDetail";
 
 export default {
   name: 'DuserOrderItem',
+  components: {
+    OrderDetail
+  },
   props:{
     order: { type: Object },
     latitude: { type: Number },
@@ -101,7 +112,8 @@ export default {
     return {
       keep_start: Object,
       keep_end: Object,
-      ord_bag_info: Object
+      ord_bag_info: Object,
+      dialog: false,
     }
   },
   method:{
@@ -144,34 +156,37 @@ export default {
 
       var a = getDistanceFromLatLonInKm(this.keep_start.mapy, this.keep_start.mapx, this.latitude, this.longitude)
       return a.toFixed(2) // 자릿수 반올림
+    },
+
+    degree_start_end: function() {
+      var getDistanceFromLatLonInKm = function(lat1, lng1, lat2, lng2){
+        function deg2rad(deg) {
+          return deg * (Math.PI / 180)
+        }
+
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+        var dLon = deg2rad(lng2 - lng1);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c; // Distance in km
+        return d;
+      }
+
+      var a = getDistanceFromLatLonInKm(this.keep_start.mapy, this.keep_start.mapx, this.keep_end.mapy, this.keep_end.mapx)
+      return a.toFixed(2) // 자릿수 반올림
     }
 
   },
   mounted() {
     if(this.order.keep_start !== null)
-      axios({
-        method: 'GET',
-        url: '/api/keep/find',
-        params: {
-          keep_id: this.order.keep_start
-        }
-      }).then(res => {
+      axios.get('/api/keep/find/' + this.order.keep_start).then(res => {
         this.keep_start = res.data
-
-        this.addr_short = this.keep_start.addr1.split(' ')[2]
-
       })
 
     if(this.order.keep_end !== null)
-      axios({
-        method: 'GET',
-        url: '/api/keep/find',
-        params: {
-          keep_id: this.order.keep_end
-        }
-      }).then(res => {
+      axios.get('/api/keep/find/' + this.order.keep_end).then(res => {
         this.keep_end = res.data
-
       })
 
     axios({
@@ -187,7 +202,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+#orderItem{
+  padding: 20px;
+}
+
+table {
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+}
 
 .bag_info > {
   width: 100%;

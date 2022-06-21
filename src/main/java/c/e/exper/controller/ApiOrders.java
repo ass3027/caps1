@@ -5,10 +5,7 @@ import c.e.exper.mapper.OrdersMapper;
 import c.e.exper.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -38,6 +35,18 @@ public class ApiOrders {
         OrderDAO order = ordersMapper.findOrder(ord_id);
         System.out.println(ord_id + "'s bag_info: " + order);
         return order;
+    }
+
+    @PostMapping("/arrival/{ord_id}")
+    public String orderArrival(@PathVariable("ord_id") String ord_id) {
+        System.out.println("[/api/orders/] " + ord_id);
+
+        if(ordersMapper.orderArrival(ord_id)){
+            return "배송완료 처리";
+        }else {
+            return "오류 발생";
+        }
+
     }
 
     @GetMapping("/match/{ord_id}/{user_id}")

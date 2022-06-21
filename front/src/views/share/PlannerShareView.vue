@@ -32,9 +32,9 @@
 <script>
 
 import axios from 'axios';
-import PlaceRecommend from "@/components/order/PlaceRecommend";
-import bestPlace from "@/components/BestPlace";
-import PlannerShareCard from "@/components/PlannerShareCard";
+import PlaceRecommend from "@/components/recommend/PlaceRecommend";
+import bestPlace from "@/components/recommend/BestPlace";
+import PlannerShareCard from "@/components/recommend/PlannerShareCard";
 
 
 export default {

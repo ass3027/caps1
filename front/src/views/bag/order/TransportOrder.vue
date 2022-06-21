@@ -1,102 +1,145 @@
 <template>
   <v-app id="app">
     <div class="Bag-order">
-      가방 운송 신청서
+      <p class="text-center">
+        가방 운송 신청서
+      </p>
     </div>
     <v-form v-model="valid">
-      <h3>짐 종류와 수량</h3>
-      <v-container class="d-flex flex-column mb-6">
-        <v-row
-          v-for="(bagType,index) in bagType "
-          :key="index"
-        >
-          {{ bagType.title }}
-          <v-checkbox
-            v-model="checkedName"
-            :value="bagType.value"
-          />
-        </v-row>
+      <v-row>
+        <v-col>
+          <v-container justify="space-around">
+            <h3>출발장소</h3>
+            <search-place @childEvent="startAddress"/>
+            <div>출발장소: {{ startLodging.title }}</div>
+            <v-img :src="startLodging.firstimage2" width="200px" height="150px" class="ma-2" alt=""/>
+          </v-container>
+        </v-col>
+        <v-col>
+          <v-container justify="space-around">
+            <h3>도착장소</h3>
+            <search-place @childEvent="endAddress"/>
+            <div>도착장소: {{ endLodging.title }}</div>
+            <v-img :src="endLodging.firstimage2" width="200px" height="150px" class="ma-2" alt=""/>
+          </v-container>
+        </v-col>
+      </v-row>
 
-        <v-card>
-          <h1>가방 합계가격: {{ bagAmount }} 원</h1>
-        </v-card>
+      <v-container>
+        <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
+          <v-expansion-panel>
+            <v-expansion-panel-header><h3>짐 종류와 수량</h3></v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-card v-for="(item, index) in bagType" :key="index">
+                <v-card-text>
+                  <v-row align="center">
+                    {{ item.title }}
+                    <v-spacer/>
+                    {{ item.value }}원
+                    <v-checkbox
+                      v-model="checkedName"
+                      :value="item.value"
+                    />
+                  </v-row>
+                </v-card-text>
+              </v-card>
+
+              <v-card>
+                <v-card-text>
+                  가방 합계가격: {{ bagAmount }} 원
+                </v-card-text>
+              </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-container>
+      <v-col></v-col>
 
-      <v-container justify="space-around">
-        <v-row>
-          <DateTimePicker
-            :label="'시작날짜'"
-            @date="changeEntrustTime"
-          />
-          <DateTimePicker
-            :label="'종료날짜'"
-            @date="changeWithdrawTime"
-          />
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-card>
-              <h3>출발장소</h3>
-              <AddressComponent @addressData="startAddress" />
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card>
-              <h3>도착장소</h3>
-              <AddressComponent @addressData="endAddress" />
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-      <br>
+      <v-card>
+        <div>
+          <div style="width: 50%; display: inline-block">
+            <div style="margin: 0 auto">
+              <DateTimePicker @child="resultDate" :label="'시작날짜'"/>
+            </div>
+          </div>
+          <div style="width: 50%; display: inline-block">
+            <div style="margin: 0 auto">
+              <DateTimePicker @child="resultDate" :label="'종료날짜'"/>
+            </div>
+          </div>
+        </div>
+      </v-card>
 
-      <div>
-        <v-btn
-          depressed
-          color="primary"
-          @click="addOrder"
-        >
-          작성 완료
-        </v-btn>
-      </div>
+      <v-col></v-col>
+      <v-card>
+        <v-col>
+          <v-row>
+            <v-card>
+              <h1>요청사항</h1>
+            </v-card>
+          </v-row>
+          <br>
+          <v-textarea
+            name="input-7-1"
+            label="요청사항을 입력해주세요(255글자 내)"
+            v-model="ordRequest"
+          ></v-textarea>
+        </v-col>
+      </v-card>
+
+
+      <v-btn depressed color="primary" @click="addOrder">
+        작성 완료
+      </v-btn>
     </v-form>
-
-    <router-view />
+    <router-view/>
   </v-app>
 </template>
 
 <script>
-import AddressComponent from "@/components/AddressComponent"
 import DateTimePicker from "@/views/bag/order/DateTimePicker"
 import axios from "axios";
+import SearchPlace from "@/components/SearchPlace";
 
 export default {
   components: {
-    AddressComponent,
+    SearchPlace,
+    // MapComponent
     DateTimePicker
   },
   data() {
     return {
+      sDate: '',
+      panel: [0, 1],
+      disabled: false,
+      readonly: true,
+      startLodging: '',
+      endLodging: '',
       checkedName: [],
       overlay: false,
       valid: '',
       checkBagTime: '',
-
+      //날짜 데이터
+      dateTimePicker: '',
       //시작날짜
       entrustTime: '',
-      //도착날짜
+      //종료날짜
       withdrawTime: '',
       //시작장소
       entrustAddress: '',
       //도착장소
       withdrawAddress: '',
+      //요청사항
+      ordRequest: '',
+      //이미지
+      image2: '',
 
       bagType: [
-        {title: '기내용 캐리어(57cm 미만) 11,000원', value: 11000},
-        {title: '화물용 캐리어(57cm 이상 67cm 미만) 16,000원', value: 16000},
-        {title: '특대형 캐리어(67cm 이상 또는 20kg 이상) 20,000원', value: 20000},
-        {title: '백팩 소형(40L 미만 그리고 10kg 미만) 10,000원', value: 10000},
-        {title: '백팩 대형(40L 이상 또는 10kg 이상) 15,000원', value: 15000},
+        {title: '기내용 캐리어(57cm 미만)', value: 11000},
+        {title: '화물용 캐리어(57cm 이상 67cm 미만)', value: 16000},
+        {title: '특대형 캐리어(67cm 이상 또는 20kg 이상)', value: 20000},
+        {title: '백팩 소형(40L 미만 그리고 10kg 미만)', value: 10000},
+        {title: '백팩 대형(40L 이상 또는 10kg 이상)', value: 15000},
         {title: '기타물품 별도문의', value: 30000}
       ],
     }
@@ -120,44 +163,50 @@ export default {
   },
 
   methods: {
-    changeEntrustTime(date) {
-      this.entrustTime = date;
+    resultDate(sDate) {
+      this.sDate = sDate
+      return this.sDate
     },
-    changeWithdrawTime(date) {
-      this.withdrawTime = date;
+
+    startAddress: function (lodging) {
+      this.startLodging = lodging
+      console.log("시작장소데이터" + lodging)
     },
+
+    endAddress: function (lodging) {
+      this.endLodging = lodging
+      console.log("도착장소데이터" + lodging)
+    },
+
     addOrder() {
       let transportBag = {
-        ord_id: 301,  //주문번호
+        ord_id: '',
         ord_amount: this.bagAmount, //금액
-        user_id: this.$store.state.user.userId, //userid
-        keep_start: this.entrustAddress,  //시작장소
-        keep_end: this.withdrawAddress, //도착장소
-        entrust_time: this.entrustTime, //시작시간
-        withdraw_time: this.withdrawTime, //도착시간
-        ord_selection: 'Transport', //물품배송
+        user_id: this.$store.state.user.userId, // UserId
+        keep_start: this.startLodging.pl_id, //시작장소
+        keep_end: this.endLodging.pl_id, //도착장소
+        entrust_time: this.sDate,  //맡길시간
+        withdraw_time: this.sDate,  //찾을시간
+        ord_selection: '물품운송', //물품보관
+        ord_request: this.ordRequest,
+        status:'1',
       }
       axios
-        .post('/api/trAddOrder', transportBag)
+        .post('/api/transportAddOrder', transportBag)
         .then((res) => {
           console.log(transportBag)
-          alert("주문 완료!")
+          alert('주문완료!')
         })
     },
-    startAddress(address) {
-      this.entrustAddress = address
-      console.log(this.entrustAddress)
-    },
-    endAddress(address) {
-      this.withdrawAddress = address
-      console.log(this.withdrawAddress)
-    },
+
   },
 }
 </script>
+
 <style scoped>
 .Bag-order {
   margin: 10px;
   font-size: xx-large;
 }
+
 </style>

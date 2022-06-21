@@ -1,16 +1,15 @@
 <template>
+  <div>
   <v-card class="ma-5 pa-5">
     <h2>
       {{ share.share_title }}[{{ $route.params.id }}]
     </h2>
     <p>
-      #{{ share.share_place }}
+      #{{ share.share_place }} #{{preference}}
     </p>
     <p>
       {{ share.share_contents }}
     </p>
-
-    <h3>-----------</h3>
     <div>
       <img
         v-for="photo in pictures"
@@ -19,22 +18,38 @@
       >
     </div>
 
-    <h3>-----------</h3>
-    <h3>일정 or 지도 컴포넌트</h3>
     <ul>
-      <li
-        v-for="schedule in schedules"
-        :key="schedule.sch_number"
-      >
-        <!--@todo cheack-->
-        {{ schedule }}
+<!--      <li-->
+<!--        v-for="schedule in schedules"-->
+<!--        :key="schedule.sch_number"-->
+<!--      >-->
+<!--        &lt;!&ndash;@todo cheack&ndash;&gt;-->
+<!--        {{ schedule }}-->
+<!--      </li>-->
+      <li>
+        <v-row
+          v-for="(schedule,index) in calendar.date"
+          :key="index"
+        >
+          <div
+            style="width:899px;height:750px;position:relative;overflow:hidden;float:left;border: solid 10px"
+            v-if="schedule.size!==0"
+          >
+            <MapComponent
+
+              :schedule="schedule"
+              :index="index"
+            />
+          </div>
+          <h3 v-for="(s,i) in schedule" :key="i">{{s[1].pl_name}}-></h3>
+
+
+        </v-row>
+
       </li>
     </ul>
 
 
-    <v-btn @click="copyPlanner">
-      일정 복제하기
-    </v-btn>
     <div v-if="$store.state.user.userId==share.user_id">
       <v-btn @click="edit">
         수정
@@ -43,21 +58,34 @@
         삭제
       </v-btn>
     </div>
+    <v-btn @click="copyPlanner">
+      일정 복제하기
+    </v-btn>
+
     <h2>공유된 횟수:{{ share.share_count }}</h2>
   </v-card>
+    {{calendarX}}
+
+    <v-btn @click="calendarX.push(1)&&calendarX.splice(0,1)">지도에서보기</v-btn>
+
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
+import MapComponent from "@/components/MapComponent";
 
 export default {
   name: "PlannerShareDetailsView",
-  components: {},
+  components: {MapComponent},
   data() {
     return {
       share: {},
       schedules: [],
-      pictures: []
+      pictures: [],
+      calendar:{},
+      calendarX:[],
+      preference:''
 
     }
   },
@@ -73,10 +101,44 @@ export default {
         this.share = res.data[0]
         this.schedules = res.data[1]
         this.pictures = res.data[2]
-        console.log(this.share)
-        console.log(this.schedules)
-        console.log(this.pictures)
+
+        axios.get("/api/getPreference",{params:{user_id:this.share.user_id}})
+          .then((res)=>{
+            this.preference=res.data
+          })
+
+
+        axios.get(`/api/planner/Schedule/${this.share.plan_id}`)
+          .then( (res)=>{
+            console.log('DF')
+            const scheduleList=res.data.scheduleList
+            this.calendar["expectExpenses"]=1000
+            this.calendar["date"]= {}
+
+            scheduleList.forEach( (it)=>{
+              const partialData = {
+                gitem_id:it.gitem_id,
+                pl_id:it.pl_id,
+                expect_expenses: it.expect_expenses,
+                mapX:it.mapX,
+                mapY:it.mapY,
+                pl_name:it.pl_name,
+                address:it.place
+              }
+              if(this.calendar.date[it.sch_endTime.substring(0,10)]===undefined){
+                this.calendar.date[it.sch_endTime.substring(0,10)] = new Map()
+              }
+              this.calendar.date[it.sch_endTime.substring(0,10)].set(
+                parseInt( it.sch_startTime.substring(11,13) ), partialData)
+              //이거 객체화 해서 저장해야하무
+            })
+            // console.log('test', this.calendar.date['2022-04-05'].get('2'))
+
+
+          })
+
       })
+
   },
   methods: {
     copyPlanner() {

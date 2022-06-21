@@ -28,7 +28,6 @@ public class ApiShare {
     final PictureMapper pictureMapper;
 
 
-
     public ApiShare(ShareMapper shareMapper, PlannerMapper plannerMapper, ScheduleMapper scheduleMapper, PictureMapper pictureMapper) {
         this.shareMapper = shareMapper;
         this.plannerMapper = plannerMapper;
@@ -36,22 +35,18 @@ public class ApiShare {
         this.pictureMapper = pictureMapper;
     }
 
+//    @PostMapping("/addPlanner")
+//    public void addPlanner() {
+//
+//    }
+
 
     @GetMapping("/getSharePosts")
     public List<ShareDTO> getSharePosts() {
         List<ShareDTO> s = shareMapper.findAllShares();
-        s.forEach((i)->{
+        s.forEach((i) -> {
             i.setPic_name(shareMapper.findPicturesById(i.getShare_id()));
         });
-//        for(int i =0;i<s.size();i++){
-//            Date d = s.get(i).getShare_created();
-//            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-//            String f = format.format(d);
-//
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-mm-dd");
-//            LocalDateTime date = LocalDateTime.parse(f, formatter);
-//            s.get(i).setShare_created(java.sql.Timestamp.valueOf(date));
-//        }
         System.out.println(s);
 
 
@@ -60,22 +55,37 @@ public class ApiShare {
 
     @PostMapping("/addPost")
     public String addPost(@RequestBody Share share) {
+        Optional<PlannerDAO> plannerDAO = plannerMapper.selectById(share.getPlan_id());
+        System.out.println("여기전"+plannerDAO.get().getPlan_id());
+        String prePlan_id=plannerDAO.get().getPlan_id();
+        plannerDAO.get().setUser_id(null);
+        System.out.println(plannerDAO.get().getUser_id());
 
+        if(plannerDAO.isPresent()){
+            plannerMapper.insert(plannerDAO.get());
+        }else{
+            return "0";
+        }
+        System.out.println("여기후"+plannerDAO.get().getPlan_id());
+        String plan_id = plannerDAO.get().getPlan_id();
+
+        List<ScheduleDAO> s = scheduleMapper.selectAllById(prePlan_id);
+        System.out.println(s);
+        System.out.println("?2");
+
+        for (ScheduleDAO scheduleDAO : s) {
+            System.out.println("?3");
+            scheduleDAO.setPlan_id(plan_id);
+            System.out.println(scheduleDAO);
+            System.out.println("?4");
+            scheduleMapper.insert(scheduleDAO);
+            System.out.println("?");
+        }
+
+
+        share.setPlan_id(plan_id);
         System.out.println(share);
-//        System.out.println(LocalDateTime.now().format());
-//        Long datetime =
-//        System.out.println(datetime);
-//        System.out.println(share);
-//        Date d = new Date();
-//        System.out.println(d);
-//        System.out.println("1");
-//        System.out.println(d.getTime());
-//        System.out.println("1");
-//        Timestamp timestamp = new Timestamp(datetime);
-//        System.out.println("1");
-//        System.out.println("Current Time Stamp: "+timestamp);
-//
-//        share.setShare_created(timestamp);
+        //inser하기전에 planid를 새로만든걸로
         shareMapper.insert(share);
 
         return share.getShare_id();
@@ -96,7 +106,7 @@ public class ApiShare {
 
         List<PlannerDAO> plannerDAO = plannerMapper.selectAllById(req.getParameter("id"));
 
-        List<PlannerDTO> plannerDTO = new ArrayList<>();
+        List<PlannerDTO> plannerDTO = new ArrayList<PlannerDTO>();
         plannerDAO.forEach(data -> plannerDTO.add(data.toDTO()));
 
         return plannerDTO;
@@ -113,11 +123,11 @@ public class ApiShare {
 
     /*상세보기 페이지*/
     @GetMapping("/getSharePostDetails")
-    public ArrayList getSharePostDetails(
+    public List<Object> getSharePostDetails(
             @RequestParam("share_id") String share_id
     ) {
         System.out.println(share_id);
-        ArrayList a = new ArrayList();
+        List<Object> a = new ArrayList();
         Share s = shareMapper.findShareById(share_id);
         List<ScheduleDAO> schedules = scheduleMapper.selectAllById(s.getPlan_id());
         List<SharePictureDAO> pic = shareMapper.findPicturesById(share_id);
@@ -131,7 +141,7 @@ public class ApiShare {
 
     @GetMapping("/copyPlanner")
     public String copyPlanner(@RequestParam("plan_id") String plan_id,
-                                 @RequestParam("user_id") String user_id,
+                              @RequestParam("user_id") String user_id,
                               @RequestParam("share_id") String share_id,
                               @RequestParam("share_title") String share_title
 
@@ -142,13 +152,13 @@ public class ApiShare {
 
         //optional로 바꾼 부분
         Optional<PlannerDAO> pp = plannerMapper.selectById(plan_id);
-        if(pp.isEmpty()) return "시일패애";
+        if (pp.isEmpty()) return "시일패애";
         PlannerDAO p = pp.get();
 
         System.out.println(p);
         p.setUser_id(user_id);
         System.out.println(p.getPlan_id());
-        p.setPlan_name("copy of "+share_title);
+        p.setPlan_name("copy of " + share_title);
         plannerMapper.insert(p);
         System.out.println(p.getPlan_id());
         System.out.println("?1");
@@ -174,7 +184,7 @@ public class ApiShare {
     }
 
     @DeleteMapping("/delSharePlan")
-    public String delSharePlan(@RequestParam("share_id")String share_id){
+    public String delSharePlan(@RequestParam("share_id") String share_id) {
         System.out.println(share_id);
         shareMapper.deleteSharePic(share_id);
         shareMapper.deleteSharePlan(share_id);
@@ -183,7 +193,7 @@ public class ApiShare {
     }
 
     @PutMapping("/editPost")
-    public String editPost(@RequestBody Share share){
+    public String editPost(@RequestBody Share share) {
         System.out.println(share);
         shareMapper.updateShare(share);
 
@@ -195,7 +205,7 @@ public class ApiShare {
             @RequestBody List<SharePictureDAO> pictures,
             @RequestParam("share_id") String share_id
     ) {
-        System.out.println("아아여기요"+share_id);
+        System.out.println("아아여기요" + share_id);
         shareMapper.deleteSharePic(share_id);
 
         for (SharePictureDAO picture : pictures) {
@@ -204,6 +214,11 @@ public class ApiShare {
         }
 
         return "수정완료";
+    }
+
+    @GetMapping("/getPreference")
+    public String getPreference(String user_id){
+        return shareMapper.selectPreference(user_id);
     }
 
 }

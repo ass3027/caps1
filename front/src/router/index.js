@@ -27,6 +27,7 @@ import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
 
 
 //봉식
+
 // import TrackingView from "@/views/bag/TrackingView";
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
@@ -58,14 +59,14 @@ import GuideProductSearch from "@/views/guide/GuideProductSearch";
 
 
 //세운??
-import ProductReviewView from "@/views/ProductReviewView";
+import ProductReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
 //민아
 import MypageView from "@/views/auth/MypageView";
 import BookMarkView from "@/views/auth/BookMarkView";
-import MyDataView from "@/views/auth/MyDataView";
+import MyDataView from "@/views/auth/MyPageUpdateView";
 import QuestionsView from "@/views/auth/QuestionsView";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
@@ -79,6 +80,10 @@ import {store} from "@/store"
 import GuideIntro from "@/views/guide/GuideIntro";
 import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 
+import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
+
+
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -86,12 +91,13 @@ const routes = [
   {path: "/join", name: "join", component: JoinView},
   {path: "/login", name: "login", component: LoginView},
   {path: "/myPage", name: "MyPage", component: MypageView},
-  {path: "/myData", name: "MyData", component: MyDataView},
+  {path: "/myPageUpdate", name: "MyPageUpdate", component: MyPageUpdateView},
   {path: "/questions", name: "Questions", component: QuestionsView},
   {path: "/writing", name: "Writing", component: WritingView},
   {path: "/detailPage/:id", name: "DetailPage", component: DetailPageView},
   {path: "/detailPage/:id/writingMod", name: "WritingMod", component: WritingModView,},
-  {path: "/bookmark", name: "Bookmark", component: BookMarkView},
+  {path: "/bookmark", name: "BookMark", component: BookMarkView},
+
 
   //성호
   {path: "/supplies", name: "supplies", component: SuppliesVue},
@@ -113,7 +119,7 @@ const routes = [
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 
   //세진
-  {path: "/calender", name: "calender", component: CalenderView},
+  {path: "/calender", name: "calender", component: CalenderView, props:true},
   {path: "/plInvite", name: "plInvite", component: PlInviteView},
   {path: "/plan", name: "plan", component: PlanView},
   {path: "/planPic", name: "planPic", component: PlannerPicView},
@@ -223,7 +229,7 @@ const routes = [
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 
-  //민아 실험
+  //민아 실험?
   {path: "/mina", component: MINA}
 ];
 

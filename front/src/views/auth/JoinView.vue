@@ -10,14 +10,19 @@
               v-model="user_id"
               type="text"
               placeholder="ID"
-              append-icon="mdi-close"
+              clearable
+              @change="submit"
             >
               ss
             </v-text-field>
           </v-col>
-          <v-btn style="margin: 25px" v-on:click="idCheck">아이디 중복 확인하기</v-btn>
-<!--          <button @click="idCheck">ㅇㅇ</button>-->
 
+          <v-btn
+            style="margin: 25px"
+            @click="idCheck"
+          >
+            아이디 중복 확인하기
+          </v-btn>
         </v-row>
 
         <v-row>
@@ -25,7 +30,7 @@
             v-model="user_pw"
             type="text"
             placeholder="PASSWD"
-            append-icon="mdi-close"
+            clearable
           />
         </v-row>
         <v-row>
@@ -35,14 +40,46 @@
             placeholder="NAME"
           />
         </v-row>
+
+        <v-radio-group
+          v-model="gender"
+          row>
+          <v-row>
+            <v-radio
+              label="남자"
+              value="M"
+            ></v-radio>
+            <v-radio style="margin: 5px"
+                     label="여자"
+                     value="F"
+            ></v-radio>
+          </v-row>
+        </v-radio-group>
+
         <v-row>
           <v-text-field
             v-model="user_phone"
-
             type="text"
             placeholder="PHONE"
           />
         </v-row>
+
+        <v-row>
+          <v-select
+            v-model="preference"
+            :items="items"
+            label="선호하는 여행방식을 골라주세요"
+            dense
+          ></v-select>
+        </v-row>
+<!--          <v-overflow-btn-->
+<!--            v-model="reference"-->
+<!--            class="my-2"-->
+<!--            :items="items"-->
+<!--            label="선호하는 여행방식을 골라주세요"-->
+<!--            dense-->
+<!--          ></v-overflow-btn>-->
+
         <v-row>
           <v-date-picker
             v-model="user_birth"
@@ -62,7 +99,9 @@
         style="width:400px;height:400px"
       />
 
-      <v-btn @click="submit()">submit</v-btn>
+      <v-btn @click="submit()">
+        submit
+      </v-btn>
     </form>
   </div>
 </template>
@@ -82,7 +121,11 @@ export default {
       user_birth: '',
       user_photo: {},
       role: 'user',
-      checked:false
+      checked:false,
+      gender:'',
+      preference:'',
+      items:['사진인증형','맛집탐방형', '관광형', '휴식형'],
+      userId:false //
     };
   },
   methods: {
@@ -112,11 +155,17 @@ export default {
     submit: function () {
       var sendform = new FormData();
 
-
       if (this.checked === false){
         alert("아이디중복 버튼을 눌러주세요")
         return
       }
+      // else if (this.checked === false){
+      //   alert("아이디중복 버튼을 다시 눌러주세요")
+      //   return;
+      // }
+
+
+      console.log(this.gender)
       sendform.append('user_id', this.user_id);
       sendform.append('user_pw', this.user_pw);
       sendform.append('user_phone', this.user_phone);
@@ -124,6 +173,8 @@ export default {
       sendform.append('user_birth', this.user_birth);
       sendform.append('user_photo', this.user_photo);
       sendform.append('role', this.role);
+      sendform.append('gender', this.gender);
+      sendform.append('preference', this.preference);
 
 
       axios({
@@ -135,28 +186,12 @@ export default {
         data: sendform,
       }).then((res) => {
         console.log(res.data)
-
          if (res.data) {
            alert('회원가입 성공');
            this.$router.push("/")
-          // this.$router.push("/join")
         } else  {
            alert('회원가입 실패');
         }
-
-
-        // if (res.data === true) {
-        //   alert('회원가입 성공');
-        //   this.$router.push('/')
-        // } else {
-        //   alert('회원가입 실패')
-        // }
-        //
-        // if (this.checked == false){
-        //   alert("아이디중복버튼을 눌러주세요")
-        // } else {
-        //   alert("실패");
-        // }
       });
     },
     idCheck(){
@@ -175,19 +210,14 @@ export default {
           this.checked = true
            alert("사용가능한 아이디입니다.")
          }
-        // if (this.checked == false){
-        //   alert("버튼누르셈")
-        // }else if (this.checked == true){
-        //   alert("ㅇㅇ")
-        // }
       })
-    }
+    },
   },
 };
 // components: {
 //   HelloWorld
 // }
 </script>
-<style>
+<style scoped>
 
 </style>
