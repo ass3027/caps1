@@ -1,7 +1,7 @@
 <template>
   <div>
 <MyPageHeader></MyPageHeader>
-    <h1>회원정보수정</h1>
+<!--    <h1>회원정보수정</h1>-->
     <div class="container">
       <v-row>
         <v-text-field

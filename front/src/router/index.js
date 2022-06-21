@@ -52,7 +52,7 @@ import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 import GuideSearch from "@/views/guide/GuideSearch";
 import GuideProduct from "@/views/guide/GuideProduct";
-import GuideProductTime from "@/views/guide/GuideProductTime";
+
 import GuideProductView from "@/views/guide/GuideProductView";
 import GuideProductSearch from "@/views/guide/GuideProductSearch";
 

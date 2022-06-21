@@ -1,70 +1,75 @@
 <template>
   <div>
-  
+
     <MyPageHeader></MyPageHeader>
     <div id="card">
-    
+
       <template>
         <v-card>
           <v-toolbar
             flat
-            color="primary"
+            color="header"
             dark
           >
             <v-toolbar-title>즐겨찾기</v-toolbar-title>
           </v-toolbar>
           <v-tabs vertical>
             <v-tab>
-            
               <v-icon left >mdi-bookmark</v-icon>
               모두보기
             </v-tab>
             <v-tab >키퍼</v-tab>
             <v-tab >숙소</v-tab>
             <v-tab>관광지</v-tab>
+          </v-tabs>
 
             <v-tab-item
               v-for="(posts,index) in postArray"
               :key="index"
             >
+
               <v-card flat>
                 <v-col
                   v-for="(post, index) in posts"
                   :key="index" style="display:flex;float:left; width:400px"
                 >
-                  <v-card
-                    @click="url(post.pl.id)"
-                    style="width: 400px; height: 450px"
+                  <v-col
+                    v-for="(item, index) in post"
+                    :key="index" style="display:flex;float:left; width:400px"
+                  >
+                    <v-card
+                      @click="url(post.pl.id)"
+                      style="width: 400px; height: 450px"
                     >
-                    <v-img
-                      class="white--text align-end"
-                      height="200px"
-                      v-bind:src="post.firstimage"
-                    />
-                    <v-card-subtitle class="text--primary">
-                      <p>{{post.addr1}}</p>
-                      <p>{{post.title}}</p>
-                      <p>{{post.tel}}</p>
-                      <p>{{post.user_id}}</p>
-                    </v-card-subtitle>
-                    <v-btn
-                      color="orange"
-                      text
-                      @click="url"
-                    >사이트 이동하기</v-btn>
-                  </v-card>
+                      <v-img
+                        class="white--text align-end"
+                        height="200px"
+                        v-bind:src="post.firstimage"
+                      />
+                      {{index}}
+                      <v-card-subtitle class="text--primary">
+                        <p>{{item.addr1}}</p>
+                        <p>{{item.title}}</p>
+                        <p>{{item.tel}}</p>
+                        <p>{{item.user_id}}</p>
+                      </v-card-subtitle>
+                      <v-btn
+                        color="orange"
+                        text
+                        @click="url"
+                      >사이트 이동하기</v-btn>
+                    </v-card>
+                  </v-col>
+
                 </v-col>
               </v-card>
             </v-tab-item>
 
-
-
-          </v-tabs>
         </v-card>
       </template>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -82,14 +87,21 @@ export default {
       tel:'',
       user_id:'',
       firstimage:'',
-      postArray:[] //배열
+      postArray:[], //배열,
+      posts:[]
+
     }
   },
   mounted() {
     axios.get("/api/bookmark/BookMark")
     .then((res)=>{
-      console.log(res.data.all)
+      console.log('test', res)
       this.postArray.push(res.data);
+      // console.log('test', res.data.all)
+      // // console.log('test', res.data.all[0])
+      // this.post_all.push(res.data.all);
+      // this.post_keeper.push(res.data.keeper);
+      // this.post_hotel.push(res.data.hotel);
     })
 
     // this.all()
@@ -135,8 +147,10 @@ export default {
 <style scoped>
 #card {
   margin: 50px;
-
-
+}
+.header{
+  background-color: #FFFBE6 !important;
+  color: #356859 !important;
 }
 
 </style>

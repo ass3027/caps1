@@ -3,7 +3,7 @@
     <div>
       <MyPageHeader></MyPageHeader>
         <v-form>
-          <h1>회원정보</h1>
+<!--          <h1>회원정보</h1>-->
           <v-container  >
             <v-row justify="center">
               <v-col

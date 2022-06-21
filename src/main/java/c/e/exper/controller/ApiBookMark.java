@@ -30,29 +30,31 @@ public class ApiBookMark {
     }
 
 
+
+
     @GetMapping("/BookMark")
-    public Map<String, Object> AllBookMark() {
+    public Map<String,Object> AllBookMark() {
         List<PlaceDAO> all = bookMarkMapper.selectAllByUserBookMark(getUser_id());
         List<PlaceDAO> keeper = bookMarkMapper.selectByUserBookMarkKeeper(getUser_id());
         List<PlaceDAO> hotel = bookMarkMapper.selectByUserBookMarkHotel(getUser_id());
         Map<String, Object> bookmarkData = new HashMap<>();
 
         if (all.isEmpty()) {
-            bookmarkData.put("all", new PlaceDAO());
+            bookmarkData.put("all", all);
         } else {
-            bookmarkData.put("all", all.get());
+            bookmarkData.put("all", all);
         }
 
         if (keeper.isEmpty()) {
-            bookmarkData.put("keeper", new PlaceDAO());
+            bookmarkData.put("keeper", keeper);
         } else {
-            bookmarkData.put("keeper", keeper.get(0));
+            bookmarkData.put("keeper", keeper);
         }
 
         if (hotel.isEmpty()) {
-            bookmarkData.put("hotel", new PlaceDAO());
+            bookmarkData.put("hotel", hotel);
         } else {
-            bookmarkData.put("hotel", hotel.get(0));
+            bookmarkData.put("hotel", hotel);
         }
         System.out.println(bookmarkData.get("all"));
         return bookmarkData;
