@@ -59,7 +59,7 @@ import GuideProductSearch from "@/views/guide/GuideProductSearch";
 
 
 //세운??
-import ProductReviewView from "@/views/ProductReviewView";
+import ProductReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
@@ -78,7 +78,6 @@ import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
 
-import GuideProductTime from "@/views/guide/GuideProductTime";
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 
 

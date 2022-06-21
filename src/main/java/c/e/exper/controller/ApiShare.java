@@ -96,7 +96,7 @@ public class ApiShare {
 
         List<PlannerDAO> plannerDAO = plannerMapper.selectAllById(req.getParameter("id"));
 
-        List<PlannerDTO> plannerDTO = new ArrayList<>();
+        List<PlannerDTO> plannerDTO = new ArrayList<PlannerDTO>();
         plannerDAO.forEach(data -> plannerDTO.add(data.toDTO()));
 
         return plannerDTO;
@@ -113,11 +113,11 @@ public class ApiShare {
 
     /*상세보기 페이지*/
     @GetMapping("/getSharePostDetails")
-    public ArrayList getSharePostDetails(
+    public List<Object> getSharePostDetails(
             @RequestParam("share_id") String share_id
     ) {
         System.out.println(share_id);
-        ArrayList a = new ArrayList();
+        List<Object> a = new ArrayList();
         Share s = shareMapper.findShareById(share_id);
         List<ScheduleDAO> schedules = scheduleMapper.selectAllById(s.getPlan_id());
         List<SharePictureDAO> pic = shareMapper.findPicturesById(share_id);
