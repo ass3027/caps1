@@ -3,19 +3,24 @@
     <div class="card">
       <div class="cardInfo">
         <div class="cardImg" @click="show=!show">
-          <img src="https://cdn.vuetifyjs.com/images/cards/cooking.png">
+          <img :src="'/api/photo/' + product.pic_name"
+               style="width: 80%">
         </div>
         <div class="cardText">
-          <div class="cardTitle">title</div>
-          <div class="cardPrice">price<span class="priceScore">110,000</span></div>
+          <div class="cardTitle">{{ product.pd_id }}</div>
           <br>
-          <div class="cardPlace">ETC</div>
+          <div class="cardPrice">가격 <span class="priceScore">{{ product.pd_price }}원</span></div>
+          <br>
+          <div class="cardPlace">
+            <hr>
+          </div>
+          <br>
           <button>예약</button>
         </div>
       </div>
       <div v-show="show" class="cardMoreInfo">
-        <div class="imgGaurd">
-          <img src="https://cdn.vuetifyjs.com/images/cards/cooking.png">
+        <div class="imgGaurd" v-for="(image, index) in productImage" :key="index">
+          <img :src="'/api/photo/' + image.pic_name" style="width: 50%">
         </div>
       </div>
     </div>
@@ -23,64 +28,93 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "PlaceProduct",
+  props: ['product'],
   data: () => ({
     show: false,
+    productImage: [],
   }),
+  methods: {},
+
+  created() {
+    axios({
+      method: 'GET',
+      url: '/api/productImage',
+      params: {'pd_id': this.product.pd_id}
+    })
+      .then((res) => {
+        this.productImage = res.data
+        console.log(this.productImage)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
 </script>
 
 <style scoped>
-*{
+* {
   margin: 0px;
   padding: 0px;
   text-decoration: none;
   font-family: sans-serif;
 }
-.card{
+
+.card {
   width: 100%;
   /*background: #5F5F5F;*/
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
-.cardInfo{
+
+.cardInfo {
   display: flex;
   justify-content: space-between;
   margin: 10px;
   /*background: #81ecec;*/
 }
-.cardImg{
+
+.cardImg {
   display: block;
   width: 45%;
   /*background: red;*/
   float: left;
 }
-.cardImg img{
+
+.cardImg img {
   max-width: 100%;
   height: auto;
 }
-.cardText{
+
+.cardText {
   width: 45%;
   display: block;
   align-self: auto;
+  margin: auto;
   /*background: tomato;*/
 }
-.cardMoreInfo{
+
+.cardMoreInfo {
   display: flex;
   justify-content: center;
   width: 100%;
   /*background: blue;*/
 }
-.cardMoreInfo img{
+
+.cardMoreInfo img {
   margin: 10px;
 }
-.imgGaurd{
+
+.imgGaurd {
   margin: 10px;
   display: flex;
   justify-content: center;
   height: auto;
 
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
 
 }
 </style>

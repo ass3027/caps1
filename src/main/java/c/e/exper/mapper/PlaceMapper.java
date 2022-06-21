@@ -44,6 +44,14 @@ public interface PlaceMapper {
             from place
             where title like '%'||#{keyword}||'%'""")
     List<PlaceDAO> SearchPlaceByKeyword(String keyword);
+
+    @Select("""
+            SELECT *
+            FROM PLACE
+            WHERE cat3 = #{category} and areaCode = #{areaCode}
+            and firstimage is not null and tel is not null
+            """)
+    List<PlaceDAO> CategoryAreaCode(String category, String areaCode);
    
 /*
    @Select("select title,\n" +

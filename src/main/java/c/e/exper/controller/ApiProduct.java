@@ -21,4 +21,10 @@ public class ApiProduct {
     public List<ProductDAO> findStoreProduct(@RequestParam("pl_id")String pl_id) {
         return productMapper.findStoreProduct(pl_id);
     }
+
+    @GetMapping("/productImage")
+    public List<ProductDAO> findProductImage(@RequestParam("pd_id")String pd_id){
+        return productMapper.ProductImage(pd_id);
+    }
+
 }
