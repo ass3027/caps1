@@ -40,7 +40,7 @@ public class ApiBookMark {
         if (all.isEmpty()) {
             bookmarkData.put("all", new PlaceDAO());
         } else {
-            bookmarkData.put("all", all.get());
+            bookmarkData.put("all", all);
         }
 
         if (keeper.isEmpty()) {

@@ -1,10 +1,11 @@
 <template>
 
 
-  <div>
+  <div style="width: 1050px">
 
-    <DuserOrdersComponent/>
+    <!--    <DuserOrdersComponent/>-->
     <!--      <OrdersComponent :user_id="user_id" />-->
+    <ProductReviewView :id="'100'" :type="'product'"/>
   </div>
 </template>
 
@@ -12,6 +13,7 @@
 // import OrdersComponent from "@/components/OrdersComponent";
 import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
 import axios from "axios";
+import ProductReviewView from "@/views/ReviewView";
 // import OrdersComponent from "@/components/OrdersComponent";
 
 
@@ -20,8 +22,9 @@ export default {
 
   name: 'TestView',
   components: {
+    ProductReviewView
     // OrdersComponent,
-    DuserOrdersComponent
+    // DuserOrdersComponent
     // OrdersComponent
 
   },

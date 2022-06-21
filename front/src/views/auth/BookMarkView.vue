@@ -1,9 +1,9 @@
 <template>
-  <div>
-  
+  <div style="width: 1050px; padding-top: 65px">
+
     <MyPageHeader></MyPageHeader>
-    <div id="card">
-    
+    <div id="card" style="width: 820px; float: right;">
+
       <template>
         <v-card>
           <v-toolbar
@@ -15,7 +15,7 @@
           </v-toolbar>
           <v-tabs vertical>
             <v-tab>
-            
+
               <v-icon left >mdi-bookmark</v-icon>
               모두보기
             </v-tab>
@@ -133,7 +133,6 @@ export default {
 
 <style scoped>
 #card {
-  margin: 50px;
 
 
 }

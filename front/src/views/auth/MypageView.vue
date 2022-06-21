@@ -1,54 +1,54 @@
 <template>
-  <div id="app">
+  <div id="app" style="width: 1050px; padding-top: 65px">
     <div>
-      <MyPageHeader></MyPageHeader>
-        <v-form>
-          <h1>회원정보</h1>
-          <v-container  >
-            <v-row justify="center">
-              <v-col
-                cols="12"
-                sm="6"
-              >
-                <v-text-field
-                  v-model="user_name"
-                  label="이름"
-                  class="box"
-                  outlined
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="user_id"
-                  label="아이디"
-                  class="box"
-                  outlined
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="gender"
-                  label="성별"
-                  class="box"
-                  outlined
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="user_phone"
-                  label="연락처"
-                  class="box"
-                  outlined
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="preference"
-                  label="내가 선호하는 여행방식"
-                  class="box"
-                  outlined
-                  readonly
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-form>
+      <MyPageHeader/>
+      <div style="width: 820px; float: right;">
+        <h2>회원정보</h2>
+        <v-container  >
+          <v-row justify="center">
+            <v-col
+              cols="12"
+              sm="6"
+            >
+              <v-text-field
+                v-model="user_name"
+                label="이름"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="user_id"
+                label="아이디"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="gender"
+                label="성별"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="user_phone"
+                label="연락처"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="preference"
+                label="내가 선호하는 여행방식"
+                class="box"
+                outlined
+                readonly
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
 
 
 

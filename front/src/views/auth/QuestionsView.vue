@@ -1,35 +1,34 @@
 <template>
-  <div>
-  
-<MyPageHeader></MyPageHeader>
+  <div id="app" style="width: 1050px; padding-top: 65px">
+
+    <MyPageHeader></MyPageHeader>
+    <div style="width: 820px; float: right;">
+      <h2>게시판 목록</h2>
+      <v-text-field
+        v-model="keyword"
+        class="mx-4"
+        flat
+        hide-details
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        solo-inverted
+      />
 
 
-    <h2>게시판 목록</h2>
-    <v-text-field
-      v-model="keyword"
-      class="mx-4"
-      flat
-      hide-details
-      label="Search"
-      prepend-inner-icon="mdi-magnify"
-      solo-inverted
-    />
-    
-
-    <v-data-table
-      dense
-      :headers="post_list"
-      :items="dd"
-      item-key="name"
-      class="elevation-1"
+      <v-data-table
+        dense
+        :headers="post_list"
+        :items="dd"
+        item-key="name"
+        class="elevation-1"
       ></v-data-table>
-      
 
-    <v-simple-table
-      skyblue
-      dense
-    >
-      <thead>
+
+      <v-simple-table
+        skyblue
+        dense
+      >
+        <thead>
         <tr>
           <th
             class="text-center"
@@ -62,8 +61,8 @@
             조회수
           </th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr
           v-for="(post,index) in paged_post_list"
           :key="index"
@@ -100,36 +99,45 @@
             {{ post.inq_count }}
           </th>
         </tr>
-      </tbody>
-      <v-btn
-        :disabled="pageNum === 0"
-        class="page-btn"
-        @click="prevPage"
-      >
-        이전
-      </v-btn>
-      <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
-      <v-btn
-        :disabled="pageNum+1 >= pageCount"
-        class="page-btn"
-        @click="nextPage"
-      >
-        다음
-      </v-btn>
-    </v-simple-table>
-    {{ user_id }}
-    {{ inq_title }}
-    <div id="button">
-      <v-btn
-        type="button"
-        color="pink"
-        @click="check"
-      >
-        등록
-      </v-btn>
-      <!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
-      <v-btn type="button" @click="write">글쓰기</v-btn>
-    </div>
+        </tbody>
+
+        </v-simple-table>
+        <div style="text-align: center">
+          <div style="display: inline-block;">
+            <v-btn
+              :disabled="pageNum === 0"
+              class="page-btn"
+              @click="prevPage"
+            >
+              이전
+            </v-btn>
+            <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
+            <v-btn
+              :disabled="pageNum+1 >= pageCount"
+              class="page-btn"
+              @click="nextPage"
+            >
+              다음
+            </v-btn>
+          </div>
+        </div>
+
+        {{ user_id }}
+        {{ inq_title }}
+        <div id="button">
+          <v-btn
+            type="button"
+            color="pink"
+            @click="check"
+          >
+            등록
+          </v-btn>
+          <!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
+          <v-btn type="button" @click="write">글쓰기</v-btn>
+        </div>
+      </div>
+
+
   </div>
 </template>
 
@@ -141,7 +149,7 @@ export default {
     MyPageHeader
   },
   name: "QuestionsView",
-  
+
   props:{ //매개변수, 값을 받아올떄 쓰는아이
     // listArray: {
     //   type: Array,
@@ -152,7 +160,7 @@ export default {
     //   required: false,
     //   default: 10
     // }
-    
+
   },
   data() {
     return {
@@ -163,13 +171,13 @@ export default {
       user_id: '',
       inq_count: 0,
       post_list:[],
-      
+
       pageSize: 10
       // paged_post_list:[]
       // tableList:[]
     }
   },
-  
+
    computed:{
      pageCount() {
        // let page = Math.floor(this.post_list.length/this.pageSize);
@@ -186,7 +194,7 @@ export default {
        // paged_post_list()
      }
   },
-  
+
   mounted() {
     axios.get("/api/inquiry/Questions/")
 
