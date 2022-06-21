@@ -23,7 +23,7 @@ public interface BagMapper {
    void transportInsert(BagDAO transportBag);
    
    //물품조회(보관)
-   @Select("Select ord_id,ord_amount,place.title,entrust_time,withdraw_time,ord_selection from orders,place " +
+   @Select("Select ord_id,ord_amount,place.title,entrust_time,withdraw_time,status from orders,place " +
          "Where orders.user_id=#{user_id} " +
          "and orders.ORD_SELECTION='물품보관' " +
          "and orders.keep_start=pl_id " +
@@ -32,7 +32,8 @@ public interface BagMapper {
    
    
    //물품조회(운송)
-   @Select("Select ord_id,ord_amount,p1.pl_id,p2.PL_ID,entrust_time,withdraw_time,ord_selection,p1.title as keep_start,p2.title as keep_end from orders,place p1, place p2\n" +
+   @Select("Select ord_id,ord_amount,p1.pl_id,p2.PL_ID,entrust_time,withdraw_time,status," +
+         "p1.title as keep_start,p2.title as keep_end from orders,place p1, place p2\n" +
          "Where orders.user_id=#{user_id}\n" +
          "and orders.ORD_SELECTION='물품운송'\n" +
          "and orders.keep_start=p1.pl_id\n" +
