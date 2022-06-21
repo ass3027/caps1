@@ -34,6 +34,7 @@
             </v-list-item-title>
             <v-list-item-subtitle>
               소개<br>{{ item.guser_intro }}
+
             </v-list-item-subtitle>
           </v-list-item-content>
 
@@ -57,7 +58,15 @@
           </div>
 
         </v-list-item>
-
+        <v-btn
+          v-if="item.user_id==$store.state.user.userId"
+          outlined
+          rounded
+          text
+          @click="views(item)"
+        >
+          소개 작성
+        </v-btn>
         <v-card-actions />
       </div>
     </div>
@@ -91,6 +100,9 @@ export default {
     view(item){
 
       this.$router.push("/GuideView/" + item.user_id)
+    },
+    views(item){
+      this.$router.push("/GuideIntro/" + item.user_id)
     },
     onsubmit(){
       console.log(this.keyword)

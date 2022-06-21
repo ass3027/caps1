@@ -74,4 +74,14 @@ public class GuideService {
    public int 시간_수정(int id){
       return gitemMapper.updateTime(id);
    }
+   public void 소개_수정(GuideDAO guideDAO, String id){
+       guideMapper.updateIntro(guideDAO, id);
+   }
+   public void 예약_등록(GItemDAO gitemDAO){
+      gitemMapper.insertReserve(gitemDAO);
+   }
+
+   public List<GItemDAO> 시간_조회(String id){
+      return gitemMapper.selectTimes(id);
+   }
 }
