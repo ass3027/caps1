@@ -5,7 +5,9 @@
       fluid
       style="padding-left:10px;padding-right:20px; width: 100%; min-width: 1270px">
       <div style="width:60%;height:750px;position:relative;overflow:hidden;float:left">
-        <MapComponent/>
+        <MapComponent
+          index="00"
+        />
       </div>
 
       <v-container
@@ -21,9 +23,6 @@
             v-model="endDate"
             type="date"
           >
-          <v-btn>
-            날짜 변경
-          </v-btn>
         </v-col>
 
         <v-text-field
@@ -33,9 +32,9 @@
         />
         <v-row style="width:100%;height: 10%;">
           <v-col>
-            <v-btn @click="create()">
-              create
-            </v-btn>
+<!--            <v-btn @click="create()">-->
+<!--              create-->
+<!--            </v-btn>-->
             <v-btn @click="save()">
               save
             </v-btn>
@@ -61,17 +60,18 @@
             :continuous="false"
             justify="center"
           >
-            <v-row justify="center" style="width: 100%" >
+<!--            <v-row justify="center" style="width: 100%" >-->
             <v-carousel-item
               v-for="(date,index) in dateArr "
               :id="index+`s`"
               :key="index"
             >
               <DateComponent
+                style="width: 80%"
                 :date="date"
               />
             </v-carousel-item>
-            </v-row>
+<!--            </v-row>-->
           </V-carousel>
 <!--          <v-col-->
 <!--            v-for="(date,index) in dateArr "-->
@@ -87,6 +87,23 @@
 <!--          </v-col>-->
         </v-row>
       </v-container>
+      <v-row
+        v-for="(schedule,index) in $store.state.calendar.calendar.date"
+        :key="index"
+      >
+        <h3 v-for="(s,i) in schedule" :key="i">{{s}}</h3>
+        <div
+          style="width:899px;height:750px;position:relative;overflow:hidden;float:left;border: solid 10px"
+          v-if="schedule.size!==0"
+        >
+          <MapComponent
+
+            :schedule="schedule"
+            :index="index"
+          />
+        </div>
+
+      </v-row>
     </v-container>
   </v-container>
 </template>
@@ -120,8 +137,6 @@ export default {
       selectedTag  : '',
       infowindow   : {},
       scheduleList : {},
-
-
     }
   },
   mounted() {
@@ -154,7 +169,7 @@ export default {
         calendar["planId"] = plan.plan_id
         calendar["SchName"] = plan.plan_name
         calendar["expectExpenses"] = 1000
-        calendar["date"]=[]
+        calendar["date"]={}
 
         this.dateArr.forEach( (it)=>{
           calendar.date[it]= new Map();
@@ -167,12 +182,11 @@ export default {
             expect_expenses: it.expect_expenses,
             mapX:it.mapX,
             mapY:it.mapY,
+            pl_name:it.pl_name,
             address:it.place
           }
-
-          console.log(it.sch_endTime.substring(0,10))
             calendar.date[it.sch_endTime.substring(0,10)].set(
-              parseInt( it.sch_startTime.substring(12,13) ), partialData)
+              parseInt( it.sch_startTime.substring(11,13) ), partialData)
           //이거 객체화 해서 저장해야하무
         })
 

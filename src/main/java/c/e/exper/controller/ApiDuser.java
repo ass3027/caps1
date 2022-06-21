@@ -1,8 +1,8 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.*;
+import c.e.exper.mapper.OrdersMapper;
 import c.e.exper.service.DeliveryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,21 +11,29 @@ import java.util.List;
 @RequestMapping("/api/duser")
 public class ApiDuser {
 
-    @Autowired
-    final DeliveryService deliveryService;
 
-    public ApiDuser(DeliveryService deliveryService) {
+    final DeliveryService deliveryService;
+    final OrdersMapper ordersMapper;
+
+    public ApiDuser(DeliveryService deliveryService, OrdersMapper ordersMapper) {
 
         this.deliveryService = deliveryService;
+        this.ordersMapper = ordersMapper;
     }
 
-    @GetMapping("/orders")
-    public List<OrderDAO> getDuserOrders(String user_id) {
-        System.out.println("[/api/duser/orders]" + user_id);
+    @GetMapping("/orders/{user_id}/{status}")
+    public List<OrderDAO> getDuserOrders(@PathVariable("user_id") String user_id, @PathVariable("status")int status) {
+        System.out.println("[/api/duser/orders]" + user_id  + ", " + status);
         // 근처 주문서
 
+        return switch (status) {
+            case 1 -> deliveryService.근처_주문서_조회(user_id);
+            case 2, 3 -> ordersMapper.findDuserOrders(user_id, status);
+            default -> null;
+        };
 
-        return deliveryService.근처_주문서_조회(user_id);
     }
+
+
 }
 

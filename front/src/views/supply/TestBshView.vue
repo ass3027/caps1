@@ -6,6 +6,8 @@
       {{now}}
       {{array}}
       {{array.i}}
+      {{abc}}
+      {{mapTest2}}
       <v-btn @click="goDetail">inputArray</v-btn>
       <input v-model="message" type="text">
       <v-row>
@@ -26,12 +28,10 @@
       </v-row>
 
 
-
-
         <v-btn
           color="red lighten-2"
           dark
-          @click="dialog = true"
+          @click="inputArray"
         >
           Click Me
         </v-btn>
@@ -80,7 +80,10 @@ export default {
       dialogAdd:[true,true],
       message:'hello world',
       array:['array'],
-      dialog:false
+      dialog:false,
+      abc:{'pl_id':'123'},
+      mapTest:'',
+      mapTest2:[]
     }
   },
   computed:{
@@ -105,7 +108,24 @@ export default {
     this.dialogAdd.push(true)
     this.dialogAdd.push(true)
     this.dialogAdd.push(true)
-    console.log(this.dialogAdd)
+    console.log(this.dialogAdd);
+    (async () => {
+      const condition = false;
+      const promise = new Promise((resolve, reject) => {
+        if (condition) {
+          resolve('resolved');
+        } else {
+          reject('rejected');
+        }
+      });
+
+      try {
+        const result = await promise;
+        console.log(result);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
   },
   methods: {
     changeBoolean(i){
@@ -113,11 +133,19 @@ export default {
       console.log(this.dialogAdd)
     },
     inputArray(){
+      this.mapTest2.push(1)
+      this.mapTest2.pop()
       this.array['i']='i'
       // this.array.push('asdf')
+      this.mapTest = new Map()
+      this.mapTest.set('a',1)
+      this.mapTest.set('a',2)
+      alert(this.mapTest.get('a'))
       // this.$set(this.array,0,this.array[0])
-      this.$nextTick(function (){
-        console.log(this.array)
+      // this.$set(this.abc,'pl_id',456)
+      // this.array.push('asdf')
+
+      this.$nextTick(function(){
       })
 
     },

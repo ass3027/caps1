@@ -2,7 +2,9 @@ package c.e.exper.controller;
 
 import c.e.exper.data.AnswerDAO;
 import c.e.exper.data.InquiryDAO;
+import c.e.exper.data.UserDAO;
 import c.e.exper.mapper.InquiryMapper;
+import c.e.exper.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,23 +31,24 @@ public class ApiInquiry {
 
     //게시판 작성하기
     @PostMapping("/Writing")
-    public boolean getListSendfo(InquiryDAO inquiryDAO) {
+    public boolean write(InquiryDAO inquiryDAO) {
         System.out.println(inquiryDAO);
         return inquiryMapper.insert(inquiryDAO);
     }
 
     //게시판목록
     @GetMapping("/Questions")
-    public List<InquiryDAO> getListInfo( @RequestParam("inq_id") String inq_id) {
-        inquiryMapper.updateCount(inq_id);
+    public List<InquiryDAO> getListInfo() {
         return inquiryMapper.list();
     }
 
 
     //상세페이지
     @GetMapping("/DetailPage")
-    public Map<String,Object> getListPageDetails( //(객체)
+    public Map<String,Object> getPageDetails( //(객체)
             @RequestParam("inq_id") String inq_id){
+
+
 //        System.out.println(inq_id);
 //        inquiryMapper.updateCount(inq_id);
         Optional<InquiryDAO> inquiry = inquiryMapper.listPage(inq_id);
@@ -63,8 +66,8 @@ public class ApiInquiry {
             returnData.put("answer",answer.get());
         }
 
-        //System.out.println("88"+returnData.get("answer").getAns_id());
-
+//        System.out.println("88"+returnData.get("answer").getAns_id());
+        inquiryMapper.updateCount(inq_id);
         return returnData;
     }
 
@@ -79,9 +82,9 @@ public class ApiInquiry {
     public String getListPageDetailsDelete(
             @RequestParam("inq_id") String inq_id) {
         inquiryMapper.deleteListPageInfo(inq_id);
-
         return "삭제되었습니다";
     }
+
 
 //    @GetMapping("/Questions/{id}")
 //        public String ListPageCount(@PathVariable String inq_id Model model){

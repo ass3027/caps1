@@ -12,15 +12,7 @@
         placeholder="자격증"
       >
     </div>
-    <div class="textForm">
-      <input
-        v-model="guide_intro"
-        name="guideIntro"
-        type="text"
-        class="intro"
-        placeholder="간단한 소개"
-      >
-    </div>
+
     <v-btn
       class="btn"
       @click="onsubmit()"
@@ -43,7 +35,6 @@ export default {
     return{
       user_id:'',
       guide_license:'',
-      guide_intro:''
     }
   },
   methods:{
@@ -55,13 +46,7 @@ export default {
 
       sendform.append('user_id',this.$store.state.user.userId );
       sendform.append('guide_license', this.guide_license);
-      sendform.append('guide_intro', this.guide_intro);
 
-
-
-
-      if(this.guide_intro == '')
-        alert('소개를 확인하세요')
 
       axios({
         method: 'post',

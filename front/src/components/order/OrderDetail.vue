@@ -1,5 +1,5 @@
 <template>
-  <table style="display:table; border: 2px solid black; height: 200px; margin: 0 10px; padding: 20px 15px; width: 40%; margin: 0 auto">
+  <table style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
     <div style="margin-top: 10px">
       <p style="display: inline; font-size: large; margin-left: 5px">
         배송경로
@@ -12,16 +12,7 @@
       id="map"
       style="width:100%;height:350px;"
     />
-    <!--    <div id="order_info">-->
-    <!--      <div>금액 {{ order.ord_amount }} 원</div>-->
-    <!--      <div>픽업/완료 {{ entrust_time }}     {{ withdraw_time }}</div>-->
-    <!--      <div>출발지 {{ keep_start.addr1 }}</div>-->
-    <!--      <div>{{ degree_start_end }}Km</div>-->
-    <!--      <div>도착지 {{ keep_end.addr1 }}</div>-->
-    <!--      <div>나로부터</div>-->
-    <!--      <div>물품정보</div>-->
-    <!--      <div>요청사항</div>-->
-    <!--    </div>-->
+
     <table id="order_detail">
       <thead scope="row">
         <tr>
@@ -78,7 +69,7 @@
         </tr>
       </tbody>
     </table>
-    <div>
+    <div v-if="order.status === '1'">
       <v-btn
         class="btn_type2"
         height="54px"
@@ -87,25 +78,16 @@
         매칭요청
       </v-btn>
     </div>
+    <div v-if="order.status === '2'">
+      <v-btn
+        class="btn_type2"
+        height="54px"
+        color="white"
+        @click="orderArrival()">
+        배송완료
+      </v-btn>
+    </div>
   </table>
-  <!-- 출발키퍼 주소 --> <!-- 거리 --> <!-- 도착키퍼 주소 -->    <!-- 운송품에 대한 간략한 정보 -->
-  <!-- 운송원과 출발키퍼사이의 거리 -->                         <!-- 금액 -->
-
-  <!-- 최소 도착시간(주문서.찾을시간) -->
-  <!-- 예상 도착시간 (필요한가) -->
-
-  <!--      ord_id:           {{ order.ord_id }} <br>-->
-  <!--      user_id:          {{ order.user_id }} <br>-->
-  <!--      ord_amount:       {{ order.ord_amount }} <br>-->
-  <!--      entrust_time:     {{ order.entrust_time }} <br>-->
-  <!--      withdraw_time:    {{ order.withdraw_time }} <br>-->
-  <!--      keep_start:       {{ order.keep_start }} <br>-->
-  <!--      keep_end:         {{ order.keep_end }} <br>-->
-  <!--      delivery_id:      {{ order.delivery_id }} <br>-->
-  <!--      call_time:        {{ order.call_time }} <br>-->
-  <!--      status:           {{ order.status }} <br>-->
-  <!--      pay_id:           {{ order.pay_id }} <br>-->
-  <!--      ord_selection:    {{ order.ord_selection }} <br>-->
 </template>
 
 <script>
@@ -115,11 +97,10 @@ import axios from "axios";
 export default {
   name: 'OrderDetail',
   props:{
-    ordId: { type: String },
+    order: { type: Object },
   },
   data() {
     return {
-      order: Object,
       keep_start: Object,
       keep_end: Object,
       ord_bag_info: null,
@@ -149,6 +130,9 @@ export default {
     }
   },
   created() {
+
+    console.log('[OrderDetail]', this.order)
+
     axios.get("/api/location/check?duser_id=" + this.userId).then(res => {
 
       var location = Object.keys(res.data).map(function(key) {
@@ -159,31 +143,26 @@ export default {
       this.user_lat = location[1]
     })
 
-    axios.get("/api/orders/order?ord_id=" + this.ordId).then(res => {
-      this.order = res.data
-      console.log("[api/orders/order/]: ")
-      console.log(this.order)
 
-      axios.get("/api/keep/find?keep_id=" + this.order.keep_start).then(res => { this.keep_start = res.data }).then(() => {
-        axios.get("/api/keep/find?keep_id=" + this.order.keep_end).then(res => { this.keep_end = res.data }).then(() => {
-          if(window.kakao && window.kakao.maps) {
-            this.initMap();
-          } else {
-            const script = document.createElement("script");
+    axios.get("/api/keep/find/" + this.order.keep_start).then(res => { this.keep_start = res.data }).then(() => {
+      axios.get("/api/keep/find/" + this.order.keep_end).then(res => { this.keep_end = res.data }).then(() => {
+        if(window.kakao && window.kakao.maps) {
+          this.initMap();
+        } else {
+          const script = document.createElement("script");
 
-            script.onload = () => kakao.maps.load(this.initMap);
-            script.src =
-              "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0";
-            document.head.appendChild(script);
-          }
-        })
+          script.onload = () => kakao.maps.load(this.initMap);
+          script.src =
+            "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0";
+          document.head.appendChild(script);
+        }
       })
-    }).then(() => {
-      axios.get("/api/orders/baginfo/" + this.order.ord_id).then(res => {
-        this.ord_bag_info = res.data
-        console.log('order.ord_id', this.order.ord_id)
-        console.log('ord_bag_info', this.ord_bag_info)
-      })
+    })
+
+    axios.get("/api/orders/baginfo/" + this.order.ord_id).then(res => {
+      this.ord_bag_info = res.data
+      console.log('order.ord_id', this.order.ord_id)
+      console.log('ord_bag_info', this.ord_bag_info)
     })
 
 
@@ -241,10 +220,20 @@ export default {
 
 
     requestMatch() {
-      axios.get("/api/orders/match/" + this.ordId + "/" + this.userId).then(res => {
+      axios.get("/api/orders/match/" + this.order.ord_id + "/" + this.userId).then(res => {
         console.log("매칭결과:", res.data)
+        alert("매칭결과: " + res.data)
+        this.$router.go();
+      })
+    },
+
+    orderArrival() {
+      axios.post("/api/orders/arrival/" + this.order.ord_id).then(res =>{
+        alert(res.data)
+        this.$router.go();
       })
     }
+
   }
 };
 </script>

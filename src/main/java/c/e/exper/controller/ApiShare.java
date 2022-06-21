@@ -96,7 +96,7 @@ public class ApiShare {
 
         List<PlannerDAO> plannerDAO = plannerMapper.selectAllById(req.getParameter("id"));
 
-        List<PlannerDTO> plannerDTO = new ArrayList<>();
+        List<PlannerDTO> plannerDTO = new ArrayList<PlannerDTO>();
         plannerDAO.forEach(data -> plannerDTO.add(data.toDTO()));
 
         return plannerDTO;
@@ -113,11 +113,11 @@ public class ApiShare {
 
     /*상세보기 페이지*/
     @GetMapping("/getSharePostDetails")
-    public ArrayList getSharePostDetails(
+    public List<Object> getSharePostDetails(
             @RequestParam("share_id") String share_id
     ) {
         System.out.println(share_id);
-        ArrayList a = new ArrayList();
+        List<Object> a = new ArrayList();
         Share s = shareMapper.findShareById(share_id);
         List<ScheduleDAO> schedules = scheduleMapper.selectAllById(s.getPlan_id());
         List<SharePictureDAO> pic = shareMapper.findPicturesById(share_id);
@@ -132,7 +132,8 @@ public class ApiShare {
     @GetMapping("/copyPlanner")
     public String copyPlanner(@RequestParam("plan_id") String plan_id,
                                  @RequestParam("user_id") String user_id,
-                              @RequestParam("share_id") String share_id
+                              @RequestParam("share_id") String share_id,
+                              @RequestParam("share_title") String share_title
 
     ) {
         System.out.println(plan_id);
@@ -147,6 +148,7 @@ public class ApiShare {
         System.out.println(p);
         p.setUser_id(user_id);
         System.out.println(p.getPlan_id());
+        p.setPlan_name("copy of "+share_title);
         plannerMapper.insert(p);
         System.out.println(p.getPlan_id());
         System.out.println("?1");

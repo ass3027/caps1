@@ -9,6 +9,7 @@ import c.e.exper.mapper.StoreMapper;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
 import c.e.exper.data.*;
+import c.e.exper.mapper.PlaceMapper;
 import c.e.exper.mapper.StoreMapper;
 import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
@@ -35,13 +36,16 @@ public class ApiPlace {
    final
    PlaceService placeService;
 
+   final PlaceMapper placeMapper;
+
    final Place2Service place2Service;
 
-   public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, PlaceService placeService, Place2Service place2Service) {
+   public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, PlaceService placeService, PlaceMapper placeMapper, Place2Service place2Service) {
       this.storeMapper = storeMapper;
       this.fileService = fileService;
       this.pictureMapper = pictureMapper;
       this.placeService = placeService;
+      this.placeMapper = placeMapper;
       this.place2Service = place2Service;
    }
    
@@ -79,6 +83,15 @@ public class ApiPlace {
       System.out.println("/place/{areaCode}/{cat1}/{keyword} : " + keyword);
       return placeService.장소_검색(areaCode,cat1,keyword);
    }
+
+   @GetMapping("/placeA01/{keyword}")
+   public List<PlaceDAO> keywordByPlaceA01(@PathVariable("keyword")String keyword) {
+      System.out.println("/placeA01/" + keyword);
+      return placeMapper.keywordByPlaceA01(keyword);
+   }
+
+
+
 
    @GetMapping("/place/{keyWord}")
    public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord){

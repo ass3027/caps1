@@ -104,6 +104,15 @@ public class ApiUser {
     }
 
     //내정보수정
+    @PostMapping("/dataUpdate")
+    public boolean getUserdataUpdate(UserDAO userDAO){
+        userDAO.setUser_pw(
+                passwordEncoder().encode(
+                        userDAO.getUser_pw()
+                )
+        );
+        return userMapper.updateUserInfo(userDAO);
+    }
 
 
     @PostMapping("/join")
@@ -148,7 +157,11 @@ public class ApiUser {
                 .user_phone(user.getUser_phone())
 
                 .role(user.getRole())
+                .gender(user.getGender())
+                .preference(user.getPreference())
+                .guser_intro("")
                 .build();
+        System.out.println(daoUser);
 
         userMapper.insert(daoUser);
 
@@ -182,6 +195,19 @@ public class ApiUser {
 //
 //        }
 //        System.out.println("count: " + i);
+    }
+
+    @GetMapping("/role/{user_id}")
+    public String getUserRole(@PathVariable("user_id") String user_id){
+
+        if(userMapper.checkGuide(user_id)){
+            return "가이드";
+        } else if (userMapper.checkDeliveryUser(user_id)) {
+            return "운송원";
+        } else {
+            return "일반";
+        }
+
     }
 
     public String getRandomPhone(){

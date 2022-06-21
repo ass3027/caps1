@@ -17,6 +17,8 @@ public class GuideDAO {
     String guide_license;
     String guide_intro;
     String user_name;
+    String pic_name;
+    String guser_intro;
 
 
 

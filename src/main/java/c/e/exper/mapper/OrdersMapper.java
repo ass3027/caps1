@@ -41,6 +41,16 @@ public interface OrdersMapper {
 
 
     @Select("""
+            SELECT *
+            FROM orders
+            WHERE status = #{status}
+            AND delivery_id = #{delivery_id}
+            """)
+    public List<OrderDAO> findDuserOrders(@Param("delivery_id") String delivery_id, @Param("status") int status);
+
+
+
+    @Select("""
             SELECT bag_size, COUNT(*) cnt
             FROM bag
             WHERE bag_id in(SELECT bag_id
@@ -77,5 +87,13 @@ public interface OrdersMapper {
             WHERE ord_id = #{ord_id}
             """)
     public boolean updateDeliveryId(@Param("ord_id") String ord_id, @Param("user_id") String user_id);
+
+    @Update("""
+            UPDATE orders
+            SET status = 3
+            WHERE ord_id = #{ord_id}
+            """)
+    public boolean orderArrival(@Param("ord_id") String ord_id);
+
 
 }

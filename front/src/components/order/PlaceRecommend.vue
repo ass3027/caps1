@@ -1,11 +1,11 @@
 <template>
   <div>
     <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>
-    <v-carousel>
+    <v-carousel v-if="items.length!=0">
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
-        :src="'/api/photo/'+item.pic_name"
+        :src="item.firstimage"
 
         reverse-transition="fade-transition"
         transition="fade-transition"
@@ -17,6 +17,11 @@
           <h3>{{ i+1 }}.{{ item.pl_name }}</h3>
           <v-btn>일정에추가</v-btn>
         </div>
+      </v-carousel-item>
+    </v-carousel>
+    <v-carousel v-else>
+      <v-carousel-item
+        src="/api/photo/placeImage/no_place.png">
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -37,6 +42,10 @@ export default {
     axios
       .get('/api/recPlace')
       .then(res=>{
+        console.log("ㄴㄹ"+res.data)
+        if(res.data==''){
+          return
+        }
         res.data.forEach(i=>{
           if(i.pic_name==null){
             i.pic_name="placeImage/noImage.png"

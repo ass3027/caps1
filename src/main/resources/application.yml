@@ -9,6 +9,17 @@ spring:
       restart:
         enabled: true
 
+#spring:
+#  datasource:
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@localhost:1521:XE
+#    username: sewoon
+#    password: 1234
+#  devtools:
+#    remote:
+#      restart:
+#        enabled: true
+
 
 server:
   port: 8000
