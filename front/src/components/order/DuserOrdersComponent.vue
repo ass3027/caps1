@@ -165,7 +165,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .item_container{
   padding: 20px;

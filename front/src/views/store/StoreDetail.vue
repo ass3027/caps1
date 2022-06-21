@@ -67,39 +67,44 @@
 
             <div class="mt-2 mb-4">
               <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ $route.query.pl_name }}
+                {{products[index].title}}
               </span>
+            </div>
+
+            <div>
+                  <span style="font-size: 24px; font-weight: 900">
+                    {{ products[index].addr1 }}
+                  </span>
             </div>
 
             <div class="my-3">
               <span class="text-muted">
-                개인 바베큐 됩니다.
+                {{products[index].content}}
               </span>
             </div>
 
             <div class="row">
               <div class="col-8 col-md-12 d-flex flex-row align-items-center">
-                <div>
-                  <span style="font-size: 24px; font-weight: 900">
-                    ${{ parseFloat(price).toFixed(2) }}
-                  </span>
-                </div>
-                <div class="">
-                  <span
-                    class="mx-3 discount px-2 py-1 rounded"
-                    style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)"
-                  >
-                    50%
-                  </span>
-                </div>
+<!--                <div>-->
+<!--                  <span style="font-size: 24px; font-weight: 900">-->
+<!--                    {{ products[index].addr1 }}-->
+<!--                  </span>-->
+<!--                </div>-->
+<!--                <div class="">-->
+<!--                  <span-->
+<!--                    class="mx-3 discount px-2 py-1 rounded"-->
+<!--                    style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)"-->
+<!--                  >-->
+<!--                    50%-->
+<!--                  </span>-->
+<!--                </div>-->
               </div>
-
               <div class="col-4 col-md-12 my-1">
                 <span
                   class=""
-                  style="font-weight: 700; color: rgb(183, 183, 183); text-decoration: line-through;"
+                  style="font-weight: 700; color: rgb(183, 183, 183);"
                 >
-                  $250.00
+                  {{ products[index].tel }}
                 </span>
               </div>
             </div>
@@ -108,7 +113,7 @@
         <hr>
         <div>
           <div>
-            <place-product/>
+            <place-product v-for="(product,index) in plProduct" :product="product" :key="index"/>
           </div>
         </div>
       </div>
@@ -131,8 +136,6 @@ export default {
   props: [ 'pl_id' ],
   data() {
     return {
-      title: '5성급 편안호텔',
-      price: "125.000",
       count: 1,
       images: [
         // require('@/image/product1.png'),
@@ -141,6 +144,8 @@ export default {
         // require('@/image/product4.png'),
       ],
       products: [],
+
+      plProduct: [],
 
       showImageModal: false,
       slide: 0,
@@ -165,10 +170,32 @@ export default {
       .then((res) => {
         this.products = res.data
         this.temp++
+        console.log(this.products)
+
+        var result1 = res.data
+
+        this.plProduct = result1.reduce(function(acc, current) {
+          if (acc.findIndex(({ pd_id }) => pd_id === current.pd_id) === -1) {
+            acc.push(current);
+          }
+          return acc;
+        }, []);
+
+        console.log(this.plProduct)
       })
       .catch((err) => {
         console.log(err)
       })
+
+    // axios({
+    //   methods: 'GET',
+    //   url: '/api/findproduct',
+    //   params: {'pl_id': this.pl_id}
+    // })
+    // .then((res) => {
+    //   this.plProduct = res.data
+    //   console.log(this.plProduct)
+    // })
 
     axios({
       method: 'GET',

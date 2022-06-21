@@ -128,7 +128,7 @@ export default {
   mounted() {
     axios({
       method: 'GET',
-      url: `/api/place/${this.category}`,
+      url: `/api/place1/${this.category}`,
     })
       .then((res) => {
         this.$store.commit('place/PlaceUpdate', res.data)

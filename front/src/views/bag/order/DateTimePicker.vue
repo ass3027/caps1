@@ -1,96 +1,87 @@
 <template>
-  <v-col
-    cols="4"
-    sm="6"
-    md="4"
-  >
-    <v-dialog
-      ref="dialog"
-      v-model="dateModal"
-      :return-value.sync="date"
-      persistent
-      width="290px"
-    >
-      <template #activator="{ on }">
-        <v-text-field
-          v-model="date"
-          :label="`${label}`"
-          readonly
-          v-on="on"
-        />
-      </template>
-      <v-date-picker
-        v-model="date"
-        scrollable
-      >
-        <v-spacer />
-        <v-btn
-          text
-          color="primary"
-          @click="dateModal = false"
-        >
-          Cancel
-        </v-btn>
-        <v-btn
-          text
-          color="primary"
-          @click="timeModal = true"
-        >
-          OK
-        </v-btn>
-      </v-date-picker>
-    </v-dialog>
+  <v-row>
+    <v-col cols="4" sm="6" md="8">
+      <v-dialog
+        ref="dialog1"
+        v-model="sDateModal"
+        :return-value.sync="sDate"
+        persistent
+        width="350px">
+        <template v-slot:activator="{ on }">
+          <v-text-field
+            v-model="sDate"
+            readonly
+            v-on="on"
+            :label="`${label}`"
+          ></v-text-field>
+        </template>
 
-    <v-dialog
-      ref="dialog2"
-      v-model="timeModal"
-      :return-value.sync="time"
-      persistent
-      width="290px"
-    >
-      <v-time-picker
-        v-if="timeModal"
-        v-model="time"
-      >
-        <v-spacer />
-        <v-btn
-          text
-          color="primary"
-          @click="timeModal = false"
-        >
-          Cancel
-        </v-btn>
-        <v-btn
-          text
-          color="primary"
-          @click="set()"
-        >
-          OK
-        </v-btn>
-      </v-time-picker>
-    </v-dialog>
-  </v-col>
+        <v-card>
+          <v-date-picker v-model="sDate" scrollable :allowed-dates="disablePastDates" style="height: 570px;">
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="sDateModal = false">Cancel</v-btn>
+            <v-btn text color="primary" @click="sTimeModal = true">OK</v-btn>
+          </v-date-picker>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog
+        ref="dialog2"
+        v-model="sTimeModal"
+        :return-value.sync="sTime"
+        persistent
+        width="400px">
+
+        <v-time-picker
+          v-if="sTimeModal"
+          v-model="sTime"
+          scrollable>
+
+          <v-spacer></v-spacer>
+          <v-btn text color="primary" @click="sTimeModal = false">Cancel</v-btn>
+          <v-btn text color="primary" @click="update()">OK</v-btn>
+        </v-time-picker>
+      </v-dialog>
+    </v-col>
+
+  </v-row>
 </template>
 
 <script>
+
 export default {
   name: "DateTimePicker",
   props: ['label'],
   data: () => ({
-    date: "",
-    dateModal: false,
-    time: "",
-    timeModal: false,
+    //(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
+    sDate: "",
+    sDateModal: false,
+    sTime: "",
+    sTimeModal: false,
+
   }),
   methods: {
-    set() {
-      this.date = this.date +" "+ this.time;
-      this.$refs.dialog.save(this.date);
-      this.$refs.dialog2.save(this.time);
-      this.$emit('date', this.date);
+    sSet() {
+      this.sDate = this.sDate + " " + this.sTime;
+      this.$refs.dialog1.save(this.sDate);
+      this.$refs.dialog2.save(this.sTime);
+      console.log(this.sDate);
+      return this.sDate;
     },
-
+    update() {
+      this.$emit("child", this.sSet())
+    },
+    disablePastDates(val) {
+      return val >= new Date().toISOString().substr(0, 10)
+    },
   },
-
 }
 </script>
+
+
+<style>
+.v-date-picker-table {
+  height: 360px;
+
+}
+</style>

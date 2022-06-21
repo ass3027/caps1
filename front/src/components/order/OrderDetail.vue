@@ -238,7 +238,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .btn_type2 {
   display: block;

@@ -56,7 +56,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #gnb {
   display: flex;
   justify-content: center;
