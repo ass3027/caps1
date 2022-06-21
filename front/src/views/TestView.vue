@@ -3,9 +3,9 @@
 
   <div style="width: 1050px">
 
-    <!--    <DuserOrdersComponent/>-->
-    <!--      <OrdersComponent :user_id="user_id" />-->
-    <ReviewView :id="'100'" :type="'product'"/>
+        <DuserOrdersComponent/>
+<!--          <OrdersComponent :user_id="user_id" />-->
+<!--    <ReviewView :id="'100'" :type="'product'"/>-->
 
 <!--    <ReviewCreateView />-->
   </div>
@@ -25,9 +25,9 @@ export default {
 
   name: 'TestView',
   components: {
-    ReviewView
+    // ReviewView
     // OrdersComponent,
-    // DuserOrdersComponent
+    DuserOrdersComponent
     // OrdersComponent
     // ReviewCreateView
 

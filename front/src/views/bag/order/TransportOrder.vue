@@ -191,7 +191,7 @@ export default {
         withdraw_time: this.sDate,  //찾을시간
         ord_selection: '물품운송', //물품보관
         ord_request: this.ordRequest,
-        status:'1',
+        status:'운송요청',
       }
       axios
         .post('/api/transportAddOrder', transportBag)

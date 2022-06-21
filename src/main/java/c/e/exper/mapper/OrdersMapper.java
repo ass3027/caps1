@@ -33,7 +33,7 @@ public interface OrdersMapper {
                                  FROM place
                                  WHERE mapx > #{minLongitude} and mapx < #{maxLongitude}
                                  AND   mapy > #{minLatitude}  and mapy < #{maxLatitude})
-            AND STATUS = '1'
+            AND STATUS = '운송요청'
             AND KEEP_END is not null
             """)
     public List<OrderDAO> findNearOrders(@Param("minLongitude") Double minLongitude, @Param("maxLongitude") Double maxLongitude,
@@ -46,7 +46,7 @@ public interface OrdersMapper {
             WHERE status = #{status}
             AND delivery_id = #{delivery_id}
             """)
-    public List<OrderDAO> findDuserOrders(@Param("delivery_id") String delivery_id, @Param("status") int status);
+    public List<OrderDAO> findDuserOrders(@Param("delivery_id") String delivery_id, @Param("status") String status);
 
 
 
@@ -90,7 +90,7 @@ public interface OrdersMapper {
 
     @Update("""
             UPDATE orders
-            SET status = 3
+            SET status = '운송완료'
             WHERE ord_id = #{ord_id}
             """)
     public boolean orderArrival(@Param("ord_id") String ord_id);

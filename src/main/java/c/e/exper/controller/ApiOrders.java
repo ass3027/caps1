@@ -55,8 +55,8 @@ public class ApiOrders {
 
         String status = ordersMapper.checkOrderStatus(ord_id);
 
-        if(Objects.equals(status, "1")) {
-            if(ordersMapper.updateStatus(ord_id, "2")) {
+        if(Objects.equals(status, "운송요청")) {
+            if(ordersMapper.updateStatus(ord_id, "운송중")) {
                 return ordersMapper.updateDeliveryId(ord_id, user_id) ? "매칭이 완료되었습니다." : "매칭 오류.";
             } else{
                 return "매칭 오류.";
