@@ -45,12 +45,12 @@ public class ApiPlace {
       this.place2Service = place2Service;
    }
    
-   @GetMapping("/place/{category}")
+   @GetMapping("/place1/{category}")
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
       return placeService.카테고리별_조회(category);
    }
 
-   @GetMapping("/place/{category}/{searchCon}")
+   @GetMapping("/place1/{category}/{areaCode}")
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category, @PathVariable String areaCode) {
       return placeService.카테고리_지역_조회(category, areaCode);
    }
@@ -80,10 +80,10 @@ public class ApiPlace {
       return placeService.장소_검색(areaCode,cat1,keyword);
    }
 
-//   @GetMapping("/place/{keyWord}")
-//   public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord){
-//      return placeService.searchByKeyWord(keyWord);
-//   }
+   @GetMapping("/place/{keyWord}")
+   public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord){
+      return placeService.searchByKeyWord(keyWord);
+   }
 
    
 //   @GetMapping("/place/{areaCode}/{cat1}/{pageNumber}")

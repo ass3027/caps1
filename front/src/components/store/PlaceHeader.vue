@@ -10,10 +10,7 @@
             v-model="searchCon" :items="items" item-text="text"
             :value="lists.areaCode"
             @change="area()"
-          />{{searchCon}}
-        </div>
-        <div>
-          <search-place/>
+          />
         </div>
       </div>
       <v-divider class="divider-padding" />
@@ -21,12 +18,10 @@
   </div>
 </template>
 <script>
-// import axios from 'axios';
-import SearchPlace from "@/components/SearchPlace";
 import axios from "axios";
 export default {
   name : 'PlaceHeader',
-  components: {SearchPlace},
+  components: {},
   props:['category'],
   data() {
     return {
@@ -55,7 +50,14 @@ export default {
   },
   methods: {
     area(){
-      axios
+      axios({
+        method: 'GET',
+        url: `/api/place1/${this.category}/${this.searchCon}`,
+      })
+        .then((res) => {
+          this.$store.commit('place/PlaceAeraUpdate', res.data)
+          console.log(res.data)
+        })
     }
   }
 
