@@ -218,6 +218,6 @@ export default {
 //   HelloWorld
 // }
 </script>
-<style>
+<style scoped>
 
 </style>

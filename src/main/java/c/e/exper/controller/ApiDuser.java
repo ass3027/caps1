@@ -22,13 +22,13 @@ public class ApiDuser {
     }
 
     @GetMapping("/orders/{user_id}/{status}")
-    public List<OrderDAO> getDuserOrders(@PathVariable("user_id") String user_id, @PathVariable("status")int status) {
+    public List<OrderDAO> getDuserOrders(@PathVariable("user_id") String user_id, @PathVariable("status")String status) {
         System.out.println("[/api/duser/orders]" + user_id  + ", " + status);
         // 근처 주문서
 
         return switch (status) {
-            case 1 -> deliveryService.근처_주문서_조회(user_id);
-            case 2, 3 -> ordersMapper.findDuserOrders(user_id, status);
+            case "운송요청" -> deliveryService.근처_주문서_조회(user_id);
+            case "운송중", "운송완료" -> ordersMapper.findDuserOrders(user_id, status);
             default -> null;
         };
 

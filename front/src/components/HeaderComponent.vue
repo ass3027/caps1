@@ -6,7 +6,7 @@
     <div id="userMenu">
 
 <ul class="list_menu"><!----> <!---->
-        <li class="menu menu_user"  v-if="isLogin">
+        <li class="menu menu_user" @click="MyPage" v-if="isLogin">
           <a class="link_menu grade_comm">
             <span class="ico_grade grade0" style="padding: 0; margin: 0 10px 0 0;">{{ user_role }}</span>
             <span class="txt">
@@ -115,7 +115,7 @@
           <img
             src="/api/photo/altImage/packless_travel_logo.png"
             alt="PacklessTravel 로고"
-            style="display: block; width: 200px; height: 100px"
+            style="display: block;height: 100px;"
           >
         </a>
       </h1>
@@ -184,6 +184,7 @@ export default {
         "커뮤니티",
         "고객센터"
       ],
+     
       contents: [
         [
           {title: 'travel1', route: '/travel'},
@@ -216,11 +217,12 @@ export default {
           {title: '배송조회', route: '/TrackingView'},
         ],
         [
-          {title: '가이드 리스트', route: '/guideview'},
           {title: '가이드 등록', route: '/GuideRegister'},
-          {title: '가이드 예약 ', route: '/GuideReserve'},
+          {title: '가이드 리스트', route: '/guideview'},
           {title: '가이드 상품 등록', route: '/GuideProductReg'},
-          {title: '가이드 상품', route: '/GuideProduct'}
+          {title: '가이드 상품', route: '/GuideProduct'},
+          {title: '가이드 결제 ', route: '/GuideReserve'},
+          {title: '예약 정보', route: '/GuideReserveInfo'},
         ],
         [
           {title: '공유', route: '/share'},
@@ -297,7 +299,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .menu-Bar {
   display: flex;
   justify-content: center;
@@ -331,7 +333,8 @@ export default {
 #userMenu .menu {
   position: relative;
   z-index: 400;
-  float:left
+  float:left;
+  font-size: 14px;
 }
 
 #userMenu .menu:before {
@@ -372,7 +375,8 @@ export default {
   float: left;
   text-align: right;
   white-space: nowrap;
-  text-overflow:ellipsis
+  text-overflow:ellipsis;
+
 }
 
 #userMenu .sir {

@@ -94,6 +94,22 @@ public class ApiGuide {
         return guideService.시간_수정(id);
     }
 
+    @PutMapping("/guideIntro/{id}")
+    public void updateIntro(GuideDAO guideDAO, @PathVariable("id") String id){
+        System.out.println("소개수정");
+         guideService.소개_수정(guideDAO,id);
+    }
+    @PostMapping("/gitemReserve")
+    public void insertReserve(@RequestBody GItemDAO gitemDAO){
+        System.out.println(gitemDAO);
+        guideService.예약_등록(gitemDAO);
+    }
+    @GetMapping("/gTime")
+    public List<GItemDAO> getTime(String id){
+        return guideService.시간_조회(id);
+
+    }
+
 
 
 

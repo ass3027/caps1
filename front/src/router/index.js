@@ -59,7 +59,7 @@ import GuideProductSearch from "@/views/guide/GuideProductSearch";
 
 
 //세운??
-import ProductReviewView from "@/views/ReviewView";
+import ReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
@@ -77,6 +77,8 @@ import TestView from "@/views/TestView";
 import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
+import GuideIntro from "@/views/guide/GuideIntro";
+import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 import ProductBook from "@/views/store/ProductBook";
@@ -121,7 +123,7 @@ const routes = [
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 
   //세진
-  {path: "/calender", name: "calender", component: CalenderView},
+  {path: "/calender", name: "calender", component: CalenderView, props:true},
   {path: "/plInvite", name: "plInvite", component: PlInviteView},
   {path: "/plan", name: "plan", component: PlanView},
   {path: "/planPic", name: "planPic", component: PlannerPicView},
@@ -167,16 +169,15 @@ const routes = [
   { path: "/GuideProduct", name: "GuideProduct", component: GuideProduct },
 
   {
-    path: "/ProductReviewView/:productId",
-    name: "ProductReviewView",
-    component: ProductReviewView,
+    path: "/ReviewView/:productId",
+    name: "ReviewView",
+    component: ReviewView,
     props: true,
   },
   {
-    path: "/ReviewCreate/:pay_id",
-    name: "ReviewCreate",
+    path: "/ReviewCreateView",
+    name: "ReviewCreateView",
     component: ReviewCreateView,
-    props: true,
   },
   {
     path: "/review/store/:store_name",
@@ -216,17 +217,18 @@ const routes = [
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props: true},
   {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true},
-  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
+  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct,props:true},
   {path: "/GuideProductTime/:gitem_id", name: "GuideProductTime", component: GuideProductTime, props: true},
   {path: "/GuideProduct/:gitem_id", name:"GuideProductView",component: GuideProductView, props:true},
   {path: "/GuideProduct/Search/:keyword", name:"GuideProductSearch",component: GuideProductSearch,props: true},
-
+  {path: "/GuideIntro/:user_id", name:"GuideIntro", component: GuideIntro},
+  {path: "/GuideReserveInfo", name:"GuideReserveInfo", component: GuideReserveInfo},
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView,},
-  {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true,},
-  {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true,},
+  {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true,},
+  {path: "/ReviewCreateView/:type/:id", name: "ReviewCreateView", component: ReviewCreateView, props: true,},
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 

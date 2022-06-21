@@ -1,14 +1,22 @@
 <template>
-  <div class="card">
-    <v-row
-      cols="0"
-      md="0"
-    >
-      <v-card
-        v-for="(item,index) in lists"
-        :key="index"
-        class="mx-auto"
-        width="344"
+  <div class="" style="width: 1050px; padding-top: 60px">
+
+    <div style="padding-bottom: 20px">
+      <h2>검색</h2>
+
+      <input
+        v-model="keyword"
+        name="keyword"
+        type="text"
+        style="border: #1e90cc solid"
+        class="search"
+      >
+      <v-btn @click="onsubmit()">검색</v-btn>
+    </div>
+    <div>
+      <div
+        v-for="(item,index) in lists" :key="index"
+        style="width: 33%;margin-right: 0.3%;margin-bottom: 2px; display: inline-block; border: 1px solid #dddfe1; border-radius: 10px"
         outlined
         justify="start"
       >
@@ -26,47 +34,44 @@
             </v-list-item-title>
             <v-list-item-subtitle>
               소개<br>{{ item.guser_intro }}
+
             </v-list-item-subtitle>
           </v-list-item-content>
 
-          <v-card-actions>
-            <v-btn
-              outlined
-              rounded
-              text
-              @click="view(item)"
-            >
-              상세보기
-            </v-btn>
-          </v-card-actions>
+          <div>
+            <v-list-item-avatar
+              tile
+              size="80"
+              color="grey"
+            ><img v-bind:src="img(item.pic_name)"></v-list-item-avatar>
 
-          <v-list-item-avatar
-            tile
-            size="80"
-            color="grey"
-          ><img v-bind:src="img(item.pic_name)"></v-list-item-avatar>
+            <v-card-actions style="padding: 0">
+              <v-btn
+                outlined
+                rounded
+                text
+                @click="view(item)"
+              >
+                상세보기
+              </v-btn>
+            </v-card-actions>
+          </div>
+
         </v-list-item>
-
+        <v-btn
+          v-if="item.user_id==$store.state.user.userId"
+          outlined
+          rounded
+          text
+          @click="views(item)"
+        >
+          소개 작성
+        </v-btn>
         <v-card-actions />
-      </v-card>
-    </v-row>
-    <div>
-      <h1>검색</h1>
-
-      <input
-        v-model="keyword"
-        name="keyword"
-        type="text"
-        style="border: #1e90cc solid"
-        class="search"
-      >
+      </div>
     </div>
-    <v-btn
-      class="btn2"
-      @click="onsubmit()"
-    >
-      Search
-    </v-btn>
+
+
   </div>
 </template>
 
@@ -96,6 +101,9 @@ export default {
 
       this.$router.push("/GuideView/" + item.user_id)
     },
+    views(item){
+      this.$router.push("/GuideIntro/" + item.user_id)
+    },
     onsubmit(){
       console.log(this.keyword)
      this.$router.push("/GuideView/Search/" + this.keyword)
@@ -121,12 +129,13 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
 .card {
   position: relative;
   display: flex;
 
 }
+
 
 </style>
 

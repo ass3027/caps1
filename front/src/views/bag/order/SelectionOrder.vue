@@ -1,12 +1,12 @@
 <template>
-  <v-app id="app">
+  <v-app id="app" style="padding-top: 35px">
     <div class="Bag-order">
       <p class="text-center">
         가방예약
       </p>
     </div>
 
-    <v-row justify="space-around">
+    <v-row justify="space-around" style="padding-top: 35px">
       <v-col
         cols="6"
         sm="2"
@@ -64,6 +64,7 @@ export default {
 </script>
 
 <style scoped>
+
 .Bag-order {
   margin: 10px;
   font-size: xx-large;

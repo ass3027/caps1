@@ -202,7 +202,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 #orderItem{
   padding: 20px;

@@ -12,7 +12,7 @@
       >
         <div class="innerText">
           <h3>{{ i+1 }}.{{ item.title }}</h3>
-          <v-btn>일정에추가</v-btn>
+          <v-btn @click="toCalendar(item)">일정에추가</v-btn>
         </div>
       </v-carousel-item>
     </v-carousel>
@@ -44,6 +44,12 @@ export default {
         this.items=res.data
 
       })
+  },
+  methods:{
+    toCalendar(item){
+      this.$router.push({name:'calender', params:{item:item}})
+    }
+
   }
 
 }

@@ -2,66 +2,74 @@
   <div style="width: 1050px; padding-top: 65px">
     <MyPageHeader></MyPageHeader>
     <div class="container" style="width: 820px; float: right; padding: 0">
-      <h2>회원정보수정</h2>
-      <div>
-        <v-text-field
-          v-model="user_name"
-          type="text"
-          name="name"
-          class="name"
-          placeholder="이름"
-          :counter="7"
-          label="이름"
-          required
-        />
+      <div class="head_aticle">
+        <h1 class="tit">회원정보수정</h1>
+      </div>
+      <div style="width: 820px; margin: 0 auto">
+        <table style="border-top: 2px solid #333; width: 100%">
+          <tbody>
+            <div style="width: 400px; margin: 0 auto; padding-top: 19px">
+              <v-text-field
+                v-model="user_name"
+                type="text"
+                name="name"
+                class="name"
+                placeholder="이름"
+                :counter="7"
+                label="이름"
+                required
+              />
 
-        <v-text-field
-          v-model="user_id"
-          type="text"
-          name="userId"
-          class="id"
-          placeholder="아이디"
-          :counter="30"
-          label="아이디"
-          required
-        />
+              <v-text-field
+                v-model="user_id"
+                type="text"
+                name="userId"
+                class="id"
+                placeholder="아이디"
+                :counter="30"
+                label="아이디"
+                required
+              />
 
-        <v-text-field
-          v-model="user_pw"
-          type="password"
-          name="user pw"
-          class="pw"
-          placeholder="비밀번호를 입력하세요"
-          :counter="100"
-          label="비밀번호"
-          required
-        />
+              <v-text-field
+                v-model="user_pw"
+                type="password"
+                name="user pw"
+                class="pw"
+                placeholder="비밀번호를 입력하세요"
+                :counter="100"
+                label="비밀번호"
+                required
+              />
 
-        <v-text-field
-          v-model="user_phone"
-          type="text"
-          name="user phone"
-          class="phone"
-          placeholder="전화번호"
-          :counter="20"
-          label="전화번호"
-          required
-        />
+              <v-text-field
+                v-model="user_phone"
+                type="text"
+                name="user phone"
+                class="phone"
+                placeholder="전화번호"
+                :counter="20"
+                label="전화번호"
+                required
+              />
 
-        <v-select
-          v-model="preference"
-          :items="items"
-          label="선호하는 여행방식을 골라주세요"
-          dense
-          class="preference"
-        ></v-select>
+              <v-select
+                v-model="preference"
+                :items="items"
+                label="선호하는 여행방식을 골라주세요"
+                dense
+                class="preference"
+              ></v-select>
+            </div>
+
+          </tbody>
+        </table>
       </div>
 
 
-      <div id="button">
-        <v-btn elevation="3" type="button" @click="login">로그인</v-btn>
-        <v-btn elevation="3" type="button" @click="main">메인으로 이동</v-btn>
-        <v-btn elevation="3" type="button" @click="Modify">수정완료</v-btn>
+      <div id="button" style="padding: 40px 0;">
+        <button elevation="3" type="button" @click="main">메인으로 이동</button>
+        <button elevation="3" type="button" @click="Modify">수정완료</button>
       </div>
     </div>
   </div>
@@ -164,6 +172,22 @@ export default {
 </script>
 
 <style scoped>
+button {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  display: inline-block;
+  width: 120px;
+  margin-left: 5px;
+  vertical-align: top;
+  height: 44px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  outline: none;
+}
 
 header{
   position: center;
@@ -248,5 +272,18 @@ header{
   background: none;
 }
 
+
+.head_aticle {
+  padding: 5px 0 34px;
+}
+
+.tit {
+  height: 36px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: #333;
+  letter-spacing: -.5px;
+}
 
 </style>

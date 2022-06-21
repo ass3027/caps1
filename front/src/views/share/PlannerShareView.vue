@@ -1,22 +1,23 @@
 <template>
-  <v-container>
+  <v-container style="padding-top: 60px">
     <v-row
       justify="center"
     >
       <v-col
         cols="9"
       >
-        <v-row justify="space-between">
+        <v-row justify="space-between" style="padding-bottom: 20px">
           <h2>플래너 공유 게시판</h2>
-          <v-btn @click="loginCheck">
+          <button @click="loginCheck" style="margin-top: 20px">
             글 작성하기
-          </v-btn>
+          </button>
         </v-row>
         <v-row justify="center">
           <v-col
             v-for="(item,index) in tableSets"
             :key="index"
             cols="12"
+            style="padding: 0; margin-bottom: 20px"
             @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
           >
             <planner-share-card :share-set="item" />
@@ -32,9 +33,9 @@
 <script>
 
 import axios from 'axios';
-import PlaceRecommend from "@/components/order/PlaceRecommend";
-import bestPlace from "@/components/BestPlace";
-import PlannerShareCard from "@/components/PlannerShareCard";
+import PlaceRecommend from "@/components/recommend/PlaceRecommend";
+import bestPlace from "@/components/recommend/BestPlace";
+import PlannerShareCard from "@/components/recommend/PlannerShareCard";
 
 
 export default {
@@ -76,5 +77,21 @@ export default {
 </script>
 
 <style scoped>
+
+button {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  display: inline-block;
+  width: 120px;
+  vertical-align: top;
+  height: 44px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  outline: none;
+}
 
 </style>

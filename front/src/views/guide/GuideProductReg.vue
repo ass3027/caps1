@@ -2,6 +2,8 @@
   <form class="joinGItem">
     <h2>가이드 상품 등록</h2>
     <h1>{{ $store.state.user.userId }}</h1>
+      <search-place @childEvent="getEmitData" />
+
     <div class="textForm">
       <input
         v-model="gitem_id"
@@ -11,15 +13,13 @@
         placeholder="상품 아이디"
       >
     </div>
-
-
     <div class="textForm">
       <input
-        v-model="pl_id"
+        v-model="lodging.pl_id"
         name="guideIntro"
         type="text"
         class="intro"
-        placeholder="장소 번호"
+        placeholder="장소번호"
       >
     </div>
     <div class="textForm">
@@ -76,13 +76,16 @@
 
 
 import axios from "axios";
+import SearchPlace from "@/components/SearchPlace";
 
 export default {
   name: 'GuideProductReg',
   components: {
+    SearchPlace
   },
   data(){
     return{
+      lodging:'',
       gitem_id:'',
       user_id:'',
       pl_id:'',
@@ -92,7 +95,12 @@ export default {
       end_date:''
     }
   },
+  props:[],
   methods:{
+    getEmitData: function (lodging) {
+      this.lodging = lodging
+      console.log("받은데이터" + lodging)
+    },
     onsubmit(){
       if (this.$store.state.user.userId===''){
         alert("로그인후 이용해주세요")
@@ -101,7 +109,7 @@ export default {
 
       sendform.append('gitem_id', this.gitem_id);
       sendform.append('user_id', this.$store.state.user.userId);
-      sendform.append('pl_id', this.pl_id);
+      sendform.append('pl_id', this.lodging.pl_id);
       sendform.append('introduce', this.introduce);
       sendform.append('st_date', this.st_date);
       sendform.append('require_time', this.require_time);
@@ -133,7 +141,7 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
 * {
   margin: 0px;
   padding: 0px;

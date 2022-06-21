@@ -1,8 +1,9 @@
 <template>
-  <div style="width:100px;height:100px">
+  <div style="width:100px;height:100px;min-width: 1350px">
+    <h2>일정선택</h2>
     <select
       v-model="plan_id"
-      style="border-style:solid;width:100px;height:30px "
+      style="border-style:solid;width:150px;height:45px;font-size: 24px; "
       @change="reload"
     >
       <option
