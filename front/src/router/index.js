@@ -117,7 +117,7 @@ const routes = [
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 
   //세진
-  {path: "/calender", name: "calender", component: CalenderView, props:true},
+  {path: "/calender", name: "calender", component: CalenderView},
   {path: "/plInvite", name: "plInvite", component: PlInviteView},
   {path: "/plan", name: "plan", component: PlanView},
   {path: "/planPic", name: "planPic", component: PlannerPicView},
