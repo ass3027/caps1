@@ -15,7 +15,9 @@
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">
+              <div v-bind:gid="item.gitem_id">
               상품아이디:{{ item.gitem_id }}
+              </div>
               <v-btn
                 v-if="item.user_id==$store.state.user.userId"
                 @click="view(item)"
@@ -71,6 +73,8 @@
 </template>
 <script>
 
+import axios from "axios";
+
 export default {
   name: "GuideProduct.vue",
 
@@ -78,6 +82,7 @@ export default {
     return{
       lists:[],
       keyword:'',
+
     }
   },
   mounted() {

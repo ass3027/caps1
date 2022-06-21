@@ -1,17 +1,11 @@
 <template>
   <form class="joinGItem">
     <h2>가이드 시간 등록</h2>
-
+    <h2>{{gitem_id}}</h2>
 
 
     <div class="textForm">
-      <input
-        v-model="gitem_id"
-        name="guideIntro"
-        type="text"
-        class="intro"
-        placeholder="상품 아이디"
-      >
+
     </div>
     <div class="textForm">
       <input
@@ -61,10 +55,15 @@ export default {
   name:'GuideProductTime',
   data(){
     return{
-      gitem_id:'',
+      gitem_id: this.$route.params.gitem_id,
       st_time:'',
       end_time:'',
       book_whether:'',
+    }
+  },
+  props: {
+    gid:{
+      type: String
     }
   },
   methods:{
@@ -88,9 +87,17 @@ export default {
         data: sendform,
       }).then((res)=>{
         console.log(res)
+        this.refreshAll()
       })
 
+    },
+    refreshAll(){
+      this.$router.go()
     }
+  },
+  mounted() {
+    console.log("GID", this.$route.params.gitem_id)
+
   }
 }
 </script>
