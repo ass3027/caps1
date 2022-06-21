@@ -23,9 +23,6 @@
             v-model="endDate"
             type="date"
           >
-          <v-btn>
-            날짜 변경
-          </v-btn>
         </v-col>
 
         <v-text-field
@@ -35,9 +32,9 @@
         />
         <v-row style="width:100%;height: 10%;">
           <v-col>
-            <v-btn @click="create()">
-              create
-            </v-btn>
+<!--            <v-btn @click="create()">-->
+<!--              create-->
+<!--            </v-btn>-->
             <v-btn @click="save()">
               save
             </v-btn>
