@@ -1,12 +1,20 @@
 <template>
-  <div style="padding-left: 15px">
+  <v-container style="padding-left: 15px;min-width: 1350px">
     <PlannerHeader />
 
-
-    <h2>플래너 생성</h2>
-    <hr>
     <v-row>
       <v-col>
+        <h2>플래너 생성</h2>
+        <v-divider/>
+      </v-col>
+    </v-row>
+
+    <v-row
+      justify="center"
+    >
+
+      <v-col
+        style="width:30%;">
         <h3>플래너 이름</h3>
         <v-text-field
           v-model="plan_name"
@@ -14,39 +22,26 @@
           solo
           style="width:200px"
         />
-      </v-col>
-    </v-row>
-    <h3>시작날짜 및 종료날짜</h3>
-    <v-row
-      justify="center"
-      style="width:50%"
-    >
-      <v-col>
+        <h3>시작날짜 및 종료날짜</h3>
         <v-date-picker
           v-model="plan_range"
           style="width:50%;height:350px;"
           type="date"
           range
         />
+        <v-btn
+          color="blue"
+          @click="addPlan"
+          @submit.prevent
+        >
+          생성
+        </v-btn>
       </v-col>
-    </v-row>
-
-    <v-row>
-      <v-btn
-        color="blue"
-        @click="addPlan"
-        @submit.prevent
-      >
-        생성
-      </v-btn>
-    </v-row>
-    <div style="padding:40px" />
-    <v-row>
-      <h2>현재 소속된 플래너 목록</h2>
-    </v-row>
-    <v-row>
-      <v-simple-table>
-        <thead>
+      <v-divider vertical/>
+      <v-col>
+        <h2>현재 소속된 플래너 목록</h2>
+        <v-simple-table>
+          <thead>
           <tr>
             <th
               v-for="(key,index) in keys"
@@ -58,8 +53,8 @@
             <th>phone</th>
             <th>삭제</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           <tr
 
             v-for="(plan,index) in plan_list"
@@ -82,11 +77,19 @@
               </v-btn>
             </td>
           </tr>
-        </tbody>
-      </v-simple-table>
+          </tbody>
+        </v-simple-table>
+      </v-col>
     </v-row>
     <div style="padding:40px" />
-  </div>
+    <v-row>
+
+    </v-row>
+    <v-row>
+
+    </v-row>
+    <div style="padding:40px" />
+  </v-container>
 </template>
 
 <script>

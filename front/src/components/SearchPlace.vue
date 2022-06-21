@@ -1,10 +1,17 @@
 <template>
   <v-app>
+    <v-dialog v-model="dialog" width="1500">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on" style="width:95px">
+          장소검색
+        </v-btn>
 
-    <v-card>
-      <v-card-title class="text-h5 grey lighten-2">
-        장소를 검색하세요
-      </v-card-title>
+      </template>
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          장소를 검색하세요
+        </v-card-title>
+      </v-card>
 
 
       <v-card class="align-center">
@@ -20,7 +27,8 @@
                           v-model="keyword"/>
           </v-col>
           <v-col>
-            <v-btn color="primary" @click="placeTitle" :style="{width:'100px', marginRight:'30px', marginTop:'10px'}">
+            <v-btn color="primary" @click="placeTitle"
+                   :style="{width:'100px', marginRight:'30px', marginTop:'10px'}">
               검색
             </v-btn>
           </v-col>
@@ -29,7 +37,8 @@
 
         <v-sheet class="pa-3">
           <v-row class="align-center">
-            <v-skeleton-loader class="mx-auto" max-width="300" type="card" cols="auto" v-for="(data,index) in calData"
+            <v-skeleton-loader class="mx-auto" max-width="300" type="card" cols="auto"
+                               v-for="(data,index) in calData"
                                :key="index">
               <v-card width="400px" height="300px" cols="auto" class="ma-3">
 
@@ -64,7 +73,9 @@
         </v-sheet>
 
       </v-card>
-    </v-card>
+
+
+    </v-dialog>
   </v-app>
 </template>
 
@@ -161,7 +172,7 @@ export default {
           .then((res) => {
             this.lists = res.data;
             console.log('키워드응답' + res);
-            this.curPageNum=1
+            this.curPageNum = 1
           })
       }
     },

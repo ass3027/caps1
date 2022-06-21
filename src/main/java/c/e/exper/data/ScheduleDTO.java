@@ -6,9 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +34,10 @@ public class ScheduleDTO {
 
     public ScheduleDAO toDAO() {
         try{
-            SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date convertedStart = sDate.parse(this.sch_startTime);
+            Date convertedEnd = sDate.parse(this.sch_endTime);
+
             return ScheduleDAO.builder()
                     .sch_number(this.sch_number)
                     .gitem_id(this.gitem_id)
@@ -42,8 +45,8 @@ public class ScheduleDTO {
                     .pl_id(this.pl_id)
                     .pl_name(this.pl_name)
                     .sch_name(this.sch_name)
-                    .sch_startTime(sDate.parse(this.sch_startTime))
-                    .sch_endTime(sDate.parse(this.sch_endTime))
+                    .sch_startTime(convertedStart)
+                    .sch_endTime(convertedEnd)
                     .expect_expenses(this.expect_expenses)
                     .place(this.place)
                     .mapX(this.mapX)

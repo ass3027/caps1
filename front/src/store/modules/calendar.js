@@ -45,8 +45,8 @@ export default {
       partitionedCalendar.set(state.selectTime, scheduleData)
       const convertedMap = [...partitionedCalendar]
 
-      state.calendar.date[state.selectDate] = new Map(convertedMap.sort((a, b) => a[0] - b[0]));
-
+      state.calendar.date[state.selectDate] = new Map(convertedMap.sort((a, b) => parseInt(a[0]) - parseInt(b[0])));
+      console.log(state.calendar.date)
       if(mapData===undefined) state.selectTime = 30
 
       console.log(state.calendar)

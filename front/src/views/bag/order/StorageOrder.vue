@@ -1,83 +1,86 @@
 <template>
-  <v-app id="app" style="max-width: 1050px; margin: 0 auto">
+  <v-app id="app">
     <div class="Bag-order">
       <p class="text-center">
         가방 보관 신청서
       </p>
     </div>
     <v-form v-model="valid">
-      <div>
+      <v-container justify="space-around">
         <h3>맡길장소</h3>
+        <search-place @childEvent="getEmitData"/>
 
-        <v-dialog v-model="dialog">
-          <search-place @childEvent="getEmitData"/>
-        </v-dialog>
+        <div>맡길장소: {{ lodging.title }}</div>
+        <v-img :src="lodging.firstimage2" width="200px" height="150px" class="ma-2" alt="" />
+      </v-container>
 
-        <v-btn class="btn_type2" @click="dialog = true">
-          장소검색
-        </v-btn>
+      <v-container>
+        <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
+          <v-expansion-panel>
+            <v-expansion-panel-header><h3>짐 종류와 수량</h3></v-expansion-panel-header>
+            <v-expansion-panel-content>
 
-        <div style="margin-top: 10px">맡길장소: {{ lodging }}</div>
-        <h3>짐 종류와 수량</h3>
-        <div id="selection_bag">
-            <v-card v-for="(item, index) in bagType" :key="index">
-              <v-card-title>
-                <v-row align="center">
-                  <v-toolbar-title>
-                    {{item.title }}
-                  </v-toolbar-title>
-                  <v-spacer/>
-                  {{ item.value }}원
-                  <v-checkbox
-                    v-model="checkedName"
-                    :value="item.value"
-                  />
-                </v-row>
-              </v-card-title>
-            </v-card>
-          </div>
+              <v-card v-for="(item, index) in bagType" :key="index">
 
-        <v-card>
-          <v-card-title>가방 합계가격: {{ bagAmount }} 원</v-card-title>
+                <v-card-text>
+                  <v-row align="center">
+                    {{ item.title }}
+                    <v-spacer/>
+                    {{ item.value }}원
+                    <v-checkbox
+                      v-model="checkedName"
+                      :value="item.value"
+                    />
+                  </v-row>
+                </v-card-text>
+              </v-card>
+
+              <v-card>
+                <v-card-text>
+                  가방 합계가격: {{ bagAmount }} 원
+                </v-card-text>
+              </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+
+        <v-card align="center">
+          <v-row>
+            <v-col>
+              <DateTimePicker @child="resultDate" :label="'시작날짜'"/>
+            </v-col>
+            <v-col>
+              <DateTimePicker @child="resultDate" :label="'종료날짜'"/>
+            </v-col>
+          </v-row>
         </v-card>
-      </div>
+        <v-card>
+          <v-col>
+            <v-row>
+              <v-card>
+                <h1>요청사항</h1>
+              </v-card>
+            </v-row>
+            <br>
+            <v-textarea
+              name="input-7-1"
+              label="요청사항을 입력해주세요(255글자 내)"
+              v-model="ordRequest"
+              hint="Hint text"
+            ></v-textarea>
+          </v-col>
+        </v-card>
 
-      <v-card>
-        <v-row>
-          <DateTimePicker
-            :label="'맡길날짜'"
-            @date="changeEntrustTime"
-          />
-          <DateTimePicker
-            :label="'찾을날짜'"
-            @date="changeWithdrawTime"
-          />
-        </v-row>
-      </v-card>
-
-      <v-row>
-        <v-col>
-          <v-card>
-            <h3>맡길장소</h3>
-            <AddressComponent @addressData="startAddress"/>
-          </v-card>
-        </v-col>
-      </v-row>
-
-      <v-btn
-        depressed
-        color="primary"
-        @click="addOrder"
-      >
+      </v-container>
+      <v-btn depressed color="primary" @click="addOrder">
         작성 완료
       </v-btn>
     </v-form>
-    <router-view />
+    <router-view/>
   </v-app>
 </template>
 
 <script>
-import AddressComponent from "@/components/AddressComponent"
 import DateTimePicker from "@/views/bag/order/DateTimePicker"
 import axios from "axios";
 import SearchPlace from "@/components/SearchPlace";
@@ -86,24 +89,33 @@ export default {
   components: {
     SearchPlace,
     // MapComponent
-    AddressComponent,
     DateTimePicker
   },
   data() {
     return {
+      sDate: '',
+      panel: [0, 1],
+      disabled: false,
+      readonly: false,
       lodging: '',
       checkedName: [],
       overlay: false,
       valid: '',
       checkBagTime: '',
+      //날짜 데이터
+      dateTimePicker: '',
       //시작날짜
       entrustTime: '',
-      //도착날짜
+      //종료날짜
       withdrawTime: '',
       //시작장소
       entrustAddress: '',
       //도착장소
       withdrawAddress: '',
+      //요청사항
+      ordRequest: '',
+      //이미지
+      image2:'',
 
       bagType: [
         {title: '기내용 캐리어(57cm 미만)', value: 11000},
@@ -113,7 +125,6 @@ export default {
         {title: '백팩 대형(40L 이상 또는 10kg 이상)', value: 15000},
         {title: '기타물품 별도문의', value: 30000}
       ],
-      dialog: false,
     }
   },
   computed: {
@@ -135,28 +146,31 @@ export default {
   },
 
   methods: {
+    resultDate(sDate) {
+      this.sDate = sDate
+      console.log(this.sDate)
+      return this.sDate
+    },
+
     getEmitData: function (lodging) {
       this.lodging = lodging
-      console.log("받은데이터" + lodging)
+      console.log("받은데이터" + this.lodging)
     },
-    changeEntrustTime(date) {
-      this.entrustTime = date;
-    },
-    changeWithdrawTime(date) {
-      this.withdrawTime = date;
-    },
+
     addOrder() {
       let storageBag = {
-        ord_id: 301,
+        ord_id: '',
         ord_amount: this.bagAmount, //금액
         user_id: this.$store.state.user.userId, // UserId
-        keep_start: this.entrustAddress, //맡길장소
-        entrust_time: this.entrustTime, //맡길시간
-        withdraw_time: this.withdrawTime,  //찾을시간
-        ord_selection: 'storage', //물품보관
+        keep_start: this.lodging.pl_id, //맡길장소
+        entrust_time: this.sDate,  //맡길시간
+        withdraw_time: this.sDate,  //찾을시간
+        ord_selection: '물품보관', //물품보관
+        ord_request: this.ordRequest,
+        status:'1'
       }
       axios
-        .post('/api/stAddOrder', storageBag)
+        .post('/api/storageAddOrder', storageBag)
         .then((res) => {
           console.log(storageBag)
           alert('주문완료!')
@@ -176,17 +190,5 @@ export default {
   margin: 10px;
   font-size: xx-large;
 }
-
-.btn_type2 {
-  display: block;
-  overflow: hidden;
-  height: 54px;
-  border-radius: 3px;
-  text-align: center;
-  border: 1px solid black;
-  color: #333;
-  margin-top: 10px;
-}
-
 
 </style>

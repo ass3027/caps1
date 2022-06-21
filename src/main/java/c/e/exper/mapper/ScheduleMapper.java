@@ -9,14 +9,14 @@ import java.util.List;
 @Mapper
 public interface ScheduleMapper {
 
-    @Insert("insert into SCHEDULE values(default,null,#{plan_id},#{pl_id, jdbcType=VARCHAR},#{sch_name},#{sch_startTime,jdbcType=TIMESTAMP},#{sch_endTime,jdbcType=TIMESTAMP},#{expect_expenses},#{place},#{mapX},#{mapY})")
+    @Insert("insert into SCHEDULE values(default,null,#{plan_id},#{pl_id, jdbcType=VARCHAR},#{sch_name},#{sch_startTime,jdbcType=TIMESTAMP},#{sch_endTime,jdbcType=TIMESTAMP},#{expect_expenses, jdbcType=VARCHAR},#{place , jdbcType=VARCHAR},#{mapX , jdbcType=VARCHAR},#{mapY, jdbcType=VARCHAR})")
     void insert(ScheduleDAO schedule);
 
     @Select("Select * from Schedule")
     List<ScheduleDAO> selectAll();
 
     @Select("""
-            Select s.*,r.title
+            Select s.*,r.title as pl_name
             From Schedule s, ( Select title,PL_ID
                                From place p
                                Where p.pl_id in (Select PL_ID

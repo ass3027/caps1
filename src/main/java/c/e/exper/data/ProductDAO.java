@@ -16,4 +16,8 @@ public class ProductDAO {
     String pl_id;
     String pd_info;
     String pic_name;
+    String addr1;
+    String title;
+    String tel;
+    String content;
 }

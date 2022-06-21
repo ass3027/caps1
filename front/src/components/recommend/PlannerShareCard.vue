@@ -29,7 +29,7 @@
         <!--      내용과 프사-->
         <v-row
           justify="space-around"
-          class="ma-5"
+          class="ma-0"
           style="height: 100px"
         >
           <v-col
@@ -55,7 +55,7 @@
           class="ma-5"
         >
           <v-col cols="7">
-            <h5>#{{ shareSet.share_place }} #먹거리</h5>
+            <h5>#{{ shareSet.share_place }} #{{ preference }}</h5>
           </v-col>
           <v-col
             cols="3"
@@ -70,14 +70,21 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: "PlannerShareCard",
   props: ["shareSet"],
   data() {
-    return {}
+    return {
+      preference:''
+    }
   },
   mounted() {
+    axios.get("/api/getPreference",{params:{user_id:this.shareSet.user_id}})
+    .then((res)=>{
+      this.preference=res.data
+    })
   },
   methods: {}
 }

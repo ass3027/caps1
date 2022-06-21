@@ -49,10 +49,17 @@ public class ApiPlace {
       this.place2Service = place2Service;
    }
    
-   @GetMapping("/place/{category}")
+   @GetMapping("/place1/{category}")
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
-      return place2Service.카테고리별_조회(category);
+      return placeService.카테고리별_조회(category);
    }
+
+   @GetMapping("/place1/{category}/{areaCode}")
+   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category, @PathVariable String areaCode) {
+      return placeService.카테고리_지역_조회(category, areaCode);
+   }
+
+
 //   @GetMapping("/place/{category}")
 //   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
 //      System.out.println("장소 카테고리");

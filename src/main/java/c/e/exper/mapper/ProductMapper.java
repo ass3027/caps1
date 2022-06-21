@@ -16,10 +16,19 @@ public interface ProductMapper {
 //          "WHERE PRODUCT.PL_ID = PLACE.PL_ID AND PRODUCT.PD_ID = PICTURES.PD_ID AND PRODUCT.PL_ID = #{pl_id}")
 
     @Select("""
-            SELECT *
-            FROM PRODUCT, PICTURES
-            WHERE PRODUCT.PD_ID = PICTURES.PD_ID AND
-            PRODUCT.PL_ID = #{pl_id}
+            SELECT PRODUCT.PD_ID, PRODUCT.PD_NAME, PRODUCT.PD_PRICE, PLACE.PL_ID,
+            PRODUCT.PD_INFO, PICTURES.PIC_NAME, PLACE.ADDR1, PLACE.TITLE, PLACE.TEL, PLACE.CONTENT
+            FROM PRODUCT, PICTURES, PLACE
+            WHERE PRODUCT.PD_ID = PICTURES.PD_ID AND PRODUCT.PL_ID = #{pl_id}
+              AND PLACE.PL_ID = PRODUCT.PL_ID
             """)
     public List<ProductDAO> findStoreProduct(@Param("pl_id")String pl_id);
+
+    @Select("""
+            SELECT PICTURES.PIC_NAME, PRODUCT.PD_ID
+            FROM PRODUCT, PICTURES
+            WHERE PRODUCT.PD_ID = PICTURES.PD_ID AND PRODUCT.PD_ID = #{pd_id}
+            """)
+    public List<ProductDAO> ProductImage(@Param("pd_id")String pd_id);
+
 }

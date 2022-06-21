@@ -150,7 +150,7 @@ export default {
 
     },
     goDetail(){
-      this.$router.push({name:'bshDetail',params:{id:'123'},query:{bsh:this.message}})
+      this.$router.push({name:'bshDetail',params:{id:'123',id2:'234',abc:this.abc},query:{bsh:this.message}})
     }
   }
 }

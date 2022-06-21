@@ -13,7 +13,7 @@ public interface PlannerMapper {
 //    @Insert("Insert into PLANNER(plan_start,plan_end,user_id,plan_name) values(#{planner.plan_start},#{planner.plan_end},#{planner.user_id},#{planner.plan_name})")
 //    void insert(@Param("planner")PlannerDAO plannerDAO);
 
-    @Insert("Insert into PLANNER(plan_id,plan_start,plan_end,user_id,plan_name) values(#{plan_id},#{plan_start},#{plan_end},#{user_id},#{plan_name})")
+    @Insert("Insert into PLANNER(plan_id,plan_start,plan_end,user_id,plan_name) values(#{plan_id},#{plan_start},#{plan_end},#{user_id, jdbcType=VARCHAR},#{plan_name})")
     @SelectKey(statement="select PLAN_SEQUENCE.nextval FROM DUAL", keyProperty="plan_id", before=true, resultType=String.class)
     int insert(PlannerDAO plannerDAO);
 

@@ -90,7 +90,8 @@ public class ReviewService {
 
     public List<Review> 운송원아이디_모든리뷰_조회(String delivery_id) { return reviewMapper.findAllReviewForDelivery(delivery_id); }
 
-    public void 리뷰_수정(Review review) {  reviewMapper.updateReview(review); }
+    public void 리뷰_수정(Review review) {
+        reviewMapper.updateReview(review); }
 
     // 조건: user_id가 같읕 때만 삭제 가능
     public int 리뷰_삭제(Review review){
