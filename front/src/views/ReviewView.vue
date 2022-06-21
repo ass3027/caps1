@@ -8,28 +8,28 @@
 
     <div class="xans-element- xans-product xans-product-additional detail_board  ">
       <review-list
-        :reviews="slice_reviews"
+        :reviews="reviews"
         @deleteReview="getReviews"
         @reveiws-updated="reviewsUpdated"
       />
     </div>
 
-    <div class="board_pg_area">
-      <a class="layout-pagination-button layout-pagination-first-page">맨 처음 페이지로 가기</a>
-      <a class="layout-pagination-button layout-pagination-prev-page">이전 페이지로 가기</a>
-      <a v-model="page">1</a>
-      <a class="layout-pagination-button layout-pagination-number">2</a>
-      <a class="layout-pagination-button layout-pagination-number">3</a>
-      <a class="layout-pagination-button layout-pagination-number">4</a>
-      <a class="layout-pagination-button layout-pagination-number">5</a>
-      <a class="layout-pagination-button layout-pagination-number">6</a>
-      <a class="layout-pagination-button layout-pagination-number">7</a>
-      <a class="layout-pagination-button layout-pagination-number">8</a>
-      <a class="layout-pagination-button layout-pagination-number">9</a>
-      <a class="layout-pagination-button layout-pagination-number">10</a>
-      <a class="layout-pagination-button layout-pagination-next-page">다음 페이지로 가기</a>
-      <a class="layout-pagination-button layout-pagination-last-page">맨 끝 페이지로 가기</a>
-    </div>
+<!--    <div class="board_pg_area">-->
+<!--      <a class="layout-pagination-button layout-pagination-first-page">맨 처음 페이지로 가기</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-prev-page">이전 페이지로 가기</a>-->
+<!--      <a>1</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">2</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">3</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">4</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">5</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">6</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">7</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">8</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">9</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-number">10</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-next-page">다음 페이지로 가기</a>-->
+<!--      <a class="layout-pagination-button layout-pagination-last-page">맨 끝 페이지로 가기</a>-->
+<!--    </div>-->
 
   </div>
 </template>

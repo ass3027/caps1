@@ -89,8 +89,17 @@ public interface ReviewMapper {
             FROM   review
             WHERE  booK_id IN (SELECT book.book_id
                                FROM book
-                               WHERE pd_id = #{pd_id})""")
+                               WHERE pd_id = #{pd_id})
+                               """)
     public List<Review> findAllReviewForProduct(@Param("pd_id") String pd_id);
+
+    @Select("""
+            SELECT pic_name
+            FROM   pictures
+            WHERE  rev_id = #{rev_id}""")
+    public String findReviewPictures(@Param("rev_id") String rev_id);
+
+
 
     /* 가게 이름으로 모든 리뷰 조회*/
     @Select("""

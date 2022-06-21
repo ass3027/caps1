@@ -115,7 +115,7 @@
           <img
             src="/api/photo/altImage/packless_travel_logo.png"
             alt="PacklessTravel 로고"
-            style="display: block; width: 200px; height: 100px"
+            style="display: block;height: 100px;"
           >
         </a>
       </h1>

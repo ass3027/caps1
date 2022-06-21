@@ -43,13 +43,20 @@
         <div class="review_photo" style="padding-top: 30px">
 
 <!--          <img src="/api/photo/altImage/packless_travel_logo.png" border="0">-->
+          <img
+            :src="'/api/photo/'+review.rev_img_filename"
+            alt="리뷰 이미지"
+            width="600px"
+          >
           <br>
           <br>
         </div>
+
+        <br>
         {{ review.rev_content }}
       </div>
       <div class="goods-review-grp-btn">
-        <button type="button" class="styled-button review-like-btn" >도움이 돼요
+        <button type="button" class="styled-button review-like-btn" @click="like">도움이 돼요
           <span class="num"> {{ review.like }} </span>
         </button>
       </div>
@@ -79,20 +86,21 @@ export default {
     reg_date: function() {
       return this.review.reg_date.substring(0,10);
     },
-    rev_img: function() {
-      return "http://localhost:8080/api/photo/"+this.review.rev_img_filename;
-    }
+    // rev_img: function() {
+    //   return "http://localhost:8080/api/photo/"+this.review.rev_img_filename;
+    // }
   },
   methods: {
     displayContent() {
       this.on = !this.on
       console.log('test', this.review.rev_id)
 
-      // if(this.on) {
-      //   document.getElementById('content_view').style.display = 'block'
-      // } else {
-      //   document.getElementById('content_view').style.display = 'none'
-      // }
+    },
+    like() {
+
+
+
+      // DB 변경 추후
     }
   },
   mounted() {
@@ -122,6 +130,11 @@ export default {
 </script>
 
 <style scoped>
+img {
+  display: block;
+  max-width: 600px;
+  margin: 0 auto;
+}
 .review-like-btn{
   height: 32px;
   width: auto;

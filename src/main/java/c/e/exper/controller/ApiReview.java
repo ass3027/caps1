@@ -7,6 +7,7 @@ import c.e.exper.service.FileServiceImpl;
 import c.e.exper.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -63,7 +64,10 @@ public class ApiReview {
     public List<Review> findProductReview(String pd_id) {
         System.out.println(pd_id);
 
-        return reviewService.상품아이디_모든리뷰_조회(pd_id);
+        List<Review> reviews = reviewMapper.findAllReviewForProduct(pd_id);
+        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+
+        return reviews;
     }
 
     @GetMapping("/storeReview")
