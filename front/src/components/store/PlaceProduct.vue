@@ -7,7 +7,7 @@
                style="width: 80%">
         </div>
         <div class="cardText">
-          <div class="cardTitle">{{ product.pd_id }}</div>
+          <div class="cardTitle">{{ product.pd_name }}</div>
           <br>
           <div class="cardPrice">가격 <span class="priceScore">{{ product.pd_price }}원</span></div>
           <br>
@@ -15,7 +15,7 @@
             <hr>
           </div>
           <br>
-          <button>예약</button>
+          <v-btn @click="go">예약</v-btn>
         </div>
       </div>
       <div v-show="show" class="cardMoreInfo">
@@ -37,7 +37,11 @@ export default {
     show: false,
     productImage: [],
   }),
-  methods: {},
+  methods: {
+    go(){
+      this.$router.push({name:'productBook',params:{product:this.product}})
+    }
+  },
 
   created() {
     axios({

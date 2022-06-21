@@ -4,7 +4,7 @@
   >
 
     <div id="userMenu">
-    
+
 <ul class="list_menu"><!----> <!---->
         <li class="menu menu_user"  v-if="isLogin">
           <a class="link_menu grade_comm">
@@ -205,7 +205,8 @@ export default {
           {title: '펜션', route: '/place'},
           {title: '글램핑', route: '/place'},
           {title: '리조트', route: '/place'},
-          {title: '게스트하우스', route: '/place'}
+          {title: '게스트하우스', route: '/place'},
+          {title: '예약 조회', route: '/productBookView'}
         ],
         [
           {title: '가방예약', route: '/SelectionOrder'},

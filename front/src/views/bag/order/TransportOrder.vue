@@ -178,7 +178,7 @@ export default {
       console.log("도착장소데이터" + lodging)
     },
 
-    addOrder() {
+    addOrder () {
       let transportBag = {
         ord_id: '',
         ord_amount: this.bagAmount, //금액

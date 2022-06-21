@@ -78,8 +78,9 @@ import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
 
-import GuideProductTime from "@/views/guide/GuideProductTime";
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
+import ProductBook from "@/views/store/ProductBook";
+import productBookView from "@/views/store/productBookView";
 
 
 
@@ -114,6 +115,8 @@ const routes = [
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
   {path: "/placeadd", name: "placeAdd", component: StoreAdd},
+  {path: "/productBook", name: "productBook", component: ProductBook,props:true},
+  {path: "/productBookView", name: productBookView, component: productBookView},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 
