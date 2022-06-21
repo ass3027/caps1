@@ -1,5 +1,7 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.OrderDAO;
+import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.UserDAO;
 import org.apache.ibatis.annotations.Insert;
@@ -24,10 +26,12 @@ public interface UserMapper { //디비접근
 //    (@Param("user_id") 생략가능
 
 
-    @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null)")
+    //회원가입
+    @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null,#{user.gender},#{user.preference})")
     void insert(@Param("user") UserDAO user);
 
-    @Update("UPDATE USERS SET user_pw=#{user.user_pw}, user_phone=#{user.user_phone}, user_name=#{user.user_name} WHERE user_id=#{user.user_id}")
+    //회원정보수정
+    @Update("UPDATE USERS SET user_pw=#{user.user_pw}, user_phone=#{user.user_phone}, user_name=#{user.user_name}, preference=#{user.preference} WHERE user_id=#{user.user_id}")
     boolean updateUserInfo(@Param("user") UserDAO user);
   //반환데이터형식(반환값) //함수이름          데이터형식 //매개변수
   //반환해주는것!
@@ -52,7 +56,7 @@ public interface UserMapper { //디비접근
 //                #{place.store_id,jdbcType = VARCHAR},
 //                #{place.user_id,jdbcType = VARCHAR},
 //                #{place.keeper_ox,jdbcType = VARCHAR},
-//                #{place.addr1,jdbcType = VARCHAR},
+    //                #{place.addr1,jdbcType = VARCHAR},
 //                #{place.addr2,jdbcType = VARCHAR},
 //                #{place.areaCode,jdbcType = VARCHAR},
 //                #{place.cat1,jdbcType = VARCHAR},
@@ -82,6 +86,28 @@ public interface UserMapper { //디비접근
     @Select("SELECT user_id FROM users")
     List<String> selectAllId();
     /* user 전화번호 올바른 형식으로 업데이트 */
+
+    @Select("SELECT * FROM PAYMENT WHERE CARD_NUM IN (SELECT CARD_NUM FROM CARD WHERE USER_ID = #{user_id})")
+    List<PaymentDAO> selectUserPayments(@Param("user_id") String user_id);
+
+    @Select("SELECT * FROM ORDERS WHERE USER_ID IN #{user_id}")
+    List<OrderDAO> selectUserOrders(@Param("user_id") String user_id);
+
+
+    @Select("""
+            SELECT count(*)
+            FROM guide_license
+            WHERE USER_ID = #{user_id}
+            """)
+    boolean checkGuide(@Param("user_id") String user_id);
+
+    @Select("""
+            SELECT count(*)
+            FROM delivery_user
+            WHERE USER_ID = #{user_id}
+            """)
+    boolean checkDeliveryUser(@Param("user_id") String user_id);
+
 
 
 

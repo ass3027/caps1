@@ -31,12 +31,26 @@ class LocationMapperTest {
 
     @Test
     void selectDuserLocation() {
-        Map<String, BigDecimal> stringDoubleMap = mapper.selectLocation("2", "101");
-        System.out.println(stringDoubleMap.get("LATITUDE"));
+
     }
 
     @Test
     void locationExist() {
         System.out.println(mapper.locationExist("2", "109"));
+    }
+
+    @Test
+    void findNearPlace() {
+        double longitude = 128.620954;
+        double latitude = 35.90621;
+        List<String> nearPlaces = mapper.findNearPlace(longitude-0.05, longitude+0.05,
+                latitude-0.05, latitude+0.05);
+        nearPlaces.forEach(System.out::println);
+        System.out.println("nearPlaces Size: " + nearPlaces.size());
+    }
+
+    @Test
+    void findDuserLocation() {
+        System.out.println(mapper.findDuserLocation("sw"));
     }
 }

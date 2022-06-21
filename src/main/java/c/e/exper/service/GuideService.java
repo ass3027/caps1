@@ -1,5 +1,7 @@
 package c.e.exper.service;
 
+
+import c.e.exper.data.Available_TimeDAO;
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.GuideDAO;
 import c.e.exper.mapper.GItemMapper;
@@ -29,9 +31,16 @@ public class GuideService {
    public List<GuideDAO> 가이드_검색(String keyword) {
       return guideMapper.selectBykeyword(keyword);
    }
+
+   public List<GItemDAO> 가이드상품_검색(String keyword){
+      return gitemMapper.selectItemBykeyword(keyword);
+   }
    
    public GuideDAO 가이드_조회1(String id) {
       return guideMapper.selectById(id);
+   }
+   public GItemDAO 가이드_상품조회1(String id){
+      return gitemMapper.selectByGitemId(id);
    }
    
    public void 가이드_등록(GuideDAO guideDAO) {
@@ -44,10 +53,25 @@ public class GuideService {
       System.out.println(gitemDAO);
       gitemMapper.insert(gitemDAO);
    }
+   public void 가이드_시간등록(GItemDAO gitemDAO){
+      System.out.println(gitemDAO);
+      gitemMapper.insertTime(gitemDAO);
+   }
    
    public List<GItemDAO> 가이드상품_조회() {
       
       return gitemMapper.selectAll();
       
+   }
+   public List<GItemDAO> 가이드상품_시간조회(String id){
+      return gitemMapper.selectTime(id);
+   }
+
+   public void 가이드상품_삭제1(String id){
+      gitemMapper.deleteGitemOne(id);
+
+   }
+   public int 시간_수정(int id){
+      return gitemMapper.updateTime(id);
    }
 }

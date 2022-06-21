@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>{{ productId }}</h1>
+    <h1>{{ Id }}</h1>
+    {{ type }}
 
 
     <v-row justify="center">
@@ -48,7 +49,14 @@ export default {
     ReviewForm,
     ReviewList,
   },
-  props:['productId'],
+  props:{
+    id: {
+      type: String
+    },
+    type: {
+      type: String
+    }
+  },
   data(){
     return{
       reviews:[],
@@ -63,22 +71,18 @@ export default {
 
     getReviews(){
 
-      var sendForm = new FormData()
+      if(this.type === 'product') {
+        axios.get('http://localhost:8080/api/productReview?pd_id='+this.id)
+          .then(res => {
+            console.log(res.data)
+            this.reviews = res.data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
 
-      sendForm.append('pd_id', ""+this.productId)
 
-      axios({
-        method: 'GET',
-        url:'http://localhost:8080/api/productReview?pd_id='+this.productId,
-
-      })
-        .then(res => {
-          console.log(res.data)
-          this.reviews = res.data
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     },
     reviewsUpdated() {
       this.getReviews()

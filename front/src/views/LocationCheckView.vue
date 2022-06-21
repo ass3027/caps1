@@ -7,15 +7,6 @@
     />
     <p>{{ latitude }}</p>
     <p>{{ longitude }}</p>
-    <iframe
-      style="border-radius:12px"
-      src="https://open.spotify.com/embed/track/4UG2Fm0E98LhE2dlNxiAXx?utm_source=generator"
-      width="100%"
-      height="80"
-      frameBorder="0"
-      allowfullscreen=""
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    />
   </div>
 </template>
 
@@ -114,8 +105,8 @@ export default {
         || lat.split('.').length > 2 || lon.split('.').length > 2
         || +lat > 90 || +lat < -90
         || +lon > 180 || +lon < -180) ){
-          if(this.marker == null) this.marker = new kakao.maps.Marker();
-          else this.marker.setMap(null);
+        if(this.marker == null) this.marker = new kakao.maps.Marker();
+        else this.marker.setMap(null);
         if(map != null) {
             this.marker.setPosition(new kakao.maps.LatLng(lat, lon));
 

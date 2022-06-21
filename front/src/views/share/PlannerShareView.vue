@@ -32,7 +32,7 @@
 <script>
 
 import axios from 'axios';
-import PlaceRecommend from "@/components/PlaceRecommend";
+import PlaceRecommend from "@/components/order/PlaceRecommend";
 import bestPlace from "@/components/BestPlace";
 import PlannerShareCard from "@/components/PlannerShareCard";
 

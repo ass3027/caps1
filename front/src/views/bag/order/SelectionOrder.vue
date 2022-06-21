@@ -12,18 +12,18 @@
         sm="2"
         class="mx-auto"
       >
-        <v-row justify="center">
+        <div>
           <v-img src="@/image/storage1.png" />
-        </v-row>
-        <v-row justify="center">
+        </div>
+        <div class="btn_container">
           <v-btn
-            color="primary"
             @click="$router.push({name:'StorageOrder'})"
-            class="ma-3"
+            class="btn_type2"
+            color="white"
           >
             가방 보관
           </v-btn>
-        </v-row>
+        </div>
       </v-col>
       <v-divider vertical />
       <v-col
@@ -31,18 +31,18 @@
         sm="2"
         class="mx-auto"
       >
-        <v-row justify="center">
+        <div>
           <v-img src="@/image/transport1.png" />
-        </v-row>
-        <v-row justify="center">
+        </div>
+        <div class="btn_container">
           <v-btn
-            color="primary"
             @click="$router.push({name:'TransportOrder'})"
-            class="ma-3"
+            class="btn_type2"
+            color="white"
           >
             가방배송
           </v-btn>
-        </v-row>
+        </div>
       </v-col>
     </v-row>
 
@@ -69,6 +69,20 @@ export default {
   font-size: xx-large;
 }
 
+.btn_type2 {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 54px;
+  border-radius: 3px;
+  text-align: center;
+  border: 1px solid black;
+  color: #333;
+  margin-top: 10px;
+}
+.btn_container{
+  margin-top: 30px;
+}
 
 /*.storage{*/
 /*  margin: 10px;*/
