@@ -17,7 +17,6 @@
     <div class="board_pg_area">
       <a class="layout-pagination-button layout-pagination-first-page">맨 처음 페이지로 가기</a>
       <a class="layout-pagination-button layout-pagination-prev-page">이전 페이지로 가기</a>
-      <a v-model="page">1</a>
       <a class="layout-pagination-button layout-pagination-number">2</a>
       <a class="layout-pagination-button layout-pagination-number">3</a>
       <a class="layout-pagination-button layout-pagination-number">4</a>

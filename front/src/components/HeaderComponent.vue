@@ -330,7 +330,8 @@ export default {
 #userMenu .menu {
   position: relative;
   z-index: 400;
-  float:left
+  float:left;
+  font-size: 20px;
 }
 
 #userMenu .menu:before {
@@ -371,7 +372,8 @@ export default {
   float: left;
   text-align: right;
   white-space: nowrap;
-  text-overflow:ellipsis
+  text-overflow:ellipsis;
+
 }
 
 #userMenu .sir {

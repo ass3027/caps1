@@ -4,13 +4,13 @@
     style="width: 70%; min-width:1050px;"
   >
     <PlannerHeader/>
-    <v-container class="map">
+    <div class="map">
       <MapComponent
         index="00"
       />
-    </v-container>
+    </div>
 
-    <v-container
+    <div
       id="plan"
       style="float:right;width:35%; height: 750px;margin-right: 10%;margin-bottom: 100px;min-width: 600px;"
     >
@@ -97,7 +97,7 @@
         <!--            />-->
         <!--          </v-col>-->
       </v-row>
-    </v-container>
+    </div>
   </div>
 </template>
 
