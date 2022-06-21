@@ -1,9 +1,9 @@
 <template>
-  <div>
-<MyPageHeader></MyPageHeader>
-    <h1>회원정보수정</h1>
-    <div class="container">
-      <v-row>
+  <div style="width: 1050px; padding-top: 65px">
+    <MyPageHeader></MyPageHeader>
+    <div class="container" style="width: 820px; float: right; padding: 0">
+      <h2>회원정보수정</h2>
+      <div>
         <v-text-field
           v-model="user_name"
           type="text"
@@ -14,9 +14,7 @@
           label="이름"
           required
         />
-      </v-row>
 
-      <v-row>
         <v-text-field
           v-model="user_id"
           type="text"
@@ -27,9 +25,7 @@
           label="아이디"
           required
         />
-      </v-row>
 
-      <v-row>
         <v-text-field
           v-model="user_pw"
           type="password"
@@ -40,9 +36,7 @@
           label="비밀번호"
           required
         />
-      </v-row>
 
-      <v-row>
         <v-text-field
           v-model="user_phone"
           type="text"
@@ -53,9 +47,7 @@
           label="전화번호"
           required
         />
-      </v-row>
 
-      <v-row>
         <v-select
           v-model="preference"
           :items="items"
@@ -63,7 +55,8 @@
           dense
           class="preference"
         ></v-select>
-      </v-row>
+      </div>
+
 
       <div id="button">
         <v-btn elevation="3" type="button" @click="login">로그인</v-btn>
@@ -152,8 +145,7 @@ export default {
           alert('다시 확인해주세요')
         }
       });
-      // alert("정보수정을 하시겠습니까?")
-      // alert("수정완료되었습니다")
+
     },
     bookmark(){
       this.$router.push("/BookMark")

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="clear: both">
     <div id="footer">
       <div class="footer-top">
         <div class="inner_footer">

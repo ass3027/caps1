@@ -1,10 +1,11 @@
 <template>
   <div class="map_wrap">
     <div
-      id="map"
+      :id="index"
       style="width:100%;height:100%;position:relative;overflow:hidden;"
     />
     <div
+      v-if="schedule===undefined"
       id="menu_wrap"
       class="bg_white"
     >
@@ -16,10 +17,10 @@
             type="text"
             size="15"
           >
-            <button @click="searchPlaces()">
+            <button @click="searchPlaces">
               지도검색
             </button>
-            <button @click="OurDbSearch()">
+            <button @click="OurDbSearch">
               장소검색
             </button>
           </form>
@@ -50,17 +51,6 @@
       </ul>
       <div id="pagination"/>
     </div>
-    <ul
-      v-for="(data,index) in [0,1,2,3,4,5]"
-      :key="index"
-    >
-      <button @click="removeMarker2(index)">
-        {{ data }}ss
-      </button>
-      <button @click="dd(index)">
-        {{ data }}bvbv
-      </button>
-    </ul>
   </div>
 </template>
 
@@ -88,7 +78,13 @@ export default {
       checkDBSearch:false,
     }
   },
+  props:{
+    schedule:Map,
+    index:String
+
+  },
   mounted() {
+    console.log(this.schedule)
     if (window.kakao && window.kakao.maps) {
       this.initMap();
     } else {
@@ -101,151 +97,190 @@ export default {
 
       document.head.appendChild(script);
 
-
-      EventBus.$on("updateDate", (date) => {
-        const schedule = this.$store.state.calendar.calendar.date[date]
-        this.placePositionArray = []
-        console.log(this.pathMarkers)
-        this.removePathMarker()
-
-        let tempMarker
-        let index=1
-        let distanceOverlay
-        let position
-        for(let it of schedule.values()){
-          if(it.mapX!==0&&it.mapY!==0){
-            position = new kakao.maps.LatLng(it.mapX,it.mapY)
-
-            this.placePositionArray.push(position)
-
-            tempMarker =  new kakao.maps.Marker({
-              position:position,
-              image:this.markerImage
-            })
-            tempMarker.setMap(this.map)
-
-            distanceOverlay = new kakao.maps.CustomOverlay({
-              content: '<div style="position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;"><span class="number">' + index + '번째</span></div>',
-              position: new kakao.maps.LatLng(it.mapX+0.001,it.mapY),
-              yAnchor: 1,
-              zIndex: 2
-            });
-            distanceOverlay.setMap(this.map)
-
-            this.pathMarkers.push({'marker':tempMarker,'overlay':distanceOverlay})
-            index++
-          }
-        }
-        console.log(this.pathMarkers)
-        this.getEachDistance()
-        this.path.setPath(this.placePositionArray);
-        EventBus.$emit('passDistance',this.eachDistance)
-      })
+      if(this.schedule===undefined){
+        EventBus.$on("updateDate", (date) => {
+          const schedule = this.$store.state.calendar.calendar.date[date]
+          this.setPathAndShow(schedule)
+          console.log(this.eachDistance)
+          EventBus.$emit('passDistance',this.eachDistance)
+        })
+      }
     }
   },
   methods: {
+    setPathAndShow(schedule){
+      this.placePositionArray = []
+      console.log(this.pathMarkers)
+      console.log(schedule)
+      this.removePathMarker()
+
+      let tempMarker
+      let index=1
+      let distanceOverlay
+      let position
+      for(let it of schedule.values()){
+        if(it.mapX!==0&&it.mapY!==0){
+          position = new kakao.maps.LatLng(it.mapX,it.mapY)
+          console.log(position)
+
+          this.placePositionArray.push(position)
+
+          tempMarker =  new kakao.maps.Marker({
+            position:position,
+            image:this.markerImage
+          })
+          tempMarker.setMap(this.map)
+
+          distanceOverlay = new kakao.maps.CustomOverlay({
+            content: `<div style="position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;"><span class="number">${index}번째</span></div>`,
+            position: new kakao.maps.LatLng(it.mapX+0.001,it.mapY),
+            yAnchor: 1,
+            zIndex: 2
+          });
+          distanceOverlay.setMap(this.map)
+
+          this.pathMarkers.push({'marker':tempMarker,'overlay':distanceOverlay})
+          index++
+        }
+      }
+      console.log(this.placePositionArray)
+      this.getEachDistance()
+      this.path.setPath(this.placePositionArray)
+    },
     dd(index) {
       this.markers[index].setMap(this.map)
     },
     initMap() {
-      const container = document.getElementById("map");
+      const container = document.getElementById(this.index);
+      console.log(this.schedule)
+      navigator.geolocation.getCurrentPosition((position)=>{
 
-      var center = new kakao.maps.LatLng(35.895552292215164, 128.62142110909582)
-      const options = {
-        center,
-        level: 5,
-      };
+        let centerPosition;
 
-      //마커이미지 이벤트버스 리스너에서 쓸거
-      this.markerImage = new kakao.maps.MarkerImage(
-        'https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png',
-        new kakao.maps.Size(31, 35),
-        {offset: new kakao.maps.Point(14, 35)}
-      )
+        if(this.schedule===undefined) {
+          centerPosition = new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        }
+        else {
+          console.log(this.schedule.values().next().value.mapX)
+          centerPosition = new kakao.maps.LatLng(this.schedule.values().next().value.mapX, this.schedule.values().next().value.mapY)
+        }
 
-      //장소 검색 객체 생성
-      this.ps = new kakao.maps.services.Places();
+        console.log(centerPosition)
 
-      // 주소-좌표 변환 객체를 생성합니다
-      this.geocoder = new kakao.maps.services.Geocoder();
+        let center = centerPosition
+        const options = {
+          center,
+          level: 5,
+        };
 
-      //지도 객체를 등록합니다.
-      //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-      this.map = new kakao.maps.Map(container, options);
+        //마커이미지 이벤트버스 리스너에서 쓸거
+        this.markerImage = new kakao.maps.MarkerImage(
+          'https://i1.daumcdn.net/dmaps/apis/n_local_blit_04.png',
+          new kakao.maps.Size(31, 35),
+          {offset: new kakao.maps.Point(14, 35)}
+        )
 
-      // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-      var mapTypeControl = new kakao.maps.MapTypeControl();
+        //장소 검색 객체 생성
+        this.ps = new kakao.maps.services.Places();
 
-      // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-      // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-      this.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+        // 주소-좌표 변환 객체를 생성합니다
+        this.geocoder = new kakao.maps.services.Geocoder();
 
-      // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-      var zoomControl = new kakao.maps.ZoomControl();
+        //지도 객체를 등록합니다.
+        //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
+        this.map = new kakao.maps.Map(container, options);
 
-      this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+        // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+        var mapTypeControl = new kakao.maps.MapTypeControl();
 
-      this.marker = new kakao.maps.Marker({
-        position: center
-      })
+        // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+        // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+        this.map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-      this.marker.setMap(this.map);
+        // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+        var zoomControl = new kakao.maps.ZoomControl();
 
-      this.marker.setDraggable(true);
+        this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-      this.infoWindow = new kakao.maps.InfoWindow({zindex: 1});
-
-
-      kakao.maps.event.addListener(this.map, 'click', (mouseEvent) => {
-
-
-        var clickPosition = mouseEvent.latLng;
-
-
-        this.marker.setPosition(clickPosition);
-
-        this.searchDetailAddrFromCoords(clickPosition, (result, status) => {
-          if (status === kakao.maps.services.Status.OK) {
-            console.log(result)
-            console.log(clickPosition)
-            //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-            let detailAddr = '';
-            let mapAddress = 0;
-
-            if (result[0].address === undefined && result[0].road_address == undefined) {
-              detailAddr += `<div>주소를 찾을 수 없습니다</div>`
-            } else {
-              if (result[0].road_address != undefined) {
-                mapAddress = result[0].road_address
-                detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
-              }
-              mapAddress = result[0].address.address_name
-              detailAddr += '<div >지번 주소 : ' + result[0].address.address_name + '</div>';
-            }
-
-            const content = '<div >' + detailAddr + '</div>';
-
-
-            this.infoWindow.setContent(content);
-
-            this.infoWindow.open(this.map, this.marker);
-
-            const mapData = {
-              address: mapAddress,
-              mapY: clickPosition.La,
-              mapX: clickPosition.Ma,
-              pl_id:undefined
-            }
-
-            console.log(mapAddress)
-            if (mapAddress !== 0) {
-              this.$store.commit('calendar/updateCalendarDate', mapData)
-            }
-          }
+        this.marker = new kakao.maps.Marker({
+          position: center
         })
-      })
-      //경로 띄우기
-      this.showPath()
+
+        this.marker.setMap(this.map);
+
+        this.marker.setDraggable(true);
+
+        this.infoWindow = new kakao.maps.InfoWindow({zindex: 1});
+
+        if(this.schedule===undefined){
+          kakao.maps.event.addListener(this.map, 'click', (mouseEvent) => {
+
+
+            var clickPosition = mouseEvent.latLng;
+
+
+            this.marker.setPosition(clickPosition);
+
+            this.searchDetailAddrFromCoords(clickPosition, (result, status) => {
+              if (status === kakao.maps.services.Status.OK) {
+                console.log(result)
+                console.log(clickPosition)
+                //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                let detailAddr = '';
+                let mapAddress = 0;
+
+                if (result[0].address === undefined && result[0].road_address === undefined) {
+                  detailAddr += `<div>주소를 찾을 수 없습니다</div>`
+                } else {
+                  if (result[0].road_address !== undefined) {
+                    mapAddress = result[0].road_address
+                    detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
+                  }
+                  mapAddress = result[0].address.address_name
+                  detailAddr += '<div >지번 주소 : ' + result[0].address.address_name + '</div>';
+                }
+
+                const content = '<div >' + detailAddr + '</div>';
+
+
+                this.infoWindow.setContent(content);
+
+                this.infoWindow.open(this.map, this.marker);
+
+                const mapData = {
+                  address: mapAddress,
+                  mapY: clickPosition.La,
+                  mapX: clickPosition.Ma,
+                  pl_id:undefined
+                }
+
+                console.log(mapAddress)
+                if (mapAddress !== 0) {
+                  this.$store.commit('calendar/updateCalendarDate', mapData)
+                }
+              }
+            })
+          })
+        }else {
+          kakao.maps.event.addListener(this.map, 'click', (mouseEvent) => {
+
+
+            var clickPosition = mouseEvent.latLng;
+            console.log(clickPosition)
+          })
+        }
+
+        //경로 띄우기
+
+        this.showPath()
+
+        if(this.schedule!==undefined){
+          console.log(this.schedule)
+          this.setPathAndShow(this.schedule)
+        }
+      });
+
+
 
     },
     showPath(){
@@ -262,6 +297,7 @@ export default {
     },
     getEachDistance(){
       this.eachDistance = []
+      console.log(this.eachDistance)
       const tempPolyline = new kakao.maps.Polyline({
         map:null,
         path:[],
@@ -441,6 +477,7 @@ export default {
       }
       paginationEl.appendChild(fragment);
     },
+
     displayinfoWindow(marker, title) {
       let content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
 
@@ -468,22 +505,20 @@ export default {
         mapX: place.y,
         pl_id:id
       }
-      // ㅋㅋ 왜바꿔야 됄까..
-
       this.$store.commit('calendar/updateCalendarDate', mapData)
 
     },
-
-    distanceView(markers) {
-      this.clickLine = new kakao.maps.Polyline({
-        map: this.map, // 선을 표시할 지도입니다
-        path: markers, // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
-        strokeWeight: 3, // 선의 두께입니다
-        strokeColor: '#db4040', // 선의 색깔입니다
-        strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
-        strokeStyle: 'solid' // 선의 스타일입니다
-      });
-    }
+//dd
+//     distanceView(markers) {
+//       this.clickLine = new kakao.maps.Polyline({
+//         map: this.map, // 선을 표시할 지도입니다
+//         path: markers, // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
+//         strokeWeight: 3, // 선의 두께입니다
+//         strokeColor: '#db4040', // 선의 색깔입니다
+//         strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+//         strokeStyle: 'solid' // 선의 스타일입니다
+//       });
+//     }
 
     // removeAllChildNods(el) {
     //   while (el.hasChildNodes()) {
@@ -499,7 +534,7 @@ export default {
 <style scoped>
 .dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}
 .dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
-.dotOverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.dotOverlay:nth-of-type(n) {border:0; box-shadow:0 1px 2px #888;}
 .number {font-weight:bold;color:#ee6152;}
 .dotOverlay:after {content:'';position:absolute;margin-left:-6px;left:50%;bottom:-8px;width:11px;height:8px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white_small.png')}
 .distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
