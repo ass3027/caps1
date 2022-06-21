@@ -78,7 +78,6 @@ import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
 
-import GuideProductTime from "@/views/guide/GuideProductTime";
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 
 
