@@ -40,7 +40,7 @@
           v-if="item.book_whether==1"
           @click="num(item.time_num)"
         >
-          {{item.st_time}} ~ {{item.end_time}} {{item.time_num}}
+          {{item.st_time}} ~ {{item.end_time}}
         </v-chip>
 
       </v-chip-group>
@@ -90,6 +90,9 @@ export default {
       })
     },
     reserve(){
+      var sendform2 = {book_id:this.book_Id,
+      time_num:this.selectednum,
+      user_id:this.$store.state.user.userId}
       axios({
         method:'put',
         url:'/api/gitemTimeUpdate/',
@@ -99,8 +102,15 @@ export default {
       })
       .then(()=>{
         console.log("O")
-
+        this.timeGitem()
       })
+      console.log(sendform2)
+      axios({
+        method:'post',
+        url:'/api/gitemReserve',
+        data:sendform2,
+      })
+
     },
     num(selectednum){
       this.selectednum = selectednum
@@ -117,6 +127,7 @@ export default {
         this.items = res.data;
         console.log('시간상세보기', res.data)
       })
+
     }
   }
 }

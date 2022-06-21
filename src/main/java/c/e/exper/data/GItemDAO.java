@@ -22,4 +22,5 @@ public class GItemDAO {
     String end_time;
     String book_whether;
     String title;
+    String book_time;
 }

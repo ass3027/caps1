@@ -77,6 +77,8 @@ import TestView from "@/views/TestView";
 import { EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
+import GuideIntro from "@/views/guide/GuideIntro";
+import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 
@@ -212,11 +214,12 @@ const routes = [
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props: true},
   {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true},
-  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
+  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct,props:true},
   {path: "/GuideProductTime/:gitem_id", name: "GuideProductTime", component: GuideProductTime, props: true},
   {path: "/GuideProduct/:gitem_id", name:"GuideProductView",component: GuideProductView, props:true},
   {path: "/GuideProduct/Search/:keyword", name:"GuideProductSearch",component: GuideProductSearch,props: true},
-
+  {path: "/GuideIntro/:user_id", name:"GuideIntro", component: GuideIntro},
+  {path: "/GuideReserveInfo", name:"GuideReserveInfo", component: GuideReserveInfo},
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},

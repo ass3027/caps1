@@ -4,6 +4,7 @@ import c.e.exper.data.GItemDAO;
 import c.e.exper.data.GuideDAO;
 import c.e.exper.data.UserDAO;
 import org.apache.ibatis.annotations.*;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,9 @@ public interface GuideMapper {
 
     @Select("SELECT * FROM guide_license,users,pictures WHERE guide_license.user_id = users.user_id and pictures.user_id = users.user_id and guide_license.user_id like '%'||#{keyword}||'%'")
     List<GuideDAO> selectBykeyword(String keyword);
+
+    @Update("Update users set guser_intro = #{guide.guser_intro} where user_id = #{id}")
+    void updateIntro( @Param("guide") GuideDAO guideDAO,  String id);
 
 
 
