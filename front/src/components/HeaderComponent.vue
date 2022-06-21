@@ -153,11 +153,14 @@ export default {
         {title: '배송조회', route: '/TrackingView'},
       ],
       [
-        {title: '가이드 리스트', route: '/guideview'},
         {title: '가이드 등록', route: '/GuideRegister'},
-        {title: '가이드 예약 ', route: '/GuideReserve'},
+        {title: '가이드 리스트', route: '/guideview'},
         {title: '가이드 상품 등록', route: '/GuideProductReg'},
-        {title: '가이드 상품', route: '/GuideProduct'}
+        {title: '가이드 상품', route: '/GuideProduct'},
+        {title: '가이드 결제 ', route: '/GuideReserve'},
+        {title: '예약 정보', route: '/GuideReserveInfo'},
+
+
       ],
       [
         {title: '공유', route: '/share'},

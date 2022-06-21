@@ -34,4 +34,10 @@ public interface GItemMapper {
 
     @Update("Update available_time set book_whether = 0 where time_num = #{id}")
     int updateTime(@Param("id") int id);
+
+    @Insert("Insert into book( user_id, time_num) values( #{user_id}, #{time_num})")
+    void insertReserve(GItemDAO gitemDAO);
+
+    @Select("Select * From available_time a, book b, gitem g, place p where a.time_num = b.time_num and g.gitem_id = a.gitem_id and p.pl_id = g.pl_id and b.user_id = #{id}")
+    List<GItemDAO> selectTimes(@Param("id") String id);
 }
