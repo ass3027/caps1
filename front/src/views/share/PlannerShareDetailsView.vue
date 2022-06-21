@@ -5,13 +5,11 @@
       {{ share.share_title }}[{{ $route.params.id }}]
     </h2>
     <p>
-      #{{ share.share_place }}
+      #{{ share.share_place }} #{{preference}}
     </p>
     <p>
       {{ share.share_contents }}
     </p>
-
-    <h3>-----------</h3>
     <div>
       <img
         v-for="photo in pictures"
@@ -20,7 +18,6 @@
       >
     </div>
 
-    <h3>-----------</h3>
     <ul>
 <!--      <li-->
 <!--        v-for="schedule in schedules"-->
@@ -44,11 +41,7 @@
               :index="index"
             />
           </div>
-          <h3 v-for="(s,i) in schedule" :key="i">{{s[1].pl_name}}</h3>
-          <h3>sdf</h3>
-          <h3>sdf</h3>
-          <h3>sdf</h3>
-          <h3>sdf</h3>
+          <h3 v-for="(s,i) in schedule" :key="i">{{s[1].pl_name}}-></h3>
 
 
         </v-row>
@@ -57,9 +50,6 @@
     </ul>
 
 
-    <v-btn @click="copyPlanner">
-      일정 복제하기
-    </v-btn>
     <div v-if="$store.state.user.userId==share.user_id">
       <v-btn @click="edit">
         수정
@@ -68,12 +58,15 @@
         삭제
       </v-btn>
     </div>
+    <v-btn @click="copyPlanner">
+      일정 복제하기
+    </v-btn>
+
     <h2>공유된 횟수:{{ share.share_count }}</h2>
   </v-card>
     {{calendarX}}
 
-    <v-btn @click="ss"></v-btn>
-    <v-btn @click="calendarX.push(1)"></v-btn>
+    <v-btn @click="calendarX.push(1)&&calendarX.splice(0,1)">지도에서보기</v-btn>
 
   </div>
 </template>
@@ -91,7 +84,8 @@ export default {
       schedules: [],
       pictures: [],
       calendar:{},
-      calendarX:[]
+      calendarX:[],
+      preference:''
 
     }
   },
@@ -107,6 +101,12 @@ export default {
         this.share = res.data[0]
         this.schedules = res.data[1]
         this.pictures = res.data[2]
+
+        axios.get("/api/getPreference",{params:{user_id:this.share.user_id}})
+          .then((res)=>{
+            this.preference=res.data
+          })
+
 
         axios.get(`/api/planner/Schedule/${this.share.plan_id}`)
           .then( (res)=>{
@@ -141,10 +141,6 @@ export default {
 
   },
   methods: {
-    ss(){
-      this.calendar.set('a',1)
-      console.log(this.calendar.keys().next())
-    },
     copyPlanner() {
       console.log("여기요")
       console.log(this.$store.state.user.userId)

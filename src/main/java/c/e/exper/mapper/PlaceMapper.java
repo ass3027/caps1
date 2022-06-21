@@ -123,9 +123,9 @@ public interface PlaceMapper {
    List<recommendDTO> findSimilarUser(String user_id);
    
    @Select("""
-           select a.PL_ID, a.title, FIRSTIMAGE, b.PIC_NAME
+           select a.PL_ID, a.title, FIRSTIMAGE, b.PIC_NAME,mapx,mapy
            from (
-                    select d.PL_ID, d.title, d.FIRSTIMAGE
+                    select d.PL_ID, d.title, d.FIRSTIMAGE,d.mapx,d.mapy
                     from users a,
                          PLANNER b,
                          SCHEDULE c,
@@ -149,9 +149,9 @@ public interface PlaceMapper {
    List<PlaceDAO> findRecPlace(String user_id, String similarUser_id);
    
    @Select("""
-           select pl_id, title, FIRSTIMAGE
+           select pl_id, title, FIRSTIMAGE,mapx,mapy
            from (
-                    select a.PL_ID, title,FIRSTIMAGE,count
+                    select a.PL_ID, title,FIRSTIMAGE,count, mapx,mapy
                     from (select d.PL_ID, count(d.PL_ID) as count
                           from SCHEDULE c,
                                place d

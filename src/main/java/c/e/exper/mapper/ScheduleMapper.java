@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ScheduleMapper {
 
-    @Insert("insert into SCHEDULE values(default,null,#{plan_id},#{pl_id, jdbcType=VARCHAR},#{sch_name},#{sch_startTime,jdbcType=TIMESTAMP},#{sch_endTime,jdbcType=TIMESTAMP},#{expect_expenses},#{place},#{mapX},#{mapY})")
+    @Insert("insert into SCHEDULE values(default,null,#{plan_id},#{pl_id, jdbcType=VARCHAR},#{sch_name},#{sch_startTime,jdbcType=TIMESTAMP},#{sch_endTime,jdbcType=TIMESTAMP},#{expect_expenses, jdbcType=VARCHAR},#{place , jdbcType=VARCHAR},#{mapX , jdbcType=VARCHAR},#{mapY, jdbcType=VARCHAR})")
     void insert(ScheduleDAO schedule);
 
     @Select("Select * from Schedule")

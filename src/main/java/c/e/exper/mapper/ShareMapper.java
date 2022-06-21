@@ -52,4 +52,6 @@ public interface ShareMapper {
     @Delete("delete from SHARES_PICTURES where SHARE_ID=#{share_id}")
     public void deleteSharePic(String share_id);
 
+    @Select("select PREFERENCE from USERS where USER_ID=#{user_id}")
+    public String selectPreference(String user_id);
 }

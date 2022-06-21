@@ -58,6 +58,8 @@ public class ApiShare {
         Optional<PlannerDAO> plannerDAO = plannerMapper.selectById(share.getPlan_id());
         System.out.println("여기전"+plannerDAO.get().getPlan_id());
         String prePlan_id=plannerDAO.get().getPlan_id();
+        plannerDAO.get().setUser_id(null);
+        System.out.println(plannerDAO.get().getUser_id());
 
         if(plannerDAO.isPresent()){
             plannerMapper.insert(plannerDAO.get());
@@ -212,6 +214,11 @@ public class ApiShare {
         }
 
         return "수정완료";
+    }
+
+    @GetMapping("/getPreference")
+    public String getPreference(String user_id){
+        return shareMapper.selectPreference(user_id);
     }
 
 }
