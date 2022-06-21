@@ -12,7 +12,7 @@
             <h3>출발장소</h3>
             <search-place @childEvent="startAddress"/>
             <div>출발장소: {{ startLodging.title }}</div>
-            <v-img :src="startLodging.firstimage2" width="200px" height="150px" class="ma-2" alt="" />
+            <v-img :src="startLodging.firstimage2" width="200px" height="150px" class="ma-2" alt=""/>
           </v-container>
         </v-col>
         <v-col>
@@ -20,7 +20,7 @@
             <h3>도착장소</h3>
             <search-place @childEvent="endAddress"/>
             <div>도착장소: {{ endLodging.title }}</div>
-            <v-img :src="endLodging.firstimage2" width="200px" height="150px" class="ma-2" alt="" />
+            <v-img :src="endLodging.firstimage2" width="200px" height="150px" class="ma-2" alt=""/>
           </v-container>
         </v-col>
       </v-row>
@@ -31,7 +31,6 @@
             <v-expansion-panel-header><h3>짐 종류와 수량</h3></v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-card v-for="(item, index) in bagType" :key="index">
-
                 <v-card-text>
                   <v-row align="center">
                     {{ item.title }}
@@ -53,34 +52,42 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
-
-        <v-card align="center">
-          <v-row>
-            <v-col>
-              <DateTimePicker @child="resultDate" :label="'시작날짜'"/>
-            </v-col>
-            <v-col>
-              <DateTimePicker @child="resultDate" :label="'종료날짜'"/>
-            </v-col>
-          </v-row>
-        </v-card>
-        <v-card>
-          <v-col>
-            <v-row>
-              <v-card>
-                <h1>요청사항</h1>
-              </v-card>
-            </v-row>
-            <br>
-            <v-textarea
-              name="input-7-1"
-              label="요청사항을 입력해주세요(255글자 내)"
-              v-model="ordRequest"
-            ></v-textarea>
-          </v-col>
-        </v-card>
-
       </v-container>
+      <v-col></v-col>
+
+      <v-card>
+        <div>
+          <div style="width: 50%; display: inline-block">
+            <div style="margin: 0 auto">
+              <DateTimePicker @child="resultDate" :label="'시작날짜'"/>
+            </div>
+          </div>
+          <div style="width: 50%; display: inline-block">
+            <div style="margin: 0 auto">
+              <DateTimePicker @child="resultDate" :label="'종료날짜'"/>
+            </div>
+          </div>
+        </div>
+      </v-card>
+
+      <v-col></v-col>
+      <v-card>
+        <v-col>
+          <v-row>
+            <v-card>
+              <h1>요청사항</h1>
+            </v-card>
+          </v-row>
+          <br>
+          <v-textarea
+            name="input-7-1"
+            label="요청사항을 입력해주세요(255글자 내)"
+            v-model="ordRequest"
+          ></v-textarea>
+        </v-col>
+      </v-card>
+
+
       <v-btn depressed color="primary" @click="addOrder">
         작성 완료
       </v-btn>
@@ -105,7 +112,7 @@ export default {
       sDate: '',
       panel: [0, 1],
       disabled: false,
-      readonly: false,
+      readonly: true,
       startLodging: '',
       endLodging: '',
       checkedName: [],
@@ -125,7 +132,7 @@ export default {
       //요청사항
       ordRequest: '',
       //이미지
-      image2:'',
+      image2: '',
 
       bagType: [
         {title: '기내용 캐리어(57cm 미만)', value: 11000},
@@ -182,7 +189,7 @@ export default {
         withdraw_time: this.sDate,  //찾을시간
         ord_selection: '물품운송', //물품보관
         ord_request: this.ordRequest,
-
+        status:'1',
       }
       axios
         .post('/api/transportAddOrder', transportBag)

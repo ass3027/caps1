@@ -5,24 +5,24 @@
         <h1>물품조회</h1>
       </v-col>
       <v-col style="width: 150px">
-        <v-select label="조회 목록" :items="dropdown_edit" item-value="text" v-model="check" />
+        <v-select label="조회 목록" :items="dropdown_edit" item-value="text" v-model="check"/>
       </v-col>
     </v-card>
 
     <v-col>
-    <template v-if="check == '보관'">
-      <h3>보관조회</h3>
-      <v-data-table :headers="storageHeaders" :items="storageList" :items-per-page="5"/>
-    </template>
+      <template v-if="check == '보관'">
+        <h3>보관조회</h3>
+        <v-data-table :headers="storageHeaders" :items="storageList" :items-per-page="5"/>
+      </template>
 
-    <template v-else>
-      <h3>운송조회</h3>
-      <v-data-table
-        :headers="transportHeaders"
-        :items="transportList"
-        :items-per-page="5"
-      />
-    </template>
+      <template v-else>
+        <h3>운송조회</h3>
+        <v-data-table
+          :headers="transportHeaders"
+          :items="transportList"
+          :items-per-page="5"
+        />
+      </template>
     </v-col>
   </v-app>
 

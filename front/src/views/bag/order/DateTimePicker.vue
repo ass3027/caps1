@@ -1,16 +1,12 @@
 <template>
   <v-row>
-    <v-col cols="4" sm="6" md="4">
+    <v-col cols="4" sm="6" md="8">
       <v-dialog
         ref="dialog1"
         v-model="sDateModal"
         :return-value.sync="sDate"
         persistent
-        lazy
-
-        full-width
-        width="290px"
-      >
+        width="350px">
         <template v-slot:activator="{ on }">
           <v-text-field
             v-model="sDate"
@@ -19,11 +15,14 @@
             :label="`${label}`"
           ></v-text-field>
         </template>
-        <v-date-picker v-model="sDate"  scrollable :allowed-dates="disablePastDates">
-          <v-spacer></v-spacer>
-          <v-btn text color="primary" @click="sDateModal = false">Cancel</v-btn>
-          <v-btn text color="primary" @click="sTimeModal = true">OK</v-btn>
-        </v-date-picker>
+
+        <v-card>
+          <v-date-picker v-model="sDate" scrollable :allowed-dates="disablePastDates" style="height: 570px;">
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="sDateModal = false">Cancel</v-btn>
+            <v-btn text color="primary" @click="sTimeModal = true">OK</v-btn>
+          </v-date-picker>
+        </v-card>
       </v-dialog>
 
       <v-dialog
@@ -31,18 +30,13 @@
         v-model="sTimeModal"
         :return-value.sync="sTime"
         persistent
-        lazy
-        full-width
-        width="290px"
+        width="400px">
 
-      >
         <v-time-picker
           v-if="sTimeModal"
           v-model="sTime"
-          full-width
-          scrollable
+          scrollable>
 
-        >
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="sTimeModal = false">Cancel</v-btn>
           <v-btn text color="primary" @click="update()">OK</v-btn>
@@ -74,14 +68,20 @@ export default {
       console.log(this.sDate);
       return this.sDate;
     },
-    update(){
-      this.$emit("child",this.sSet())
+    update() {
+      this.$emit("child", this.sSet())
     },
     disablePastDates(val) {
       return val >= new Date().toISOString().substr(0, 10)
     },
   },
-
-
 }
 </script>
+
+
+<style>
+.v-date-picker-table {
+  height: 360px;
+
+}
+</style>

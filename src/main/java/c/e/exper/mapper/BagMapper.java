@@ -13,13 +13,13 @@ import java.util.Map;
 public interface BagMapper {
    
    //보관주문서 등록
-   @Insert("insert into orders(user_id,ord_amount,entrust_time,keep_start,withdraw_time,ord_selection,ord_request) " +
-         "values(#{user_id},#{ord_amount},#{entrust_time},#{keep_start},#{withdraw_time},#{ord_selection},#{ord_request})")
+   @Insert("insert into orders(user_id,ord_amount,entrust_time,keep_start,withdraw_time,ord_selection,ord_request,status) " +
+         "values(#{user_id},#{ord_amount},#{entrust_time},#{keep_start},#{withdraw_time},#{ord_selection},#{ord_request},#{status})")
    void storageInsert(BagDAO storageBag);
    
    //배송주문서 등록
-   @Insert("insert into orders(user_id,ord_amount,entrust_time,withdraw_time,keep_start,keep_end,ord_selection,ord_request) " +
-         "values(#{user_id},#{ord_amount},#{entrust_time},#{withdraw_time},#{keep_start},#{keep_end},#{ord_selection},#{ord_request})")
+   @Insert("insert into orders(user_id,ord_amount,entrust_time,withdraw_time,keep_start,keep_end,ord_selection,ord_request,status) " +
+         "values(#{user_id},#{ord_amount},#{entrust_time},#{withdraw_time},#{keep_start},#{keep_end},#{ord_selection},#{ord_request},#{status})")
    void transportInsert(BagDAO transportBag);
    
    //물품조회(보관)

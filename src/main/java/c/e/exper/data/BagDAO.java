@@ -27,7 +27,9 @@ public class BagDAO {
    String delivery_status;
    String ord_selection;   //주문선택
    String ord_request;  //요청사항
-   String firstimage2;  //이미지
+   String firstImage2;  //이미지
+   String status;//주문상태
+   
    
 }
 
