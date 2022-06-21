@@ -59,7 +59,7 @@ import GuideProductSearch from "@/views/guide/GuideProductSearch";
 
 
 //세운??
-import ProductReviewView from "@/views/ReviewView";
+import ReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
@@ -163,16 +163,15 @@ const routes = [
   { path: "/GuideProduct", name: "GuideProduct", component: GuideProduct },
 
   {
-    path: "/ProductReviewView/:productId",
-    name: "ProductReviewView",
-    component: ProductReviewView,
+    path: "/ReviewView/:productId",
+    name: "ReviewView",
+    component: ReviewView,
     props: true,
   },
   {
-    path: "/ReviewCreate/:pay_id",
-    name: "ReviewCreate",
+    path: "/ReviewCreateView",
+    name: "ReviewCreateView",
     component: ReviewCreateView,
-    props: true,
   },
   {
     path: "/review/store/:store_name",
@@ -221,8 +220,8 @@ const routes = [
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView,},
-  {path: "/ProductReviewView/:productId", name: "ProductReviewView", component: ProductReviewView, props: true,},
-  {path: "/ReviewCreate/:pay_id", name: "ReviewCreate", component: ReviewCreateView, props: true,},
+  {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true,},
+  {path: "/ReviewCreateView/:type/:id", name: "ReviewCreateView", component: ReviewCreateView, props: true,},
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
   {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 

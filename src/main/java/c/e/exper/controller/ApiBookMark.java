@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.awt.print.Book;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/bookmark")
@@ -31,30 +28,31 @@ public class ApiBookMark {
 
 
     @GetMapping("/BookMark")
-    public Map<String, Object> AllBookMark() {
+    public Map<String, List<PlaceDAO>> AllBookMark() {
         List<PlaceDAO> all = bookMarkMapper.selectAllByUserBookMark(getUser_id());
         List<PlaceDAO> keeper = bookMarkMapper.selectByUserBookMarkKeeper(getUser_id());
         List<PlaceDAO> hotel = bookMarkMapper.selectByUserBookMarkHotel(getUser_id());
-        Map<String, Object> bookmarkData = new HashMap<>();
+        Map<String, List<PlaceDAO>> bookmarkData = new HashMap<>();
 
         if (all.isEmpty()) {
-            bookmarkData.put("all", new PlaceDAO());
+            bookmarkData.put("all", new ArrayList<>());
         } else {
             bookmarkData.put("all", all);
         }
 
         if (keeper.isEmpty()) {
-            bookmarkData.put("keeper", new PlaceDAO());
+            bookmarkData.put("keeper", new ArrayList<>());
         } else {
-            bookmarkData.put("keeper", keeper.get(0));
+            bookmarkData.put("keeper", keeper);
         }
 
         if (hotel.isEmpty()) {
-            bookmarkData.put("hotel", new PlaceDAO());
+            bookmarkData.put("hotel", new ArrayList<>());
         } else {
-            bookmarkData.put("hotel", hotel.get(0));
+            bookmarkData.put("hotel", hotel);
         }
-        System.out.println(bookmarkData.get("all"));
+
+
         return bookmarkData;
 
     }

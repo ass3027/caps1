@@ -6,7 +6,7 @@
     <div id="userMenu">
 
 <ul class="list_menu"><!----> <!---->
-        <li class="menu menu_user"  v-if="isLogin">
+        <li class="menu menu_user" @click="MyPage" v-if="isLogin">
           <a class="link_menu grade_comm">
             <span class="ico_grade grade0" style="padding: 0; margin: 0 10px 0 0;">{{ user_role }}</span>
             <span class="txt">
@@ -331,7 +331,7 @@ export default {
   position: relative;
   z-index: 400;
   float:left;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 #userMenu .menu:before {

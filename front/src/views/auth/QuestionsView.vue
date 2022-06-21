@@ -3,103 +3,107 @@
 
     <MyPageHeader></MyPageHeader>
     <div style="width: 820px; float: right;">
-      <h2>게시판 목록</h2>
-      <v-text-field
-        v-model="keyword"
-        class="mx-4"
-        flat
-        hide-details
-        label="Search"
-        prepend-inner-icon="mdi-magnify"
-        solo-inverted
-      />
+      <div class="head_aticle">
+        <h1 class="tit">게시판 목록</h1>
+      </div>
+
+      <div style="border-top: 2px solid #333">
+        <v-text-field
+          v-model="keyword"
+          class="mx-4"
+          flat
+          hide-details
+          label="Search"
+          prepend-inner-icon="mdi-magnify"
+          solo-inverted
+        />
 
 
-      <v-data-table
-        dense
-        :headers="post_list"
-        :items="dd"
-        item-key="name"
-        class="elevation-1"
-      ></v-data-table>
+        <v-data-table
+          dense
+          :headers="post_list"
+          :items="dd"
+          item-key="name"
+          class="elevation-1"
+        ></v-data-table>
 
 
-      <v-simple-table
-        skyblue
-        dense
-      >
-        <thead>
-        <tr>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            게시글번호
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            제목
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            날짜
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            아이디
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            조회수
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr
-          v-for="(post,index) in paged_post_list"
-          :key="index"
-          @click="listPage(post.inq_id)"
+        <v-simple-table
+          skyblue
+          dense
         >
-          <th
-            class="text-center"
-            style="font-size:20px;"
+          <thead>
+          <tr>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              게시글번호
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              제목
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              날짜
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              아이디
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              조회수
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+            v-for="(post,index) in paged_post_list"
+            :key="index"
+            @click="listPage(post.inq_id)"
           >
-            {{ post.inq_id }}
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            {{ post.inq_title }}
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            {{ post.inq_time }}
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            {{ post.user_id }}
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            {{ post.inq_count }}
-          </th>
-        </tr>
-        </tbody>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_id }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_title }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_time }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.user_id }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_count }}
+            </th>
+          </tr>
+          </tbody>
 
         </v-simple-table>
         <div style="text-align: center">
@@ -136,6 +140,8 @@
           <v-btn type="button" @click="write">글쓰기</v-btn>
         </div>
       </div>
+      </div>
+
 
 
   </div>
@@ -260,6 +266,19 @@ export default {
   position: center;
   text-align: center;
   padding: 100px;
+}
+
+.head_aticle {
+  padding: 5px 0 34px;
+}
+
+.tit {
+  height: 36px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: #333;
+  letter-spacing: -.5px;
 }
 
 

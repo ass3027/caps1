@@ -38,9 +38,9 @@
       </div>
     </form>
     <p class="btnArea after" style="margin-bottom: 0">
-      <a>
-        <span class="bhs_button" style="line-height:30px; width:130px;">후기쓰기</span>
-      </a>
+<!--      <a>-->
+<!--        <span class="bhs_button" style="line-height:30px; width:130px;">후기쓰기</span>-->
+<!--      </a>-->
     </p>
   </div>
 </template>

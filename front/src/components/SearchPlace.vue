@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-dialog v-model="dialog" width="1500">
+    <v-dialog v-model="dialog" width="100%">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on" style="width:95px">
+        <div class="yame" v-bind="attrs" v-on="on">
           장소검색
-        </v-btn>
+        </div>
 
       </template>
       <v-card>
@@ -190,5 +190,21 @@ export default {
 </script>
 
 <style scoped>
+
+.yame {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  display: inline-block;
+  width: 120px;
+  vertical-align: top;
+  height: 44px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  outline: none;
+}
 
 </style>

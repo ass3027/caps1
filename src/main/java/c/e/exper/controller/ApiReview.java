@@ -33,12 +33,11 @@ public class ApiReview {
     public int addReview(Review review, HttpServletRequest req) {
 
 
-        review.setUser_id("100");
 
         System.out.println("등록할 리뷰: "+ review);
 
 
-        review.setRev_img_filename(fileService.photoSave(review.getRev_photo(), req, "reviewImage"));
+//        review.setRev_img_filename(fileService.photoSave(review.getRev_photo(), req, "reviewImage"));
 
         int insertColumnCount = reviewService.리뷰_등록(review);
         System.out.println("등록 컬럼 갯수: " + insertColumnCount);
@@ -64,7 +63,27 @@ public class ApiReview {
     public List<Review> findProductReview(String pd_id) {
         System.out.println(pd_id);
 
-        List<Review> reviews = reviewMapper.findAllReviewForProduct(pd_id);
+        List<Review> reviews = reviewMapper.findAllReviewForProduct2(pd_id);
+        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+
+        return reviews;
+    }
+
+    @GetMapping("/guideReview")
+    public List<Review> findGuideReview(String guide_id) {
+        System.out.println(guide_id);
+
+        List<Review> reviews = reviewMapper.findGuideReview(guide_id);
+        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+
+        return reviews;
+    }
+
+    @GetMapping("/gitemReview")
+    public List<Review> findGitemReview(String gitem_id) {
+        System.out.println(gitem_id);
+
+        List<Review> reviews = reviewMapper.findGitemReview(gitem_id);
         reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
 
         return reviews;

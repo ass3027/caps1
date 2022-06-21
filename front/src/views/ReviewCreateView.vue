@@ -1,7 +1,11 @@
 <template>
-  <review-form
-    :book_id="book_id"
-  />
+
+  <div>
+    <review-form
+      :type="type"
+      :id="id"
+    />
+  </div>
 </template>
 
 <script>
@@ -9,14 +13,18 @@ import ReviewForm from "@/components/review/ReviewForm";
 import axios from "axios";
 
 export default {
-  name: 'ReviewView',
+  name: 'ReviewCreateView',
   components: {
     ReviewForm,
   },
-  props:['pay_id'],
+  props: {
+    type: String,
+    id: String,
+  },
   data(){
     return{
       book_id: '',
+
     }
   },
   mounted() {
