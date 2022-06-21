@@ -39,6 +39,7 @@ public class ApiPlace {
    
    @GetMapping("/place/{category}")
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
+
       return place2Service.카테고리별_조회(category);
    }
 //   @GetMapping("/place/{category}")

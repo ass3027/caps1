@@ -16,7 +16,7 @@ public interface ScheduleMapper {
     List<ScheduleDAO> selectAll();
 
     @Select("""
-            Select s.*,r.title
+            Select s.*,r.title as pl_name
             From Schedule s, ( Select title,PL_ID
                                From place p
                                Where p.pl_id in (Select PL_ID
