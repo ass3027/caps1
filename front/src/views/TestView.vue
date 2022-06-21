@@ -65,13 +65,5 @@ export default {
 </script>
 
 <style>
-/*.tit{*/
-/*  height: 36px;*/
-/*  font-weight: 700;*/
-/*  font-size: 24px;*/
-/*  line-height: 36px;*/
-/*  color: #333;*/
-/*  letter-spacing: -.5px;*/
-/*}*/
 
 </style>

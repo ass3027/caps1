@@ -4,7 +4,7 @@
   >
 
     <div id="userMenu">
-    
+
 <ul class="list_menu"><!----> <!---->
         <li class="menu menu_user"  v-if="isLogin">
           <a class="link_menu grade_comm">
@@ -296,7 +296,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .menu-Bar {
   display: flex;
   justify-content: center;

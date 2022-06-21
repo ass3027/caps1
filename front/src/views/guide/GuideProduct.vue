@@ -127,7 +127,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .card {
   position: relative;
   display: flex;
