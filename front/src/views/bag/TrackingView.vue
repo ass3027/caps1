@@ -1,15 +1,15 @@
 <template>
-  <v-app>
-    <v-card>
-      <v-col>
-        <h1>물품조회</h1>
-      </v-col>
-      <v-col style="width: 150px">
+  <v-app style="width: 1050px; padding-top: 65px">
+    <div style="padding-bottom: 34px; border-bottom: 2px solid black">
+      <h2 class="tit">물품조회</h2>
+    </div>
+    <div>
+      <div style="width: 150px; padding-top: 20px; float: right">
         <v-select label="조회 목록" :items="dropdown_edit" item-value="text" v-model="check"/>
-      </v-col>
-    </v-card>
+      </div>
+    </div>
 
-    <v-col>
+    <div>
       <template v-if="check == '보관'">
         <h3>보관조회</h3>
         <v-data-table :headers="storageHeaders" :items="storageList" :items-per-page="5"/>
@@ -23,7 +23,7 @@
           :items-per-page="5"
         />
       </template>
-    </v-col>
+    </div>
   </v-app>
 
 </template>
@@ -89,4 +89,12 @@ export default {
 
 <style scoped>
 
+
+.tit{
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 35px;
+  color: #333;
+  letter-spacing: -1px;
+}
 </style>

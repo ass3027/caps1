@@ -1,27 +1,33 @@
 <template>
   <div id="snb" class="snb_my">
-      <h2 class="tit_snb">마이페이지</h2>
-      <div class="inner_snb">
-        <ul class="list_menu" style="padding-left: 0">
-          <li id="MyPage">
-            <a @click="MyPage">회원 정보</a>
-          </li>
-          <li id="Bookmark">
-            <a @click="BookMark">즐겨찾기</a>
-          </li>
-          <li id="MyPageUpdate">
-            <a @click="UserUpdate">개인 정보 수정</a>
-          </li>
-          <li id="Questions">
-            <a @click="questions">문의사항</a>
-          </li>
-        </ul>
-      </div>
-      <a class="link_inquire">
-        <span class="emph">도움이 필요하신가요 ?</span>
-        1:1 문의하기
 
-      </a>
+    <h2 class="tit_snb">마이페이지</h2>
+
+    <div class="inner_snb">
+      <ul class="list_menu" style="padding-left: 0">
+        <li id="MyPage">
+          <a @click="MyPage">회원 정보</a>
+        </li>
+        <li id="Bookmark">
+          <a @click="BookMark">즐겨찾기</a>
+        </li>
+        <li id="MyPageUpdate">
+          <a @click="UserUpdate">개인 정보 수정</a>
+        </li>
+        <li id="Questions">
+          <a @click="questions">문의사항</a>
+        </li>
+        <li id="Review">
+          <a>상품후기</a>
+        </li>
+
+      </ul>
+    </div>
+    <a class="link_inquire">
+      <span class="emph">도움이 필요하신가요 ?</span>
+      1:1 문의하기
+
+    </a>
   <!-- <v-tab button type="submit" @click="MyPage">회원정보</v-tab>-->
   <!-- <v-tab button type="submit" @click="BookMark">즐겨찾기</v-tab>-->
   <!-- <v-tab button type="submit" @click="UserUpdate">회원정보수정</v-tab>-->
@@ -47,6 +53,9 @@ export default {
     },
     questions(){
       this.$router.push("/Questions")
+    },
+    reivews(){
+
     }
 
   },
@@ -59,6 +68,17 @@ export default {
 </script>
 
 <style scoped>
+
+
+.tit_snb {
+  padding: 5px 0 35px 1px;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 35px;
+  color: #333;
+  letter-spacing: -1px;
+}
+
 #snb {
   float: left;
   width: 200px;

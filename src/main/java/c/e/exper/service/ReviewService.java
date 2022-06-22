@@ -52,24 +52,8 @@ public class ReviewService {
 
 
 
-        if(review.getBook_id() == null && review.getOrd_id() == null) {
-            System.out.println("잘못된 형식입니다."); // 에러 출력
-        } else if (review.getBook_id() != null) {
-            picture.setBook_id(""+review.getBook_id());
-            System.out.println(picture);
-            pictureMapper.InsertBookReview(picture);
+        insertColumnCount = reviewMapper.addReviewYame(review);
 
-            System.out.println("예약 리뷰 등록!!!!!!!!!!");
-
-            insertColumnCount = reviewMapper.addBookReview(review);
-        } else {
-            picture.setBook_id(""+review.getOrd_id());
-            pictureMapper.InsertOrderReview(picture);
-            System.out.println("!!!!!!!!!!!!!!"+picture);
-
-
-            insertColumnCount = reviewMapper.addOrderReview(review);
-        }
 
 
 
