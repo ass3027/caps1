@@ -7,7 +7,9 @@
         <div>{{ category }}</div>
         <div class="select-box">
           <v-select
-            v-model="searchCon" :items="items" item-text="text"
+            v-model="searchCon"
+            :items="items"
+            item-text="text"
             :value="lists.areaCode"
             @change="area()"
           />

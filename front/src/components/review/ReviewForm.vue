@@ -1,87 +1,117 @@
 <template>
-    <div style="max-width: 1050px; margin: 0 auto; padding-top: 60px">
+  <div style="max-width: 1050px; margin: 0 auto; padding-top: 60px">
+    <!--      <v-card>-->
+    <!--        <v-card-actions style="margin-bottom: 10px">-->
+    <!--          <v-rating-->
+    <!--            v-model="rev_rating"-->
+    <!--            background-color="gray"-->
+    <!--            color="yellow accent-4"-->
+    <!--            dense-->
+    <!--            half-increments-->
+    <!--            size="30"-->
+    <!--          />-->
+    <!--        </v-card-actions>-->
 
-<!--      <v-card>-->
-<!--        <v-card-actions style="margin-bottom: 10px">-->
-<!--          <v-rating-->
-<!--            v-model="rev_rating"-->
-<!--            background-color="gray"-->
-<!--            color="yellow accent-4"-->
-<!--            dense-->
-<!--            half-increments-->
-<!--            size="30"-->
-<!--          />-->
-<!--        </v-card-actions>-->
+    <!--        <v-row class="mx-auto">-->
+    <!--          <v-col cols="12">-->
+    <!--            <v-textarea-->
+    <!--              v-model="rev_content"-->
+    <!--              placeholder="리뷰는 최대 1,000자까지 등록 가능합니다."-->
+    <!--            />-->
+    <!--          </v-col>-->
+    <!--          <v-spacer />-->
+    <!--          <v-col>-->
+    <!--            <input-->
+    <!--              ref="refImage"-->
+    <!--              type="file"-->
+    <!--              placeholder="photo"-->
+    <!--              @change="imageSet($event)"-->
+    <!--            >-->
 
-<!--        <v-row class="mx-auto">-->
-<!--          <v-col cols="12">-->
-<!--            <v-textarea-->
-<!--              v-model="rev_content"-->
-<!--              placeholder="리뷰는 최대 1,000자까지 등록 가능합니다."-->
-<!--            />-->
-<!--          </v-col>-->
-<!--          <v-spacer />-->
-<!--          <v-col>-->
-<!--            <input-->
-<!--              ref="refImage"-->
-<!--              type="file"-->
-<!--              placeholder="photo"-->
-<!--              @change="imageSet($event)"-->
-<!--            >-->
+    <!--            <div-->
+    <!--              id="pictures"-->
+    <!--              style="width: 150px; height: 150px"-->
+    <!--            />-->
+    <!--          </v-col>-->
+    <!--        </v-row>-->
 
-<!--            <div-->
-<!--              id="pictures"-->
-<!--              style="width: 150px; height: 150px"-->
-<!--            />-->
-<!--          </v-col>-->
-<!--        </v-row>-->
-
-<!--        <v-card-actions>-->
-<!--          <v-spacer />-->
-<!--          <v-btn-->
-<!--            width="150px"-->
-<!--            @click="onSubmit"-->
-<!--          >-->
-<!--            리뷰 등록-->
-<!--          </v-btn>-->
-<!--        </v-card-actions>-->
-<!--      </v-card>-->
-<!--      <input v-model="rev_photo">-->
+    <!--        <v-card-actions>-->
+    <!--          <v-spacer />-->
+    <!--          <v-btn-->
+    <!--            width="150px"-->
+    <!--            @click="onSubmit"-->
+    <!--          >-->
+    <!--            리뷰 등록-->
+    <!--          </v-btn>-->
+    <!--        </v-card-actions>-->
+    <!--      </v-card>-->
+    <!--      <input v-model="rev_photo">-->
 
 
-      <form name="form_review" id="form_review" style="width: 100%">
-        <h2 style="padding: 5px 0 34px; border-bottom: 2px solid black ">후기 작성</h2>
-        <div class="write_board">
-          <table class="tbl" style="border-bottom: 2px solid black">
-            <caption style="display:none">후기 작성 입력상자</caption>
-            <colgroup>
-              <col style="width:110px;">
-              <col style="width:auto">
-            </colgroup>
-            <tbody>
+    <form
+      id="form_review"
+      name="form_review"
+      style="width: 100%"
+    >
+      <h2 style="padding: 5px 0 34px; border-bottom: 2px solid black ">
+        후기 작성
+      </h2>
+      <div class="write_board">
+        <table
+          class="tbl"
+          style="border-bottom: 2px solid black"
+        >
+          <caption style="display:none">
+            후기 작성 입력상자
+          </caption>
+          <colgroup>
+            <col style="width:110px;">
+            <col style="width:auto">
+          </colgroup>
+          <tbody>
             <tr>
-              <th style="padding: 16px 0">제목</th>
+              <th style="padding: 16px 0">
+                제목
+              </th>
               <td>
-                <input type="text" name="subject" placeholder="제목을 입력해주세요." class="inp " v-model="title">
+                <input
+                  v-model="title"
+                  type="text"
+                  name="subject"
+                  placeholder="제목을 입력해주세요."
+                  class="inp "
+                >
               </td>
             </tr>
             <tr>
               <th>후기작성</th>
               <td>
                 <div class="field_cmt">
-                  <textarea id="fieldCmt" name="contents" cols="100" rows="10" placeholder="리뷰 내용을 입력해주세요." v-model="rev_content"></textarea>
-
+                  <textarea
+                    id="fieldCmt"
+                    v-model="rev_content"
+                    name="contents"
+                    cols="100"
+                    rows="10"
+                    placeholder="리뷰 내용을 입력해주세요."
+                  />
                 </div>
               </td>
             </tr>
-            </tbody>
-          </table>
-          <button type="button" id="btnSubmit" class="btn_reg btn_disabled" style="margin-top: 20px" @click="onSubmit">등록하기</button>
-        </div>
-      </form>
-    </div>
-
-
+          </tbody>
+        </table>
+        <button
+          id="btnSubmit"
+          type="button"
+          class="btn_reg btn_disabled"
+          style="margin-top: 20px"
+          @click="onSubmit"
+        >
+          등록하기
+        </button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>

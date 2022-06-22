@@ -4,10 +4,10 @@
       <HeaderComponent />
 
 
-      <router-view style="padding-bottom: 60px; min-width: 1050px; margin: 0 auto"/>
+      <router-view style="padding-bottom: 60px; min-width: 1050px; margin: 0 auto" />
 
 
-      <FooterComponent style="border-top: 1px solid #f7f7f7; padding-bottom: 60px; min-width: 1050px; margin: 0 auto"/>
+      <FooterComponent style="border-top: 1px solid #f7f7f7; padding-bottom: 60px; min-width: 1050px; margin: 0 auto" />
     </v-main>
   </v-app>
 </template>

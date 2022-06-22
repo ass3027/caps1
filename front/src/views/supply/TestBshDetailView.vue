@@ -2,10 +2,10 @@
   <div>
     <v-container>
       details
-      {{$route.params}}
-      id:{{id}}
-      id2:{{id2}}
-      abc:{{abc}}
+      {{ $route.params }}
+      id:{{ id }}
+      id2:{{ id2 }}
+      abc:{{ abc }}
     </v-container>
   </div>
 </template>

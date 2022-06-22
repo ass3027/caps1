@@ -4,95 +4,93 @@
       <v-col align="center">
         <h2>가이드 상품 등록</h2>
         <h1>{{ $store.state.user.userId }}</h1>
-        <div>
-
-        </div>
-
+        <div />
       </v-col>
     </v-row>
-<v-row style="width: 70%">
-    <v-col align="center" style="padding-left: 39%" >
-      <div class="textForm">
-        <input
-          v-model="gitem_id"
-          name="userId"
-          type="text"
-          class="id"
-          placeholder="상품 아이디"
-        >
-      </div>
-      <v-row>
-        <v-col cols="10">
-          <div class="textForm">
-            <input
-              v-model="lodging.pl_id"
-              name="guideIntro"
-              type="text"
-              class="intro"
-              placeholder="장소번호"
-            >
-          </div>
-        </v-col>
-        <v-col cols="2">
-          <search-place @childEvent="getEmitData"/>
-        </v-col>
-      </v-row>
+    <v-row style="width: 70%">
+      <v-col
+        align="center"
+        style="padding-left: 39%"
+      >
+        <div class="textForm">
+          <input
+            v-model="gitem_id"
+            name="userId"
+            type="text"
+            class="id"
+            placeholder="상품 아이디"
+          >
+        </div>
+        <v-row>
+          <v-col cols="10">
+            <div class="textForm">
+              <input
+                v-model="lodging.pl_id"
+                name="guideIntro"
+                type="text"
+                class="intro"
+                placeholder="장소번호"
+              >
+            </div>
+          </v-col>
+          <v-col cols="2">
+            <search-place @childEvent="getEmitData" />
+          </v-col>
+        </v-row>
 
 
-      <div class="textForm">
-        <input
-          v-model="introduce"
-          name="guideIntro"
-          type="text"
-          class="intro"
-          placeholder="소개"
-        >
-      </div>
-      <div class="textForm">
-        <input
-          v-model="st_date"
-          name="guideIntro"
-          type="date"
-          class="intro"
-          data-placeholder="시작날짜"
-          required
-          aria-required="true"
-        >
-      </div>
-      <div class="textForm">
-        <input
-          v-model="end_date"
-          name="guideIntro"
-          type="date"
-          class="intro"
-          data-placeholder="종료날짜"
-          required
-          aria-required="true"
-        >
-      </div>
-      <div class="textForm">
-        <input
-          v-model="require_time"
-          name="guideIntro"
-          type="text"
-          class="intro"
-          placeholder="요구시간"
-        >
-      </div>
-    </v-col>
-</v-row>
+        <div class="textForm">
+          <input
+            v-model="introduce"
+            name="guideIntro"
+            type="text"
+            class="intro"
+            placeholder="소개"
+          >
+        </div>
+        <div class="textForm">
+          <input
+            v-model="st_date"
+            name="guideIntro"
+            type="date"
+            class="intro"
+            data-placeholder="시작날짜"
+            required
+            aria-required="true"
+          >
+        </div>
+        <div class="textForm">
+          <input
+            v-model="end_date"
+            name="guideIntro"
+            type="date"
+            class="intro"
+            data-placeholder="종료날짜"
+            required
+            aria-required="true"
+          >
+        </div>
+        <div class="textForm">
+          <input
+            v-model="require_time"
+            name="guideIntro"
+            type="text"
+            class="intro"
+            placeholder="요구시간"
+          >
+        </div>
+      </v-col>
+    </v-row>
 
     <v-row
       style="padding-left: 155px"
-
     >
-
-        <v-btn
-          class="btn"
-          @click="onsubmit()"
-        >
-          JOIN
-        </v-btn>
+      <v-btn
+        class="btn"
+        @click="onsubmit()"
+      >
+        JOIN
+      </v-btn>
     </v-row>
   </v-container>
 </template>
@@ -108,6 +106,7 @@ export default {
   components: {
     SearchPlace
   },
+  props:[],
   data(){
     return{
       lodging:'',
@@ -120,7 +119,6 @@ export default {
       end_date:''
     }
   },
-  props:[],
   methods:{
     getEmitData: function (lodging) {
       this.lodging = lodging

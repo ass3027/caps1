@@ -2,12 +2,14 @@
   <table
     @click="dialog = true"
   >
-    <v-dialog v-model="dialog" width="500px" >
-      <order-detail :order="order"/>
+    <v-dialog
+      v-model="dialog"
+      width="500px"
+    >
+      <order-detail :order="order" />
     </v-dialog>
 
     <div id="orderItem">
-
       <div
         class="order_time_info"
         style="width: 80%; border-right: thin solid #ccc; padding-right: 20px;"
@@ -19,7 +21,8 @@
             border-left: none;
             border-right: none;
             padding-bottom: 50px;
-          ">
+          "
+        >
           <div>
             <div
               class="short_addr"
@@ -40,7 +43,6 @@
             <div
               class="short_addr"
               style="vertical-align: top"
-
             >
               {{ end_addr_short }}
             </div>
@@ -55,10 +57,11 @@
             나로부터 {{ degree_user_start }}Km 이내
           </span>
         </div>
-
-
       </div>
-      <div style="width: 20%; padding-left: 10px" class="bag_info">
+      <div
+        style="width: 20%; padding-left: 10px"
+        class="bag_info"
+      >
         <div
           v-for="(i, index) in ord_bag_info"
           :key="index"
@@ -69,10 +72,7 @@
           {{ order.ord_amount }} 원
         </span>
       </div>
-
-
     </div>
-
   </table>
   <!-- 출발키퍼 주소 --> <!-- 거리 --> <!-- 도착키퍼 주소 -->    <!-- 운송품에 대한 간략한 정보 -->
   <!-- 운송원과 출발키퍼사이의 거리 -->                         <!-- 금액 -->

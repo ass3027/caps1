@@ -1,9 +1,14 @@
 <template>
   <div style="width: 1050px; padding-top: 65px">
-    <MyPageHeader></MyPageHeader>
-    <div class="container" style="width: 820px; float: right; padding: 0">
+    <MyPageHeader />
+    <div
+      class="container"
+      style="width: 820px; float: right; padding: 0"
+    >
       <div class="head_aticle">
-        <h1 class="tit">회원정보수정</h1>
+        <h1 class="tit">
+          회원정보수정
+        </h1>
       </div>
       <div style="width: 820px; margin: 0 auto">
         <table style="border-top: 2px solid #333; width: 100%">
@@ -59,17 +64,31 @@
                 label="선호하는 여행방식을 골라주세요"
                 dense
                 class="preference"
-              ></v-select>
+              />
             </div>
-
           </tbody>
         </table>
       </div>
 
 
-      <div id="button" style="padding: 40px 0;">
-        <button elevation="3" type="button" @click="main">메인으로 이동</button>
-        <button elevation="3" type="button" @click="Modify">수정완료</button>
+      <div
+        id="button"
+        style="padding: 40px 0;"
+      >
+        <button
+          elevation="3"
+          type="button"
+          @click="main"
+        >
+          메인으로 이동
+        </button>
+        <button
+          elevation="3"
+          type="button"
+          @click="Modify"
+        >
+          수정완료
+        </button>
       </div>
     </div>
   </div>

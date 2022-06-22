@@ -6,25 +6,48 @@
       </v-col>
       <v-row style="width: 300px;">
         <v-col style="width: 150px">
-          <v-select label="조회 목록" :items="dropdown_edit" item-value="text" v-model="check"/>
+          <v-select
+            v-model="check"
+            label="조회 목록"
+            :items="dropdown_edit"
+            item-value="text"
+          />
         </v-col>
 
-        <v-col style="width: 150px" v-if="check=='보관'">
-          <v-select label="주문상태" :items="storageStatus" item-value="text" v-model="storageStatusCheck" />
+        <v-col
+          v-if="check=='보관'"
+          style="width: 150px"
+        >
+          <v-select
+            v-model="storageStatusCheck"
+            label="주문상태"
+            :items="storageStatus"
+            item-value="text"
+          />
         </v-col>
 
-        <v-col style="width: 150px" v-else>
-          <v-select label="주문상태" :items="transportStatus" item-value="text" v-model="transportStatusCheck" />
+        <v-col
+          v-else
+          style="width: 150px"
+        >
+          <v-select
+            v-model="transportStatusCheck"
+            label="주문상태"
+            :items="transportStatus"
+            item-value="text"
+          />
         </v-col>
-
       </v-row>
     </v-card>
 
     <div>
       <template v-if="check == '보관'">
         <h3>보관조회</h3>
-        <v-data-table :headers="storageHeaders" :items="sortedStorageList" :items-per-page="5" >
-        </v-data-table>
+        <v-data-table
+          :headers="storageHeaders"
+          :items="sortedStorageList"
+          :items-per-page="5"
+        />
       </template>
 
       <template v-else>
@@ -37,7 +60,6 @@
       </template>
     </div>
   </v-app>
-
 </template>
 
 <script>
@@ -89,10 +111,6 @@ export default {
       keys: [],
     }
   },
-  mounted() {
-    this.a()
-    this.b()
-  },
   computed:{
     sortedStorageList(){
       return this.storageList.filter( it=> it.status===this.storageStatusCheck)
@@ -100,6 +118,10 @@ export default {
     sortedTransportList(){
       return this.transportList.filter( it=> it.status===this.transportStatusCheck)
     }
+  },
+  mounted() {
+    this.a()
+    this.b()
   },
   methods: {
     a() {

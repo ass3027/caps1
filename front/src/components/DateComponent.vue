@@ -1,10 +1,9 @@
 <template>
-
   <v-container
-    :class="{border:true,
-    notSelect:$store.state.calendar.selectDate!==date}"
-    @click="unselect"
     id="outSide"
+    :class="{border:true,
+             notSelect:$store.state.calendar.selectDate!==date}"
+    @click="unselect"
   >
     <v-row>
       <v-col align="center">
@@ -14,7 +13,6 @@
         <template
           v-if="plan.size!==undefined"
         >
-
           <div class="innerBorder">
             <v-dialog
               v-for="(key,index) in planKeys"
@@ -28,7 +26,6 @@
               <template
                 #activator="{ attrs}"
               >
-
                 <v-card
                   v-bind="attrs"
                   :class="{dd:true,selecting:selectedTime===key}"
@@ -43,12 +40,11 @@
                   </div>
                 </v-card>
                 <div
-                  class="circle"
                   v-show="index!==0&&eachDistance.length!==0"
+                  class="circle"
                 >
                   {{ eachDistance[index] }}km
                 </div>
-
               </template>
               <template>
                 <v-card>
@@ -64,12 +60,16 @@
                       @childEvent="selectPlace"
                     />
                     <p>관광 상품 : {{ plan.get(key).gitem_id }}</p>
-                    <p>예상 요금 :
-                      <v-text-field style="width:50%" v-model="plan.get(key).expect_expenses"/>
+                    <p>
+                      예상 요금 :
+                      <v-text-field
+                        v-model="plan.get(key).expect_expenses"
+                        style="width:50%"
+                      />
                     </p>
                   </v-card-text>
 
-                  <v-divider/>
+                  <v-divider />
                   <v-card-actions>
                     <v-btn
                       color="primary"
@@ -90,13 +90,15 @@
               </template>
             </v-dialog>
           </div>
-
-
         </template>
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col justify="center" align="center"> <!--이런게 있긴함  -->
+      <v-col
+        justify="center"
+        align="center"
+      >
+        <!--이런게 있긴함  -->
         <v-dialog
           v-model="dialog"
           width="500"
@@ -124,7 +126,7 @@
               />
             </v-card-text>
 
-            <v-divider/>
+            <v-divider />
             <v-card-actions>
               <v-btn
                 color="primary"

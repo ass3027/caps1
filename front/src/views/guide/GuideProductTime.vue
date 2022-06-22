@@ -1,12 +1,10 @@
 <template>
   <form class="joinGItem">
     <h2>가이드 시간 등록</h2>
-    <h2>{{gitem_id}}</h2>
+    <h2>{{ gitem_id }}</h2>
 
 
-    <div class="textForm">
-
-    </div>
+    <div class="textForm" />
     <div class="textForm">
       <input
         v-model="st_time"
@@ -53,6 +51,11 @@ import axios from "axios";
 
 export default {
   name:'GuideProductTime',
+  props: {
+    gid:{
+      type: String
+    }
+  },
   data(){
     return{
       gitem_id: this.$route.params.gitem_id,
@@ -61,10 +64,9 @@ export default {
       book_whether:'',
     }
   },
-  props: {
-    gid:{
-      type: String
-    }
+  mounted() {
+    console.log("GID", this.$route.params.gitem_id)
+
   },
   methods:{
 
@@ -94,10 +96,6 @@ export default {
     refreshAll(){
       this.$router.go()
     }
-  },
-  mounted() {
-    console.log("GID", this.$route.params.gitem_id)
-
   }
 }
 </script>

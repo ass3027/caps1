@@ -18,7 +18,10 @@
     />
 
     <!--      잠시 v-if=false-->
-    <v-btn @click="loadPlanner" v-if=false>
+    <v-btn
+      v-if="false"
+      @click="loadPlanner"
+    >
       플래너 가져오기
     </v-btn>
 
@@ -35,8 +38,11 @@
         </option>
       </select>
       <hr>
-<!--      잠시 v-if=false-->
-      <v-btn @click="loadPictures" v-if="false">
+      <!--      잠시 v-if=false-->
+      <v-btn
+        v-if="false"
+        @click="loadPictures"
+      >
         사진 가져오기
       </v-btn>
       <ul>

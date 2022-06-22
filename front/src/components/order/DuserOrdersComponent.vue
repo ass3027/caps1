@@ -1,33 +1,57 @@
 <template>
-  <div id="duser_orders" style="padding-top: 60px">
+  <div
+    id="duser_orders"
+    style="padding-top: 60px"
+  >
     <div>
-      <div class="status" style="margin: 0 auto">
-        <span id="status1" @click="changeStatus(1)">배송 가능</span>
-        <span id="status2" @click="changeStatus(2)">배송 중</span>
-        <span id="status3" @click="changeStatus(3)">배송 완료</span>
+      <div
+        class="status"
+        style="margin: 0 auto"
+      >
+        <span
+          id="status1"
+          @click="changeStatus(1)"
+        >배송 가능</span>
+        <span
+          id="status2"
+          @click="changeStatus(2)"
+        >배송 중</span>
+        <span
+          id="status3"
+          @click="changeStatus(3)"
+        >배송 완료</span>
       </div>
 
-      <div v-if="status===1"  class="orders_status">
+      <div
+        v-if="status===1"
+        class="orders_status"
+      >
         <div
-          class="item_container"
           v-for="order in orders_possible"
-          :key="order.ord_id">
-
+          :key="order.ord_id"
+          class="item_container"
+        >
           <DuserOrderItem
             :order="order"
             :latitude="latitude"
             :longitude="longitude"
           />
         </div>
-        <div class="wrap_empty" v-if="orders_possible.length === 0">
+        <div
+          v-if="orders_possible.length === 0"
+          class="wrap_empty"
+        >
           <strong>배송가능한 주문이 없습니다.</strong>
         </div>
       </div>
-      <div v-else-if="status===2" class="orders_status">
+      <div
+        v-else-if="status===2"
+        class="orders_status"
+      >
         <div
-          class="item_container"
           v-for="order in orders_shipping"
           :key="order.ord_id"
+          class="item_container"
         >
           <DuserOrderItem
             :order="order"
@@ -36,17 +60,21 @@
           />
         </div>
 
-        <div class="wrap_empty" v-if="orders_shipping.length === 0">
+        <div
+          v-if="orders_shipping.length === 0"
+          class="wrap_empty"
+        >
           <strong>배송중인 주문이 없습니다.</strong>
         </div>
-
-
       </div>
-      <div v-else class="orders_status">
+      <div
+        v-else
+        class="orders_status"
+      >
         <div
-          class="item_container"
           v-for="order in orders_end"
           :key="order.ord_id"
+          class="item_container"
         >
           <DuserOrderItem
             :order="order"
@@ -55,12 +83,14 @@
           />
         </div>
 
-        <div class="wrap_empty" v-if="orders_end.length === 0">
+        <div
+          v-if="orders_end.length === 0"
+          class="wrap_empty"
+        >
           <strong>배송완료 내역이 없습니다.</strong>
         </div>
       </div>
-
-  </div>
+    </div>
   </div>
 </template>
 

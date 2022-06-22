@@ -1,25 +1,61 @@
 <template>
   <div style="width: 1050px; padding-top: 65px">
-
-    <MyPageHeader></MyPageHeader>
+    <MyPageHeader />
     <div style="width: 820px; float: right;">
       <div class="head_aticle">
-        <h1 class="tit">즐겨찾기</h1>
+        <h1 class="tit">
+          즐겨찾기
+        </h1>
       </div>
 
       {{ test }}
-      <div class="search_date" style="border-top: 2px solid #333">
-        <a id="type_select" class="btn_layer" @click="select_type">{{ selected }}</a>
-        <ul id="type_display" class="layer_search" style="display: none">
-          <li><a id="select_all" @click="select_all" class="on">모두보기</a></li>
-          <li><a id="select_keeper" @click="select_keeper">키퍼</a></li>
-          <li><a id="select_hotel" @click="select_hotel">숙소</a></li>
-          <li><a id="select_tour" @click="select_tour">관광지</a></li>
+      <div
+        class="search_date"
+        style="border-top: 2px solid #333"
+      >
+        <a
+          id="type_select"
+          class="btn_layer"
+          @click="select_type"
+        >{{ selected }}</a>
+        <ul
+          id="type_display"
+          class="layer_search"
+          style="display: none"
+        >
+          <li>
+            <a
+              id="select_all"
+              class="on"
+              @click="select_all"
+            >모두보기</a>
+          </li>
+          <li>
+            <a
+              id="select_keeper"
+              @click="select_keeper"
+            >키퍼</a>
+          </li>
+          <li>
+            <a
+              id="select_hotel"
+              @click="select_hotel"
+            >숙소</a>
+          </li>
+          <li>
+            <a
+              id="select_tour"
+              @click="select_tour"
+            >관광지</a>
+          </li>
         </ul>
       </div>
       <div class="list_bookmark">
         배열 길이: {{ current_bookmark_type.length }}
-        <div v-for="(bookmark, index) in current_bookmark_type" :key="index">
+        <div
+          v-for="(bookmark, index) in current_bookmark_type"
+          :key="index"
+        >
           {{ bookmark }} <br>
           <br>
         </div>
@@ -52,6 +88,9 @@ export default {
       test: null,
       selected: '모두보기',
     }
+  },
+  computed: {
+
   },
   mounted() {
     axios.get("/api/bookmark/BookMark")
@@ -155,9 +194,6 @@ export default {
 
       this.select_type()
     },
-
-  },
-  computed: {
 
   }
 }

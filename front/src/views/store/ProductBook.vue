@@ -2,7 +2,10 @@
   <v-container>
     <v-col>
       <v-row>
-        <img :src="'/api/photo/' + product.pic_name" style="width: 50%">
+        <img
+          :src="'/api/photo/' + product.pic_name"
+          style="width: 50%"
+        >
       </v-row>
       <v-row>
         숙소이름 : {{ product.title }}
@@ -14,10 +17,12 @@
         체크인 : {{ productTime[0].st_time }}
       </v-row>
       <v-row>
-         체크아웃 : {{ productTime[0].end_time }}
+        체크아웃 : {{ productTime[0].end_time }}
       </v-row>
       <v-row>
-        <v-btn @click="book">예약하기</v-btn>
+        <v-btn @click="book">
+          예약하기
+        </v-btn>
       </v-row>
     </v-col>
   </v-container>

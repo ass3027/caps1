@@ -17,7 +17,7 @@
 import axios from "axios";
 
 export default {
-  name: "productBookView",
+  name: "ProductBookView",
   data(){
     return{
       bookList : [],

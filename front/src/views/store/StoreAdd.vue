@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!--    <HelloWorld />-->
 
     <v-text-field
@@ -9,7 +8,7 @@
       placeholder="장소번호"
     />
 
-    <address-component/>
+    <address-component />
 
     <v-text-field
       v-model="store_id"
@@ -57,7 +56,7 @@
             item-value="value"
             label="선택"
             return-object
-          ></v-select>{{ select.value }}
+          />{{ select.value }}
         </v-col>
       </v-row>
     </v-container>

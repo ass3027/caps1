@@ -1,6 +1,5 @@
 <template>
-  <v-container style="width: 70%; " >
-
+  <v-container style="width: 70%; ">
     <v-row>
       <v-col align="center">
         <v-card style="width: 60%;margin: 50px;padding: 50px">
@@ -12,12 +11,16 @@
             type="text"
             class="license"
             placeholder="자격증"
-            style="width: 60%; margin: 10px" />
+            style="width: 60%; margin: 10px"
+          />
 
-          <v-btn class="btn" @click="onsubmit()" style="width: 60%; margin: 10px">
+          <v-btn
+            class="btn"
+            style="width: 60%; margin: 10px"
+            @click="onsubmit()"
+          >
             JOIN
           </v-btn>
-
         </v-card>
       </v-col>
     </v-row>

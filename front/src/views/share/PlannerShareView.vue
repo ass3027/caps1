@@ -6,9 +6,15 @@
       <v-col
         cols="9"
       >
-        <v-row justify="space-between" style="padding-bottom: 20px">
+        <v-row
+          justify="space-between"
+          style="padding-bottom: 20px"
+        >
           <h2>플래너 공유 게시판</h2>
-          <button @click="loginCheck" style="margin-top: 20px">
+          <button
+            style="margin-top: 20px"
+            @click="loginCheck"
+          >
             글 작성하기
           </button>
         </v-row>

@@ -43,16 +43,18 @@
 
         <v-radio-group
           v-model="gender"
-          row>
+          row
+        >
           <v-row>
             <v-radio
               label="남자"
               value="M"
-            ></v-radio>
-            <v-radio style="margin: 5px"
-                     label="여자"
-                     value="F"
-            ></v-radio>
+            />
+            <v-radio
+              style="margin: 5px"
+              label="여자"
+              value="F"
+            />
           </v-row>
         </v-radio-group>
 
@@ -70,15 +72,15 @@
             :items="items"
             label="선호하는 여행방식을 골라주세요"
             dense
-          ></v-select>
+          />
         </v-row>
-<!--          <v-overflow-btn-->
-<!--            v-model="reference"-->
-<!--            class="my-2"-->
-<!--            :items="items"-->
-<!--            label="선호하는 여행방식을 골라주세요"-->
-<!--            dense-->
-<!--          ></v-overflow-btn>-->
+        <!--          <v-overflow-btn-->
+        <!--            v-model="reference"-->
+        <!--            class="my-2"-->
+        <!--            :items="items"-->
+        <!--            label="선호하는 여행방식을 골라주세요"-->
+        <!--            dense-->
+        <!--          ></v-overflow-btn>-->
 
         <v-row>
           <v-date-picker

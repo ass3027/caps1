@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PlannerHeader/>
+    <PlannerHeader />
     <v-card>
       <v-container>
         <h2>플래너 사진 공유게시판({{ $store.state.user.planId }})</h2>
@@ -16,10 +16,10 @@
                 v-for="photo in photos"
                 :key="photo.pic_name"
                 :src="'/api/photo/'+photo.pic_name"
+                width="200px"
+                height="200px"
                 @click="picDetail(photo)"
-                width="200px" height="200px"
               >
-
             </v-card>
           </v-hover>
         </div>
@@ -40,18 +40,19 @@
       v-model="dialog"
       width="500"
     >
-
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
           {{ createdTime }}
         </v-card-title>
         <v-card-text>
           <img
-            :src="'/api/photo/'+selectedPic" width="100%" height="100%"
+            :src="'/api/photo/'+selectedPic"
+            width="100%"
+            height="100%"
           >
         </v-card-text>
 
-        <v-divider></v-divider>
+        <v-divider />
 
         <v-card-actions>
           <v-row justify="end">
@@ -78,7 +79,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
   </div>
 </template>
 

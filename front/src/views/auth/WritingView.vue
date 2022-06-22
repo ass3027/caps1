@@ -43,8 +43,19 @@
     </v-row>
 
     <div id="button">
-      <v-btn type="button" color="pink" @click="check">등록</v-btn>
-      <v-btn type="button" @click="cancel">취소</v-btn>
+      <v-btn
+        type="button"
+        color="pink"
+        @click="check"
+      >
+        등록
+      </v-btn>
+      <v-btn
+        type="button"
+        @click="cancel"
+      >
+        취소
+      </v-btn>
     </div>
 
     <!--    <p>{{user_id}}</p>-->

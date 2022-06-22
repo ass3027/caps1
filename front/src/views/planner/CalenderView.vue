@@ -3,7 +3,7 @@
     id="lll"
     style="width: 70%; min-width:1050px;"
   >
-    <PlannerHeader/>
+    <PlannerHeader />
     <div class="map">
       <MapComponent
         index="00"
@@ -67,7 +67,7 @@
       >
         <V-carousel
           style="width:100%;height:100%;float:left;"
-          :cycle=false
+          :cycle="false"
           :continuous="false"
           justify="center"
         >

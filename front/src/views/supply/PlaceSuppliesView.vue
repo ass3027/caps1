@@ -2,8 +2,14 @@
   <v-container>
     <h2>장소 준비물 등록</h2>
     <v-card>
-      <input v-model="keyword" type="text" @keyup.enter="getPlace">
-      <v-btn @click="getPlace">장소 찾기</v-btn>
+      <input
+        v-model="keyword"
+        type="text"
+        @keyup.enter="getPlace"
+      >
+      <v-btn @click="getPlace">
+        장소 찾기
+      </v-btn>
       <p>선택된장소:{{ selectedPlace.title }}</p>
       <p>선택된준비물:{{ selectedSupply.supl_name }}</p>
     </v-card>
@@ -13,7 +19,11 @@
         <v-col cols="4">
           <v-container class="placeCard">
             <h2>장소</h2>
-            <v-card v-for="(place,i) in places" :key="i" @click="selectPlace(place)">
+            <v-card
+              v-for="(place,i) in places"
+              :key="i"
+              @click="selectPlace(place)"
+            >
               <p>{{ place.title }}</p>
             </v-card>
           </v-container>
@@ -24,17 +34,29 @@
             <h2>준비물</h2>
             <p>준비물을 클릭하면 장소에 추가 됩니다</p>
             <v-card>
-              <input v-model="suplName" type="text" placeholder="직접입력" @keyup.enter="searchSupply">
-              <v-btn @click="searchSupply">검색</v-btn>
+              <input
+                v-model="suplName"
+                type="text"
+                placeholder="직접입력"
+                @keyup.enter="searchSupply"
+              >
+              <v-btn @click="searchSupply">
+                검색
+              </v-btn>
 
               <div v-if="supplies == ''">
                 해당하는 준비물이 없습니다. 직접 추가하시겠습니까?
-                <v-btn @click="addSupply">추가</v-btn>
+                <v-btn @click="addSupply">
+                  추가
+                </v-btn>
               </div>
-
             </v-card>
 
-            <v-card v-for="(supply,i) in supplies" :key="i" @click="addPlSupply(supply)">
+            <v-card
+              v-for="(supply,i) in supplies"
+              :key="i"
+              @click="addPlSupply(supply)"
+            >
               <p>{{ supply.supl_name }}</p>
             </v-card>
           </v-container>
@@ -44,7 +66,11 @@
           <v-container class="placeCard">
             <h2>장소의 준비물</h2>
             <p>준비물을 클릭하면 장소에서 제거됩니다</p>
-            <v-card v-for="(supply,i) in placeSupplies" :key="i" @click="deletePlSupply(supply)">
+            <v-card
+              v-for="(supply,i) in placeSupplies"
+              :key="i"
+              @click="deletePlSupply(supply)"
+            >
               <p>{{ supply.supl_name }}</p>
             </v-card>
             <p v-if="selectedPlace!=''&&placeSupplies==''">
@@ -52,10 +78,8 @@
             </p>
           </v-container>
         </v-col>
-
       </v-row>
     </v-card>
-
   </v-container>
 </template>
 

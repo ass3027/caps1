@@ -1,10 +1,14 @@
 <template>
-  <div id="app" style="width: 1050px; padding-top: 65px">
-
-    <MyPageHeader></MyPageHeader>
+  <div
+    id="app"
+    style="width: 1050px; padding-top: 65px"
+  >
+    <MyPageHeader />
     <div style="width: 820px; float: right;">
       <div class="head_aticle">
-        <h1 class="tit">게시판 목록</h1>
+        <h1 class="tit">
+          게시판 목록
+        </h1>
       </div>
 
       <div style="border-top: 2px solid #333">
@@ -25,7 +29,7 @@
           :items="dd"
           item-key="name"
           class="elevation-1"
-        ></v-data-table>
+        />
 
 
         <v-simple-table
@@ -33,78 +37,77 @@
           dense
         >
           <thead>
-          <tr>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              게시글번호
-            </th>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              제목
-            </th>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              날짜
-            </th>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              아이디
-            </th>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              조회수
-            </th>
-          </tr>
+            <tr>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                게시글번호
+              </th>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                제목
+              </th>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                날짜
+              </th>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                아이디
+              </th>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                조회수
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr
-            v-for="(post,index) in paged_post_list"
-            :key="index"
-            @click="listPage(post.inq_id)"
-          >
-            <th
-              class="text-center"
-              style="font-size:20px;"
+            <tr
+              v-for="(post,index) in paged_post_list"
+              :key="index"
+              @click="listPage(post.inq_id)"
             >
-              {{ post.inq_id }}
-            </th>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              {{ post.inq_title }}
-            </th>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              {{ post.inq_time }}
-            </th>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              {{ post.user_id }}
-            </th>
-            <th
-              class="text-center"
-              style="font-size:20px;"
-            >
-              {{ post.inq_count }}
-            </th>
-          </tr>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                {{ post.inq_id }}
+              </th>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                {{ post.inq_title }}
+              </th>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                {{ post.inq_time }}
+              </th>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                {{ post.user_id }}
+              </th>
+              <th
+                class="text-center"
+                style="font-size:20px;"
+              >
+                {{ post.inq_count }}
+              </th>
+            </tr>
           </tbody>
-
         </v-simple-table>
         <div style="text-align: center">
           <div style="display: inline-block;">
@@ -137,13 +140,15 @@
             등록
           </v-btn>
           <!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
-          <v-btn type="button" @click="write">글쓰기</v-btn>
+          <v-btn
+            type="button"
+            @click="write"
+          >
+            글쓰기
+          </v-btn>
         </div>
       </div>
-      </div>
-
-
-
+    </div>
   </div>
 </template>
 
@@ -151,10 +156,10 @@
 import MyPageHeader from "@/components/store/MyPageHeader";
 import axios from "axios";
 export default {
+  name: "QuestionsView",
   components:{
     MyPageHeader
   },
-  name: "QuestionsView",
 
   props:{ //매개변수, 값을 받아올떄 쓰는아이
     // listArray: {

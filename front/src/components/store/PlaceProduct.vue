@@ -2,25 +2,46 @@
   <div>
     <div class="card">
       <div class="cardInfo">
-        <div class="cardImg" @click="show=!show">
-          <img :src="'/api/photo/' + product.pic_name"
-               style="width: 80%">
+        <div
+          class="cardImg"
+          @click="show=!show"
+        >
+          <img
+            :src="'/api/photo/' + product.pic_name"
+            style="width: 80%"
+          >
         </div>
         <div class="cardText">
-          <div class="cardTitle">{{ product.pd_name }}</div>
+          <div class="cardTitle">
+            {{ product.pd_name }}
+          </div>
           <br>
-          <div class="cardPrice">가격 <span class="priceScore">{{ product.pd_price }}원</span></div>
+          <div class="cardPrice">
+            가격 <span class="priceScore">{{ product.pd_price }}원</span>
+          </div>
           <br>
           <div class="cardPlace">
             <hr>
           </div>
           <br>
-          <v-btn @click="go">예약</v-btn>
+          <v-btn @click="go">
+            예약
+          </v-btn>
         </div>
       </div>
-      <div v-show="show" class="cardMoreInfo">
-        <div class="imgGaurd" v-for="(image, index) in productImage" :key="index">
-          <img :src="'/api/photo/' + image.pic_name" style="width: 50%">
+      <div
+        v-show="show"
+        class="cardMoreInfo"
+      >
+        <div
+          v-for="(image, index) in productImage"
+          :key="index"
+          class="imgGaurd"
+        >
+          <img
+            :src="'/api/photo/' + image.pic_name"
+            style="width: 50%"
+          >
         </div>
       </div>
     </div>
@@ -37,11 +58,6 @@ export default {
     show: false,
     productImage: [],
   }),
-  methods: {
-    go(){
-      this.$router.push({name:'productBook',params:{product:this.product}})
-    }
-  },
 
   created() {
     axios({
@@ -56,6 +72,11 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+  },
+  methods: {
+    go(){
+      this.$router.push({name:'productBook',params:{product:this.product}})
+    }
   }
 }
 </script>

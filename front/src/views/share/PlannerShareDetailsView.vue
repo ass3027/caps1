@@ -1,73 +1,76 @@
 <template>
   <div>
-  <v-card class="ma-5 pa-5">
-    <h2>
-      {{ share.share_title }}[{{ $route.params.id }}]
-    </h2>
-    <p>
-      #{{ share.share_place }} #{{preference}}
-    </p>
-    <p>
-      {{ share.share_contents }}
-    </p>
-    <div>
-      <img
-        v-for="photo in pictures"
-        :key="photo.pic_name"
-        :src="'/api/photo/'+photo.pic_name"
-      >
-    </div>
-
-    <ul>
-<!--      <li-->
-<!--        v-for="schedule in schedules"-->
-<!--        :key="schedule.sch_number"-->
-<!--      >-->
-<!--        &lt;!&ndash;@todo cheack&ndash;&gt;-->
-<!--        {{ schedule }}-->
-<!--      </li>-->
-      <li>
-        <v-row
-          v-for="(schedule,index) in calendar.date"
-          :key="index"
+    <v-card class="ma-5 pa-5">
+      <h2>
+        {{ share.share_title }}[{{ $route.params.id }}]
+      </h2>
+      <p>
+        #{{ share.share_place }} #{{ preference }}
+      </p>
+      <p>
+        {{ share.share_contents }}
+      </p>
+      <div>
+        <img
+          v-for="photo in pictures"
+          :key="photo.pic_name"
+          :src="'/api/photo/'+photo.pic_name"
         >
-          <div
-            style="width:899px;height:750px;position:relative;overflow:hidden;float:left;border: solid 10px"
-            v-if="schedule.size!==0"
+      </div>
+
+      <ul>
+        <!--      <li-->
+        <!--        v-for="schedule in schedules"-->
+        <!--        :key="schedule.sch_number"-->
+        <!--      >-->
+        <!--        &lt;!&ndash;@todo4 cheack&ndash;&gt;-->
+        <!--        {{ schedule }}-->
+        <!--      </li>-->
+        <li>
+          <v-row
+            v-for="(schedule,index) in calendar.date"
+            :key="index"
           >
-            <MapComponent
+            <div
+              v-if="schedule.size!==0"
+              style="width:899px;height:750px;position:relative;overflow:hidden;float:left;border: solid 10px"
+            >
+              <MapComponent
 
-              :schedule="schedule"
-              :index="index"
-            />
-          </div>
-          <h3 v-for="(s,i) in schedule" :key="i">{{s[1].pl_name}}-></h3>
+                :schedule="schedule"
+                :index="index"
+              />
+            </div>
+            <h3
+              v-for="(s,i) in schedule"
+              :key="i"
+            >
+              {{ s[1].pl_name }}->
+            </h3>
+          </v-row>
+        </li>
+      </ul>
 
 
-        </v-row>
-
-      </li>
-    </ul>
-
-
-    <div v-if="$store.state.user.userId==share.user_id">
-      <v-btn @click="edit">
-        수정
+      <div v-if="$store.state.user.userId==share.user_id">
+        <v-btn @click="edit">
+          수정
+        </v-btn>
+        <v-btn @click="del">
+          삭제
+        </v-btn>
+      </div>
+      <v-btn @click="copyPlanner">
+        일정 복제하기
       </v-btn>
-      <v-btn @click="del">
-        삭제
-      </v-btn>
-    </div>
-    <v-btn @click="copyPlanner">
-      일정 복제하기
+
+      <h2>공유된 횟수:{{ share.share_count }}</h2>
+    </v-card>
+    {{ calendarX }}
+
+    <v-btn @click="calendarX.push(1)&&calendarX.splice(0,1)">
+      지도에서보기
     </v-btn>
-
-    <h2>공유된 횟수:{{ share.share_count }}</h2>
-  </v-card>
-    {{calendarX}}
-
-    <v-btn @click="calendarX.push(1)&&calendarX.splice(0,1)">지도에서보기</v-btn>
-
   </div>
 </template>
 

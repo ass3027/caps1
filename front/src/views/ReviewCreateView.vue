@@ -1,9 +1,8 @@
 <template>
-
   <div>
     <review-form
-      :type="type"
       :id="id"
+      :type="type"
     />
   </div>
 </template>

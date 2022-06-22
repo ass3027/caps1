@@ -1,11 +1,14 @@
 <template>
   <div>
-    <table class="xans-board-listheaderd tbl_newtype1"
-           width="100%"
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           style="border-top: 1px solid #e3e3e3;" @click="displayContent">
+    <table
+      class="xans-board-listheaderd tbl_newtype1"
+      width="100%"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      style="border-top: 1px solid #e3e3e3;"
+      @click="displayContent"
+    >
       <colgroup>
         <col style="width:70px;">
         <col style="width:auto;">
@@ -17,13 +20,19 @@
       </colgroup>
       <tbody class="review-lists">
         <tr>
-          <td style="text-align: center"> {{ review.rev_id }}</td>
+          <td style="text-align: center">
+            {{ review.rev_id }}
+          </td>
           <td class="subject">
             {{ review.title }}
           </td>
-          <td class="user_grade grade_comm"> </td>
-          <td class="user_grade"> {{ user.user_name }} </td>
-          <td class="time txt_center"> {{ reg_date }} </td>
+          <td class="user_grade grade_comm" />
+          <td class="user_grade">
+            {{ user.user_name }}
+          </td>
+          <td class="time txt_center">
+            {{ reg_date }}
+          </td>
           <td class="txt_center">
             <span class="review-like-cnt">
               {{ review.like }}
@@ -38,11 +47,18 @@
       </tbody>
     </table>
 
-    <div v-if="on" id="content_view" class="review_view" style="display: block;">
+    <div
+      v-if="on"
+      id="content_view"
+      class="review_view"
+      style="display: block;"
+    >
       <div class="inner_review">
-        <div class="review_photo" style="padding-top: 30px">
-
-<!--          <img src="/api/photo/altImage/packless_travel_logo.png" border="0">-->
+        <div
+          class="review_photo"
+          style="padding-top: 30px"
+        >
+          <!--          <img src="/api/photo/altImage/packless_travel_logo.png" border="0">-->
           <img
             :src="'/api/photo/'+review.rev_img_filename"
             alt="리뷰 이미지"
@@ -56,7 +72,12 @@
         {{ review.rev_content }}
       </div>
       <div class="goods-review-grp-btn">
-        <button type="button" class="styled-button review-like-btn" @click="like">도움이 돼요
+        <button
+          type="button"
+          class="styled-button review-like-btn"
+          @click="like"
+        >
+          도움이 돼요
           <span class="num"> {{ review.like }} </span>
         </button>
       </div>
@@ -90,19 +111,6 @@ export default {
     //   return "http://localhost:8080/api/photo/"+this.review.rev_img_filename;
     // }
   },
-  methods: {
-    displayContent() {
-      this.on = !this.on
-      console.log('test', this.review.rev_id)
-
-    },
-    like() {
-
-
-
-      // DB 변경 추후
-    }
-  },
   mounted() {
     console.log("[REVIEW]")
     console.log('review', this.review)
@@ -124,6 +132,19 @@ export default {
         console.log(err)
       })
     console.log(this.review.rev_content)
+  },
+  methods: {
+    displayContent() {
+      this.on = !this.on
+      console.log('test', this.review.rev_id)
+
+    },
+    like() {
+
+
+
+      // DB 변경 추후
+    }
   }
 }
 

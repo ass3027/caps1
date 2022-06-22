@@ -1,6 +1,5 @@
 <template>
   <div style="max-width: 1050px">
-
     <br>
 
     <div class="xans-element- xans-product xans-product-additional detail_board  ">
@@ -12,24 +11,44 @@
     </div>
 
     <p class="btnArea after">
-      <button href="#none" @click="reviewRegister()"><span class="bhs_button" style="line-height:30px; width:130px;">후기쓰기</span></button>
+      <button
+        href="#none"
+        @click="reviewRegister()"
+      >
+        <span
+          class="bhs_button"
+          style="line-height:30px; width:130px;"
+        >후기쓰기</span>
+      </button>
     </p>
 
     <div class="board_pg_area">
-      <a class="layout-pagination-button layout-pagination-first-page" @click="pageFirst">맨 처음 페이지로 가기</a>
-      <a class="layout-pagination-button layout-pagination-prev-page" @click="pagePrev">이전 페이지로 가기</a>
-      <a class="layout-pagination-button layout-pagination-number"
-        v-for="page_index in max_page" :key="page_index" @click="pageChange(page_index)"
+      <a
+        class="layout-pagination-button layout-pagination-first-page"
+        @click="pageFirst"
+      >맨 처음 페이지로 가기</a>
+      <a
+        class="layout-pagination-button layout-pagination-prev-page"
+        @click="pagePrev"
+      >이전 페이지로 가기</a>
+      <a
+        v-for="page_index in max_page"
+        :key="page_index"
         :ref="page_index"
+        class="layout-pagination-button layout-pagination-number"
+        @click="pageChange(page_index)"
       >
         {{ page_index }}
       </a>
-      <a class="layout-pagination-button layout-pagination-next-page" @click="pageNext">다음 페이지로 가기</a>
-      <a class="layout-pagination-button layout-pagination-last-page" @click="pageLast">맨 끝 페이지로 가기</a>
+      <a
+        class="layout-pagination-button layout-pagination-next-page"
+        @click="pageNext"
+      >다음 페이지로 가기</a>
+      <a
+        class="layout-pagination-button layout-pagination-last-page"
+        @click="pageLast"
+      >맨 끝 페이지로 가기</a>
     </div>
-
-
-
   </div>
 </template>
 
@@ -59,6 +78,16 @@ export default {
       zIndex : 100,
       current_page: 1,
     }
+  },
+  computed: {
+    slice_reviews() {
+      var current_page = this.current_page
+      return this.reviews.slice((current_page-1)*7, current_page*7)
+    },
+    max_page() {
+      return Math.ceil(this.reviews.length/7)
+    }
+
   },
   created() {
     this.getReviews()
@@ -157,16 +186,6 @@ export default {
       this.getReviews()
     }
 
-
-  },
-  computed: {
-    slice_reviews() {
-      var current_page = this.current_page
-      return this.reviews.slice((current_page-1)*7, current_page*7)
-    },
-    max_page() {
-      return Math.ceil(this.reviews.length/7)
-    }
 
   },
 

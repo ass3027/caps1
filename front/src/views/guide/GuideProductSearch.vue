@@ -38,7 +38,7 @@
             </div>
             <v-list-item-title class="text-h5 mb-1">
               ID:{{ item.user_id }}
-              장소:{{item.title}}
+              장소:{{ item.title }}
             </v-list-item-title>
             <v-list-item-subtitle>
               소개:{{ item.introduce }}
@@ -53,7 +53,6 @@
         <v-card-actions />
       </v-card>
     </v-row>
-
   </div>
 </template>
 
@@ -62,13 +61,13 @@ import axios from "axios";
 
 export default {
   name: "GuideProductSearch.vue",
+  props:['keyword'],
 
   data(){
     return{
       lists:[],
     }
   },
-  props:['keyword'],
   mounted() {
     this.importGitem()
   },

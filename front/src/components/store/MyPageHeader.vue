@@ -1,10 +1,17 @@
 <template>
-  <div id="snb" class="snb_my">
-
-    <h2 class="tit_snb">마이페이지</h2>
+  <div
+    id="snb"
+    class="snb_my"
+  >
+    <h2 class="tit_snb">
+      마이페이지
+    </h2>
 
     <div class="inner_snb">
-      <ul class="list_menu" style="padding-left: 0">
+      <ul
+        class="list_menu"
+        style="padding-left: 0"
+      >
         <li id="MyPage">
           <a @click="MyPage">회원 정보</a>
         </li>
@@ -20,7 +27,6 @@
         <li id="Review">
           <a>상품후기</a>
         </li>
-
       </ul>
     </div>
     <a class="link_inquire">
@@ -41,6 +47,11 @@ export default {
     return{
     }
   },
+  mounted() {
+    var currentPath = document.location.pathname.slice(1)
+    var current_li = document.getElementById(currentPath+'')
+    current_li.classList.add('on')
+  },
   methods:{
     MyPage(){
       this.$router.push("/MyPage")
@@ -58,11 +69,6 @@ export default {
 
     }
 
-  },
-  mounted() {
-    var currentPath = document.location.pathname.slice(1)
-    var current_li = document.getElementById(currentPath+'')
-    current_li.classList.add('on')
   }
 }
 </script>

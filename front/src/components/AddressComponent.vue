@@ -21,8 +21,8 @@
       ><br>
     </div>
     <input
-      v-model="detailAddress"
       id="detailAddress"
+      v-model="detailAddress"
       type="text"
       placeholder="상세주소"
     >

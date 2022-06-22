@@ -67,37 +67,37 @@
 
             <div class="mt-2 mb-4">
               <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{products[index].title}}
+                {{ products[index].title }}
               </span>
             </div>
 
             <div>
-                  <span style="font-size: 24px; font-weight: 900">
-                    {{ products[index].addr1 }}
-                  </span>
+              <span style="font-size: 24px; font-weight: 900">
+                {{ products[index].addr1 }}
+              </span>
             </div>
 
             <div class="my-3">
               <span class="text-muted">
-                {{products[index].content}}
+                {{ products[index].content }}
               </span>
             </div>
 
             <div class="row">
               <div class="col-8 col-md-12 d-flex flex-row align-items-center">
-<!--                <div>-->
-<!--                  <span style="font-size: 24px; font-weight: 900">-->
-<!--                    {{ products[index].addr1 }}-->
-<!--                  </span>-->
-<!--                </div>-->
-<!--                <div class="">-->
-<!--                  <span-->
-<!--                    class="mx-3 discount px-2 py-1 rounded"-->
-<!--                    style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)"-->
-<!--                  >-->
-<!--                    50%-->
-<!--                  </span>-->
-<!--                </div>-->
+                <!--                <div>-->
+                <!--                  <span style="font-size: 24px; font-weight: 900">-->
+                <!--                    {{ products[index].addr1 }}-->
+                <!--                  </span>-->
+                <!--                </div>-->
+                <!--                <div class="">-->
+                <!--                  <span-->
+                <!--                    class="mx-3 discount px-2 py-1 rounded"-->
+                <!--                    style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)"-->
+                <!--                  >-->
+                <!--                    50%-->
+                <!--                  </span>-->
+                <!--                </div>-->
               </div>
               <div class="col-4 col-md-12 my-1">
                 <span
@@ -113,12 +113,16 @@
         <hr>
         <div>
           <div>
-            <place-product v-for="(product,index) in plProduct" :product="product" :key="index"/>
+            <place-product
+              v-for="(product,index) in plProduct"
+              :key="index"
+              :product="product"
+            />
           </div>
         </div>
       </div>
     </div>
-    <StoreReviewView :store_name="store_name"/>
+    <StoreReviewView :store_name="store_name" />
   </div>
 </template>
 

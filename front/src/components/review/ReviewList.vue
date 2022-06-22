@@ -3,8 +3,16 @@
     <form name="frmList">
       <h3>Review ({{ reviews.length }})</h3>
       <!--/.title-->
-      <table class="xans-board-listheader" width="100%" border="0" cellpadding="0" cellspacing="0">
-        <caption style="display:none">구매후기 제목</caption>
+      <table
+        class="xans-board-listheader"
+        width="100%"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+      >
+        <caption style="display:none">
+          구매후기 제목
+        </caption>
         <colgroup>
           <col style="width:70px;">
           <col style="width:auto;">
@@ -14,16 +22,52 @@
           <col style="width:40px;">
           <col style="width:80px;">
         </colgroup>
-        <tbody><tr>
-          <th scope="col" class="input_txt">번호</th>
-          <th scope="col" class="input_txt">제목</th>
-          <th scope="col" class="input_txt"></th>
-          <th scope="col" class="input_txt" align="left">작성자</th>
-          <th scope="col" class="input_txt">작성일</th>
-          <th scope="col" class="input_txt">도움</th>
-          <th scope="col" class="input_txt">조회</th>
-        </tr>
-        </tbody></table>
+        <tbody>
+          <tr>
+            <th
+              scope="col"
+              class="input_txt"
+            >
+              번호
+            </th>
+            <th
+              scope="col"
+              class="input_txt"
+            >
+              제목
+            </th>
+            <th
+              scope="col"
+              class="input_txt"
+            />
+            <th
+              scope="col"
+              class="input_txt"
+              align="left"
+            >
+              작성자
+            </th>
+            <th
+              scope="col"
+              class="input_txt"
+            >
+              작성일
+            </th>
+            <th
+              scope="col"
+              class="input_txt"
+            >
+              도움
+            </th>
+            <th
+              scope="col"
+              class="input_txt"
+            >
+              조회
+            </th>
+          </tr>
+        </tbody>
+      </table>
       <div
         v-for="(review, index) in reviews"
         :key="index"
@@ -37,10 +81,13 @@
         />
       </div>
     </form>
-    <p class="btnArea after" style="margin-bottom: 0">
-<!--      <a>-->
-<!--        <span class="bhs_button" style="line-height:30px; width:130px;">후기쓰기</span>-->
-<!--      </a>-->
+    <p
+      class="btnArea after"
+      style="margin-bottom: 0"
+    >
+      <!--      <a>-->
+      <!--        <span class="bhs_button" style="line-height:30px; width:130px;">후기쓰기</span>-->
+      <!--      </a>-->
     </p>
   </div>
 </template>

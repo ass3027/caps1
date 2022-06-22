@@ -5,16 +5,16 @@
     <v-row>
       <v-col>
         <h2>플래너 생성</h2>
-        <v-divider/>
+        <v-divider />
       </v-col>
     </v-row>
 
     <v-row
       justify="center"
     >
-
       <v-col
-        style="width:30%;">
+        style="width:30%;"
+      >
         <h3>플래너 이름</h3>
         <v-text-field
           v-model="plan_name"
@@ -37,57 +37,53 @@
           생성
         </v-btn>
       </v-col>
-      <v-divider vertical/>
+      <v-divider vertical />
       <v-col>
         <h2>현재 소속된 플래너 목록</h2>
         <v-simple-table>
           <thead>
-          <tr>
-            <th
-              v-for="(key,index) in keys"
-              :key="index"
-              class="text-left"
-            >
-              {{ key }}
-            </th>
-            <th>phone</th>
-            <th>삭제</th>
-          </tr>
+            <tr>
+              <th
+                v-for="(key,index) in keys"
+                :key="index"
+                class="text-left"
+              >
+                {{ key }}
+              </th>
+              <th>phone</th>
+              <th>삭제</th>
+            </tr>
           </thead>
           <tbody>
-          <tr
+            <tr
 
-            v-for="(plan,index) in plan_list"
-            :key="index"
-          >
-            <td>
-              {{ plan.plan_id }}
-            </td>
-            <td>{{ plan.plan_name }}</td>
-            <td>{{ plan.user_id }}</td>
-            <td>{{ plan.plan_start }}</td>
-            <td>{{ plan.plan_end }}</td>
-            <td>
-              <v-btn
-                color="light-green"
-                @submit.prevent
-                @click="deletePlan(plan.plan_id)"
-              >
-                삭제
-              </v-btn>
-            </td>
-          </tr>
+              v-for="(plan,index) in plan_list"
+              :key="index"
+            >
+              <td>
+                {{ plan.plan_id }}
+              </td>
+              <td>{{ plan.plan_name }}</td>
+              <td>{{ plan.user_id }}</td>
+              <td>{{ plan.plan_start }}</td>
+              <td>{{ plan.plan_end }}</td>
+              <td>
+                <v-btn
+                  color="light-green"
+                  @submit.prevent
+                  @click="deletePlan(plan.plan_id)"
+                >
+                  삭제
+                </v-btn>
+              </td>
+            </tr>
           </tbody>
         </v-simple-table>
       </v-col>
     </v-row>
     <div style="padding:40px" />
-    <v-row>
-
-    </v-row>
-    <v-row>
-
-    </v-row>
+    <v-row />
+    <v-row />
     <div style="padding:40px" />
   </v-container>
 </template>

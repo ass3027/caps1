@@ -234,7 +234,7 @@
             <v-list-group>
               <template #activator>
                 <v-list-item-content>
-                  <v-list-item-title>{{ set[0].title}} Set</v-list-item-title>
+                  <v-list-item-title>{{ set[0].title }} Set</v-list-item-title>
                 </v-list-item-content>
                 <v-dialog
                   v-model="dialogAdd[i]"

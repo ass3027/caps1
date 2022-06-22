@@ -1,13 +1,10 @@
 <template>
-
-
   <div style="width: 1050px">
+    <DuserOrdersComponent />
+    <!--          <OrdersComponent :user_id="user_id" />-->
+    <!--    <ReviewView :id="'100'" :type="'product'"/>-->
 
-        <DuserOrdersComponent/>
-<!--          <OrdersComponent :user_id="user_id" />-->
-<!--    <ReviewView :id="'100'" :type="'product'"/>-->
-
-<!--    <ReviewCreateView />-->
+    <!--    <ReviewCreateView />-->
   </div>
 </template>
 

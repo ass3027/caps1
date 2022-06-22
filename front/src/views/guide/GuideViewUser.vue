@@ -13,7 +13,7 @@
 
     <v-img
       height="250"
-      v-bind:src="img(lists.pic_name)"
+      :src="img(lists.pic_name)"
     />
 
     <v-card-title>{{ lists.user_name }}</v-card-title>
@@ -24,7 +24,7 @@
         class="mx-0"
       >
         <div>
-          {{lists.user_phone}}
+          {{ lists.user_phone }}
         </div>
       </v-row>
 
@@ -37,22 +37,18 @@
 
     <v-divider class="mx-4" />
 
-    <v-card-title>{{lists.user_id}}</v-card-title>
-    <div>성별: {{lists.gender}}</div>
+    <v-card-title>{{ lists.user_id }}</v-card-title>
+    <div>성별: {{ lists.gender }}</div>
 
     <v-card-text>
       <v-chip-group
         v-model="selection"
         active-class="deep-purple accent-4 white--text"
         column
-      >
-
-      </v-chip-group>
+      />
     </v-card-text>
 
-    <v-card-actions>
-
-    </v-card-actions>
+    <v-card-actions />
   </v-card>
 </template>
 

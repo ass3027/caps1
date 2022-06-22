@@ -1,12 +1,17 @@
 <template>
-  <div id="app" style="width: 1050px; padding-top: 65px">
+  <div
+    id="app"
+    style="width: 1050px; padding-top: 65px"
+  >
     <div>
-      <MyPageHeader/>
+      <MyPageHeader />
       <div style="width: 820px; float: right;">
         <div class="head_aticle">
-          <h1 class="tit">회원정보</h1>
+          <h1 class="tit">
+            회원정보
+          </h1>
         </div>
-        <v-container style="border-top: 2px solid #333" >
+        <v-container style="border-top: 2px solid #333">
           <v-row justify="center">
             <v-col
               cols="12"
@@ -18,43 +23,39 @@
                 class="box"
                 outlined
                 readonly
-              ></v-text-field>
+              />
               <v-text-field
                 v-model="user_id"
                 label="아이디"
                 class="box"
                 outlined
                 readonly
-              ></v-text-field>
+              />
               <v-text-field
                 v-model="gender"
                 label="성별"
                 class="box"
                 outlined
                 readonly
-              ></v-text-field>
+              />
               <v-text-field
                 v-model="user_phone"
                 label="연락처"
                 class="box"
                 outlined
                 readonly
-              ></v-text-field>
+              />
               <v-text-field
                 v-model="preference"
                 label="내가 선호하는 여행방식"
                 class="box"
                 outlined
                 readonly
-              ></v-text-field>
+              />
             </v-col>
           </v-row>
         </v-container>
       </div>
-
-
-
-
     </div>
   </div>
 <!--  </div>-->

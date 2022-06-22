@@ -15,14 +15,16 @@
           class="innerText"
         >
           <h3>{{ i+1 }}.{{ item.pl_name }}</h3>
-          <v-btn @click="toCalendar(item)">일정에추가</v-btn>
+          <v-btn @click="toCalendar(item)">
+            일정에추가
+          </v-btn>
         </div>
       </v-carousel-item>
     </v-carousel>
     <v-carousel v-else>
       <v-carousel-item
-        src="/api/photo/placeImage/no_place.png">
-      </v-carousel-item>
+        src="/api/photo/placeImage/no_place.png"
+      />
     </v-carousel>
   </div>
 </template>

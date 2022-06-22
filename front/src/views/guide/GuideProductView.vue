@@ -10,9 +10,8 @@
         align="center"
         class="mx-0"
       >
-
         <div class="grey--text ms-4">
-          ID:{{lists.gitem_id}}
+          ID:{{ lists.gitem_id }}
         </div>
       </v-row>
 
@@ -20,16 +19,14 @@
         장소:{{ lists.title }}
       </div>
 
-      <div>소개:{{lists.introduce}}</div>
+      <div>소개:{{ lists.introduce }}</div>
     </v-card-text>
 
     <v-divider class="mx-4" />
 
     <v-card-title>예약시간</v-card-title>
 
-    <v-card-text
-
-    >
+    <v-card-text>
       <v-chip-group
         v-for="(item,index) in items"
         :key="index"
@@ -40,9 +37,8 @@
           v-if="item.book_whether==1"
           @click="num(item.time_num)"
         >
-          {{item.st_time}} ~ {{item.end_time}}
+          {{ item.st_time }} ~ {{ item.end_time }}
         </v-chip>
-
       </v-chip-group>
     </v-card-text>
 
@@ -51,14 +47,11 @@
         color="deep-purple lighten-2"
         text
         @click="reserve()"
-
       >
         Reserve
       </v-btn>
     </v-card-actions>
   </v-card>
-
-
 </template>
 
 <script>

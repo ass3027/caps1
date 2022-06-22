@@ -1,26 +1,48 @@
 <template>
   <v-row>
-    <v-col cols="4" sm="6" md="8">
+    <v-col
+      cols="4"
+      sm="6"
+      md="8"
+    >
       <v-dialog
         ref="dialog1"
         v-model="sDateModal"
         :return-value.sync="sDate"
         persistent
-        width="350px">
-        <template v-slot:activator="{ on }">
+        width="350px"
+      >
+        <template #activator="{ on }">
           <v-text-field
             v-model="sDate"
             readonly
-            v-on="on"
             :label="`${label}`"
-          ></v-text-field>
+            v-on="on"
+          />
         </template>
 
         <v-card>
-          <v-date-picker v-model="sDate" scrollable :allowed-dates="disablePastDates" style="height: 570px;">
-            <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="sDateModal = false">Cancel</v-btn>
-            <v-btn text color="primary" @click="sTimeModal = true">OK</v-btn>
+          <v-date-picker
+            v-model="sDate"
+            scrollable
+            :allowed-dates="disablePastDates"
+            style="height: 570px;"
+          >
+            <v-spacer />
+            <v-btn
+              text
+              color="primary"
+              @click="sDateModal = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              text
+              color="primary"
+              @click="sTimeModal = true"
+            >
+              OK
+            </v-btn>
           </v-date-picker>
         </v-card>
       </v-dialog>
@@ -30,20 +52,31 @@
         v-model="sTimeModal"
         :return-value.sync="sTime"
         persistent
-        width="400px">
-
+        width="400px"
+      >
         <v-time-picker
           v-if="sTimeModal"
           v-model="sTime"
-          scrollable>
-
-          <v-spacer></v-spacer>
-          <v-btn text color="primary" @click="sTimeModal = false">Cancel</v-btn>
-          <v-btn text color="primary" @click="update()">OK</v-btn>
+          scrollable
+        >
+          <v-spacer />
+          <v-btn
+            text
+            color="primary"
+            @click="sTimeModal = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="primary"
+            @click="update()"
+          >
+            OK
+          </v-btn>
         </v-time-picker>
       </v-dialog>
     </v-col>
-
   </v-row>
 </template>
 

@@ -13,10 +13,10 @@
         <div>
           <form @submit.prevent>
             키워드 : <input
-            v-model="keyWord"
-            type="text"
-            size="15"
-          >
+              v-model="keyWord"
+              type="text"
+              size="15"
+            >
             <button @click="searchPlaces">
               지도검색
             </button>
@@ -32,12 +32,11 @@
           v-for="(place,index) in places"
           :key="index"
           class="item"
-
         >
-<!--          이거 위에 넣을까... 근데 좀 이상함-->
-<!--          @mouseover="displayinfoWindow(markers[index],place.place_name)"-->
-<!--          @mouseout="infoWindow.close()"-->
-          <span :class="[`markerbg marker_${index+1}`]"/>
+          <!--          이거 위에 넣을까... 근데 좀 이상함-->
+          <!--          @mouseover="displayinfoWindow(markers[index],place.place_name)"-->
+          <!--          @mouseout="infoWindow.close()"-->
+          <span :class="[`markerbg marker_${index+1}`]" />
           <div class="info1">
             <h5 @click="logLocationInfo(place)">
               {{ place.place_name }}
@@ -51,7 +50,7 @@
           </div>
         </li>
       </ul>
-      <div id="pagination"/>
+      <div id="pagination" />
     </div>
   </div>
 </template>
@@ -62,6 +61,11 @@ import axios from 'axios'
 
 export default {
   name: "MapComponent",
+  props:{
+    schedule:Map,
+    index:String
+
+  },
   data() {
     return {
       geocoder: {},
@@ -79,11 +83,6 @@ export default {
       eachDistance:[],
       checkDBSearch:false,
     }
-  },
-  props:{
-    schedule:Map,
-    index:String
-
   },
   mounted() {
     console.log(this.schedule)

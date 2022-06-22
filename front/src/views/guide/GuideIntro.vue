@@ -10,8 +10,6 @@
         type="text"
         class="license"
         placeholder="소개"
-
-
       >
     </div>
 
@@ -36,6 +34,9 @@ export default {
     }
 
   },
+  mounted() {
+    console.log(this.$route.params.user_id)
+  },
   methods:{
     onsubmit(){
       var sendform = new FormData();
@@ -54,9 +55,6 @@ export default {
         console.log(res)
       })
     }
-  },
-  mounted() {
-    console.log(this.$route.params.user_id)
   }
 }
 </script>

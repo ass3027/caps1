@@ -1,8 +1,10 @@
 <template>
-  <div id="app" style="width: 1050px; padding-top: 65px">
+  <div
+    id="app"
+    style="width: 1050px; padding-top: 65px"
+  >
     <div>
-      <MyPageHeader/>
-
+      <MyPageHeader />
     </div>
   </div>
 <!--  </div>-->

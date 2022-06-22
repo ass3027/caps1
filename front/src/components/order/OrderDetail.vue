@@ -15,9 +15,7 @@
 
     <table id="order_detail">
       <thead scope="row">
-        <tr>
-
-        </tr>
+        <tr />
       </thead>
       <tbody>
         <tr>
@@ -58,7 +56,7 @@
               v-for="(i, index) in ord_bag_info"
               :key="index"
             >
-              {{ i['BAG_SIZE'] }}x{{ i['CNT']}}
+              {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
               <span v-if="index !== ord_bag_info.length-1">, </span>
             </span>
           </td>
@@ -74,7 +72,8 @@
         class="btn_type2"
         height="54px"
         color="white"
-        @click="requestMatch()">
+        @click="requestMatch()"
+      >
         매칭요청
       </v-btn>
     </div>
@@ -83,7 +82,8 @@
         class="btn_type2"
         height="54px"
         color="white"
-        @click="orderArrival()">
+        @click="orderArrival()"
+      >
         배송완료
       </v-btn>
     </div>
