@@ -1,4 +1,4 @@
-package controller;
+package c.e.exper.controller;
 
 import c.e.exper.data.AnswerDAO;
 import c.e.exper.data.InquiryDAO;

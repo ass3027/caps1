@@ -1,4 +1,4 @@
-package controller;
+package c.e.exper.controller;
 
 import c.e.exper.data.PlaceDAO;
 import c.e.exper.mapper.KeeperMapper;
