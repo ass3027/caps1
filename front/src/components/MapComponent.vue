@@ -32,9 +32,11 @@
           v-for="(place,index) in places"
           :key="index"
           class="item"
-          @mouseover="displayinfoWindow(markers[index],place.place_name)"
-          @mouseout="infoWindow.close()"
+
         >
+<!--          이거 위에 넣을까... 근데 좀 이상함-->
+<!--          @mouseover="displayinfoWindow(markers[index],place.place_name)"-->
+<!--          @mouseout="infoWindow.close()"-->
           <span :class="[`markerbg marker_${index+1}`]"/>
           <div class="info1">
             <h5 @click="logLocationInfo(place)">
