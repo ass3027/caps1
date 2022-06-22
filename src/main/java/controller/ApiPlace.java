@@ -1,4 +1,4 @@
-package c.e.exper.controller;
+package controller;
 
 import c.e.exper.data.PictureDAO;
 import c.e.exper.data.PlaceDAO;

@@ -184,7 +184,7 @@ export default {
         "커뮤니티",
         "고객센터"
       ],
-     
+
       contents: [
         [
           {title: 'travel1', route: '/travel'},
@@ -240,21 +240,17 @@ export default {
         ]
       ],
       scroll: null,
-      user_id: this.$store.state.user.userId,
+      user_id: '',
       user_role: null,
     }
   },
   computed: {
-
-
     isLogin() {
       console.log(this.$store.state.user.userId)
       console.log(this.$store.getters['user/isLogin'])
       return this.$store.getters['user/isLogin']
     },
-    userId() {
-      return this.$store.state.user.userId
-    },
+
 
   },
   created() {
@@ -264,16 +260,18 @@ export default {
       this.photo = "/api/photo/" + decodeURI(photo)
     })
 
+    EventBus.$on("updateId",()=>{
+      this.updateUserId()
+    })
+
     axios.get('/api/user/role/' + this.$store.state.user.userId).then(res =>{
       this.user_role = res.data
     })
   },
-  mounted() {
-    // TODO document why this method 'mounted' is empty
-    console.log('userId', this.userId)
-
-  },
   methods: {
+    updateUserId() {
+      this.user_id =this.$store.state.user.userId
+    },
     logOut() {
       console.log(22)
       axios({

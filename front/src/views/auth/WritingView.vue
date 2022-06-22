@@ -62,7 +62,7 @@ export default {
       inq_type: '',
       inq_title: '',
       inq_body: '',
-      user_id:'',
+      user_id:this.$store.state.user.userId,
       items:['여행시설문의','가방관리문의','가이드문의', '기타문의']
     }
   },

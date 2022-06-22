@@ -203,7 +203,6 @@ export default {
 
   mounted() {
     axios.get("/api/inquiry/Questions/")
-
     .then(res=>{
       console.log(res.data)
       this.post_list = res.data;

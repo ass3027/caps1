@@ -48,6 +48,7 @@
 
 <script>
 import axios from 'axios'
+import {EventBus} from "@/eventBus/eventBus";
 
 export default {
   name: "LoginView",
@@ -99,6 +100,7 @@ export default {
               this.$store.dispatch('user/setUser',this.id)
               //res.headers.gg를 header컴포넌트로 보내야하는딩
               this.$router.push("/")
+              EventBus.$emit("updateId")
               //location.reload()
             }
           })
