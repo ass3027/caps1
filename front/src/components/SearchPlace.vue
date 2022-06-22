@@ -1,8 +1,9 @@
 <template>
-  <v-app>
-    <v-dialog v-model="dialog" width="100%">
+  <v-container>
+    <v-dialog v-model="dialog">
       <template v-slot:activator="{ on, attrs }">
-        <div class="yame" v-bind="attrs" v-on="on">
+        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on" style="width:95px;margin-top: 20px">
+
           장소검색
         </div>
 
@@ -76,7 +77,7 @@
 
 
     </v-dialog>
-  </v-app>
+  </v-container>
 </template>
 
 <script>
