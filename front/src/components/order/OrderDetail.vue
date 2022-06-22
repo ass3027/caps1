@@ -69,7 +69,7 @@
         </tr>
       </tbody>
     </table>
-    <div v-if="order.status === '1'">
+    <div v-if="order.status === '운송요청'">
       <v-btn
         class="btn_type2"
         height="54px"
@@ -78,7 +78,7 @@
         매칭요청
       </v-btn>
     </div>
-    <div v-if="order.status === '2'">
+    <div v-if="order.status === '운송중'">
       <v-btn
         class="btn_type2"
         height="54px"
