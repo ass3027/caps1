@@ -1,75 +1,100 @@
 <template>
-  <form class="joinGItem">
-    <h2>가이드 상품 등록</h2>
-    <h1>{{ $store.state.user.userId }}</h1>
-      <search-place @childEvent="getEmitData" />
+  <v-container style="width: 70%">
+    <v-row>
+      <v-col align="center">
+        <h2>가이드 상품 등록</h2>
+        <h1>{{ $store.state.user.userId }}</h1>
+        <div>
 
-    <div class="textForm">
-      <input
-        v-model="gitem_id"
-        name="userId"
-        type="text"
-        class="id"
-        placeholder="상품 아이디"
-      >
-    </div>
-    <div class="textForm">
-      <input
-        v-model="lodging.pl_id"
-        name="guideIntro"
-        type="text"
-        class="intro"
-        placeholder="장소번호"
-      >
-    </div>
-    <div class="textForm">
-      <input
-        v-model="introduce"
-        name="guideIntro"
-        type="text"
-        class="intro"
-        placeholder="소개"
-      >
-    </div>
-    <div class="textForm">
-      <input
-        v-model="st_date"
-        name="guideIntro"
-        type="date"
-        class="intro"
-        data-placeholder="시작날짜"
-        required
-        aria-required="true"
-      >
-    </div>
-    <div class="textForm">
-      <input
-        v-model="end_date"
-        name="guideIntro"
-        type="date"
-        class="intro"
-        data-placeholder="종료날짜"
-        required
-        aria-required="true"
-      >
-    </div>
-    <div class="textForm">
-      <input
-        v-model="require_time"
-        name="guideIntro"
-        type="text"
-        class="intro"
-        placeholder="요구시간"
-      >
-    </div>
+        </div>
 
-    <v-btn
-      class="btn"
-      @click="onsubmit()"
+      </v-col>
+    </v-row>
+<v-row style="width: 70%">
+    <v-col align="center" style="padding-left: 39%" >
+      <div class="textForm">
+        <input
+          v-model="gitem_id"
+          name="userId"
+          type="text"
+          class="id"
+          placeholder="상품 아이디"
+        >
+      </div>
+      <v-row>
+        <v-col cols="10">
+          <div class="textForm">
+            <input
+              v-model="lodging.pl_id"
+              name="guideIntro"
+              type="text"
+              class="intro"
+              placeholder="장소번호"
+            >
+          </div>
+        </v-col>
+        <v-col cols="2">
+          <search-place @childEvent="getEmitData"/>
+        </v-col>
+      </v-row>
+
+
+      <div class="textForm">
+        <input
+          v-model="introduce"
+          name="guideIntro"
+          type="text"
+          class="intro"
+          placeholder="소개"
+        >
+      </div>
+      <div class="textForm">
+        <input
+          v-model="st_date"
+          name="guideIntro"
+          type="date"
+          class="intro"
+          data-placeholder="시작날짜"
+          required
+          aria-required="true"
+        >
+      </div>
+      <div class="textForm">
+        <input
+          v-model="end_date"
+          name="guideIntro"
+          type="date"
+          class="intro"
+          data-placeholder="종료날짜"
+          required
+          aria-required="true"
+        >
+      </div>
+      <div class="textForm">
+        <input
+          v-model="require_time"
+          name="guideIntro"
+          type="text"
+          class="intro"
+          placeholder="요구시간"
+        >
+      </div>
+    </v-col>
+</v-row>
+
+    <v-row
+      style="padding-left: 155px"
+
     >
-      JOIN
-    </v-btn>
-  </form>
+
+        <v-btn
+          class="btn"
+          @click="onsubmit()"
+        >
+          JOIN
+        </v-btn>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -215,10 +240,9 @@ export default {
   left:40%;
   transform: translateX(-50%);
   margin-bottom: 40px;
-  width:80%;
+  width:50%;
   height:40px;
   background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
-  background-position: left;
   background-size: 200%;
   color:white;
   font-weight: bold;
