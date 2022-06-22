@@ -1,9 +1,10 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.BookDAO;
+import c.e.exper.data.ProductTime;
 import c.e.exper.data.ProductDAO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -31,4 +32,28 @@ public interface ProductMapper {
             """)
     public List<ProductDAO> ProductImage(@Param("pd_id")String pd_id);
 
+    @Select("""
+            SELECT *
+            FROM PRODUCT_TIME
+            WHERE PD_ID = #{pd_id}
+            """)
+    public List<ProductTime> ProductTime(@Param("pd_id")String pd_id);
+
+    @Update("""
+            UPDATE PRODUCT_TIME SET PD_WHETHER = '1'
+            WHERE PRODUCT_TIME_NUM = #{product_time_num}
+            """)
+    public void productSet(@Param("product_time_num")String product_time_num);
+
+    @Insert("""
+            INSERT INTO BOOK(book_price, user_id, product_time_num) VALUES (#{book_price}, #{user_id}, #{product_time_num})
+            """)
+    public void productInsert(String product_time_num, String user_id, String book_price);
+
+    @Select("""
+            SELECT *
+            FROM BOOK
+            WHERE USER_ID = #{user_id} AND PRODUCT_TIME_NUM is not null
+            """)
+    public List<BookDAO> SelectBook(String user_id);
 }

@@ -1,8 +1,5 @@
 <template>
-  <div id="duser_orders">
-    [DUSER_ORDERS_COMPONENTS] {{ userId }}
-    <br>
-    {{ status }}
+  <div id="duser_orders" style="padding-top: 60px">
     <div>
       <div class="status" style="margin: 0 auto">
         <span id="status1" @click="changeStatus(1)">배송 가능</span>
@@ -95,12 +92,12 @@ export default {
     this.test().then()
 
 
-    axios.get('http://localhost:8080/api/duser/orders/' + this.userId + '/2').then(res => {
+    axios.get('http://localhost:8000/api/duser/orders/' + this.userId + '/운송중').then(res => {
       this.orders_shipping = res.data
       console.log('test', this.orders_shipping)
     })
 
-    axios.get('/api/duser/orders/' + this.userId + '/3').then(res => {
+    axios.get('http://localhost:8000/api/duser/orders/' + this.userId + '/운송완료').then(res => {
       this.orders_end = res.data
       console.log('test', this.orders_end)
     })

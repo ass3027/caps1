@@ -26,6 +26,11 @@ Review {
     private Integer book_id;                    // 예약 외래키(가이드 상품, 상품)
     private String rev_img_filename;
     private String title;
+    private String guide_id;
+    private String gitem_id;
+    private String pd_id;
+    private String pl_id;
+
     private int hit;
     private int like;
 

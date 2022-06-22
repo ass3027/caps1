@@ -17,11 +17,13 @@
       maxlength="250"
     />
 
-    <v-btn @click="loadPlanner">
+    <!--      잠시 v-if=false-->
+    <v-btn @click="loadPlanner" v-if=false>
       플래너 가져오기
     </v-btn>
 
-    <div v-if="toggle">
+    <!--      잠시 v-if=false 원래는 toggle-->
+    <div v-if="false">
       <select v-model="selectedPlan">
         <option>선택해주세요</option>
         <option
@@ -33,7 +35,8 @@
         </option>
       </select>
       <hr>
-      <v-btn @click="loadPictures">
+<!--      잠시 v-if=false-->
+      <v-btn @click="loadPictures" v-if="false">
         사진 가져오기
       </v-btn>
       <ul>
@@ -51,7 +54,6 @@
           </div>
         </li>
       </ul>
-      {{ selectedPic }}
     </div>
     <!--    <div><img src=></div>-->
     <v-btn @click="editPost">
@@ -119,16 +121,14 @@ export default {
     },
     editPost() {
       if(confirm('수정하시겠습니까?')){
-        alert('okk')
       }else{
-        alert('noooo')
         return
       }
-      console.log(this.selectedPlan)
-      if(!this.selectedPlan){
-        alert("플래너를 선택해주세요")
-        return
-      }
+      // console.log(this.selectedPlan)
+      // if(!this.selectedPlan){
+      //   alert("플래너를 선택해주세요")
+      //   return
+      // }
       var Share = {
         share_id: this.$route.params.share.share_id,
         share_place: this.place,

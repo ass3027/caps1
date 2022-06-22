@@ -20,7 +20,7 @@
       </v-row>
     </v-card>
 
-    <v-col>
+    <div>
       <template v-if="check == '보관'">
         <h3>보관조회</h3>
         <v-data-table :headers="storageHeaders" :items="sortedStorageList" :items-per-page="5" >
@@ -35,7 +35,7 @@
           :items-per-page="5"
         />
       </template>
-    </v-col>
+    </div>
   </v-app>
 
 </template>
@@ -122,4 +122,12 @@ export default {
 
 <style scoped>
 
+
+.tit{
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 35px;
+  color: #333;
+  letter-spacing: -1px;
+}
 </style>

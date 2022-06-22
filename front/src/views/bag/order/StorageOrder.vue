@@ -1,82 +1,95 @@
 <template>
-  <v-app id="app">
-    <div class="Bag-order">
-      <p class="text-center">
+  <v-app id="app" style="padding-top: 65px; width: 1050px">
+    <div class="Bag-order" style="width: 80%; margin: 0 auto; border-bottom: 2px solid black">
+      <h2 class="tit" style="padding-bottom: 34px">
         가방 보관 신청서
-      </p>
+      </h2>
     </div>
+
     <v-form v-model="valid">
-      <v-container justify="space-around">
-        <h3>맡길장소</h3>
-        <search-place @childEvent="getEmitData"/>
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+        <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
+          <h3 style="padding-top: 10px">맡길장소</h3>
+          <br>
 
-        <div>맡길장소: {{ lodging.title }}</div>
-        <v-img :src="lodging.firstimage2" width="200px" height="150px" class="ma-2" alt="" />
-      </v-container>
+          <search-place @childEvent="getEmitData"/>
+          <br>
+          <div>맡길장소: {{ lodging.title }}</div>
+          <v-img :src="lodging.firstimage2" width="200px" height="150px" alt="" />
+          <br>
+        </table>
+      </div>
 
-      <v-container>
-        <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
-          <v-expansion-panel>
-            <v-expansion-panel-header><h3>짐 종류와 수량</h3></v-expansion-panel-header>
-            <v-expansion-panel-content>
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+        <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
 
-              <v-card v-for="(item, index) in bagType" :key="index">
+          <h3>짐 종류와 수량</h3>
+          <br>
 
-                <v-card-text>
-                  <v-row align="center">
-                    {{ item.title }}
-                    <v-spacer/>
-                    {{ item.value }}원
-                    <v-checkbox
-                      v-model="checkedName"
-                      :value="item.value"
-                    />
-                  </v-row>
-                </v-card-text>
-              </v-card>
+          <v-card v-for="(item, index) in bagType" :key="index" style="margin-top: 10px">
 
-              <v-card>
-                <v-card-text>
-                  가방 합계가격: {{ bagAmount }} 원
-                </v-card-text>
-              </v-card>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
+            <v-card-text>
+              <v-row align="center">
+                {{ item.title }}
+                <v-spacer/>
+                {{ item.value }}원
+                <v-checkbox
+                  v-model="checkedName"
+                  :value="item.value"
+                />
+              </v-row>
+            </v-card-text>
+          </v-card>
 
-        <v-card align="center">
-          <v-row>
-            <v-col>
+          <v-card style="margin: 20px 0">
+            <v-card-text>
+              가방 합계가격: {{ bagAmount }} 원
+            </v-card-text>
+          </v-card>
+          <br>
+        </table>
+      </div>
+
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+        <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
+          <h3>시간</h3>
+          <br>
+          <div style="padding-left: 15%">
+            <div style="width: 50%; display: inline-block" >
               <DateTimePicker @child="resultDate" :label="'시작날짜'"/>
-            </v-col>
-            <v-col>
+            </div>
+            <div style="width: 50%; display: inline-block">
               <DateTimePicker @child="resultDate" :label="'종료날짜'"/>
-            </v-col>
-          </v-row>
-        </v-card>
-        <v-card>
-          <v-col>
-            <v-row>
-              <v-card>
-                <h1>요청사항</h1>
-              </v-card>
-            </v-row>
-            <br>
-            <v-textarea
-              name="input-7-1"
-              label="요청사항을 입력해주세요(255글자 내)"
-              v-model="ordRequest"
-              hint="Hint text"
-            ></v-textarea>
-          </v-col>
-        </v-card>
+            </div>
+          </div>
+          <br>
 
-      </v-container>
-      <v-btn depressed color="primary" @click="addOrder">
-        작성 완료
-      </v-btn>
+        </table>
+      </div>
+
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+        <table style="width: 100%; border-bottom: 2px solid black;">
+          <h3>요청사항</h3>
+          <br>
+          <v-textarea style="padding-bottom: 10px"
+            name="input-7-1"
+            label="요청사항을 입력해주세요(255글자 내)"
+            v-model="ordRequest"
+            hint="Hint text"
+          ></v-textarea>
+        </table>
+      </div>
+
+
+
+
+<!--      <div style="width: 80%;margin: 0 auto; padding-top: 20px">-->
+<!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
+<!--      </div>-->
+      <div style="width: 80%;margin: 0 auto; padding-top: 20px">
+        <button style="float: right;" @click="addOrder">작성 완료</button>
+      </div>
     </v-form>
-    <router-view/>
   </v-app>
 </template>
 
@@ -186,9 +199,34 @@ export default {
 </script>
 
 <style scoped>
+
+button {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  display: inline-block;
+  width: 120px;
+  vertical-align: top;
+  height: 44px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  outline: none;
+}
+
 .Bag-order {
   margin: 10px;
   font-size: xx-large;
+}
+
+.tit{
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 35px;
+  color: #333;
+  letter-spacing: -1px;
 }
 
 </style>

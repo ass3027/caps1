@@ -6,7 +6,7 @@
     <div id="userMenu">
 
 <ul class="list_menu"><!----> <!---->
-        <li class="menu menu_user"  v-if="isLogin">
+        <li class="menu menu_user" @click="MyPage" v-if="isLogin">
           <a class="link_menu grade_comm">
             <span class="ico_grade grade0" style="padding: 0; margin: 0 10px 0 0;">{{ user_role }}</span>
             <span class="txt">
@@ -115,7 +115,7 @@
           <img
             src="/api/photo/altImage/packless_travel_logo.png"
             alt="PacklessTravel 로고"
-            style="display: block; width: 200px; height: 100px"
+            style="display: block;height: 100px;"
           >
         </a>
       </h1>
@@ -206,7 +206,8 @@ export default {
           {title: '펜션', route: '/place'},
           {title: '글램핑', route: '/place'},
           {title: '리조트', route: '/place'},
-          {title: '게스트하우스', route: '/place'}
+          {title: '게스트하우스', route: '/place'},
+          {title: '예약 조회', route: '/productBookView'}
         ],
         [
           {title: '가방예약', route: '/SelectionOrder'},
@@ -333,7 +334,7 @@ export default {
   position: relative;
   z-index: 400;
   float:left;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 #userMenu .menu:before {

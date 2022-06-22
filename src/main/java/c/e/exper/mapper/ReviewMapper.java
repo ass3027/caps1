@@ -22,7 +22,44 @@ public interface ReviewMapper {
             FROM review""")
     public List<Review> findAllReview();
 
-    public String addReview(Review review);
+
+    @Insert("""
+            INSERT INTO review(rev_id,
+                               user_id,
+                               rev_content,
+                               rev_rating,
+                               ord_id,
+                               book_id,
+                               title,
+                               gitem_id,
+                               pd_id,
+                               pl_id,
+                               guide_id)
+            VALUES (REVIEW_SEQ.nextval,
+                    #{review.user_id},
+                    #{review.rev_content},
+                    #{review.rev_rating},
+                    #{review.ord_id})
+                    #{review.book_id})
+                    #{review.title})
+                    #{review.gitem_id})
+                    #{review.pd_id})
+                    #{review.pl_id})
+                    #{review.guide_id})""")
+    public int addReview(Review review);
+
+    @Insert("""
+            INSERT INTO review(rev_id,
+                               user_id,
+                               rev_content,
+                               title,
+                               pd_id)
+            VALUES (REVIEW_SEQ.nextval,
+                    #{review.user_id},
+                    #{review.rev_content},
+                    #{review.title})
+                    #{review.pd_id})""")
+    public int addReviewYame(Review review);
 
     /* 주문서 리뷰 등록 */
     @Insert("""
@@ -37,6 +74,8 @@ public interface ReviewMapper {
                     #{review.rev_rating},
                     #{review.ord_id})""")
     public int addOrderReview(@Param("review") Review review);
+
+
 
     /* 예약 리뷰 등록 */
     @Insert("""
@@ -89,8 +128,39 @@ public interface ReviewMapper {
             FROM   review
             WHERE  booK_id IN (SELECT book.book_id
                                FROM book
-                               WHERE pd_id = #{pd_id})""")
+                               WHERE pd_id = #{pd_id})
+                               """)
     public List<Review> findAllReviewForProduct(@Param("pd_id") String pd_id);
+
+    @Select("""
+            SELECT *
+            FROM   review
+            WHERE  pd_id = #{pd_id}""")
+    public List<Review> findAllReviewForProduct2(@Param("pd_id") String pd_id);
+
+    @Select("""
+            SELECT *
+            FROM   review
+            WHERE  gitem_id IN (SELECT gitem_id
+                               FROM gitem
+                               WHERE guide_id = #{guide_id})
+                               """)
+    public List<Review> findGuideReview(@Param("guide_id") String guide_id);
+
+    @Select("""
+            SELECT *
+            FROM   review
+            WHERE  gitem_id = #{gitem_id}
+                               """)
+    public List<Review> findGitemReview(@Param("gitem_id") String gitem_id);
+
+    @Select("""
+            SELECT pic_name
+            FROM   pictures
+            WHERE  rev_id = #{rev_id}""")
+    public String findReviewPictures(@Param("rev_id") String rev_id);
+
+
 
     /* 가게 이름으로 모든 리뷰 조회*/
     @Select("""
