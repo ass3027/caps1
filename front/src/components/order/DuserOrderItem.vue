@@ -2,7 +2,7 @@
   <table
     @click="dialog = true"
   >
-    <v-dialog v-model="dialog" scrollable width="500px" >
+    <v-dialog v-model="dialog" width="500px" >
       <order-detail :order="order"/>
     </v-dialog>
 

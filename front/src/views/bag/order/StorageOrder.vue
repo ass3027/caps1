@@ -180,7 +180,7 @@ export default {
         withdraw_time: this.sDate,  //찾을시간
         ord_selection: '물품보관', //물품보관
         ord_request: this.ordRequest,
-        status:'1'
+        status:'보관요청'
       }
       axios
         .post('/api/storageAddOrder', storageBag)

@@ -121,7 +121,7 @@ export default {
 
           axios({
             method: 'GET',
-            url: '/api/duser/orders/' + this.userId + '/1'
+            url: '/api/duser/orders/' + this.userId + '/운송요청'
           }).then(res => {
             console.log(`[Orders]:`);
             this.orders_possible = res.data

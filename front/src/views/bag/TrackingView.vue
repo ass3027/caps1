@@ -1,25 +1,37 @@
 <template>
-  <v-app style="width: 1050px; padding-top: 65px">
-    <div style="padding-bottom: 34px; border-bottom: 2px solid black">
-      <h2 class="tit">물품조회</h2>
-    </div>
-    <div>
-      <div style="width: 150px; padding-top: 20px; float: right">
-        <v-select label="조회 목록" :items="dropdown_edit" item-value="text" v-model="check"/>
-      </div>
-    </div>
+  <v-app>
+    <v-card>
+      <v-col>
+        <h1>물품조회</h1>
+      </v-col>
+      <v-row style="width: 300px;">
+        <v-col style="width: 150px">
+          <v-select label="조회 목록" :items="dropdown_edit" item-value="text" v-model="check"/>
+        </v-col>
+
+        <v-col style="width: 150px" v-if="check=='보관'">
+          <v-select label="주문상태" :items="storageStatus" item-value="text" v-model="storageStatusCheck" />
+        </v-col>
+
+        <v-col style="width: 150px" v-else>
+          <v-select label="주문상태" :items="transportStatus" item-value="text" v-model="transportStatusCheck" />
+        </v-col>
+
+      </v-row>
+    </v-card>
 
     <div>
       <template v-if="check == '보관'">
         <h3>보관조회</h3>
-        <v-data-table :headers="storageHeaders" :items="storageList" :items-per-page="5"/>
+        <v-data-table :headers="storageHeaders" :items="sortedStorageList" :items-per-page="5" >
+        </v-data-table>
       </template>
 
       <template v-else>
         <h3>운송조회</h3>
         <v-data-table
           :headers="transportHeaders"
-          :items="transportList"
+          :items="sortedTransportList"
           :items-per-page="5"
         />
       </template>
@@ -36,6 +48,19 @@ export default {
   data() {
     return {
       check: '보관',
+      storageStatusCheck: '보관요청',
+      transportStatusCheck:'운송요청',
+      storageStatus: [
+        {text: '보관요청', value: '보관요청'},
+        {text: '보관중', value: '보관중'},
+        {text: '찾아감', value: '찾아감'},
+      ],
+      transportStatus:[
+        {text: '운송요청', value: '운송요청'},
+        {text: '운송중', value: '운송중'},
+        {text: '운송완료', value: '운송완료'},
+      ],
+
       dropdown_edit: [
         {text: '보관', value: 'storage'},
         {text: '운송', value: 'transport'},
@@ -47,7 +72,7 @@ export default {
         {text: '맡긴장소', value: 'title'},
         {text: '출발시간', value: 'entrust_time'},
         {text: '도착시간', value: 'withdraw_time'},
-        {text: '주문종류', value: 'ord_selection'},
+        {text: '주문상태', value: 'status'}
       ],
       transportHeaders: [
         {text: '주문번호', align: 'start', sortable: false, value: 'ord_id'},
@@ -56,9 +81,9 @@ export default {
         {text: '도착장소', value: 'keep_end'},
         {text: '출발시간', value: 'entrust_time'},
         {text: '도착시간', value: 'withdraw_time'},
-        {text: '주문종류', value: 'ord_selection'},
+        {text: '주문상태', value: 'status'}
       ],
-      method: {},
+      methods: {},
       storageList: [],
       transportList: [],
       keys: [],
@@ -67,6 +92,14 @@ export default {
   mounted() {
     this.a()
     this.b()
+  },
+  computed:{
+    sortedStorageList(){
+      return this.storageList.filter( it=> it.status===this.storageStatusCheck)
+    },
+    sortedTransportList(){
+      return this.transportList.filter( it=> it.status===this.transportStatusCheck)
+    }
   },
   methods: {
     a() {
