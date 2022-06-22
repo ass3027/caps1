@@ -3,19 +3,19 @@
     class="header-layout"
   >
 
-    <div id="userMenu">
+    <div id="userMenu" >
 
-<ul class="list_menu"><!----> <!---->
+<ul class="list_menu" ><!----> <!---->
         <li class="menu menu_user" @click="MyPage" v-if="isLogin">
-          <a class="link_menu grade_comm">
+          <a class="link_menu grade_comm" style="font-size:24px">
             <span class="ico_grade grade0" style="padding: 0; margin: 0 10px 0 0;">{{ user_role }}</span>
             <span class="txt">
               <span class="name">{{ user_id }}</span>
               <span class="sir">님</span>
             </span> <!---->
           </a>
-          <ul class="sub">
-            <li><a>주문 내역</a></li>
+          <ul class="sub" >
+            <li ><a >주문 내역</a></li>
             <li><a>선물 내역</a></li>
             <li><a>찜한 상품</a></li>
             <li><a>배송지 관리</a></li>
@@ -35,7 +35,7 @@
           <a class="link_menu" href="/login">로그인</a> <!---->
         </li>
 
-        <li class="menu lst"><a href="/shop/board/list.php?id=notice" class="link_menu">고객센터</a>
+        <li class="menu lst"><a href="/shop/board/list.php?id=notice" class="link_menu" style="font-size:24px">고객센터</a>
           <ul class="sub">
             <li><a href="#none"
                    onclick="KurlyTrackerLink('/shop/board/list.php?id=notice', 'select_my_kurly_notice_list')">공지사항</a>
@@ -308,7 +308,7 @@ export default {
 #userMenu {
   width: 1050px;
   margin:0 auto;
-  font-size: 13px;
+  font-size: 20px;
 }
 #userMenu * {
   font-weight: 400;
@@ -325,7 +325,7 @@ export default {
 }
 
 #userMenu .list_menu {
-  float:right
+  float:right;
 }
 
 #userMenu .menu {
