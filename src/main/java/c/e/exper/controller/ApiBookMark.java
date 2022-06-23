@@ -27,6 +27,8 @@ public class ApiBookMark {
     }
 
 
+
+
     @GetMapping("/BookMark")
     public Map<String, List<PlaceDAO>> AllBookMark() {
         List<PlaceDAO> all = bookMarkMapper.selectAllByUserBookMark(getUser_id());
