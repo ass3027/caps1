@@ -63,7 +63,8 @@ export default {
   name: "MapComponent",
   props:{
     schedule:Map,
-    index:String
+    index:String,
+    rec:String
 
   },
   data() {
@@ -107,6 +108,13 @@ export default {
         })
       }
     }
+
+    if(this.rec!=undefined){
+      this.keyWord = this.rec
+      this.OurDbSearch()
+    }
+
+
   },
   methods: {
     setPathAndShow(schedule){

@@ -1,10 +1,13 @@
 package c.e.exper.mapper;
 
 import c.e.exper.data.Share;
+import c.e.exper.data.ShareComment;
 import c.e.exper.data.ShareDTO;
 import c.e.exper.data.SharePictureDAO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -54,4 +57,17 @@ public interface ShareMapper {
 
     @Select("select PREFERENCE from USERS where USER_ID=#{user_id}")
     public String selectPreference(String user_id);
+
+    @Insert("insert into SHARES_REC(share_id, user_id) values(#{share_id},#{user_id})")
+    public void insertRecommend(String share_id,String user_id);
+
+    @Select("select count(share_id) from SHARES_REC where SHARE_ID = #{share_id}")
+    public String selectShareRec(String share_id);
+
+    @Insert("insert into SHARES_COMMENT(comment_contents, user_id, share_id) values(#{comment_contents},#{user_id},#{share_id})")
+    public void postComment(ShareComment comment);
+
+    @Select("select * from SHARES_COMMENT where SHARE_ID = #{share_id}")
+    public List<ShareComment> getComments(String share_id);
+
 }

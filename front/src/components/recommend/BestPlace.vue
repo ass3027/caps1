@@ -49,7 +49,7 @@ export default {
   },
   methods:{
     toCalendar(item){
-      this.$router.push({name:'calender', params:{item:item}})
+      this.$router.push({name:'calender', params:{rec:item.title}})
     }
 
   }

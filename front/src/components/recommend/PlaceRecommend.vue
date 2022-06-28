@@ -11,10 +11,10 @@
         transition="fade-transition"
       >
         <div
-          v-if="item.pl_name!==''"
+          v-if="item.title!==''"
           class="innerText"
         >
-          <h3>{{ i+1 }}.{{ item.pl_name }}</h3>
+          <h3>{{ i+1 }}.{{ item.title }}</h3>
           <v-btn @click="toCalendar(item)">
             일정에추가
           </v-btn>
@@ -69,7 +69,7 @@ export default {
   },
   methods:{
     toCalendar(item){
-      this.$router.push({name:'calender', params:{item:item}})
+      this.$router.push({name:'calender', params:{rec:item.title}})
     }
   }
 

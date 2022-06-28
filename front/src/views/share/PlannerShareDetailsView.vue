@@ -28,25 +28,35 @@
         <!--      </li>-->
         <li>
           <v-row
-            v-for="(schedule,index) in calendar.date"
+            v-for="(schedule,index,ii) in calendar.date"
             :key="index"
           >
-            <div
-              v-if="schedule.size!==0"
-              style="width:899px;height:750px;position:relative;overflow:hidden;float:left;border: solid 10px"
-            >
-              <MapComponent
+            <v-col cols="7">
+              <div
+                v-if="schedule.size!==0"
+                style="width:899px;height:750px;position:relative;overflow:hidden;float:left;border: solid 10px"
+              >
+                <MapComponent
 
-                :schedule="schedule"
-                :index="index"
-              />
-            </div>
-            <h3
-              v-for="(s,i) in schedule"
-              :key="i"
-            >
-              {{ s[1].pl_name }}->
-            </h3>
+                  :schedule="schedule"
+                  :index="index"
+                />
+              </div>
+            </v-col>
+            <v-col cols="5">
+              <h2>
+                {{ii+1}}번째 날
+              </h2>
+              <h3
+                v-for="(s,i) in schedule"
+                :key="i"
+              >
+                {{ s[1].pl_name }}->
+                <!--              map데이터형식이라서 s[0]은키 s[1]값 가져오는거 거기서 pl_name-->
+              </h3>
+
+            </v-col>
+
           </v-row>
         </li>
       </ul>
@@ -63,14 +73,24 @@
       <v-btn @click="copyPlanner">
         일정 복제하기
       </v-btn>
+      <h2>복제된 횟수 : {{ share.share_count }}</h2>
 
-      <h2>공유된 횟수:{{ share.share_count }}</h2>
+      <v-btn @click="recommend">추천하기</v-btn>
+      <h2>추천 수 : {{recommends}}</h2>
     </v-card>
-    {{ calendarX }}
 
-    <v-btn @click="calendarX.push(1)&&calendarX.splice(0,1)">
-      지도에서보기
-    </v-btn>
+<!-- 댓글-->
+    <v-card class="ma-5 pa-5">
+      댓글 작성
+
+      <v-text-field v-model="comment" @keyup.enter="postComment"></v-text-field>
+    </v-card>
+    <v-card v-for="(comment,i) in comments" :key="i" class="ma-5 pa-5">
+
+      댓글{{i+1}} 내용:{{comment.comment_contents}} 작성자:{{comment.user_id}}
+    </v-card>
+
+
   </div>
 </template>
 
@@ -87,9 +107,11 @@ export default {
       schedules: [],
       pictures: [],
       calendar:{},
-      calendarX:[],
-      preference:''
-
+      preference:'',
+      temp:'',
+      recommends:'',
+      comment:'',
+      comments:[]
     }
   },
   mounted() {
@@ -104,6 +126,9 @@ export default {
         this.share = res.data[0]
         this.schedules = res.data[1]
         this.pictures = res.data[2]
+
+        this.getRecommends()
+        this.getComments()
 
         axios.get("/api/getPreference",{params:{user_id:this.share.user_id}})
           .then((res)=>{
@@ -136,7 +161,9 @@ export default {
               //이거 객체화 해서 저장해야하무
             })
             // console.log('test', this.calendar.date['2022-04-05'].get('2'))
-
+            this.temp = this.share.share_title;
+            this.share.share_title = null;
+            this.share.share_title = this.temp;
 
           })
 
@@ -191,6 +218,39 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    recommend(){
+      axios.post('/api/recShare',{},{params:{share_id:this.share.share_id,user_id:this.$store.state.user.userId}})
+      .then(()=>{
+        this.getRecommends()
+      })
+      .catch(()=>{
+        alert("이미 추천을 하였습니다.")
+      })
+    },
+    getRecommends(){
+      axios.get('/api/getShareRec',{params:{share_id:this.share.share_id}})
+      .then((res)=>{
+        this.recommends=res.data;
+      })
+    },
+    postComment(){
+      const comment={
+        share_id:this.share.share_id,
+        user_id:this.$store.state.user.userId,
+        comment_contents:this.comment
+      }
+      alert(comment)
+      axios.post('/api/postComment',comment)
+      .then(()=>{
+        this.getComments()
+      })
+    },
+    getComments(){
+      axios.get('/api/getComments',{params:{share_id:this.share.share_id}})
+      .then((res)=>{
+        this.comments=res.data;
+      })
     }
   }
 }

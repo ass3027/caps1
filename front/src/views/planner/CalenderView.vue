@@ -7,6 +7,7 @@
     <div class="map">
       <MapComponent
         index="00"
+        :rec="rec"
       />
     </div>
 
@@ -115,6 +116,9 @@ export default {
     DateComponent,
     PlannerHeader,
     MapComponent
+  },
+  props:{
+    rec:String
   },
   data() {
     return {

@@ -221,5 +221,27 @@ public class ApiShare {
         return shareMapper.selectPreference(user_id);
     }
 
+    @PostMapping("/recShare")
+    public void recShare(@RequestParam("share_id") String share_id,@RequestParam("user_id") String user_id){
+        shareMapper.insertRecommend(share_id,user_id);
+    }
+
+    @GetMapping("/getShareRec")
+    public String getShareRec(String share_id){
+        return shareMapper.selectShareRec(share_id);
+    }
+
+    @PostMapping("/postComment")
+    public void postComment(@RequestBody ShareComment comment){
+        System.out.println(comment);
+        shareMapper.postComment(comment);
+    }
+
+    @GetMapping("/getComments")
+    public List<ShareComment> getComments(String share_id){
+        return shareMapper.getComments(share_id);
+    }
+
+
 }
 
