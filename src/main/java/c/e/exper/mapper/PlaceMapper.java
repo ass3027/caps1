@@ -168,8 +168,15 @@ public interface PlaceMapper {
            SELECT *
            FROM PLACE
            WHERE cat3 = #{category} 
-           and firstimage is not null and tel is not null""")
+           and firstimage is not null and tel is not null
+           """)
    List<PlaceDAO> findByCategory(@Param("category") String category);
 
+   @Select("""
+           SELECT *
+           FROM PLACE P, OPTION_PLACE O
+           WHERE P.PL_ID = O.PL_ID AND P.cat3 = #{category} AND O.OPTION_ID = #{option}
+           """)
+   List<PlaceDAO> findByOption(@Param("category")String category, @Param("option")String option);
 
 }

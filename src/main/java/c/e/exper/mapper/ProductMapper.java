@@ -21,7 +21,7 @@ public interface ProductMapper {
             PRODUCT.PD_INFO, PICTURES.PIC_NAME, PLACE.ADDR1, PLACE.TITLE, PLACE.TEL, PLACE.CONTENT
             FROM PRODUCT, PICTURES, PLACE
             WHERE PRODUCT.PD_ID = PICTURES.PD_ID AND PRODUCT.PL_ID = #{pl_id}
-              AND PLACE.PL_ID = PRODUCT.PL_ID
+            AND PLACE.PL_ID = PRODUCT.PL_ID
             """)
     public List<ProductDAO> findStoreProduct(@Param("pl_id")String pl_id);
 

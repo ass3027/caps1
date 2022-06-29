@@ -15,6 +15,10 @@ export default {
       state.place = aeraUpdate;
     },
 
+    PlaceOption(state, option){
+      state.place = option;
+    },
+
     updatePlace(state, newPlace){
       state.placeOriginal = newPlace
       state.placeInfo = newPlace.reduce(function(acc, current) {

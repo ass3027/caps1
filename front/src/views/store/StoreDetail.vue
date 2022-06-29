@@ -209,7 +209,6 @@ export default {
       .then((res) => {
         this.store_name = res.data
       })
-
     console.log(this.$route)
   },
   methods: {

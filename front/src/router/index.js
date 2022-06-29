@@ -206,7 +206,7 @@ const routes = [
   },
 
 
-  { path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
+  { path: "/duser/ orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
   { path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true },
   { path: "/TestView", name: "TestView", component: TestView },
 

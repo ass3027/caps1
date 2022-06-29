@@ -15,6 +15,7 @@ import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
 import c.e.exper.service.Place2Service;
 import c.e.exper.service.PlaceService;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -147,5 +148,10 @@ public class ApiPlace {
       pictureMapper.InsertStore(pictureDAO);
       
       return true;
+   }
+
+   @GetMapping("/place2/{category}/{option}")
+   public List<PlaceDAO> placeOption(@PathVariable String category, @PathVariable String option) {
+      return placeService.카테고리_옵션_조회(category, option);
    }
 }

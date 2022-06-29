@@ -75,26 +75,6 @@
         </div>
         {{ checkOptions }}
       </div>
-      <!--      <div>-->
-      <!--        <div>인원</div>-->
-      <!--        <div class="flex itemcenter">-->
-      <!--          <v-btn-->
-      <!--            text-->
-      <!--            icon-->
-      <!--            @click="minusPeople()"-->
-      <!--          >-->
-      <!--            <v-icon>mdi-minus</v-icon>-->
-      <!--          </v-btn>-->
-      <!--          <div>{{ peopleCount }}</div>-->
-      <!--          <v-btn-->
-      <!--            text-->
-      <!--            icon-->
-      <!--            @click="plusPeople()"-->
-      <!--          >-->
-      <!--            <v-icon>mdi-plus</v-icon>-->
-      <!--          </v-btn>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </v-card>
   </div>
 </template>
@@ -159,8 +139,16 @@ export default {
       //   }
     },
     setting() {
+      axios({
+        method: 'GET',
+        url: `/api/place2/${this.category}/${this.checkOptions}`
+      })
+      .then((res)=>{
+        this.$store.commit('place/PlaceOption', res.data)
+        console.log(res.data)
+      })
       alert(this.checkOptions)
-      this.$store.commit('place/optionPlace', this.checkOptions)
+      // this.$store.commit('place/optionPlace', this.checkOptions)
     }
   },
 };
