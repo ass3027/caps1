@@ -1,7 +1,11 @@
 <template>
   <div>
+    {{items}}
     <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>
-    <v-carousel v-if="items.length!=0">
+    <v-carousel
+      v-if="items.length!=0"
+      style="width:300px;height: 300px"
+      >
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -21,9 +25,13 @@
         </div>
       </v-carousel-item>
     </v-carousel>
-    <v-carousel v-else>
+    <v-carousel
+      v-else
+      style="width:300px;height: 300px;background-size:auto;"
+    >
       <v-carousel-item
         src="/api/photo/placeImage/no_place.png"
+        style="background-size: contain; "
       />
     </v-carousel>
   </div>
@@ -86,5 +94,18 @@ export default {
   text-align: right;
   margin: 10px;
 }
+.v-image__image{
+  background-size:auto;
+}
 
+.v-image__image--cover{
+  background-size:auto;
+}
+
+
+
+
+.v-window-item > div {
+  height: auto;
+}
 </style>

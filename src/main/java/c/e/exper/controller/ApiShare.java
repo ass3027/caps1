@@ -46,6 +46,7 @@ public class ApiShare {
         List<ShareDTO> s = shareMapper.findAllShares();
         s.forEach((i) -> {
             i.setPic_name(shareMapper.findPicturesById(i.getShare_id()));
+            i.setFirstimage(shareMapper.getShareFirstImages(i.getShare_id()));
         });
         System.out.println(s);
 
@@ -242,6 +243,10 @@ public class ApiShare {
         return shareMapper.getComments(share_id);
     }
 
+    @DeleteMapping("/delShareComment")
+    public void delShareComment(String comment_id){
+        shareMapper.delShareComment(comment_id);
+    }
 
 }
 

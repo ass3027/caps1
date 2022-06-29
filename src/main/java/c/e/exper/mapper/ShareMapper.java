@@ -67,7 +67,18 @@ public interface ShareMapper {
     @Insert("insert into SHARES_COMMENT(comment_contents, user_id, share_id) values(#{comment_contents},#{user_id},#{share_id})")
     public void postComment(ShareComment comment);
 
-    @Select("select * from SHARES_COMMENT where SHARE_ID = #{share_id}")
+    @Select("select * from SHARES_COMMENT where SHARE_ID = #{share_id} order by created_time desc")
     public List<ShareComment> getComments(String share_id);
+
+    @Select("select FIRSTIMAGE\n" +
+            "from shares a,SCHEDULE c, PLACE d\n" +
+            "where a.PLAN_ID=c.PLAN_ID\n" +
+            "and c.PL_ID=d.PL_ID\n" +
+            "and share_id = #{share_id}\n" +
+            "and firstimage is not null")
+    public List<String> getShareFirstImages(String share_id);
+
+    @Delete("delete from SHARES_COMMENT where COMMENT_ID=#{comment_id}")
+    public void delShareComment(String comment_id);
 
 }

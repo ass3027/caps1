@@ -17,5 +17,6 @@ public class ShareComment {
     String comment_contents;
     String share_id;
     String user_id;
+    String created_time;
 
 }

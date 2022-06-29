@@ -17,6 +17,7 @@ import LocationCheckView from "@/views/LocationCheckView";
 import OrderDetail from "@/components/order/OrderDetail";
 import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
 import placeSuppliesView from "@/views/supply/PlaceSuppliesView";
+import mainView from "@/views/MainView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/SelectionOrder.vue'
@@ -111,6 +112,7 @@ const routes = [
   {path: "/bsh", name: "bsh", component: testBshView},
   {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView,props:true},
   {path: "/placeSupplies", name: "placeSupplies", component: PlaceSuppliesView},
+  {path: "/", name: "main", component: mainView},
 
   //혁태
   {path: "/place/:category", name: "place", component: HotelView, props: true},

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>베스트 여행지</h2>
-    <v-carousel>
+    <v-carousel style="width:300px;height: 300px">
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -58,11 +58,11 @@ export default {
 </script>
 
 <style scoped>
-.v-carousel{
-  width: 500px;
-  height: 300px;
-  align: center;
-}
+/*.v-carousel{*/
+/*  width: 500px;*/
+/*  height: 300px;*/
+/*  align: center;*/
+/*}*/
 .innerText{
   text-align: right;
   margin: 10px;
