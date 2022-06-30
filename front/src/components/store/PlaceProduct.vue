@@ -60,6 +60,7 @@ export default {
   }),
 
   created() {
+    console.log(this.product.pd_id)
     axios({
       method: 'GET',
       url: '/api/productImage',

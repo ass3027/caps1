@@ -20,4 +20,7 @@ public class ProductDAO {
     String title;
     String tel;
     String content;
+    String firstimage;
+    String firstimage2;
+
 }

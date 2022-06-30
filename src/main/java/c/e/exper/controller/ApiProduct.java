@@ -27,7 +27,6 @@ public class ApiProduct {
     }
 
 
-
     @GetMapping("/productImage")
     public List<ProductDAO> findProductImage(@RequestParam("pd_id") String pd_id) {
         return productMapper.ProductImage(pd_id);

@@ -167,7 +167,7 @@ public interface PlaceMapper {
    @Select("""
            SELECT *
            FROM PLACE
-           WHERE cat3 = #{category} 
+           WHERE cat3 = #{category}
            and firstimage is not null and tel is not null
            """)
    List<PlaceDAO> findByCategory(@Param("category") String category);
