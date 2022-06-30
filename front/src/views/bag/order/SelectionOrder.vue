@@ -31,7 +31,7 @@
           </v-btn>
         </div>
       </v-col>
-      <v-divider vertical />
+      <v-divider vertical  />
       <v-col
         cols="6"
         sm="2"

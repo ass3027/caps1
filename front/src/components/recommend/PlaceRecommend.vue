@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{items}}
     <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>
     <v-carousel
       v-if="items.length!=0"
