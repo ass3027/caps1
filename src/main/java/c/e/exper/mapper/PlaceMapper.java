@@ -18,11 +18,11 @@ public interface PlaceMapper {
 
   
    @Select("""
-           select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+           select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY,tel
            from place
-           where cat1='A01'
+           where CONTENTTYPEID=#{contenttypeid}
            and title like '%'||#{keyword}||'%'""")
-   List<PlaceDAO> keywordByPlaceA01(String keyword);
+   List<PlaceDAO> keywordByPlaceA01(String contenttypeid, String keyword);
 
     @Select("""
             select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY

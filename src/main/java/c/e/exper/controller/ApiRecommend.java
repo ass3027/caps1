@@ -48,23 +48,23 @@ public class ApiRecommend {
         return places;
     }
 
-    @GetMapping("/bestHotel")
-    public List<PlaceDAO> bestHotel(){
-
-        List<PlaceDAO> places = placeMapper.findBestHotel();
-        System.out.println(places);
-
-        return places;
-    }
-
-    @GetMapping("/bestGitem")
-    public List<Gitem> bestGitem(){
-
-        List<PlaceDAO> places = placeMapper.findBestGitem();
-        System.out.println(places);
-
-        return places;
-    }
+//    @GetMapping("/bestHotel")
+//    public List<PlaceDAO> bestHotel(){
+//
+//        List<PlaceDAO> places = placeMapper.findBestHotel();
+//        System.out.println(places);
+//
+//        return places;
+//    }
+//
+//    @GetMapping("/bestGitem")
+//    public List<Gitem> bestGitem(){
+//
+//        List<PlaceDAO> places = placeMapper.findBestGitem();
+//        System.out.println(places);
+//
+//        return places;
+//    }
 
 
 }
