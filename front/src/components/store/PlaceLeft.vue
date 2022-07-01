@@ -150,7 +150,7 @@ export default {
       // alert(this.checkOptions)
       // this.$store.commit('place/optionPlace', this.checkOptions)
 
-      console.log(this.settingstart)
+      console.log(this.category, this.checkOptions)
     }
   },
 };
