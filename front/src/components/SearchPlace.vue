@@ -123,7 +123,7 @@ export default {
   components: {},
   data() {
     return {
-      keyword: 'gd',
+      keyword: '',
       searchData: [],
       dataPerPage: 10,
       curPageNum: 1,

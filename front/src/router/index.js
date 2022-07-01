@@ -19,16 +19,17 @@ import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
 import placeSuppliesView from "@/views/supply/PlaceSuppliesView";
 
 //가방 보관
-import BagReserveView from '../views/bag/order/SelectionOrder.vue'
-import TrackingView from "@/views/bag/TrackingView";
+
+
 import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
 import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
 
 
 //봉식
-
-// import TrackingView from "@/views/bag/TrackingView";
+import GOrderDetail from "@/views/bag/general/GOrderDetail";
+import GTrackingView from "@/views/bag/general/GTrackingView";
+import GTrackingDetail from "@/views/bag/general/GTrackingDetail";
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";
@@ -37,6 +38,10 @@ import StorageOrder from "@/views/bag/order/StorageOrder"
 import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
+import KeeperTrackingView from "@/views/bag/keeper/KeeperTrackingView";
+import KeeperTrackingDetail from "@/views/bag/keeper/KeeperTrackingDetail";
+
+
 
 //혁태??
 import HotelView from "@/views/store/HotelView";
@@ -57,7 +62,6 @@ import GuideProductView from "@/views/guide/GuideProductView";
 import GuideProductSearch from "@/views/guide/GuideProductSearch";
 
 
-
 //세운??
 import ReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
@@ -74,7 +78,7 @@ import WritingModView from "@/views/auth/WritingModView";
 import MINA from "@/views/MINA";
 import TestView from "@/views/TestView";
 
-import { EventBus} from "@/eventBus/eventBus";
+import {EventBus} from "@/eventBus/eventBus";
 import axios from 'axios'
 import {store} from "@/store"
 import GuideIntro from "@/views/guide/GuideIntro";
@@ -83,7 +87,6 @@ import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 import ProductBook from "@/views/store/ProductBook";
 import productBookView from "@/views/store/productBookView";
-
 
 
 Vue.use(VueRouter);
@@ -109,7 +112,7 @@ const routes = [
   {path: "/share/write", name: "shareWrite", component: PlannerShareWriteView,},
   {path: "/share/edit", name: "shareEdit", component: PlannerShareEditView, props: true,},
   {path: "/bsh", name: "bsh", component: testBshView},
-  {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView,props:true},
+  {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView, props: true},
   {path: "/placeSupplies", name: "placeSupplies", component: PlaceSuppliesView},
 
   //혁태
@@ -117,7 +120,7 @@ const routes = [
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
   {path: "/placeadd", name: "placeAdd", component: StoreAdd},
-  {path: "/productBook", name: "productBook", component: ProductBook,props:true},
+  {path: "/productBook", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
@@ -129,31 +132,32 @@ const routes = [
   {path: "/planPic", name: "planPic", component: PlannerPicView},
 
   //봉식
-  {path: "/TransportOrder", name: TransportOrder, component: TransportOrder},
-  {path: "/SelectionOrder", name: SelectionOrder, component: SelectionOrder},
-  {path: "/StorageOrder", name: StorageOrder, component: StorageOrder},
+  //---------------------------------------------------------------//
+  {path: "/GOrderDetail/:ordId", name: "GOrderDetail", component: GOrderDetail, props: true},
+  {path: "/GTrackingView", name: "GTrackingView", component: GTrackingView, props: true},
+  {path: "/GTrackingDetail/:ord_id", name: "GTrackingDetail", component: GTrackingDetail, props: true},
   {path: "/FareView", name: "FareView", component: FareView},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
   {path: "/TransportOrder", name: "TransportOrder", component: TransportOrder},
-  {path: "/TrackingView", name: "TrackingView", component: TrackingView},
+  {path: "/SelectionOrder", name: "SelectionOrder", component: SelectionOrder},
   {path: "/StorageOrder", name: "StorageOrder", component: StorageOrder},
+  {path: "/KeeperTrackingView", name: "KeeperTrackingView", component: KeeperTrackingView, props: true},
+  {path: "/KeeperTrackingDetail/:ord_id", name: "KeeperTrackingDetail", component: KeeperTrackingDetail, props: true},
+  //---------------------------------------------------------------//
 
-  // { path: "/OrderView", name: "OrderView", component: OrderView },
 
+  {path: "/plInvite", name: "plInvite", component: PlInviteView},
+  {path: "/plan", name: "plan", component: PlanView},
+  {path: "/planPic", name: "planPic", component: PlannerPicView},
 
-  // { path: "/OrderView", name: "OrderView", component: OrderView },
-  { path: "/plInvite", name: "plInvite", component: PlInviteView },
-  { path: "/plan", name: "plan", component: PlanView },
-  { path: "/planPic", name: "planPic", component: PlannerPicView },
-
-  { path: "/GuideView", name: "GuideView", component: GuideView },
-  { path: "/GuideRegister", name: "GuideRegister", component: GuideRegister },
+  {path: "/GuideView", name: "GuideView", component: GuideView},
+  {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {
     path: "/GuideProductReg",
     name: "GuideProductReg",
     component: GuideProductReg,
   },
-  { path: "/GuideReserve", name: "GuideReserve", component: GuideReserve },
+  {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {
     path: "/GuideView/:user_id",
     name: "GuideViewUser",
@@ -166,7 +170,7 @@ const routes = [
     component: GuideSearch,
     props: true,
   },
-  { path: "/GuideProduct", name: "GuideProduct", component: GuideProduct },
+  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
 
   {
     path: "/ReviewView/:productId",
@@ -206,9 +210,9 @@ const routes = [
   },
 
 
-  { path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
-  { path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true },
-  { path: "/TestView", name: "TestView", component: TestView },
+  {path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
+  {path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true},
+  {path: "/TestView", name: "TestView", component: TestView},
 
   //진한
   {path: "/GuideView", name: "GuideView", component: GuideView},
@@ -217,12 +221,12 @@ const routes = [
   {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props: true},
   {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true},
-  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct,props:true},
+  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct, props: true},
   {path: "/GuideProductTime/:gitem_id", name: "GuideProductTime", component: GuideProductTime, props: true},
-  {path: "/GuideProduct/:gitem_id", name:"GuideProductView",component: GuideProductView, props:true},
-  {path: "/GuideProduct/Search/:keyword", name:"GuideProductSearch",component: GuideProductSearch,props: true},
-  {path: "/GuideIntro/:user_id", name:"GuideIntro", component: GuideIntro},
-  {path: "/GuideReserveInfo", name:"GuideReserveInfo", component: GuideReserveInfo},
+  {path: "/GuideProduct/:gitem_id", name: "GuideProductView", component: GuideProductView, props: true},
+  {path: "/GuideProduct/Search/:keyword", name: "GuideProductSearch", component: GuideProductSearch, props: true},
+  {path: "/GuideIntro/:user_id", name: "GuideIntro", component: GuideIntro},
+  {path: "/GuideReserveInfo", name: "GuideReserveInfo", component: GuideReserveInfo},
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},

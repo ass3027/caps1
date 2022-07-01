@@ -78,6 +78,9 @@ public class ApiPlace {
       System.out.println("장소조회1111111");
       return placeService.장소_조회(areaCode,cat1);
    }
+   
+   
+   
    @GetMapping("/place/{areaCode}/{cat1}/{keyword}")
    public List<PlaceDAO> keywordList(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable("keyword")String keyword) {
       System.out.println("/place/{areaCode}/{cat1}/{keyword} : " + keyword);
