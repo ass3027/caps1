@@ -171,5 +171,10 @@ public interface PlaceMapper {
          and firstimage is not null and tel is not null""")
    List<PlaceDAO> findByCategory(@Param("category") String category);
    
-   
+   @Select("""
+           select *
+           from place, OPTION_PLACE
+           where place.PL_ID = OPTION_PLACE.PL_ID and OPTION_PLACE.OPTION_ID = #{option} AND PLACE.CAT3 = #{category}
+           """)
+   List<PlaceDAO> findByOption(@Param("category") String category, @Param("option")String option);
 }
