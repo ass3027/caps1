@@ -88,6 +88,11 @@ export default {
       let BookInfo = {}
     },
 
+    ex(){
+
+    },
+
+
     book(){
       alert("예약이 완료 되었습니다.")
       // axios({
