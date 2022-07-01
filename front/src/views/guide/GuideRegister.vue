@@ -60,7 +60,7 @@ export default {
         },
         data: sendform,
       }).then((res) => {
-        if (res.data == 'ok') {
+        if (res.data === 'ok') {
           alert('ok');
           window.location.href = '/';
         } else {
@@ -75,39 +75,15 @@ export default {
 </script>
 <style scoped>
 * {
-  margin: 0px;
-  padding: 0px;
   text-decoration: none;
   font-family: sans-serif;
 
-}
-
-
-.joinGuide {
-
-  width: 400px;
-  height: 40px;
-  padding: 30px;
-  background-color: #FFFFFF;
-  text-align: center;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 15px;
-  position: relative;
 }
 
 .joinForm h2 {
   text-align: center;
   margin: 30px;
 }
-
-.textForm {
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
-}
-
 
 .license {
   width: 100%;

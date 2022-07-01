@@ -3,8 +3,7 @@
     class=""
     style="width: 1050px; padding-top: 60px"
   >
-    <div style="padding-bottom: 20px">
-      <h2>검색</h2>
+    <v-row style="padding-bottom: 20px">
 
       <input
         v-model="keyword"
@@ -16,12 +15,12 @@
       <v-btn @click="onsubmit()">
         검색
       </v-btn>
-    </div>
+    </v-row>
     <div>
       <div
         v-for="(item,index) in lists"
         :key="index"
-        style="width: 33%;margin-right: 0.3%;margin-bottom: 2px; display: inline-block; border: 1px solid #dddfe1; border-radius: 10px"
+        style="width: 33%;margin-right: 0.3%;margin-bottom: 2px; display: inline-block; border: 10px solid #dddfe1; border-radius: 10px"
         outlined
         justify="start"
       >
@@ -112,7 +111,7 @@ export default {
 
     },
     img(fileName){
-      return "http://localhost:8081/api/photo/" + fileName
+      return "/api/photo/" + fileName
     },
 
 
@@ -132,11 +131,6 @@ export default {
 
 </script>
 <style scoped>
-.card {
-  position: relative;
-  display: flex;
-
-}
 
 
 </style>

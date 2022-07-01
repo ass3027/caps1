@@ -15,22 +15,22 @@ public interface PlaceMapper {
 //         "and rownum<=9 " +
 //         "and zipcode>=6")
 //   public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
-   
-   
+
+
    @Select("""
          select pl_id,user_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
          from place
          where cat1='A01'
          and title like '%'||#{keyword}||'%'""")
    List<PlaceDAO> keywordByPlaceA01(String keyword);
-   
+
    @Select("""
          select pl_id,user_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY,contenttypeid
          from place
          where areaCode=#{areaCode}
          and cat1=#{cat1}""")
    List<PlaceDAO> selectByPlace(String areaCode, String cat1);
-   
+
    @Select("""
          select pl_id,user_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
          from place
@@ -38,13 +38,13 @@ public interface PlaceMapper {
          and cat1=#{cat1}
          and title like '%'||#{keyword}||'%'""")
    List<PlaceDAO> keywordByPlace(String areaCode, String cat1, String keyword);
-   
+
    @Select("""
          select pl_id,user_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
          from place
          where title like '%'||#{keyword}||'%'""")
    List<PlaceDAO> SearchPlaceByKeyword(String keyword);
-   
+
    @Select("""
          SELECT *
          FROM PLACE
@@ -52,6 +52,22 @@ public interface PlaceMapper {
          and firstimage is not null and tel is not null
          """)
    List<PlaceDAO> CategoryAreaCode(String category, String areaCode);
+
+    @Select("""
+            select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+            from place
+            where areaCode=#{areaCode}
+            and contenttypeid=#{contenttypeid}""")
+    List<PlaceDAO> selectByPlace2(String areaCode, String contenttypeid);
+
+
+    @Select("""
+            select pl_id,title,addr1,addr2,zipcode,firstImage2,areaCode,cat1,MAPX,MAPY
+            from place
+            where areaCode=#{areaCode}
+            and contenttypeid=#{contenttypeid}
+            and title like '%'||#{keyword}||'%'""")
+    List<PlaceDAO> keywordByPlaceTour(String areaCode, String contenttypeid, String keyword);
    
 /*
    @Select("select title,\n" +
@@ -98,10 +114,10 @@ public interface PlaceMapper {
          "where rownum <= 9")
    public List<PlaceDAO> selectByPlace(String areaCode, String cat1);
 */
-   
+
    @Select("select * from place where pl_id = #{keep_id}")
    public PlaceDAO findKeep(@Param("keep_id") String keep_id);
-   
+
    @Select("""
          select a.user_id, count(a.user_id) as count
          from users a,
@@ -163,14 +179,14 @@ public interface PlaceMapper {
               )
          where ROWNUM <= 5""")
    List<PlaceDAO> findBestPlace();
-   
+
    @Select("""
          SELECT *
          FROM PLACE
          WHERE cat3 = #{category}
          and firstimage is not null and tel is not null""")
    List<PlaceDAO> findByCategory(@Param("category") String category);
-   
+
    @Select("""
            select *
            from place, OPTION_PLACE

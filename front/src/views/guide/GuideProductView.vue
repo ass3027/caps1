@@ -20,11 +20,20 @@
       </div>
 
       <div>소개:{{ lists.introduce }}</div>
+      <v-card-title>가격:{{lists.gitem_price}}</v-card-title>
     </v-card-text>
 
     <v-divider class="mx-4" />
 
     <v-card-title>예약시간</v-card-title>
+    <v-date-picker
+      @click:date="dateClick"
+      v-model="gdate"
+
+    >
+
+    </v-date-picker>
+    {{ gdate }}
 
     <v-card-text>
       <v-chip-group
@@ -59,19 +68,52 @@ import axios from "axios";
 
 export default {
   name: "GuideProductView.vue",
+  components: {},
   props:['gitem_id'],
   data(){
     return{
       lists:'',
       items:[],
       selectednum:'',
+      user_id:'',
+      pay_price:'',
+      gdate:'',
     }
+  },
+  computed() {
   },
   mounted() {
     this.importGuide()
-    this.timeGitem()
+    //this.timeGitem()
+    const script = document.createElement("script")
+    const script2 = document.createElement("script")
+    script2.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+    script2.integrity = "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=";
+    script2.setAttribute("crossOrigin" ,"anonymous");
+
+    document.head.appendChild(script2);
+
+    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    script.type="text/javascript"
+
+    document.head.appendChild(script);
   },
   methods:{
+    dateClick(){
+      console.log("DDDD")
+      axios({
+        method:'get',
+        url:'/api/gtime/' + this.gitem_id,
+        params: {
+          'time': this.gdate
+        }
+      })
+        .then((res)=>{
+          this.items = res.data;
+          console.log('시간상세보기', res.data)
+        })
+    },
+
     importGuide(){
       axios({
         method:'get',
@@ -83,45 +125,75 @@ export default {
       })
     },
     reserve(){
-      var sendform2 = {book_id:this.book_Id,
-      time_num:this.selectednum,
-      user_id:this.$store.state.user.userId}
-      axios({
-        method:'put',
-        url:'/api/gitemTimeUpdate/',
-        params:{
-          'id': this.selectednum
+
+      var IMP = window.IMP;
+      IMP.init('imp19569487');
+      console.log(this.lists)
+      IMP.request_pay({
+        pg:"html5_inics",
+        pay_method: "card",
+        merchant_uid:"iamport_test_id" + new Date().getTime(),
+        name:this.lists.title,
+        amount: this.lists.gitem_price,
+        buyer_email:"testiamport@naver.com",
+        buyer_name: this.$store.state.user.userId,
+        buyer_tel:"01012341234"
+      }, rsp =>{
+        console.log(rsp);
+        if (rsp.success){
+
+          axios({
+            method:'put',
+            url:'/api/gitemTimeUpdate/',
+            params:{
+              'id': this.selectednum
+            }
+          })
+            .then(()=>{
+              console.log("O")
+             // this.timeGitem()
+            })
+          console.log(rsp)
+
+          const sendform = new FormData();
+
+          sendform.append('pay_price', this.lists.gitem_price)
+          sendform.append('user_id', this.$store.state.user.userId)
+          sendform.append('gtime_num', this.selectednum)
+
+          axios({
+            method:'post',
+            url:'/api/gPayInsert',
+            data:sendform,
+          }).then((res)=>{
+            console.log(res + 'success')
+          })
+
+        } else{
+          alert("실패")
         }
       })
-      .then(()=>{
-        console.log("O")
-        this.timeGitem()
-      })
-      console.log(sendform2)
-      axios({
-        method:'post',
-        url:'/api/gitemReserve',
-        data:sendform2,
-      })
-
     },
+
     num(selectednum){
       this.selectednum = selectednum
       console.log(this.selectednum)
     },
 
-
-    timeGitem(){
-      axios({
-        method:'get',
-        url:'/api/gtime/' + this.gitem_id,
-      })
-      .then((res)=>{
-        this.items = res.data;
-        console.log('시간상세보기', res.data)
-      })
-
-    }
+    // timeGitem(){
+    //   axios({
+    //     method:'get',
+    //     url:'/api/gtime/' + this.gitem_id,
+    //     params: {
+    //       'time': this.gdate
+    //     }
+    //   })
+    //   .then((res)=>{
+    //     this.items = res.data;
+    //     console.log('시간상세보기', res.data)
+    //   })
+    //
+    // },
   }
 }
 </script>

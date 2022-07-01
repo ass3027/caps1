@@ -53,7 +53,6 @@ import StoreDetail from "@/views/store/StoreDetail";
 import GuideView from "@/views/guide/GuideView";
 import GuideRegister from "@/views/guide/GuideRegister";
 import GuideProductReg from "@/views/guide/GuideProductReg";
-import GuideReserve from "@/views/guide/GuideReserve";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 import GuideSearch from "@/views/guide/GuideSearch";
 import GuideProduct from "@/views/guide/GuideProduct";
@@ -157,7 +156,7 @@ const routes = [
     name: "GuideProductReg",
     component: GuideProductReg,
   },
-  {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
+
   {
     path: "/GuideView/:user_id",
     name: "GuideViewUser",
@@ -218,7 +217,6 @@ const routes = [
   {path: "/GuideView", name: "GuideView", component: GuideView},
   {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
   {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg,},
-  {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props: true},
   {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true},
   {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct, props: true},
