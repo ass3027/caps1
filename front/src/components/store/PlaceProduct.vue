@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     go(){
-      this.$router.push({name:'productBook',params:{product:this.product}})
+      this.$router.push({name:'productBook',params:{product: this.product}})
     }
   }
 }

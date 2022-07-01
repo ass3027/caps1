@@ -43,9 +43,9 @@ public class ApiProduct {
     }
 
     @PostMapping("/productPost")
-    public void productPost(@RequestParam("product_time_num") String product_time_num,
-                            @RequestParam("user_id") String user_id, @RequestParam("book_price") String book_price) {
-        productMapper.productInsert(product_time_num, user_id, book_price);
+    public void productPost(@RequestParam("pay_price") String pay_price,
+                            @RequestParam("user_id") String user_id, @RequestParam("product_time_num") String product_time_num) {
+        productMapper.bookInsert(pay_price, user_id, product_time_num);
     }
 
     @GetMapping("/productBook/{user_id}")

@@ -30,30 +30,31 @@ public interface ProductMapper {
             FROM PRODUCT, PICTURES
             WHERE PRODUCT.PD_ID = PICTURES.PD_ID AND PRODUCT.PD_ID = #{pd_id}
             """)
-    public List<ProductDAO> ProductImage(@Param("pd_id") String pd_id);
+    List<ProductDAO> ProductImage(@Param("pd_id") String pd_id);
 
     @Select("""
             SELECT *
             FROM PRODUCT_TIME
             WHERE PD_ID = #{pd_id}
             """)
-    public List<ProductTime> ProductTime(@Param("pd_id") String pd_id);
+    List<ProductTime> ProductTime(@Param("pd_id") String pd_id);
 
     @Update("""
             UPDATE PRODUCT_TIME SET PD_WHETHER = '1'
             WHERE PRODUCT_TIME_NUM = #{product_time_num}
             """)
-    public void productSet(@Param("product_time_num") String product_time_num);
+    void productSet(@Param("product_time_num") String product_time_num);
 
     @Insert("""
-            INSERT INTO BOOK(book_price, user_id, product_time_num) VALUES (#{book_price}, #{user_id}, #{product_time_num})
+            INSERT INTO PAYMENT(PAY_PRICE, USER_ID, PRODUCT_TIME_NUM) VALUES (#{pay_price}, #{user_id}, #{product_time_num})
             """)
-    public void productInsert(String product_time_num, String user_id, String book_price);
+    void bookInsert(String pay_price, String user_id, String product_time_num);
 
     @Select("""
             SELECT *
             FROM BOOK
             WHERE USER_ID = #{user_id} AND PRODUCT_TIME_NUM is not null
             """)
-    public List<BookDAO> SelectBook(String user_id);
+    List<BookDAO> SelectBook(String user_id);
+
 }

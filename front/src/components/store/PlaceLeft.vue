@@ -83,7 +83,7 @@ import axios from "axios";
 
 export default {
   name: 'PlaceLeft',
-  props: [ 'option', 'category' ],
+  props: [ 'option', 'category'],
   data() {
     return {
       startDate: new Date(
@@ -150,7 +150,7 @@ export default {
       // alert(this.checkOptions)
       // this.$store.commit('place/optionPlace', this.checkOptions)
 
-      console.log(endDate)
+      console.log(this.settingstart)
     }
   },
 };
