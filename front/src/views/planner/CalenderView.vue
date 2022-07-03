@@ -3,7 +3,7 @@
     id="lll"
     style="width: 70%; min-width:1050px;"
   >
-    <PlannerHeader />
+    <PlannerHeader/>
     <div class="map">
       <MapComponent
         index="00"
@@ -167,6 +167,7 @@ export default {
         this.dateArr.forEach((it) => {
           calendar.date[it] = new Map();
         })
+
         //여기서 부터
         scheduleList.forEach((it) => {
           const partialData = {
