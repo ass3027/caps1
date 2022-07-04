@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <v-container>
     <v-dialog v-model="dialog">
       <template #activator="{ on, attrs }">
         <v-btn
           color="red lighten-2"
           dark
           v-bind="attrs"
-          style="width:95px;"
+          style="width:95px;margin-top: 20px"
           v-on="on"
         >
           장소검색
@@ -14,7 +14,7 @@
       </template>
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
-          장소를 검색하세요
+          장소를 검색하세요!
         </v-card-title>
       </v-card>
 
@@ -91,7 +91,7 @@
                         color="primary"
                         @click="ChoiceLodging(data)"
                       >
-                        숙소선택
+                        관광지선택
                       </v-btn>
                     </v-card-actions>
                   </v-col>
@@ -113,7 +113,7 @@
         </v-sheet>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -123,7 +123,7 @@ export default {
   components: {},
   data() {
     return {
-      keyword: '',
+      keyword: 'gd',
       searchData: [],
       dataPerPage: 10,
       curPageNum: 1,
@@ -195,7 +195,7 @@ export default {
       if (this.keyword === '') {
         axios({
           method: "get",
-          url: `/api/place/${this.searchCon}/B02`
+          url: `/api/placeTour/${this.searchCon}/12`
         })
           .then((res) => {
             this.lists = res.data;
@@ -204,7 +204,7 @@ export default {
       } else {
         axios({
           method: "get",
-          url: `/api/place/${this.searchCon}/B02/${this.keyword}`
+          url: `/api/placeTour/${this.searchCon}/12/${this.keyword}`
         })
           .then((res) => {
             this.lists = res.data;

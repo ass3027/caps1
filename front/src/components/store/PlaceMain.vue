@@ -29,7 +29,6 @@
     </v-carousel>
     <div
       v-for="(placeInfo, aIdx) in place.place"
-
       :key="aIdx"
       class="hotelcard"
       @click="goStoreInfo(placeInfo)"

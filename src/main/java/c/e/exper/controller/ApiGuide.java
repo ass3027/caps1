@@ -76,9 +76,11 @@ public class ApiGuide {
         return guideService.가이드상품_조회();
     }
     @GetMapping("/gtime/{id}")
-    public List<GItemDAO> findTime(@PathVariable("id") String id){
+    public List<GItemDAO> findTime(@PathVariable("id") String id, String time){
+        System.out.println(time);
         System.out.println("시간조회");
-        return guideService.가이드상품_시간조회(id);
+        return guideService.가이드상품_시간조회(id, time);
+
     }
 
 
@@ -104,13 +106,18 @@ public class ApiGuide {
         System.out.println(gitemDAO);
         guideService.예약_등록(gitemDAO);
     }
+
+    @PostMapping("/gPayInsert")
+    public void insertPay(GItemDAO gItemDAO){
+        System.out.println(gItemDAO +"결제");
+        guideService.결제(gItemDAO);
+    }
+
     @GetMapping("/gTime")
     public List<GItemDAO> getTime(String id){
         return guideService.시간_조회(id);
 
     }
-
-
 
 
 

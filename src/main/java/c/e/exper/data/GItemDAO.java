@@ -23,4 +23,10 @@ public class GItemDAO {
     String book_whether;
     String title;
     String book_time;
+    String detail;
+    String gitem_price;
+    String pay_price;
+    String gtime_num;
+    String gdate;
+
 }
