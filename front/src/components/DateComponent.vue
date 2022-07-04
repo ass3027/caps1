@@ -21,7 +21,7 @@
               v-model="detailDialog[index]"
               persistent
               :retain-focus="false"
-              style="background: black"
+              width="50%"
             >
               <template
                 #activator="{ attrs}"
@@ -352,7 +352,7 @@ export default {
 .border {
   border: solid #1E90FF 10px;
   border-radius: 10px;
-  min-width: 500px;
+  /*min-width: 500px;*/
   /*background: #5eaf13;*/
 }
 
@@ -372,12 +372,17 @@ export default {
 
 .innerBorder {
   overflow-y: scroll;
-  width: 400px;
+  width: 100%;
   height: 300px;
   border: solid #1E90FF 5px;
   border-radius: 10px;
   padding: 15px;
 
+}
+
+.innerBorder::-webkit-scrollbar {
+  /*width: 10px;*/
+  display: none;
 }
 
 .circle {
