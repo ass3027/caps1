@@ -28,7 +28,6 @@ public interface InquiryMapper {//디비접근
     List<InquiryDAO> list();
 
     //게시글 상세페이지 보기
-
     @Select("SELECT inq_title, inq_body, user_id, inq_type, inq_time FROM INQUIRY where inq_id=#{inq_id}")
     Optional<InquiryDAO> listPage(String inq_id);
 

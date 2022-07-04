@@ -315,7 +315,7 @@ export default {
       this.updateUserId()
     })
 
-    axios.get('/api/user/role/' + this.$store.state.user.userId).then(res =>{
+    axios.get('/api/user/role/').then(res =>{
       this.user_role = res.data
     })
   },
