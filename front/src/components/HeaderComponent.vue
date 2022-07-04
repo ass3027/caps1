@@ -26,13 +26,13 @@
           <ul class="sub">
             <li><a>주문 내역</a></li>
             <li><a>선물 내역</a></li>
-            <li><a>찜한 상품</a></li>
+            <li><a type="button" @click="bookmark">찜한 상품</a></li>
             <li><a>배송지 관리</a></li>
             <li><a>상품 후기</a></li>
             <li><a>상품 문의</a></li>
             <li><a>적립금</a><!----></li>
             <li><a>쿠폰</a><!----></li>
-            <li><a>개인 정보 수정</a></li>
+            <li><a type="button" @click="update">개인 정보 수정</a></li>
             <li><a @click="logOut">로그아웃</a></li>
           </ul>
         </li>
@@ -285,8 +285,8 @@ export default {
           {title: 'Community5', route: '/Community'}
         ],
         [
-          {title: 'Customer1 ', route: '/Customer'},
-          {title: 'Customer2', route: '/Customer'},
+          {title: '문의사항 ', route: '/Questions'},
+          {title: '게시글 등록', route: '/Writing'},
           {title: 'Customer3', route: '/Customer'},
           {title: 'Customer4', route: '/Customer'},
           {title: 'Customer5', route: '/Customer'}
@@ -317,10 +317,9 @@ export default {
       this.updateUserId()
     })
 
-    axios.get('/api/user/role/' + this.$store.state.user.userId)
-      .then(res => {
-        this.user_role = res.data
-      })
+    axios.get('/api/user/role/').then(res =>{
+      this.user_role = res.data
+    })
   },
   methods: {
     updateUserId() {
@@ -347,6 +346,12 @@ export default {
     MyPage() {
       this.$router.push("/MyPage")
     },
+    update(){
+      this.$router.push("/MyPageUpdate")
+    },
+    bookmark(){
+      this.$router.push("/BookMark")
+    }
   }
 };
 </script>

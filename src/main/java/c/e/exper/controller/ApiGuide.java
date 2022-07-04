@@ -34,6 +34,12 @@ public class ApiGuide {
         return guideService.가이드_조회1(id);
     }
 
+    @GetMapping("/gcount")
+    public GItemDAO findCount(String id){
+        System.out.println(id +"매출조회");
+        return guideService.매출_조회(id);
+    }
+
     @GetMapping("/gitemview/{id}")
     public GItemDAO findGitem(@PathVariable("id") String id){
         System.out.println("상품 상세보기");
@@ -118,6 +124,9 @@ public class ApiGuide {
         return guideService.시간_조회(id);
 
     }
+
+
+
 
 
 

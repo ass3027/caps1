@@ -25,6 +25,17 @@ public class UserDTO {
     String gender; //성별
     String preference; //여행선호도
     String GUSER_INTRO; //가이드유저?
-  
+    String business_num; //사업자번호
+    String user_area; //지역
+
+    //운송원
+    String duser_trans; //운송수단
+    String duser_license; //자격증
+
+    //키퍼
+    String addr1;
+    String title;
+    String tel;
+    //이름, 사업자번호
 
 }

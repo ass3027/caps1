@@ -41,6 +41,9 @@ public interface GItemMapper {
     @Insert("Insert into payment(pay_price, user_id, gtime_num) values(#{pay_price}, #{user_id}, #{gtime_num})")
     void insertPay(GItemDAO gitemDAO);
 
-    @Select("Select * From available_time a, book b, gitem g, place p where a.time_num = b.time_num and g.gitem_id = a.gitem_id and p.pl_id = g.pl_id and b.user_id = #{id}")
+    @Select("Select * From available_time a, gitem g, place p, payment where  g.gitem_id = a.gitem_id and p.pl_id = g.pl_id and payment.gtime_num = a.time_num and payment.user_id = #{id}")
     List<GItemDAO> selectTimes(@Param("id") String id);
+
+    @Select("select count(a.GITEM_ID) AS count from AVAILABLE_TIME a, gitem g where g.GITEM_ID =a.GITEM_ID and g.USER_ID =#{id} and a.BOOK_WHETHER=1")
+    GItemDAO selectCount(@Param("id") String id);
 }

@@ -14,7 +14,7 @@ import java.sql.Date;
 public class ProductTime {
     String product_time_num;
     String pd_id;
-    String st_time;
-    String end_time;
-    String pd_whether;
+    String date;
+    String room_num;
+    String pay_id;
 }

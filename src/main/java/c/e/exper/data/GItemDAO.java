@@ -28,5 +28,6 @@ public class GItemDAO {
     String pay_price;
     String gtime_num;
     String gdate;
+    int count;
 
 }
