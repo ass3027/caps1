@@ -16,11 +16,6 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 import OrderDetail from "@/components/order/OrderDetail";
 import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
-import placeSuppliesView from "@/views/supply/PlaceSuppliesView";
-
-//가방 보관
-
-
 import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
 import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
@@ -46,7 +41,6 @@ import KeeperTrackingDetail from "@/views/bag/keeper/KeeperTrackingDetail";
 //혁태??
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
-import PensionView from "@/views/store/PensionView";
 import StoreDetail from "@/views/store/StoreDetail";
 
 //진한??
@@ -69,7 +63,6 @@ import LocationUpdate from "@/views/LocationUpdate";
 //민아
 import MypageView from "@/views/auth/MypageView";
 import BookMarkView from "@/views/auth/BookMarkView";
-import MyDataView from "@/views/auth/MyPageUpdateView";
 import QuestionsView from "@/views/auth/QuestionsView";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
@@ -86,6 +79,7 @@ import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 import ProductBook from "@/views/store/ProductBook";
 import productBookView from "@/views/store/productBookView";
+import GuideReserve from "@/views/guide/GuideReserve";
 
 
 Vue.use(VueRouter);
@@ -225,6 +219,7 @@ const routes = [
   {path: "/GuideProduct/Search/:keyword", name: "GuideProductSearch", component: GuideProductSearch, props: true},
   {path: "/GuideIntro/:user_id", name: "GuideIntro", component: GuideIntro},
   {path: "/GuideReserveInfo", name: "GuideReserveInfo", component: GuideReserveInfo},
+  {path: "/GuideReserve", name:"GuideReserve", component: GuideReserve},
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},

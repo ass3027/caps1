@@ -39,6 +39,12 @@ public class GuideService {
    public GuideDAO 가이드_조회1(String id) {
       return guideMapper.selectById(id);
    }
+
+   public GItemDAO 매출_조회(String id){
+      return gitemMapper.selectCount(id);
+   }
+
+
    public GItemDAO 가이드_상품조회1(String id){
       return gitemMapper.selectByGitemId(id);
    }
