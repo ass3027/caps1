@@ -81,7 +81,7 @@ import GuideProductTime from "@/views/guide/GuideProductTime";
 import UserJoinView from "@/views/auth/UserJoinView";
 import DeliveryJoinView from "@/views/auth/DeliveryJoinView";
 import LoginView from "@/views/auth/LoginView";
-import joinView from "@/views/auth";
+import joinView from "@/views/auth/JoinView";
 import KeeperJoinView from "@/views/auth/KeeperJoinView";
 
 
