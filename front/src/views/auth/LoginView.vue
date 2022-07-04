@@ -66,11 +66,6 @@ import {EventBus} from "@/eventBus/eventBus";
 
 export default {
   name: "LoginView",
-  beforeRouteEnter(to,from,next){
-    console.log(to)
-    console.log(from)
-    next()
-  },
   data() {
     return {
       id: '',

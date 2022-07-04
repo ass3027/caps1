@@ -21,7 +21,7 @@
               v-model="detailDialog[index]"
               persistent
               :retain-focus="false"
-              style="background: black"
+              style="background: black;width: 50%"
             >
               <template
                 #activator="{ attrs}"
@@ -47,7 +47,7 @@
                 </div>
               </template>
               <template>
-                <v-card>
+                <v-card >
                   <v-card-title>
                     일정 상세보기
                   </v-card-title>
@@ -58,8 +58,9 @@
                     <p>장소 : {{ plan.get(key).pl_name }}</p>
                     <SearchPlace
                       @childEvent="selectPlace"
+                      style="width: 300px"
                     />
-                    <p>관광 상품 : {{ plan.get(key).gitem_id }}</p>
+                    <h1>관광 상품 : {{ plan.get(key).gitem_id }}</h1>
                     <p>
                       예상 요금 :
                       <v-text-field

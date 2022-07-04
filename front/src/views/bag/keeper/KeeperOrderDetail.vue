@@ -1,59 +1,58 @@
 <template>
-  <v-container>
-    <table
-      style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
-      <div style="margin-top: 10px">
-        <p style="display: inline; font-size: large; margin-left: 5px">
-          배송경로
-        </p>
-        <div style="display: inline; float: right; font-size: large; margin-right: 5px">
-          주문번호 #{{ order.ord_id }}
-        </div>
+  <table
+    style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+    <div style="margin-top: 10px">
+      <p style="display: inline; font-size: large; margin-left: 5px">
+        배송경로
+      </p>
+      <div style="display: inline; float: right; font-size: large; margin-right: 5px">
+        주문번호 #{{ order.ord_id }}
       </div>
-      <div
-        id="map"
-        style="width:100%;height:350px;"
-      />
+    </div>
+    <div
+      id="map"
+      style="width:100%;height:350px;"
+    />
 
-      <table id="order_detail">
-        <thead scope="row">
-        <tr/>
-        </thead>
-        <tbody>
-        <tr>
-          <th>금액</th>
-          <td>{{ order.ord_amount }} 원</td>
-        </tr>
-        <tr>
-          <th>픽업/완료</th>
-          <td>
-            <div>
-              {{ entrust_time }}
-            </div>
-            <div>
-              {{ withdraw_time }}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>출발지</th>
-          <td>{{ keep_start.addr1 }}</td>
-        </tr>
-        <tr>
-          <th>도착지</th>
-          <td>{{ keep_end.addr1 }}</td>
-        </tr>
-        <tr>
-          <th>거리</th>
-          <td>{{ degree_start_end }}Km</td>
-        </tr>
-        <tr>
-          <th>나로부터</th>
-          <td>{{ degree_user_start }}Km</td>
-        </tr>
-        <tr>
-          <th>물품정보</th>
-          <td>
+    <table id="order_detail">
+      <thead scope="row">
+      <tr/>
+      </thead>
+      <tbody>
+      <tr>
+        <th>금액</th>
+        <td>{{ order.ord_amount }} 원</td>
+      </tr>
+      <tr>
+        <th>픽업/완료</th>
+        <td>
+          <div>
+            {{ entrust_time }}
+          </div>
+          <div>
+            {{ withdraw_time }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>출발지</th>
+        <td>{{ keep_start.addr1 }}</td>
+      </tr>
+      <tr>
+        <th>도착지</th>
+        <td>{{ keep_end.addr1 }}</td>
+      </tr>
+      <tr>
+        <th>거리</th>
+        <td>{{ degree_start_end }}Km</td>
+      </tr>
+      <tr>
+        <th>나로부터</th>
+        <td>{{ degree_user_start }}Km</td>
+      </tr>
+      <tr>
+        <th>물품정보</th>
+        <td>
             <span
               v-for="(i, index) in ord_bag_info"
               :key="index"
@@ -61,39 +60,35 @@
               {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
               <span v-if="index !== ord_bag_info.length-1">, </span>
             </span>
-          </td>
-        </tr>
-        <tr>
-          <th>요청사항</th>
-          <td>{{ order.ord_request }}</td>
-        </tr>
-        <div>
-          <v-btn @click="backTrackingView()">목록</v-btn>
-        </div>
-        </tbody>
-      </table>
-      <div v-if="order.status === '운송요청'">
-        <v-btn
-          class="btn_type2"
-          height="54px"
-          color="white"
-          @click="requestMatch()"
-        >
-          매칭요청
-        </v-btn>
-      </div>
-      <div v-if="order.status === '운송중'">
-        <v-btn
-          class="btn_type2"
-          height="54px"
-          color="white"
-          @click="orderArrival()"
-        >
-          배송완료
-        </v-btn>
-      </div>
+        </td>
+      </tr>
+      <tr>
+        <th>요청사항</th>
+        <td>{{ order.ord_request }}</td>
+      </tr>
+      </tbody>
     </table>
-  </v-container>
+    <div v-if="order.status === '운송요청'">
+      <v-btn
+        class="btn_type2"
+        height="54px"
+        color="white"
+        @click="requestMatch()"
+      >
+        매칭요청
+      </v-btn>
+    </div>
+    <div v-if="order.status === '운송중'">
+      <v-btn
+        class="btn_type2"
+        height="54px"
+        color="white"
+        @click="orderArrival()"
+      >
+        배송완료
+      </v-btn>
+    </div>
+  </table>
 </template>
 
 <script>
@@ -177,7 +172,9 @@ export default {
 
 
   },
+  mounted() {
 
+  },
   methods: {
     initMap() {
       console.log("[initMap()]")
@@ -240,10 +237,6 @@ export default {
         alert(res.data)
         this.$router.go();
       })
-    },
-    //목록으로 돌아가기
-    backTrackingView() {
-      this.$router.push('/trackingView')
     }
 
   }

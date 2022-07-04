@@ -10,33 +10,32 @@
     <v-row style="width: 70%">
       <v-col
         align="center"
-        style="padding-left: 39%"
+        style="padding-left: 45%"
       >
-        <div class="textForm">
-          <input
-            v-model="gitem_id"
-            name="userId"
-            type="text"
-            class="id"
-            placeholder="상품 아이디"
-          >
-        </div>
-        <v-row>
-          <v-col cols="10">
-            <div class="textForm">
-              <input
-                v-model="lodging.pl_id"
-                name="guideIntro"
-                type="text"
-                class="intro"
-                placeholder="장소번호"
-              >
+        <div class="textForm" style="margin-top: -70px">
+          <div style="width: 50%; display: inline-block; vertical-align: bottom;">
+            <input
+                  v-model="lodging.pl_id"
+                  name="guideIntro"
+                  type="text"
+                  class="intro"
+                  placeholder="장소번호"
+                >
+          </div>
+
+          <div style="width: 50%; display: inline-block;">
+                <search-place-tour
+                  @childEvent="getEmitData"
+                  class="place"
+                  style="margin: 50px 80px 5px;"
+                >
+
+                </search-place-tour>
+              </div>
+
             </div>
-          </v-col>
-          <v-col cols="2">
-            <search-place @childEvent="getEmitData" />
-          </v-col>
-        </v-row>
+
+
 
 
         <div class="textForm">
@@ -79,15 +78,26 @@
             placeholder="요구시간"
           >
         </div>
+        <div class="textForm">
+          <input
+            v-model="gitem_price"
+            name="guideIntro"
+            type="text"
+            class="intro"
+            placeholder="상품가격"
+          >
+        </div>
       </v-col>
     </v-row>
 
     <v-row
-      style="padding-left: 155px"
+      style="padding-left: 195px"
     >
       <v-btn
         class="btn"
         @click="onsubmit()"
+        style="margin: 30px"
+        width="45%"
       >
         JOIN
       </v-btn>
@@ -99,24 +109,24 @@
 
 
 import axios from "axios";
-import SearchPlace from "@/components/SearchPlace";
+import SearchPlaceTour from "@/components/SearchPlaceTour";
 
 export default {
   name: 'GuideProductReg',
   components: {
-    SearchPlace
+    SearchPlaceTour
   },
   props:[],
   data(){
     return{
       lodging:'',
-      gitem_id:'',
       user_id:'',
       pl_id:'',
       introduce:'',
       st_date:'',
       require_time:'',
-      end_date:''
+      end_date:'',
+      gitem_price:'',
     }
   },
   methods:{
@@ -130,13 +140,14 @@ export default {
       }
       var sendform= new FormData();
 
-      sendform.append('gitem_id', this.gitem_id);
       sendform.append('user_id', this.$store.state.user.userId);
       sendform.append('pl_id', this.lodging.pl_id);
       sendform.append('introduce', this.introduce);
       sendform.append('st_date', this.st_date);
       sendform.append('require_time', this.require_time);
       sendform.append('end_date', this.end_date);
+      sendform.append('gitem_price', this.gitem_price);
+
 
 
 
@@ -166,8 +177,7 @@ export default {
 </script>
 <style scoped>
 * {
-  margin: 0px;
-  padding: 0px;
+
   text-decoration: none;
   font-family:sans-serif;
 
@@ -175,20 +185,6 @@ export default {
 }
 
 
-
-.joinGItem {
-
-  width:400px;
-  height:40px;
-  padding: 30px;
-  background-color:#FFFFFF;
-  text-align:center;
-  top:30%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  border-radius: 15px;
-  position: relative;
-}
 
 .joinForm h2 {
   text-align: center;
@@ -202,26 +198,6 @@ export default {
 }
 
 
-.id {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-
-.license {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
 
 .intro {
   width: 100%;

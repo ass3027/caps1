@@ -29,6 +29,11 @@ public class BagDAO {
    String ord_request;  //요청사항
    String firstImage2;  //이미지
    String status;//주문상태
+   String start_status; //출발키퍼 주문상태
+   String end_status;   //도착키퍼 주문상태
+   String keep_start_title;
+   String keep_end_title;
+   
    
    
 }

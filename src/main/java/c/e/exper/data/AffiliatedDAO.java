@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class AffiliatedDAO {
 
-    String user_id;
+    private String user_id;
     String plan_id;
 
     public AffiliatedDTO toDTO(){
