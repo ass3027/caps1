@@ -21,7 +21,7 @@
               v-model="detailDialog[index]"
               persistent
               :retain-focus="false"
-              style="background: black;width: 50%"
+              width="50%"
             >
               <template
                 #activator="{ attrs}"
@@ -47,7 +47,7 @@
                 </div>
               </template>
               <template>
-                <v-card >
+                <v-card>
                   <v-card-title>
                     일정 상세보기
                   </v-card-title>
@@ -58,9 +58,8 @@
                     <p>장소 : {{ plan.get(key).pl_name }}</p>
                     <SearchPlace
                       @childEvent="selectPlace"
-                      style="width: 300px"
                     />
-                    <h1>관광 상품 : {{ plan.get(key).gitem_id }}</h1>
+                    <p>관광 상품 : {{ plan.get(key).gitem_id }}</p>
                     <p>
                       예상 요금 :
                       <v-text-field
@@ -353,7 +352,7 @@ export default {
 .border {
   border: solid #1E90FF 10px;
   border-radius: 10px;
-  min-width: 500px;
+  /*min-width: 500px;*/
   /*background: #5eaf13;*/
 }
 
@@ -373,12 +372,16 @@ export default {
 
 .innerBorder {
   overflow-y: scroll;
-  width: 400px;
+  width: 100%;
   height: 300px;
   border: solid #1E90FF 5px;
   border-radius: 10px;
   padding: 15px;
 
+}
+
+.innerBorder::-webkit-scrollbar {
+  display: none;
 }
 
 .circle {

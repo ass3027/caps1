@@ -22,14 +22,14 @@
         </v-simple-table>
       </v-card>
     </v-row>
-
-    <v-row>
+    <v-row style="justify-content : center;">
       <v-col
         col="5"
         style="width:40%"
       >
         <v-card
           style="margin-bottom: 30px;"
+          class="text-center"
         >
           <h2>현재 멤버</h2>
           <v-spacer />
@@ -47,12 +47,12 @@
                 v-for="(data,key) in plan_user_list"
                 :key="key"
               >
-                <th class="text-center">
+                <td >
                   {{ data.user_id }}
-                </th>
-                <th class="text-center">
+                </td>
+                <td >
                   {{ data.plan_id }}
-                </th>
+                </td>
               </tr>
             </tbody>
           </v-simple-table>
@@ -76,20 +76,20 @@
                 v-for="(data,index) in invite_list_user"
                 :key="index"
               >
-                <th class="text-center">
+                <td >
                   {{ data.user_id }}
-                </th>
-                <th class="text-center">
+                </td>
+                <td >
                   {{ data.plan_id }}
-                </th>
-                <th>
+                </td>
+                <td>
                   <v-btn
                     class="button"
                     @click="accept(data)"
                   >
                     수락
                   </v-btn>
-                </th>
+                </td>
               </tr>
             </tbody>
           </v-simple-table>
@@ -133,12 +133,12 @@
                 v-for="(data,index) in invite_list_plan"
                 :key="index"
               >
-                <th class="text-center">
+                <td >
                   {{ data.user_id }}
-                </th>
-                <th class="text-center">
+                </td>
+                <td >
                   {{ data.plan_id }}
-                </th>
+                </td>
               </tr>
             </tbody>
           </v-simple-table>
