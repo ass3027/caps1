@@ -37,7 +37,6 @@ import static c.e.exper.service.SecurityConfig.passwordEncoder;
 @RestController
 @RequestMapping("/api/user")
 public class ApiUser {
-
     final
     PictureMapper pictureMapper;
 
