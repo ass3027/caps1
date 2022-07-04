@@ -79,7 +79,7 @@
                       <v-btn
                         depressed
                         color="primary"
-                        @click="$router.push({name:'tourDetail',params:{pl_id:data.pl_id}})"
+                        @click="goDetail(data)"
                       >
                         상세보기
                       </v-btn>
@@ -183,13 +183,9 @@ export default {
             this.curPageNum = 1
           })
     },
-    // placeCount(){
-    //   axios({
-    //     method:'get',
-    //     url:`/api/place/${this.searchCon}/B02`
-    //
-    //   })
-    // }
+    goDetail(data) {
+      this.$router.push({name:'tourDetail',params:{pl_id:data.pl_id,contentTypeId:this.searchCon}})
+    }
   }
   ,
 
