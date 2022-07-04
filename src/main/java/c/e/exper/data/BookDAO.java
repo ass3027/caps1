@@ -18,4 +18,7 @@ public class BookDAO {
     String plan_id;
     String time_num;
     String product_time_num;
+    String date;
+    String pl_id;
+    String pd_id;
 }

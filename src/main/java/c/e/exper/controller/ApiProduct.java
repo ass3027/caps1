@@ -59,8 +59,8 @@ public class ApiProduct {
 //        }
     }
 
-    @GetMapping("/productBook/{user_id}")
-    public List<BookDAO> SelectBook(@PathVariable("user_id")String user_id){
-        return productMapper.SelectBook(user_id);
+    @GetMapping("/productBook")
+    public List<BookDAO> SelectBook(String id){
+        return productMapper.SelectBook(id);
     }
 }

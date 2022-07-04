@@ -52,10 +52,10 @@ public interface ProductMapper {
 
     @Select("""
             SELECT *
-            FROM BOOK
-            WHERE USER_ID = #{user_id} AND PRODUCT_TIME_NUM is not null
+            FROM PRODUCT_TIME a, PAYMENT b, PLACE c, PRODUCT d
+            WHERE 
             """)
-    List<BookDAO> SelectBook(String user_id);
+    List<BookDAO> SelectBook(@Param("id") String id);
 
 
 }
