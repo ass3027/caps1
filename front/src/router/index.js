@@ -84,11 +84,12 @@ import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 import ProductBook from "@/views/store/ProductBook";
 import productBookView from "@/views/store/productBookView";
 
-
+import MainView from "@/views/MainView";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {path:"/",component: MainView},
   //민아
   {path: "/join", name: "join", component: JoinView},
   {path: "/login", name: "login", component: LoginView},
@@ -187,22 +188,10 @@ const routes = [
   },
 
   {
-    path: "/location/check/:ord_id",
-    name: "LocationCheckView",
-    component: LocationCheckView,
-    props: true,
-  },
-  {
     path: "/location/update/:duser_id",
     name: "LocationUpdateView",
     component: LocationUpdate,
     props: true,
-  },
-
-  {
-    path: "/location/check/:ord_id",
-    name: "LocationCheckView",
-    component: LocationCheckView,
   },
 
 
@@ -226,11 +215,9 @@ const routes = [
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},
-  {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView,},
   {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true,},
   {path: "/ReviewCreateView/:type/:id", name: "ReviewCreateView", component: ReviewCreateView, props: true,},
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
-  {path: "/TestView/:ord_id", name: "TestView", component: LocationCheckView},
 
   //민아 실험?
   {path: "/mina", component: MINA}
@@ -243,6 +230,7 @@ const router = new VueRouter({
 });
 
 router.beforeResolve((to, from, next) => {
+
   if (to.path === "/login" || to.path === "/join" || to.path === "/") {
     next();
   } else {

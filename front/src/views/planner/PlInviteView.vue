@@ -2,6 +2,28 @@
   <v-container style="width: 70% ">
     <PlannerHeader />
     <v-row>
+      <v-card>
+        <h2>그룹생성자</h2>
+        <v-simple-table>
+          <thead>
+          <tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>전화번호</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th>um</th>
+            <th>엄준식</th>
+            <th>010-0000-0000</th>
+          </tr>
+          </tbody>
+        </v-simple-table>
+      </v-card>
+    </v-row>
+
+    <v-row>
       <v-col
         col="5"
         style="width:40%"
