@@ -5,6 +5,7 @@ import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
@@ -115,9 +116,12 @@ public class ApiUser {
     }
 
 
-    @PostMapping("/join")
-    public boolean join(UserDTO user,HttpServletRequest req) {
+    //회원가입
+    @PostMapping("/join/{check}")
+    public boolean join(UserDTO user, HttpServletRequest req, @PathVariable("check")String check) {
 
+
+        System.out.println(check);
         // id 중복확인
         if (userMapper.selectId(user.getUser_id()).isPresent()) {
             return false;
@@ -160,10 +164,23 @@ public class ApiUser {
                 .gender(user.getGender())
                 .preference(user.getPreference())
                 .guser_intro("")
+                .business_num(user.getBusiness_num())
+                .user_area(user.getUser_area())
                 .build();
-        System.out.println(daoUser);
 
+        System.out.println(daoUser);
         userMapper.insert(daoUser);
+
+
+        if(check.equals("운송원") ){
+            DuserDAO daoDuser = DuserDAO.builder()
+                    .user_id(user.getUser_id())
+                    .duser_license(user.getDuser_license())
+                    .duser_trans(user.getDuser_trans())
+                    .build();
+            userMapper.deliveryInsert(daoDuser);
+        }
+
 
         //사진 DAO 생성 및 값 설정
         PictureDAO pictureDAO = new PictureDAO();
@@ -197,17 +214,11 @@ public class ApiUser {
 //        System.out.println("count: " + i);
     }
 
-    @GetMapping("/role/{user_id}")
-    public String getUserRole(@PathVariable("user_id") String user_id){
+    @GetMapping("/role")
+    public String getUserRole(){
+        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        if(userMapper.checkGuide(user_id)){
-            return "가이드";
-        } else if (userMapper.checkDeliveryUser(user_id)) {
-            return "운송원";
-        } else {
-            return "일반";
-        }
-
+        return userMapper.selectId(user_id).get().getRole();
     }
 
     public String getRandomPhone(){

@@ -1,9 +1,6 @@
 package c.e.exper.mapper;
 
-import c.e.exper.data.OrderDAO;
-import c.e.exper.data.PaymentDAO;
-import c.e.exper.data.PlaceDAO;
-import c.e.exper.data.UserDAO;
+import c.e.exper.data.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -26,15 +23,29 @@ public interface UserMapper { //디비접근
 //    (@Param("user_id") 생략가능
 
 
-    //회원가입
-    @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null,#{user.gender},#{user.preference})")
+    //회원가입(일반회원)
+    @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null,#{user.gender, jdbcType=VARCHAR},#{user.preference, jdbcType=VARCHAR}, #{user.business_num, jdbcType=VARCHAR},#{user.user_area})")
     void insert(@Param("user") UserDAO user);
+
+    //운송원 회원정보
+    @Insert("INSERT INTO delivery_user(user_id, duser_trans, duser_license) VALUES(#{duser.user_id},#{duser.duser_trans},#{duser.duser_license})")
+    void deliveryInsert(@Param("duser") DuserDAO duser);
+
+    //키퍼(키퍼회원) --사업자번호 상호명 사업자이름?
+    @Insert("INSERT INTO place(user_id) VALUES(#{user.user_id})")
+    void keeperInsert(@Param("user") PlaceDAO user);
+
+
+//    //키퍼(키퍼회원) --사업자번호 상호명 사업자이름?
+//    @Insert("INSERT INTO users (user_id, business_num) VALUES(#{kuser.user_id}, #{kuser.business_num})")
+//    void keeperInsert(@Param("user") UserDAO kuser);
+
 
     //회원정보수정
     @Update("UPDATE USERS SET user_pw=#{user.user_pw}, user_phone=#{user.user_phone}, user_name=#{user.user_name}, preference=#{user.preference} WHERE user_id=#{user.user_id}")
     boolean updateUserInfo(@Param("user") UserDAO user);
-  //반환데이터형식(반환값) //함수이름          데이터형식 //매개변수
-  //반환해주는것!
+    //반환데이터형식(반환값) //함수이름          데이터형식 //매개변수
+    //반환해주는것!
 
 //    @Insert("""
 //            insert into
@@ -100,6 +111,8 @@ public interface UserMapper { //디비접근
             WHERE USER_ID = #{user_id}
             """)
     boolean checkGuide(@Param("user_id") String user_id);
+
+
 
     @Select("""
             SELECT count(*)
