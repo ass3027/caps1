@@ -78,7 +78,8 @@ export default {
     go(){
       this.$router.push({name:'productBook',params:{product: this.product}})
     }
-  }
+  },
+
 }
 </script>
 

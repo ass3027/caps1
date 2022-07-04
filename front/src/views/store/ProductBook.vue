@@ -36,10 +36,28 @@
       >
       </v-row>
       <v-row>
+        <v-select
+          v-model="room"
+          :items="roomItems"
+          item-text="text"
+          :value="lists.room"
+          @change="picRoom"
+        />
+      </v-row>
+      <v-row>
         <v-btn @click="book">
           예약하기
         </v-btn>
       </v-row>
+<!--      <v-card-actions>-->
+<!--        <v-btn-->
+<!--          color="deep-purple lighten-2"-->
+<!--          text-->
+<!--          @click="reserve()"-->
+<!--        >-->
+<!--          Reserve-->
+<!--        </v-btn>-->
+<!--      </v-card-actions>-->
     </v-col>
   </v-container>
 </template>
@@ -63,13 +81,34 @@ export default {
     st_date: '',
     end_date: '',
 
-    dateArr: [],
+    copy: [],
+
+    lists: [],
+    room: '',
+    roomItems: [
+      {text: '101호', value: '101'},
+    ],
+
+    roomBookList: {},
 
     productTime: [],
 
   }),
   mounted() {
-    console.log(this.product)
+    this.importGuide()
+    //this.timeGitem()
+    const script = document.createElement("script")
+    const script2 = document.createElement("script")
+    script2.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+    script2.integrity = "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=";
+    script2.setAttribute("crossOrigin", "anonymous");
+
+    document.head.appendChild(script2);
+
+    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    script.type = "text/javascript"
+
+    document.head.appendChild(script);
   },
   created() {
     axios({
@@ -80,20 +119,6 @@ export default {
       .then((res) => {
         this.productTime = res.data
         console.log(this.productTime)
-
-        const tempDate = new Date(this.st_date)
-        const endDate = new Date(this.end_date)
-
-        for (let i = 0; tempDate <= endDate; i++) {
-          this.dateArr.push(this.dateFormat(tempDate))
-          tempDate.setDate(tempDate.getDate() + 1)
-        }
-        console.log(this.dateArr)
-
-        const PayBook = {};
-
-        PayBook["pd_id"] = productTime.pd_id
-        // PayBook["room_num"] 셀렉트로 방 번호 입력 받은거 넣기
       })
       .catch((err) => {
         console.log(err)
@@ -102,6 +127,10 @@ export default {
   methods: {
     productBook() {
       let BookInfo = {}
+    },
+
+    picRoom() {
+      console.log(this.room)
     },
 
     ex() {
@@ -137,7 +166,34 @@ export default {
 
 
     book() {
-      alert("예약이 완료 되었습니다.")
+
+      const dateArr = []
+
+      const tempDate = new Date(this.st_date)
+      const endDate = new Date(this.end_date)
+
+      for (; tempDate <= endDate - 1;) {
+        dateArr.push(this.dateFormat(tempDate))
+        tempDate.setDate(tempDate.getDate() + 1)
+      }
+
+      console.log(dateArr)
+
+      const bookInfo = []
+
+      dateArr.forEach((it) => {
+
+        const payBook = {};
+        payBook["pd_id"] = this.productTime[0].pd_id
+        payBook["date"] = it
+        payBook["room_num"] = this.room
+
+        bookInfo.push(payBook)
+
+      })
+
+      console.log(bookInfo)
+
       // axios({
       //   method: 'PUT',
       //   url: '/api/productPut',
@@ -150,23 +206,64 @@ export default {
       //     console.log(err)
       //   })
 
-      axios({
-        method: 'POST',
-        url: '/api/productPost',
-        data: {},
-        params: {
-          'product_time_num': this.productTime[0].product_time_num, 'user_id': this.$store.state.user.userId,
-          'pay_price': this.product.pd_price
+      var IMP = window.IMP;
+      IMP.init('imp19569487');
+      console.log(this.lists)
+      IMP.request_pay({
+        pg:"html5_inics",
+        pay_method: "card",
+        merchant_uid:"iamport_test_id" + new Date().getTime(),
+        name:this.lists.title,
+        amount: this.lists.gitem_price,
+        buyer_email:"testiamport@naver.com",
+        buyer_name: this.$store.state.user.userId,
+        buyer_tel:"01012341234"
+      }, rsp =>{
+        console.log(rsp);
+        if (rsp.success){
+
+          axios({
+            method:'put',
+            url:'/api/gitemTimeUpdate/',
+            params:{
+              'id': this.selectednum
+            }
+          })
+            .then(()=>{
+              console.log("O")
+              // this.timeGitem()
+            })
+          console.log(rsp)
+
+          const sendform = new FormData();
+
+          sendform.append('pay_price', this.lists.gitem_price)
+          sendform.append('user_id', this.$store.state.user.userId)
+          sendform.append('gtime_num', this.selectednum)
+
+          axios({
+            method: 'POST',
+            url: '/api/productPost',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            data: JSON.stringify(bookInfo),
+          })
+            .then((res) => {
+
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+
+          alert("예약이 완료 되었습니다.")
+
+        } else{
+          alert("실패")
         }
       })
-        .then((res) => {
-
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-  },
+    },
+  }
 }
 
 </script>

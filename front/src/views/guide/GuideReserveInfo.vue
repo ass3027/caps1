@@ -16,9 +16,9 @@ export default {
     return{
       lists:[],
       headers:[
+        {text:'예약한 날짜' ,value:'gdate'},
         {text:'시작시간', value:'st_time'},
         {text:'종료시간', value:'end_time'},
-        {text:'예약한 시간' ,value:'book_time'},
         {text:'소요시간', value:'require_time'},
         {text:'장소명', value:'title'}
       ]

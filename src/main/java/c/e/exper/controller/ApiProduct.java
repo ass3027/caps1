@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -42,14 +43,24 @@ public class ApiProduct {
         productMapper.productSet(product_time_num);
     }
 
+//    @PostMapping("/productPost")
+//    public void productPost(@RequestParam("pay_price") String pay_price,
+//                            @RequestParam("user_id") String user_id, @RequestParam("product_time_num") String product_time_num) {
+//        productMapper.bookInsert(pay_price, user_id, product_time_num);
+//    }
+
     @PostMapping("/productPost")
-    public void productPost(@RequestParam("pay_price") String pay_price,
-                            @RequestParam("user_id") String user_id, @RequestParam("product_time_num") String product_time_num) {
-        productMapper.bookInsert(pay_price, user_id, product_time_num);
+    public void productPost(@RequestBody List<ProductTime> bookInfo){
+        bookInfo.forEach( it->{
+            productMapper.product_Time_Insert(it);
+        });
+//        for(int i =0;i<bookInfo.size();i++){
+//            productMapper.product_Time_Insert(bookInfo.get(i));
+//        }
     }
 
-    @GetMapping("/productBook/{user_id}")
-    public List<BookDAO> SelectBook(@PathVariable("user_id")String user_id){
-        return productMapper.SelectBook(user_id);
+    @GetMapping("/productBook")
+    public List<BookDAO> SelectBook(String id){
+        return productMapper.SelectBook(id);
     }
 }

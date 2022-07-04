@@ -1,12 +1,12 @@
 <template>
-  <v-container>
+  <div>
     <v-dialog v-model="dialog">
       <template #activator="{ on, attrs }">
         <v-btn
           color="red lighten-2"
           dark
           v-bind="attrs"
-          style="width:95px;margin-top: 20px"
+          style="width:95px;"
           v-on="on"
         >
           장소검색
@@ -113,7 +113,7 @@
         </v-sheet>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>

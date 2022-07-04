@@ -46,15 +46,16 @@ public interface ProductMapper {
     void productSet(@Param("product_time_num") String product_time_num);
 
     @Insert("""
-            INSERT INTO PAYMENT(PAY_PRICE, USER_ID, PRODUCT_TIME_NUM) VALUES (#{pay_price}, #{user_id}, #{product_time_num})
+            INSERT INTO PRODUCT_TIME(PD_ID, "date", ROOM_NUM) VALUES (#{pd_id}, #{date}, #{room_num})
             """)
-    void bookInsert(String pay_price, String user_id, String product_time_num);
+    void product_Time_Insert(ProductTime productTime);
 
     @Select("""
             SELECT *
-            FROM BOOK
-            WHERE USER_ID = #{user_id} AND PRODUCT_TIME_NUM is not null
+            FROM PRODUCT_TIME a, PAYMENT b, PLACE c, PRODUCT d
+            WHERE 
             """)
-    List<BookDAO> SelectBook(String user_id);
+    List<BookDAO> SelectBook(@Param("id") String id);
+
 
 }
