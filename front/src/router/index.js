@@ -1,9 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-//기본
-import JoinView from "../views/auth/JoinView.vue";
-import LoginView from "@/views/auth/LoginView";
 
 
 //성호형??
@@ -16,7 +13,6 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 import OrderDetail from "@/components/order/OrderDetail";
 import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
-import placeSuppliesView from "@/views/supply/PlaceSuppliesView";
 
 //가방 보관
 
@@ -46,7 +42,6 @@ import KeeperTrackingDetail from "@/views/bag/keeper/KeeperTrackingDetail";
 //혁태??
 import HotelView from "@/views/store/HotelView";
 import StoreAdd from "@/views/store/StoreAdd";
-import PensionView from "@/views/store/PensionView";
 import StoreDetail from "@/views/store/StoreDetail";
 
 //진한??
@@ -56,7 +51,7 @@ import GuideProductReg from "@/views/guide/GuideProductReg";
 import GuideViewUser from "@/views/guide/GuideViewUser";
 import GuideSearch from "@/views/guide/GuideSearch";
 import GuideProduct from "@/views/guide/GuideProduct";
-import GuideProductTime from "@/views/guide/GuideProductTime";
+
 import GuideProductView from "@/views/guide/GuideProductView";
 import GuideProductSearch from "@/views/guide/GuideProductSearch";
 
@@ -69,7 +64,6 @@ import LocationUpdate from "@/views/LocationUpdate";
 //민아
 import MypageView from "@/views/auth/MypageView";
 import BookMarkView from "@/views/auth/BookMarkView";
-import MyDataView from "@/views/auth/MyPageUpdateView";
 import QuestionsView from "@/views/auth/QuestionsView";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
@@ -86,13 +80,23 @@ import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 import ProductBook from "@/views/store/ProductBook";
 import productBookView from "@/views/store/productBookView";
+import GuideProductTime from "@/views/guide/GuideProductTime";
+import UserJoinView from "@/views/auth/UserJoinView";
+import DeliveryJoinView from "@/views/auth/DeliveryJoinView";
+import LoginView from "@/views/auth/LoginView";
+import joinView from "@/views/auth/JoinView";
+import KeeperJoinView from "@/views/auth/KeeperJoinView";
+
 
 
 Vue.use(VueRouter);
 
 const routes = [
   //민아
-  {path: "/join", name: "join", component: JoinView},
+  {path: "/join", name: "join", component: joinView}, //회원선택하UserJoinView는 창
+  {path: "/userJoin", name: "userJoin", component: UserJoinView }, //일반회원 가입창
+  {path: "/deliveryJoin", name: "DeliveryJoin", component: DeliveryJoinView}, //운송원회원 창
+  {path: "/keeperJoin", name: "KeeperJoin", component: KeeperJoinView}, //운송원회원 창
   {path: "/login", name: "login", component: LoginView},
   {path: "/myPage", name: "MyPage", component: MypageView},
   {path: "/myPageUpdate", name: "MyPageUpdate", component: MyPageUpdateView},
@@ -104,7 +108,6 @@ const routes = [
 
 
   //성호
-  {path: "/supplies", name: "supplies", component: SuppliesVue},
   {path: "/supplies", name: "supplies", component: SuppliesVue},
   {path: "/share", name: "share", component: PlannerShareView},
   {path: "/share/:id", name: "shareDetails", component: PlannerShareDetailsViewView,},
@@ -231,8 +234,7 @@ const router = new VueRouter({
 });
 
 router.beforeResolve((to, from, next) => {
-
-  if (to.path === "/login" || to.path === "/join" || to.path === "/") {
+  if (to.path === "/login" || to.path === "/join" || to.path === "/" || to.path === "/userJoin" || to.path === "/deliveryJoin" || to.path === "/keeperJoin") {
     next();
   } else {
     const dd = async () => {
