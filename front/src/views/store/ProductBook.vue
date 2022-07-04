@@ -36,6 +36,15 @@
       >
       </v-row>
       <v-row>
+        <v-select
+          v-model="room"
+          :items="roomItems"
+          item-text="text"
+          :value="lists.room"
+          @change="picRoom"
+        />
+      </v-row>
+      <v-row>
         <v-btn @click="book">
           예약하기
         </v-btn>
@@ -63,7 +72,15 @@ export default {
     st_date: '',
     end_date: '',
 
-    dateArr: [],
+    copy:[],
+
+    lists:[],
+    room: '',
+    roomItems:[
+      {text: '101호', value: '101'},
+    ],
+
+    roomBookList:{},
 
     productTime: [],
 
@@ -80,20 +97,6 @@ export default {
       .then((res) => {
         this.productTime = res.data
         console.log(this.productTime)
-
-        const tempDate = new Date(this.st_date)
-        const endDate = new Date(this.end_date)
-
-        for (let i = 0; tempDate <= endDate; i++) {
-          this.dateArr.push(this.dateFormat(tempDate))
-          tempDate.setDate(tempDate.getDate() + 1)
-        }
-        console.log(this.dateArr)
-
-        const PayBook = {};
-
-        PayBook["pd_id"] = productTime.pd_id
-        // PayBook["room_num"] 셀렉트로 방 번호 입력 받은거 넣기
       })
       .catch((err) => {
         console.log(err)
@@ -102,6 +105,10 @@ export default {
   methods: {
     productBook() {
       let BookInfo = {}
+    },
+
+    picRoom(){
+      console.log(this.room)
     },
 
     ex() {
@@ -137,7 +144,34 @@ export default {
 
 
     book() {
-      alert("예약이 완료 되었습니다.")
+
+      const dateArr = []
+
+      const tempDate = new Date(this.st_date)
+      const endDate = new Date(this.end_date)
+
+      for (; tempDate <= endDate - 1;) {
+        dateArr.push(this.dateFormat(tempDate))
+        tempDate.setDate(tempDate.getDate() + 1)
+      }
+
+      console.log(dateArr)
+
+      const bookInfo = []
+
+      dateArr.forEach((it)=>{
+
+        const payBook = {};
+        payBook["pd_id"] = this.productTime[0].pd_id
+        payBook["date"] = it
+        payBook["room_num"] = this.room
+
+        bookInfo.push(payBook)
+
+      })
+
+      console.log(bookInfo)
+
       // axios({
       //   method: 'PUT',
       //   url: '/api/productPut',
@@ -153,11 +187,10 @@ export default {
       axios({
         method: 'POST',
         url: '/api/productPost',
-        data: {},
-        params: {
-          'product_time_num': this.productTime[0].product_time_num, 'user_id': this.$store.state.user.userId,
-          'pay_price': this.product.pd_price
-        }
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(bookInfo),
       })
         .then((res) => {
 
@@ -165,6 +198,10 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+
+      alert("예약이 완료 되었습니다.")
+
+
     }
   },
 }
