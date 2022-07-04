@@ -13,10 +13,6 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 import OrderDetail from "@/components/order/OrderDetail";
 import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
-
-//가방 보관
-
-
 import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
 import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
@@ -80,11 +76,12 @@ import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
 import ProductBook from "@/views/store/ProductBook";
 import productBookView from "@/views/store/productBookView";
+import GuideReserve from "@/views/guide/GuideReserve";
 import GuideProductTime from "@/views/guide/GuideProductTime";
 import UserJoinView from "@/views/auth/UserJoinView";
 import DeliveryJoinView from "@/views/auth/DeliveryJoinView";
 import LoginView from "@/views/auth/LoginView";
-import joinView from "@/views/auth/JoinView";
+import joinView from "@/views/auth";
 import KeeperJoinView from "@/views/auth/KeeperJoinView";
 
 
@@ -216,6 +213,7 @@ const routes = [
   {path: "/GuideProduct/Search/:keyword", name: "GuideProductSearch", component: GuideProductSearch, props: true},
   {path: "/GuideIntro/:user_id", name: "GuideIntro", component: GuideIntro},
   {path: "/GuideReserveInfo", name: "GuideReserveInfo", component: GuideReserveInfo},
+  {path: "/GuideReserve", name:"GuideReserve", component: GuideReserve},
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},
