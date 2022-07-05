@@ -30,7 +30,7 @@ public class CustomDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         System.out.println(username);
-        Optional<UserDTO> user = userMapper.selectId(username);
+        Optional<UserDAO> user = userMapper.selectId(username);
         System.out.println(user.isEmpty());
         if(user.isEmpty()) throw new UsernameNotFoundException(username);
 

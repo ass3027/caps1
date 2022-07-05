@@ -66,7 +66,7 @@ public class ApiUser {
     }
 
     @GetMapping("/find")
-    public UserDTO findUser() {
+    public UserDAO findUser() {
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         return userMapper.selectId(user_id).get();
     }
@@ -87,7 +87,7 @@ public class ApiUser {
     @GetMapping("/data/{id}")
     public UserDTO getUserInfoById(@PathVariable String id){
          //반환데이터형식
-        return userMapper.selectId(id).get();
+        return userMapper.getDeliveryInfoById(id).get();
     }
 
 
@@ -95,7 +95,7 @@ public class ApiUser {
     @GetMapping("/userid")
     public boolean getUserIdCheck( //반환타입,함수명
         @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
-        Optional<UserDTO> id = userMapper.selectId(pp); //
+        Optional<UserDAO> id = userMapper.selectId(pp); //
         return id.isEmpty();
 //        if (id.isEmpty()){
 //            return true;
