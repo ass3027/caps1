@@ -63,8 +63,6 @@ import ReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
-import KakaoMap from "@/components/KakaoMap";
-
 //민아
 import MypageView from "@/views/auth/MypageView";
 import BookMarkView from "@/views/auth/BookMarkView";
@@ -158,23 +156,6 @@ const routes = [
   //---------------------------------------------------------------//
 
 
-  // {path: "/plInvite", name: "plInvite", component: PlInviteView},
-  // {path: "/plan", name: "plan", component: PlanView},
-  // {path: "/planPic", name: "planPic", component: PlannerPicView},
-
-  // {path: "/GuideView", name: "GuideView", component: GuideView},
-  // {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
-  // {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg},
-
-  // {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props: true,},
-  // {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true,},
-  // {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
-
-  // {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true,},
-  // {path: "/ReviewCreateView", name: "ReviewCreateView", component: ReviewCreateView,},
-  // {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
-  //
-  // {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},
 
 
   {path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
@@ -217,10 +198,9 @@ router.beforeResolve((to, from, next) => {
   } else {
     const dd = async () => {
       try {
-        const id = await axios.get("/api/user/id");
-        await store.dispatch("user/setUser", id.data);
-        if ("anonymousUser" !== id.data) {
-          console.log("login")
+        const { data } = await axios.get("/api/user/find");
+        await store.dispatch("user/setUser", {"id":data.user_id , "role":data.role});
+        if ("anonymousUser" !== data) {
           const photo = await axios.get("/api/user/photo")
           EventBus.$emit("photoUpdate", photo.data)
           next()

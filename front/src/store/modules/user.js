@@ -10,7 +10,6 @@ export default {
   getters: {
     isLogin(state) {
       return state.userId !== 'anonymousUser';
-
     }
   },
   mutations: {
@@ -26,7 +25,7 @@ export default {
   actions: {
     setUser: function ({commit, state}, user) {
 
-      commit('updateUserId', user.id)
+      commit('updateUser', user)
       if (user.id === '') {
         commit('updatePlanId', 0)
         return;
