@@ -29,8 +29,6 @@
             <planner-share-card :share-set="item" />
           </v-col>
         </v-row>
-        <place-recommend />
-        <best-place />
       </v-col>
     </v-row>
   </v-container>
@@ -39,14 +37,12 @@
 <script>
 
 import axios from 'axios';
-import PlaceRecommend from "@/components/recommend/PlaceRecommend";
-import bestPlace from "@/components/recommend/BestPlace";
 import PlannerShareCard from "@/components/recommend/PlannerShareCard";
 
 
 export default {
   name: "PlannerShareView",
-  components: {PlaceRecommend, bestPlace, PlannerShareCard},
+  components: { PlannerShareCard},
   data() {
     return {
       sets: [],
@@ -57,6 +53,7 @@ export default {
   mounted() {
     axios.get('/api/getSharePosts')
       .then((res) => {
+        //날짜변환
         let now = new Date()
         let today = new Date(now.toLocaleDateString());
         res.data.forEach(i => {
@@ -68,6 +65,7 @@ export default {
           }
         })
         this.tableSets = res.data;
+        console.log(this.tableSets)
       })
   },
   methods: {

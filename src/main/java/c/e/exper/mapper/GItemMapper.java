@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface GItemMapper {
 
-    @Insert("INSERT INTO gitem VALUES(GITEM_SEQ.NEXTVAL,#{gitem.user_id},#{gitem.pl_id},#{gitem.introduce},#{gitem.st_date},#{gitem.require_time},#{gitem.end_date}, #{gitem.gitem_price})")
+    @Insert("INSERT INTO gitem VALUES(GITEM_SEQ.NEXTVAL,#{gitem.user_id},#{gitem.pl_id},#{gitem.introduce},#{gitem.st_date},#{gitem.require_time},#{gitem.end_date}, #{gitem.gitem_price} ,#{gitem.gname})")
     void insert(@Param("gitem") GItemDAO gitem);
 
     @Insert("INSERT INTO available_time(time_num,gitem_id,st_time,end_time,gdate) values(TIME_NUM.NEXTVAL, #{available_time.gitem_id}, #{available_time.st_time}, #{available_time.end_time}, #{available_time.gdate})")
@@ -45,6 +45,43 @@ public interface GItemMapper {
             "where  g.gitem_id = a.gitem_id and p.pl_id = g.pl_id and payment.gtime_num = a.time_num and payment.user_id = #{id}")
     List<GItemDAO> selectTimes(@Param("id") String id);
 
-    @Select("select count(a.GITEM_ID) AS count from AVAILABLE_TIME a, gitem g where g.GITEM_ID =a.GITEM_ID and g.USER_ID =#{id} and a.BOOK_WHETHER=1")
+    @Select("select sum(PAY_PRICE)as count\n" +
+            "from PAYMENT\n" +
+            "where gtime_num in (select TIME_NUM\n" +
+            "                    from AVAILABLE_TIME\n" +
+            "                    where GITEM_ID in (select GITEM_ID\n" +
+            "                                       from GITEM\n" +
+            "                                       where USER_ID = #{id}))")
     GItemDAO selectCount(@Param("id") String id);
+
+    @Select("select sum(PAY_PRICE)as count7\n" +
+            "from PAYMENT\n" +
+            "where gtime_num in (select TIME_NUM\n" +
+            "                    from AVAILABLE_TIME\n" +
+            "                    where GITEM_ID in (select GITEM_ID\n" +
+            "                                       from GITEM\n" +
+            "                                       where USER_ID = #{id}))" +
+            "and SYSDATE-7 < PAY_TIME")
+    GItemDAO selectCount7(@Param("id") String id);
+
+    @Select("select sum(PAY_PRICE)as count1\n" +
+            "from PAYMENT\n" +
+            "where gtime_num in (select TIME_NUM\n" +
+            "                    from AVAILABLE_TIME\n" +
+            "                    where GITEM_ID in (select GITEM_ID\n" +
+            "                                       from GITEM\n" +
+            "                                       where USER_ID = #{id}))\n" +
+            "and to_char(PAY_TIME,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd')")
+    GItemDAO selectCount1(@Param("id") String id);
+
+    @Select("select sum(PAY_PRICE)as count30\n" +
+            "from PAYMENT\n" +
+            "where gtime_num in (select TIME_NUM\n" +
+            "                    from AVAILABLE_TIME\n" +
+            "                    where GITEM_ID in (select GITEM_ID\n" +
+            "                                       from GITEM\n" +
+            "                                       where USER_ID = #{id}))\n" +
+            "and to_char(PAY_TIME,'yyyy-mm-dd') > TO_CHAR(SYSDATE-30,'yyyy-mm-dd')")
+    GItemDAO selectCount30(@Param("id") String id);
+
 }

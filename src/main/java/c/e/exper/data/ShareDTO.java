@@ -23,5 +23,6 @@ public class ShareDTO {
     String plan_id;
     String share_count;
     List<SharePictureDAO> pic_name;
+    List<String> firstimage;
 
 }

@@ -90,17 +90,19 @@ public class ApiPlace {
       System.out.println("/place/{areaCode}/{cat1}/{keyword} : " + keyword);
       return placeService.장소_검색(areaCode,cat1,keyword);
    }
+
+   @GetMapping("/placeA01/{contenttypeid}")
+   public List<PlaceDAO> keywordByPlaceA01(@PathVariable("contenttypeid")String contenttypeid,
+                                           @RequestParam("keyword")String keyword) {
+      System.out.println("/placeA01/" + contenttypeid + keyword);
+      return placeMapper.keywordByPlaceA01(contenttypeid, keyword);
+   }
+      
    @GetMapping("/placeTour/{areaCode}/{contenttypeid}/{keyword}")
    public List<PlaceDAO> keywordTourList(@PathVariable String areaCode,@PathVariable String contenttypeid,@PathVariable("keyword")String keyword) {
       System.out.println("/place/{areaCode}/{contenttypeid}/{keyword} : " + keyword);
       return placeService.장소_검색Tour(areaCode,contenttypeid,keyword);
    }
-   @GetMapping("/placeA01/{keyword}")
-   public List<PlaceDAO> keywordByPlaceA01(@PathVariable("keyword")String keyword) {
-      System.out.println("/placeA01/" + keyword);
-      return placeMapper.keywordByPlaceA01(keyword);
-   }
-
 
 
 
