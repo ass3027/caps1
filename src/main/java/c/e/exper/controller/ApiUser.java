@@ -66,7 +66,8 @@ public class ApiUser {
     }
 
     @GetMapping("/find")
-    public UserDAO findUser(String user_id) {
+    public UserDAO findUser() {
+        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         return userMapper.selectId(user_id).get();
     }
 
@@ -193,9 +194,8 @@ public class ApiUser {
 
     @GetMapping("/orders")
     public List<OrderDAO> getUserOrders(String user_id){
-        List<OrderDAO> orderDAOS = userMapper.selectUserOrders(user_id);
 
-        return orderDAOS;
+        return userMapper.selectUserOrders(user_id);
     }
 
     @PostMapping("/apiTest")
