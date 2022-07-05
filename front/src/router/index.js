@@ -13,6 +13,14 @@ import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
 import OrderDetail from "@/components/order/OrderDetail";
 import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
+import placeSuppliesView from "@/views/supply/PlaceSuppliesView";
+import mainView from "@/views/MainView";
+import TourDetailView from "@/views/TourDetailView";
+
+//가방 보관
+import BagReserveView from '../views/bag/order/SelectionOrder.vue'
+import TrackingView from "@/views/bag/TrackingView";
+=======
 import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
 import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
@@ -113,6 +121,9 @@ const routes = [
   {path: "/bsh", name: "bsh", component: testBshView},
   {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView, props: true},
   {path: "/placeSupplies", name: "placeSupplies", component: PlaceSuppliesView},
+  {path: "/", name: "main", component: mainView},
+  {path: "/tour/:pl_id", name: "tourDetail", component: TourDetailView,props:true},
+
 
   //혁태
   {path: "/place/:category", name: "place", component: HotelView, props: true},
@@ -125,7 +136,7 @@ const routes = [
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 
   //세진
-  {path: "/calender", name: "calender", component: CalenderView},
+  {path: "/calender", name: "calender", component: CalenderView,props: true},
   {path: "/plInvite", name: "plInvite", component: PlInviteView},
   {path: "/plan", name: "plan", component: PlanView},
   {path: "/planPic", name: "planPic", component: PlannerPicView},
