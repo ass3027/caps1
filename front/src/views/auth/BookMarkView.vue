@@ -89,9 +89,6 @@ export default {
       selected: '모두보기',
     }
   },
-  computed: {
-
-  },
   mounted() {
     axios.get("/api/bookmark/BookMark")
     .then((res)=>{
@@ -194,6 +191,9 @@ export default {
 
       this.select_type()
     },
+
+  },
+  computed: {
 
   }
 }

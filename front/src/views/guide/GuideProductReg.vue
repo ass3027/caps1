@@ -36,7 +36,15 @@
             </div>
 
 
-
+        <div class="textForm">
+          <input
+            v-model="gname"
+            name="guideIntro"
+            type="text"
+            class="intro"
+            placeholder="상품이름"
+          >
+        </div>
 
         <div class="textForm">
           <input
@@ -87,6 +95,7 @@
             placeholder="상품가격"
           >
         </div>
+
       </v-col>
     </v-row>
 
@@ -127,6 +136,7 @@ export default {
       require_time:'',
       end_date:'',
       gitem_price:'',
+      gname:'',
     }
   },
   methods:{
@@ -142,6 +152,7 @@ export default {
 
       sendform.append('user_id', this.$store.state.user.userId);
       sendform.append('pl_id', this.lodging.pl_id);
+      sendform.append('gname', this.gname);
       sendform.append('introduce', this.introduce);
       sendform.append('st_date', this.st_date);
       sendform.append('require_time', this.require_time);
@@ -162,10 +173,10 @@ export default {
       }).then((res) => {
         console.log(res)
         if (res.data === '') {
-          alert('가입성공');
+          alert('상품등록');
 
         }else{
-          alert('가입실패');
+          alert('등록실패');
         }
 
       });
