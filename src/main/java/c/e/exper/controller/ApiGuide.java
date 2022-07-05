@@ -40,6 +40,24 @@ public class ApiGuide {
         return guideService.매출_조회(id);
     }
 
+    @GetMapping("/gcount7")
+    public GItemDAO findCount7(String id){
+        return guideService.매출_조회7(id);
+    }
+
+
+    @GetMapping("/gcount1")
+    public GItemDAO findCount1(String id){
+        System.out.println("매출조회1");
+        return guideService.매출_조회1(id);
+    }
+
+    @GetMapping("/gcount30")
+    public GItemDAO findCount30(String id){
+        return guideService.매출_조회30(id);
+    }
+
+
     @GetMapping("/gitemview/{id}")
     public GItemDAO findGitem(@PathVariable("id") String id){
         System.out.println("상품 상세보기");
