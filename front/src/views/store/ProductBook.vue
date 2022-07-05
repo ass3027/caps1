@@ -171,62 +171,62 @@ export default {
 
     book() {
 
-      var IMP = window.IMP;
-      IMP.init('imp19569487');
-      console.log(this.lists)
-      IMP.request_pay({
-        pg: "html5_inics",
-        pay_method: "card",
-        merchant_uid: "iamport_test_id" + new Date().getTime(),
-        name: this.product.title,
-        amount: this.product.pd_price,
-        buyer_email: "testiamport@naver.com",
-        buyer_name: this.$store.state.user.userId,
-        buyer_tel: "01012341234"
-      }, rsp => {
-        console.log(rsp);
-
-        if (rsp.success) {
-          axios({
-            method: 'POST',
-            url: '/api/productPost',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            data: JSON.stringify(bookInfo),
-          })
-            .then((res) => {
-            })
-            .catch((err) => {
-              console.log(err)
-            })
-          console.log(rsp)
-        }
-      })
-      const dateArr = []
-
-      const tempDate = new Date(this.st_date)
-      const endDate = new Date(this.end_date)
-
-      for (; tempDate <= endDate - 1;) {
-        dateArr.push(this.dateFormat(tempDate))
-        tempDate.setDate(tempDate.getDate() + 1)
-      }
-      console.log(dateArr)
-
-      const bookInfo = []
-
-      dateArr.forEach((it) => {
-
-        const payBook = {};
-        payBook["pd_id"] = this.productTime[0].pd_id
-        payBook["date"] = it
-        payBook["room_num"] = this.room
-
-        bookInfo.push(payBook)
-
-      })
-      console.log(bookInfo)
+      // var IMP = window.IMP;
+      // IMP.init('imp19569487');
+      // console.log(this.lists)
+      // IMP.request_pay({
+      //   pg: "html5_inics",
+      //   pay_method: "card",
+      //   merchant_uid: "iamport_test_id" + new Date().getTime(),
+      //   name: this.product.title,
+      //   amount: this.product.pd_price,
+      //   buyer_email: "testiamport@naver.com",
+      //   buyer_name: this.$store.state.user.userId,
+      //   buyer_tel: "01012341234"
+      // }, rsp => {
+      //   console.log(rsp);
+      //
+      //   if (rsp.success) {
+      //     axios({
+      //       method: 'POST',
+      //       url: '/api/productPost',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //       data: JSON.stringify(bookInfo),
+      //     })
+      //       .then((res) => {
+      //         alert("예약이 완료 되었습니다.")
+      //       })
+      //       .catch((err) => {
+      //         console.log(err)
+      //       })
+      //     console.log(rsp)
+      //   }
+      // })
+      // const dateArr = []
+      //
+      // const tempDate = new Date(this.st_date)
+      // const endDate = new Date(this.end_date)
+      //
+      // for (; tempDate <= endDate - 1;) {
+      //   dateArr.push(this.dateFormat(tempDate))
+      //   tempDate.setDate(tempDate.getDate() + 1)
+      // }
+      // console.log(dateArr)
+      //
+      // const bookInfo = []
+      //
+      // dateArr.forEach((it) => {
+      //
+      //   const payBook = {};
+      //   payBook["pd_id"] = this.productTime[0].pd_id
+      //   payBook["date"] = it
+      //   payBook["room_num"] = this.room
+      //
+      //   bookInfo.push(payBook)
+      //
+      // })
       // axios({
       //   method: 'PUT',
       //   url: '/api/productPut',
@@ -238,8 +238,82 @@ export default {
       //   .catch((err) => {
       //     console.log(err)
       //   })
-      alert("예약이 완료 되었습니다.")
+
+
+
+      axios({
+        method: 'GET',
+        url: '/api/productNoBook',
+        params: {
+          'pd_id': this.product.pd_id,
+          'pay_id': this.productTime[0].pay_id,
+        }
+      })
+        .then((res) => {
+          console.log(res.data)
+          if (res.date.max_room_num  >= res.data.count) {
+            alert("예약 가능한 방이 없습니다.")
+          } else {
+            var IMP = window.IMP;
+            IMP.init('imp19569487');
+            console.log(this.lists)
+            IMP.request_pay({
+              pg: "html5_inics",
+              pay_method: "card",
+              merchant_uid: "iamport_test_id" + new Date().getTime(),
+              name: this.product.title,
+              amount: this.product.pd_price,
+              buyer_email: "testiamport@naver.com",
+              buyer_name: this.$store.state.user.userId,
+              buyer_tel: "01012341234"
+            }, rsp => {
+              console.log(rsp);
+
+              if (rsp.success) {
+                axios({
+                  method: 'POST',
+                  url: '/api/productPost',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  data: JSON.stringify(bookInfo),
+                })
+                  .then((res) => {
+                    alert("예약이 완료 되었습니다.")
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                  })
+                console.log(rsp)
+              }
+            })
+            const dateArr = []
+
+            const tempDate = new Date(this.st_date)
+            const endDate = new Date(this.end_date)
+
+            for (; tempDate <= endDate - 1;) {
+              dateArr.push(this.dateFormat(tempDate))
+              tempDate.setDate(tempDate.getDate() + 1)
+            }
+            console.log(dateArr)
+
+            const bookInfo = []
+
+            dateArr.forEach((it) => {
+
+              const payBook = {};
+              payBook["pd_id"] = this.productTime[0].pd_id
+              payBook["date"] = it
+              payBook["room_num"] = this.room
+
+              bookInfo.push(payBook)
+
+            })
+          }
+        })
     },
+
   }
 }
 </script>

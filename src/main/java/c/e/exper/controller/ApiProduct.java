@@ -1,14 +1,13 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.BookDAO;
-import c.e.exper.data.BookDTO;
-import c.e.exper.data.ProductDAO;
-import c.e.exper.data.ProductTime;
+import c.e.exper.data.*;
 import c.e.exper.mapper.ProductMapper;
 import oracle.ucp.proxy.annotation.Post;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -45,7 +44,12 @@ public class ApiProduct {
 
     @PostMapping("/productPost")
     public void productPost(@RequestBody List<ProductTime> bookInfo) {
+        PaymentDAO payment = PaymentDAO.builder()
+                .pay_time(LocalDateTime.now())
+                .
+                .build();
         bookInfo.forEach(it -> {
+            it.setPay_id();
             productMapper.product_Time_Insert(it);
         });
     }
@@ -73,8 +77,30 @@ public class ApiProduct {
         return bookDTOs;
     }
 
+    @GetMapping("/chart")
+    public ProductDAO select(String id){
+        return productMapper.product_Sales(id);
+    }
+
+    @GetMapping("/chart1")
+    public ProductDAO select1(String id){
+        return productMapper.product_Sales1(id);
+    }
+
     @GetMapping("/chart7")
-    public ProductDAO select7(@RequestParam("id")String user_id){
-        return productMapper.product_Sales7(user_id);
+    public ProductDAO select7(String id){
+        return productMapper.product_Sales7(id);
+    }
+
+    @GetMapping("/chart30")
+    public ProductDAO select30(String id){
+        System.out.println(productMapper.product_Sales30(id) + "asdfasdfa" +id);
+        return productMapper.product_Sales30(id);
+    }
+
+    @GetMapping("/productNoBook")
+    public List<BookDAO> productNoBook(String pd_id, String pay_id){
+        System.out.println("pd_id + \"  \" +pay_id = " + pd_id + "  " +pay_id);
+        return productMapper.product_book_no(pd_id, pay_id);
     }
 }

@@ -7,6 +7,7 @@ import c.e.exper.data.ProductDAO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.security.core.parameters.P;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @Mapper
@@ -60,7 +61,30 @@ public interface ProductMapper {
 
 
     @Select("""
-            select sum(PAY_PRICE) as 일주일
+            select sum(PAY_PRICE) as count
+            from PAYMENT, PRODUCT_TIME
+            where PAYMENT.PAY_ID = PRODUCT_TIME.PAY_ID and PAYMENT.PAY_ID in (select PRODUCT_TIME.PAY_ID
+                                                                              from PRODUCT_TIME
+                                                                              where PD_ID in (select PRODUCT.PD_ID
+                                                                                              from PRODUCT, PLACE
+                                                                                              where PLACE.PL_ID = PRODUCT.PL_ID and place.USER_ID = #{id}))
+            """)
+    ProductDAO product_Sales(@Param("id")String id);
+
+    @Select("""
+            select sum(PAY_PRICE) as count1
+            from PAYMENT, PRODUCT_TIME
+            where PAYMENT.PAY_ID = PRODUCT_TIME.PAY_ID and PAYMENT.PAY_ID in (select PRODUCT_TIME.PAY_ID
+                                                                              from PRODUCT_TIME
+                                                                              where PD_ID in (select PRODUCT.PD_ID
+                                                                                              from PRODUCT, PLACE
+                                                                                              where PLACE.PL_ID = PRODUCT.PL_ID and place.USER_ID = #{id}))
+            and to_char(PAY_TIME,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd')
+            """)
+    ProductDAO product_Sales1(@Param("id")String id);
+
+    @Select("""
+            select sum(PAY_PRICE) as count7
             from PAYMENT, PRODUCT_TIME
             where PAYMENT.PAY_ID = PRODUCT_TIME.PAY_ID and PAYMENT.PAY_ID in (select PRODUCT_TIME.PAY_ID
                                                                               from PRODUCT_TIME
@@ -71,42 +95,29 @@ public interface ProductMapper {
             """)
     ProductDAO product_Sales7(@Param("id")String id);
 
-//    @Select("select sum(PAY_PRICE)as count\n" +
-//            "from PAYMENT\n" +
-//            "where gtime_num in (select TIME_NUM\n" +
-//            "                    from AVAILABLE_TIME\n" +
-//            "                    where GITEM_ID in (select GITEM_ID\n" +
-//            "                                       from GITEM\n" +
-//            "                                       where USER_ID = #{id}))")
-//    GItemDAO selectCount(@Param("id") String id);
-//
-//    @Select("select sum(PAY_PRICE)as count7\n" +
-//            "from PAYMENT\n" +
-//            "where gtime_num in (select TIME_NUM\n" +
-//            "                    from AVAILABLE_TIME\n" +
-//            "                    where GITEM_ID in (select GITEM_ID\n" +
-//            "                                       from GITEM\n" +
-//            "                                       where USER_ID = #{id}))" +
-//            "and SYSDATE-7 < PAY_TIME")
-//    GItemDAO selectCount7(@Param("id") String id);
-//
-//    @Select("select sum(PAY_PRICE)as count1\n" +
-//            "from PAYMENT\n" +
-//            "where gtime_num in (select TIME_NUM\n" +
-//            "                    from AVAILABLE_TIME\n" +
-//            "                    where GITEM_ID in (select GITEM_ID\n" +
-//            "                                       from GITEM\n" +
-//            "                                       where USER_ID = #{id}))\n" +
-//            "and to_char(PAY_TIME,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd')")
-//    GItemDAO selectCount1(@Param("id") String id);
-//
-//    @Select("select sum(PAY_PRICE)as count30\n" +
-//            "from PAYMENT\n" +
-//            "where gtime_num in (select TIME_NUM\n" +
-//            "                    from AVAILABLE_TIME\n" +
-//            "                    where GITEM_ID in (select GITEM_ID\n" +
-//            "                                       from GITEM\n" +
-//            "                                       where USER_ID = #{id}))\n" +
-//            "and to_char(PAY_TIME,'yyyy-mm-dd') > TO_CHAR(SYSDATE-30,'yyyy-mm-dd')")
-//    GItemDAO selectCount30(@Param("id") String id);
+    @Select("""
+            select sum(PAY_PRICE) as count30
+            from PAYMENT, PRODUCT_TIME
+            where PAYMENT.PAY_ID = PRODUCT_TIME.PAY_ID and PAYMENT.PAY_ID in (select PRODUCT_TIME.PAY_ID
+                                                                              from PRODUCT_TIME
+                                                                              where PD_ID in (select PRODUCT.PD_ID
+                                                                                              from PRODUCT, PLACE
+                                                                                              where PLACE.PL_ID = PRODUCT.PL_ID and place.USER_ID = #{id}))
+            and to_char(PAY_TIME,'yyyy-mm-dd') > TO_CHAR(SYSDATE-30,'yyyy-mm-dd')
+            """)
+    ProductDAO product_Sales30(@Param("id")String id);
+
+    @Select("""
+            select p.pd_id, c."date", p.MAX_ROOM_NUM, c.count, c.PAY_ID
+            from product p,
+                 (select count(*) count, PD_ID, "date", PAY_ID
+                  from PRODUCT_TIME t
+                  group by "date", PD_ID, PAY_ID
+                 ) c
+            where p.PD_ID = c.PD_ID
+            and p.PD_ID = #{pd_id} and c.PAY_ID = #{pay_id}
+            and p.MAX_ROOM_NUM > c.count
+            """)
+    List<BookDAO> product_book_no(@Param("pd_id")String pd_id, @Param("pay_id")String pay_id);
+
 }

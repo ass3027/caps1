@@ -9,37 +9,29 @@
 <script>
 // import { Bar } from 'vue-chartjs/legacy'
 
-import { Chart, registerables } from 'chart.js'
+import {Chart, registerables} from "chart.js";
+
+Chart.register(...registerables)
 import axios from "axios";
+
 Chart.register(...registerables)
 let chart
 
 
 export default {
-  name:"chartView",
+  name: "chartView",
 
-  props:{
-    height:{
-      type:String,
-      required:true
-    },
-    firstData:{
-      type:String,
-      required:true
-    },
-    secondData:{
-      type:String,
-      required:true
-    }
-  },
-
-  data:() => ({
+  data: () => ({
+    list: '',
+    list1: '',
+    list7: '',
+    list30: '',
     type: 'bar',
     data: {
-      labels: [ 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' ],
+      labels: ['총 매출', '최근 한달', '최근 7일', '금일'],
       datasets: [{
         label: '# of Votes',
-        data: [ '', '', '', '', '', '' ],
+        data: ['','','',''],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -67,21 +59,99 @@ export default {
       }
     }
   }),
-  mounted(){
-    
-    this.createChart()
+  created() {
+    this.a()
   },
-  methods:{
-    createChart(){
+
+  methods: {
+    async a() {
+      await this.productSales1()
+      await this.productSales7()
+      await this.productSales30()
+
+      this.productSales()
+    },
+
+    createChart() {
       new Chart(this.$refs.barChart, {
-        type:'bar',
-        data:this.data,
-        options:this.options
+        type: 'bar',
+        data: this.data,
+        options: this.options
       })
-      chart.data.datasets[0].data[0] = this.firstData
-      chart.data.datasets[0].data[1] = this.secondData
-      chart.update()
-    }
+    },
+
+
+    productSales() {
+      axios({
+        method: 'GET',
+        url: '/api/chart',
+        params: {
+          'id': this.$store.state.user.userId
+        }
+      })
+        .then((res) => {
+          this.list = res.data.count;
+
+          this.data.datasets[0].data[0] = this.list
+          this.data.datasets[0].data[3] = this.list1
+          // this.data.datasets[0].data.unshift(this.list7) // 7일
+          // this.data.datasets[0].data.unshift(this.list30)// 30일
+          // this.data.datasets[0].data.unshift(this.list) //총
+          this.createChart()
+
+        })
+    },
+
+    productSales1() {
+      axios({
+        method: 'GET',
+        url: '/api/chart1',
+        params: {
+          'id': this.$store.state.user.userId
+        }
+      })
+        .then((res1) => {
+          this.list = res1.data.count1;
+
+          this.list1 = res1.data.count1;
+          this.data.datasets[0].data[3] = res1.data.count1;
+          // this.data.datasets[0].data.unshift(this.list7) // 7일
+          // this.data.datasets[0].data.unshift(this.list30)// 30일
+          // this.data.datasets[0].data.unshift(this.list) //총
+        })
+    },
+
+    productSales7(){
+      axios({
+        method:'GET',
+        url:'/api/chart7',
+        params:{
+          'id':this.$store.state.user.userId
+        }
+      }).then((res7)=>{
+
+        this.list7 = res7.data.count7;
+        this.data.datasets[0].data[2]= res7.data.count7
+        // this.data.datasets[0].data.unshift(this.list7) // 7일
+
+      })
+    },
+
+    productSales30(){
+      axios({
+        method:'GET',
+        url:'/api/chart30',
+        params:{
+          'id':this.$store.state.user.userId
+        }
+      }).then((res30)=>{
+        this.list30 = res30.data.count30;
+        this.data.datasets[0].data[1]= res30.data.count30
+        // this.data.datasets[0].data.unshift(this.list7) // 7일
+        console.log(res30)
+
+      })
+    },
   }
 }
 </script>

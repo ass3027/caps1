@@ -27,4 +27,9 @@ public class ProductDAO {
     String date;
     String product_time_num;
 
+    int count;
+    int count7;
+    int count1;
+    int count30;
+
 }
