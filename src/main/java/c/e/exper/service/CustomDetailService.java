@@ -1,6 +1,7 @@
 package c.e.exper.service;
 
 import c.e.exper.data.UserDAO;
+import c.e.exper.data.UserDTO;
 import c.e.exper.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +30,7 @@ public class CustomDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         System.out.println(username);
-        Optional<UserDAO> user = userMapper.selectId(username);
+        Optional<UserDTO> user = userMapper.selectId(username);
         System.out.println(user.isEmpty());
         if(user.isEmpty()) throw new UsernameNotFoundException(username);
 
