@@ -1,95 +1,89 @@
 <template>
-  <div style="width: 1050px; padding-top: 65px">
-    <MyPageHeader />
+  <div>
+    <div class="head_aticle">
+      <h1 class="tit">
+        회원정보수정
+      </h1>
+    </div>
+    <div>
+      <table style="border-top: 2px solid #333; width: 100%">
+        <tbody>
+        <div style="width: 400px; margin: 0 auto; padding-top: 19px">
+          <v-text-field
+            v-model="user_name"
+            :counter="7"
+            class="name"
+            label="이름"
+            name="name"
+            placeholder="이름"
+            required
+            type="text"
+          />
+
+          <v-text-field
+            v-model="user_id"
+            :counter="30"
+            class="id"
+            label="아이디"
+            name="userId"
+            placeholder="아이디"
+            required
+            type="text"
+          />
+
+          <v-text-field
+            v-model="user_pw"
+            :counter="100"
+            class="pw"
+            label="비밀번호"
+            name="user pw"
+            placeholder="비밀번호를 입력하세요"
+            required
+            type="password"
+          />
+
+          <v-text-field
+            v-model="user_phone"
+            :counter="20"
+            class="phone"
+            label="전화번호"
+            name="user phone"
+            placeholder="전화번호"
+            required
+            type="text"
+          />
+
+          <v-select
+            v-model="preference"
+            :items="items"
+            class="preference"
+            dense
+            label="선호하는 여행방식을 골라주세요"
+          />
+        </div>
+        </tbody>
+      </table>
+    </div>
+
+
     <div
-      class="container"
-      style="width: 820px; float: right; padding: 0"
+      id="button"
+      style="padding: 40px 0;"
     >
-      <div class="head_aticle">
-        <h1 class="tit">
-          회원정보수정
-        </h1>
-      </div>
-      <div style="width: 820px; margin: 0 auto">
-        <table style="border-top: 2px solid #333; width: 100%">
-          <tbody>
-            <div style="width: 400px; margin: 0 auto; padding-top: 19px">
-              <v-text-field
-                v-model="user_name"
-                type="text"
-                name="name"
-                class="name"
-                placeholder="이름"
-                :counter="7"
-                label="이름"
-                required
-              />
-
-              <v-text-field
-                v-model="user_id"
-                type="text"
-                name="userId"
-                class="id"
-                placeholder="아이디"
-                :counter="30"
-                label="아이디"
-                required
-              />
-
-              <v-text-field
-                v-model="user_pw"
-                type="password"
-                name="user pw"
-                class="pw"
-                placeholder="비밀번호를 입력하세요"
-                :counter="100"
-                label="비밀번호"
-                required
-              />
-
-              <v-text-field
-                v-model="user_phone"
-                type="text"
-                name="user phone"
-                class="phone"
-                placeholder="전화번호"
-                :counter="20"
-                label="전화번호"
-                required
-              />
-
-              <v-select
-                v-model="preference"
-                :items="items"
-                label="선호하는 여행방식을 골라주세요"
-                dense
-                class="preference"
-              />
-            </div>
-          </tbody>
-        </table>
-      </div>
-
-
-      <div
-        id="button"
-        style="padding: 40px 0;"
+      <button
+        elevation="3"
+        type="button"
+        @click="main"
       >
-        <button
-          elevation="3"
-          type="button"
-          @click="main"
-        >
-          메인으로 이동
-        </button>
-        <button
-          elevation="3"
-          type="button"
-          @click="Modify"
-        >
-          수정완료
-        </button>
-      </div>
+        메인으로 이동
+      </button>
+      <button
+        elevation="3"
+        type="button"
+        @click="Modify"
+      >
+        수정완료
+      </button>
     </div>
   </div>
 
@@ -97,53 +91,51 @@
 </template>
 
 <script>
-import MyPageHeader from "@/components/store/MyPageHeader";
 import axios from "axios";
+
 export default {
-  components:{
-    MyPageHeader
-  },
-  data(){
-    return{
+  components: {},
+  data() {
+    return {
       user_id: '',
       user_pw: '',
       user_phone: '',
       user_name: '',
       user_photo: '',
-      preference:'',
-      items:['사진인증형','맛집탐방형', '관광형', '휴식형']
+      preference: '',
+      items: ['사진인증형', '맛집탐방형', '관광형', '휴식형']
     };
   },
   mounted() {
-    axios.get('/api/user/data/'+ this.$store.state.user.userId)
-      .then( (res)=> {
+    axios.get('/api/user/data/' + this.$store.state.user.userId)
+      .then((res) => {
         this.user_id = res.data.user_id
         // this.user_pw = res.data.user_pw //공백으로 둬야하나?
         this.user_phone = res.data.user_phone
         this.user_name = res.data.user_name
-        this.preference = res.data. preference
+        this.preference = res.data.preference
         // console.log(res.data)
 
       })
-      .catch((err)=>{
-      console.log(err)
+      .catch((err) => {
+        console.log(err)
 
-    })
+      })
   },
-  methods:{
-    onsubmit(){
+  methods: {
+    onsubmit() {
       console.log("성공")
     },
-    login(){
+    login() {
       this.$router.push("/login")
       // this.$router.go();
       console.log("성공")
     },
-    main(){
+    main() {
       this.$router.push("/")
       console.log("성공")
     },
-    Modify(){
+    Modify() {
       var sendform = new FormData()
       console.log(this.user_name)
       sendform.append("user_id", this.user_id)
@@ -154,36 +146,35 @@ export default {
 
 
       axios({
-        method:'post',
+        method: 'post',
         url: '/api/user/dataUpdate',
-        headers:{
-          "Content-Type" : 'multipart/form-data', //사진같은 다양한 파일을 올릴때
+        headers: {
+          "Content-Type": 'multipart/form-data', //사진같은 다양한 파일을 올릴때
         },
-        data:sendform,
+        data: sendform,
       })
 
-      .then((res) => {
-        console.log(res.data)
-        if (res.data === true) {
-          alert('정보수정이 완료되었습니다.');
-          this.$router.push('/MyPage')
-        }
-        else{
-          alert('다시 확인해주세요')
-        }
-      });
+        .then((res) => {
+          console.log(res.data)
+          if (res.data === true) {
+            alert('정보수정이 완료되었습니다.');
+            this.$router.push('/MyPage')
+          } else {
+            alert('다시 확인해주세요')
+          }
+        });
 
     },
-    bookmark(){
+    bookmark() {
       this.$router.push("/BookMark")
     },
-    pay(){
+    pay() {
       this.$router.push("/pay")
     },
-    questions(){
+    questions() {
       this.$router.push("/Questions")
     },
-    mydata(){
+    mydata() {
       this.$router.push("/MyData")
     }
   }
@@ -208,7 +199,7 @@ button {
   outline: none;
 }
 
-header{
+header {
   position: center;
   top: 0;
   left: 0;
@@ -222,11 +213,13 @@ header{
   justify-content: space-between;
   align-items: center;
 }
-#button{
+
+#button {
   position: center;
   text-align: center;
 
 }
+
 /*.textForm {*/
 /*  text-align: center;*/
 /*  position: center;*/
@@ -240,54 +233,55 @@ header{
 
 .id {
   width: 100%;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
   color: #636e72;
-  font-size:20px;
-  height:50px;
+  font-size: 20px;
+  height: 50px;
   background: none;
   text-decoration: cornflowerblue;
   text-underline-position: under;
 }
 
-.name{
+.name {
   width: 100%;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
   color: #636e72;
-  font-size:20px;
-  height:60px;
+  font-size: 20px;
+  height: 60px;
   background: none;
   text-decoration: #5eaf13;
   text-underline: #5eaf13;
 }
 
-.pw{
+.pw {
   width: 100%;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
   color: #636e72;
-  font-size:20px;
-  height:60px;
+  font-size: 20px;
+  height: 60px;
   background: none;
 }
 
-.phone{
+.phone {
   width: 100%;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
   color: #636e72;
-  font-size:20px;
-  height:60px;
+  font-size: 20px;
+  height: 60px;
   background: none;
 }
-.preference{
+
+.preference {
   width: 100%;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
   color: #636e72;
-  font-size:20px;
-  height:60px;
+  font-size: 20px;
+  height: 60px;
   background: none;
 }
 

@@ -20,15 +20,15 @@
       </div>
 
       <div>소개:{{ lists.introduce }}</div>
-      <v-card-title>가격:{{lists.gitem_price}}</v-card-title>
+      <v-card-title>가격:{{ lists.gitem_price }}</v-card-title>
     </v-card-text>
 
-    <v-divider class="mx-4" />
+    <v-divider class="mx-4"/>
 
     <v-card-title>예약시간</v-card-title>
     <v-date-picker
-      @click:date="dateClick"
       v-model="gdate"
+      @click:date="dateClick"
 
     >
 
@@ -60,24 +60,29 @@
         Reserve
       </v-btn>
     </v-card-actions>
+
+    <ReviewView :id="gitem_id" :type="'가이드 상품'"/>
   </v-card>
 </template>
 
 <script>
 import axios from "axios";
+import ReviewView from "@/views/ReviewView";
 
 export default {
   name: "GuideProductView.vue",
-  components: {},
-  props:['gitem_id'],
-  data(){
-    return{
-      lists:'',
-      items:[],
-      selectednum:'',
-      user_id:'',
-      pay_price:'',
-      gdate:'',
+  components: {
+    ReviewView
+  },
+  props: ['gitem_id'],
+  data() {
+    return {
+      lists: '',
+      items: [],
+      selectednum: '',
+      user_id: '',
+      pay_price: '',
+      gdate: '',
     }
   },
   computed() {
@@ -89,69 +94,69 @@ export default {
     const script2 = document.createElement("script")
     script2.src = "https://code.jquery.com/jquery-3.6.0.min.js";
     script2.integrity = "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=";
-    script2.setAttribute("crossOrigin" ,"anonymous");
+    script2.setAttribute("crossOrigin", "anonymous");
 
     document.head.appendChild(script2);
 
     script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
-    script.type="text/javascript"
+    script.type = "text/javascript"
 
     document.head.appendChild(script);
   },
-  methods:{
-    dateClick(){
+  methods: {
+    dateClick() {
       console.log("DDDD")
       axios({
-        method:'get',
-        url:'/api/gtime/' + this.gitem_id,
+        method: 'get',
+        url: '/api/gtime/' + this.gitem_id,
         params: {
           'time': this.gdate
         }
       })
-        .then((res)=>{
+        .then((res) => {
           this.items = res.data;
           console.log('시간상세보기', res.data)
         })
     },
 
-    importGuide(){
+    importGuide() {
       axios({
-        method:'get',
-        url:`/api/gitemview/` + this.gitem_id,
+        method: 'get',
+        url: `/api/gitemview/` + this.gitem_id,
       })
-      .then((res)=>{
-        this.lists = res.data;
-        console.log(res.data + '상품상세보기')
-      })
+        .then((res) => {
+          this.lists = res.data;
+          console.log(res.data + '상품상세보기')
+        })
     },
-    reserve(){
+    reserve() {
 
       var IMP = window.IMP;
       IMP.init('imp19569487');
       console.log(this.lists)
       IMP.request_pay({
-        pg:"html5_inics",
+        pg: "html5_inics",
         pay_method: "card",
-        merchant_uid:"iamport_test_id" + new Date().getTime(),
-        name:this.lists.title,
+        merchant_uid: "iamport_test_id" + new Date().getTime(),
+        name: this.lists.title,
         amount: this.lists.gitem_price,
-        buyer_email:"testiamport@naver.com",
+        buyer_email: "testiamport@naver.com",
         buyer_name: this.$store.state.user.userId,
-        buyer_tel:"01012341234"
-      }, rsp =>{
+        buyer_tel: "01012341234"
+      }, rsp => {
         console.log(rsp);
-        if (rsp.success){
+        if (rsp.success) {
 
           axios({
-            method:'put',
-            url:'/api/gitemTimeUpdate/',
-            params:{
+            method: 'put',
+            url: '/api/gitemTimeUpdate/',
+            params: {
               'id': this.selectednum
             }
           })
-            .then(()=>{
+            .then(() => {
               console.log("O")
-             // this.timeGitem()
+              // this.timeGitem()
             })
           console.log(rsp)
 
@@ -162,20 +167,20 @@ export default {
           sendform.append('gtime_num', this.selectednum)
 
           axios({
-            method:'post',
-            url:'/api/gPayInsert',
-            data:sendform,
-          }).then((res)=>{
+            method: 'post',
+            url: '/api/gPayInsert',
+            data: sendform,
+          }).then((res) => {
             console.log(res + 'success')
           })
 
-        } else{
+        } else {
           alert("실패")
         }
       })
     },
 
-    num(selectednum){
+    num(selectednum) {
       this.selectednum = selectednum
       console.log(this.selectednum)
     },

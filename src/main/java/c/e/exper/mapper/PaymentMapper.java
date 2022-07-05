@@ -1,5 +1,6 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.PaymentDAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -21,5 +22,12 @@ public interface PaymentMapper {
             AND book.pd_id = pr.pd_id
             AND pay.pay_id = book.pay_id
             """)
-    List<Map<String,Object>> getProductBook(String user_id);
+    List<Map<String, Object>> getProductBook(String user_id);
+
+    @Select("""
+            SELECT *
+            FROM payment
+            where user_id = #{user_id}
+            """)
+    List<PaymentDAO> paymentList(String user_id);
 }

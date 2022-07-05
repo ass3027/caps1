@@ -34,38 +34,43 @@
       1:1 문의하기
 
     </a>
-  <!-- <v-tab button type="submit" @click="MyPage">회원정보</v-tab>-->
-  <!-- <v-tab button type="submit" @click="BookMark">즐겨찾기</v-tab>-->
-  <!-- <v-tab button type="submit" @click="UserUpdate">회원정보수정</v-tab>-->
-  <!-- <v-tab button type="submit" @click="questions">문의사항</v-tab>-->
+    <!-- <v-tab button type="submit" @click="MyPage">회원정보</v-tab>-->
+    <!-- <v-tab button type="submit" @click="BookMark">즐겨찾기</v-tab>-->
+    <!-- <v-tab button type="submit" @click="UserUpdate">회원정보수정</v-tab>-->
+    <!-- <v-tab button type="submit" @click="questions">문의사항</v-tab>-->
   </div>
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-    }
+  data() {
+    return {}
   },
   mounted() {
     var currentPath = document.location.pathname.slice(1)
-    var current_li = document.getElementById(currentPath+'')
+    var current_li = document.getElementById(currentPath + '')
     current_li.classList.add('on')
   },
-  methods:{
-    MyPage(){
-      this.$router.push("/MyPage")
+  methods: {
+    change(value) {
+      this.$parent.changeStatus(value)
     },
-    BookMark(){
-      this.$router.push("/Bookmark")
+    MyPage() {
+      this.change("MyPageInfo")
     },
-    UserUpdate(){
-      this.$router.push("/MyPageUpdate")
+    BookMark() {
+      this.change("Bookmark")
+
     },
-    questions(){
-      this.$router.push("/Questions")
+    UserUpdate() {
+      this.change("MyPageUpdate")
+
     },
-    reivews(){
+    questions() {
+      this.change("Questions")
+
+    },
+    reivews() {
 
     }
 
@@ -92,7 +97,7 @@ export default {
 
 #snb .inner_snb {
   border: 1px solid #f2f2f2;
-  border-bottom:0
+  border-bottom: 0
 }
 
 #snb .tit_snb {
@@ -101,11 +106,11 @@ export default {
   font-size: 28px;
   line-height: 35px;
   color: #333;
-  letter-spacing:-1px
+  letter-spacing: -1px
 }
 
 #snb .list_menu li {
-  border-bottom:1px solid #f2f2f2
+  border-bottom: 1px solid #f2f2f2
 }
 
 #snb .list_menu li a {
@@ -117,14 +122,14 @@ export default {
   font-size: 14px;
   color: #666;
   line-height: 20px;
-  letter-spacing:-.3px
+  letter-spacing: -.3px
 }
 
 #snb .list_menu li.on a, #snb .list_menu li a:hover {
   background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg) no-repeat 174px 52%;
   background-size: 6px 11px;
   font-weight: 700;
-  color:#5f0080
+  color: #5f0080
 }
 
 #snb .link_inquire {
@@ -139,17 +144,15 @@ export default {
   background-size: 6px 11px;
   font-size: 12px;
   color: #333;
-  line-height:20px
+  line-height: 20px
 }
 
 #snb .link_inquire .emph {
   display: block;
   padding-bottom: 1px;
   font-weight: 700;
-  font-size:14px
+  font-size: 14px
 }
-
-
 
 
 </style>

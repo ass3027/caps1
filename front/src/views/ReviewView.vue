@@ -3,11 +3,18 @@
     <br>
 
     <div class="xans-element- xans-product xans-product-additional detail_board  ">
-      <review-list
-        :reviews="slice_reviews"
-        @deleteReview="getReviews"
-        @reveiws-updated="reviewsUpdated"
-      />
+
+      <div v-if="reviews.length === 0">
+        리뷰 없음
+      </div>
+
+      <div v-else>
+        <review-list
+          :reviews="slice_reviews"
+          @deleteReview="getReviews"
+          @reveiws-updated="reviewsUpdated"
+        />
+      </div>
     </div>
 
     <p class="btnArea after">
@@ -100,7 +107,7 @@ export default {
     },
     getReviews() {
 
-      axios.get('http://localhost:8080/api/findReviews/' + this.type + '/' + this.id)
+      axios.get('/api/find/reviews/' + this.type + '/' + this.id)
         .then(res => {
           console.log(res.data)
           this.reviews = res.data

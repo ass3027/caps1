@@ -1,5 +1,8 @@
 <template>
   <div>
+    <span>{{ id }}</span>
+    <span>{{ type }}</span>
+
     <review-form
       :id="id"
       :type="type"
@@ -20,8 +23,8 @@ export default {
     type: String,
     id: String,
   },
-  data(){
-    return{
+  data() {
+    return {
       book_id: '',
 
     }
@@ -30,16 +33,16 @@ export default {
     var sendForm = new FormData()
 
     console.log("pay_id" + this.pay_id)
-    const pay_id = this.pay_id+""
+    const pay_id = this.pay_id + ""
     axios({
       method: 'GET',
-      url:'http://localhost:8080/api/findByPay?pay_id='+pay_id,
+      url: 'http://localhost:8080/api/findByPay?pay_id=' + pay_id,
 
     })
       .then((res) => {
         console.log(res.data)
         console.log(1)
-        this.book_id=""+res.data;
+        this.book_id = "" + res.data;
       })
       .catch((err) => {
         console.log(err)

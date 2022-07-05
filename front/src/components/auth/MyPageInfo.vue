@@ -1,46 +1,64 @@
 <template>
   <div
     id="app"
-    style="width: 1050px; padding-top: 65px"
   >
-    <div>
-
-      <MyPageHeader/>
-
-
-      <div v-if="status === 'MyPageInfo'" style="width: 820px; float: right;">
-        <MyPageInfo/>
-      </div>
-      <div v-else-if="status === 'Bookmark'" style="width: 820px; float: right;">
-        <BookMarkView/>
-      </div>
-      <div v-else-if="status === 'MyPageUpdate'" style="width: 820px; float: right;">
-        <MyPageUpdateView/>
-      </div>
-      <div v-else-if="status === 'Questions'" style="width: 820px; float: right;">
-        <QuestionsView/>
-      </div>
+    <div class="head_aticle">
+      <h1 class="tit">
+        회원정보
+      </h1>
     </div>
+    <v-container style="border-top: 2px solid #333">
+      <v-row justify="center">
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="user_name"
+            class="box"
+            label="이름"
+            outlined
+            readonly
+          />
+          <v-text-field
+            v-model="user_id"
+            class="box"
+            label="아이디"
+            outlined
+            readonly
+          />
+          <v-text-field
+            v-model="gender"
+            class="box"
+            label="성별"
+            outlined
+            readonly
+          />
+          <v-text-field
+            v-model="user_phone"
+            class="box"
+            label="연락처"
+            outlined
+            readonly
+          />
+          <v-text-field
+            v-model="preference"
+            class="box"
+            label="내가 선호하는 여행방식"
+            outlined
+            readonly
+          />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
   <!--  </div>-->
 </template>
 <script>
-import MyPageHeader from "@/components/store/MyPageHeader";
-
 import axios from "axios";
-import MyPageInfo from "@/components/auth/MyPageInfo";
-import BookMarkView from "@/views/auth/BookMarkView";
-import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
-import QuestionsView from "@/views/auth/QuestionsView";
 
 export default {
-  components: {
-    MyPageHeader,
-    MyPageInfo,
-    BookMarkView,
-    MyPageUpdateView,
-    QuestionsView
-  },
+  components: {},
 
   data() {
     return {
@@ -51,7 +69,7 @@ export default {
       user_photo: '',
       gender: '',
       preference: '',
-      status: 'MyPageInfo',
+      status: '',
 
     };
   },
