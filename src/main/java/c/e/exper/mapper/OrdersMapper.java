@@ -116,5 +116,13 @@ public interface OrdersMapper {
             """)
     boolean statusChange(@Param("status") String type, @Param("ord_id") String ord_id);
 
+    @Select("""
+            select ENTRUST_TIME,WITHDRAW_TIME,b.title as keep_start,c.title as keep_end, STATUS
+            from ORDERS a,place b, place c
+            where a.user_id=#{user_id}
+            and b.PL_ID=a.KEEP_START
+            and c.PL_ID=a.KEEP_END
+            """)
+    public List<OrderDAO> selectMyOrders(String user_id);
 
 }

@@ -1,45 +1,42 @@
 <template>
-  <div v-if="mode=='place'||mode=='hotel'" >
-    <h2>베스트 {{ mode }}</h2>
-    <v-carousel style="width:300px;height: 300px;">
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
+  <v-row v-if="mode=='place'||mode=='hotel'"  >
+    <v-col
+      v-for="(item,i) in items"
+      :key="i"
+      cols="4"
+    >
+      <img
+        :src="item.firstimage"
+      >
+      <span class="innerText">
+        <h3>{{ item.title }}</h3>
+<!--        <v-btn @click="toCalendar(item)">-->
+<!--          일정에추가-->
+<!--        </v-btn>-->
+      </span>
+    </v-col>
+  </v-row>
+  <!--    가이드시-->
+  <v-row v-else>
+    <v-col
+      v-for="(item,i) in items"
+      :key="i"
+      cols="4"
+    >
+      <img
         :src="item.firstimage"
 
-        reverse-transition="fade-transition"
-        transition="fade-transition"
       >
-        <div class="innerText">
-          <h3>{{ i+1 }}.{{ item.title }}</h3>
-          <v-btn @click="toCalendar(item)">
-            일정에추가
-          </v-btn>
-        </div>
-      </v-carousel-item>
-    </v-carousel>
-  </div>
-  <div v-else>
-<!--    가이드시-->
-    <h2>베스트 {{ mode }}</h2>
-    <v-carousel style="width:300px;height: 300px">
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item.firstimage"
+      <span class="innerText">
+        <h3>{{ item.gname }}</h3>
+<!--        <v-btn @click="toCalendar(item)">-->
+<!--          일정에추가-->
+<!--        </v-btn>-->
+        <p>{{item.introduce}}</p>
+      </span>
 
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      >
-        <div class="innerText">
-          <h3>{{ i+1 }}.{{ item.title }}</h3>
-          <v-btn @click="toCalendar(item)">
-            일정에추가
-          </v-btn>
-        </div>
-      </v-carousel-item>
-    </v-carousel>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -61,7 +58,6 @@ export default {
       axios
         .get('/api/bestPlace')
         .then(res=>{
-          console.log(res.data)
 
           res.data.forEach(i=>{
             if(i.pic_name==null){
@@ -76,7 +72,6 @@ export default {
       axios
         .get('/api/bestHotel')
         .then(res=>{
-          console.log(res.data)
 
           res.data.forEach(i=>{
             if(i.pic_name==null){
@@ -92,7 +87,6 @@ export default {
         .get('/api/bestGitem')
         .then(res=>{
           console.log(res.data)
-
           res.data.forEach(i=>{
             if(i.pic_name==null){
               i.pic_name="placeImage/noImage.png"
@@ -120,8 +114,11 @@ export default {
 /*  align: center;*/
 /*}*/
 .innerText{
-  text-align: right;
-  margin: 10px;
+  /*text-align: right;*/
+  /*margin: 10px;*/
 }
-
+img{
+  width: 180px;
+  height: 180px;
+}
 </style>

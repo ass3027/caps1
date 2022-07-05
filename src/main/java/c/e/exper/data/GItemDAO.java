@@ -30,6 +30,7 @@ public class GItemDAO {
     String gdate;
     String gname;
     int count;
+    String firstimage;
     int count7;
     int count1;
     int count30;
