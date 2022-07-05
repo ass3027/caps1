@@ -81,4 +81,13 @@ public interface ShareMapper {
     @Delete("delete from SHARES_COMMENT where COMMENT_ID=#{comment_id}")
     public void delShareComment(String comment_id);
 
+    @Select("select *\n" +
+            "from SHARES\n" +
+            "where SHARE_ID in (select SHARE_ID\n" +
+            "                  from (select SHARE_ID, count(SHARE_ID)\n" +
+            "                        from SHARES_REC\n" +
+            "                        group by SHARE_ID\n" +
+            "                        order by 2 desc)\n" +
+            "                  where rownum <= 3);\n")
+    List<ShareDTO> findBestShare();
 }

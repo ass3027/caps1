@@ -250,8 +250,6 @@ export default {
 
 
     isLogin() {
-      console.log(this.$store.state.user.userId)
-      console.log(this.$store.getters['user/isLogin'])
       return this.$store.getters['user/isLogin']
     },
     userId() {
@@ -261,22 +259,17 @@ export default {
   },
   created() {
     EventBus.$on("photoUpdate", (photo) => {
-      console.log(11)
-      console.log(decodeURI(photo))
       this.photo = "/api/photo/" + decodeURI(photo)
     })
 
     EventBus.$on("updateId", () => {
-      this.updateUserId()
-    })
-
-    axios.get('/api/user/role/').then(res =>{
-      this.user_role = res.data
+      this.updateUser()
     })
   },
   methods: {
-    updateUserId() {
+    updateUser() {
       this.user_id = this.$store.state.user.userId
+      this.user_role = this.$store.state.user.userRole
     },
     logOut() {
       console.log(22)
@@ -286,8 +279,9 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$store.dispatch('user/setUser', 'anonymousUser')
-          this.$router.push("/")
+          this.$store.dispatch('user/setUser', {user_id :'anonymousUser'})
+          // this.$router.push("/")
+          location.href = "/"
         })
         .catch((err) => {
           console.error(err)
@@ -463,6 +457,7 @@ export default {
 #userMenu .menu.lst:before {
   right: 0
 }
+
 
 #userMenu .menu.lst .link_menu {
   padding-right: 13px

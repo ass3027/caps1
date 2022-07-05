@@ -21,4 +21,20 @@ public class BookDAO {
     String date;
     String pl_id;
     String pd_id;
+    String title;
+    String startDate;
+    String endDate;
+
+    public BookDTO toBookDTO(){
+        return BookDTO.builder()
+                .book_price(this.book_price)
+                .user_id(this.user_id)
+                .product_time_num(this.product_time_num)
+                .pl_id(this.pl_id)
+                .pd_id(this.pd_id)
+                .title(this.title)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+               .build();
+    }
 }

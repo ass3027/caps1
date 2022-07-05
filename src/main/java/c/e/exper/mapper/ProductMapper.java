@@ -1,6 +1,7 @@
 package c.e.exper.mapper;
 
 import c.e.exper.data.BookDAO;
+import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.ProductTime;
 import c.e.exper.data.ProductDAO;
 import org.apache.ibatis.annotations.*;
@@ -51,11 +52,61 @@ public interface ProductMapper {
     void product_Time_Insert(ProductTime productTime);
 
     @Select("""
-            SELECT *
-            FROM PRODUCT_TIME a, PAYMENT b, PLACE c, PRODUCT d
-            WHERE 
+            select *
+            from PRODUCT_TIME a, PAYMENT b
+            where b.PAY_ID = a.PAY_ID and USER_ID = #{id}
             """)
     List<BookDAO> SelectBook(@Param("id") String id);
 
 
+    @Select("""
+            select sum(PAY_PRICE) as 일주일
+            from PAYMENT, PRODUCT_TIME
+            where PAYMENT.PAY_ID = PRODUCT_TIME.PAY_ID and PAYMENT.PAY_ID in (select PRODUCT_TIME.PAY_ID
+                                                                              from PRODUCT_TIME
+                                                                              where PD_ID in (select PRODUCT.PD_ID
+                                                                                              from PRODUCT, PLACE
+                                                                                              where PLACE.PL_ID = PRODUCT.PL_ID and place.USER_ID = #{id}))
+            and SYSDATE-7 < PAY_TIME
+            """)
+    ProductDAO product_Sales7(@Param("id")String id);
+
+//    @Select("select sum(PAY_PRICE)as count\n" +
+//            "from PAYMENT\n" +
+//            "where gtime_num in (select TIME_NUM\n" +
+//            "                    from AVAILABLE_TIME\n" +
+//            "                    where GITEM_ID in (select GITEM_ID\n" +
+//            "                                       from GITEM\n" +
+//            "                                       where USER_ID = #{id}))")
+//    GItemDAO selectCount(@Param("id") String id);
+//
+//    @Select("select sum(PAY_PRICE)as count7\n" +
+//            "from PAYMENT\n" +
+//            "where gtime_num in (select TIME_NUM\n" +
+//            "                    from AVAILABLE_TIME\n" +
+//            "                    where GITEM_ID in (select GITEM_ID\n" +
+//            "                                       from GITEM\n" +
+//            "                                       where USER_ID = #{id}))" +
+//            "and SYSDATE-7 < PAY_TIME")
+//    GItemDAO selectCount7(@Param("id") String id);
+//
+//    @Select("select sum(PAY_PRICE)as count1\n" +
+//            "from PAYMENT\n" +
+//            "where gtime_num in (select TIME_NUM\n" +
+//            "                    from AVAILABLE_TIME\n" +
+//            "                    where GITEM_ID in (select GITEM_ID\n" +
+//            "                                       from GITEM\n" +
+//            "                                       where USER_ID = #{id}))\n" +
+//            "and to_char(PAY_TIME,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd')")
+//    GItemDAO selectCount1(@Param("id") String id);
+//
+//    @Select("select sum(PAY_PRICE)as count30\n" +
+//            "from PAYMENT\n" +
+//            "where gtime_num in (select TIME_NUM\n" +
+//            "                    from AVAILABLE_TIME\n" +
+//            "                    where GITEM_ID in (select GITEM_ID\n" +
+//            "                                       from GITEM\n" +
+//            "                                       where USER_ID = #{id}))\n" +
+//            "and to_char(PAY_TIME,'yyyy-mm-dd') > TO_CHAR(SYSDATE-30,'yyyy-mm-dd')")
+//    GItemDAO selectCount30(@Param("id") String id);
 }
