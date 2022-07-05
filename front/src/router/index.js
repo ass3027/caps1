@@ -83,7 +83,6 @@ import DeliveryJoinView from "@/views/auth/DeliveryJoinView";
 import LoginView from "@/views/auth/LoginView";
 import joinView from "@/views/auth/JoinView";
 import KeeperJoinView from "@/views/auth/KeeperJoinView";
-import chart from "@/views/store/chartView";
 import chartView from "@/views/store/chartView";
 
 Vue.use(VueRouter);
@@ -106,7 +105,7 @@ const routes = [
     component: WritingModView,
   },
   { path: "/bookmark", name: "BookMark", component: BookMarkView },
-  { path: "/chart", name: "Chart", component: ChartView },
+  { path: "/chart", name: "Chart", component: chartView },
 
   //성호
   { path: "/supplies", name: "supplies", component: SuppliesVue },
