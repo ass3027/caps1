@@ -22,18 +22,24 @@ export default {
     return{
       bookList : [],
       bookHeaders: [
-        {text: '예약번호', align:'start', sortable: false, value: 'book_id'},
-        {text: '예약시간', value: 'book_time'},
-        {text: '예약금액', value: 'book_price'},
+        {text: '예약시설', align:'start', sortable: false, value: 'book_id'},
+        {text: '체크인 시간', value: 'book_time'},
+        {text: '체크아웃 시간', value: 'book_price'},
         {text: '예약자', value: 'user_id'},
       ]
     }
   },
   mounted() {
-    axios.get("/api/productBook/" + this.$store.state.user.userId)
-      .then((res) => {
-        this.bookList = res.data;
-        console.log(this.bookList)
+    axios({
+      method:'GET',
+      url:'/api/',
+      params:{
+        'id':this.$store.state.user.userId
+      }
+    })
+      .then((res)=>{
+        this.lists = res.data;
+        console.log(res.data)
       })
   }
 }

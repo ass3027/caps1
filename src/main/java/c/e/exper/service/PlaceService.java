@@ -23,10 +23,16 @@ public class PlaceService {
     public List<PlaceDAO> 장소_조회(String areaCode, String cat1) {
         return placeMapper.selectByPlace(areaCode, cat1);
     }
+   public List<PlaceDAO> 장소_조회2(String areaCode, String contenttypeid) {
+      return placeMapper.selectByPlace2(areaCode, contenttypeid);
+   }
 
     public List<PlaceDAO> 장소_검색(String areaCode, String cat1, String keyword) {
         return placeMapper.keywordByPlace(areaCode, cat1, keyword);
     }
+   public List<PlaceDAO> 장소_검색Tour(String areaCode, String contenttypeid, String keyword) {
+      return placeMapper.keywordByPlaceTour(areaCode, contenttypeid, keyword);
+   }
 
     public List<PlaceDAO> searchByKeyWord(String keyWord) {
         return placeMapper.SearchPlaceByKeyword(keyWord);

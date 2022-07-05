@@ -17,13 +17,13 @@
           <ul class="sub">
             <li><a>주문 내역</a></li>
             <li><a>선물 내역</a></li>
-            <li><a>찜한 상품</a></li>
+            <li><a type="button" @click="bookmark">찜한 상품</a></li>
             <li><a>배송지 관리</a></li>
             <li><a>상품 후기</a></li>
             <li><a>상품 문의</a></li>
             <li><a>적립금</a><!----></li>
             <li><a>쿠폰</a><!----></li>
-            <li><a>개인 정보 수정</a></li>
+            <li><a type="button" @click="update">개인 정보 수정</a></li>
             <li><a @click="logOut">로그아웃</a></li>
           </ul>
         </li>
@@ -162,6 +162,7 @@
       </div>
     </div>
   </v-app>
+
 </template>
 
 <script>
@@ -214,7 +215,8 @@ export default {
           {title: '이용안내', route: '/UsageGuideView'},
           {title: '요금', route: '/FareView'},
           {title: '후기', route: '/ReviewView'},
-          {title: '배송조회', route: '/TrackingView'},
+          {title: '배송조회', route: '/GTrackingView'},
+          {title: '키퍼배송조회', route: '/KeeperTrackingView'},
         ],
         [
           {title: '가이드 등록', route: '/GuideRegister'},
@@ -232,8 +234,8 @@ export default {
           {title: 'Community5', route: '/Community'}
         ],
         [
-          {title: 'Customer1 ', route: '/Customer'},
-          {title: 'Customer2', route: '/Customer'},
+          {title: '문의사항 ', route: '/Questions'},
+          {title: '게시글 등록', route: '/Writing'},
           {title: 'Customer3', route: '/Customer'},
           {title: 'Customer4', route: '/Customer'},
           {title: 'Customer5', route: '/Customer'}
@@ -264,13 +266,17 @@ export default {
       this.photo = "/api/photo/" + decodeURI(photo)
     })
 
-    axios.get('/api/user/role/' + this.$store.state.user.userId).then(res =>{
+    EventBus.$on("updateId", () => {
+      this.updateUserId()
+    })
+
+    axios.get('/api/user/role/').then(res =>{
       this.user_role = res.data
     })
   },
   methods: {
     updateUserId() {
-      this.user_id =this.$store.state.user.userId
+      this.user_id = this.$store.state.user.userId
     },
     logOut() {
       console.log(22)
@@ -290,9 +296,15 @@ export default {
     // store(a){
     //   this.$router.push({path:a.route, params:{'value':a.title}})
     // }
-    MyPage(){
+    MyPage() {
       this.$router.push("/MyPage")
     },
+    update(){
+      this.$router.push("/MyPageUpdate")
+    },
+    bookmark(){
+      this.$router.push("/BookMark")
+    }
   }
 };
 </script>
@@ -307,13 +319,15 @@ export default {
 
 #userMenu {
   width: 1050px;
-  margin:0 auto;
-  font-size: 13px;
+  margin: 0 auto;
+  font-size: 20px;
 }
+
 #userMenu * {
   font-weight: 400;
-  letter-spacing:-.3px
+  letter-spacing: -.3px
 }
+
 #userMenu:after {
   content: "";
   display: block;
@@ -321,7 +335,7 @@ export default {
   width: 100%;
   height: 0;
   font-size: 0;
-  text-indent:-9999px
+  text-indent: -9999px
 }
 
 #userMenu .list_menu {
@@ -331,7 +345,7 @@ export default {
 #userMenu .menu {
   position: relative;
   z-index: 400;
-  float:left;
+  float: left;
   font-size: 14px;
 }
 
@@ -342,7 +356,7 @@ export default {
   top: 16px;
   width: 8px;
   height: 5px;
-  background:url(https://res.kurly.com/pc/ico/1908/ico_down_8x5.png) no-repeat 0 0
+  background: url(https://res.kurly.com/pc/ico/1908/ico_down_8x5.png) no-repeat 0 0
 }
 
 #userMenu .menu:after {
@@ -351,7 +365,7 @@ export default {
   width: 1px;
   height: 13px;
   margin-top: 12px;
-  background-color:#d8d8d8
+  background-color: #d8d8d8
 }
 
 #userMenu .link_menu {
@@ -360,12 +374,12 @@ export default {
   padding: 0 12px;
   color: #333;
   line-height: 35px;
-  white-space:nowrap
+  white-space: nowrap
 }
 
 #userMenu .txt {
   float: left;
-  padding-left:4px
+  padding-left: 4px
 }
 
 #userMenu .name {
@@ -373,29 +387,29 @@ export default {
   float: left;
   text-align: right;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
 
 }
 
 #userMenu .sir {
   float: left;
-  padding:0 1px 0 2px
+  padding: 0 1px 0 2px
 }
 
 #userMenu .ico_new {
   width: 10px;
   height: 10px;
   margin: 13px 0 0 2px;
-  vertical-align:top
+  vertical-align: top
 }
 
 #userMenu .ico_grade {
   float: left;
-  margin-top:10px
+  margin-top: 10px
 }
 
 #userMenu .menu_user .link_menu {
-  padding-right:24px
+  padding-right: 24px
 }
 
 #userMenu .menu_user .sub {
@@ -410,20 +424,20 @@ export default {
   width: 102px;
   padding: 3px 9px;
   border: 1px solid #ddd;
-  background-color:#fff
+  background-color: #fff
 }
 
 #userMenu .lst .sub {
   left: auto;
-  right:0
+  right: 0
 }
 
 #userMenu .menu:hover .sub {
-  display:block
+  display: block
 }
 
 #userMenu .none_sub:hover .sub {
-  display:none
+  display: none
 }
 
 #userMenu .sub a {
@@ -431,35 +445,35 @@ export default {
   color: #404040;
   line-height: 24px;
   white-space: nowrap;
-  cursor:pointer
+  cursor: pointer
 }
 
 #userMenu .sub .ico_new {
-  margin:7px 0 0 1px
+  margin: 7px 0 0 1px
 }
 
 #userMenu .none_sub:before, #userMenu .lst:after {
-  display:none
+  display: none
 }
 
 #userMenu .menu_join .link_menu {
-  color:#5f0080
+  color: #5f0080
 }
 
 #userMenu .menu.lst:before {
-  right:0
+  right: 0
 }
 
 #userMenu .menu.lst .link_menu {
-  padding-right:13px
+  padding-right: 13px
 }
 
 #userMenu .menu .sub.on {
-  display:block
+  display: block
 }
 
 #snb .list_menu li {
-  border-bottom:1px solid #f2f2f2
+  border-bottom: 1px solid #f2f2f2
 }
 
 #snb .list_menu li a {
@@ -471,14 +485,14 @@ export default {
   font-size: 14px;
   color: #666;
   line-height: 20px;
-  letter-spacing:-.3px
+  letter-spacing: -.3px
 }
 
 #snb .list_menu li.on a, #snb .list_menu li a:hover {
   background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg) no-repeat 174px 52%;
   background-size: 6px 11px;
   font-weight: 700;
-  color:#5f0080
+  color: #5f0080
 }
 
 ol, ul {
@@ -486,12 +500,12 @@ ol, ul {
 }
 
 #userMenu .none_sub:hover .sub {
-  display:none
-}
-#userMenu .none_sub:before, #userMenu .lst:after {
-  display:none
+  display: none
 }
 
+#userMenu .none_sub:before, #userMenu .lst:after {
+  display: none
+}
 
 
 </style>
