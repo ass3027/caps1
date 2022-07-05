@@ -329,11 +329,11 @@ export default {
     async getBook(){
       const { data } = await axios.get("/api/payment/bookList")
       console.log(data)
+
       data.productBook.forEach( it=>{
         it.date = it.ST_TIME.substring(0,10)
         it.ST_TIME = it.date
         it.END_TIME = it.END_TIME.substring(11,16)
-
       })
 
       this.book = data
