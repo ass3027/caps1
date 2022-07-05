@@ -86,6 +86,7 @@ import DeliveryJoinView from "@/views/auth/DeliveryJoinView";
 import LoginView from "@/views/auth/LoginView";
 import joinView from "@/views/auth/JoinView";
 import KeeperJoinView from "@/views/auth/KeeperJoinView";
+import ChartView from "@/views/auth/ChartView";
 
 
 
@@ -105,6 +106,7 @@ const routes = [
   {path: "/detailPage/:id", name: "DetailPage", component: DetailPageView},
   {path: "/detailPage/:id/writingMod", name: "WritingMod", component: WritingModView,},
   {path: "/bookmark", name: "BookMark", component: BookMarkView},
+  {path: "/chart", name: "Chart", component: ChartView},
 
 
   //성호
@@ -148,56 +150,23 @@ const routes = [
   //---------------------------------------------------------------//
 
 
-  {path: "/plInvite", name: "plInvite", component: PlInviteView},
-  {path: "/plan", name: "plan", component: PlanView},
-  {path: "/planPic", name: "planPic", component: PlannerPicView},
+  // {path: "/plInvite", name: "plInvite", component: PlInviteView},
+  // {path: "/plan", name: "plan", component: PlanView},
+  // {path: "/planPic", name: "planPic", component: PlannerPicView},
 
-  {path: "/GuideView", name: "GuideView", component: GuideView},
-  {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
-  {
-    path: "/GuideProductReg",
-    name: "GuideProductReg",
-    component: GuideProductReg,
-  },
+  // {path: "/GuideView", name: "GuideView", component: GuideView},
+  // {path: "/GuideRegister", name: "GuideRegister", component: GuideRegister},
+  // {path: "/GuideProductReg", name: "GuideProductReg", component: GuideProductReg},
 
-  {
-    path: "/GuideView/:user_id",
-    name: "GuideViewUser",
-    component: GuideViewUser,
-    props: true,
-  },
-  {
-    path: "/GuideView/Search/:keyword",
-    name: "GuideSearch",
-    component: GuideSearch,
-    props: true,
-  },
-  {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
+  // {path: "/GuideView/:user_id", name: "GuideViewUser", component: GuideViewUser, props: true,},
+  // {path: "/GuideView/Search/:keyword", name: "GuideSearch", component: GuideSearch, props: true,},
+  // {path: "/GuideProduct", name: "GuideProduct", component: GuideProduct},
 
-  {
-    path: "/ReviewView/:productId",
-    name: "ReviewView",
-    component: ReviewView,
-    props: true,
-  },
-  {
-    path: "/ReviewCreateView",
-    name: "ReviewCreateView",
-    component: ReviewCreateView,
-  },
-  {
-    path: "/review/store/:store_name",
-    name: "StoreReview",
-    component: StoreReviewView,
-    props: true,
-  },
-
-  {
-    path: "/location/update/:duser_id",
-    name: "LocationUpdateView",
-    component: LocationUpdate,
-    props: true,
-  },
+  // {path: "/ReviewView/:productId", name: "ReviewView", component: ReviewView, props: true,},
+  // {path: "/ReviewCreateView", name: "ReviewCreateView", component: ReviewCreateView,},
+  // {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
+  //
+  // {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},
 
 
   {path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},

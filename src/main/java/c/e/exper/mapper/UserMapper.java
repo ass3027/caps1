@@ -18,16 +18,21 @@ public interface UserMapper { //디비접근
     @Select("SELECT * FROM users")
     List<UserDAO> selectAll();
 
-    @Select("SELECT * FROM users WHERE user_id=#{user_id}")
-    Optional<UserDAO> selectId(String user_id);
+//    @Select("SELECT * FROM users WHERE user_id=#{user_id}")
+//    Optional<UserDAO> selectId(String user_id);
+//    (@Param("user_id") 생략가능
+
+    //회원정보
+    @Select("SELECT * FROM users, delivery_user WHERE users.user_id = delivery_user.user_id and users.user_id=#{user_id}")
+    Optional<UserDTO>  selectId(String user_id);
 //    (@Param("user_id") 생략가능
 
 
     //회원가입(일반회원)
-    @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null,#{user.gender, jdbcType=VARCHAR},#{user.preference, jdbcType=VARCHAR}, #{user.business_num, jdbcType=VARCHAR},#{user.user_area})")
+    @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null,#{user.gender, jdbcType=VARCHAR},#{user.preference, jdbcType=VARCHAR}, #{user.business_num, jdbcType=VARCHAR},#{user.user_area,jdbcType=VARCHAR})")
     void insert(@Param("user") UserDAO user);
 
-    //운송원 회원정보
+    //회원가입(운송원)
     @Insert("INSERT INTO delivery_user(user_id, duser_trans, duser_license) VALUES(#{duser.user_id},#{duser.duser_trans},#{duser.duser_license})")
     void deliveryInsert(@Param("duser") DuserDAO duser);
 
@@ -35,10 +40,13 @@ public interface UserMapper { //디비접근
     @Insert("INSERT INTO place(user_id) VALUES(#{user.user_id})")
     void keeperInsert(@Param("user") PlaceDAO user);
 
+    //지역별
+    @Select("SELECT USER_AREA,COUNT(*) FROM users group by USER_AREA order by count(*) desc;")
+    List<UserDAO> areaCount();
 
-//    //키퍼(키퍼회원) --사업자번호 상호명 사업자이름?
-//    @Insert("INSERT INTO users (user_id, business_num) VALUES(#{kuser.user_id}, #{kuser.business_num})")
-//    void keeperInsert(@Param("user") UserDAO kuser);
+//    @Select("select USER_BIRTH,count(*) from USERS group by USER_BIRTH order by count(*) desc)
+
+
 
 
     //회원정보수정

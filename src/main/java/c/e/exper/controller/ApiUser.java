@@ -67,7 +67,7 @@ public class ApiUser {
     }
 
     @GetMapping("/find")
-    public UserDAO findUser(String user_id) {
+    public UserDTO findUser(String user_id) {
         return userMapper.selectId(user_id).get();
     }
 
@@ -85,7 +85,7 @@ public class ApiUser {
     
     //마이페이지
     @GetMapping("/data/{id}")
-    public UserDAO getUserInfoById(@PathVariable String id){
+    public UserDTO getUserInfoById(@PathVariable String id){
          //반환데이터형식
         return userMapper.selectId(id).get();
     }
@@ -95,7 +95,7 @@ public class ApiUser {
     @GetMapping("/userid")
     public boolean getUserIdCheck( //반환타입,함수명
         @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
-        Optional<UserDAO> id = userMapper.selectId(pp); //
+        Optional<UserDTO> id = userMapper.selectId(pp); //
         return id.isEmpty();
 //        if (id.isEmpty()){
 //            return true;
@@ -113,6 +113,12 @@ public class ApiUser {
                 )
         );
         return userMapper.updateUserInfo(userDAO);
+    }
+
+    //지역별
+    @GetMapping("/area")
+    public List<UserDAO> getUserArea(){
+        return userMapper.areaCount();
     }
 
 
