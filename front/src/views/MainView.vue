@@ -12,7 +12,7 @@
 
             </v-col>
             <v-col cols="6">
-              <calendar-preview></calendar-preview>
+              <calendar-preview style="height: 300px"></calendar-preview>
             </v-col>
           </v-row>
           <v-row>
@@ -28,7 +28,7 @@
               <p @click="$router.push({path:'/SelectionOrder'})">가방보관/운송 신청하기</p>
             </v-col>
 
-            <v-col cols="6"  style="height:300px;overflow: scroll">
+            <v-col cols="6"  style="height:300px;overflow: auto">
                 내 가방 현황
                 <li v-for="(order,i) in myOrders" :key="i">
                   <p>{{order.entrust_time}}->{{order.withdraw_time}}</p>
@@ -50,7 +50,7 @@
               <img class="" src="/api/photo/altImage/hotel4.png" @click="$router.push({path:'/place/hotel'})">
               <p @click="$router.push({path:'/place/hotel'})">호텔 예약하기</p>
             </v-col>
-            <v-col cols="6"  style="height:300px;overflow: scroll">
+            <v-col cols="6"  style="height:300px;overflow: auto">
                 호텔 예약 현황
                 <li v-for="(hotel,i) in myHotels" :key="i+h">
                   <p>{{hotel}}</p>
@@ -68,7 +68,7 @@
               <img class="" src="/api/photo/altImage/guide8.png" @click="$router.push({path:'/GuideProduct'})">
               <p @click="$router.push({path:'/GuideProduct'})">현지인가이드 신청하기</p>
             </v-col>
-            <v-col cols="6"  style="height:300px;overflow: scroll">
+            <v-col cols="6"  style="height:300px;overflow: auto">
                 가이드 예약 현황
                 <li v-for="(guide,i) in myGuides" :key="i+g">
                   <p>{{guide}}</p>
@@ -79,8 +79,12 @@
           <best-place mode="guide"></best-place>
         </v-col>
       </v-row>
-
     </div>
+
+
+
+
+
 
 <!-- 비로그인시 -->
     <div v-else>
@@ -100,8 +104,10 @@
           <best-place mode="place"></best-place>
         </v-col>
         <v-divider class="blue-grey" style="border-width: 1px"></v-divider>
+      </v-row>
 
-        <v-divider vertical inset class="blue-grey" style="border-width: 1px"></v-divider>
+      <v-divider vertical inset class="blue-grey" style="border-width: 1px"></v-divider>
+      <v-row>
         <v-col cols="6" align-self="start" @click="$router.push({path:'/place/hotel'})">
           <img class="" src="/api/photo/altImage/hotel4.png">
           <p>호텔 예약하기</p>
@@ -123,20 +129,22 @@
     {{ $store.state.user.userId }}
 <!--    <v-divider  class="blue-grey" style="border-width: 1px"></v-divider>-->
 
-    <v-row justify="center">
-      <v-col cols="2">
-      </v-col>
-      <v-col cols="2">
-      </v-col>
-      <v-col cols="2">
-      </v-col>
-      <v-col cols="2">
-      </v-col>
-
-    </v-row>
 
     <v-row>
       <search-tour></search-tour>
+    </v-row>
+
+    <v-row justify="center">
+      <h2>best planner</h2>
+      <v-col
+        v-for="(share,index) in ShareSets"
+        :key="index+s"
+        cols="4"
+        style="padding: 0; margin-bottom: 20px"
+        @click="$router.push({name:'shareDetails', params:{id:share.share_id}})"
+      >
+        <planner-share-card :share-set="share" />
+      </v-col>
     </v-row>
 
   </v-container>
@@ -148,6 +156,7 @@ import PlaceRecommend from "@/components/recommend/PlaceRecommend";
 import BestPlace from "@/components/recommend/BestPlace";
 import SearchTour from "@/components/SearchTour";
 import CalendarPreview from "@/components/preview/CalendarPreview";
+import PlannerShareCard from "@/components/recommend/PlannerShareCard";
 
 export default {
   name: 'MainView',
@@ -155,13 +164,15 @@ export default {
     BestPlace,
     PlaceRecommend,
     SearchTour,
-    CalendarPreview
+    CalendarPreview,
+    PlannerShareCard
   },
   data() {
     return {
       myOrders:'',
       myHotels:'',
-      myGuides:''
+      myGuides:'',
+      ShareSets:[]
     }
   },
   mounted() {
@@ -192,8 +203,25 @@ export default {
           this.myHotels = res.data;
           console.log(res.data)
         })
-
     }
+
+    axios.get('/api/bestShare')
+      .then((res) => {
+        //날짜변환
+        let now = new Date()
+        let today = new Date(now.toLocaleDateString());
+        res.data.forEach(i => {
+          var thisDate = new Date(i.share_created)
+          if (today > thisDate) {
+            i.share_created = i.share_created.substring(0, 10)
+          } else {
+            i.share_created = thisDate.toString().substring(16, 21)
+          }
+        })
+        this.ShareSets = res.data;
+        console.log(this.ShareSets)
+      })
+
   },
   methods: {
     test(){

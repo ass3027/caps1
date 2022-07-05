@@ -1,9 +1,15 @@
 <template>
   <div>
     <v-calendar
+      ref="calendar"
       v-model="value"
       :weekdays="weekday"
       :type="type"
+      :events="events"
+      :event-overlap-mode="mode"
+      :event-overlap-threshold="30"
+      :event-color="getEventColor"
+      @change="getEvents"
     ></v-calendar>
 
   </div>
@@ -29,8 +35,8 @@ export default {
       ],
       value: '',
       events: [],
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-      names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
+      colors: ['blue'],
+      names: ['sdf'],
 
     }
   },

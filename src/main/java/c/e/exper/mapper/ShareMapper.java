@@ -88,6 +88,6 @@ public interface ShareMapper {
             "                        from SHARES_REC\n" +
             "                        group by SHARE_ID\n" +
             "                        order by 2 desc)\n" +
-            "                  where rownum <= 3);\n")
+            "                  where rownum <= 3)\n")
     List<ShareDTO> findBestShare();
 }
