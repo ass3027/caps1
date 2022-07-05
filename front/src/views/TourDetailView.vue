@@ -27,8 +27,9 @@
 
         </div>
 
-
-        <v-carousel>
+        <v-carousel
+          v-if="Array.isArray(images)"
+        >
           <v-carousel-item
             v-for="(image,i) in images"
             :key="i"
@@ -37,6 +38,7 @@
             transition="fade-transition"
           ></v-carousel-item>
         </v-carousel>
+        <img v-else :src="images.originimgurl">
 
         <br>
         <h3>상세정보</h3>
@@ -145,18 +147,30 @@ export default {
       details:''
     }
   },
-  async mounted() {
-    const mainData = await axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest&firstImageYN=Y&mapinfoYN=Y&_type=json`)
-    this.tour=mainData.data.response.body.items.item
+  mounted() {
+    // const mainData = await axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest&firstImageYN=Y&mapinfoYN=Y&_type=json`)
+    // this.tour=mainData.data.response.body.items.item
+    axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest&firstImageYN=Y&mapinfoYN=Y&_type=json`)
+    .then((res)=>{
+      this.tour=res.data.response.body.items.item
+      axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&imageYN=Y&MobileOS=ETC&MobileApp=AppTest&subImageYN=Y`)
+        .then((res)=>{
+          this.images=res.data.response.body.items.item
+          if(Array.isArray(this.images)){
+            this.images.unshift({originimgurl:this.tour.firstimage}) //unshift 배열 앞에 새로운값넣기
+          }
+        })
 
-    const imageData = await axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&imageYN=Y&MobileOS=ETC&MobileApp=AppTest&subImageYN=Y`)
-    this.images=imageData.data.response.body.items.item
-    this.images.unshift({originimgurl:this.tour.firstimage}) //unshift 배열 앞에 새로운값넣기
+    })
 
-    const detailData = await axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&contentTypeId=${this.contentTypeId}&MobileOS=ETC&MobileApp=AppTest`)
-    this.details=detailData.data.response.body.items.item
 
-    // alert(this.contentTypeId)
+    axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&contentTypeId=${this.contentTypeId}&MobileOS=ETC&MobileApp=AppTest`)
+    .then((res)=>{
+      this.details=res.data.response.body.items.item
+      console.log(this.details)
+
+    })
+
   },
   methods: {
   },

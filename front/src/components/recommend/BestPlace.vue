@@ -1,7 +1,7 @@
 <template>
-  <div v-if="mode=='place'||mode=='hotel'">
+  <div v-if="mode=='place'||mode=='hotel'" >
     <h2>베스트 {{ mode }}</h2>
-    <v-carousel style="width:300px;height: 300px">
+    <v-carousel style="width:300px;height: 300px;">
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
