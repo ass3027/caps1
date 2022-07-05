@@ -19,8 +19,6 @@ import TourDetailView from "@/views/TourDetailView";
 
 //가방 보관
 import BagReserveView from '../views/bag/order/SelectionOrder.vue'
-import TrackingView from "@/views/bag/TrackingView";
-=======
 import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
 import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
