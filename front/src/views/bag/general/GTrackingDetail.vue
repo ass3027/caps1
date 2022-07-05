@@ -102,14 +102,6 @@ export default {
       this.$router.push('/GTrackingView')
     },
 
-    //찾아감으로 변경
-    visitCall() {
-      axios.post('/api/visitCall/' + this.ord_id)
-        .then((res) => {
-          console.log(res.data)
-        })
-      this.$router.push('/GTrackingView')
-    },
 
     //목록으로 돌아가기
     backTrackingView() {

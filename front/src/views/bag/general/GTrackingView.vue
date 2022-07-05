@@ -46,6 +46,7 @@
           <v-data-table :headers="storageHeaders" :items="sortedStorageList" :items-per-page="5">
             <template v-slot:[`item.detail`]="{ item }">
               <v-btn @click="trackingDetail(item)">상세보기</v-btn>
+              <v-btn @click="orderDetail(item)">상세보기2</v-btn>
 
             </template>
           </v-data-table>

@@ -215,7 +215,8 @@ export default {
 
     endAddress: function (lodging) {
       this.endLodging = lodging
-      console.log("도착장소데이터" + lodging)
+      console.log("도착장소데이터")
+      console.log(lodging)
     },
 
     addOrder() {

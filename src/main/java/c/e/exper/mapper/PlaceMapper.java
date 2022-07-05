@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface PlaceMapper {
-    //   @Select("select title,addr1,zipcode,addr2,firstImage2,areaCode,cat1,firstImage2,MAPX,MAPY " +
+   //   @Select("select title,addr1,zipcode,addr2,firstImage2,areaCode,cat1,firstImage2,MAPX,MAPY " +
 //         "from place " +
 //         "where areaCode=#{areaCode} " +
 //         "and cat1=#{cat1} " +
