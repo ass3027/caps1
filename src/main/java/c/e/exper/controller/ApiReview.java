@@ -7,7 +7,6 @@ import c.e.exper.service.FileServiceImpl;
 import c.e.exper.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -28,13 +27,11 @@ public class ApiReview {
     }
 
 
-
     @PostMapping("/addReview")
     public int addReview(Review review, HttpServletRequest req) {
 
 
-
-        System.out.println("등록할 리뷰: "+ review);
+        System.out.println("등록할 리뷰: " + review);
 
 
 //        review.setRev_img_filename(fileService.photoSave(review.getRev_photo(), req, "reviewImage"));
@@ -52,16 +49,84 @@ public class ApiReview {
 
         List<Review> allReview = reviewService.모든_리뷰_조회();
 
-        if(allReview.isEmpty()){
+        if (allReview.isEmpty()) {
             System.out.println("리뷰 없음");
         }
 
         return allReview;
     }
 
+<<<<<<< Updated upstream
     @GetMapping("/find/reviews/{type}/{id}")
     public List<Review> findReviews(@PathVariable String type, @PathVariable String id) {
         // type: guide, gitem, place, product, keeper, duser
+=======
+    @GetMapping("/find/answer/{id}")
+    public Review findReviewAnswer(@PathVariable String id) {
+        System.out.println(id);
+
+        return null;
+    }
+
+    @GetMapping("/find/reviews/{type}/{id}")
+    public List<Review> findReview(@PathVariable String type, @PathVariable String id) {
+        System.out.println(type);
+        System.out.println(id);
+
+        switch (type) {
+            case "all":
+                return reviewMapper.findAllReview();
+        }
+
+
+        return null;
+    }
+
+    @GetMapping("/productReview")
+    public List<Review> findProductReview(String pd_id) {
+        System.out.println(pd_id);
+
+        List<Review> reviews = reviewMapper.findAllReviewForProduct2(pd_id);
+        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+
+        return reviews;
+    }
+
+    @GetMapping("/guideReview")
+    public List<Review> findGuideReview(String guide_id) {
+        System.out.println(guide_id);
+
+        List<Review> reviews = reviewMapper.findGuideReview(guide_id);
+        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+
+        return reviews;
+    }
+
+    @GetMapping("/gitemReview")
+    public List<Review> findGitemReview(String gitem_id) {
+        System.out.println(gitem_id);
+
+        List<Review> reviews = reviewMapper.findGitemReview(gitem_id);
+        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+
+        return reviews;
+    }
+
+    @GetMapping("/storeReview")
+    public List<Review> findStoreReview(@RequestParam String store_id) {
+        System.out.println("[findPlName] store_id: " + store_id);
+        String pl_name = reviewMapper.findPlName(store_id);
+
+        return reviewService.가게_모든리뷰_조회(pl_name);
+    }
+
+    @GetMapping("/keeperReview")
+    public List<Review> findKeeperReview(String keep_id) {
+        System.out.println("keep_id: " + keep_id);
+
+        return reviewService.키퍼아이디_모든리뷰_조회(keep_id);
+    }
+>>>>>>> Stashed changes
 
         switch (type) {
             case "guide":
@@ -94,10 +159,9 @@ public class ApiReview {
 
     @GetMapping("/findByPay")
     public String findByPay(String pay_id) {
-        System.out.println("pay_id: " +pay_id);
+        System.out.println("pay_id: " + pay_id);
         return reviewService.findByPay(pay_id);
     }
-
 
 
 }

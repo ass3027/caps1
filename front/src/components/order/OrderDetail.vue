@@ -67,16 +67,13 @@
           <th>요청사항</th>
           <td>{{ order.ord_request }}</td>
         </tr>
-        <div>
-          <v-btn @click="backTrackingView()">목록</v-btn>
-        </div>
         </tbody>
       </table>
       <div v-if="order.status === '운송요청'">
         <v-btn
           class="btn_type2"
-          height="54px"
           color="white"
+          height="54px"
           @click="requestMatch()"
         >
           매칭요청
@@ -85,8 +82,8 @@
       <div v-if="order.status === '운송중'">
         <v-btn
           class="btn_type2"
-          height="54px"
           color="white"
+          height="54px"
           @click="orderArrival()"
         >
           배송완료
