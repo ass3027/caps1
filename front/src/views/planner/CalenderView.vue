@@ -8,7 +8,6 @@
         <div class="map">
           <MapComponent
             index="00"
-            :rec="rec"
           />
         </div>
 
@@ -71,27 +70,15 @@
                     <v-simple-table class="text-center">
                       <thead>
                       <tr>
-                        <th>pay_id</th>
-                        <th>pd_id</th>
-                        <th>pd_name</th>
-                        <th>room_num</th>
-                        <th class="text-center">start_date</th>
-                        <th>end_date</th>
-
+                        <th>book-id</th>
+                        <th>이름</th>
                       </tr>
 
                       </thead>
                       <tbody>
-                      <tr
-                        v-for="(book,index) in books"
-                        :key="index"
-                      >
-                        <td>{{book.PAY_ID}}</td>
-                        <td>{{book.PD_ID}}</td>
-                        <td>{{book.PD_NAME}}</td>
-                        <td>{{book.ROOM_NUM}}</td>
-                        <td>{{book.START_DATE}}</td>
-                        <td>{{book.END_DATE}}</td>
+                      <tr>
+                        <td>dd</td>
+                        <td>dd</td>
                       </tr>
 
                       </tbody>
@@ -160,9 +147,6 @@ export default {
     PlannerHeader,
     MapComponent
   },
-  props:{
-    rec:String
-  },
   data() {
     return {
       schName      : 'gg',
@@ -178,7 +162,7 @@ export default {
       infowindow   : {},
       scheduleList : {},
       bookDialog   : false,
-      books: {},
+      book: {},
       bookCategory:""
     }
   },
@@ -193,9 +177,11 @@ export default {
 
     axios.get(`/api/planner/Schedule/${this.$store.state.user.planId}`)
       .then((res) => {
+        console.log(res)
         const scheduleList = res.data.scheduleList
         const plan = res.data.plan
 
+        console.log(scheduleList)
 
         this.startDate = plan.plan_start
         this.endDate = plan.plan_end
@@ -207,6 +193,7 @@ export default {
           this.dateArr.push(this.dateFormat(tempDate))//tempDate.format("yyyy-MM-dd")
           tempDate.setDate(tempDate.getDate() + 1)
         }
+        console.log(this.dateArr)
         //없으면 만들기
         const calendar = {};
         calendar["planId"] = plan.plan_id
@@ -235,7 +222,7 @@ export default {
         })
 
         this.$store.commit('calendar/updateCalendar', calendar)
-        console.log(calendar)
+        console.log(1)
       })
       .catch((err) => {
         console.error(err)
@@ -266,12 +253,15 @@ export default {
 
       })
 
+      console.log(calendar)
 
       this.$store.commit('calendar/updateCalendar', calendar)
 
     },
 
     save() {
+      console.log(this.calendar)
+      console.log(this.$store.state.calendar.calendar)
       let data = []
       let temp = {}
       for (let a in this.calendar.date) {
@@ -303,14 +293,17 @@ export default {
             sch_endTime    : a + ` ${endHour}:00:00`,
             expect_expenses: value.expect_expenses,
           }
+          console.log(a + ` ${key}:00:00`)
           data.push(temp)
         }
 
 
       }
+      console.log(data)
 
       axios.post('/api/planner/Schedule', data)
         .then((res) => {
+          console.log(res)
           alert("success")
         })
         .catch((err) => {
@@ -336,14 +329,15 @@ export default {
     async getBook(){
       const { data } = await axios.get("/api/payment/bookList")
       console.log(data)
-      data.productBook.forEach( (it)=>{
-        it.START_DATE = it.START_DATE.substring(0,10) + " " + it.START_DATE.substring(11,16)
-        it.END_DATE = it.END_DATE.substring(0,10) + " " + it.END_DATE.substring(11,16)
+      data.productBook.forEach( it=>{
+        it.date = it.ST_TIME.substring(0,10)
+        it.ST_TIME = it.date
+        it.END_TIME = it.END_TIME.substring(11,16)
+
       })
 
-      this.books = data.productBook
-
-      console.log(this.books)
+      this.book = data
+      console.log(this.book);
 
     }
   }

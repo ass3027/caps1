@@ -1,12 +1,12 @@
 <template>
   <div>
     <table
+      class="xans-board-listheaderd tbl_newtype1"
+      width="100%"
       border="0"
       cellpadding="0"
       cellspacing="0"
-      class="xans-board-listheaderd tbl_newtype1"
       style="border-top: 1px solid #e3e3e3;"
-      width="100%"
       @click="displayContent"
     >
       <colgroup>
@@ -19,31 +19,31 @@
         <col style="width:80px;">
       </colgroup>
       <tbody class="review-lists">
-      <tr>
-        <td style="text-align: center">
-          {{ review.rev_id }}
-        </td>
-        <td class="subject">
-          {{ review.title }}
-        </td>
-        <td class="user_grade grade_comm"/>
-        <td class="user_grade">
-          {{ user.user_name }}
-        </td>
-        <td class="time txt_center">
-          {{ reg_date }}
-        </td>
-        <td class="txt_center">
+        <tr>
+          <td style="text-align: center">
+            {{ review.rev_id }}
+          </td>
+          <td class="subject">
+            {{ review.title }}
+          </td>
+          <td class="user_grade grade_comm" />
+          <td class="user_grade">
+            {{ user.user_name }}
+          </td>
+          <td class="time txt_center">
+            {{ reg_date }}
+          </td>
+          <td class="txt_center">
             <span class="review-like-cnt">
               {{ review.like }}
             </span>
-        </td>
-        <td class="txt_center">
+          </td>
+          <td class="txt_center">
             <span class="review-hit-cnt">
               {{ review.hit }}
             </span>
-        </td>
-      </tr>
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -60,7 +60,6 @@
         >
           <!--          <img src="/api/photo/altImage/packless_travel_logo.png" border="0">-->
           <img
-            v-if="review.rev_img_filename != null"
             :src="'/api/photo/'+review.rev_img_filename"
             alt="리뷰 이미지"
             width="600px"
@@ -70,12 +69,12 @@
         </div>
 
         <br>
-        <span>{{ review.rev_content }}</span>
+        {{ review.rev_content }}
       </div>
       <div class="goods-review-grp-btn">
         <button
-          class="styled-button review-like-btn"
           type="button"
+          class="styled-button review-like-btn"
           @click="like"
         >
           도움이 돼요
@@ -91,9 +90,9 @@
 import axios from "axios";
 
 export default {
-  name: 'ReviewItem',
+  name:'ReviewItem',
   props: {
-    review: {
+    review:{
       type: Object
     }
   },
@@ -105,14 +104,11 @@ export default {
     }
   },
   computed: {
-    reg_date: function () {
-      return this.review.reg_date.substring(0, 10);
+    reg_date: function() {
+      return this.review.reg_date.substring(0,10);
     },
     // rev_img: function() {
     //   return "http://localhost:8080/api/photo/"+this.review.rev_img_filename;
-    // }
-    // answer: function () {
-    //   axios.get('/api/')
     // }
   },
   mounted() {
@@ -120,14 +116,14 @@ export default {
     console.log('review', this.review)
     axios({
       method: 'GET',
-      url: 'http://localhost:8080/api/user/find',
+      url:'http://localhost:8080/api/user/find',
       params: {
         user_id: this.review.user_id
       }
 
     })
       .then(res => {
-        console.log("[user/find]")
+        console.log("[user/find]" )
         console.log(res.data)
 
         this.user = res.data
@@ -146,6 +142,7 @@ export default {
     like() {
 
 
+
       // DB 변경 추후
     }
   }
@@ -159,8 +156,7 @@ img {
   max-width: 600px;
   margin: 0 auto;
 }
-
-.review-like-btn {
+.review-like-btn{
   height: 32px;
   width: auto;
   min-width: 75px;
@@ -173,11 +169,10 @@ img {
   color: #5f0080;
   text-align: center;
 }
-
 .review_view {
   display: none;
   padding: 10px 10px 11px;
-  /*border-top: 1px solid #e3e3e3;*/
+  border-top: 1px solid #e3e3e3;
 }
 
 .goods-review-grp-btn {
@@ -198,7 +193,6 @@ table {
 .subject {
   padding-left: 50px;
 }
-
 .txt_center {
   text-align: center;
 }
@@ -206,11 +200,11 @@ table {
 .tr_line .user_name {
   display: inline-block;
   text-align: center;
-  color: #522474
+  color:#522474
 }
 
 .tr_line .user_name:hover {
-  text-decoration: underline
+  text-decoration:underline
 }
 
 .tr_line .user_name .btn_userReview {
@@ -225,7 +219,7 @@ table {
   border: 1px solid #aaa;
   line-height: 20px;
   text-align: center;
-  font-size: 11px
+  font-size:11px
 }
 
 .happy_faq .subject {
@@ -234,46 +228,43 @@ table {
   font-weight: 700;
   font-size: 15px;
   color: #5f0080;
-  line-height: 22px
+  line-height:22px
 }
-
 .happy_faq .subject.no {
-  display: none
+  display:none
 }
 
 .happy_faq .subject.no_padding {
-  padding-top: 0
+  padding-top:0
 }
 
 
 .order .happy_faq .subject {
   padding: 28px 0 0;
-  color: #333
+  color:#333
 }
 
 
 .agree_ready .subject {
   display: block;
   font-style: initial;
-  font-family: malgun gothic
+  font-family:malgun gothic
 }
 
 .xans-board-write table #subject {
-  width: 630px
+  width:630px
 }
-
 .xans-product-additional table.tbl_newtype1 td.user_grade {
   padding: 22px 0 23px;
   line-height: 19px;
-  text-align: left
+  text-align:left
 }
 
 .xans-board-title table.tbl_newtype1 td.user_grade {
   padding: 0;
   line-height: 19px;
-  text-align: left
+  text-align:left
 }
-
 .grade_comm .ico_grade {
   display: inline-block;
   min-width: 38px;
@@ -283,43 +274,43 @@ table {
   font-size: 9px;
   color: #fff;
   line-height: 14px;
-  text-align: center
+  text-align:center
 }
 
 .grade_comm .grade6 {
   border: 1px solid #949296;
   background-color: #fff;
-  color: #949296
+  color:#949296
 }
 
 .grade_comm .grade0 {
   border: 1px solid #5f0080;
   background-color: #fff;
-  color: #5f0080
+  color:#5f0080
 }
 
 .grade_comm .grade5 {
   border: 1px solid #cba3e8;
-  background-color: #cba3e9
+  background-color:#cba3e9
 }
 
 .grade_comm .grade1 {
   border: 1px solid #a864d7;
-  background-color: #a864d8
+  background-color:#a864d8
 }
 
 .grade_comm .grade2 {
   border: 1px solid #8c4cc3;
-  background-color: #8c4cc4
+  background-color:#8c4cc4
 }
 
 .grade_comm .grade3 {
   border: 1px solid #641797;
-  background-color: #641798
+  background-color:#641798
 }
 
 .grade_comm .grade4 {
   border: 1px solid #4f1770;
-  background-color: #4f177a
+  background-color:#4f177a
 }
 </style>

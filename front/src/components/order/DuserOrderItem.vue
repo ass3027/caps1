@@ -74,6 +74,24 @@
       </div>
     </div>
   </table>
+  <!-- 출발키퍼 주소 --> <!-- 거리 --> <!-- 도착키퍼 주소 -->    <!-- 운송품에 대한 간략한 정보 -->
+  <!-- 운송원과 출발키퍼사이의 거리 -->                         <!-- 금액 -->
+
+  <!-- 최소 도착시간(주문서.찾을시간) -->
+  <!-- 예상 도착시간 (필요한가) -->
+
+  <!--      ord_id:           {{ order.ord_id }} <br>-->
+  <!--      user_id:          {{ order.user_id }} <br>-->
+  <!--      ord_amount:       {{ order.ord_amount }} <br>-->
+  <!--      entrust_time:     {{ order.entrust_time }} <br>-->
+  <!--      withdraw_time:    {{ order.withdraw_time }} <br>-->
+  <!--      keep_start:       {{ order.keep_start }} <br>-->
+  <!--      keep_end:         {{ order.keep_end }} <br>-->
+  <!--      delivery_id:      {{ order.delivery_id }} <br>-->
+  <!--      call_time:        {{ order.call_time }} <br>-->
+  <!--      status:           {{ order.status }} <br>-->
+  <!--      pay_id:           {{ order.pay_id }} <br>-->
+  <!--      ord_selection:    {{ order.ord_selection }} <br>-->
 </template>
 
 <script>

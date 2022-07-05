@@ -32,13 +32,6 @@
                 readonly
               />
               <v-text-field
-                v-model="user_birth"
-                label="생일"
-                class="box"
-                outlined
-                readonly
-              />
-              <v-text-field
                 v-model="gender"
                 label="성별"
                 class="box"
@@ -53,92 +46,49 @@
                 readonly
               />
               <v-text-field
-                v-if="preference"
                 v-model="preference"
                 label="내가 선호하는 여행방식"
                 class="box"
                 outlined
                 readonly
               />
-              <v-text-field
-                v-if="user_area"
-                v-model="user_area"
-                label="지역"
-                class="box"
-                outlined
-                readonly
-              />
-              <v-text-field
-                v-if="duser_trans"
-                v-model="duser_trans"
-                label="운송수단"
-                class="box"
-                outlined
-                readonly
-              />
-              <v-text-field
-                v-if="duser_license"
-                v-model="duser_license"
-                label="보유 자격증"
-                class="box"
-                outlined
-                readonly
-              />
-              <v-text-field
-                v-if=" business_num"
-                v-model=" business_num"
-                label="사업자번호"
-      class="box"
-      outlined
-      readonly
-      />
-      </v-col>
-    </v-row>
-    </v-container>
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
     </div>
-    </div>
-    </div>
-    <!--  </div>-->
-      </template>
-      <script>
-        import MyPageHeader from "@/components/store/MyPageHeader";
-        import axios from "axios";
-        export default {
-        components:{
-        MyPageHeader
-      },
+  </div>
+<!--  </div>-->
+</template>
+<script>
+import MyPageHeader from "@/components/store/MyPageHeader";
+import axios from "axios";
+export default {
+  components:{
+    MyPageHeader
+  },
 
-        data(){
-        return{
-        user_id: '',
-        user_pw: '',
-        user_phone: '',
-        user_name: '',
-        user_birth:'',
-        user_photo: '',
-        gender: '',
-        preference:'',
-        user_area:true,
-        duser_trans:'',
-        duser_license:'',
-        business_num:''
+  data(){
+    return{
+      user_id: '',
+      user_pw: '',
+      user_phone: '',
+      user_name: '',
+      user_photo: '',
+      gender: '',
+      preference:''
 
-      };
-      },
-        mounted() {
-        axios.get('/api/user/data/'+ this.$store.state.user.userId)
-        .then(res=> {
-        this.user_id = res.data.user_id
-        this.user_pw = res.data.user_pw //공백으로 둬야하나?
-        this.user_phone = res.data.user_phone
-        this.user_name = res.data.user_name
-        this.user_birth = res.data.user_birth
-        this.gender = res.data.gender
+    };
+  },
+  mounted() {
+    axios.get('/api/user/data/'+ this.$store.state.user.userId)
+    .then(res=> {
+      this.user_id = res.data.user_id
+      this.user_pw = res.data.user_pw //공백으로 둬야하나?
+      this.user_phone = res.data.user_phone
+      this.user_name = res.data.user_name
+      this.gender = res.data.gender
       this.preference = res.data.preference
-      this.user_area = res.data.user_area
-      this.duser_trans = res.data.duser_trans
-      this.duser_license = res.data.duser_license
-      this.business_num = res.data.business_num
       console.log(res.data)
       console.log(this.$store.state.user.userId)
 

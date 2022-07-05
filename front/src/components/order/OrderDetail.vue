@@ -67,36 +67,29 @@
           <th>요청사항</th>
           <td>{{ order.ord_request }}</td>
         </tr>
+        <div>
+          <v-btn @click="backTrackingView()">목록</v-btn>
+        </div>
         </tbody>
       </table>
-      <div v-if="order.status === '승인완료'">
+      <div v-if="order.status === '운송요청'">
         <v-btn
           class="btn_type2"
-          color="white"
           height="54px"
-          @click="statusChange('픽업전')"
+          color="white"
+          @click="requestMatch()"
         >
           매칭요청
-        </v-btn>
-      </div>
-      <div v-if="order.status === '픽업전'">
-        <v-btn
-          class="btn_type2"
-          color="white"
-          height="54px"
-          @click="statusChange('운송중')"
-        >
-          픽업완료
         </v-btn>
       </div>
       <div v-if="order.status === '운송중'">
         <v-btn
           class="btn_type2"
-          color="white"
           height="54px"
-          @click="statusChange('운송완료')"
+          color="white"
+          @click="orderArrival()"
         >
-          운송완료
+          배송완료
         </v-btn>
       </div>
     </table>
@@ -233,28 +226,12 @@ export default {
       return d;
     },
 
-    statusChange(toChange) {
 
-
-      axios.post("/api/orders/status/change/" + toChange + '/' + this.order.ord_id).then(res => {
-        res.data === true ? alert('성공') : alert('실패')
-      })
-
-      console.log('statusChange', toChange)
-      this.$router.go();
-
-    }
-    ,
     requestMatch() {
       axios.get("/api/orders/match/" + this.order.ord_id + "/" + this.userId).then(res => {
         console.log("매칭결과:", res.data)
         alert("매칭결과: " + res.data)
         this.$router.go();
-      })
-    },
-
-    pickup() {
-      axios.post('/api/orders/pickup/' + this.order.ord_id).then(res => {
       })
     },
 

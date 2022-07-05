@@ -1,8 +1,9 @@
 <template>
-  <div style="position: relative">
+  <div>
     <canvas
       ref="barChart"
     />
+    <v-btn @click="test2()"></v-btn>
   </div>
 </template>
 
@@ -15,16 +16,13 @@ export default {
 
   data(){
     return{
-      list1:'',
       list:'',
-      list7:'',
-      list30:'',
       type: 'bar',
       data: {
-        labels: [ '총매출', '최근한달', '최근 7일', '금일'],
+        labels: [ 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' ],
         datasets: [{
           label: '# of Votes',
-          data: ['','','',''],
+          data: [  3, 5, 2, 3 ],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -53,18 +51,13 @@ export default {
       }
     }
 },
-  created(){
-    this.a()
+  mounted(){
+    this.selectRCount()
   },
   methods:{
-    async a() {
-      await this.selectRCount1()
-      await this.selectRCount7()
-      await this.selectRCount30()
-
-      this.selectRCount()
+    test2(){
+      this.test.push(1)
     },
-
     createChart(){
       new Chart(this.$refs.barChart, {
         type:'bar',
@@ -72,80 +65,23 @@ export default {
         options:this.options
       })
     },
-
-    selectRCount1(){
-      axios({
-        method:'get',
-        url:'/api/gcount1',
-        params:{
-          'id':this.$store.state.user.userId
-        }
-      }).then((res1)=>{
-
-        this.list1 = res1.data.count1;
-        this.data.datasets[0].data[3]= res1.data.count1;
-
-        //this.data.datasets[0].data.unshift(this.list1) // 금일
-      })
-    },
-
-    selectRCount7(){
-      axios({
-        method:'get',
-        url:'/api/gcount7',
-        params:{
-          'id':this.$store.state.user.userId
-        }
-      }).then((res7)=>{
-
-        this.list7 = res7.data.count7;
-        this.data.datasets[0].data[2]= res7.data.count7
-        // this.data.datasets[0].data.unshift(this.list7) // 7일
-
-      })
-    },
-
-    selectRCount30(){
-      axios({
-        method:'get',
-        url:'/api/gcount30',
-        params:{
-          'id':this.$store.state.user.userId
-        }
-      }).then((res30)=>{
-
-        this.list30 = res30.data.count30;
-        this.data.datasets[0].data[1]= res30.data.count30
-
-        // this.data.datasets[0].data.unshift(this.list30)// 30일
-
-      })
-    },
-
     selectRCount(){
       axios({
         method:'get',
         url:'/api/gcount',
         params:{
           'id':this.$store.state.user.userId
-        },
+        }
       }).then((res)=>{
-        this.list = res.data.count;
-
-        this.data.datasets[0].data[0]= this.list
-        this.data.datasets[0].data[3]= this.list1
-          // this.data.datasets[0].data.unshift(this.list7) // 7일
-          // this.data.datasets[0].data.unshift(this.list30)// 30일
-          // this.data.datasets[0].data.unshift(this.list) //총
+        console.log(res)
+        // this.list = res.data.count;
+        this.data.datasets[0].data.unshift(res.data.count)
+        //this.data.datasets[1].data.unshift(res.data.count*2)
         this.createChart()
-
-
+        console.log(this.data)
       })
-    },
 
-
-  },
-
-
+    }
+  }
 }
 </script>

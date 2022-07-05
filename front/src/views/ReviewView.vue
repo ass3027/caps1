@@ -53,17 +53,18 @@
 </template>
 
 <script>
+import ReviewForm from "@/components/review/ReviewForm";
 import ReviewList from "@/components/review/ReviewList";
 import axios from "axios";
 
 export default {
-  name: 'ReviewView',
+  name      : 'ReviewView',
   components: {
     // ReviewForm,
     ReviewList,
   },
-  props: {
-    id: {
+  props     : {
+    id  : {
       type: String
     },
     type: {
@@ -74,17 +75,17 @@ export default {
     return {
       reviews: [],
       overlay: false,
-      zIndex: 100,
+      zIndex : 100,
       current_page: 1,
     }
   },
   computed: {
     slice_reviews() {
       var current_page = this.current_page
-      return this.reviews.slice((current_page - 1) * 7, current_page * 7)
+      return this.reviews.slice((current_page-1)*7, current_page*7)
     },
     max_page() {
-      return Math.ceil(this.reviews.length / 7)
+      return Math.ceil(this.reviews.length/7)
     }
 
   },
@@ -100,92 +101,83 @@ export default {
     },
     getReviews() {
 
-      axios.get('http://localhost:8080/api/findReviews/' + this.type + '/' + this.id)
-        .then(res => {
-          console.log(res.data)
-          this.reviews = res.data
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      if (this.type === 'product') {
+        axios.get('http://localhost:8080/api/productReview?pd_id=' + this.id)
+          .then(res => {
+            console.log(res.data)
+            this.reviews = res.data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
 
-      // if (this.type === 'product') {
-      //   axios.get('http://localhost:8080/api/productReview?pd_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      //
-      // } else if (this.type === 'store') {
-      //   axios.get('http://localhost:8080/api/storeReview?store_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // } else if (this.type === 'guide') {
-      //   axios.get('http://localhost:8080/api/guideReview?guide_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // } else if (this.type === 'gitem') {
-      //   axios.get('http://localhost:8080/api/gitemReview?gitem_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // } else if (this.type === 'keeper') {
-      //   axios.get('http://localhost:8080/api/keeperReview?keeper_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // } else if (this.type === 'delivery') {
-      //   axios.get('http://localhost:8080/api/deliveryReview?delivery_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // }
+      } else if (this.type === 'store') {
+        axios.get('http://localhost:8080/api/storeReview?store_id=' + this.id)
+          .then(res => {
+            console.log(res.data)
+            this.reviews = res.data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else if (this.type === 'guide') {
+        axios.get('http://localhost:8080/api/guideReview?guide_id=' + this.id)
+          .then(res => {
+            console.log(res.data)
+            this.reviews = res.data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else if (this.type === 'gitem') {
+        axios.get('http://localhost:8080/api/gitemReview?gitem_id=' + this.id)
+          .then(res => {
+            console.log(res.data)
+            this.reviews = res.data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else if (this.type === 'keeper') {
+        axios.get('http://localhost:8080/api/keeperReview?keeper_id=' + this.id)
+          .then(res => {
+            console.log(res.data)
+            this.reviews = res.data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else if (this.type === 'delivery') {
+        axios.get('http://localhost:8080/api/deliveryReview?delivery_id=' + this.id)
+          .then(res => {
+            console.log(res.data)
+            this.reviews = res.data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
 
 
     },
-    pageChange(i) {
+    pageChange(i){
       console.log('test', i)
       this.current_page = i
     },
-    pageFirst() {
+    pageFirst(){
       this.current_page = 1
     },
-    pagePrev() {
-      if (this.current_page > 1) {
+    pagePrev(){
+      if(this.current_page > 1) {
         this.current_page -= 1
       }
     },
-    pageNext() {
-      if (this.current_page < this.max_page) {
+    pageNext(){
+      if(this.current_page < this.max_page) {
         this.current_page += 1
       }
     },
-    pageLast() {
+    pageLast(){
       this.current_page = this.max_page
     },
 
@@ -287,7 +279,7 @@ a:any-link {
 }
 
 .layout-pagination-number {
-  font-size: 12px;
+  font-size:12px;
   font-weight: 700;
   color: #333;
   line-height: 34px;

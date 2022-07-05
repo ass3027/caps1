@@ -1,28 +1,7 @@
 <template>
-  <div v-if="mode=='place'||mode=='hotel'" >
-    <h2>베스트 {{ mode }}</h2>
-    <v-carousel style="width:300px;height: 300px;">
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item.firstimage"
-
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      >
-        <div class="innerText">
-          <h3>{{ i+1 }}.{{ item.title }}</h3>
-          <v-btn @click="toCalendar(item)">
-            일정에추가
-          </v-btn>
-        </div>
-      </v-carousel-item>
-    </v-carousel>
-  </div>
-  <div v-else>
-<!--    가이드시-->
-    <h2>베스트 {{ mode }}</h2>
-    <v-carousel style="width:300px;height: 300px">
+  <div>
+    <h2>베스트 여행지</h2>
+    <v-carousel>
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -53,59 +32,24 @@ export default {
       ],
     }
   },
-  props:['mode'],
   mounted() {
-    //모드의 종류 place,hotel,guide
+    axios
+      .get('/api/bestPlace')
+      .then(res=>{
+        console.log(res.data)
 
-    if(this.mode=='place'){
-      axios
-        .get('/api/bestPlace')
-        .then(res=>{
-          console.log(res.data)
-
-          res.data.forEach(i=>{
-            if(i.pic_name==null){
-              i.pic_name="placeImage/noImage.png"
-            }
-          })
-          this.items=res.data
-
+        res.data.forEach(i=>{
+          if(i.pic_name==null){
+            i.pic_name="placeImage/noImage.png"
+          }
         })
-    }
-    if(this.mode=='hotel'){
-      axios
-        .get('/api/bestHotel')
-        .then(res=>{
-          console.log(res.data)
+        this.items=res.data
 
-          res.data.forEach(i=>{
-            if(i.pic_name==null){
-              i.pic_name="placeImage/noImage.png"
-            }
-          })
-          this.items=res.data
-
-        })
-    }
-    if(this.mode=='guide'){
-      axios
-        .get('/api/bestGitem')
-        .then(res=>{
-          console.log(res.data)
-
-          res.data.forEach(i=>{
-            if(i.pic_name==null){
-              i.pic_name="placeImage/noImage.png"
-            }
-          })
-          this.items=res.data
-
-        })
-    }
+      })
   },
   methods:{
     toCalendar(item){
-      this.$router.push({name:'calender', params:{rec:item.title}})
+      this.$router.push({name:'calender', params:{item:item}})
     }
 
   }
@@ -114,11 +58,11 @@ export default {
 </script>
 
 <style scoped>
-/*.v-carousel{*/
-/*  width: 500px;*/
-/*  height: 300px;*/
-/*  align: center;*/
-/*}*/
+.v-carousel{
+  width: 500px;
+  height: 300px;
+  align: center;
+}
 .innerText{
   text-align: right;
   margin: 10px;

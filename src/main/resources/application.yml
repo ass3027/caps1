@@ -27,5 +27,5 @@ server:
   port: 8000
 
 mybatis:
-  mapper-locations: mybatis/**.xml
+  mapper-locations : mybatis/**.xml
   config-location: classpath:mybatis-config.xml

@@ -63,8 +63,7 @@ export default {
   name: "MapComponent",
   props:{
     schedule:Map,
-    index:String,
-    rec:String
+    index:String
 
   },
   data() {
@@ -86,6 +85,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.schedule)
     if (window.kakao && window.kakao.maps) {
       this.initMap();
     } else {
@@ -102,21 +102,17 @@ export default {
         EventBus.$on("updateDate", (date) => {
           const schedule = this.$store.state.calendar.calendar.date[date]
           this.setPathAndShow(schedule)
+          console.log(this.eachDistance)
           EventBus.$emit('passDistance',this.eachDistance)
         })
       }
     }
-
-    if(this.rec!=undefined){
-      this.keyWord = this.rec
-      this.OurDbSearch()
-    }
-
-
   },
   methods: {
     setPathAndShow(schedule){
       this.placePositionArray = []
+      console.log(this.pathMarkers)
+      console.log(schedule)
       this.removePathMarker()
 
       let tempMarker
@@ -126,6 +122,7 @@ export default {
       for(let it of schedule.values()){
         if(it.mapX!==0&&it.mapY!==0){
           position = new kakao.maps.LatLng(it.mapX,it.mapY)
+          console.log(position)
 
           this.placePositionArray.push(position)
 
@@ -147,6 +144,7 @@ export default {
           index++
         }
       }
+      console.log(this.placePositionArray)
       this.getEachDistance()
       this.path.setPath(this.placePositionArray)
     },
@@ -155,6 +153,7 @@ export default {
     },
     initMap() {
       const container = document.getElementById(this.index);
+      console.log(this.schedule)
       navigator.geolocation.getCurrentPosition((position)=>{
 
         let centerPosition;
@@ -163,8 +162,11 @@ export default {
           centerPosition = new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude)
         }
         else {
+          console.log(this.schedule.values().next().value.mapX)
           centerPosition = new kakao.maps.LatLng(this.schedule.values().next().value.mapX, this.schedule.values().next().value.mapY)
         }
+
+        console.log(centerPosition)
 
         let center = centerPosition
         const options = {
@@ -222,6 +224,8 @@ export default {
 
             this.searchDetailAddrFromCoords(clickPosition, (result, status) => {
               if (status === kakao.maps.services.Status.OK) {
+                console.log(result)
+                console.log(clickPosition)
                 //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
                 let detailAddr = '';
                 let mapAddress = 0;
@@ -251,6 +255,7 @@ export default {
                   pl_id:undefined
                 }
 
+                console.log(mapAddress)
                 if (mapAddress !== 0) {
                   this.$store.commit('calendar/updateCalendarDate', mapData)
                 }
@@ -262,7 +267,7 @@ export default {
 
 
             var clickPosition = mouseEvent.latLng;
-
+            console.log(clickPosition)
           })
         }
 
@@ -271,6 +276,7 @@ export default {
         this.showPath()
 
         if(this.schedule!==undefined){
+          console.log(this.schedule)
           this.setPathAndShow(this.schedule)
         }
       });
@@ -279,6 +285,7 @@ export default {
 
     },
     showPath(){
+      console.log(this.placePositionArray)
 
       this.path = new kakao.maps.Polyline({
         map:this.map,
@@ -291,6 +298,7 @@ export default {
     },
     getEachDistance(){
       this.eachDistance = []
+      console.log(this.eachDistance)
       const tempPolyline = new kakao.maps.Polyline({
         map:null,
         path:[],
@@ -303,6 +311,7 @@ export default {
         tempPolyline.setPath(this.placePositionArray.slice(i,i+2))
         this.eachDistance.push( Math.floor( tempPolyline.getLength() ) )
       }
+      console.log(this.eachDistance)
     },
     // showDistance(){
     //
@@ -328,6 +337,7 @@ export default {
       this.checkDBSearch = true
       axios.get(`/api/place/${this.keyWord}`)
         .then( (res)=>{
+          console.log(res.data)
           const converted = []
 
           for(let i=0,it;i<30&&i<res.data.length;i++){
@@ -368,6 +378,7 @@ export default {
     },
     displayPlaces(places) {
       this.places = places;
+      console.log(this.places)
       var menuEl = document.getElementById('menu_wrap'),
         bounds = new kakao.maps.LatLngBounds();
       //listStr = '';
@@ -391,6 +402,7 @@ export default {
           this.infoWindow.close();
         })
       }
+      console.log(this.markers)
 
       menuEl.scrollTop = 0;
       this.map.setBounds(bounds);
@@ -425,7 +437,7 @@ export default {
     },
     //귀찮아서 이렇게 할게요 ㅠ
     removePathMarker() {
-
+      console.log(this.pathMarkers)
       for (let i = 0; i < this.pathMarkers.length; i++) {
         this.pathMarkers[i].marker.setMap(null);
         this.pathMarkers[i].overlay.setMap(null);
@@ -433,11 +445,11 @@ export default {
       this.pathMarkers = [];
     },
     removeMarker2(index) {
-
+      console.log(this.markers)
       this.markers[index].setMap(null);
     },
     displayPagination(pagination) {
-
+      console.log(pagination)
       var paginationEl = document.getElementById('pagination'),
         fragment = document.createDocumentFragment(),
         i;
@@ -475,7 +487,8 @@ export default {
     },
 
     logLocationInfo(place) {
-
+      console.log(place)
+      console.log(place.place_name)
       // 이동할 위도 경도 위치를 생성합니다
       let moveLatLon = new kakao.maps.LatLng(place.y, place.x);
 

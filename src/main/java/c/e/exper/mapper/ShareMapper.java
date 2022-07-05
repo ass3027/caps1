@@ -1,13 +1,10 @@
 package c.e.exper.mapper;
 
 import c.e.exper.data.Share;
-import c.e.exper.data.ShareComment;
 import c.e.exper.data.ShareDTO;
 import c.e.exper.data.SharePictureDAO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.security.core.parameters.P;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -57,28 +54,4 @@ public interface ShareMapper {
 
     @Select("select PREFERENCE from USERS where USER_ID=#{user_id}")
     public String selectPreference(String user_id);
-
-    @Insert("insert into SHARES_REC(share_id, user_id) values(#{share_id},#{user_id})")
-    public void insertRecommend(String share_id,String user_id);
-
-    @Select("select count(share_id) from SHARES_REC where SHARE_ID = #{share_id}")
-    public String selectShareRec(String share_id);
-
-    @Insert("insert into SHARES_COMMENT(comment_contents, user_id, share_id) values(#{comment_contents},#{user_id},#{share_id})")
-    public void postComment(ShareComment comment);
-
-    @Select("select * from SHARES_COMMENT where SHARE_ID = #{share_id} order by created_time desc")
-    public List<ShareComment> getComments(String share_id);
-
-    @Select("select FIRSTIMAGE\n" +
-            "from shares a,SCHEDULE c, PLACE d\n" +
-            "where a.PLAN_ID=c.PLAN_ID\n" +
-            "and c.PL_ID=d.PL_ID\n" +
-            "and share_id = #{share_id}\n" +
-            "and firstimage is not null")
-    public List<String> getShareFirstImages(String share_id);
-
-    @Delete("delete from SHARES_COMMENT where COMMENT_ID=#{comment_id}")
-    public void delShareComment(String comment_id);
-
 }

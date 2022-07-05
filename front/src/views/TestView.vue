@@ -1,26 +1,27 @@
 <template>
   <div style="width: 1050px">
-    <DuserOrdersComponent/>
+    <DuserOrdersComponent />
     <!--          <OrdersComponent :user_id="user_id" />-->
-    <!--    <ReviewView :id="'100'" :type="'all'"/>-->
+    <!--    <ReviewView :id="'100'" :type="'product'"/>-->
 
-    <!--    <ReviewCreateView :id="'um'" :type="'guide'"/>-->
     <!--    <ReviewCreateView />-->
   </div>
 </template>
 
 <script>
-import axios from "axios";
 // import OrdersComponent from "@/components/OrdersComponent";
-// import ReviewCreateView from "@/views/ReviewCreateView";
 import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
+import axios from "axios";
+import ReviewView from "@/views/ReviewView";
+import ReviewCreateView from "@/views/ReviewCreateView";
+// import OrdersComponent from "@/components/OrdersComponent";
+
+
 
 export default {
 
   name: 'TestView',
   components: {
-
-
     // ReviewView
     // OrdersComponent,
     DuserOrdersComponent
@@ -42,16 +43,16 @@ export default {
     }
   },
   created() {
-    axios({
-      method: 'GET',
-      url: '/api/user/find',
-      params: {
-        'user_id': this.userId
-      }
-    }).then(res => {
-      this.user = res.data
-    })
-  },
+      axios({
+        method: 'GET',
+        url: '/api/user/find',
+        params: {
+          'user_id': this.userId
+        }
+      }).then(res => {
+          this.user = res.data
+      })
+    },
   mounted() {
     console.log("[current_user_id]" + this.userId)
 

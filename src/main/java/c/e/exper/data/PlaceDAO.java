@@ -29,7 +29,7 @@ public class PlaceDAO {
     String cat2;
     String cat3;
     String contentid;
-    String contenttypeid;
+    String contentypeid;
     String firstimage;
     String firstimage2;
     Double mapx;

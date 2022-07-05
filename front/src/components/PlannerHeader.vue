@@ -42,21 +42,25 @@ export default {
       plan_list: []
     }
   },
+  computed: {
+    user_id() {
+      return this.$store.state.user.userId
+    }
+  },
   mounted() {
+
     this.getPlanListByUserId();
     this.plan_id = this.$store.state.user.planId
   },
   methods: {
-    getUserId() {
-      return this.$store.state.user.userId
-    },
     reload() {
       this.$store.commit('user/updatePlanId', this.plan_id)
+      console.log(this.$store.state.user.planId)
       location.reload();
     },
     getPlanListByUserId() {
       axios({
-        url: '/api/planner/' + this.getUserId(),
+        url: '/api/planner/' + this.user_id,
         method: 'get'
       })
         .then((res) => {
@@ -66,7 +70,6 @@ export default {
             }]
 
           } else {
-
             this.plan_list = res.data
 
           }

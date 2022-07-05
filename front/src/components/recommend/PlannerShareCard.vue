@@ -19,13 +19,9 @@
               alt="My Image"
             >
           </v-col>
-          <v-col
-            v-for="(firstimage,index) in shareSet.firstimage"
-            :key="index+'f'"
-            cols="auto"
-          >
+          <v-col cols="auto">
             <img
-              :src="firstimage"
+              src="/api/photo/shareImage/....png"
               alt="My Image"
             >
           </v-col>
@@ -49,8 +45,8 @@
             cols="3"
             class="grey--text"
           >
-            <h4>공유 수 : {{ shareSet.share_count }}</h4>
-            <h4>추천 수 : {{recommends}}</h4>
+            <h4>{{ shareSet.user_id }}님의 일정</h4>
+            <h4>공유된 횟수 : {{ shareSet.share_count }}</h4>
           </v-col>
         </v-row>
         <!--      태그와작성시간-->
@@ -65,8 +61,7 @@
             cols="3"
             class="grey--text"
           >
-            <h5>{{ shareSet.user_id }}님의 일정</h5>
-            <h5>작성일 : {{ shareSet.share_created }}</h5>
+            <h5>{{ shareSet.share_created }}</h5>
           </v-col>
         </v-row>
       </v-container>
@@ -82,20 +77,14 @@ export default {
   props: ["shareSet"],
   data() {
     return {
-      preference: '',
-      recommends:''
+      preference:''
     }
   },
   mounted() {
-    axios.get("/api/getPreference", {params: {user_id: this.shareSet.user_id}})
-      .then((res) => {
-        this.preference = res.data
-      })
-    axios.get('/api/getShareRec', {params: {share_id: this.shareSet.share_id}})
-      .then((res) => {
-        this.recommends = res.data;
-      })
-
+    axios.get("/api/getPreference",{params:{user_id:this.shareSet.user_id}})
+    .then((res)=>{
+      this.preference=res.data
+    })
   },
   methods: {}
 }
