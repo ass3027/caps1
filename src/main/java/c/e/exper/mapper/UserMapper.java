@@ -18,13 +18,12 @@ public interface UserMapper { //디비접근
     @Select("SELECT * FROM users")
     List<UserDAO> selectAll();
 
-//    @Select("SELECT * FROM users WHERE user_id=#{user_id}")
-//    Optional<UserDAO> selectId(String user_id);
-//    (@Param("user_id") 생략가능
+    @Select("SELECT * FROM users WHERE user_id=#{user_id}")
+    Optional<UserDAO> selectId(String user_id);
 
     //회원정보
     @Select("SELECT * FROM users, delivery_user WHERE users.user_id = delivery_user.user_id and users.user_id=#{user_id}")
-    Optional<UserDTO>  selectId(String user_id);
+    Optional<UserDTO>  getDeliveryInfoById(String user_id);
 //    (@Param("user_id") 생략가능
 
 
