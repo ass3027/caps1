@@ -32,9 +32,9 @@
           class="item_container"
         >
           <DuserOrderItem
-            :order="order"
             :latitude="latitude"
             :longitude="longitude"
+            :order="order"
           />
         </div>
         <div
@@ -48,29 +48,32 @@
         v-else-if="status===2"
         class="orders_status"
       >
-        <span>픽업 전</span>
+        <div style="width: 100%; text-align: center">
+          <span>픽업 전</span>
+        </div>
         <div
           v-for="order in orders_pickup_before"
           :key="order.ord_id"
           class="item_container"
         >
           <DuserOrderItem
-            :order="order"
             :latitude="latitude"
             :longitude="longitude"
+            :order="order"
           />
         </div>
-
-        <span>배송 중</span>
+        <div style="width: 100%; text-align: center">
+          <span>배송 중</span>
+        </div>
         <div
           v-for="order in orders_pickup_after"
           :key="order.ord_id"
           class="item_container"
         >
           <DuserOrderItem
-            :order="order"
             :latitude="latitude"
             :longitude="longitude"
+            :order="order"
           />
         </div>
 
@@ -91,9 +94,9 @@
           class="item_container"
         >
           <DuserOrderItem
-            :order="order"
             :latitude="latitude"
             :longitude="longitude"
+            :order="order"
           />
         </div>
 
@@ -127,25 +130,33 @@ export default {
       status: 1,
     }
   },
-  computed:{
+  computed: {
     orders_possible() {
       if (this.order_all === null) return null
-      return this.order_all.filter(i => {return i.status === '승인완료'})
+      return this.order_all.filter(i => {
+        return i.status === '승인완료'
+      })
     },
 
     orders_pickup_before() {
       if (this.order_all === null) return null
-      return this.order_all.filter(i => {return i.status === '픽업전'})
+      return this.order_all.filter(i => {
+        return i.status === '픽업전'
+      })
     },
 
     orders_pickup_after() {
       if (this.order_all === null) return null
-      return this.order_all.filter(i => {return i.status === '픽업완료'})
+      return this.order_all.filter(i => {
+        return i.status === '픽업완료'
+      })
     },
 
     orders_end() {
       if (this.order_all === null) return null
-      return this.order_all.filter(i => {return i.status === '운송완료'})
+      return this.order_all.filter(i => {
+        return i.status === '운송완료'
+      })
     },
 
 
@@ -159,8 +170,6 @@ export default {
   },
   mounted() {
     this.test().then()
-
-
 
 
     var status = document.getElementById('status1')
@@ -195,11 +204,11 @@ export default {
       console.log('changeStatus, status:', status)
 
       this.status = status
-      var selected = document.getElementById('status'+status)
+      var selected = document.getElementById('status' + status)
 
-      for(let i of [1, 2, 3]){
-        if(i === status) continue;
-        var selected_else = document.getElementById('status'+i)
+      for (let i of [1, 2, 3]) {
+        if (i === status) continue;
+        var selected_else = document.getElementById('status' + i)
 
         selected_else.style.borderBottom = ''
         selected_else.style.backgroundColor = '#f8f9fa'
@@ -217,18 +226,18 @@ export default {
 
 <style scoped>
 
-.item_container{
+.item_container {
   padding: 20px;
 }
 
-.orders_status{
+.orders_status {
   border: 1px solid #ccc;
   border-top: none;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-.status>span{
+.status > span {
   width: 33.33%;
   text-align: center;
   display: inline-block;
@@ -238,7 +247,7 @@ export default {
   background-color: #f8f9fa;
 }
 
-#duser_orders{
+#duser_orders {
   width: 1050px;
   margin: 0 auto;
 }
@@ -247,6 +256,7 @@ export default {
   display: flex;
   justify-content: center;
 }
+
 .gnb_stop {
   z-index: 300;
   position: fixed;
@@ -276,7 +286,7 @@ export default {
   justify-content: center;
   height: 557px;
   text-align: center;
-  font-family:NotoSansCJKkr
+  font-family: NotoSansCJKkr
 }
 
 .wrap_empty strong {
@@ -286,7 +296,7 @@ export default {
   font-size: 16px;
   font-weight: 500;
   line-height: 1.25;
-  letter-spacing:-.3px
+  letter-spacing: -.3px
 }
 
 .wrap_empty strong:before {
@@ -300,12 +310,12 @@ export default {
 .wrap_empty p {
   margin-bottom: 24px;
   font-size: 14px;
-  color:#b5b5b5
+  color: #b5b5b5
 }
 
 .wrap_empty button.btn_type1 {
   width: 150px;
-  height:44px
+  height: 44px
 }
 
 .wrap_empty button.btn_type1 span {
@@ -315,7 +325,7 @@ export default {
   font-size: 14px;
   line-height: 44px;
   color: #fff;
-  text-align:center
+  text-align: center
 }
 
 /*.text-center {*/

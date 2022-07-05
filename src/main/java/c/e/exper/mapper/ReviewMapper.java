@@ -15,13 +15,23 @@ public interface ReviewMapper {
             SELECT pl_name
             FROM place
             where store_id = #{store_id}""")
-    public String findPlName(@Param("store_id") String store_id);
+    String findPlName(@Param("store_id") String store_id);
 
 
     @Select("""
             SELECT *
             FROM review""")
-    public List<Review> findAllReview();
+    List<Review> findAllReview();
+
+    @Select("""
+            select *
+            from review
+            where pay_id in (select PAY_ID
+                             from PAYMENT
+                             where gtime_num in (select TIME_NUM
+                                                 from AVAILABLE_TIME
+                                                 where GITEM_ID = #{gitem_id}));""")
+    List<Review> findGuideProductReview(@Param("gitem_id") String gitem_id);
 
 
     @Insert("""
@@ -47,7 +57,7 @@ public interface ReviewMapper {
                     #{review.pd_id})
                     #{review.pl_id})
                     #{review.guide_id})""")
-    public int addReview(Review review);
+    int addReview(Review review);
 
     @Insert("""
             INSERT INTO review(rev_id,
@@ -60,7 +70,7 @@ public interface ReviewMapper {
                     #{review.rev_content},
                     #{review.title})
                     #{review.pd_id})""")
-    public int addReviewYame(Review review);
+    int addReviewYame(Review review);
 
     /* 주문서 리뷰 등록 */
     @Insert("""
@@ -74,8 +84,7 @@ public interface ReviewMapper {
                     #{review.rev_content},
                     #{review.rev_rating},
                     #{review.ord_id})""")
-    public int addOrderReview(@Param("review") Review review);
-
+    int addOrderReview(@Param("review") Review review);
 
 
     /* 예약 리뷰 등록 */
@@ -88,21 +97,21 @@ public interface ReviewMapper {
                      #{review.rev_content},
                      #{review.rev_rating},
                      #{review.book_id})""")
-    public int addBookReview(@Param("review") Review review);
+    int addBookReview(@Param("review") Review review);
 
     /* 리뷰 아이디로 리뷰 조회 */
     @Select("""
             SELECT *
             FROM review
             WHERE rev_id = #{rev_id}""")
-    public Review selectReview(@Param("rev_id") String rev_id);
+    Review selectReview(@Param("rev_id") String rev_id);
 
 
     /* 리뷰 아이디로 리뷰 삭제 */
     @Delete("""
             DELETE FROM review
             WHERE rev_id = #{rev_id}""")
-    public int deleteReview(@Param("rev_id") String rev_id);
+    int deleteReview(@Param("rev_id") String rev_id);
 
     @Select("""
             SELECT *
@@ -113,7 +122,7 @@ public interface ReviewMapper {
                                              FROM review r, book b
                                              WHERE r.rev_id = #{rev_id}
                                              AND r.book_id = b.book_id))""")
-    public List<Review> findAllReviewForReview(@Param("rev_id") String rev_id);
+    List<Review> findAllReviewForReview(@Param("rev_id") String rev_id);
 
     /* 리뷰 아이디로 상품 아이디 */
     @Select("""
@@ -121,7 +130,7 @@ public interface ReviewMapper {
             FROM review r, book b
             WHERE r.rev_id = #{rev_id}
               AND r.book_id = b.book_id""")
-    public String findProductForReview(@Param("rev_id") String rev_id);
+    String findProductForReview(@Param("rev_id") String rev_id);
 
     /* 상품 아이디로 모든 리뷰 조1회 */
     @Select("""
@@ -131,13 +140,13 @@ public interface ReviewMapper {
                                FROM book
                                WHERE pd_id = #{pd_id})
                                """)
-    public List<Review> findAllReviewForProduct(@Param("pd_id") String pd_id);
+    List<Review> findAllReviewForProduct(@Param("pd_id") String pd_id);
 
     @Select("""
             SELECT *
             FROM   review
             WHERE  pd_id = #{pd_id}""")
-    public List<Review> findAllReviewForProduct2(@Param("pd_id") String pd_id);
+    List<Review> findAllReviewForProduct2(@Param("pd_id") String pd_id);
 
     @Select("""
             SELECT *
@@ -146,21 +155,20 @@ public interface ReviewMapper {
                                FROM gitem
                                WHERE guide_id = #{guide_id})
                                """)
-    public List<Review> findGuideReview(@Param("guide_id") String guide_id);
+    List<Review> findGuideReview(@Param("guide_id") String guide_id);
 
     @Select("""
             SELECT *
             FROM   review
             WHERE  gitem_id = #{gitem_id}
                                """)
-    public List<Review> findGitemReview(@Param("gitem_id") String gitem_id);
+    List<Review> findGitemReview(@Param("gitem_id") String gitem_id);
 
     @Select("""
             SELECT pic_name
             FROM   pictures
             WHERE  rev_id = #{rev_id}""")
-    public String findReviewPictures(@Param("rev_id") String rev_id);
-
+    String findReviewPictures(@Param("rev_id") String rev_id);
 
 
     /* 가게 이름으로 모든 리뷰 조회*/
@@ -173,7 +181,7 @@ public interface ReviewMapper {
                                   FROM   product, place
                                   WHERE  pl_name = #{pl_name}
                                   AND    product.pl_id = place.pl_id)""")
-    public List<Review> findAllReviewForStore(@Param("pl_name") String pl_name);
+    List<Review> findAllReviewForStore(@Param("pl_name") String pl_name);
 
     /* 키퍼 아이디로 모든 리뷰 조회 */
     @Select("""
@@ -183,7 +191,7 @@ public interface ReviewMapper {
                              FROM   orders
                              WHERE keep_start = #{keep_id}
                                 OR keep_end   = #{keep_id})""")
-    public List<Review> findAllReviewForKeep(@Param("keep_id") String keep_id);
+    List<Review> findAllReviewForKeep(@Param("keep_id") String keep_id);
 
     /* 운송원 아이디로 모든 리뷰 조회*/
     @Select("""
@@ -192,7 +200,7 @@ public interface ReviewMapper {
             WHERE ord_id IN (SELECT ord_id
                              FROM orders
                              WHERE delivery_id = #{delivery_id})""")
-    public List<Review> findAllReviewForDelivery(@Param("delivery_id") String delivery_id);
+    List<Review> findAllReviewForDelivery(@Param("delivery_id") String delivery_id);
 
 //    @Select("select * from REVIEW where BOOK_ID in ()")
 
@@ -200,11 +208,11 @@ public interface ReviewMapper {
             UPDATE review
             SET rev_content = #{review.rev_content}
             WHERE review_id = #{review.rev_id}""")
-    public int updateReview(@Param("review") Review review);
+    int updateReview(@Param("review") Review review);
 
     @Select("""
             SELECT book_id
             FROM book
             WHERE pay_id = #{pay_id}""")
-    public String findByPay(@Param("pay_id") String pay_id);
+    String findByPay(@Param("pay_id") String pay_id);
 }

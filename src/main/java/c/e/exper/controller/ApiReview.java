@@ -56,11 +56,7 @@ public class ApiReview {
         return allReview;
     }
 
-<<<<<<< Updated upstream
-    @GetMapping("/find/reviews/{type}/{id}")
-    public List<Review> findReviews(@PathVariable String type, @PathVariable String id) {
-        // type: guide, gitem, place, product, keeper, duser
-=======
+
     @GetMapping("/find/answer/{id}")
     public Review findReviewAnswer(@PathVariable String id) {
         System.out.println(id);
@@ -76,6 +72,8 @@ public class ApiReview {
         switch (type) {
             case "all":
                 return reviewMapper.findAllReview();
+            case "가이드 상품":
+                return reviewMapper.findGuideProductReview(id);
         }
 
 
@@ -126,17 +124,7 @@ public class ApiReview {
 
         return reviewService.키퍼아이디_모든리뷰_조회(keep_id);
     }
->>>>>>> Stashed changes
 
-        switch (type) {
-            case "guide":
-        }
-
-        System.out.println(type);
-        System.out.println(id);
-
-        return null;
-    }
 
     @PutMapping("/updateReview")
     public void updateReview(Review review) {
