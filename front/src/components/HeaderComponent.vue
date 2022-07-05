@@ -266,8 +266,8 @@ export default {
           {title: '이용안내', route: '/UsageGuideView'},
           {title: '요금', route: '/FareView'},
           {title: '후기', route: '/ReviewView'},
-          {title: '배송조회', route: '/GTrackingView'},
-          {title: '키퍼배송조회', route: '/KeeperTrackingView'},
+          {title: '물품조회', route: '/GTrackingView'},
+          {title: '키퍼물품조회', route: '/KeeperTrackingView'},
         ],
         [
           {title: '가이드 등록', route: '/GuideRegister'},

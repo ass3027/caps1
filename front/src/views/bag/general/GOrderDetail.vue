@@ -1,94 +1,161 @@
 <template>
-  <table
-    style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
-    <div style="margin-top: 10px">
-      <p style="display: inline; font-size: large; margin-left: 5px">
-        배송경로
-      </p>
-      <div style="display: inline; float: right; font-size: large; margin-right: 5px">
-        주문번호 #{{ order.ord_id }}
+  <v-container>
+    <table v-if="item.ord_selection==`물품운송`"
+           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+      <div style="margin-top: 10px">
+        <p style="display: inline; font-size: large; margin-left: 5px">
+          배송경로
+        </p>
+        <div style="display: inline; float: right; font-size: large; margin-right: 5px">
+          주문번호 #{{ order.ord_id }}
+        </div>
       </div>
-    </div>
-    <div
-      id="map"
-      style="width:100%;height:350px;"
-    />
+      <div
+        id="map"
+        style="width:100%;height:350px;"
+      />
 
-    <table id="order_detail">
-      <thead scope="row">
-      <tr/>
-      </thead>
-      <tbody>
-      <tr>
-        <th>금액</th>
-        <td>{{ order.ord_amount }} 원</td>
-      </tr>
-      <tr>
-        <th>픽업/완료</th>
-        <td>
-          <div>
-            {{ entrust_time }}
-          </div>
-          <div>
-            {{ withdraw_time }}
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>출발지</th>
-        <td>{{ keep_start.addr1 }}</td>
-      </tr>
-      <tr>
-        <th>도착지</th>
-        <td>{{ keep_end.addr1 }}</td>
-      </tr>
-      <tr>
-        <th>거리</th>
-        <td>{{ degree_start_end }}Km</td>
-      </tr>
-      <tr>
-        <th>나로부터</th>
-        <td>{{ degree_user_start }}Km</td>
-      </tr>
-      <tr>
-        <th>물품정보</th>
-        <td>
-            <span
-              v-for="(i, index) in ord_bag_info"
-              :key="index"
-            >
-              {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
-              <span v-if="index !== ord_bag_info.length-1">, </span>
-            </span>
-        </td>
-      </tr>
-      <tr>
-        <th>요청사항</th>
-        <td>{{ order.ord_request }}</td>
-      </tr>
-      </tbody>
+      <table id="order_detail">
+        <thead scope="row">
+        <tr/>
+        </thead>
+        <tbody>
+        <tr>
+          <th>금액</th>
+          <td>{{ order.ord_amount }} 원</td>
+        </tr>
+        <tr>
+          <th>픽업/완료</th>
+          <td>
+            <div>
+              {{ entrust_time }}
+            </div>
+            <div>
+              {{ withdraw_time }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>출발지</th>
+          <td>{{ keep_start.addr1 }},{</td>
+        </tr>
+        <tr>
+          <th>도착지</th>
+          <td>{{ keep_end.addr1 }}</td>
+        </tr>
+        <tr>
+          <th>거리</th>
+          <td>{{ degree_start_end }}Km</td>
+        </tr>
+        <tr>
+          <th>나로부터</th>
+          <td>{{ degree_user_start }}Km</td>
+        </tr>
+        <tr>
+          <th>물품정보</th>
+          <td>
+          <span
+            v-for="(i, index) in ord_bag_info"
+            :key="index"
+          >
+            {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
+            <span v-if="index !== ord_bag_info.length-1">, </span>
+          </span>
+          </td>
+        </tr>
+        <tr>
+          <th>요청사항</th>
+          <td>{{ item.ord_request }}</td>
+        </tr>
+        </tbody>
+
+      </table>
+      <div>
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="backTrackingView()">목록
+        </v-btn>
+      </div>
     </table>
-    <div v-if="order.status === '운송요청'">
-      <v-btn
-        class="btn_type2"
-        height="54px"
-        color="white"
-        @click="requestMatch()"
-      >
-        매칭요청
-      </v-btn>
-    </div>
-    <div v-if="order.status === '운송중'">
-      <v-btn
-        class="btn_type2"
-        height="54px"
-        color="white"
-        @click="orderArrival()"
-      >
-        배송완료
-      </v-btn>
-    </div>
-  </table>
+
+    <table v-else
+           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+      <div style="margin-top: 10px">
+        <p style="display: inline; font-size: large; margin-left: 5px">
+          보관상세
+        </p>
+        <div style="display: inline; float: right; font-size: large; margin-right: 5px">
+          주문번호 #{{ order.ord_id }}
+        </div>
+      </div>
+      <div
+        id="qqqqq"
+        style="width:100%;height:350px;"
+      />
+
+      <table id="qqqqqq">
+        <thead scope="row">
+        <tr/>
+        </thead>
+        <tbody>
+        <tr>
+          <th>금액</th>
+          <td>{{ order.ord_amount }} 원</td>
+        </tr>
+        <tr>
+          <th>픽업/완료</th>
+          <td>
+            <div>
+              {{ entrust_time }}
+            </div>
+            <div>
+              {{ withdraw_time }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>맡긴장소</th>
+          <td>{{ item.keep_start_title }}</td>
+        </tr>
+
+        <tr>
+          <th>거리</th>
+          <td>{{ degree_start_end }}Km</td>
+        </tr>
+        <tr>
+          <th>나로부터</th>
+          <td>{{ degree_user_start }}Km</td>
+        </tr>
+        <tr>
+          <th>물품정보</th>
+          <td>
+          <span
+            v-for="(i, index) in ord_bag_info"
+            :key="index"
+          >
+            {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
+            <span v-if="index !== ord_bag_info.length-1">, </span>
+          </span>
+          </td>
+        </tr>
+        <tr>
+          <th>요청사항</th>
+          <td>{{ item.ord_request }}</td>
+        </tr>
+        </tbody>
+        <div>
+          <v-btn
+            class="btn_type2"
+            height="54px"
+            color="white"
+            @click="backTrackingView()">목록
+          </v-btn>
+        </div>
+      </table>
+    </table>
+  </v-container>
 </template>
 
 <script>
@@ -97,9 +164,7 @@ import axios from "axios";
 
 export default {
   name: 'OrderDetail',
-  props: {
-    order: {type: Object},
-  },
+
   data() {
     return {
       keep_start: Object,
@@ -109,8 +174,12 @@ export default {
       degree_start_end: null,
       userId: this.$store.state.user.userId,
       user_lng: null,
-      user_lat: null
+      user_lat: null,
+      item: '',
     }
+  },
+  props: {
+    order: {type: Object},
   },
   computed: {
     entrust_time: function () {
@@ -131,7 +200,6 @@ export default {
     }
   },
   created() {
-
     console.log('[OrderDetail]', this.order)
 
     axios.get("/api/location/check?duser_id=" + this.userId).then(res => {
@@ -147,6 +215,8 @@ export default {
 
     axios.get("/api/keep/find/" + this.order.keep_start).then(res => {
       this.keep_start = res.data
+      console.log('keep_start')
+      console.log(this.keep_start)
     }).then(() => {
       axios.get("/api/keep/find/" + this.order.keep_end).then(res => {
         this.keep_end = res.data
@@ -166,16 +236,28 @@ export default {
 
     axios.get("/api/orders/baginfo/" + this.order.ord_id).then(res => {
       this.ord_bag_info = res.data
-      console.log('order.ord_id', this.order.ord_id)
-      console.log('ord_bag_info', this.ord_bag_info)
+      console.log('order.ord_info')
+      console.log(this.ord_bag_info)
     })
-
-
   },
   mounted() {
-
+    this.trackingDetail()
   },
   methods: {
+    trackingDetail() {
+      axios.get('/api/trackingDetail/' + this.order.ord_id)
+        .then((res) => {
+          this.item = res.data;
+          console.log("item")
+          console.log(this.item)
+        })
+    },
+    //목록으로 돌아가기
+    backTrackingView() {
+      this.$router.push('/GTrackingView')
+    },
+
+
     initMap() {
       console.log("[initMap()]")
 
@@ -237,7 +319,8 @@ export default {
         alert(res.data)
         this.$router.go();
       })
-    }
+    },
+
 
   }
 };

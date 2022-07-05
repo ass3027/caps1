@@ -3,7 +3,7 @@
     <v-app>
       <v-col>
         <v-row>
-          {{ storageList.user_id }}
+          {{ keeperStorageList.user_id }}
         </v-row>
         <h1>키퍼 회원 전체 물품 현황 조회</h1>
       </v-col>
@@ -47,7 +47,7 @@
           <h3>보관조회</h3>
           <v-data-table :headers="storageHeaders" :items="sortedStorageList" :items-per-page="5">
             <template v-slot:[`item.detail`]="{ item }">
-              <v-btn @click="trackingDetail(item)">상세보기</v-btn>
+              <v-btn @click="orderDetail(item)">상세보기</v-btn>
 
             </template>
           </v-data-table>
@@ -57,8 +57,7 @@
           <h3>운송조회</h3>
           <v-data-table :headers="transportHeaders" :items="sortedTransportList" :items-per-page="5">
             <template v-slot:[`item.detail`]="{ item }">
-              <v-btn @click="trackingDetail(item)">상세보기</v-btn>
-              <v-btn @click="orderDetail(item)">상세보기2</v-btn>
+              <v-btn @click="orderDetail(item)">상세보기</v-btn>
             </template>
           </v-data-table>
         </template>
@@ -101,7 +100,8 @@ export default {
       storageHeaders: [
         {text: '주문번호', align: 'start', sortable: false, value: 'ord_id'},
         {text: '금액', value: 'ord_amount'},
-        {text: '맡긴장소', value: 'title'},
+        {text: '회원', value: 'user_id'},
+        {text: '맡긴장소', value: 'keep_start_title'},
         {text: '출발시간', value: 'entrust_time'},
         {text: '도착시간', value: 'withdraw_time'},
         {text: '주문상태', value: 'status'},
@@ -121,15 +121,14 @@ export default {
         {text: '상세보기', value: 'detail'}
       ],
 
-      storageList: [],
+      keeperStorageList: [],
       keeperTransportList: [],
       status: ''
-
     }
   },
   computed: {
     sortedStorageList() {
-      return this.storageList.filter(it => it.status === this.storageStatusCheck)
+      return this.keeperStorageList.filter(it => it.status === this.storageStatusCheck)
     },
     sortedTransportList() {
       return this.keeperTransportList.filter(it => it.status === this.transportStatusCheck)
@@ -142,30 +141,26 @@ export default {
   methods: {
     //물품보관 데이터
     storageData() {
-      axios.get("/api/bagStorage")
+      axios.get("/api/keeperStorage")
         .then((res) => {
-          this.storageList = res.data;
+          this.keeperStorageList = res.data;
           console.log("물품보관 데이터")
           console.log(res.data)
         })
     },
     //물품배송 데이터
     transportData() {
-      axios.get("/api/keeperTracking")
+      axios.get("/api/keeperTransport")
         .then((res) => {
           console.log("물품배송 데이터")
           console.log(res.data)
           this.keeperTransportList = res.data;
         })
     },
-    //키퍼 물품상세보기 페이지 연결
-    trackingDetail(item) {
-      console.log("11111     " + item.ord_id)
-      this.$router.push('/KeeperTrackingDetail/' + item.ord_id)
-    },
 
+    //키퍼 물품상세보기 페이지 연결
     orderDetail(item) {
-      this.$router.push({name: 'OrderDetail', params: {order: item}})
+      this.$router.push({name: 'KeeperOrderDetail', params: {order: item}})
     },
 
   }

@@ -161,7 +161,7 @@ public interface PlaceMapper {
                   where c.PL_ID = a.PL_ID
                   order by count desc
               )
-         where ROWNUM <= 5""")
+         where ROWNUM <= 5 """)
    List<PlaceDAO> findBestPlace();
    
    @Select("""
