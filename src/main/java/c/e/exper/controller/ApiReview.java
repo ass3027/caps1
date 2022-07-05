@@ -59,57 +59,18 @@ public class ApiReview {
         return allReview;
     }
 
-    @GetMapping("/productReview")
-    public List<Review> findProductReview(String pd_id) {
-        System.out.println(pd_id);
+    @GetMapping("/find/reviews/{type}/{id}")
+    public List<Review> findReviews(@PathVariable String type, @PathVariable String id) {
+        // type: guide, gitem, place, product, keeper, duser
 
-        List<Review> reviews = reviewMapper.findAllReviewForProduct2(pd_id);
-        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+        switch (type) {
+            case "guide":
+        }
 
-        return reviews;
-    }
+        System.out.println(type);
+        System.out.println(id);
 
-    @GetMapping("/guideReview")
-    public List<Review> findGuideReview(String guide_id) {
-        System.out.println(guide_id);
-
-        List<Review> reviews = reviewMapper.findGuideReview(guide_id);
-        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
-
-        return reviews;
-    }
-
-    @GetMapping("/gitemReview")
-    public List<Review> findGitemReview(String gitem_id) {
-        System.out.println(gitem_id);
-
-        List<Review> reviews = reviewMapper.findGitemReview(gitem_id);
-        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
-
-        return reviews;
-    }
-
-    @GetMapping("/storeReview")
-    public List<Review> findStoreReview(@RequestParam String store_id) {
-        System.out.println("[findPlName] store_id: " + store_id);
-        String pl_name = reviewMapper.findPlName(store_id);
-
-        return reviewService.가게_모든리뷰_조회(pl_name);
-    }
-
-    @GetMapping("/keeperReview")
-    public List<Review> findKeeperReview(String keep_id) {
-        System.out.println("keep_id: " + keep_id);
-
-        return reviewService.키퍼아이디_모든리뷰_조회(keep_id);
-    }
-
-
-    @GetMapping("/deliverReview")
-    public List<Review> findDeliveryReview(String delivery_id) {
-        System.out.println("delivery_id: " + delivery_id);
-
-        return reviewService.운송원아이디_모든리뷰_조회(delivery_id);
+        return null;
     }
 
     @PutMapping("/updateReview")

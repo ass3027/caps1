@@ -17,6 +17,7 @@ public interface ReviewMapper {
             where store_id = #{store_id}""")
     public String findPlName(@Param("store_id") String store_id);
 
+
     @Select("""
             SELECT *
             FROM review""")

@@ -2,109 +2,120 @@
   <div>
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
 
-    <form @submit.prevent>
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-text-field
-              v-model="user_id"
-              type="text"
-              placeholder="ID"
-              clearable
-              @change="submit"
+    <div class="tit_page">
+      <h2 class="tit">
+        회원가입
+      </h2>
+    </div>
+    <div class="member_join">
+      <form @submit.prevent>
+        <p class="page_sub">
+          <span class="ico">*</span>필수입력사항
+        </p>
+        <table style="border-top: 2px solid #333; width: 100%;">
+          <tbody>
+            <tr class="fst">
+              <th style="width: 160px">
+                아이디
+                <span class="ico">*</span>
+              </th>
+
+              <td>
+                <input
+                  v-model="user_id"
+                  type="text"
+                  placeholder="ID"
+                  clearable
+                  @change="submit"
+                >
+
+
+                <a @click="idCheck">중복확인</a>
+              </td>
+            </tr>
+
+
+            <v-row>
+              <v-text-field
+                v-model="user_pw"
+                type="text"
+                placeholder="PASSWD"
+                clearable
+              />
+            </v-row>
+            <v-row>
+              <v-text-field
+                v-model="user_name"
+                type="text"
+                placeholder="NAME"
+              />
+            </v-row>
+
+            <v-radio-group
+              v-model="gender"
+              row
             >
-              ss
-            </v-text-field>
-          </v-col>
+              <v-row>
+                <v-radio
+                  label="남자"
+                  value="M"
+                />
+                <v-radio
+                  style="margin: 5px"
+                  label="여자"
+                  value="F"
+                />
+              </v-row>
+            </v-radio-group>
 
-          <v-btn
-            style="margin: 25px"
-            @click="idCheck"
-          >
-            아이디 중복 확인하기
-          </v-btn>
-        </v-row>
+            <v-row>
+              <v-text-field
+                v-model="user_phone"
+                type="text"
+                placeholder="PHONE"
+              />
+            </v-row>
 
-        <v-row>
-          <v-text-field
-            v-model="user_pw"
-            type="text"
-            placeholder="PASSWD"
-            clearable
-          />
-        </v-row>
-        <v-row>
-          <v-text-field
-            v-model="user_name"
-            type="text"
-            placeholder="NAME"
-          />
-        </v-row>
+            <v-row>
+              <v-select
+                v-model="preference"
+                :items="items"
+                label="선호하는 여행방식을 골라주세요"
+                dense
+              />
+            </v-row>
+            <!--          <v-overflow-btn-->
+            <!--            v-model="reference"-->
+            <!--            class="my-2"-->
+            <!--            :items="items"-->
+            <!--            label="선호하는 여행방식을 골라주세요"-->
+            <!--            dense-->
+            <!--          ></v-overflow-btn>-->
 
-        <v-radio-group
-          v-model="gender"
-          row
-        >
-          <v-row>
-            <v-radio
-              label="남자"
-              value="M"
+            <v-row>
+              <v-date-picker
+                v-model="user_birth"
+                placeholder="Birth"
+              />
+            </v-row>
+            <v-file-input
+              ref="refImage"
+              v-model="user_photo"
+              placeholder="photo"
+              @change="imageSet()"
             />
-            <v-radio
-              style="margin: 5px"
-              label="여자"
-              value="F"
+
+            <div
+              id="pictures"
             />
-          </v-row>
-        </v-radio-group>
 
-        <v-row>
-          <v-text-field
-            v-model="user_phone"
-            type="text"
-            placeholder="PHONE"
-          />
-        </v-row>
-
-        <v-row>
-          <v-select
-            v-model="preference"
-            :items="items"
-            label="선호하는 여행방식을 골라주세요"
-            dense
-          />
-        </v-row>
-        <!--          <v-overflow-btn-->
-        <!--            v-model="reference"-->
-        <!--            class="my-2"-->
-        <!--            :items="items"-->
-        <!--            label="선호하는 여행방식을 골라주세요"-->
-        <!--            dense-->
-        <!--          ></v-overflow-btn>-->
-
-        <v-row>
-          <v-date-picker
-            v-model="user_birth"
-            placeholder="Birth"
-          />
-        </v-row>
-      </v-container>
-      <v-file-input
-        ref="refImage"
-        v-model="user_photo"
-        placeholder="photo"
-        @change="imageSet()"
-      />
-
-      <div
-        id="pictures"
-        style="width:400px;height:400px"
-      />
-
-      <v-btn @click="submit()">
-        submit
-      </v-btn>
-    </form>
+            <v-btn @click="submit()">
+              submit
+            </v-btn>
+          </tbody>
+        </table>
+      </form>
+    </div>
   </div>
 </template>
 <script>
@@ -144,7 +155,7 @@ export default {
 
       reader.onload = function () {
         var photoFrame = document.createElement('div');
-        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
+        // photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
         photoFrame.className = 'photoFrame';
         document.getElementById('pictures').appendChild(photoFrame);
         //e.target.value = "";
@@ -178,14 +189,14 @@ export default {
       sendform.append('gender', this.gender);
       sendform.append('preference', this.preference);
 
-
       axios({
         method: 'post',
         url: '/api/user/join',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        data: sendform,
+        data: sendform
+
       }).then((res) => {
         console.log(res.data)
          if (res.data) {
@@ -221,5 +232,68 @@ export default {
 // }
 </script>
 <style scoped>
+.member_join{
+  width: 640px;
+  margin: 0 auto;
+}
 
+.tit_page {
+  overflow: hidden;
+  width: 1050px;
+  margin: 0 auto;
+  padding: 50px 0 51px;
+}
+
+.tit_page h2.tit {
+  font-weight: 700;
+  font-size: 28px;
+  color: #333;
+  line-height: 35px;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.member_join .page_sub {
+  padding-bottom: 10px;
+  font-size: 12px;
+  color: #666;
+  line-height: 17px;
+  text-align: right;
+}
+
+.member_join .page_sub .ico{
+  padding-right: 2px;
+  color: #ee6a7b;
+}
+
+.member_join th .ico {
+  color: #ee6a7b;
+}
+
+.member_join th {
+  width: 159px !important;
+  padding: 20px 0 0 20px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #333;
+  line-height: 20px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.fst th {
+  padding-top: 29px;
+}
+
+.fst td {
+  padding-top: 19px;
+}
+
+.member_join td {
+  padding: 10px 0;
+  border-top: 0;
+  font-size: 14px;
+  vertical-align: top;
+  text-align: left;
+}
 </style>

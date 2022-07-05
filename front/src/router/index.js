@@ -63,6 +63,8 @@ import ReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
+import KakaoMap from "@/components/KakaoMap";
+
 //민아
 import MypageView from "@/views/auth/MypageView";
 import BookMarkView from "@/views/auth/BookMarkView";

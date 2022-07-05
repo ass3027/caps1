@@ -11,15 +11,15 @@
         <span
           id="status1"
           @click="changeStatus(1)"
-        >배송 가능</span>
+        >운송 가능</span>
         <span
           id="status2"
           @click="changeStatus(2)"
-        >배송 중</span>
+        >운송 중</span>
         <span
           id="status3"
           @click="changeStatus(3)"
-        >배송 완료</span>
+        >운송 완료</span>
       </div>
 
       <div
@@ -38,18 +38,32 @@
           />
         </div>
         <div
-          v-if="orders_possible.length === 0"
+          v-if="orders_possible.length === 0 || orders_possible === null"
           class="wrap_empty"
         >
-          <strong>배송가능한 주문이 없습니다.</strong>
+          <strong>운송가능한 주문이 없습니다.</strong>
         </div>
       </div>
       <div
         v-else-if="status===2"
         class="orders_status"
       >
+        <span>픽업 전</span>
         <div
-          v-for="order in orders_shipping"
+          v-for="order in orders_pickup_before"
+          :key="order.ord_id"
+          class="item_container"
+        >
+          <DuserOrderItem
+            :order="order"
+            :latitude="latitude"
+            :longitude="longitude"
+          />
+        </div>
+
+        <span>배송 중</span>
+        <div
+          v-for="order in orders_pickup_after"
           :key="order.ord_id"
           class="item_container"
         >
@@ -61,10 +75,10 @@
         </div>
 
         <div
-          v-if="orders_shipping.length === 0"
+          v-if="(orders_pickup_before.length === 0 || orders_pickup_before === null) && (orders_pickup_after.length === 0 || orders_pickup_after === null)"
           class="wrap_empty"
         >
-          <strong>배송중인 주문이 없습니다.</strong>
+          <strong>운송중인 주문이 없습니다.</strong>
         </div>
       </div>
       <div
@@ -87,7 +101,7 @@
           v-if="orders_end.length === 0"
           class="wrap_empty"
         >
-          <strong>배송완료 내역이 없습니다.</strong>
+          <strong>운송완료 내역이 없습니다.</strong>
         </div>
       </div>
     </div>
@@ -107,30 +121,47 @@ export default {
   data() {
     return {
       userId: this.$store.state.user.userId,
-      orders_possible: [],
-      orders_shipping: [],
-      orders_end: [],
+      order_all: null,
       latitude: null,
       longitude: null,
       status: 1,
     }
   },
   computed:{
+    orders_possible() {
+      if (this.order_all === null) return null
+      return this.order_all.filter(i => {return i.status === '승인완료'})
+    },
 
+    orders_pickup_before() {
+      if (this.order_all === null) return null
+      return this.order_all.filter(i => {return i.status === '픽업전'})
+    },
+
+    orders_pickup_after() {
+      if (this.order_all === null) return null
+      return this.order_all.filter(i => {return i.status === '픽업완료'})
+    },
+
+    orders_end() {
+      if (this.order_all === null) return null
+      return this.order_all.filter(i => {return i.status === '운송완료'})
+    },
+
+
+  },
+  created() {
+    axios.get('http://localhost:8000/api/duser/orders/' + this.userId).then(res => {
+      this.order_all = res.data
+
+      console.log('test', this.order_all)
+    })
   },
   mounted() {
     this.test().then()
 
 
-    axios.get('http://localhost:8000/api/duser/orders/' + this.userId + '/운송중').then(res => {
-      this.orders_shipping = res.data
-      console.log('test', this.orders_shipping)
-    })
 
-    axios.get('http://localhost:8000/api/duser/orders/' + this.userId + '/운송완료').then(res => {
-      this.orders_end = res.data
-      console.log('test', this.orders_end)
-    })
 
     var status = document.getElementById('status1')
     status.style.borderBottom = 'none'
@@ -149,14 +180,6 @@ export default {
           'longitude': position.coords.longitude,
         }).then(() => {
 
-          axios({
-            method: 'GET',
-            url: '/api/duser/orders/' + this.userId + '/운송요청'
-          }).then(res => {
-            console.log(`[Orders]:`);
-            this.orders_possible = res.data
-            console.log('this.orders', this.orders_possible);
-          })
         })
       })
     },
