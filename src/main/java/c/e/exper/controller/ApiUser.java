@@ -213,12 +213,12 @@ public class ApiUser {
 //        System.out.println("count: " + i);
     }
 
-    @GetMapping("/role")
-    public String getUserRole(){
-        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        return userMapper.selectId(user_id).get().getRole();
-    }
+//    @GetMapping("/role")
+//    public String getUserRole(){
+//        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+//
+//        return userMapper.selectId(user_id).get().getRole();
+//    }
 
     public String getRandomPhone(){
 
