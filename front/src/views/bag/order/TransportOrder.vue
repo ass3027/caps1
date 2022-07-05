@@ -1,133 +1,138 @@
 <template>
-  <v-app
-    id="app"
-    style="width: 1050px; padding-top: 65px"
-  >
-    <div style="width: 80%; margin: 0 auto; padding-bottom: 34px; border-bottom: 2px solid black">
-      <h2 class="tit">
-        가방 운송 신청서
-      </h2>
-    </div>
-    <v-form
-      v-model="valid"
-      style="padding-top: 50px"
+  <v-container>
+    <v-app
+      id="app"
+      style="width: 1050px; padding-top: 65px"
     >
-      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-        <div style="width: 50%; display: inline-block">
-          <h3>출발장소</h3>
-          <search-place @childEvent="startAddress" />
-          <br>
-          <div>출발장소: {{ startLodging.title }}</div>
-          <v-img
-            :src="startLodging.firstimage2"
-            width="200px"
-            height="150px"
-            class="ma-2"
-            alt=""
-          />
-          <br>
-        </div>
-        <div style="width: 50%; display: inline-block">
-          <h3>도착장소</h3>
-          <search-place @childEvent="endAddress" />
-          <br>
-          <div>도착장소: {{ endLodging.title }}</div>
-          <v-img
-            :src="endLodging.firstimage2"
-            width="200px"
-            height="150px"
-            class="ma-2"
-            alt=""
-          />
-          <br>
-        </div>
-      </div>
-
-      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-        <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
-          <h3>짐 종류와 수량</h3>
-          <br>
-
-          <v-card
-            v-for="(item, index) in bagType"
-            :key="index"
-            style="margin-top: 10px"
-          >
-            <v-card-text>
-              <v-row align="center">
-                {{ item.title }}
-                <v-spacer />
-                {{ item.value }}원
-                <v-checkbox
-                  v-model="checkedName"
-                  :value="item.value"
-                />
-              </v-row>
-            </v-card-text>
-          </v-card>
-
-          <v-card style="margin: 20px 0">
-            <v-card-text>
-              가방 합계가격: {{ bagAmount }} 원
-            </v-card-text>
-          </v-card>
-          <br>
-        </table>
-      </div>
-
-      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-        <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
-          <h3>시간</h3>
-          <br>
-          <div style="padding-left: 15%">
-            <div style="width: 50%; display: inline-block">
-              <DateTimePicker
-                :label="'시작날짜'"
-                @child="resultDate"
-              />
-            </div>
-            <div style="width: 50%; display: inline-block">
-              <DateTimePicker
-                :label="'종료날짜'"
-                @child="resultDate"
-              />
-            </div>
-          </div>
-          <br>
-        </table>
-      </div>
-
-      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-        <table style="width: 100%; border-bottom: 2px solid black;">
-          <h3>요청사항</h3>
-          <br>
-          <v-textarea
-            v-model="ordRequest"
-            style="padding-bottom: 10px"
-            name="input-7-1"
-            label="요청사항을 입력해주세요(255글자 내)"
-            hint="Hint text"
-          />
-        </table>
-      </div>
-
-
-
-
-      <!--      <div style="width: 80%;margin: 0 auto; padding-top: 20px">-->
-      <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
-      <!--      </div>-->
-      <div style="width: 80%;margin: 0 auto; padding-top: 20px">
-        <button
-          style="float: right;"
-          @click="addOrder"
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 34px; border-bottom: 2px solid black">
+        <h2
+          class="tit"
+          style="padding-bottom: 34px" align="center"
         >
-          작성 완료
-        </button>
+          가방 운송 신청서
+        </h2>
       </div>
-    </v-form>
-    <router-view />
-  </v-app>
+      <v-form
+        v-model="valid"
+        style="padding-top: 50px"
+      >
+        <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+          <div style="width: 50%; display: inline-block">
+            <h3>출발장소</h3>
+            <search-place @childEvent="startAddress"/>
+            <br>
+            <div>출발장소: {{ startLodging.title }}</div>
+            <div>키퍼회원ID: {{startLodging.user_id }}</div>
+            <v-img
+              :src="startLodging.firstimage2"
+              width="200px"
+              height="150px"
+              class="ma-2"
+              alt=""
+            />
+            <br>
+          </div>
+          <div style="width: 50%; display: inline-block">
+            <h3>도착장소</h3>
+            <search-place @childEvent="endAddress"/>
+            <br>
+            <div>도착장소: {{ endLodging.title }}</div>
+            <div>키퍼회원ID: {{ endLodging.user_id }}</div>
+            <v-img
+              :src="endLodging.firstimage2"
+              width="200px"
+              height="150px"
+              class="ma-2"
+              alt=""
+            />
+            <br>
+          </div>
+        </div>
+
+        <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+          <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
+            <h3>짐 종류와 수량</h3>
+            <br>
+
+            <v-card
+              v-for="(item, index) in bagType"
+              :key="index"
+              style="margin-top: 10px"
+            >
+              <v-card-text>
+                <v-row align="center">
+                  {{ item.title }}
+                  <v-spacer/>
+                  {{ item.value }}원
+                  <v-checkbox
+                    v-model="checkedName"
+                    :value="item.value"
+                  />
+                </v-row>
+              </v-card-text>
+            </v-card>
+
+            <v-card style="margin: 20px 0">
+              <v-card-text>
+                가방 합계가격: {{ bagAmount }} 원
+              </v-card-text>
+            </v-card>
+            <br>
+          </table>
+        </div>
+
+        <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+          <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
+            <h3>시간</h3>
+            <br>
+            <div style="padding-left: 15%">
+              <div style="width: 50%; display: inline-block">
+                <DateTimePicker
+                  :label="'시작날짜'"
+                  @child="resultDate"
+                />
+              </div>
+              <div style="width: 50%; display: inline-block">
+                <DateTimePicker
+                  :label="'종료날짜'"
+                  @child="resultDate"
+                />
+              </div>
+            </div>
+            <br>
+          </table>
+        </div>
+
+        <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+          <table style="width: 100%; border-bottom: 2px solid black;">
+            <h3>요청사항</h3>
+            <br>
+            <v-textarea
+              v-model="ordRequest"
+              style="padding-bottom: 10px"
+              name="input-7-1"
+              label="요청사항을 입력해주세요(255글자 내)"
+              hint="Hint text"
+            />
+          </table>
+        </div>
+
+
+        <!--      <div style="width: 80%;margin: 0 auto; padding-top: 20px">-->
+        <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
+        <!--      </div>-->
+        <div style="width: 80%;margin: 0 auto; padding-top: 20px">
+          <button
+            style="float: right;"
+            @click="addOrder"
+          >
+            작성 완료
+          </button>
+        </div>
+      </v-form>
+      <router-view/>
+    </v-app>
+  </v-container>
 </template>
 
 <script>
@@ -204,7 +209,8 @@ export default {
 
     startAddress: function (lodging) {
       this.startLodging = lodging
-      console.log("시작장소데이터" + lodging)
+      console.log("시작장소데이터")
+      console.log(this.startLodging);
     },
 
     endAddress: function (lodging) {
@@ -212,7 +218,7 @@ export default {
       console.log("도착장소데이터" + lodging)
     },
 
-    addOrder () {
+    addOrder() {
       let transportBag = {
         ord_id: '',
         ord_amount: this.bagAmount, //금액
@@ -223,7 +229,7 @@ export default {
         withdraw_time: this.sDate,  //찾을시간
         ord_selection: '물품운송', //물품보관
         ord_request: this.ordRequest,
-        status:'운송요청',
+        status: '승인대기',
       }
       axios
         .post('/api/transportAddOrder', transportBag)
@@ -231,6 +237,7 @@ export default {
           console.log(transportBag)
           alert('주문완료!')
         })
+
     },
 
   },
@@ -243,13 +250,14 @@ export default {
   font-size: xx-large;
 }
 
-.tit{
+.tit {
   font-weight: 700;
   font-size: 28px;
   line-height: 35px;
   color: #333;
   letter-spacing: -1px;
 }
+
 button {
   border: 1px solid black;
   background-color: white;

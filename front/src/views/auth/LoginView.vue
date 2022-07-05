@@ -66,11 +66,6 @@ import {EventBus} from "@/eventBus/eventBus";
 
 export default {
   name: "LoginView",
-  beforeRouteEnter(to,from,next){
-    console.log(to)
-    console.log(from)
-    next()
-  },
   data() {
     return {
       id: '',
@@ -86,13 +81,12 @@ export default {
         alert("비번을 입력하세요")
         return
       }
-      var loginData = new FormData();
+      const loginData = new FormData();
       loginData.append('username', this.id)
       loginData.append('password', this.pw)
-      console.log('this.id', this.id)
-      console.log('this.pw', this.pw)
 
-      axios({
+
+      const {headers} = await axios({
         url   : '/api/login',
         method: 'post',
         auth : {
@@ -101,29 +95,25 @@ export default {
         },
         data  : loginData
       })
-          .then((res) => {
-            console.log(res)
-            //console.log(res.data)
-            if (res.headers.gg === "ss") {
-              alert("fail")
-            }
-            else {
-              //this.$store.commit('user/updateUserId',this.id)
-              console.log('test', this.id)
+      console.log(headers)
 
-              this.$store.dispatch('user/setUser',this.id)
-              //res.headers.gg를 header컴포넌트로 보내야하는딩
-              this.$router.push("/")
-              EventBus.$emit("updateId")
-              //location.reload()
-            }
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+      if (headers.gg === "ss") {
+        alert("fail")
+      }
+      else {
+        await this.updateUser()
+      }
+
     },
     async updateUser(){
-
+      const { data } = await axios.get("/api/user/find")
+      console.log(data)
+      const user = {}
+      user.id = data.user_id
+      user.role = data.role
+      await this.$store.dispatch('user/setUser', user)
+      await this.$router.push("/")
+      EventBus.$emit("updateId")
     },
     getId() {
       axios({

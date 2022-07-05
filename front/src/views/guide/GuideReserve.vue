@@ -1,101 +1,87 @@
 <template>
   <div>
-    <!--    <script type="text/javascript" src="https://code.jquery-1.12.4.min.js"></script>-->
-    <!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>-->
-
-    <h2>IAMPORT 결제 데모</h2>
-    <h2>가격 20원</h2>
-    <li>
-      <button
-        type="button"
-        @click="iamportPayment"
-      >
-        결제테스트
-      </button>
-    </li>
+    <canvas
+      ref="barChart"
+    />
+    <v-btn @click="test2()"></v-btn>
   </div>
 </template>
 
 <script>
-
+import { Chart, registerables } from 'chart.js'
+import axios from "axios";
+Chart.register(...registerables)
 
 export default {
-  name: 'GuideReserve',
-  components: {
 
-  },
   data(){
     return{
-
+      list:'',
+      type: 'bar',
+      data: {
+        labels: [ 'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' ],
+        datasets: [{
+          label: '# of Votes',
+          data: [  3, 5, 2, 3 ],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
     }
-  },
+},
   mounted(){
-    const script = document.createElement("script")
-    const script2 = document.createElement("script")
-    script2.src = "https://code.jquery.com/jquery-3.6.0.min.js";
-    script2.integrity = "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=";
-    script2.setAttribute("crossOrigin" ,"anonymous");
-
-    document.head.appendChild(script2);
-
-    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
-    script.type="text/javascript"
-
-    document.head.appendChild(script);
-
-
-
-
-
+    this.selectRCount()
   },
   methods:{
-    iamportPayment(){
-      var IMP = window.IMP;
-      IMP.init('imp19569487');
-
-      IMP.request_pay({
-        pg:"html5_inics",
-        pay_method: "card",
-        merchant_uid:"iamport_test_id" + new Date().getTime(),
-        name:"가이드",
-        amount: 20,
-        buyer_email:"testiamport@naver.com",
-        buyer_name:"홍길동",
-        buyer_tel:"01012341234"
-      }, rsp =>{
-        console.log(rsp);
-        if (rsp.success){
-          alert("성공")
-        } else{
-          alert("실패")
-        }
+    test2(){
+      this.test.push(1)
+    },
+    createChart(){
+      new Chart(this.$refs.barChart, {
+        type:'bar',
+        data:this.data,
+        options:this.options
       })
+    },
+    selectRCount(){
+      axios({
+        method:'get',
+        url:'/api/gcount',
+        params:{
+          'id':this.$store.state.user.userId
+        }
+      }).then((res)=>{
+        console.log(res)
+        // this.list = res.data.count;
+        this.data.datasets[0].data.unshift(res.data.count)
+        //this.data.datasets[1].data.unshift(res.data.count*2)
+        this.createChart()
+        console.log(this.data)
+      })
+
     }
   }
 }
-// $(document).ready(function(){
-//   $("#iamportPayment").click(function (){
-//     payment();
-//   })
-// })
-//
-// function payment(data){
-//   IMP.init('imp19569487');
-//   IMP.request_pay({
-//     pg:"kakaopay.TC0ONETIME",
-//     pay_method: "card",
-//     merchant_uid:"iamport_test_id",
-//     name:"가이드",
-//     amount: 20000,
-//     buyer_email:"testiamport@naver.com",
-//     buyer_name:"홍길동",
-//     buyer_tel:"01012341234"
-//   }, function (rsp){
-//     if (rsp.success) {
-//       alert("완료 -> imp_uid :" +rsp.imp_uid+" / merchant_uid(orderkey) : "+rsp.merchant_uid);
-//     } else{
-//       alert("실패 : 코드("+rsp.error_code+") /메세지("+rsp.error_msg+")");
-//     }
-//   })
-// }
 </script>

@@ -1,23 +1,25 @@
 <template>
-  <table style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
-    <div style="margin-top: 10px">
-      <p style="display: inline; font-size: large; margin-left: 5px">
-        배송경로
-      </p>
-      <div style="display: inline; float: right; font-size: large; margin-right: 5px">
-        주문번호 #{{ order.ord_id }}
+  <v-container>
+    <table
+      style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+      <div style="margin-top: 10px">
+        <p style="display: inline; font-size: large; margin-left: 5px">
+          배송경로
+        </p>
+        <div style="display: inline; float: right; font-size: large; margin-right: 5px">
+          주문번호 #{{ order.ord_id }}
+        </div>
       </div>
-    </div>
-    <div
-      id="map"
-      style="width:100%;height:350px;"
-    />
+      <div
+        id="map"
+        style="width:100%;height:350px;"
+      />
 
-    <table id="order_detail">
-      <thead scope="row">
-        <tr />
-      </thead>
-      <tbody>
+      <table id="order_detail">
+        <thead scope="row">
+        <tr/>
+        </thead>
+        <tbody>
         <tr>
           <th>금액</th>
           <td>{{ order.ord_amount }} 원</td>
@@ -65,29 +67,33 @@
           <th>요청사항</th>
           <td>{{ order.ord_request }}</td>
         </tr>
-      </tbody>
+        <div>
+          <v-btn @click="backTrackingView()">목록</v-btn>
+        </div>
+        </tbody>
+      </table>
+      <div v-if="order.status === '운송요청'">
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="requestMatch()"
+        >
+          매칭요청
+        </v-btn>
+      </div>
+      <div v-if="order.status === '운송중'">
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="orderArrival()"
+        >
+          배송완료
+        </v-btn>
+      </div>
     </table>
-    <div v-if="order.status === '운송요청'">
-      <v-btn
-        class="btn_type2"
-        height="54px"
-        color="white"
-        @click="requestMatch()"
-      >
-        매칭요청
-      </v-btn>
-    </div>
-    <div v-if="order.status === '운송중'">
-      <v-btn
-        class="btn_type2"
-        height="54px"
-        color="white"
-        @click="orderArrival()"
-      >
-        배송완료
-      </v-btn>
-    </div>
-  </table>
+  </v-container>
 </template>
 
 <script>
@@ -96,8 +102,8 @@ import axios from "axios";
 
 export default {
   name: 'OrderDetail',
-  props:{
-    order: { type: Object },
+  props: {
+    order: {type: Object},
   },
   data() {
     return {
@@ -112,19 +118,19 @@ export default {
     }
   },
   computed: {
-    entrust_time: function(){
+    entrust_time: function () {
       var text = this.order.entrust_time || ''
-      var result = text.substring(5,7) + "/" +text.substring(8,10) + " " + text.substring(11, 16)
+      var result = text.substring(5, 7) + "/" + text.substring(8, 10) + " " + text.substring(11, 16)
       // var result = this.order.entrust_time
       return result
     },
     withdraw_time: function () {
       var text = this.order.withdraw_time || ''
-      var result = text.substring(5,7) + "/" +text.substring(8,10) + " " + text.substring(11, 16)
+      var result = text.substring(5, 7) + "/" + text.substring(8, 10) + " " + text.substring(11, 16)
       // var result = this.order.withdraw_time
       return result
     },
-    degree_user_start: function() {
+    degree_user_start: function () {
       var a = this.getDistanceFromLatLonInKm(this.keep_start.mapy, this.keep_start.mapx, this.user_lat, this.user_lng)
       return a.toFixed(2) // 자릿수 반올림
     }
@@ -135,7 +141,7 @@ export default {
 
     axios.get("/api/location/check?duser_id=" + this.userId).then(res => {
 
-      var location = Object.keys(res.data).map(function(key) {
+      var location = Object.keys(res.data).map(function (key) {
         return res.data[key];
       });
 
@@ -144,9 +150,13 @@ export default {
     })
 
 
-    axios.get("/api/keep/find/" + this.order.keep_start).then(res => { this.keep_start = res.data }).then(() => {
-      axios.get("/api/keep/find/" + this.order.keep_end).then(res => { this.keep_end = res.data }).then(() => {
-        if(window.kakao && window.kakao.maps) {
+    axios.get("/api/keep/find/" + this.order.keep_start).then(res => {
+      this.keep_start = res.data
+    }).then(() => {
+      axios.get("/api/keep/find/" + this.order.keep_end).then(res => {
+        this.keep_end = res.data
+      }).then(() => {
+        if (window.kakao && window.kakao.maps) {
           this.initMap();
         } else {
           const script = document.createElement("script");
@@ -167,17 +177,15 @@ export default {
 
 
   },
-  mounted() {
 
-  },
   methods: {
     initMap() {
       console.log("[initMap()]")
 
       const mapContainer = document.getElementById("map");
 
-      var center_x = (this.keep_start.mapx + this.keep_end.mapx)/2
-      var center_y = (this.keep_start.mapy + this.keep_end.mapy)/2
+      var center_x = (this.keep_start.mapx + this.keep_end.mapx) / 2
+      var center_y = (this.keep_start.mapy + this.keep_end.mapy) / 2
 
       console.log(center_x + " " + center_y)
       const mapOptions = {
@@ -190,7 +198,7 @@ export default {
 
       var start_marker = new kakao.maps.InfoWindow({
         position: new kakao.maps.LatLng(this.keep_start.mapy, this.keep_start.mapx),
-        content:  '출발'
+        content: '출발'
       });
       var end_marker = new kakao.maps.InfoWindow({
         position: new kakao.maps.LatLng(this.keep_end.mapy, this.keep_end.mapx),
@@ -204,16 +212,16 @@ export default {
     },
 
     // longitude 경도(3자리), latitude 위도(2자리)
-    getDistanceFromLatLonInKm(lat1,lng1,lat2,lng2) {
+    getDistanceFromLatLonInKm(lat1, lng1, lat2, lng2) {
       function deg2rad(deg) {
-        return deg * (Math.PI/180)
+        return deg * (Math.PI / 180)
       }
 
       var R = 6371; // Radius of the earth in km
-      var dLat = deg2rad(lat2-lat1);  // deg2rad below
-      var dLon = deg2rad(lng2-lng1);
-      var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+      var dLon = deg2rad(lng2 - lng1);
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       var d = R * c; // Distance in km
       return d;
     },
@@ -228,10 +236,14 @@ export default {
     },
 
     orderArrival() {
-      axios.post("/api/orders/arrival/" + this.order.ord_id).then(res =>{
+      axios.post("/api/orders/arrival/" + this.order.ord_id).then(res => {
         alert(res.data)
         this.$router.go();
       })
+    },
+    //목록으로 돌아가기
+    backTrackingView() {
+      this.$router.push('/trackingView')
     }
 
   }
@@ -255,12 +267,13 @@ export default {
 #order_detail > tbody > tr > td {
   width: 80%;
 }
+
 #order_detail > tbody > tr > th {
   width: 20%;
 }
 
 body {
-  padding:1.5em;
+  padding: 1.5em;
   background: #f5f5f5
 }
 
@@ -272,7 +285,7 @@ td div {
 table {
   border: 1px #a39485 solid;
   font-size: .9em;
-  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   width: 100%;
   border-collapse: collapse;
   border-radius: 5px;
@@ -292,7 +305,7 @@ td, th {
 }
 
 td {
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
   background: #fff;
 }
 
@@ -314,7 +327,7 @@ a {
     position: relative;
     padding-bottom: 0;
     border: none;
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
   }
 
   tbody {
@@ -339,30 +352,37 @@ a {
 
 
 }
+
 #order_info {
   margin-top: 15px;
   border: 1px solid black;
 
 }
-.order_time_info{
+
+.order_time_info {
   font-size: larger;
 }
-.short_addr{
+
+.short_addr {
   font-size: x-large;
 }
-#orderItem>div{
+
+#orderItem > div {
   float: left;
   width: 25%;
   text-align: center;
 }
-.order_item_info{
+
+.order_item_info {
   float: left;
   width: 26.6%;
 }
+
 #gnb {
   display: flex;
   justify-content: center;
 }
+
 .gnb_stop {
   z-index: 300;
   position: fixed;

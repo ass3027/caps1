@@ -39,6 +39,12 @@ public class GuideService {
    public GuideDAO 가이드_조회1(String id) {
       return guideMapper.selectById(id);
    }
+
+   public GItemDAO 매출_조회(String id){
+      return gitemMapper.selectCount(id);
+   }
+
+
    public GItemDAO 가이드_상품조회1(String id){
       return gitemMapper.selectByGitemId(id);
    }
@@ -63,8 +69,8 @@ public class GuideService {
       return gitemMapper.selectAll();
       
    }
-   public List<GItemDAO> 가이드상품_시간조회(String id){
-      return gitemMapper.selectTime(id);
+   public List<GItemDAO> 가이드상품_시간조회(String id, String time){
+      return gitemMapper.selectTime(id, time);
    }
 
    public void 가이드상품_삭제1(String id){
@@ -80,8 +86,12 @@ public class GuideService {
    public void 예약_등록(GItemDAO gitemDAO){
       gitemMapper.insertReserve(gitemDAO);
    }
+   public void 결제(GItemDAO gItemDAO){
+      gitemMapper.insertPay(gItemDAO);
+   }
 
    public List<GItemDAO> 시간_조회(String id){
       return gitemMapper.selectTimes(id);
    }
+
 }

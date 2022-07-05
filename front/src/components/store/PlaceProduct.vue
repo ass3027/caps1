@@ -60,6 +60,7 @@ export default {
   }),
 
   created() {
+    console.log(this.product.pd_id)
     axios({
       method: 'GET',
       url: '/api/productImage',
@@ -75,9 +76,10 @@ export default {
   },
   methods: {
     go(){
-      this.$router.push({name:'productBook',params:{product:this.product}})
+      this.$router.push({name:'productBook',params:{product: this.product}})
     }
-  }
+  },
+
 }
 </script>
 

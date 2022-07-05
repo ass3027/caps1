@@ -39,8 +39,11 @@
               요구시간:{{ item.require_time }}
             </div>
             <v-list-item-title class="text-h5 mb-1">
-              ID:{{ item.user_id }}
+              ID:{{ item.user_id }} <br>
               장소:{{ item.title }}
+            </v-list-item-title>
+            <v-list-item-title class="text-h5 mb-1">
+              가격:{{ item.gitem_price }}
             </v-list-item-title>
             <v-list-item-subtitle>
               소개:{{ item.introduce }}

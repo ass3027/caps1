@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <v-card>
+  <v-container>
+    <v-app>
       <v-col>
         <h1>물품조회</h1>
       </v-col>
@@ -38,47 +38,56 @@
           />
         </v-col>
       </v-row>
-    </v-card>
 
-    <div>
-      <template v-if="check == '보관'">
-        <h3>보관조회</h3>
-        <v-data-table
-          :headers="storageHeaders"
-          :items="sortedStorageList"
-          :items-per-page="5"
-        />
-      </template>
 
-      <template v-else>
-        <h3>운송조회</h3>
-        <v-data-table
-          :headers="transportHeaders"
-          :items="sortedTransportList"
-          :items-per-page="5"
-        />
-      </template>
-    </div>
-  </v-app>
+      <div>
+        <template v-if="check == '보관'">
+          <h3>보관조회</h3>
+          <v-data-table :headers="storageHeaders" :items="sortedStorageList" :items-per-page="5">
+            <template v-slot:[`item.detail`]="{ item }">
+              <v-btn @click="trackingDetail(item)">상세보기</v-btn>
+
+            </template>
+          </v-data-table>
+        </template>
+
+        <template v-else>
+          <h3>운송조회</h3>
+          <v-data-table :headers="transportHeaders" :items="sortedTransportList" :items-per-page="5">
+            <template v-slot:[`item.detail`]="{ item }">
+              <v-btn @click="trackingDetail(item)">상세보기</v-btn>
+              <v-btn @click="orderDetail(item)">상세보기2</v-btn>
+            </template>
+          </v-data-table>
+        </template>
+      </div>
+    </v-app>
+  </v-container>
 </template>
 
 <script>
+
 import axios from "axios";
 
 export default {
-  name: "TrackingView",
+  name: "GTrackingView",
   data() {
     return {
-      check: '보관',
+      dialogStorage: 'true',
+      storageDialog: '',
+      check: '운송',
       storageStatusCheck: '보관요청',
-      transportStatusCheck:'운송요청',
+      transportStatusCheck: '승인대기',
       storageStatus: [
         {text: '보관요청', value: '보관요청'},
         {text: '보관중', value: '보관중'},
         {text: '찾아감', value: '찾아감'},
       ],
-      transportStatus:[
-        {text: '운송요청', value: '운송요청'},
+      transportStatus: [
+        {text: '승인대기', value: '승인대기'},
+        {text: '승인완료', value: '승인완료'},
+        {text: '픽업전', value: '픽업전'},
+        {text: '픽업완료', value: '픽업완료'},
         {text: '운송중', value: '운송중'},
         {text: '운송완료', value: '운송완료'},
       ],
@@ -94,49 +103,60 @@ export default {
         {text: '맡긴장소', value: 'title'},
         {text: '출발시간', value: 'entrust_time'},
         {text: '도착시간', value: 'withdraw_time'},
-        {text: '주문상태', value: 'status'}
+        {text: '주문상태', value: 'status'},
+        {text: '상세보기', value: 'detail'}
       ],
       transportHeaders: [
         {text: '주문번호', align: 'start', sortable: false, value: 'ord_id'},
         {text: '금액', value: 'ord_amount'},
-        {text: '출발장소', value: 'keep_start'},
-        {text: '도착장소', value: 'keep_end'},
+        {text: '출발장소', value: 'keep_start_title'},
+        {text: '도착장소', value: 'keep_end_title'},
         {text: '출발시간', value: 'entrust_time'},
         {text: '도착시간', value: 'withdraw_time'},
-        {text: '주문상태', value: 'status'}
+        {text: '주문상태', value: 'status'},
+        {text: '상세보기', value: 'detail'}
       ],
-      methods: {},
+
       storageList: [],
       transportList: [],
       keys: [],
     }
   },
-  computed:{
-    sortedStorageList(){
-      return this.storageList.filter( it=> it.status===this.storageStatusCheck)
+  computed: {
+    sortedStorageList() {
+      return this.storageList.filter(it => it.status === this.storageStatusCheck)
     },
-    sortedTransportList(){
-      return this.transportList.filter( it=> it.status===this.transportStatusCheck)
+    sortedTransportList() {
+      return this.transportList.filter(it => it.status === this.transportStatusCheck)
     }
   },
   mounted() {
-    this.a()
-    this.b()
+    this.storageData()
+    this.transportData()
   },
   methods: {
-    a() {
-      axios.get("/api/bagStorage/" + this.$store.state.user.userId)
+    storageData() {
+      //물품보관 데이터
+      axios.get("/api/bagStorage")
         .then((res) => {
           this.storageList = res.data;
-          console.log('물품보관 데이터:' + res.data)
         })
     },
-    b() {
-      axios.get("/api/bagTransport/" + this.$store.state.user.userId)
+    //물품배송 데이터
+    transportData() {
+      axios.get("/api/bagTransport")
         .then((res) => {
+          console.log(res.data)
           this.transportList = res.data;
-          console.log('물품운송 데이터:' + res.data)
         })
+    },
+    trackingDetail(item) {
+      console.log("11111     " + item.ord_id)
+      this.$router.push('/GTrackingDetail/' + item.ord_id)
+    },
+    orderDetail(item) {
+      // console.log('test', item)
+      this.$router.push({name: 'GOrderDetail', params: {order: item}})
     }
   }
 }
@@ -145,7 +165,7 @@ export default {
 <style scoped>
 
 
-.tit{
+.tit {
   font-weight: 700;
   font-size: 28px;
   line-height: 35px;
