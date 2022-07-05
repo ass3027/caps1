@@ -1,7 +1,10 @@
 <template>
   <div>
     <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>
-    <v-carousel v-if="items.length!=0">
+    <v-carousel
+      v-if="items.length!=0"
+      style="width:300px;height: 300px"
+      >
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
@@ -11,19 +14,23 @@
         transition="fade-transition"
       >
         <div
-          v-if="item.pl_name!==''"
+          v-if="item.title!==''"
           class="innerText"
         >
-          <h3>{{ i+1 }}.{{ item.pl_name }}</h3>
+          <h3>{{ i+1 }}.{{ item.title }}</h3>
           <v-btn @click="toCalendar(item)">
             일정에추가
           </v-btn>
         </div>
       </v-carousel-item>
     </v-carousel>
-    <v-carousel v-else>
+    <v-carousel
+      v-else
+      style="width:300px;height: 300px;background-size:auto;"
+    >
       <v-carousel-item
         src="/api/photo/placeImage/no_place.png"
+        style="background-size: contain; "
       />
     </v-carousel>
   </div>
@@ -69,7 +76,7 @@ export default {
   },
   methods:{
     toCalendar(item){
-      this.$router.push({name:'calender', params:{item:item}})
+      this.$router.push({name:'calender', params:{rec:item.title}})
     }
   }
 
@@ -86,5 +93,18 @@ export default {
   text-align: right;
   margin: 10px;
 }
+.v-image__image{
+  background-size:auto;
+}
 
+.v-image__image--cover{
+  background-size:auto;
+}
+
+
+
+
+.v-window-item > div {
+  height: auto;
+}
 </style>

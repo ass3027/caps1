@@ -66,7 +66,8 @@ public class ApiUser {
     }
 
     @GetMapping("/find")
-    public UserDAO findUser(String user_id) {
+    public UserDAO findUser() {
+        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         return userMapper.selectId(user_id).get();
     }
 
@@ -84,9 +85,9 @@ public class ApiUser {
     
     //마이페이지
     @GetMapping("/data/{id}")
-    public UserDAO getUserInfoById(@PathVariable String id){
+    public UserDTO getUserInfoById(@PathVariable String id){
          //반환데이터형식
-        return userMapper.selectId(id).get();
+        return userMapper.getDeliveryInfoById(id).get();
     }
 
 
@@ -112,6 +113,12 @@ public class ApiUser {
                 )
         );
         return userMapper.updateUserInfo(userDAO);
+    }
+
+    //지역별
+    @GetMapping("/area")
+    public List<UserDAO> getUserArea(){
+        return userMapper.areaCount();
     }
 
 
@@ -193,9 +200,8 @@ public class ApiUser {
 
     @GetMapping("/orders")
     public List<OrderDAO> getUserOrders(String user_id){
-        List<OrderDAO> orderDAOS = userMapper.selectUserOrders(user_id);
 
-        return orderDAOS;
+        return userMapper.selectUserOrders(user_id);
     }
 
     @PostMapping("/apiTest")

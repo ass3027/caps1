@@ -15,7 +15,11 @@ import axios from 'axios'
 
 export default {
   name: "TestBshDetailView",
-  props:['id','id2','abc'],
+  props:{
+    id:String,
+    id2:String,
+    abc:String
+  },
   data() {
     return {
       exchangeRate:'bsh',
