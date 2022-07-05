@@ -67,5 +67,11 @@ public class ApiOrders {
 
     }
 
+    @GetMapping("/myOrders")
+    public List<OrderDAO> myOrders(String user_id){
+        System.out.println(user_id);
+        return ordersMapper.selectMyOrders(user_id);
+    }
+
 }
 

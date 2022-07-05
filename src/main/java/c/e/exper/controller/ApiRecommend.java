@@ -1,9 +1,10 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.Place;
-import c.e.exper.data.PlaceDAO;
-import c.e.exper.data.recommendDTO;
+import c.e.exper.data.*;
+import c.e.exper.mapper.GItemMapper;
 import c.e.exper.mapper.PlaceMapper;
+import c.e.exper.mapper.ShareMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,11 @@ import java.util.List;
 public class ApiRecommend {
 
     final PlaceMapper placeMapper;
+
+    @Autowired
+    ShareMapper shareMapper;
+    @Autowired
+    GItemMapper gItemMapper;
 
     public ApiRecommend(PlaceMapper placeMapper) {
         this.placeMapper = placeMapper;
@@ -48,23 +54,38 @@ public class ApiRecommend {
         return places;
     }
 
-//    @GetMapping("/bestHotel")
-//    public List<PlaceDAO> bestHotel(){
-//
-//        List<PlaceDAO> places = placeMapper.findBestHotel();
-//        System.out.println(places);
-//
-//        return places;
-//    }
-//
-//    @GetMapping("/bestGitem")
-//    public List<Gitem> bestGitem(){
-//
-//        List<PlaceDAO> places = placeMapper.findBestGitem();
-//        System.out.println(places);
-//
-//        return places;
-//    }
+    @GetMapping("/bestHotel")
+    public List<PlaceDAO> bestHotel(){
+
+        List<PlaceDAO> places = placeMapper.findBestHotel();
+        System.out.println(places);
+
+        return places;
+    }
+
+    @GetMapping("/bestGitem")
+    public List<GItemDAO> bestGitem(){
+
+        List<GItemDAO> gItems = gItemMapper.findBestGItem();
+        System.out.println(gItems);
+
+        return gItems;
+    }
+
+    @GetMapping("/bestShare")
+    public List<ShareDTO> bestShare(){
+
+        List<ShareDTO> shares = shareMapper.findBestShare();
+
+        shares.forEach((i) -> {
+            i.setPic_name(shareMapper.findPicturesById(i.getShare_id()));
+            i.setFirstimage(shareMapper.getShareFirstImages(i.getShare_id()));
+        });
+
+        return shares;
+    }
+
+
 
 
 }

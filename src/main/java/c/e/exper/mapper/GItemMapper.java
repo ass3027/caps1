@@ -47,4 +47,18 @@ public interface GItemMapper {
 
     @Select("select count(a.GITEM_ID) AS count from AVAILABLE_TIME a, gitem g where g.GITEM_ID =a.GITEM_ID and g.USER_ID =#{id} and a.BOOK_WHETHER=1")
     GItemDAO selectCount(@Param("id") String id);
+
+    @Select("select b.*,FIRSTIMAGE\n" +
+            "from (\n" +
+            "         select b.GITEM_ID, count(b.GITEM_ID)\n" +
+            "         from PAYMENT a,\n" +
+            "              AVAILABLE_TIME b\n" +
+            "         where a.GTIME_NUM = b.TIME_NUM\n" +
+            "         group by b.GITEM_ID\n" +
+            "         order by 2 desc\n" +
+            "     )a, GITEM b, place c\n" +
+            "where ROWNUM <= 3\n" +
+            "and a.GITEM_ID=b.GITEM_ID\n" +
+            "and b.PL_ID=c.PL_ID")
+    List<GItemDAO> findBestGItem();
 }

@@ -29,5 +29,6 @@ public class GItemDAO {
     String gtime_num;
     String gdate;
     int count;
+    String firstimage;
 
 }
