@@ -130,7 +130,10 @@ export default {
         })
     },
     reserve() {
-
+      if(this.$store.state.user.userId=='anonymousUser'||this.$store.state.user.userId==''){
+        alert('로그인 후 이용가능합니다')
+        return
+      }
       var IMP = window.IMP;
       IMP.init('imp19569487');
       console.log(this.lists)

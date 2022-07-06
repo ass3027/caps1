@@ -20,9 +20,9 @@ import testBshView from "@/views/supply/TestBshView";
 import TestBshDetailView from "@/views/supply/TestBshDetailView";
 
 //봉식
+//--------------------------------------------------------------------
 import GOrderDetail from "@/views/bag/general/GOrderDetail";
 import GTrackingView from "@/views/bag/general/GTrackingView";
-import GTrackingDetail from "@/views/bag/general/GTrackingDetail";
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";
@@ -32,7 +32,9 @@ import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
 import KeeperTrackingView from "@/views/bag/keeper/KeeperTrackingView";
-import KeeperTrackingDetail from "@/views/bag/keeper/KeeperTrackingDetail";
+import KeeperOrderDetail from "@/views/bag/keeper/KeeperOrderDetail";
+//--------------------------------------------------------------------
+
 
 //혁태??
 import HotelView from "@/views/store/HotelView";
@@ -184,53 +186,16 @@ const routes = [
 
   //봉식
   //---------------------------------------------------------------//
-  {
-    path: "/GOrderDetail/:ordId",
-    name: "GOrderDetail",
-    component: GOrderDetail,
-    props: true,
-  },
-  {
-    path: "/GTrackingView",
-    name: "GTrackingView",
-    component: GTrackingView,
-    props: true,
-  },
-  {
-    path: "/GTrackingDetail/:ord_id",
-    name: "GTrackingDetail",
-    component: GTrackingDetail,
-    props: true,
-  },
+  {path: "/GOrderDetail/:ordId", name: "GOrderDetail", component: GOrderDetail, props: true},
+  {path: "/GTrackingView", name: "GTrackingView", component: GTrackingView, props: true},
   {path: "/FareView", name: "FareView", component: FareView},
-  {
-    path: "/UsageGuideView",
-    name: "UsageGuideView",
-    component: UsageGuideView,
-  },
-  {
-    path: "/TransportOrder",
-    name: "TransportOrder",
-    component: TransportOrder,
-  },
-  {
-    path: "/SelectionOrder",
-    name: "SelectionOrder",
-    component: SelectionOrder,
-  },
+  {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
+  {path: "/TransportOrder", name: "TransportOrder", component: TransportOrder},
+  {path: "/SelectionOrder", name: "SelectionOrder", component: SelectionOrder},
   {path: "/StorageOrder", name: "StorageOrder", component: StorageOrder},
-  {
-    path: "/KeeperTrackingView",
-    name: "KeeperTrackingView",
-    component: KeeperTrackingView,
-    props: true,
-  },
-  {
-    path: "/KeeperTrackingDetail/:ord_id",
-    name: "KeeperTrackingDetail",
-    component: KeeperTrackingDetail,
-    props: true,
-  },
+  {path: "/KeeperTrackingView", name: "KeeperTrackingView", component: KeeperTrackingView, props: true},
+  {path: "/KeeperOrderDetail", name: "KeeperOrderDetail", component: KeeperOrderDetail, props: true},
+
   //---------------------------------------------------------------//
 
   {
@@ -341,15 +306,23 @@ const router = new VueRouter({
 
 router.beforeResolve((to, from, next) => {
   if (
-    to.path === "/login" ||
-    to.path === "/join" ||
-    to.path === "/" ||
-    to.path === "/userJoin" ||
-    to.path === "/deliveryJoin" ||
-    to.path === "/keeperJoin"
+    to.path === "/plan" ||
+    to.path === "/plInvite" ||
+    to.path === "/calender" ||
+    to.path === "/supplies" ||
+    to.path === "/planPic" ||
+    to.path === "/productBook" ||
+    to.path === "/productBookView" ||
+    to.path === "/StorageOrder" ||
+    to.path === "/TransportOrder" ||
+    to.path === "/GTrackingView" ||
+    to.path === "/KeeperTrackingView" ||
+    to.path === "/GuideRegister" ||
+    to.path === "/GuideProductReg" ||
+    to.path === "/GuideReserve" ||
+    to.path === "/GuideReserveInfo" ||
+    to.path === "/Writing"
   ) {
-    next();
-  } else {
     const dd = async () => {
       try {
         const {data} = await axios.get("/api/user/find");
@@ -370,6 +343,8 @@ router.beforeResolve((to, from, next) => {
       }
     };
     dd();
+  } else {
+    next();
   }
 });
 export default router;

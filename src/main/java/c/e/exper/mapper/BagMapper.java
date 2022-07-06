@@ -29,9 +29,9 @@ public interface BagMapper {
          "and orders.ORD_SELECTION='물품보관' " +
          "and orders.keep_start=pl_id " +
          "order by ord_id desc")
-   List<BagDAO> selectStorage(String user_id);
+   List<BagDAO> searchStorage(String user_id);
    
-   //일반 물품조회(운송)
+   //물품조회(운송)
    @Select("Select ord_id,ord_amount,p1.pl_id as keep_start,p2.pl_id as keep_end,entrust_time,withdraw_time,status,\n" +
          "p1.title as keep_start_title,p2.title as keep_end_title from orders,place p1, place p2\n" +
          "Where orders.user_id=#{user_id}\n" +
@@ -39,12 +39,10 @@ public interface BagMapper {
          "and orders.keep_start=p1.pl_id\n" +
          "and orders.keep_end=p2.pl_id\n" +
          "order by ord_id desc")
-   List<BagDAO> selectTransport(String user_id);
+   List<BagDAO> searchTransport(String user_id);
    
    
-   //물품상세보기
-   @Select("Select * from orders where ord_id=#{ord_id}")
-   BagDAO trackingDetail(String user_id);
+   
    
    //출발키퍼 운송 승인완료로 변경
    @Update("update orders set start_status='승인완료' where ord_id=#{ord_id}")
@@ -56,11 +54,18 @@ public interface BagMapper {
    
    //보관중 업데이트
    @Update("update orders set status='보관중' where ord_id=#{ord_id}")
-   void storageCall(String ord_id);
+   void keeperInStorage(String ord_id);
    
    //찾아감으로 업데이트
    @Update("update orders set status='찾아감' where ord_id=#{ord_id}")
    void visitCall(String ord_id);
+   
+   //물품상세보기
+   @Select("Select ord_id,orders.user_id,ord_amount,entrust_time,withdraw_time,ord_request,p1.title as keep_start_title,firstImage " +
+         "from orders,place p1 " +
+         "where ord_id=#{ord_id} " +
+         "and orders.keep_start=p1.pl_id")
+   BagDAO trackingDetail(String ord_id);
    
    //키퍼회원 운송조회
    @Select("""
@@ -77,15 +82,23 @@ public interface BagMapper {
            and orders.keep_end=p2.pl_id
          order by ord_id desc
          """)
-   List<BagDAO> keeperTracking(String user_id);
+   List<BagDAO> keeperTransport(String user_id);
    
+   //키퍼회원 보관조회
+   @Select("""
+         Select ord_id,orders.user_id,ord_amount,p1.pl_id as keep_start,entrust_time,withdraw_time,status,
+         p1.title as keep_start_title from orders,place p1
+         Where p1.user_id=#{user_id}
+         and orders.keep_start=p1.pl_id
+         """)
+   List<BagDAO> keeperStorage(String user_id);
    
    //장소ID 조회
    @Select("""
-             Select pl_id from place
-             where user_id=#{user_id}
+         Select pl_id from place
+         where user_id=#{user_id}
          """)
-   String plId(String user_id);
+   List<String> plId(String user_id);
    
    @Update("update orders set status='승인완료' where ord_id=#{ord_id} and start_status='승인완료' and end_status='승인완료'")
    void deliveryAllCall(String ord_id);

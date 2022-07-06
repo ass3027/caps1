@@ -9,7 +9,7 @@
             <v-col cols="6">
               <img class="" src="/api/photo/altImage/planner4.png" @click="$router.push({path:'/calender'})">
               <p style="font-weight: bold" @click="$router.push({path:'/calender'})">여행플래너 작성하기</p>
-              <h2 class="mt-10" style="float:left">추천 여행지</h2>
+              <h2 class="mt-10" style="float:left">맞춤 여행지</h2>
             </v-col>
             <v-col cols="6">
 <!--              <v-row></v-row>-->
@@ -96,11 +96,11 @@
     <!-- 비로그인시 -->
     <div v-else>
       <v-row style="height:600px;text-align:center" class="pt-1" justify="center">
-        <v-col cols="6" align-self="start" @click="$router.push({path:'/calender'})">
-          <img class="" src="/api/photo/altImage/planner4.png">
-          <p style="font-weight: bold" @click="$router.push({path:'/calender'})">여행플래너 작성하기</p>
+        <v-col cols="6" align-self="end" @click="$router.push({path:'/calender'})">
+<!--          <img class="" src="/api/photo/altImage/planner4.png">-->
+<!--          <p style="font-weight: bold" @click="$router.push({path:'/calender'})">여행플래너 작성하기</p>-->
           <v-row class="ml-0">
-            <h2>best planner</h2>
+            <h2>추천 플래너</h2>
           </v-row>
           <v-row class="mt-5">
             <v-col
@@ -116,11 +116,11 @@
 
         </v-col>
         <v-divider vertical inset class="blue-grey" style="border-width: 1px"></v-divider>
-        <v-col cols="6" align-self="start" @click="$router.push({path:'/SelectionOrder'})">
-          <img class="" src="/api/photo/altImage/bag4.png">
-          <p style="font-weight: bold" @click="$router.push({path:'/SelectionOrder'})">가방보관/운송 신청하기</p>
+        <v-col cols="6" align-self="end">
+<!--          <img class="" src="/api/photo/altImage/bag4.png" @click="$router.push({path:'/SelectionOrder'})">-->
+<!--          <p style="font-weight: bold" @click="$router.push({path:'/SelectionOrder'})">가방보관/운송 신청하기</p>-->
           <v-row class="ml-0">
-            <h2>best place</h2>
+            <h2>추천 호텔</h2>
           </v-row>
           <best-place mode="place"></best-place>
         </v-col>
@@ -129,24 +129,24 @@
 
       <v-divider vertical inset class="blue-grey" style="border-width: 1px"></v-divider>
       <v-row style="height:600px;text-align:center" justify="center">
-        <v-col cols="6" align-self="start" @click="$router.push({path:'/place/hotel'})">
-          <img class="" src="/api/photo/altImage/hotel4.png">
-          <p style="font-weight: bold" @click="$router.push({path:'/place/hotel'})">호텔 예약하기</p>
+        <v-col cols="6" align-self="end">
+<!--          <img class="" src="/api/photo/altImage/hotel4.png"  @click="$router.push({path:'/place/hotel'})">-->
+<!--          <p style="font-weight: bold" @click="$router.push({path:'/place/hotel'})">호텔 예약하기</p>-->
 
           <v-row>
-            <h2 style="float:left">best hotel</h2>
+            <h2 style="float:left">추천 호텔</h2>
           </v-row>
 
           <best-place mode="hotel"></best-place>
         </v-col>
 
         <v-divider vertical inset class="blue-grey" style="border-width: 1px"></v-divider>
-        <v-col cols="6" align-self="start" @click="$router.push({path:'/GuideProduct'})">
-          <img class="" src="/api/photo/altImage/guide8.png">
+        <v-col cols="6" align-self="end" >
+<!--          <img class="" src="/api/photo/altImage/guide8.png" @click="$router.push({path:'/GuideProduct'})">-->
 
-          <p style="font-weight: bold" @click="$router.push({path:'/GuideProduct'})">현지인가이드 신청하기</p>
+<!--          <p style="font-weight: bold" @click="$router.push({path:'/GuideProduct'})">현지인가이드 신청하기</p>-->
           <v-row class="ml-0">
-            <h2>best guide</h2>
+            <h2>추천 가이드</h2>
           </v-row>
           <best-place mode="guide"></best-place>
         </v-col>
@@ -248,8 +248,8 @@ export default {
 </script>
 <style scoped>
 img {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   margin-top: 15px;
 }
 </style>
