@@ -19,7 +19,7 @@
       v-for="(item,i) in items"
       :key="i"
       cols="4"
-      @click="$router.push({path:`/place/hotel/${item.pl_id}`})"
+      @click="$router.push({path:`/palce/hotel/${item.pl_id}`})"
     >
       <img
         :src="item.firstimage"

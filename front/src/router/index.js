@@ -307,15 +307,23 @@ const router = new VueRouter({
 
 router.beforeResolve((to, from, next) => {
   if (
-    to.path === "/login" ||
-    to.path === "/join" ||
-    to.path === "/" ||
-    to.path === "/userJoin" ||
-    to.path === "/deliveryJoin" ||
-    to.path === "/keeperJoin"
+    to.path === "/plan" ||
+    to.path === "/plInvite" ||
+    to.path === "/calender" ||
+    to.path === "/supplies" ||
+    to.path === "/planPic" ||
+    to.path === "/productBook" ||
+    to.path === "/productBookView" ||
+    to.path === "/StorageOrder" ||
+    to.path === "/TransportOrder" ||
+    to.path === "/GTrackingView" ||
+    to.path === "/KeeperTrackingView" ||
+    to.path === "/GuideRegister" ||
+    to.path === "/GuideProductReg" ||
+    to.path === "/GuideReserve" ||
+    to.path === "/GuideReserveInfo" ||
+    to.path === "/Writing"
   ) {
-    next();
-  } else {
     const dd = async () => {
       try {
         const { data } = await axios.get("/api/user/find");
@@ -336,6 +344,8 @@ router.beforeResolve((to, from, next) => {
       }
     };
     dd();
+  } else {
+    next();
   }
 });
 export default router;

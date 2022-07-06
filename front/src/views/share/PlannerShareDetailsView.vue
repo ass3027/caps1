@@ -200,9 +200,9 @@ export default {
     copyPlanner() {
       console.log("여기요")
       console.log(this.$store.state.user.userId)
-      if (!this.$store.state.user.userId) {
-        alert("로그인을 해주세요");
-        return;
+      if(this.$store.state.user.userId=='anonymousUser'||this.$store.state.user.userId==''){
+        alert('로그인 후 이용가능합니다')
+        return
       }
       axios.get('/api/copyPlanner', {
         params: {
@@ -245,6 +245,11 @@ export default {
         })
     },
     recommend() {
+      if(this.$store.state.user.userId=='anonymousUser'||this.$store.state.user.userId==''){
+        alert('로그인 후 이용가능합니다')
+        return
+      }
+
       axios.post('/api/recShare', {}, {params: {share_id: this.share.share_id, user_id: this.$store.state.user.userId}})
         .then(() => {
           this.getRecommends()
@@ -260,6 +265,11 @@ export default {
         })
     },
     postComment() {
+      if(this.$store.state.user.userId=='anonymousUser'||this.$store.state.user.userId==''){
+        alert('로그인 후 이용가능합니다')
+        return
+      }
+
       const comment = {
         share_id: this.share.share_id,
         user_id: this.$store.state.user.userId,
