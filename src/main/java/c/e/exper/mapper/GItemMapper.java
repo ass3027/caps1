@@ -54,6 +54,20 @@ public interface GItemMapper {
             "                                       where USER_ID = #{id}))")
     GItemDAO selectCount(@Param("id") String id);
 
+    @Select("select PAY_TIME, PAY_PRICE, GNAME\n" +
+            "from PAYMENT p,GITEM g, AVAILABLE_TIME a\n" +
+            "where p.GTIME_NUM = a.TIME_NUM\n" +
+            "AND a.GITEM_ID = g.GITEM_ID\n" +
+            "AND gtime_num in (select TIME_NUM\n" +
+            "                    from AVAILABLE_TIME\n" +
+            "                    where GITEM_ID in (select GITEM_ID\n" +
+            "                                  from GITEM\n" +
+            "                                  where USER_ID = #{id})\n" +
+            "\n" +
+            "                    )")
+    List<GItemDAO> selectCountList(@Param("id") String id);
+
+
     @Select("select sum(PAY_PRICE)as count7\n" +
             "from PAYMENT\n" +
             "where gtime_num in (select TIME_NUM\n" +

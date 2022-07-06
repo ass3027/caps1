@@ -91,6 +91,9 @@ export default {
   created() {
     this.getReviews()
   },
+  mounted() {
+    console.log('test', this.type, this.id)
+  },
   methods: {
     reviewRegister() {
       // this.$router.push("/ReviewCreate/" + this.type + '/' + this.id)
@@ -100,7 +103,7 @@ export default {
     },
     getReviews() {
 
-      axios.get('http://localhost:8080/api/findReviews/' + this.type + '/' + this.id)
+      axios.get('/api/find/reviews/' + this.type + '/' + this.id)
         .then(res => {
           console.log(res.data)
           this.reviews = res.data

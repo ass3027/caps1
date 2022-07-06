@@ -30,7 +30,7 @@ public interface ReviewMapper {
                              from PAYMENT
                              where gtime_num in (select TIME_NUM
                                                  from AVAILABLE_TIME
-                                                 where GITEM_ID = #{gitem_id}));""")
+                                                 where GITEM_ID = #{gitem_id}))""")
     List<Review> findGuideProductReview(@Param("gitem_id") String gitem_id);
 
 

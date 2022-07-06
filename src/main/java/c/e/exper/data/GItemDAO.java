@@ -33,5 +33,8 @@ public class GItemDAO {
     int count7;
     int count1;
     int count30;
+    String firstimage2;
+    String GNAME;
+    String pay_time;
 
 }
