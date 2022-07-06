@@ -80,6 +80,8 @@ export default {
     productName: '',
     productPrice: '',
     productId: '',
+    pay_price: '',
+    user_id: '',
 
     st_date: '',
     end_date: '',
@@ -171,88 +173,26 @@ export default {
 
     book() {
 
-      // var IMP = window.IMP;
-      // IMP.init('imp19569487');
-      // console.log(this.lists)
-      // IMP.request_pay({
-      //   pg: "html5_inics",
-      //   pay_method: "card",
-      //   merchant_uid: "iamport_test_id" + new Date().getTime(),
-      //   name: this.product.title,
-      //   amount: this.product.pd_price,
-      //   buyer_email: "testiamport@naver.com",
-      //   buyer_name: this.$store.state.user.userId,
-      //   buyer_tel: "01012341234"
-      // }, rsp => {
-      //   console.log(rsp);
-      //
-      //   if (rsp.success) {
-      //     axios({
-      //       method: 'POST',
-      //       url: '/api/productPost',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       data: JSON.stringify(bookInfo),
-      //     })
-      //       .then((res) => {
-      //         alert("예약이 완료 되었습니다.")
-      //       })
-      //       .catch((err) => {
-      //         console.log(err)
-      //       })
-      //     console.log(rsp)
-      //   }
-      // })
-      // const dateArr = []
-      //
-      // const tempDate = new Date(this.st_date)
-      // const endDate = new Date(this.end_date)
-      //
-      // for (; tempDate <= endDate - 1;) {
-      //   dateArr.push(this.dateFormat(tempDate))
-      //   tempDate.setDate(tempDate.getDate() + 1)
-      // }
-      // console.log(dateArr)
-      //
-      // const bookInfo = []
-      //
-      // dateArr.forEach((it) => {
-      //
-      //   const payBook = {};
-      //   payBook["pd_id"] = this.productTime[0].pd_id
-      //   payBook["date"] = it
-      //   payBook["room_num"] = this.room
-      //
-      //   bookInfo.push(payBook)
-      //
-      // })
-      // axios({
-      //   method: 'PUT',
-      //   url: '/api/productPut',
-      //   params: {'product_time_num': this.productTime[0].product_time_num}
-      // })
-      //   .then((res) => {
-      //
-      //   })
-      //   .catch((err) => {
-      //     console.log(err)
-      //   })
-
-
-
       axios({
         method: 'GET',
-        url: '/api/productNoBook',
+        url: 'api/productNoBook',
         params: {
           'pd_id': this.product.pd_id,
-          'pay_id': this.productTime[0].pay_id,
+          'st_date': this.st_date,
+          'end_date': this.end_date
         }
       })
         .then((res) => {
           console.log(res.data)
-          if (res.date.max_room_num  >= res.data.count) {
-            alert("예약 가능한 방이 없습니다.")
+
+          if (res.data.length !== 0) {
+            let alertMessage = ""
+            res.data.forEach( it=>{
+              alertMessage += `${it.date}에 ${it.room_num}호 \n`
+            })
+            alertMessage += "때문에 예약이 불가능 합니다"
+            alert(alertMessage)
+
           } else {
             var IMP = window.IMP;
             IMP.init('imp19569487');
@@ -269,7 +209,14 @@ export default {
             }, rsp => {
               console.log(rsp);
 
+
               if (rsp.success) {
+
+                const sendform = new FormData();
+
+                sendform.append('pay_price', this.product.pd_price)
+                sendform.append('user_id', this.$store.state.user.userId)
+
                 axios({
                   method: 'POST',
                   url: '/api/productPost',
@@ -277,7 +224,12 @@ export default {
                     'Content-Type': 'application/json',
                   },
                   data: JSON.stringify(bookInfo),
+                  params: {
+                    'user_id': this.$store.state.user.userId,
+                    'pay_price': this.product.pd_price
+                  }
                 })
+
                   .then((res) => {
                     alert("예약이 완료 되었습니다.")
                   })
@@ -313,7 +265,6 @@ export default {
           }
         })
     },
-
   }
 }
 </script>

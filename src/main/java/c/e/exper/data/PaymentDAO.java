@@ -22,6 +22,7 @@ public class PaymentDAO {
     String pay_price;
     String pay_context;
     String plan_id;
+    String user_id;
     String receipt;
     String card_num;
 

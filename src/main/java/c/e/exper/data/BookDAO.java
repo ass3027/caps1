@@ -27,6 +27,10 @@ public class BookDAO {
     String max_room_num;
     String count;
 
+    String st_date;
+    String end_date;
+    String room_num;
+
     public BookDTO toBookDTO(){
         return BookDTO.builder()
                 .book_price(this.book_price)

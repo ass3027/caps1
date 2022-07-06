@@ -1,9 +1,6 @@
 package c.e.exper.mapper;
 
-import c.e.exper.data.BookDAO;
-import c.e.exper.data.PaymentDAO;
-import c.e.exper.data.ProductTime;
-import c.e.exper.data.ProductDAO;
+import c.e.exper.data.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.security.core.parameters.P;
 
@@ -48,14 +45,26 @@ public interface ProductMapper {
     void productSet(@Param("product_time_num") String product_time_num);
 
     @Insert("""
-            INSERT INTO PRODUCT_TIME(PD_ID, "date", ROOM_NUM) VALUES (#{pd_id}, #{date}, #{room_num})
+            INSERT INTO PRODUCT_TIME(PD_ID, "date", ROOM_NUM, PAY_ID) VALUES (#{pd_id}, #{date}, #{room_num}, #{pay_id})
             """)
     void product_Time_Insert(ProductTime productTime);
 
+    @Insert("""
+            INSERT INTO PAYMENT(PAY_PRICE, USER_ID) VALUES (#{paymentResult.pay_price}, #{paymentResult.user_id})
+            """)
+    void product_payment_Insert(@Param("paymentResult")PaymentResult paymentResult);
+
     @Select("""
-            select *
-            from PRODUCT_TIME a, PAYMENT b
-            where b.PAY_ID = a.PAY_ID and USER_ID = #{id}
+            select PAY_SEQUENCES.CURRVAL
+            from dual
+            """)
+    String pay_id();
+
+    @Select("""
+            select min("date") st_date, max("date") end_date, c.title, b.USER_ID
+            from PRODUCT_TIME a, PAYMENT b, PLACE c, PRODUCT d
+            where b.PAY_ID = a.PAY_ID and c.PL_ID = d.PL_ID and b.USER_ID = #{id}
+            group by a.PAY_ID, c.title, b.USER_ID
             """)
     List<BookDAO> SelectBook(@Param("id") String id);
 
@@ -108,16 +117,17 @@ public interface ProductMapper {
     ProductDAO product_Sales30(@Param("id")String id);
 
     @Select("""
-            select p.pd_id, c."date", p.MAX_ROOM_NUM, c.count, c.PAY_ID
+            select c."date", c.ROOM_NUM
             from product p,
-                 (select count(*) count, PD_ID, "date", PAY_ID
+                 (select count(*) count, PD_ID, "date", ROOM_NUM
                   from PRODUCT_TIME t
-                  group by "date", PD_ID, PAY_ID
+                  where "date" between #{st_date} AND #{end_date}
+                  group by "date", PD_ID, ROOM_NUM
                  ) c
             where p.PD_ID = c.PD_ID
-            and p.PD_ID = #{pd_id} and c.PAY_ID = #{pay_id}
-            and p.MAX_ROOM_NUM > c.count
+            and p.PD_ID = #{pd_id}
+            and p.MAX_ROOM_NUM <= c.count
             """)
-    List<BookDAO> product_book_no(@Param("pd_id")String pd_id, @Param("pay_id")String pay_id);
+    List<BookDAO> product_book_no(@Param("pd_id")String pd_id, @Param("st_date")String st_date, @Param("end_date")String end_date);
 
 }

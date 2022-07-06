@@ -204,11 +204,10 @@ export default {
         [
           {title: '호텔', route: '/place/hotel'},
           {title: '모텔', route: '/place/motel'},
-          {title: '펜션', route: '/place'},
-          {title: '글램핑', route: '/place'},
-          {title: '리조트', route: '/place'},
-          {title: '게스트하우스', route: '/place'},
-          {title: '예약 조회', route: '/productBookView'}
+          {title: '펜션', route: '/place/pension'},
+          {title: '게스트하우스', route: '/place/home'},
+          {title: '예약 조회', route: '/productBookView'},
+          {title: '매출 조회', route: '/chart'}
         ],
         [
           {title: '가방예약', route: '/SelectionOrder'},

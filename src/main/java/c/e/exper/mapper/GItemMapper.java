@@ -35,7 +35,7 @@ public interface GItemMapper {
     @Update("Update available_time set book_whether = 0 where time_num = #{id}")
     int updateTime(@Param("id") int id);
 
-    @Insert("Insert into book( user_id, time_num) values( #{user_id}, #{time_num})")
+    @Insert("Insert into book(user_id, time_num) values( #{user_id}, #{time_num})")
     void insertReserve(GItemDAO gitemDAO);
 
     @Insert("Insert into payment(pay_price, user_id, gtime_num) values(#{pay_price}, #{user_id}, #{gtime_num})")
