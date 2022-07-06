@@ -1,9 +1,25 @@
 <template>
-  <v-row v-if="mode=='place'||mode=='hotel'"  >
+  <v-row v-if="mode=='place'"  >
     <v-col
       v-for="(item,i) in items"
       :key="i"
       cols="4"
+      @click="$router.push({path:`/tour/${item.pl_id}`})"
+    >
+      <img
+        :src="item.firstimage"
+      >
+      <span class="innerText">
+        <h3>{{ item.title }}</h3>
+      </span>
+    </v-col>
+  </v-row>
+  <v-row v-else-if="mode=='hotel'"  >
+    <v-col
+      v-for="(item,i) in items"
+      :key="i"
+      cols="4"
+      @click="$router.push({path:`/place/hotel/${item.pl_id}`})"
     >
       <img
         :src="item.firstimage"
@@ -11,7 +27,7 @@
       <span class="innerText">
         <h3>{{ item.title }}</h3>
 <!--        <v-btn @click="toCalendar(item)">-->
-<!--          일정에추가-->
+<!--          예약하기-->
 <!--        </v-btn>-->
       </span>
     </v-col>
@@ -22,6 +38,7 @@
       v-for="(item,i) in items"
       :key="i"
       cols="4"
+      @click="$router.push({path:`/GuideProduct/${item.gitem_id}`})"
     >
       <img
         :src="item.firstimage"
