@@ -217,11 +217,11 @@ export default {
                 //var detailAddr = (result[0].road_address==undefined) ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
                 let detailAddr = '';
                 let mapAddress = 0;
-
+                console.log(result[0])
                 if (result[0].address === undefined && result[0].road_address === undefined) {
                   detailAddr += `<div>주소를 찾을 수 없습니다</div>`
                 } else {
-                  if (result[0].road_address !== undefined) {
+                  if (result[0].road_address !== null) {
                     mapAddress = result[0].road_address
                     detailAddr += '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'
                   }

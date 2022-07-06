@@ -10,10 +10,10 @@ import java.util.Map;
 public interface PaymentMapper {
 
     @Select("""
-            SELECT pay.pay_id, start_date, end_date, pr.pd_id, pr.pd_name, room_num, pl.pl_id, title, mapX, mapY 
+            SELECT pay.pay_id, start_date, end_date, pr.pd_id, pr.pd_name, room_num, pl.pl_id, title, mapX, mapY,addr1 
             FROM payment pay,
                  product pr, 
-                 (SELECT pl_id, title, mapX, mapY
+                 (SELECT pl_id, title, mapX, mapY, addr1
                   FROM place l
                   WHERE l.pl_id in (SELECT d.pl_id
                                     FROM payment p, product_time t, product d
