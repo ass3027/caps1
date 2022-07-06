@@ -1,11 +1,11 @@
 <template>
   <div>
 <!--    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>-->
-    <v-row v-if="items!=''" style="height:230px;overflow: hidden">
+    <v-row v-if="items!=''">
       <v-col
         v-for="(item,i) in items"
         :key="i"
-        cols="4"
+        cols="2"
         @click="$router.push({path:'/calender'})"
       >
         <img

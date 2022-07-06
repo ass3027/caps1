@@ -3,7 +3,7 @@
     <v-col
       v-for="(item,i) in items"
       :key="i"
-      cols="4"
+      cols="2"
       @click="$router.push({path:`/tour/${item.pl_id}`})"
     >
       <img
@@ -18,7 +18,7 @@
     <v-col
       v-for="(item,i) in items"
       :key="i"
-      cols="4"
+      cols="2"
       @click="$router.push({path:`/palce/hotel/${item.pl_id}`})"
     >
       <img
@@ -37,19 +37,19 @@
     <v-col
       v-for="(item,i) in items"
       :key="i"
-      cols="4"
+      cols="2"
       @click="$router.push({path:`/GuideProduct/${item.gitem_id}`})"
     >
       <img
         :src="item.firstimage"
 
       >
-      <span class="innerText">
+      <span class="innerText" >
         <h3>{{ item.gname }}</h3>
 <!--        <v-btn @click="toCalendar(item)">-->
 <!--          일정에추가-->
 <!--        </v-btn>-->
-        <p>{{item.introduce}}</p>
+        <p style="height: 45px;overflow: hidden">{{item.introduce}}</p>
       </span>
 
     </v-col>
