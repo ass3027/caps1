@@ -6,19 +6,12 @@
     <div>
 
       <MyPageHeader/>
-
-
-      <div v-if="status === 'MyPageInfo'" style="width: 820px; float: right;">
-        <MyPageInfo/>
-      </div>
-      <div v-else-if="status === 'Bookmark'" style="width: 820px; float: right;">
-        <BookMarkView/>
-      </div>
-      <div v-else-if="status === 'MyPageUpdate'" style="width: 820px; float: right;">
-        <MyPageUpdateView/>
-      </div>
-      <div v-else-if="status === 'Questions'" style="width: 820px; float: right;">
-        <QuestionsView/>
+      <div style="width: 820px; float: right;">
+        <MyPageInfo v-if="status === 'MyPageInfo'"/>
+        <BookMarkView v-else-if="status === 'Bookmark'"/>
+        <MyPageUpdateView v-else-if="status === 'MyPageUpdate'"/>
+        <QuestionsView v-else-if="status === 'Questions'"/>
+        <MyPaymentList v-else-if="status === 'MyPaymentList'"/>
       </div>
     </div>
   </div>
@@ -29,9 +22,10 @@ import MyPageHeader from "@/components/store/MyPageHeader";
 
 import axios from "axios";
 import MyPageInfo from "@/components/auth/MyPageInfo";
-import BookMarkView from "@/views/auth/BookMarkView";
-import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
-import QuestionsView from "@/views/auth/QuestionsView";
+import BookMarkView from "@/components/auth/BookMarkView";
+import MyPageUpdateView from "@/components/auth/MyPageUpdateView";
+import QuestionsView from "@/components/auth/QuestionsView";
+import MyPaymentList from "@/components/auth/MyPaymentList";
 
 export default {
   components: {
@@ -39,27 +33,38 @@ export default {
     MyPageInfo,
     BookMarkView,
     MyPageUpdateView,
-    QuestionsView
+    QuestionsView,
+    MyPaymentList
   },
-
-  data(){
-    return{
-    user_id: '',
-    user_pw: '',
-    user_phone: '',
-    user_name: '',
-    user_birth:'',
-    user_photo: '',
-    gender: '',
-    preference:'',
-    user_area:true,
-    duser_trans:'',
-    duser_license:'',
-    business_num:''
+  props: {
+    type: {
+      type: String,
+      default: 'MyPageInfo'
+    }
+  },
+  data() {
+    return {
+      user_id: '',
+      user_pw: '',
+      user_phone: '',
+      user_name: '',
+      user_birth: '',
+      user_photo: '',
+      gender: '',
+      preference: '',
+      user_area: true,
+      duser_trans: '',
+      duser_license: '',
+      business_num: '',
+      status: '',
 
     };
   },
+  created() {
+    this.status = this.type
+  },
   mounted() {
+
     axios.get('/api/user/data/' + this.$store.state.user.userId)
       .then(res => {
         this.user_id = res.data.user_id
@@ -68,13 +73,13 @@ export default {
         this.user_name = res.data.user_name
         this.user_birth = res.data.user_birth
         this.gender = res.data.gender
-      this.preference = res.data.preference
-      this.user_area = res.data.user_area
-      this.duser_trans = res.data.duser_trans
-      this.duser_license = res.data.duser_license
-      this.business_num = res.data.business_num
-      console.log(res.data)
-      console.log(this.$store.state.user.userId)
+        this.preference = res.data.preference
+        this.user_area = res.data.user_area
+        this.duser_trans = res.data.duser_trans
+        this.duser_license = res.data.duser_license
+        this.business_num = res.data.business_num
+        console.log(res.data)
+        console.log(this.$store.state.user.userId)
 
       }).catch((error) => {
       console.log(error)
@@ -173,6 +178,10 @@ header {
   line-height: 36px;
   color: #333;
   letter-spacing: -.5px;
+}
+
+li {
+  list-style: none;
 }
 
 </style>

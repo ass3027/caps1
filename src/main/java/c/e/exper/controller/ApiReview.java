@@ -74,6 +74,9 @@ public class ApiReview {
                 return reviewMapper.findAllReview();
             case "가이드 상품":
                 return reviewMapper.findGuideProductReview(id);
+            case "가이드":
+                return reviewMapper.findGuideReview(id); // 가이드 id
+
         }
 
 

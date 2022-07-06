@@ -1,7 +1,9 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -30,4 +32,28 @@ public interface PaymentMapper {
             where user_id = #{user_id}
             """)
     List<PaymentDAO> paymentList(String user_id);
+
+
+    @Select("""
+            select *
+                from PAYMENT
+                where gtime_num in (select TIME_NUM
+                        from AVAILABLE_TIME
+                                where GITEM_ID = #{id} )
+                and user_id = #{user_id}
+            """)
+    List<PaymentDAO> paymentCheck(@Param("id") String id, @Param("user_id") String user_id);
+
+    @Select("""
+            select *
+            from GITEM
+            where GITEM_ID = (select GITEM_ID
+                              from AVAILABLE_TIME
+                              where time_num = (select gtime_num
+                                                from PAYMENT
+                                                where pay_id = #{pay_id}))
+            """)
+    GItemDAO gitemInfoToPayId(@Param("pay_id") String pay_id);
+
+
 }

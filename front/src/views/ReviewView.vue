@@ -101,7 +101,7 @@ export default {
   methods: {
     reviewRegister() {
       // this.$router.push("/ReviewCreate/" + this.type + '/' + this.id)
-      this.$router.push("/ReviewCreateView/" + this.type + '/' + this.id)
+      this.$router.push('/MyPage/MyPaymentList')
 
       console.log('test', '!!!!!!!!!!!')
     },

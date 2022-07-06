@@ -1,9 +1,11 @@
 package c.e.exper.controller;
 
+import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
 import c.e.exper.mapper.PaymentMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,10 +41,30 @@ public class ApiPayment {
         return paymentMapper.paymentList(id);
     }
 
-    @GetMapping("/paymentList/test")
-    List<PaymentDAO> paymentListTest() {
+    @GetMapping("/paymentList/{test}")
+    List<PaymentDAO> paymentListTest(@PathVariable String test) {
         Map<String, Object> result = new HashMap<>();
         return paymentMapper.paymentList("um");
+    }
+
+    @GetMapping("/check/review/{type}/{id}/{pay_id}")
+    String checkReview(@PathVariable String type, @PathVariable String id, @PathVariable String pay_id) {
+
+        switch (type) {
+            case "가이드 상품":
+                if (paymentMapper.paymentCheck(id, SecurityContextHolder.getContext().getAuthentication().getName()).size() == 0) {
+                    return "상품 결제 내역이 없습니다.";
+                }
+        }
+
+        return "결제내역페이지 이동";
+    }
+
+
+    @GetMapping("/gitem/{pay_id}")
+    GItemDAO gitemInfo(@PathVariable String pay_id) {
+
+        return paymentMapper.gitemInfoToPayId(pay_id);
     }
 
 }

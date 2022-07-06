@@ -1,13 +1,13 @@
 <template>
   <div>
-    <MyPageHeader />
+    <MyPageHeader/>
     <!--  <BookMarkView></BookMarkView>-->
     <template>
       <v-card>
         <v-toolbar
-          flat
           color="primary"
           dark
+          flat
         >
           <v-toolbar-title>즐겨찾기</v-toolbar-title>
         </v-toolbar>
@@ -80,9 +80,9 @@
                   @click="url(post.pl.id)"
                 >
                   <v-img
+                    :src="post.firstimage"
                     class="white--text align-end"
                     height="200px"
-                    :src="post.firstimage"
                   />
                   <v-card-subtitle class="text--primary">
                     <p>{{ post.addr1 }}</p>
@@ -109,8 +109,8 @@
 
 <script>
 import MyPageHeader from "@/components/store/MyPageHeader";
-import BookMarkView from "@/views/auth/BookMarkView";
 import axios from "axios";
+
 export default {
   components: {
     MyPageHeader,
@@ -140,7 +140,7 @@ export default {
   //     })
   // },
   methods: {
-    all(){
+    all() {
       this.$router.push("/bookmark")
     },
     url() {

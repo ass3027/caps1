@@ -13,16 +13,19 @@
         style="padding-left: 0"
       >
         <li id="MyPage">
-          <a @click="MyPage">회원 정보</a>
+          <a @click="change('MyPageInfo')">회원 정보</a>
         </li>
         <li id="Bookmark">
-          <a @click="BookMark">즐겨찾기</a>
+          <a @click="change('Bookmark')">즐겨찾기</a>
         </li>
         <li id="MyPageUpdate">
-          <a @click="UserUpdate">개인 정보 수정</a>
+          <a @click="change('MyPageUpdate')">개인 정보 수정</a>
+        </li>
+        <li id="MyPaymentList">
+          <a @click="change('MyPaymentList')">결제 내역</a>
         </li>
         <li id="Questions">
-          <a @click="questions">문의사항</a>
+          <a @click="change('Questions')">문의사항</a>
         </li>
         <li id="Review">
           <a>상품후기</a>
@@ -154,5 +157,8 @@ export default {
   font-size: 14px
 }
 
+li {
+  list-style: none;
+}
 
 </style>

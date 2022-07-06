@@ -5,33 +5,14 @@ import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
 import c.e.exper.service.ReviewService;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-import java.security.Principal;
-import java.security.Security;
-
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.regex.Pattern;
-
-
-
 import java.util.*;
 import java.util.regex.Pattern;
-
-import java.util.Optional;
 
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
@@ -65,6 +46,27 @@ public class ApiUser {
         this.reviewService = reviewService;
     }
 
+    public static String randomHangulName() {
+        List<String> 성 = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
+                "송", "류", "전", "홍", "고", "문", "양", "손", "배", "조", "백", "허", "유", "남", "심", "노", "정", "하", "곽", "성", "차", "주",
+                "우", "구", "신", "임", "나", "전", "민", "유", "진", "지", "엄", "채", "원", "천", "방", "공", "강", "현", "함", "변", "염", "양",
+                "변", "여", "추", "노", "도", "소", "신", "석", "선", "설", "마", "길", "주", "연", "방", "위", "표", "명", "기", "반", "왕", "금",
+                "옥", "육", "인", "맹", "제", "모", "장", "남", "탁", "국", "여", "진", "어", "은", "편", "구", "용");
+        List<String> 이름 = Arrays.asList("가", "강", "건", "경", "고", "관", "광", "구", "규", "근", "기", "길", "나", "남", "노", "누", "다",
+                "단", "달", "담", "대", "덕", "도", "동", "두", "라", "래", "로", "루", "리", "마", "만", "명", "무", "문", "미", "민", "바", "박",
+                "백", "범", "별", "병", "보", "빛", "사", "산", "상", "새", "서", "석", "선", "설", "섭", "성", "세", "소", "솔", "수", "숙", "순",
+                "숭", "슬", "승", "시", "신", "아", "안", "애", "엄", "여", "연", "영", "예", "오", "옥", "완", "요", "용", "우", "원", "월", "위",
+                "유", "윤", "율", "으", "은", "의", "이", "익", "인", "일", "잎", "자", "잔", "장", "재", "전", "정", "제", "조", "종", "주", "준",
+                "중", "지", "진", "찬", "창", "채", "천", "철", "초", "춘", "충", "치", "탐", "태", "택", "판", "하", "한", "해", "혁", "현", "형",
+                "혜", "호", "홍", "화", "환", "회", "효", "훈", "휘", "희", "운", "모", "배", "부", "림", "봉", "혼", "황", "량", "린", "을", "비",
+                "솜", "공", "면", "탁", "온", "디", "항", "후", "려", "균", "묵", "송", "욱", "휴", "언", "령", "섬", "들", "견", "추", "걸", "삼",
+                "열", "웅", "분", "변", "양", "출", "타", "흥", "겸", "곤", "번", "식", "란", "더", "손", "술", "훔", "반", "빈", "실", "직", "흠",
+                "흔", "악", "람", "뜸", "권", "복", "심", "헌", "엽", "학", "개", "롱", "평", "늘", "늬", "랑", "얀", "향", "울", "련");
+        Collections.shuffle(성);
+        Collections.shuffle(이름);
+        return 성.get(0) + 이름.get(0) + 이름.get(1);
+    }
+
     @GetMapping("/find")
     public UserDAO findUser() {
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -78,23 +80,25 @@ public class ApiUser {
     }
 
     @GetMapping("/photo")
-    public String getUserPicture(){
+    public String getUserPicture() {
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         return pictureMapper.selectPicnameByUserId(user_id);
     }
-    
+
     //마이페이지
     @GetMapping("/data/{id}")
-    public UserDTO getUserInfoById(@PathVariable String id){
-         //반환데이터형식
-        return userMapper.getDeliveryInfoById(id).get();
-    }
+    public UserDTO getUserInfoById(@PathVariable String id) {
+        //반환데이터형식
 
+        Optional<UserDTO> userInfo = userMapper.getDeliveryInfoById(id);
+
+        return userInfo.orElseGet(UserDTO::new);
+    }
 
     //아이디 중복 확인
     @GetMapping("/userid")
     public boolean getUserIdCheck( //반환타입,함수명
-        @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
+                                   @RequestParam("user_id") String pp) { //프론트에서 user_id 받아옴
         Optional<UserDAO> id = userMapper.selectId(pp); //
         return id.isEmpty();
 //        if (id.isEmpty()){
@@ -106,7 +110,7 @@ public class ApiUser {
 
     //내정보수정
     @PostMapping("/dataUpdate")
-    public boolean getUserdataUpdate(UserDAO userDAO){
+    public boolean getUserdataUpdate(UserDAO userDAO) {
         userDAO.setUser_pw(
                 passwordEncoder().encode(
                         userDAO.getUser_pw()
@@ -117,14 +121,13 @@ public class ApiUser {
 
     //지역별
     @GetMapping("/area")
-    public List<UserDAO> getUserArea(){
+    public List<UserDAO> getUserArea() {
         return userMapper.areaCount();
     }
 
-
     //회원가입
     @PostMapping("/join/{check}")
-    public boolean join(UserDTO user, HttpServletRequest req, @PathVariable("check")String check) {
+    public boolean join(UserDTO user, HttpServletRequest req, @PathVariable("check") String check) {
 
 
         System.out.println(check);
@@ -142,19 +145,19 @@ public class ApiUser {
 
 
         // 폰 번호가 형식에 안 맞을 경우 랜덤 값
-        if ( !Pattern.matches("^010[0-9]{8}$", user.getUser_phone())) {
+        if (!Pattern.matches("^010[0-9]{8}$", user.getUser_phone())) {
             user.setUser_phone(getRandomPhone());
             System.out.println("[user_phone:]" + user.getUser_phone());
         }
         // 유저 이름이 형식에 안 맞을 경우 랜덤 값(2~5글자 사이의 한글)
-        if(!Pattern.matches("^[가-힣]{2,5}$", user.getUser_name())) {
+        if (!Pattern.matches("^[가-힣]{2,5}$", user.getUser_name())) {
             user.setUser_name(randomHangulName());
         }
 
 
         //파일 이름 저장 밑 파일 실제 저장
         //경로 이상함
-        String filePath = fileService.photoSave(user.getUser_photo(),req,"userImage");
+        String filePath = fileService.photoSave(user.getUser_photo(), req, "userImage");
 
         System.out.println("[filePath]" + filePath);
 
@@ -178,7 +181,7 @@ public class ApiUser {
         userMapper.insert(daoUser);
 
 
-        if(check.equals("운송원") ){
+        if (check.equals("운송원")) {
             DuserDAO daoDuser = DuserDAO.builder()
                     .user_id(user.getUser_id())
                     .duser_license(user.getDuser_license())
@@ -199,7 +202,7 @@ public class ApiUser {
     }
 
     @GetMapping("/orders")
-    public List<OrderDAO> getUserOrders(String user_id){
+    public List<OrderDAO> getUserOrders(String user_id) {
 
         return userMapper.selectUserOrders(user_id);
     }
@@ -220,15 +223,15 @@ public class ApiUser {
     }
 
     @GetMapping("/role")
-    public String getUserRole(){
+    public String getUserRole() {
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return userMapper.selectId(user_id).get().getRole();
     }
 
-    public String getRandomPhone(){
+    public String getRandomPhone() {
 
-        char[] charaters = {'0','1','2','3','4','5','6','7','8','9'};
+        char[] charaters = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
         StringBuffer sb = new StringBuffer();
         sb.append('0');
@@ -238,35 +241,14 @@ public class ApiUser {
 
         Random rn = new Random();
 
-        for( int i = 0 ; i < 8 ; i++ ){
+        for (int i = 0; i < 8; i++) {
 
-            sb.append( charaters[ rn.nextInt( charaters.length ) ] );
+            sb.append(charaters[rn.nextInt(charaters.length)]);
 
         }
 
         return sb.toString();
 
-    }
-
-    public static String randomHangulName() {
-        List<String> 성 = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
-                "송", "류", "전", "홍", "고", "문", "양", "손", "배", "조", "백", "허", "유", "남", "심", "노", "정", "하", "곽", "성", "차", "주",
-                "우", "구", "신", "임", "나", "전", "민", "유", "진", "지", "엄", "채", "원", "천", "방", "공", "강", "현", "함", "변", "염", "양",
-                "변", "여", "추", "노", "도", "소", "신", "석", "선", "설", "마", "길", "주", "연", "방", "위", "표", "명", "기", "반", "왕", "금",
-                "옥", "육", "인", "맹", "제", "모", "장", "남", "탁", "국", "여", "진", "어", "은", "편", "구", "용");
-        List<String> 이름 = Arrays.asList("가", "강", "건", "경", "고", "관", "광", "구", "규", "근", "기", "길", "나", "남", "노", "누", "다",
-                "단", "달", "담", "대", "덕", "도", "동", "두", "라", "래", "로", "루", "리", "마", "만", "명", "무", "문", "미", "민", "바", "박",
-                "백", "범", "별", "병", "보", "빛", "사", "산", "상", "새", "서", "석", "선", "설", "섭", "성", "세", "소", "솔", "수", "숙", "순",
-                "숭", "슬", "승", "시", "신", "아", "안", "애", "엄", "여", "연", "영", "예", "오", "옥", "완", "요", "용", "우", "원", "월", "위",
-                "유", "윤", "율", "으", "은", "의", "이", "익", "인", "일", "잎", "자", "잔", "장", "재", "전", "정", "제", "조", "종", "주", "준",
-                "중", "지", "진", "찬", "창", "채", "천", "철", "초", "춘", "충", "치", "탐", "태", "택", "판", "하", "한", "해", "혁", "현", "형",
-                "혜", "호", "홍", "화", "환", "회", "효", "훈", "휘", "희", "운", "모", "배", "부", "림", "봉", "혼", "황", "량", "린", "을", "비",
-                "솜", "공", "면", "탁", "온", "디", "항", "후", "려", "균", "묵", "송", "욱", "휴", "언", "령", "섬", "들", "견", "추", "걸", "삼",
-                "열", "웅", "분", "변", "양", "출", "타", "흥", "겸", "곤", "번", "식", "란", "더", "손", "술", "훔", "반", "빈", "실", "직", "흠",
-                "흔", "악", "람", "뜸", "권", "복", "심", "헌", "엽", "학", "개", "롱", "평", "늘", "늬", "랑", "얀", "향", "울", "련");
-        Collections.shuffle(성);
-        Collections.shuffle(이름);
-        return 성.get(0) + 이름.get(0) + 이름.get(1);
     }
 
 

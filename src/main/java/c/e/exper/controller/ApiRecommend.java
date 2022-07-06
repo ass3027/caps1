@@ -1,6 +1,9 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.*;
+import c.e.exper.data.GItemDTO;
+import c.e.exper.data.PlaceDAO;
+import c.e.exper.data.ShareDTO;
+import c.e.exper.data.recommendDTO;
 import c.e.exper.mapper.GItemMapper;
 import c.e.exper.mapper.PlaceMapper;
 import c.e.exper.mapper.ShareMapper;
@@ -28,25 +31,26 @@ public class ApiRecommend {
     }
 
     @GetMapping("/recPlace")
-    public List<PlaceDAO> recPlace(){
+    public List<PlaceDAO> recPlace() {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(id);
         List<recommendDTO> similarUsers = placeMapper.findSimilarUser(id);
         System.out.println(similarUsers);
-        if(similarUsers.isEmpty()){
+        if (similarUsers.isEmpty()) {
             System.out.println("EMPTYYYYYYYYY");
-            List<PlaceDAO> Empty=null;
+            List<PlaceDAO> Empty = null;
             return Empty;
         }
         String similarUser = similarUsers.get(0).getUser_id();
         System.out.println(similarUser);
-        List<PlaceDAO> places = placeMapper.findRecPlace(id,similarUser);
+        List<PlaceDAO> places = placeMapper.findRecPlace(id, similarUser);
         System.out.println(places);
 
         return places;
     }
+
     @GetMapping("/bestPlace")
-    public List<PlaceDAO> bestPlace(){
+    public List<PlaceDAO> bestPlace() {
 
         List<PlaceDAO> places = placeMapper.findBestPlace();
         System.out.println(places);
@@ -55,7 +59,7 @@ public class ApiRecommend {
     }
 
     @GetMapping("/bestHotel")
-    public List<PlaceDAO> bestHotel(){
+    public List<PlaceDAO> bestHotel() {
 
         List<PlaceDAO> places = placeMapper.findBestHotel();
         System.out.println(places);
@@ -64,16 +68,16 @@ public class ApiRecommend {
     }
 
     @GetMapping("/bestGitem")
-    public List<GItemDAO> bestGitem(){
+    public List<GItemDTO> bestGitem() {
 
-        List<GItemDAO> gItems = gItemMapper.findBestGItem();
+        List<GItemDTO> gItems = gItemMapper.findBestGItem();
         System.out.println(gItems);
 
         return gItems;
     }
 
     @GetMapping("/bestShare")
-    public List<ShareDTO> bestShare(){
+    public List<ShareDTO> bestShare() {
 
         List<ShareDTO> shares = shareMapper.findBestShare();
 
@@ -84,8 +88,6 @@ public class ApiRecommend {
 
         return shares;
     }
-
-
 
 
 }
