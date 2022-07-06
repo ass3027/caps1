@@ -6,7 +6,7 @@
     @click="unselect"
   >
     <v-row>
-      <v-col align="center">
+      <v-col style="text-align: center">
         <h2 class="text-center">
           {{ date }}
         </h2>
@@ -33,7 +33,8 @@
                   @click="select(key,index)"
                 >
                   <div>
-                    <h3>{{ key }}시</h3>
+                    <h3 v-if="key===100">숙소</h3>
+                    <h3 v-else>{{ key }}시</h3>
                   </div>
                   <div>
                     {{ plan.get(key).address }}
@@ -96,7 +97,7 @@
     <v-row justify="center">
       <v-col
         justify="center"
-        align="center"
+        style="text-align: center"
       >
         <!--이런게 있긴함  -->
         <v-dialog

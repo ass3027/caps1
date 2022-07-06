@@ -251,6 +251,9 @@ export default {
         })
 
         //여기서 부터
+
+        let dbDate;
+        let dbTime;
         scheduleList.sort( (a,b)=> parseInt(a.sch_startTime.substring(11, 13)) - parseInt(b.sch_startTime.substring(11, 13)))
 
         scheduleList.forEach((it) => {
@@ -263,8 +266,10 @@ export default {
             pl_name        : it.pl_name,
             address        : it.place
           }
-          calendar.date[it.sch_endTime.substring(0, 10)].set(
-            parseInt(it.sch_startTime.substring(11, 13)), partialData)
+          dbDate = it.sch_endTime.substring(0, 10)
+          if(it.sch_startTime.substring(14, 16) ==="59") dbTime = 100
+          else dbTime = parseInt(it.sch_startTime.substring(11, 13))
+          calendar.date[dbDate].set(dbTime, partialData)
           //이거 객체화 해서 저장해야하무
         })
 
@@ -314,17 +319,29 @@ export default {
         for (let [key, value] of this.calendar.date[a]) {
           let startHour,
             endHour;
-          if (parseInt(key) < 9) {
-            startHour = "0" + key
-            endHour = "0" + (parseInt(key) + 1)
 
-          } else if (parseInt(key) === 9) {
-            startHour = "09"
-            endHour = "10"
-          } else {
-            startHour = key;
-            endHour = (parseInt(key) + 1)
+          if(parseInt(key)===100) {
+            startHour = 23
+            endHour = 23
+            startHour += (":59:00")
+            endHour += (":59:00")
           }
+          else {
+            if (parseInt(key) < 9) {
+              startHour = "0" + key
+              endHour = "0" + (parseInt(key) + 1)
+
+            } else if (parseInt(key) === 9) {
+              startHour = "09"
+              endHour = "10"
+            } else {
+              startHour = key;
+              endHour = (parseInt(key) + 1)
+            }
+            startHour += (":00:00")
+            endHour += (":00:00")
+          }
+
           temp = {
             gitem_id       : value.gitem_id,
             plan_id        : this.calendar.planId,
@@ -333,8 +350,8 @@ export default {
             mapX           : value.mapX,
             mapY           : value.mapY,
             sch_name       : this.schName,
-            sch_startTime  : a + ` ${startHour}:00:00`,
-            sch_endTime    : a + ` ${endHour}:00:00`,
+            sch_startTime  : a + ` ${startHour}`,
+            sch_endTime    : a + ` ${endHour}`,
             expect_expenses: value.expect_expenses,
           }
           data.push(temp)
@@ -392,6 +409,7 @@ export default {
           if(a[1].pl_id === book.PL_ID) console.log(`${it} ${a[0]}`)
         }
       }
+      // return;
 
       const end_date =new Date(book.END_DATE)
       let tempDate=new Date(book.START_DATE)
