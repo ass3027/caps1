@@ -42,10 +42,7 @@ public interface BagMapper {
    List<BagDAO> searchTransport(String user_id);
    
    
-   //물품상세보기
-   @Select("Select * from orders o, place p where ord_id=#{ord_id} " +
-         "and p.pl_id=o.")
-   BagDAO trackingDetail(String ord_id);
+   
    
    //출발키퍼 운송 승인완료로 변경
    @Update("update orders set start_status='승인완료' where ord_id=#{ord_id}")
@@ -62,6 +59,13 @@ public interface BagMapper {
    //찾아감으로 업데이트
    @Update("update orders set status='찾아감' where ord_id=#{ord_id}")
    void visitCall(String ord_id);
+   
+   //물품상세보기
+   @Select("Select ord_id,orders.user_id,ord_amount,entrust_time,withdraw_time,ord_request,p1.title as keep_start_title,firstImage " +
+         "from orders,place p1 " +
+         "where ord_id=#{ord_id} " +
+         "and orders.keep_start=p1.pl_id")
+   BagDAO trackingDetail(String ord_id);
    
    //키퍼회원 운송조회
    @Select("""

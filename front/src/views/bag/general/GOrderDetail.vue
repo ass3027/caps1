@@ -81,7 +81,7 @@
     </table>
 
     <table v-else
-           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+           style="display:table; border: 2px solid black; height: 200px; margin: 0 auto; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
       <div style="margin-top: 10px">
         <p style="display: inline; font-size: large; margin-left: 5px">
           보관상세
@@ -90,70 +90,57 @@
           주문번호 #{{ order.ord_id }}
         </div>
       </div>
-      <div
-        id="qqqqq"
-        style="width:100%;height:350px;"
-      />
+      <div style="width:100%;height:350px;">
+        <img
+          :src="item.firstImage"
+          style="width:100%;height:340px;"
+        >
+      </div>
 
-      <table id="qqqqqq">
+      <table>
         <thead scope="row">
         <tr/>
         </thead>
         <tbody>
         <tr>
-          <th>금액</th>
-          <td>{{ order.ord_amount }} 원</td>
+          <th><h2>금액</h2></th>
+          <td><h3>{{ item.ord_amount }} 원</h3></td>
         </tr>
         <tr>
-          <th>픽업/완료</th>
+          <th><h2>보관시작시간</h2></th>
           <td>
             <div>
-              {{ entrust_time }}
-            </div>
-            <div>
-              {{ withdraw_time }}
+              <h3>{{ item.entrust_time }}</h3>
             </div>
           </td>
         </tr>
         <tr>
-          <th>맡긴장소</th>
-          <td>{{ item.keep_start_title }}</td>
+          <th><h2>보관만료시간</h2></th>
+          <td>
+            <div>
+              <h3>{{ item.withdraw_time }}</h3>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th><h2>물품보관장소</h2></th>
+          <td><h3>{{ item.keep_start_title }}</h3></td>
         </tr>
 
         <tr>
-          <th>거리</th>
-          <td>{{ degree_start_end }}Km</td>
-        </tr>
-        <tr>
-          <th>나로부터</th>
-          <td>{{ degree_user_start }}Km</td>
-        </tr>
-        <tr>
-          <th>물품정보</th>
-          <td>
-          <span
-            v-for="(i, index) in ord_bag_info"
-            :key="index"
-          >
-            {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
-            <span v-if="index !== ord_bag_info.length-1">, </span>
-          </span>
-          </td>
-        </tr>
-        <tr>
-          <th>요청사항</th>
-          <td>{{ item.ord_request }}</td>
+          <th><h2>요청사항</h2></th>
+          <td><h3>{{ item.ord_request }}</h3></td>
         </tr>
         </tbody>
-        <div>
-          <v-btn
-            class="btn_type2"
-            height="54px"
-            color="white"
-            @click="backTrackingView()">목록
-          </v-btn>
-        </div>
       </table>
+      <div>
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="backTrackingView()">목록
+        </v-btn>
+      </div>
     </table>
   </v-container>
 </template>
@@ -163,8 +150,10 @@ import axios from "axios";
 
 
 export default {
-  name: 'OrderDetail',
-
+  name: 'GOrderDetail',
+  props: {
+    order: {type: Object},
+  },
   data() {
     return {
       keep_start: Object,
@@ -178,9 +167,7 @@ export default {
       item: '',
     }
   },
-  props: {
-    order: {type: Object},
-  },
+
   computed: {
     entrust_time: function () {
       var text = this.order.entrust_time || ''
@@ -244,6 +231,7 @@ export default {
     this.trackingDetail()
   },
   methods: {
+    //물품 상세보기
     trackingDetail() {
       axios.get('/api/trackingDetail/' + this.order.ord_id)
         .then((res) => {
@@ -369,14 +357,14 @@ table {
 }
 
 th {
-  text-align: left;
+  text-align: center;
 
 
 }
 
 
 td, th {
-  padding: 1em .5em;
+  padding: 1em .8em;
   vertical-align: middle;
 }
 

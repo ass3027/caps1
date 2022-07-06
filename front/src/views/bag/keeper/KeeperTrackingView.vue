@@ -162,7 +162,6 @@ export default {
     orderDetail(item) {
       this.$router.push({name: 'KeeperOrderDetail', params: {order: item}})
     },
-
   }
 }
 </script>

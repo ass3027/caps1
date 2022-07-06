@@ -72,12 +72,14 @@
           <v-btn @click="backTrackingView()">목록</v-btn>
         </div>
 
-
         <div v-if="order.status==='승인대기'">
-          <v-btn @click="deliveryCall()">승인완료</v-btn>
+          <v-btn
+            class="btn_type2"
+            height="54px"
+            color="white"
+            @click="deliveryCall()">승인완료</v-btn>
         </div>
       </table>
-
 
       <div v-if="order.status === '운송요청'">
         <v-btn
@@ -134,7 +136,7 @@
         </tr>
         <tr>
           <th>물품보관장소</th>
-          <td>{{ keep_start.addr1 }}</td>
+          <td>{{ item.keep_start_title }}</td>
         </tr>
 
         <tr>
@@ -142,17 +144,7 @@
           <td>{{ item.ord_request }}</td>
         </tr>
         </tbody>
-
       </table>
-
-      <div v-if="order.status==='승인대기'">
-        <v-btn
-          class="btn_type2"
-          height="54px"
-          color="white"
-          @click="deliveryCall()">승인완료
-        </v-btn>
-      </div>
 
       <div v-if="order.status==='보관요청'">
         <v-btn
@@ -163,26 +155,6 @@
         </v-btn>
       </div>
 
-      <div v-if="order.status === '운송요청'">
-        <v-btn
-          class="btn_type2"
-          height="54px"
-          color="white"
-          @click="requestMatch()"
-        >
-          매칭요청
-        </v-btn>
-      </div>
-      <div v-if="order.status === '운송중'">
-        <v-btn
-          class="btn_type2"
-          height="54px"
-          color="white"
-          @click="orderArrival()"
-        >
-          배송완료
-        </v-btn>
-      </div>
       <div>
         <v-btn
           class="btn_type2"
@@ -200,7 +172,7 @@ import axios from "axios";
 
 
 export default {
-  name: 'OrderDetail',
+  name: 'KeeperOrderDetail',
   props: {
     order: {type: Object},
   },
@@ -323,7 +295,6 @@ export default {
       }
 
     },
-
 
     //보관 보관중으로 변경
     inStorage() {

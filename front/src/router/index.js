@@ -24,7 +24,6 @@ import TestBshDetailView from "@/views/supply/TestBshDetailView";
 //--------------------------------------------------------------------
 import GOrderDetail from "@/views/bag/general/GOrderDetail";
 import GTrackingView from "@/views/bag/general/GTrackingView";
-import GTrackingDetail from "@/views/bag/general/GTrackingDetail";
 import FareView from "../views/bag/FareView";
 import UsageGuideView from "../views/bag/UsageGuideView";
 import TransportOrder from "../views/bag/order/TransportOrder";
@@ -190,7 +189,6 @@ const routes = [
   //---------------------------------------------------------------//
   {path: "/GOrderDetail/:ordId", name: "GOrderDetail", component: GOrderDetail, props: true},
   {path: "/GTrackingView", name: "GTrackingView", component: GTrackingView, props: true},
-  {path: "/GTrackingDetail/:ord_id", name: "GTrackingDetail", component: GTrackingDetail, props: true},
   {path: "/FareView", name: "FareView", component: FareView},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
   {path: "/TransportOrder", name: "TransportOrder", component: TransportOrder},

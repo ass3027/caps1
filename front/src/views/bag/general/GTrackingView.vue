@@ -45,8 +45,7 @@
           <h3>보관조회</h3>
           <v-data-table :headers="storageHeaders" :items="sortedStorageList" :items-per-page="5">
             <template v-slot:[`item.detail`]="{ item }">
-              <v-btn @click="trackingDetail(item)">상세보기</v-btn>
-              <v-btn @click="orderDetail(item)">상세보기2</v-btn>
+              <v-btn @click="orderDetail(item)">상세보기</v-btn>
 
             </template>
           </v-data-table>
@@ -56,8 +55,7 @@
           <h3>운송조회</h3>
           <v-data-table :headers="transportHeaders" :items="sortedTransportList" :items-per-page="5">
             <template v-slot:[`item.detail`]="{ item }">
-              <v-btn @click="trackingDetail(item)">상세보기</v-btn>
-              <v-btn @click="orderDetail(item)">상세보기2</v-btn>
+              <v-btn @click="orderDetail(item)">상세보기</v-btn>
             </template>
           </v-data-table>
         </template>
@@ -151,12 +149,8 @@ export default {
           this.transportList = res.data;
         })
     },
-    trackingDetail(item) {
-      console.log("11111     " + item.ord_id)
-      this.$router.push('/GTrackingDetail/' + item.ord_id)
-    },
+    //물품 상세보기 페이지 연결
     orderDetail(item) {
-      // console.log('test', item)
       this.$router.push({name: 'GOrderDetail', params: {order: item}})
     }
   }
