@@ -33,4 +33,22 @@ public interface PaymentMapper {
             AND pay.pay_id = book.pay_id
             """)
     List<Map<String,Object>> getProductBook(String user_id);
+
+    @Select("""
+            SELECT pl.*, g.GNAME, g.REQUIRE_TIME,a.ST_TIME,a.END_TIME,a.GDATE
+            FROM PAYMENT p,
+                 AVAILABLE_TIME a,
+                 GITEM g,
+                 (SELECT title, mapX, mapY, addr1
+                  FROM place l
+                  WHERE l.pl_id in (SELECT pl_id
+                                    FROM payment p,AVAILABLE_TIME a, GITEM g
+                                    WHERE p.GTIME_NUM = a.TIME_NUM
+                                      AND a.GITEM_ID = g.GITEM_ID
+                                      AND p.user_id = #{user_id})
+                  ) pl
+            WHERE p.GTIME_NUM = a.TIME_NUM
+              AND p.USER_ID = #{user_id}
+            """)
+    List<Map<String,Object>> getGuideBook(String user_id);
 }

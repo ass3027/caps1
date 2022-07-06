@@ -305,6 +305,7 @@ export default {
 
   },
   created() {
+    this.updateUser()
     EventBus.$on("photoUpdate", (photo) => {
       this.photo = "/api/photo/" + decodeURI(photo)
     })
@@ -314,7 +315,9 @@ export default {
     })
   },
   methods: {
-    updateUser() {
+    async updateUser() {
+      const { data } = await axios.get("/api/user/find")
+      // const user
       this.user_id = this.$store.state.user.userId
       this.user_role = this.$store.state.user.userRole
     },

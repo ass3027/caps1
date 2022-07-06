@@ -120,7 +120,7 @@ export default {
         url   : '/api/user/exper',
         method: 'get'
       })
-          .then((res) => {
+          .then( res => {
             console.log(res)
             console.log(res.data)
           })

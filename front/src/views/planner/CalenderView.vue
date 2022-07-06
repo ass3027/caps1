@@ -61,13 +61,14 @@
                   <v-card-title>
                     <v-select
                       v-model="bookCategory"
+                      @change="gd"
                       style="width: 50%"
                       label="숙소/가이드"
                       :items="['가이드','숙소']"
                     />
                   </v-card-title>
                   <v-card-text>
-                    <template v-if="bookCategory='숙소'">
+                    <template v-if="false">
                       <v-simple-table class="text-center">
                         <thead>
                         <tr>
@@ -84,7 +85,7 @@
                         </thead>
                         <tbody>
                         <tr
-                          v-for="(book,index) in books"
+                          v-for="(book,index) in books.productBook"
                           :key="index"
                         >
 <!--                          <td>{{book.PAY_ID}}</td>-->
@@ -93,7 +94,7 @@
                           <td>{{book.ROOM_NUM}}</td>
                           <td>{{book.START_DATE}}</td>
                           <td>{{book.END_DATE}}</td>
-                          <td><v-btn @click="addSch(book)">일정 추가</v-btn></td>
+                          <td><v-btn @click="addSchProduct(book)">일정 추가</v-btn></td>
                         </tr>
 
                         </tbody>
@@ -103,12 +104,12 @@
                       <v-simple-table class="text-center">
                         <thead>
                         <tr>
-                          <th>pay_id</th>
-                          <th>pd_id</th>
-                          <th>pd_name</th>
-                          <th>room_num</th>
-                          <th class="text-center">start_date</th>
-                          <th>end_date</th>
+                          <th>가이드상품명</th>
+                          <th>날짜</th>
+                          <th>시작시각</th>
+                          <th>종료시각</th>
+<!--                          <th class="text-center">start_date</th>-->
+<!--                          <th>end_date</th>-->
                           <th></th>
 
                         </tr>
@@ -116,16 +117,14 @@
                         </thead>
                         <tbody>
                         <tr
-                          v-for="(book,index) in books"
+                          v-for="(book,index) in books.guideBook"
                           :key="index"
                         >
-                          <td>{{book.PAY_ID}}</td>
-                          <td>{{book.PD_ID}}</td>
-                          <td>{{book.PD_NAME}}</td>
-                          <td>{{book.ROOM_NUM}}</td>
-                          <td>{{book.START_DATE}}</td>
-                          <td>{{book.END_DATE}}</td>
-                          <td><v-btn @click="addSch(book)">일정 추가</v-btn></td>
+                          <td>{{book.GNAME}}</td>
+                          <td>{{book.GDATE}}</td>
+                          <td>{{book.ST_TIME}}</td>
+                          <td>{{book.END_TIME}}</td>
+                          <td><v-btn @click="addSchGuide(book)">일정 추가</v-btn></td>
                         </tr>
 
                         </tbody>
@@ -287,6 +286,9 @@ export default {
     },
   },
   methods : {
+    gd(){
+      console.log(this.bookCategory)
+    },
 
     create() {
       let calendar = []
@@ -304,10 +306,7 @@ export default {
         this.calendar[it] = a
 
       })
-
-
       this.$store.commit('calendar/updateCalendar', calendar)
-
     },
 
     save() {
@@ -388,18 +387,20 @@ export default {
       //일정 기간 범위에 맞는 예약 데이터를 불러와야함 방주 만들때
       const { data } = await axios.get("/api/payment/bookList")
       console.log(data)
+      //숙소 처리
       data.productBook.forEach( (it)=>{
         it.START_DATE = it.START_DATE.substring(0,10) + " " + it.START_DATE.substring(11,16)
         it.END_DATE = it.END_DATE.substring(0,10) + " " + it.END_DATE.substring(11,16)
       })
-
-      this.books = data.productBook
-
+      this.books.productBook = data.productBook
+      this.books.guideBook = data.guideBook
       console.log(this.books)
+      //가이드 처리
+
 
     },
 
-    addSch(book) {
+    addSchProduct(book) {
 
       console.log(book)
       const calendar = this.$store.state.calendar.calendar.date
@@ -442,6 +443,33 @@ export default {
 
 
         // this.$store.commit('calendar/updateCalendarDate', )
+    },
+    addSchGuide(book){
+
+      const calendar = this.$store.state.calendar.calendar.date
+
+      for(let it in calendar){
+        for(let a of calendar[it]){
+          if(a[1].pl_id === book.PL_ID) console.log(`${it} ${a[0]}`)
+        }
+      }
+
+      const selectTime = {date:book.GDATE,time:book.ST_TIME.substring(0,2)}
+      this.$store.commit("calendar/updateSelect",selectTime)
+
+      const data = {
+        mapX : book.MAPX,
+        mapY : book.MAPY,
+        pl_id : book.PL_ID,
+        pl_name : book.TITLE,
+        address : book.ADDR1
+      }
+      this.$store.commit("calendar/updateCalendarDate",data)
+
+      selectTime.date = ""
+      selectTime.time = 30
+      //해제
+      this.$store.commit("calendar/updateSelect",selectTime)
     }
   }
 }
