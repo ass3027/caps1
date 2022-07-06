@@ -8,15 +8,14 @@
       :events="events"
       :event-overlap-mode="mode"
       :event-overlap-threshold="30"
-      :event-color="getEventColor"
-      @change="getEvents"
+      event-height="15"
     ></v-calendar>
 
   </div>
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "CalendarPreview",
@@ -41,41 +40,23 @@ export default {
     }
   },
   mounted() {
+    axios.get(`/api/planner/${this.$store.state.user.userId}`)
+      .then((res)=>{
+        console.log(res.data)
+        for (let i = 0; i < res.data.length; i++) {
+          this.events.push({
+            name: res.data[i].plan_name,
+            start: new Date(res.data[i].plan_start),
+            end: new Date(res.data[i].plan_end),
+            color: 'blue'
 
+          })
+        }
+        console.log(this.events)
+
+      })
   },
   methods:{
-    getEvents ({ start, end }) {
-      const events = []
-
-      const min = new Date(`${start.date}T00:00:00`)
-      const max = new Date(`${end.date}T23:59:59`)
-      const days = (max.getTime() - min.getTime()) / 86400000
-      const eventCount = this.rnd(days, days + 20)
-
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-        const second = new Date(first.getTime() + secondTimestamp)
-
-        events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay,
-        })
-      }
-
-      this.events = events
-    },
-    getEventColor (event) {
-      return event.color
-    },
-    rnd (a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a
-    },
 
   }
 
