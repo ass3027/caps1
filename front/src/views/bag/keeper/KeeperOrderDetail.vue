@@ -3,9 +3,9 @@
     <table v-if="item.ord_selection===`물품운송`"
            style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
       <div style="margin-top: 10px">
-        <p style="display: inline; font-size: large; margin-left: 5px">
-          배송경로
-        </p>
+        <h1 style="display: inline; font-size: large; margin-left: 5px">
+          배송 상세 조회
+        </h1>
         <div style="display: inline; float: right; font-size: large; margin-right: 5px">
           주문번호 #{{ order.ord_id }}
         </div>
@@ -68,27 +68,15 @@
           <td>{{ item.ord_request }}</td>
         </tr>
         </tbody>
-        <div>
-          <v-btn @click="backTrackingView()">목록</v-btn>
-        </div>
-
-        <div v-if="order.status==='승인대기'">
-          <v-btn
-            class="btn_type2"
-            height="54px"
-            color="white"
-            @click="deliveryCall()">승인완료</v-btn>
-        </div>
       </table>
 
-      <div v-if="order.status === '운송요청'">
+
+      <div v-if="order.status==='승인대기'">
         <v-btn
           class="btn_type2"
           height="54px"
           color="white"
-          @click="requestMatch()"
-        >
-          매칭요청
+          @click="deliveryCall()">승인완료
         </v-btn>
       </div>
       <div v-if="order.status === '운송중'">
@@ -99,6 +87,14 @@
           @click="orderArrival()"
         >
           배송완료
+        </v-btn>
+      </div>
+      <div>
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="backTrackingView()">목록
         </v-btn>
       </div>
     </table>
@@ -152,6 +148,15 @@
           height="54px"
           color="white"
           @click="inStorage()">보관중으로 변경
+        </v-btn>
+      </div>
+
+      <div v-if="order.status==='보관중'">
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="compStorage()">보관완료로 변경
         </v-btn>
       </div>
 
@@ -299,6 +304,15 @@ export default {
     //보관 보관중으로 변경
     inStorage() {
       axios.post('/api/inStorage/' + this.order.ord_id)
+        .then((res) => {
+          console.log(res)
+        })
+      this.$router.push('/KeeperTrackingView');
+    },
+
+    //보관 보관완료으로 변경
+    compStorage() {
+      axios.post('/api/compStorage/' + this.order.ord_id)
         .then((res) => {
           console.log(res)
         })
