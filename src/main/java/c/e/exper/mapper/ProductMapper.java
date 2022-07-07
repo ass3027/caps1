@@ -61,7 +61,7 @@ public interface ProductMapper {
     String pay_id();
 
     @Select("""
-            select min("date") st_date, max("date") end_date, c.title, b.USER_ID
+            select min("date") st_date, max("date")+1 end_date, c.title, b.USER_ID
             from PRODUCT_TIME a, PAYMENT b, PLACE c, PRODUCT d
             where b.PAY_ID = a.PAY_ID and c.PL_ID = d.PL_ID and b.USER_ID = #{id}
             group by a.PAY_ID, c.title, b.USER_ID
