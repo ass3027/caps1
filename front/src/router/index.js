@@ -34,8 +34,8 @@ import PlInviteView from "@/views/planner/PlInviteView";
 import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
 import KeeperTrackingView from "@/views/bag/keeper/KeeperTrackingView";
-import KeeperTrackingDetail from "@/views/bag/keeper/KeeperTrackingDetail";
-
+import KeeperOrderDetail from "@/views/bag/keeper/KeeperOrderDetail";
+//--------------------------------------------------------------------
 
 
 //혁태??
@@ -152,7 +152,7 @@ const routes = [
   {path: "/SelectionOrder", name: "SelectionOrder", component: SelectionOrder},
   {path: "/StorageOrder", name: "StorageOrder", component: StorageOrder},
   {path: "/KeeperTrackingView", name: "KeeperTrackingView", component: KeeperTrackingView, props: true},
-  {path: "/KeeperTrackingDetail/:ord_id", name: "KeeperTrackingDetail", component: KeeperTrackingDetail, props: true},
+  {path: "/KeeperOrderDetail/:ord_id", name: "KeeperOrderDetail", component: KeeperOrderDetail, props: true},
   //---------------------------------------------------------------//
 
 
