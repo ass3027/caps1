@@ -18,23 +18,39 @@
 
       <v-form v-model="valid">
         <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-          <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
-            <h3 style="padding-top: 10px">
-              맡길장소
-            </h3>
-            <br>
+          <br>
+          <v-card>
+            <v-col>
+              <v-row>
+                <h1 style="padding-top: 30px; padding-left: 30px">
+                  🧳 맡길장소 :
+                </h1>
+                <search-place @childEvent="getEmitData" style="padding-top:30px; padding-left: 10px"/>
 
-            <search-place @childEvent="getEmitData"/>
-            <br>
-            <div>맡길장소: {{ lodging.title }}</div>
-            <v-img
-              :src="lodging.firstimage2"
-              width="200px"
-              height="150px"
-              alt=""
-            />
-            <br>
-          </table>
+              </v-row>
+              <br>
+              <v-card
+                class="mx-auto"
+                max-width="344"
+                v-if="this.index==true"
+              >
+                <v-img
+                  :src="lodging.firstimage2"
+                  height="200px"
+                ></v-img>
+                <v-card-title>
+                  {{ lodging.title }}
+                </v-card-title>
+
+                <v-card-subtitle>
+                  주소:{{lodging.addr1}}
+                </v-card-subtitle>
+
+              </v-card>
+
+              <br>
+            </v-col>
+          </v-card>
         </div>
 
         <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
@@ -135,6 +151,7 @@ export default {
   },
   data() {
     return {
+      index:false,
       sDate: '',
       panel: [0, 1],
       disabled: false,
@@ -186,8 +203,54 @@ export default {
       }, 2000)
     },
   },
+  mounted() {
+    const script = document.createElement("script")
+    const script2 = document.createElement("script")
+    script2.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+    script2.integrity = "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=";
+    script2.setAttribute("crossOrigin", "anonymous");
+
+    document.head.appendChild(script2);
+
+    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    script.type = "text/javascript"
+
+    document.head.appendChild(script);
+  },
 
   methods: {
+    reserve() {
+      var IMP = window.IMP;
+      IMP.init('imp19569487');
+      console.log(this.lists)
+      IMP.request_pay({
+        pg: "html5_inics",
+        pay_method: "card",
+        merchant_uid: "iamport_test_id" + new Date().getTime(),
+        name: '보관결제',
+        amount: this.bagAmount,
+        buyer_email: "testiamport@naver.com",
+        buyer_name: this.$store.state.user.userId,
+        buyer_tel: "01012341234"
+      }, rsp => {
+        console.log(rsp);
+        if (rsp.success) {
+          console.log(rsp)
+          var imp = {
+            user_id: this.$store.state.user.userId,
+            ord_id: '',
+            pay_price: rsp.paid_amount,
+          }
+          axios.post('/api/transportPay', imp)
+            .then((res) => {
+              console.log(res)
+
+            })
+        } else {
+          alert("실패")
+        }
+      })
+    },
     resultDate(sDate) {
       this.sDate = sDate
       console.log(this.sDate)
@@ -196,7 +259,9 @@ export default {
 
     getEmitData: function (lodging) {
       this.lodging = lodging
-      console.log("받은데이터" + this.lodging)
+      this.index = true
+      console.log("받은데이터", this.lodging)
+
     },
 
     addOrder() {
@@ -215,7 +280,7 @@ export default {
         .post('/api/storageAddOrder', storageBag)
         .then((res) => {
           console.log(storageBag)
-          alert('주문완료!')
+          this.reserve()
         })
     },
     startAddress(address) {

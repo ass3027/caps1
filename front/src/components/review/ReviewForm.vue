@@ -1,52 +1,5 @@
 <template>
   <div style="max-width: 1050px; margin: 0 auto; padding-top: 60px">
-    <!--      <v-card>-->
-    <!--        <v-card-actions style="margin-bottom: 10px">-->
-    <!--          <v-rating-->
-    <!--            v-model="rev_rating"-->
-    <!--            background-color="gray"-->
-    <!--            color="yellow accent-4"-->
-    <!--            dense-->
-    <!--            half-increments-->
-    <!--            size="30"-->
-    <!--          />-->
-    <!--        </v-card-actions>-->
-
-    <!--        <v-row class="mx-auto">-->
-    <!--          <v-col cols="12">-->
-    <!--            <v-textarea-->
-    <!--              v-model="rev_content"-->
-    <!--              placeholder="리뷰는 최대 1,000자까지 등록 가능합니다."-->
-    <!--            />-->
-    <!--          </v-col>-->
-    <!--          <v-spacer />-->
-    <!--          <v-col>-->
-    <!--            <input-->
-    <!--              ref="refImage"-->
-    <!--              type="file"-->
-    <!--              placeholder="photo"-->
-    <!--              @change="imageSet($event)"-->
-    <!--            >-->
-
-    <!--            <div-->
-    <!--              id="pictures"-->
-    <!--              style="width: 150px; height: 150px"-->
-    <!--            />-->
-    <!--          </v-col>-->
-    <!--        </v-row>-->
-
-    <!--        <v-card-actions>-->
-    <!--          <v-spacer />-->
-    <!--          <v-btn-->
-    <!--            width="150px"-->
-    <!--            @click="onSubmit"-->
-    <!--          >-->
-    <!--            리뷰 등록-->
-    <!--          </v-btn>-->
-    <!--        </v-card-actions>-->
-    <!--      </v-card>-->
-    <!--      <input v-model="rev_photo">-->
-
 
     <form
       id="form_review"
@@ -98,8 +51,29 @@
                 </div>
               </td>
             </tr>
+
+            <tr>
+              <th>사진</th>
+              <td>
+                <div class="field_cmt">
+                  <input
+                    ref="refImage"
+                    type="file"
+                    placeholder="photo"
+                    @change="imageSet($event)"
+                  >
+                </div>
+
+                <div
+                  id="pictures"
+                  style="width: 150px; height: 150px"
+                />
+              </td>
+            </tr>
           </tbody>
         </table>
+
+
         <button
           id="btnSubmit"
           type="button"
@@ -125,11 +99,8 @@ export default {
   },
   data() {
     return {
-      img_test: `/api/photo/`+"userImage/1648100757821img.jpg",
-
       name          : "",
       rev_content   : "",
-      rev_rating    : 5,
       image         : "",
       rev_photo  : "",
       title: '',
@@ -137,6 +108,9 @@ export default {
 
       alt_img_url   : "",
     }
+  },
+  computed: {
+
   },
   methods: {
 
@@ -169,38 +143,20 @@ export default {
 
     },
     onSubmit() {
-      var sendForm = new FormData()
+      var review = new FormData()
 
-      console.log("리뷰 사진")
-      console.log('test', this.rev_content, this.title, this.type, this.id)
-
-
-      var type = this.type
-
-      if(type === 'product'){
-        sendForm.append('pd_id', this.id)
-      }else if(type === 'place'){
-        sendForm.append('pl_id', this.id)
-      }else if(type === 'guide'){
-        sendForm.append('guide_id', this.id)
-      }else if(type === 'gitem'){
-        sendForm.append('gitem_id', this.id)
-      }
-
-      sendForm.append('title', this.title)
-      sendForm.append('rev_content', this.rev_content)
-      sendForm.append('user_id', this.$store.state.user.userId)
-
-
+      review.append('title', this.title)
+      review.append('rev_content', this.rev_content)
+      review.append('rev_photo', this.rev_photo)
 
 
       axios({
         method : 'post',
-        url    : 'http://localhost:8080/api/addReview',
+        url    : '/api/addReview/' + this.type + '/' + this.id,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        data   : sendForm
+        data   : review
       }).then((res) => {
 
         alert(res.data)

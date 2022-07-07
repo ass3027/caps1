@@ -1,83 +1,87 @@
 <template>
   <div
     id="app"
-    style="width: 1050px; padding-top: 65px"
   >
-    <div>
-
-      <MyPageHeader/>
-      <div style="width: 820px; float: right;">
-        <MyPageInfo v-if="status === 'MyPageInfo'"/>
-        <BookMarkView v-else-if="status === 'Bookmark'"/>
-        <MyPageUpdateView v-else-if="status === 'MyPageUpdate'"/>
-        <QuestionsView v-else-if="status === 'Questions'"/>
-        <MyPaymentList v-else-if="status === 'MyReview'"/>
-      </div>
+    <div class="head_aticle">
+      <h1 class="tit">
+        회원정보
+      </h1>
     </div>
+    <v-container style="border-top: 2px solid #333">
+      <v-row justify="center">
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="user_name"
+            class="box"
+            label="이름"
+            outlined
+            readonly
+          />
+          <v-text-field
+            v-model="user_id"
+            class="box"
+            label="아이디"
+            outlined
+            readonly
+          />
+          <v-text-field
+            v-model="gender"
+            class="box"
+            label="성별"
+            outlined
+            readonly
+          />
+          <v-text-field
+            v-model="user_phone"
+            class="box"
+            label="연락처"
+            outlined
+            readonly
+          />
+          <v-text-field
+            v-model="preference"
+            class="box"
+            label="내가 선호하는 여행방식"
+            outlined
+            readonly
+          />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
   <!--  </div>-->
 </template>
 <script>
-import MyPageHeader from "@/components/store/MyPageHeader";
-
 import axios from "axios";
-import MyPageInfo from "@/components/auth/MyPageInfo";
-import BookMarkView from "@/components/auth/BookMarkView";
-import MyPageUpdateView from "@/components/auth/MyPageUpdateView";
-import QuestionsView from "@/components/auth/QuestionsView";
-import MyPaymentList from "@/components/auth/MyReview";
 
 export default {
-  components: {
-    MyPageHeader,
-    MyPageInfo,
-    BookMarkView,
-    MyPageUpdateView,
-    QuestionsView,
-    MyPaymentList
-  },
-  props: {
-    type: {
-      type: String,
-      default: 'MyPageInfo'
-    }
-  },
+  components: {},
+
   data() {
     return {
       user_id: '',
       user_pw: '',
       user_phone: '',
       user_name: '',
-      user_birth: '',
       user_photo: '',
       gender: '',
       preference: '',
-      user_area: true,
-      duser_trans: '',
-      duser_license: '',
-      business_num: '',
       status: '',
 
     };
   },
-  created() {
-    this.status = this.type
-  },
   mounted() {
-
     axios.get('/api/user/data/' + this.$store.state.user.userId)
       .then(res => {
         this.user_id = res.data.user_id
         this.user_pw = res.data.user_pw //공백으로 둬야하나?
         this.user_phone = res.data.user_phone
         this.user_name = res.data.user_name
-        this.user_birth = res.data.user_birth
         this.gender = res.data.gender
         this.preference = res.data.preference
-        this.user_area = res.data.user_area
-        this.duser_trans = res.data.duser_trans
-        this.duser_license = res.data.duser_license
-        this.business_num = res.data.business_num
         console.log(res.data)
         console.log(this.$store.state.user.userId)
 
@@ -178,10 +182,6 @@ header {
   line-height: 36px;
   color: #333;
   letter-spacing: -.5px;
-}
-
-li {
-  list-style: none;
 }
 
 </style>

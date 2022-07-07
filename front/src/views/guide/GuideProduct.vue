@@ -1,5 +1,19 @@
 <template>
-  <div class="card">
+  <div>
+      <input
+        v-model="keyword"
+        name="keyword"
+        type="text"
+        style="border: #1e90cc solid"
+        class="search"
+      >
+
+    <v-btn
+      class="btn2"
+      @click="onsubmit()"
+    >
+      Search
+    </v-btn>
     <v-row
       cols="0"
       md="0"
@@ -8,43 +22,49 @@
         v-for="(item,index) in lists"
         :key="index"
         class="mx-auto"
-        width="344"
+        width="400"
+        style="margin: 20px;"
         outlined
         justify="start"
       >
+        <v-img
+          class="white--text align-end"
+          height="200px"
+          :src="item.firstimage2"
+        >
+          <h2 style="color: black">{{item.user_name}}
+            <br> {{item.user_id}}
+          </h2>
+          <v-btn
+            v-if="item.user_id==$store.state.user.userId"
+            @click="view(item)"
+          >
+            시간등록
+          </v-btn>
+          <v-btn
+            v-if="item.user_id==$store.state.user.userId"
+            @click="deleteItem(item.gitem_id)"
+          >
+            삭제
+          </v-btn>
+        </v-img>
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">
-              <div :gid="item.gitem_id">
-                상품아이디:{{ item.gitem_id }}
-              </div>
-              <v-btn
-                v-if="item.user_id==$store.state.user.userId"
-                @click="view(item)"
-              >
-                시간등록
-              </v-btn>
-              <v-btn
-                v-if="item.user_id==$store.state.user.userId"
-                @click="deleteItem(item.gitem_id)"
-              >
-                삭제
-              </v-btn>
+              <v-card-title :gid="item.gitem_id">
+                상품이름:{{ item.gname}}<br>
+                장소:{{ item.title }}<br>
+                가격:{{ item.gitem_price }}
+              </v-card-title>
             </div>
-            <div>
+            <v-card-text>
               시작날짜:{{ item.st_date }}
               <br>
               종료날짜:{{ item.end_date }}
               <br>
               요구시간:{{ item.require_time }}
-            </div>
-            <v-list-item-title class="text-h5 mb-1">
-              ID:{{ item.user_id }} <br>
-              장소:{{ item.title }}
-            </v-list-item-title>
-            <v-list-item-title class="text-h5 mb-1">
-              가격:{{ item.gitem_price }}
-            </v-list-item-title>
+            </v-card-text>
+
             <v-list-item-subtitle>
               소개:{{ item.introduce }}
             </v-list-item-subtitle>
@@ -57,21 +77,7 @@
         </v-list-item>
       </v-card>
     </v-row>
-    <div>
-      <input
-        v-model="keyword"
-        name="keyword"
-        type="text"
-        style="border: #1e90cc solid"
-        class="search"
-      >
-    </div>
-    <v-btn
-      class="btn2"
-      @click="onsubmit()"
-    >
-      Search
-    </v-btn>
+
   </div>
 </template>
 <script>

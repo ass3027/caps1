@@ -52,6 +52,7 @@
           </div>
         </v-col>
       </v-row>
+
       <router-view/>
     </v-app>
   </v-container>
@@ -66,7 +67,6 @@ export default {
 
     return: {}
   }),
-
 }
 </script>
 

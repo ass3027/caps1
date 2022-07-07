@@ -12,8 +12,12 @@ import java.util.List;
 public class BagService {
    @Autowired
    public BagMapper bagMapper;
+   //일반회원 물품 상세보기
+   public BagDAO gOrderDetail(@PathVariable("ord_id") String ord_id) {
+      return bagMapper.gOrderDetail(ord_id);
+   }
    
-   //물품 상세보기
+   //키퍼회원 물품 상세보기
    public BagDAO trackingDetail(@PathVariable("ord_id") String ord_id) {
       return bagMapper.trackingDetail(ord_id);
    }
@@ -29,13 +33,13 @@ public class BagService {
    }
    
    //물품조회(보관)
-   public List<BagDAO> selectStorage(String user_id) {
-      return bagMapper.selectStorage(user_id);
+   public List<BagDAO> searchStorage(String user_id) {
+      return bagMapper.searchStorage(user_id);
    }
    
    //물품조회(배송)
-   public List<BagDAO> selectTransport(String user_id) {
-      return bagMapper.selectTransport(user_id);
+   public List<BagDAO> searchTransport(String user_id) {
+      return bagMapper.searchTransport(user_id);
    }
    
    //출발키퍼 운송 승인완료로 변경
@@ -51,8 +55,8 @@ public class BagService {
    }
    
    //물품 보관중으로 변경
-   public void storageCall(String ord_id) {
-      bagMapper.storageCall(ord_id);
+   public void keeperInStorage(String ord_id) {
+      bagMapper.keeperInStorage(ord_id);
    }
    
    //찾아감으로 변경
@@ -61,13 +65,21 @@ public class BagService {
    }
    
    //키퍼회원 배송조회
-   public List<BagDAO> keeperTracking(String user_id) {
-      return bagMapper.keeperTracking(user_id);
+   public List<BagDAO> keeperTransport(String user_id) {
+      return bagMapper.keeperTransport(user_id);
+   }
+   
+   //키퍼회원 보관조회
+   public List<BagDAO> keeperStorage(String user_Id) {
+      return bagMapper.keeperStorage(user_Id);
    }
    
    //장소ID
-   public String plId(String user_id) {
-      return bagMapper.plId(user_id);
+   public List<String> plId(String user_id) {
+      List<String> plid = bagMapper.plId(user_id);
+      return plid;
    }
+   
+   
    
 }

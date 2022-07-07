@@ -1,13 +1,7 @@
 package c.e.exper.mapper;
 
 import c.e.exper.data.*;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.annotations.*;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +16,12 @@ public interface UserMapper { //디비접근
     Optional<UserDAO> selectId(String user_id);
 
     //회원정보
-    @Select("SELECT * FROM users, delivery_user WHERE users.user_id = delivery_user.user_id and users.user_id=#{user_id}")
-    Optional<UserDTO>  getDeliveryInfoById(String user_id);
+    @Select("""
+            SELECT * 
+            FROM users LEFT JOIN delivery_user 
+            ON users.user_id = delivery_user.user_id 
+            WHERE USERS.user_id = #{user_id}""")
+    Optional<UserDTO> getDeliveryInfoById(String user_id);
 //    (@Param("user_id") 생략가능
 
 
@@ -44,8 +42,6 @@ public interface UserMapper { //디비접근
     List<UserDAO> areaCount();
 
 //    @Select("select USER_BIRTH,count(*) from USERS group by USER_BIRTH order by count(*) desc)
-
-
 
 
     //회원정보수정
@@ -99,7 +95,7 @@ public interface UserMapper { //디비접근
 
     /* user 전화번호 올바른 형식으로 업데이트 */
     @Update("update users set user_phone=#{phone_num} where user_id = #{user_id}")
-    void updateUserPhone(@Param("phone_num")String phone_num, @Param("user_id") String user_id);
+    void updateUserPhone(@Param("phone_num") String phone_num, @Param("user_id") String user_id);
 
     @Select("SELECT user_id FROM users")
     List<String> selectAllId();
@@ -120,15 +116,12 @@ public interface UserMapper { //디비접근
     boolean checkGuide(@Param("user_id") String user_id);
 
 
-
     @Select("""
             SELECT count(*)
             FROM delivery_user
             WHERE USER_ID = #{user_id}
             """)
     boolean checkDeliveryUser(@Param("user_id") String user_id);
-
-
 
 
 }

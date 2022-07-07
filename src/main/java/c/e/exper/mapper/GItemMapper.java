@@ -1,9 +1,7 @@
 package c.e.exper.mapper;
 
 
-import c.e.exper.data.Available_TimeDAO;
 import c.e.exper.data.GItemDAO;
-import c.e.exper.data.GuideDAO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 public interface GItemMapper {
 
     @Insert("INSERT INTO gitem VALUES(GITEM_SEQ.NEXTVAL,#{gitem.user_id},#{gitem.pl_id},#{gitem.introduce},#{gitem.st_date},#{gitem.require_time},#{gitem.end_date}, #{gitem.gitem_price} ,#{gitem.gname})")
-    void insert(@Param("gitem") GItemDAO gitem);
+    void insert(@Param("gitem") GItemDAO gitemDAO);
 
     @Insert("INSERT INTO available_time(time_num,gitem_id,st_time,end_time,gdate) values(TIME_NUM.NEXTVAL, #{available_time.gitem_id}, #{available_time.st_time}, #{available_time.end_time}, #{available_time.gdate})")
     void insertTime(@Param("available_time") GItemDAO gitemDAO);
@@ -21,7 +19,7 @@ public interface GItemMapper {
     List<GItemDAO> selectAll();
 
     @Delete("Delete from gitem where gitem_id = #{id}")
-    void deleteGitemOne( String id);
+    void deleteGitemOne(String id);
 
     @Select("Select * From gitem,place where gitem.pl_id = place.pl_id and gitem_id = #{id}")
     GItemDAO selectByGitemId(String id);
@@ -53,6 +51,34 @@ public interface GItemMapper {
             "                                       from GITEM\n" +
             "                                       where USER_ID = #{id}))")
     GItemDAO selectCount(@Param("id") String id);
+
+    @Select("select b.*,FIRSTIMAGE\n" +
+            "from (\n" +
+            "         select b.GITEM_ID, count(b.GITEM_ID)\n" +
+            "         from PAYMENT a,\n" +
+            "              AVAILABLE_TIME b\n" +
+            "         where a.GTIME_NUM = b.TIME_NUM\n" +
+            "         group by b.GITEM_ID\n" +
+            "         order by 2 desc\n" +
+            "     )a, GITEM b, place c\n" +
+            "where ROWNUM <= 3\n" +
+            "and a.GITEM_ID=b.GITEM_ID\n" +
+            "and b.PL_ID=c.PL_ID")
+    List<GItemDAO> findBestGItem();
+
+    @Select("select PAY_TIME, PAY_PRICE, GNAME\n" +
+            "from PAYMENT p,GITEM g, AVAILABLE_TIME a\n" +
+            "where p.GTIME_NUM = a.TIME_NUM\n" +
+            "AND a.GITEM_ID = g.GITEM_ID\n" +
+            "AND gtime_num in (select TIME_NUM\n" +
+            "                    from AVAILABLE_TIME\n" +
+            "                    where GITEM_ID in (select GITEM_ID\n" +
+            "                                  from GITEM\n" +
+            "                                  where USER_ID = #{id})\n" +
+            "\n" +
+            "                    )")
+    List<GItemDAO> selectCountList(@Param("id") String id);
+
 
     @Select("select sum(PAY_PRICE)as count7\n" +
             "from PAYMENT\n" +

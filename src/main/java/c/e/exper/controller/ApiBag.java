@@ -43,43 +43,45 @@ public class ApiBag {
       bagService.transportInsert(transportBag);
    }
    
-   //일반회원 물품조회(보관)
+   //일반회원 보관조회
    @GetMapping("/bagStorage")
    public List<BagDAO> SearchStorage() {
-      System.out.println("보관데이터:" + bagMapper.selectStorage(getUserId()));
-      return bagService.selectStorage(getUserId());
+      System.out.println("보관데이터:" + bagMapper.searchStorage(getUserId()));
+      return bagService.searchStorage(getUserId());
    }
    
-   //일반회원 물품조회(운송)
+   //일반회원 운송조회
    @GetMapping("/bagTransport")
    public List<BagDAO> SearchTransport() {
-      System.out.println("운송데이터:" + bagMapper.selectTransport(getUserId()));
-      return bagService.selectTransport(getUserId());
+      System.out.println("운송데이터:" + bagMapper.searchTransport(getUserId()));
+      return bagService.searchTransport(getUserId());
    }
    
-   //물품 상세보기
+   //일반 회원 물품 상세보기
+   @GetMapping("/gOrderDetail/{ord_id}")
+   public BagDAO gOrderDetail(@PathVariable String ord_id) {
+      System.out.println();
+      return bagService.gOrderDetail(ord_id);
+   }
+   
+   //키퍼 회원 물품 상세보기
    @GetMapping("/trackingDetail/{ord_id}")
    public BagDAO trackingDetail(@PathVariable String ord_id) {
       System.out.println();
       return bagService.trackingDetail(ord_id);
    }
    
-   //보관중으로 변경
-   @PostMapping("/storageCall/{ord_id}")
-   public void storageCall(@PathVariable("ord_id") String ord_id) {
-      bagService.storageCall(ord_id);
+   
+   //키퍼회원 운송조회
+   @GetMapping("/keeperTransport")
+   public List<BagDAO> keeperTransport() {
+      return bagService.keeperTransport(getUserId());
    }
    
-   //일반회원 찾아감으로 변경
-   @PostMapping("/visitCall/{ord_id}")
-   public void visitCall(@PathVariable("ord_id") String ord_id) {
-      bagService.visitCall(ord_id);
-   }
-   
-   //키퍼회원 배송조회
-   @GetMapping("/keeperTracking")
-   public List<BagDAO> keeperTracking() {
-      return bagService.keeperTracking(getUserId());
+   //키퍼회원 보관조회
+   @GetMapping("/keeperStorage")
+   public List<BagDAO> keeperStorage() {
+      return bagService.keeperStorage(getUserId());
    }
    
    //출발키퍼회원 운송원 요청
@@ -96,8 +98,22 @@ public class ApiBag {
    
    //키퍼회원 장소 ID 조회
    @GetMapping("/plId")
-   public String plId() {
+   public List<String> plId() {
       return bagService.plId(getUserId());
    }
+   
+   //키퍼회원보관중으로 변경
+   @PostMapping("/inStorage/{ord_id}")
+   public void keeperInStorage(@PathVariable("ord_id") String ord_id) {
+      bagService.keeperInStorage(ord_id);
+   }
+   
+   //일반회원 찾아감으로 변경
+   @PostMapping("/visitCall/{ord_id}")
+   public void visitCall(@PathVariable("ord_id") String ord_id) {
+      bagService.visitCall(ord_id);
+   }
+
+  
 }
 

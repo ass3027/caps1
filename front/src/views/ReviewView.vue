@@ -3,11 +3,18 @@
     <br>
 
     <div class="xans-element- xans-product xans-product-additional detail_board  ">
-      <review-list
-        :reviews="slice_reviews"
-        @deleteReview="getReviews"
-        @reveiws-updated="reviewsUpdated"
-      />
+
+      <div v-if="reviews.length === 0">
+        리뷰 없음
+      </div>
+
+      <div v-else>
+        <review-list
+          :reviews="slice_reviews"
+          @deleteReview="getReviews"
+          @reveiws-updated="reviewsUpdated"
+        />
+      </div>
     </div>
 
     <p class="btnArea after">
@@ -91,16 +98,19 @@ export default {
   created() {
     this.getReviews()
   },
+  mounted() {
+    console.log('test', this.type, this.id)
+  },
   methods: {
     reviewRegister() {
       // this.$router.push("/ReviewCreate/" + this.type + '/' + this.id)
-      this.$router.push("/ReviewCreateView/" + this.type + '/' + this.id)
+      this.$router.push('/MyPage/MyPaymentList')
 
       console.log('test', '!!!!!!!!!!!')
     },
     getReviews() {
 
-      axios.get('http://localhost:8080/api/findReviews/' + this.type + '/' + this.id)
+      axios.get('/api/find/reviews/' + this.type + '/' + this.id)
         .then(res => {
           console.log(res.data)
           this.reviews = res.data
@@ -204,7 +214,7 @@ export default {
 <style scoped>
 .active-page-num {
   background-color: #f7f7f7;
-  color: #5f0080;
+  color: #333;
 }
 
 .bhs_button {
@@ -216,8 +226,8 @@ export default {
   display: inline-block;
   line-height: 40px;
   text-align: center;
-  background-color: #795b8f;
-  border: 1px solid #5f0080;
+  background-color: gray;
+  border: 1px solid #333;
   color: #fff;
   float: right;
   margin-left: 2px;
@@ -230,8 +240,8 @@ export default {
   line-height: 40px;
   text-align: center;
   background-color: #fff;
-  border: 1px solid #5f0080;
-  color: #5f0080;
+  border: 1px solid #333;
+  color: #333;
   float: right;
   margin-left: 2px;
 }

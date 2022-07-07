@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GItemDAO {
+public class GItemDTO {
     String gitem_id;
     String user_id;
     String pl_id;
@@ -28,13 +28,11 @@ public class GItemDAO {
     String pay_price;
     String gtime_num;
     String gdate;
+    String gname;
     int count;
+    String firstimage;
     int count7;
     int count1;
     int count30;
-    String firstimage2;
-    String pay_time;
-    String firstimage;
-    String gname;
 
 }

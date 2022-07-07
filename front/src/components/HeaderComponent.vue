@@ -5,8 +5,8 @@
 
     <div id="userMenu">
 
-      <ul class="list_menu" ><!----> <!---->
-        <li class="menu menu_user" @click="MyPage" v-if="isLogin">
+      <ul class="list_menu"><!----> <!---->
+        <li v-if="isLogin" class="menu menu_user" @click="MyPage">
           <a class="link_menu grade_comm">
             <span class="ico_grade grade0" style="padding: 0; margin: 0 10px 0 0;">{{ user_role }}</span>
             <span class="txt">
@@ -28,14 +28,14 @@
           </ul>
         </li>
 
-        <li class="menu none_sub menu_join" v-if="!isLogin">
+        <li v-if="!isLogin" class="menu none_sub menu_join">
           <a class="link_menu" href="/join">회원가입</a>
         </li>
-        <li class="menu none_sub menu_login" v-if="!isLogin">
+        <li v-if="!isLogin" class="menu none_sub menu_login">
           <a class="link_menu" href="/login">로그인</a> <!---->
         </li>
 
-        <li class="menu lst"><a href="/shop/board/list.php?id=notice" class="link_menu">고객센터</a>
+        <li class="menu lst"><a class="link_menu" href="/shop/board/list.php?id=notice">고객센터</a>
           <ul class="sub">
             <li><a href="#none"
                    onclick="KurlyTrackerLink('/shop/board/list.php?id=notice', 'select_my_kurly_notice_list')">공지사항</a>
@@ -59,49 +59,49 @@
     </div>
 
 
-<!--        <div id="userMenu">-->
-<!--          &lt;!&ndash;로그인 박스(로그인 O)&ndash;&gt;-->
-<!--          <div-->
-<!--            v-if="isLogin"-->
-<!--            class="login-box"-->
-<!--          >-->
-<!--            <v-btn text>-->
-<!--              {{ $store.state.user.userId }}-->
-<!--            </v-btn>-->
+    <!--        <div id="userMenu">-->
+    <!--          &lt;!&ndash;로그인 박스(로그인 O)&ndash;&gt;-->
+    <!--          <div-->
+    <!--            v-if="isLogin"-->
+    <!--            class="login-box"-->
+    <!--          >-->
+    <!--            <v-btn text>-->
+    <!--              {{ $store.state.user.userId }}-->
+    <!--            </v-btn>-->
 
-<!--            <v-btn-->
-<!--              text-->
-<!--              @click="logOut"-->
-<!--            >-->
-<!--              logout-->
-<!--            </v-btn>-->
-<!--            <img-->
-<!--              :src="photo"-->
-<!--              style="width:50px;height:50px"-->
-<!--              alt=""-->
-<!--            >-->
-<!--          </div>-->
-<!--          &lt;!&ndash;로그인 박스(로그인 X)&ndash;&gt;-->
-<!--          <div-->
-<!--            v-else-->
-<!--            class="login-box"-->
-<!--          >-->
-<!--            <v-btn-->
-<!--              text-->
-<!--              router-->
-<!--              to="/login"-->
-<!--            >-->
-<!--              login-->
-<!--            </v-btn>-->
-<!--            <v-btn-->
-<!--              text-->
-<!--              router-->
-<!--              to="/join"-->
-<!--            >-->
-<!--              join-->
-<!--            </v-btn>-->
-<!--          </div>-->
-<!--        </div>-->
+    <!--            <v-btn-->
+    <!--              text-->
+    <!--              @click="logOut"-->
+    <!--            >-->
+    <!--              logout-->
+    <!--            </v-btn>-->
+    <!--            <img-->
+    <!--              :src="photo"-->
+    <!--              style="width:50px;height:50px"-->
+    <!--              alt=""-->
+    <!--            >-->
+    <!--          </div>-->
+    <!--          &lt;!&ndash;로그인 박스(로그인 X)&ndash;&gt;-->
+    <!--          <div-->
+    <!--            v-else-->
+    <!--            class="login-box"-->
+    <!--          >-->
+    <!--            <v-btn-->
+    <!--              text-->
+    <!--              router-->
+    <!--              to="/login"-->
+    <!--            >-->
+    <!--              login-->
+    <!--            </v-btn>-->
+    <!--            <v-btn-->
+    <!--              text-->
+    <!--              router-->
+    <!--              to="/join"-->
+    <!--            >-->
+    <!--              join-->
+    <!--            </v-btn>-->
+    <!--          </div>-->
+    <!--        </div>-->
 
     <div id="headerLogo">
       <h1
@@ -113,8 +113,8 @@
           style="display: inline-block"
         >
           <img
-            src="/api/photo/altImage/packless_travel_logo.png"
             alt="PacklessTravel 로고"
+            src="/api/photo/altImage/packless_travel_logo.png"
             style="display: block;height: 100px;"
           >
         </a>
@@ -136,8 +136,8 @@
               style="display: flex; justify-content: center; width: 30%; text-align: center; height: 55px"
             >
               <span
-                v-bind="attrs"
                 style="padding-top: 15px"
+                v-bind="attrs"
                 v-on="on"
               >
                 {{ menu }}
@@ -149,8 +149,8 @@
             <v-list-item
               v-for="(content, index2) in contents[index]"
               :key="index2"
-              router
               :to="content.route"
+              router
               style="display: flex; justify-content: center"
             >
               <span>{{ content.title }}</span>
@@ -214,8 +214,8 @@ export default {
           {title: '이용안내', route: '/UsageGuideView'},
           {title: '요금', route: '/FareView'},
           {title: '후기', route: '/ReviewView'},
-          {title: '배송조회', route: '/GTrackingView'},
-          {title: '키퍼배송조회', route: '/KeeperTrackingView'},
+          {title: '물품조회', route: '/GTrackingView'},
+          {title: '키퍼물품조회', route: '/KeeperTrackingView'},
         ],
         [
           {title: '가이드 등록', route: '/GuideRegister'},
@@ -278,7 +278,7 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$store.dispatch('user/setUser', {user_id :'anonymousUser'})
+          this.$store.dispatch('user/setUser', {user_id: 'anonymousUser'})
           // this.$router.push("/")
           location.href = "/"
         })
@@ -290,13 +290,13 @@ export default {
     //   this.$router.push({path:a.route, params:{'value':a.title}})
     // }
     MyPage() {
-      this.$router.push("/MyPage")
+      this.$router.push("/MyPage/MyPageInfo")
     },
-    update(){
-      this.$router.push("/MyPageUpdate")
+    update() {
+      this.$router.push("/MyPage/MyPageUpdate")
     },
-    bookmark(){
-      this.$router.push("/BookMark")
+    bookmark() {
+      this.$router.push("/MyPage/BookMark")
     }
   }
 };
@@ -332,7 +332,7 @@ export default {
 }
 
 #userMenu .list_menu {
-  float:right
+  float: right
 }
 
 #userMenu .menu {

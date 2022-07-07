@@ -14,8 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class PaymentDAO {
-
-    String pay_id;
+    String user_id;
     String pay_place;
     String pay_method;
     LocalDateTime pay_time;
@@ -25,5 +24,6 @@ public class PaymentDAO {
     String user_id;
     String receipt;
     String card_num;
-
+    String ord_id;
+String gtime_num;
 }
