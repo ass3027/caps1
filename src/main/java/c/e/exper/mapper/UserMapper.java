@@ -81,7 +81,6 @@ public interface UserMapper { //디비접근
             "WHERE USER_BIRTH BETWEEN '1940-01-01' AND '1973-12-31'")
     UserDAO selectAgeCount50();
 
-    @Select("select sum(pay_price)as pay_price;")
 
 
 

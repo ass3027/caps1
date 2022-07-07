@@ -86,7 +86,6 @@ import DeliveryJoinView from "@/views/auth/DeliveryJoinView";
 import LoginView from "@/views/auth/LoginView";
 import joinView from "@/views/auth/JoinView";
 import KeeperJoinView from "@/views/auth/KeeperJoinView";
-import ChartView from "@/views/auth/AgeChartView";
 import AreaChartView from "@/views/auth/AreaChartView";
 import AgeChartView from "@/views/auth/AgeChartView";
 
@@ -145,7 +144,6 @@ const routes = [
   //---------------------------------------------------------------//
   {path: "/GOrderDetail/:ordId", name: "GOrderDetail", component: GOrderDetail, props: true},
   {path: "/GTrackingView", name: "GTrackingView", component: GTrackingView, props: true},
-  {path: "/GTrackingDetail/:ord_id", name: "GTrackingDetail", component: GTrackingDetail, props: true},
   {path: "/FareView", name: "FareView", component: FareView},
   {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
   {path: "/TransportOrder", name: "TransportOrder", component: TransportOrder},
