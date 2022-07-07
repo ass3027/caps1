@@ -12,6 +12,7 @@
       <li id="reviewAfter"><a @click="change('reviewAfter')">작성완료 후기 <span>({{  }})</span></a></li>
     </ul>
     <template v-if="status === 'reviewBefore'">
+
       <ul class="list_payment">
         <h2 style="border-bottom: 2px solid #333">가이드</h2>
 

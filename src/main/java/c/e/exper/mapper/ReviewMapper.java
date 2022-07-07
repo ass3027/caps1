@@ -51,26 +51,27 @@ public interface ReviewMapper {
             INSERT INTO review(rev_id,
                                user_id,
                                rev_content,
-                               rev_rating,
-                               ord_id,
-                               book_id,
                                title,
-                               gitem_id,
-                               pd_id,
-                               pl_id,
-                               guide_id)
+                               pay_id)
             VALUES (REVIEW_SEQ.nextval,
                     #{review.user_id},
                     #{review.rev_content},
-                    #{review.rev_rating},
-                    #{review.ord_id})
-                    #{review.book_id})
-                    #{review.title})
-                    #{review.gitem_id})
-                    #{review.pd_id})
-                    #{review.pl_id})
-                    #{review.guide_id})""")
-    int addReview(Review review);
+                    #{review.title},
+                    #{review.pay_id})""")
+    boolean addReview(Review review);
+
+    @Insert("""
+            INSERT INTO review(rev_id,
+                               user_id,
+                               rev_content,
+                               title,
+                               pay_id)
+                        VALUES (REVIEW_SEQ.nextval,
+                               'um',
+                               'aaa',
+                               'aaa',
+                               '100')""")
+    boolean addReviewA(Review review);
 
     @Insert("""
             INSERT INTO review(rev_id,
@@ -139,11 +140,14 @@ public interface ReviewMapper {
 
     /* 리뷰 아이디로 상품 아이디 */
     @Select("""
-            SELECT pd_id
-            FROM review r, book b
-            WHERE r.rev_id = #{rev_id}
-              AND r.book_id = b.book_id""")
-    String findProductForReview(@Param("rev_id") String rev_id);
+            select *
+            from review
+            where PAY_ID in (select PAY_ID
+                             from PRODUCT_TIME
+                             where PD_ID = #{pd_id}
+                               and PAY_ID is not null
+                             group by PAY_ID)""")
+    List<Review> findHotelReview(@Param("pd_id") String pd_id);
 
     /* 상품 아이디로 모든 리뷰 조1회 */
     @Select("""

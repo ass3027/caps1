@@ -25,9 +25,11 @@ Review {
     private String ord_id;                         // 주문서 외래키
     private String pay_id;                    // 예약 외래키(가이드 상품, 상품)
     private String rev_img_filename;
+    private String img_link;
 
     private int hit;
     private int like;
+    private String review;
 
     private MultipartFile rev_photo;         // 리뷰 사진(사진 테이블)*
 
