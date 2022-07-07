@@ -71,7 +71,7 @@ public interface BagMapper {
    
    //찾아감으로 업데이트
    @Update("update orders set status='찾아감' where ord_id=#{ord_id}")
-   void visitCall(String ord_id);
+   void keeperCompStorage(String ord_id);
    
    //키퍼회원 운송조회
    @Select("""

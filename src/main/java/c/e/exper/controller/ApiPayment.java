@@ -29,11 +29,12 @@ public class ApiPayment {
     }
 
     @GetMapping("/bookList")
-    Map<String, Object> getBookList() {
-        Map<String, Object> result = new HashMap<>();
+    Map<String,Object> getBookList(){
+        Map<String,Object> result = new HashMap<>();
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
-        result.put("productBook", paymentMapper.getProductBook(id));
 
+        result.put("productBook",paymentMapper.getProductBook(id));
+        result.put("guideBook",paymentMapper.getGuideBook(id));
         return result;
     }
 

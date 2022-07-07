@@ -59,10 +59,7 @@ public class BagService {
       bagMapper.keeperInStorage(ord_id);
    }
    
-   //찾아감으로 변경
-   public void visitCall(String ord_id) {
-      bagMapper.visitCall(ord_id);
-   }
+   
    
    //키퍼회원 배송조회
    public List<BagDAO> keeperTransport(String user_id) {
@@ -80,6 +77,8 @@ public class BagService {
       return plid;
    }
    
-   
-   
+   //키퍼회원 보완완료로 변경
+   public void keeperCompStorage(String ord_id) {
+      bagMapper.keeperCompStorage(ord_id);
+   }
 }

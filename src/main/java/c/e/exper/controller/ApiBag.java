@@ -108,12 +108,11 @@ public class ApiBag {
       bagService.keeperInStorage(ord_id);
    }
    
-   //일반회원 찾아감으로 변경
-   @PostMapping("/visitCall/{ord_id}")
-   public void visitCall(@PathVariable("ord_id") String ord_id) {
-      bagService.visitCall(ord_id);
+   //키퍼회원 보관완료으로 변경
+   @PostMapping("/compStorage/{ord_id}")
+   public void keeperCompStorage(@PathVariable("ord_id") String ord_id) {
+      bagService.keeperCompStorage(ord_id);
    }
-
-  
+   
 }
 
