@@ -18,6 +18,7 @@ public class PaymentDAO {
     String pay_place;
     String pay_method;
     LocalDateTime pay_time;
+    String pay_id;
     String pay_price;
     String pay_context;
     String plan_id;

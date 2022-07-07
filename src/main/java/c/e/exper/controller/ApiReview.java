@@ -29,16 +29,21 @@ public class ApiReview {
 
 
     @PostMapping("/addReview/{type}/{id}")
-    public void addReview(@PathVariable String type, @PathVariable String id, Review review, HttpServletRequest req) {
+    public boolean addReview(@PathVariable String type, @PathVariable String id, Review review, HttpServletRequest req) {
 
-        review.setUser_id(SecurityContextHolder.getContext().getAuthentication().getName());
-        review.setPay_id(id);
+//        review.setUser_id(SecurityContextHolder.getContext().getAuthentication().getName());
+//        review.setPay_id(id);
+//
+//        System.out.println("등록할 리뷰: " + review);
+//        System.out.println("type: " + type);
+//        System.out.println("id: " + id);
+//
+//        System.out.println(review);
+        if(id == "100" && type == "가이드 상품") {
+            return reviewMapper.addReviewA(review);
+        }
 
-        System.out.println("등록할 리뷰: " + review);
-        System.out.println("type: " + type);
-        System.out.println("id: " + id);
-        review.setRev_img_filename(fileService.photoSave(review.getRev_photo(), req, "reviewImage"));
-
+        return true;
     }
 
     @GetMapping("/allReview")
@@ -73,9 +78,8 @@ public class ApiReview {
                 return reviewMapper.findAllReview();
             case "가이드 상품":
                 return reviewMapper.findGuideProductReview(id);
-            case "가이드":
-                return reviewMapper.findGuideReview(id); // 가이드 id
-
+            case "호텔":
+                return reviewMapper.findHotelReview(id); // 가이드 id
         }
 
 

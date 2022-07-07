@@ -232,6 +232,7 @@ export default {
 
                   .then((res) => {
                     alert("예약이 완료 되었습니다.")
+                    this.$router.push('/productBookView')
                   })
                   .catch((err) => {
                     console.log(err)

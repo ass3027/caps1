@@ -7,6 +7,7 @@
       crossorigin="anonymous"
     >
 
+
     <div v-if="temp===1 && products[0].pd_id !== null">
       <div class="container my-0 my-md-4">
         <div class="row align-items-center justify-content-between">
@@ -241,6 +242,9 @@
       </div>
     </div>
 
+
+    <ReviewView :type="'호텔'" :id="'조선호텔1'" style="width: 1274px; margin: 0 auto"/>
+
   </div>
   <!--    <StoreReviewView :store_name="store_name"/>-->
 
@@ -250,12 +254,14 @@
 import StoreReviewView from "@/views/StoreReviewView";
 import axios from "axios";
 import PlaceProduct from "@/components/store/PlaceProduct";
+import ReviewView from "@/views/ReviewView";
 
 export default {
   name: 'ProductPage',
   components: {
     PlaceProduct,
     // StoreReviewView
+    ReviewView
   },
   props: ['pl_id'],
   data() {

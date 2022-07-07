@@ -62,7 +62,7 @@ import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
 //민아
 import MypageView from "@/views/auth/MypageView";
-import BookMarkView from "@/views/auth/BookMarkView";
+import BookMarkView from "@/components/auth/BookMarkView";
 import QuestionsView from "@/views/auth/QuestionsView";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
@@ -76,7 +76,7 @@ import {store} from "@/store"
 import GuideIntro from "@/views/guide/GuideIntro";
 import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 
-import MyPageUpdateView from "@/views/auth/MyPageUpdateView";
+import MyPageUpdateView from "@/components/auth/MyPageUpdateView";
 import ProductBook from "@/views/store/ProductBook";
 import productBookView from "@/views/store/productBookView";
 import GuideReserve from "@/views/guide/GuideReserve";
