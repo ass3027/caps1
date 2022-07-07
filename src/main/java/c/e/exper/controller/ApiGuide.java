@@ -38,6 +38,12 @@ public class ApiGuide {
         System.out.println(id + "매출조회");
         return guideService.매출_조회(id);
     }
+    @GetMapping("/gcountList")
+    public List<GItemDAO> findCountList(String id){
+        System.out.println("마지막");
+        return guideService.매출_조회_리스트(id);
+    }
+
 
     @GetMapping("/gcount7")
     public GItemDTO findCount7(String id) {
