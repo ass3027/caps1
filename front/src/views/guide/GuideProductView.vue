@@ -60,7 +60,6 @@
         Reserve
       </v-btn>
     </v-card-actions>
-
     <ReviewView :id="gitem_id" :type="'가이드 상품'"/>
   </v-card>
 </template>

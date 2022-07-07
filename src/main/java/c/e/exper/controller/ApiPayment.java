@@ -2,6 +2,7 @@ package c.e.exper.controller;
 
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
+import c.e.exper.data.PlaceDAO;
 import c.e.exper.mapper.PaymentMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,6 @@ public class ApiPayment {
 
     @GetMapping("/paymentList")
     List<PaymentDAO> paymentList() {
-        Map<String, Object> result = new HashMap<>();
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println("id = " + id);
         return paymentMapper.paymentList(id);
@@ -43,7 +43,6 @@ public class ApiPayment {
 
     @GetMapping("/paymentList/{test}")
     List<PaymentDAO> paymentListTest(@PathVariable String test) {
-        Map<String, Object> result = new HashMap<>();
         return paymentMapper.paymentList("um");
     }
 
@@ -67,4 +66,9 @@ public class ApiPayment {
         return paymentMapper.gitemInfoToPayId(pay_id);
     }
 
+    @GetMapping("/place/{pay_id}")
+    PlaceDAO placeInfo(@PathVariable String pay_id) {
+
+        return paymentMapper.placeInfoToPayId(pay_id);
+    }
 }

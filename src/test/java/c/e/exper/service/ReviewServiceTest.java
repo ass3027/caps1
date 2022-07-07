@@ -90,18 +90,9 @@ class ReviewServiceTest {
         Review review = Review.builder()
                 .user_id("um")
                 .rev_content("엄...")
-                .rev_rating(3)
-                .ord_id(2)
                 .build();
 
         // when
-        if(review.getBook_id() == null && review.getOrd_id() == null) {
-            System.out.println("잘못된 형식입니다.");
-        } else if (review.getBook_id() != null) {
-            reviewMapper.addBookReview(review);
-        } else {
-            reviewMapper.addOrderReview(review);
-        }
 
         // then
     }

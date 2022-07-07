@@ -168,9 +168,9 @@ img {
   line-height: 28px;
   font-size: 12px;
   display: inline-block;
-  border: 1px solid #5f0080;
+  border: 1px solid #ccc;
   background-color: #fff;
-  color: #5f0080;
+  color: #333;
   text-align: center;
 }
 
@@ -206,7 +206,7 @@ table {
 .tr_line .user_name {
   display: inline-block;
   text-align: center;
-  color: #522474
+  color: #ccc
 }
 
 .tr_line .user_name:hover {
@@ -233,7 +233,7 @@ table {
   padding: 30px 0 6px;
   font-weight: 700;
   font-size: 15px;
-  color: #5f0080;
+  color: #ccc;
   line-height: 22px
 }
 

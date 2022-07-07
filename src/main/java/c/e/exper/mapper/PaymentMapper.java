@@ -2,6 +2,7 @@ package c.e.exper.mapper;
 
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
+import c.e.exper.data.PlaceDAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -54,6 +55,19 @@ public interface PaymentMapper {
                                                 where pay_id = #{pay_id}))
             """)
     GItemDAO gitemInfoToPayId(@Param("pay_id") String pay_id);
+
+    @Select("""
+            select *
+            from PLACE
+            where PL_ID  = (select PL_ID
+                            from GITEM
+                            where GITEM_ID = (select GITEM_ID
+                                              from AVAILABLE_TIME
+                                              where time_num = (select gtime_num
+                                                                from PAYMENT
+                                                                where pay_id = #{pay_id})))
+            """)
+    PlaceDAO placeInfoToPayId(@Param("pay_id") String pay_id);
 
 
 }

@@ -11,7 +11,7 @@
         <BookMarkView v-else-if="status === 'Bookmark'"/>
         <MyPageUpdateView v-else-if="status === 'MyPageUpdate'"/>
         <QuestionsView v-else-if="status === 'Questions'"/>
-        <MyPaymentList v-else-if="status === 'MyPaymentList'"/>
+        <MyPaymentList v-else-if="status === 'MyReview'"/>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@ import MyPageInfo from "@/components/auth/MyPageInfo";
 import BookMarkView from "@/components/auth/BookMarkView";
 import MyPageUpdateView from "@/components/auth/MyPageUpdateView";
 import QuestionsView from "@/components/auth/QuestionsView";
-import MyPaymentList from "@/components/auth/MyPaymentList";
+import MyPaymentList from "@/components/auth/MyReview";
 
 export default {
   components: {

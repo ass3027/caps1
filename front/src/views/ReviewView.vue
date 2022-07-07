@@ -211,7 +211,7 @@ export default {
 <style scoped>
 .active-page-num {
   background-color: #f7f7f7;
-  color: #5f0080;
+  color: #333;
 }
 
 .bhs_button {
@@ -223,8 +223,8 @@ export default {
   display: inline-block;
   line-height: 40px;
   text-align: center;
-  background-color: #795b8f;
-  border: 1px solid #5f0080;
+  background-color: gray;
+  border: 1px solid #333;
   color: #fff;
   float: right;
   margin-left: 2px;
@@ -237,8 +237,8 @@ export default {
   line-height: 40px;
   text-align: center;
   background-color: #fff;
-  border: 1px solid #5f0080;
-  color: #5f0080;
+  border: 1px solid #333;
+  color: #333;
   float: right;
   margin-left: 2px;
 }

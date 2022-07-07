@@ -14,6 +14,6 @@ class BagMapperTest {
    
    @Test
    void selectTransport() {
-      System.out.println(bagMapper.selectTransport("ttg"));
+
    }
 }
