@@ -73,7 +73,6 @@
             :value="option.title"
           />
         </div>
-        {{ checkOptions }}
       </div>
     </v-card>
   </div>

@@ -22,7 +22,7 @@
           <a @click="change('MyPageUpdate')">개인 정보 수정</a>
         </li>
         <li id="MyPaymentList">
-          <a @click="change('MyPaymentList')">결제 내역</a>
+          <a @click="change('MyReview')">상품 후기</a>
         </li>
         <li id="Questions">
           <a @click="change('Questions')">문의사항</a>
@@ -73,9 +73,6 @@ export default {
       this.change("Questions")
 
     },
-    reivews() {
-
-    }
 
   }
 }

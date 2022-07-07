@@ -29,6 +29,11 @@
           type="date"
           range
         />
+        <div>
+          <br>
+          <br>
+        </div>
+<!--        <v-spacer/>-->
         <v-btn
           color="blue"
           @click="addPlan"
@@ -43,14 +48,18 @@
         <v-simple-table>
           <thead>
             <tr>
-              <th
-                v-for="(key,index) in keys"
-                :key="index"
-                class="text-left"
-              >
-                {{ key }}
-              </th>
-              <th>phone</th>
+<!--              <th-->
+<!--                v-for="(key,index) in keys"-->
+<!--                :key="index"-->
+<!--                class="text-left"-->
+<!--              >-->
+<!--                {{ key }}-->
+<!--              </th>-->
+              <th>플래너 번호</th>
+              <th>플래너 이름</th>
+              <th>생성자</th>
+              <th>시작날짜</th>
+              <th>종료날짜</th>
               <th>삭제</th>
             </tr>
           </thead>

@@ -1,19 +1,21 @@
 <template>
 <div>
+  <v-btn @click="onsubmit()" style="float: right;">
+    검색
+  </v-btn>
+
   <input
     v-model="keyword"
     name="keyword"
     type="text"
-    style="border: #1e90cc solid"
+    style="border: #1e90cc solid; float: right;"
     class="search"
   >
-  <v-btn @click="onsubmit()">
-    검색
-  </v-btn>
 
   <div style="display: flex"
   >
     <v-row
+      style="margin: 18px"
     cols="0"
     md="0">
 

@@ -1,32 +1,5 @@
 <template>
   <div class="main-layout">
-    <v-carousel
-      v-model="model"
-      height="200px"
-      cycle
-      interval="3000"
-    >
-      <v-carousel-item
-        v-for="(color, i) in colors"
-        :key="color"
-      >
-        <v-sheet
-          :color="color"
-          height="100%"
-          tile
-        >
-          <v-row
-            class="fill-height"
-            align="center"
-            justify="center"
-          >
-            <div class="text-h2">
-              Slide {{ i + 1 }}
-            </div>
-          </v-row>
-        </v-sheet>
-      </v-carousel-item>
-    </v-carousel>
     <div
       v-for="(placeInfo, aIdx) in place.place"
       :key="aIdx"
@@ -38,12 +11,12 @@
       <v-card
         v-if="placeInfo.firstimage!=''"
         width="100%"
-        height="250px"
+        height="350px"
       >
         <v-img
           v-if="placeInfo.firstimage"
           width="100%"
-          height="250px"
+          height="300px"
           :src="placeInfo.firstimage"
           alt="실허어엄"
         />
@@ -60,7 +33,6 @@ export default {
     return {
       dd: `/api/photo/` + "userImage/1648100757821img.jpg",
       model: 0,
-      colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
     };
   },
   computed: {
@@ -92,7 +64,7 @@ export default {
 .hotelcard {
   /*margin-right: 3%;*/
   width: 800px;
-  height: 300px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   cursor: pointer;

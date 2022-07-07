@@ -6,7 +6,7 @@
     @click="unselect"
   >
     <v-row>
-      <v-col align="center">
+      <v-col style="text-align: center">
         <h2 class="text-center">
           {{ date }}
         </h2>
@@ -30,10 +30,12 @@
                   v-bind="attrs"
                   :class="{dd:true,selecting:selectedTime===key}"
                   width="300"
-                  @click="select(key,index)"
+                  click="void"
+                  @click.native="select(key,index)"
                 >
                   <div>
-                    <h3>{{ key }}시</h3>
+                    <h3 v-if="key===100">숙소</h3>
+                    <h3 v-else>{{ key }}시</h3>
                   </div>
                   <div>
                     {{ plan.get(key).address }}
@@ -43,7 +45,9 @@
                   v-show="index!==0&&eachDistance.length!==0"
                   class="circle"
                 >
-                  {{ eachDistance[index] }}km
+                  ▲<br>
+                  <h3>{{ eachDistance[index] }}km</h3>
+                  ▼
                 </div>
               </template>
               <template>
@@ -96,7 +100,7 @@
     <v-row justify="center">
       <v-col
         justify="center"
-        align="center"
+        style="text-align: center"
       >
         <!--이런게 있긴함  -->
         <v-dialog
@@ -105,10 +109,9 @@
         >
           <template #activator="{ on, attrs}">
             <v-btn
-              color="#1E90FF"
-              dark
               v-bind="attrs"
               v-on="on"
+              style="margin-right: 10px"
             >
               일정추가
             </v-btn>
@@ -129,14 +132,14 @@
             <v-divider />
             <v-card-actions>
               <v-btn
-                color="primary"
+                color="#E3E3E3"
                 text
                 @click="dialog = false"
               >
                 닫기
               </v-btn>
               <v-btn
-                color="primary"
+                color="#E3E3E3"
                 text
                 @click="add"
               >
@@ -258,6 +261,7 @@ export default {
       this.$store.commit('calendar/updateSelect', a)
       this.selectedTime = key
       EventBus.$emit('updateDate', this.date) // 경로
+      EventBus.$emit('updatePosition', selected.calendar.date[this.date].get(key)) // 경로
       console.log(this.eachDistance.length)
     },
     unselect(e) {
@@ -343,6 +347,9 @@ export default {
 </script>
 
 <style scoped>
+
+
+
 .dd {
   border-style: solid;
   height: 8vh;
@@ -350,7 +357,7 @@ export default {
 }
 
 .border {
-  border: solid #1E90FF 10px;
+  border: solid #E3E3E3 4px;
   border-radius: 10px;
   /*min-width: 500px;*/
   /*background: #5eaf13;*/
@@ -358,24 +365,33 @@ export default {
 
 .notSelect {
 
-  border: solid #6A5ACD 10px;
+  border: solid
+  #CCCCCC
+  4px;
   border-radius: 10px;
 }
 
 .selecting {
-  color: #81ecec;
+
+  background-color: #CEFEFF
+;
 }
 
-.selecting h3 {
-  transform: scale(1.5);
-}
+/*.selecting div {*/
+/*  color: #FFFFFF;*/
+/*}*/
+
+
+/*.selecting h3 {*/
+/*  color: #FFFFFF;*/
+/*}*/
 
 .innerBorder {
   overflow-y: scroll;
   width: 100%;
   height: 300px;
-  border: solid #1E90FF 5px;
-  border-radius: 10px;
+  /*border: solid #1E90FF 5px;*/
+  /*border-radius: 10px;*/
   padding: 15px;
 
 }
@@ -385,14 +401,15 @@ export default {
 }
 
 .circle {
-  background-color: #81ecec;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  text-align: center;
-  margin: 0 auto;
-  font-size: 12px;
-  vertical-align: middle;
-  line-height: 80px;
+  /*background-color: #81ecec;*/
+  /*width: 80px;*/
+  /*height: 80px;*/
+  /*border-radius: 50%;*/
+  /*text-align: center;*/
+  /*margin: 0 auto;*/
+  /*font-size: 12px;*/
+  /*vertical-align: middle;*/
+  /*line-height: 80px;*/
 }
+
 </style>

@@ -22,9 +22,9 @@ export default {
     return{
       bookList : [],
       bookHeaders: [
-        {text: '예약시설', align:'start', sortable: false, value: 'pd_id'},
-        {text: '체크인 시간', value: 'startDate'},
-        {text: '체크아웃 시간', value: 'endDate'},
+        {text: '예약시설', align:'start', sortable: false, value: 'title'},
+        {text: '체크인 시간', value: 'st_date'},
+        {text: '체크아웃 시간', value: 'end_date'},
         {text: '예약자', value: 'user_id'},
       ]
     }

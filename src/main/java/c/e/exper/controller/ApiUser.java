@@ -70,6 +70,13 @@ public class ApiUser {
     @GetMapping("/find")
     public UserDAO findUser() {
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("user_id = " + user_id);
+        if(user_id.equals("anonymousUser")) {
+            return UserDAO.builder()
+                    .user_id("anonymousUser")
+                    .role("")
+                    .build();
+        }
         return userMapper.selectId(user_id).get();
     }
 
@@ -98,7 +105,7 @@ public class ApiUser {
     //아이디 중복 확인
     @GetMapping("/userid")
     public boolean getUserIdCheck( //반환타입,함수명
-                                   @RequestParam("user_id") String pp) { //프론트에서 user_id 받아옴
+        @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
         Optional<UserDAO> id = userMapper.selectId(pp); //
         return id.isEmpty();
 //        if (id.isEmpty()){
@@ -222,12 +229,7 @@ public class ApiUser {
 //        System.out.println("count: " + i);
     }
 
-    @GetMapping("/role")
-    public String getUserRole() {
-        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return userMapper.selectId(user_id).get().getRole();
-    }
 
     public String getRandomPhone() {
 

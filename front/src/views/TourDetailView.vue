@@ -5,25 +5,26 @@
         <h1>{{tour.title}}</h1>
         <p>{{tour.addr1}}</p>
         <div>
-          <span style="float:left">
-            <v-icon
-              color="red"
-              @click="editStart(task,i)"
-            >
-              mdi-heart-plus
-            </v-icon>
-            찜하기
-          </span>
-          <span style="float:right">
-            <v-icon
-              color="orange"
-              @click="editStart(task,i)"
-            >
-              mdi-calendar-check-outline
-            </v-icon>
-            일정에 추가하기
+<!--          <span style="float:left">-->
+<!--            <v-icon-->
+<!--              color="red"-->
+<!--              @click="editStart(task,i)"-->
+<!--            >-->
+<!--              mdi-heart-plus-->
+<!--            </v-icon>-->
+<!--            찜하기-->
+<!--          </span>-->
+<!--          <span style="float:right"-->
+<!--                @click="toCalendar"-->
+<!--          >-->
+<!--            <v-icon-->
+<!--              color="orange"-->
+<!--            >-->
+<!--              mdi-calendar-check-outline-->
+<!--            </v-icon>-->
+<!--            일정에 추가하기-->
 
-          </span>
+<!--          </span>-->
 
         </div>
 
@@ -45,7 +46,9 @@
         <v-divider></v-divider>
         <br>
         <p v-html="tour.overview"></p>
-        <KakaoMap></KakaoMap>
+        <template v-if="tour!=''">
+          <KakaoMap :place="tour"></KakaoMap>
+        </template>
 
         <v-row style="text-align: left">
           <v-col cols="6">
@@ -157,7 +160,19 @@ export default {
         .then((res)=>{
           this.images=res.data.response.body.items.item
           if(Array.isArray(this.images)){
-            this.images.unshift({originimgurl:this.tour.firstimage}) //unshift 배열 앞에 새로운값넣기
+            console.log("인1")
+            this.images.unshift({originimgurl:this.tour.firstimage}) //unshift: 배열 앞에 새로운값넣기
+          }else if(this.images==undefined){
+            if(this.tour.firstimage!=undefined){
+              this.images={originimgurl:this.tour.firstimage}
+            }
+            else{
+              axios.get('/api/getFirstImage',{params:{contentid:this.tour.contentid}})
+              .then((res)=>{
+                this.images={originimgurl:res.data}
+              })
+            }
+
           }
         })
 
@@ -167,12 +182,14 @@ export default {
     axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&contentTypeId=${this.contentTypeId}&MobileOS=ETC&MobileApp=AppTest`)
     .then((res)=>{
       this.details=res.data.response.body.items.item
-      console.log(this.details)
 
     })
 
   },
   methods: {
+    toCalendar(){
+      this.$router.push({name:'calender', params:{rec:this.tour.title}})
+    }
   },
 
 }
