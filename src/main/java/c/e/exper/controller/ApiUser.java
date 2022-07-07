@@ -119,11 +119,38 @@ public class ApiUser {
         return userMapper.updateUserInfo(userDAO);
     }
 
-    //지역별
+    //지역별 추이
     @GetMapping("/area")
-    public List<UserDAO> getUserArea() {
-        return userMapper.areaCount();
+    public List<AreaDTO> getUserArea5(){
+        System.out.print(userMapper.selectAreaCount());
+        return userMapper.selectAreaCount();
     }
+
+    //연령별(10대)
+    @GetMapping("/age")
+    public UserDAO getUserAge(){return userMapper.selectAgeCount10();}
+
+    //연령별(20대)
+    @GetMapping("/age20")
+    public UserDAO getUserAge20(){return userMapper.selectAgeCount20();}
+
+    //연령별(30대)
+    @GetMapping("/age30")
+    public UserDAO getUserAge30(){return userMapper.selectAgeCount30();}
+
+    //연령별(40대)
+    @GetMapping("/age40")
+    public UserDAO getUserAge40(){return userMapper.selectAgeCount40();}
+
+    //연령별(50대)
+    @GetMapping("/age50")
+    public UserDAO getUserAge50(){return userMapper.selectAgeCount50();}
+
+    @GetMapping("/search")
+    public List<InquiryDAO> getUserSearch(String user_id){
+        return userMapper.selectSearch(user_id);
+    }
+
 
     //회원가입
     @PostMapping("/join/{check}")

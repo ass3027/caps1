@@ -29,7 +29,6 @@ public class ApiGuide {
 
     @GetMapping("/guide/{id}")
     public GuideDAO findAllGuide(@PathVariable("id") String id) {
-
         return guideService.가이드_조회1(id);
     }
 

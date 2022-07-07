@@ -25,4 +25,16 @@ public class UserDAO {
     String business_num; //사업자번호
     String user_area;
 
+    int user_birth10;
+    int user_birth20;
+    int user_birth30;
+    int user_birth40;
+    int user_birth50;
+
+    int pay_price;
+    int pay_price7;
+    int pay_price30;
+
+
+
 }
