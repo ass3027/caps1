@@ -11,9 +11,12 @@
       >
       <span class="innerText">
         <h3>{{ item.title }}</h3>
+        <template v-if="$store.state.user.userId!='anonymousUser'">
           <v-btn @click="toCalendar(item)">
             일정에추가
           </v-btn>
+
+        </template>
 
       </span>
     </v-col>
