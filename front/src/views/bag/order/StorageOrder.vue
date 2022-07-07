@@ -126,12 +126,13 @@
         <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
         <!--      </div>-->
         <div style="width: 80%;margin: 0 auto; padding-top: 20px">
-          <button
+          <v-btn
             style="float: right;"
             @click="addOrder"
           >
             작성 완료
-          </button>
+          </v-btn>
+
         </div>
       </v-form>
     </v-app>
@@ -220,7 +221,7 @@ export default {
   },
 
   methods: {
-    reserve() {
+    storageReserve() {
       var IMP = window.IMP;
       IMP.init('imp19569487');
       console.log(this.lists)
@@ -233,14 +234,14 @@ export default {
         buyer_email: "testiamport@naver.com",
         buyer_name: this.$store.state.user.userId,
         buyer_tel: "01012341234"
-      }, rsp => {
-        console.log(rsp);
-        if (rsp.success) {
-          console.log(rsp)
+      }, rso => {
+        console.log(rso);
+        if (rso.success) {
+          console.log(rso)
           var imp = {
             user_id: this.$store.state.user.userId,
             ord_id: '',
-            pay_price: rsp.paid_amount,
+            pay_price: rso.paid_amount,
           }
           axios.post('/api/transportPay', imp)
             .then((res) => {
@@ -286,7 +287,7 @@ export default {
         .post('/api/storageAddOrder', storageBag)
         .then((res) => {
           console.log(storageBag)
-          this.reserve()
+          this.storageReserve()
         })
     },
     startAddress(address) {
