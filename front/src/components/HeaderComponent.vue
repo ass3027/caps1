@@ -222,7 +222,7 @@ export default {
           {title: '가이드 리스트', route: '/guideview'},
           {title: '가이드 상품 등록', route: '/GuideProductReg'},
           {title: '가이드 상품', route: '/GuideProduct'},
-          {title: '가이드 결제 ', route: '/GuideReserve'},
+          {title: '매출 관리 ', route: '/GuideReserve'},
           {title: '예약 정보', route: '/GuideReserveInfo'},
         ],
         [
