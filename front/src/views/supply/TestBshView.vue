@@ -41,6 +41,7 @@
         Click Me
       </v-btn>
 
+      <calendar-preview></calendar-preview>
 
       <v-dialog
         v-model="dialog"
@@ -75,9 +76,13 @@
 
 <script>
 import axios from 'axios'
+import CalendarPreview from "@/components/preview/CalendarPreview";
 
 export default {
   name: "TestBshView",
+  components:{
+    CalendarPreview,
+  },
   data() {
     return {
       exchangeRate:'bsh',

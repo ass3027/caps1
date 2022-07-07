@@ -1,58 +1,59 @@
 <template>
-  <table
-    style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
-    <div style="margin-top: 10px">
-      <p style="display: inline; font-size: large; margin-left: 5px">
-        배송경로
-      </p>
-      <div style="display: inline; float: right; font-size: large; margin-right: 5px">
-        주문번호 #{{ order.ord_id }}
+  <v-container>
+    <table v-if="item.ord_selection===`물품운송`"
+           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
+      <div style="margin-top: 10px">
+        <p style="display: inline; font-size: large; margin-left: 5px">
+          배송경로
+        </p>
+        <div style="display: inline; float: right; font-size: large; margin-right: 5px">
+          주문번호 #{{ order.ord_id }}
+        </div>
       </div>
-    </div>
-    <div
-      id="map"
-      style="width:100%;height:350px;"
-    />
+      <div v-if="item.ord_selection===`물품운송`"
+           id="map"
+           style="width:100%;height:350px;"
+      />
 
-    <table id="order_detail">
-      <thead scope="row">
-      <tr/>
-      </thead>
-      <tbody>
-      <tr>
-        <th>금액</th>
-        <td>{{ order.ord_amount }} 원</td>
-      </tr>
-      <tr>
-        <th>픽업/완료</th>
-        <td>
-          <div>
-            {{ entrust_time }}
-          </div>
-          <div>
-            {{ withdraw_time }}
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th>출발지</th>
-        <td>{{ keep_start.addr1 }}</td>
-      </tr>
-      <tr>
-        <th>도착지</th>
-        <td>{{ keep_end.addr1 }}</td>
-      </tr>
-      <tr>
-        <th>거리</th>
-        <td>{{ degree_start_end }}Km</td>
-      </tr>
-      <tr>
-        <th>나로부터</th>
-        <td>{{ degree_user_start }}Km</td>
-      </tr>
-      <tr>
-        <th>물품정보</th>
-        <td>
+      <table id="order_detail">
+        <thead scope="row">
+        <tr/>
+        </thead>
+        <tbody>
+        <tr>
+          <th>금액</th>
+          <td>{{ order.ord_amount }} 원</td>
+        </tr>
+        <tr>
+          <th>픽업/완료</th>
+          <td>
+            <div>
+              {{ entrust_time }}
+            </div>
+            <div>
+              {{ withdraw_time }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>출발지</th>
+          <td>{{ keep_start.addr1 }}</td>
+        </tr>
+        <tr>
+          <th>도착지</th>
+          <td>{{ keep_end.addr1 }}</td>
+        </tr>
+        <tr>
+          <th>거리</th>
+          <td>{{ degree_start_end }}Km</td>
+        </tr>
+        <!--        <tr>-->
+        <!--          <th>나로부터</th>-->
+        <!--          <td>{{ degree_user_start }}Km</td>-->
+        <!--        </tr>-->
+        <tr>
+          <th>물품정보</th>
+          <td>
             <span
               v-for="(i, index) in ord_bag_info"
               :key="index"
@@ -60,35 +61,110 @@
               {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
               <span v-if="index !== ord_bag_info.length-1">, </span>
             </span>
-        </td>
-      </tr>
-      <tr>
-        <th>요청사항</th>
-        <td>{{ order.ord_request }}</td>
-      </tr>
-      </tbody>
+          </td>
+        </tr>
+        <tr>
+          <th>요청사항</th>
+          <td>{{ item.ord_request }}</td>
+        </tr>
+        </tbody>
+        <div>
+          <v-btn @click="backTrackingView()">목록</v-btn>
+        </div>
+
+        <div v-if="order.status==='승인대기'">
+          <v-btn
+            class="btn_type2"
+            height="54px"
+            color="white"
+            @click="deliveryCall()">승인완료</v-btn>
+        </div>
+      </table>
+
+      <div v-if="order.status === '운송요청'">
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="requestMatch()"
+        >
+          매칭요청
+        </v-btn>
+      </div>
+      <div v-if="order.status === '운송중'">
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="orderArrival()"
+        >
+          배송완료
+        </v-btn>
+      </div>
     </table>
-    <div v-if="order.status === '운송요청'">
-      <v-btn
-        class="btn_type2"
-        height="54px"
-        color="white"
-        @click="requestMatch()"
-      >
-        매칭요청
-      </v-btn>
-    </div>
-    <div v-if="order.status === '운송중'">
-      <v-btn
-        class="btn_type2"
-        height="54px"
-        color="white"
-        @click="orderArrival()"
-      >
-        배송완료
-      </v-btn>
-    </div>
-  </table>
+
+    <table v-else
+           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
+      <div style="margin-top: 10px">
+        <p style="display: inline; font-size: large; margin-left: 5px">
+          보관 상세조회
+        </p>
+        <div style="display: inline; float: right; font-size: large; margin-right: 5px">
+          주문번호 #{{ order.ord_id }}
+        </div>
+      </div>
+
+      <table>
+        <thead scope="row">
+        <tr/>
+        </thead>
+        <tbody>
+        <tr>
+          <th>금액</th>
+          <td>{{ item.ord_amount }} 원</td>
+        </tr>
+        <tr>
+          <th>보관시작시간/보관만료시간</th>
+          <td>
+            <div>
+              {{ item.entrust_time }}
+            </div>
+            <div>
+              {{ item.withdraw_time }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>물품보관장소</th>
+          <td>{{ keep_start.addr1 }}</td>
+        </tr>
+
+        <tr>
+          <th>요청사항</th>
+          <td>{{ item.ord_request }}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div v-if="order.status==='보관요청'">
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="inStorage()">보관중으로 변경
+        </v-btn>
+      </div>
+
+      <div>
+        <v-btn
+          class="btn_type2"
+          height="54px"
+          color="white"
+          @click="backTrackingView()">목록
+        </v-btn>
+      </div>
+    </table>
+  </v-container>
 </template>
 
 <script>
@@ -96,7 +172,7 @@ import axios from "axios";
 
 
 export default {
-  name: 'OrderDetail',
+  name: 'KeeperOrderDetail',
   props: {
     order: {type: Object},
   },
@@ -109,7 +185,9 @@ export default {
       degree_start_end: null,
       userId: this.$store.state.user.userId,
       user_lng: null,
-      user_lat: null
+      user_lat: null,
+      item: '',
+      plIdList: '',
     }
   },
   computed: {
@@ -125,10 +203,10 @@ export default {
       // var result = this.order.withdraw_time
       return result
     },
-    degree_user_start: function () {
-      var a = this.getDistanceFromLatLonInKm(this.keep_start.mapy, this.keep_start.mapx, this.user_lat, this.user_lng)
-      return a.toFixed(2) // 자릿수 반올림
-    }
+    // degree_user_start: function () {
+    //   var a = this.getDistanceFromLatLonInKm(this.keep_start.mapy, this.keep_start.mapx, this.user_lat, this.user_lng)
+    //   return a.toFixed(2) // 자릿수 반올림
+    // }
   },
   created() {
 
@@ -166,16 +244,71 @@ export default {
 
     axios.get("/api/orders/baginfo/" + this.order.ord_id).then(res => {
       this.ord_bag_info = res.data
-      console.log('order.ord_id', this.order.ord_id)
-      console.log('ord_bag_info', this.ord_bag_info)
     })
 
 
   },
   mounted() {
-
+    this.trackingDetail()
+    this.plId()
   },
   methods: {
+    //장소IO 받아옴
+    plId() {
+      axios.get("/api/plId/")
+        .then((res) => {
+          this.plIdList = res.data;
+          console.log("this.plId")
+          console.log(this.plIdList)
+        })
+    },
+
+    //키퍼회원물품 상세보기
+    trackingDetail() {
+      axios.get('/api/trackingDetail/' + this.order.ord_id)
+        .then((res) => {
+          this.item = res.data;
+          console.log("this.item")
+          console.log(this.item)
+        })
+    },
+
+    //운송 승인완료 변경
+    deliveryCall() {
+      console.log("plidList ", this.plIdList)
+      console.log("item_keep_start", this.item.keep_start)
+      for (var i = 0; i < this.plIdList.length; i++) {
+        if (this.plIdList[i] == this.item.keep_start) {
+          axios.post('/api/deliveryStartCall/' + this.order.ord_id)
+            .then((res) => {
+              console.log('출발키퍼 상태완료')
+              console.log(res.data)
+            })
+        } else if (this.plIdList[i] == this.item.keep_end) {
+          axios.post('/api/deliveryEndCall/' + this.order.ord_id)
+            .then((res) => {
+              console.log('도착키퍼 상태완료')
+              console.log(res.data)
+            })
+        }
+        this.$router.push('/KeeperTrackingView')
+      }
+
+    },
+
+    //보관 보관중으로 변경
+    inStorage() {
+      axios.post('/api/inStorage/' + this.order.ord_id)
+        .then((res) => {
+          console.log(res)
+        })
+      this.$router.push('/KeeperTrackingView');
+    },
+    //목록으로 돌아가기
+    backTrackingView() {
+      this.$router.push('/KeeperTrackingView')
+    },
+
     initMap() {
       console.log("[initMap()]")
 
@@ -237,10 +370,9 @@ export default {
         alert(res.data)
         this.$router.go();
       })
-    }
-
-  }
-};
+    },
+  },
+}
 </script>
 
 <style scoped>

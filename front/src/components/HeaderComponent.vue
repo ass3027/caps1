@@ -120,8 +120,8 @@
           style="display: inline-block"
         >
           <img
-            src="/api/photo/altImage/packless_travel_logo.png"
             alt="PacklessTravel 로고"
+            src="/api/photo/altImage/packless_travel_logo.png"
             style="display: block;height: 100px;"
           >
         </a>
@@ -211,19 +211,18 @@ export default {
         [
           {title: '호텔', route: '/place/hotel'},
           {title: '모텔', route: '/place/motel'},
-          {title: '펜션', route: '/place'},
-          {title: '글램핑', route: '/place'},
-          {title: '리조트', route: '/place'},
-          {title: '게스트하우스', route: '/place'},
-          {title: '예약 조회', route: '/productBookView'}
+          {title: '펜션', route: '/place/pension'},
+          {title: '게스트하우스', route: '/place/home'},
+          {title: '예약 조회', route: '/productBookView'},
+          {title: '매출 조회', route: '/chart'}
         ],
         [
           {title: '가방예약', route: '/SelectionOrder'},
           {title: '이용안내', route: '/UsageGuideView'},
           {title: '요금', route: '/FareView'},
           {title: '후기', route: '/ReviewView'},
-          {title: '배송조회', route: '/GTrackingView'},
-          {title: '키퍼배송조회', route: '/KeeperTrackingView'},
+          {title: '물품조회', route: '/GTrackingView'},
+          {title: '키퍼물품조회', route: '/KeeperTrackingView'},
         ],
         [
           {title: '가이드 등록', route: '/GuideRegister'},
@@ -292,7 +291,7 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$store.dispatch('user/setUser', {user_id :'anonymousUser'})
+          this.$store.dispatch('user/setUser', {user_id: 'anonymousUser'})
           // this.$router.push("/")
           location.href = "/"
         })
@@ -304,13 +303,13 @@ export default {
     //   this.$router.push({path:a.route, params:{'value':a.title}})
     // }
     MyPage() {
-      this.$router.push("/MyPage")
+      this.$router.push("/MyPage/MyPageInfo")
     },
-    update(){
-      this.$router.push("/MyPageUpdate")
+    update() {
+      this.$router.push("/MyPage/MyPageUpdate")
     },
-    bookmark(){
-      this.$router.push("/BookMark")
+    bookmark() {
+      this.$router.push("/MyPage/BookMark")
     }
   }
 };

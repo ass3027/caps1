@@ -43,6 +43,11 @@ public class GuideService {
    public GItemDAO 매출_조회(String id){
       return gitemMapper.selectCount(id);
    }
+
+   public List<GItemDAO> 매출_조회_리스트(String id){
+      return gitemMapper.selectCountList(id);
+   }
+
    public GItemDAO 매출_조회7(String id){
       return gitemMapper.selectCount7(id);
    }
@@ -96,8 +101,8 @@ public class GuideService {
    public void 예약_등록(GItemDAO gitemDAO){
       gitemMapper.insertReserve(gitemDAO);
    }
-   public void 결제(GItemDAO gItemDAO){
-      gitemMapper.insertPay(gItemDAO);
+   public void 결제(GItemDAO gitemDAO){
+      gitemMapper.insertPay(gitemDAO);
    }
 
    public List<GItemDAO> 시간_조회(String id){

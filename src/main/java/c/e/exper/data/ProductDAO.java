@@ -22,5 +22,15 @@ public class ProductDAO {
     String content;
     String firstimage;
     String firstimage2;
+    String user_id;
+
+    String pay_price;
+    String date;
+    String product_time_num;
+
+    int count;
+    int count7;
+    int count1;
+    int count30;
 
 }

@@ -1,38 +1,38 @@
 <template>
   <div>
-    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>
-    <v-carousel
-      v-if="items.length!=0"
-      style="width:300px;height: 300px"
-      >
-      <v-carousel-item
+<!--    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>-->
+    <v-row v-if="items!=''">
+      <v-col
         v-for="(item,i) in items"
         :key="i"
-        :src="item.firstimage"
-
-        reverse-transition="fade-transition"
-        transition="fade-transition"
+        cols="2"
       >
-        <div
+        <img
+        :src="item.firstimage"
+        @click="$router.push({path:`/tour/${item.pl_id}`})"
+
+        >
+        <span
           v-if="item.title!==''"
           class="innerText"
         >
-          <h3>{{ i+1 }}.{{ item.title }}</h3>
+          <h3>{{ item.title }}</h3>
           <v-btn @click="toCalendar(item)">
             일정에추가
           </v-btn>
-        </div>
-      </v-carousel-item>
-    </v-carousel>
-    <v-carousel
-      v-else
-      style="width:300px;height: 300px;background-size:auto;"
-    >
-      <v-carousel-item
-        src="/api/photo/placeImage/no_place.png"
-        style="background-size: contain; "
-      />
-    </v-carousel>
+        </span>
+      </v-col>
+    </v-row>
+    <v-row v-else>
+        <img
+          src="/api/photo/placeImage/no_place.png"
+          style="width: 230px;height:200px"
+          class="mt-5"
+          @click="$router.push({path:'/calender'})"
+
+        >
+    </v-row>
+
   </div>
 </template>
 
@@ -84,27 +84,9 @@ export default {
 </script>
 
 <style scoped>
-.v-carousel{
-  width: 500px;
-  height: 300px;
-  align: center;
-}
-.innerText{
-  text-align: right;
-  margin: 10px;
-}
-.v-image__image{
-  background-size:auto;
+img{
+  width: 180px;
+  height: 180px;
 }
 
-.v-image__image--cover{
-  background-size:auto;
-}
-
-
-
-
-.v-window-item > div {
-  height: auto;
-}
 </style>

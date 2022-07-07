@@ -30,9 +30,22 @@ public interface ReviewMapper {
                              from PAYMENT
                              where gtime_num in (select TIME_NUM
                                                  from AVAILABLE_TIME
-                                                 where GITEM_ID = #{gitem_id}));""")
+                                                 where GITEM_ID = #{gitem_id}))""")
     List<Review> findGuideProductReview(@Param("gitem_id") String gitem_id);
 
+
+    @Select("""
+            select *
+            from review
+            where pay_id in (select PAY_ID
+                             from PAYMENT
+                             where gtime_num in (select TIME_NUM
+                                                 from AVAILABLE_TIME
+                                                 where GITEM_ID in (select GITEM_ID
+                                                                    from gitem
+                                                                    where user_id = #{guide_id})))
+            """)
+    List<Review> findGuideReview(@Param("guide_id") String guide_id);
 
     @Insert("""
             INSERT INTO review(rev_id,
@@ -148,14 +161,6 @@ public interface ReviewMapper {
             WHERE  pd_id = #{pd_id}""")
     List<Review> findAllReviewForProduct2(@Param("pd_id") String pd_id);
 
-    @Select("""
-            SELECT *
-            FROM   review
-            WHERE  gitem_id IN (SELECT gitem_id
-                               FROM gitem
-                               WHERE guide_id = #{guide_id})
-                               """)
-    List<Review> findGuideReview(@Param("guide_id") String guide_id);
 
     @Select("""
             SELECT *

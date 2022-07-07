@@ -75,10 +75,20 @@ public interface ShareMapper {
             "where a.PLAN_ID=c.PLAN_ID\n" +
             "and c.PL_ID=d.PL_ID\n" +
             "and share_id = #{share_id}\n" +
-            "and firstimage is not null")
+            "and firstimage is not null\n" +
+            "and rownum<=2")
     public List<String> getShareFirstImages(String share_id);
 
     @Delete("delete from SHARES_COMMENT where COMMENT_ID=#{comment_id}")
     public void delShareComment(String comment_id);
 
+    @Select("select *\n" +
+            "from SHARES\n" +
+            "where SHARE_ID in (select SHARE_ID\n" +
+            "                  from (select SHARE_ID, count(SHARE_ID)\n" +
+            "                        from SHARES_REC\n" +
+            "                        group by SHARE_ID\n" +
+            "                        order by 2 desc)\n" +
+            "                  where rownum <= 6)\n")
+    List<ShareDTO> findBestShare();
 }
