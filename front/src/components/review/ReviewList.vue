@@ -150,7 +150,7 @@ export default {
 }
 
 .xans-product-additional div.board > .btnArea {
-  border-top: 1px solid #6a3664;
+  border-top: 1px solid #333;
 }
 
 .xans-product-additional div.board .btnArea {
@@ -184,7 +184,7 @@ export default {
   line-height: 40px;
   text-align: center;
   background-color: #795b8f;
-  border: 1px solid #5f0080;
+  border: 1px solid #333;
   color: #fff;
   font-size: 15px;
   float: right;
@@ -214,7 +214,7 @@ export default {
 }
 
 .xans-board-listheader {
-  border-top: 2px solid #522772;
+  border-top: 2px solid #333;
   font-size: 13px;
   line-height: 140%
 }
@@ -248,7 +248,7 @@ export default {
 .xans-board-listheader td .price {
   font-size: 18px;
   font-weight: 700;
-  color: #6a3664 !important
+  color: #333 !important
 }
 
 .xans-board-listheader td.button a span {
@@ -331,6 +331,6 @@ export default {
 }
 
 .xans-board-listheader td.state {
-  color: #795c90
+  color: #333
 }
 </style>

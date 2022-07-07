@@ -25,8 +25,6 @@ public class ReviewMapperTest {
         Review review = Review.builder()
                 .user_id("1")
                 .rev_content("넌 그냥 나가라")
-                .rev_rating(1)
-                .ord_id(2)
                 .build();
 
         mapper.addOrderReview(review);
@@ -38,8 +36,6 @@ public class ReviewMapperTest {
         Review review = Review.builder()
                 .user_id("이세진")
                 .rev_content("넌 그냥 들어와라")
-                .rev_rating(1)
-                .book_id(1)
                 .build();
 
         mapper.addBookReview(review);
@@ -77,7 +73,6 @@ public class ReviewMapperTest {
         Review review = Review.builder()
                 .rev_id("100")
                 .rev_content("ABCDEFGHIJKLMNOPQRSTUVWOXYZ")
-                .rev_rating(1)
                 .build();
 
         System.out.println(review);

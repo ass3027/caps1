@@ -6,6 +6,7 @@ import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.service.FileServiceImpl;
 import c.e.exper.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,19 +28,17 @@ public class ApiReview {
     }
 
 
-    @PostMapping("/addReview")
-    public int addReview(Review review, HttpServletRequest req) {
+    @PostMapping("/addReview/{type}/{id}")
+    public void addReview(@PathVariable String type, @PathVariable String id, Review review, HttpServletRequest req) {
 
+        review.setUser_id(SecurityContextHolder.getContext().getAuthentication().getName());
+        review.setPay_id(id);
 
         System.out.println("등록할 리뷰: " + review);
+        System.out.println("type: " + type);
+        System.out.println("id: " + id);
+        review.setRev_img_filename(fileService.photoSave(review.getRev_photo(), req, "reviewImage"));
 
-
-//        review.setRev_img_filename(fileService.photoSave(review.getRev_photo(), req, "reviewImage"));
-
-        int insertColumnCount = reviewService.리뷰_등록(review);
-        System.out.println("등록 컬럼 갯수: " + insertColumnCount);
-
-        return insertColumnCount;
     }
 
     @GetMapping("/allReview")
