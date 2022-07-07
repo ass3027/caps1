@@ -1,20 +1,14 @@
 package c.e.exper.mapper;
 
-import c.e.exper.data.BagDAO;
-import c.e.exper.data.GItemDAO;
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.PaymentDTO;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-
 import java.util.List;
 import java.util.Map;
-
 @Mapper
 public interface PaymentMapper {
 

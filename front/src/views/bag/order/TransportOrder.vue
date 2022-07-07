@@ -16,36 +16,75 @@
         v-model="valid"
         style="padding-top: 50px"
       >
+
         <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
           <div style="width: 50%; display: inline-block">
-            <h3>출발장소</h3>
-            <search-place @childEvent="startAddress"/>
-            <br>
-            <div>출발장소: {{ startLodging.title }}</div>
-            <div>키퍼회원ID: {{ startLodging.user_id }}</div>
-            <v-img
-              :src="startLodging.firstimage2"
-              width="200px"
-              height="150px"
-              class="ma-2"
-              alt=""
-            />
-            <br>
+            <v-card>
+              <v-col>
+                <v-row>
+                  <h1 style="padding-top: 30px; padding-left: 30px">
+                    출발장소 :
+                  </h1>
+                  <search-place @childEvent="startAddress" style="padding-top:35px; padding-left: 30px"/>
+                </v-row>
+              </v-col>
+              <br>
+              <v-card
+                class="mx-auto"
+                max-width="350"
+                max-height="350"
+                v-if="this.sIndex==true"
+              >
+                <v-img
+                  :src="startLodging.firstimage2"
+                  height="200px"
+                ></v-img>
+                <v-card-title>
+                  {{ startLodging.title }}
+                </v-card-title>
+
+                <v-card-subtitle>
+                  주소:{{ startLodging.addr1 }}
+                </v-card-subtitle>
+
+              </v-card>
+              <br>
+            </v-card>
           </div>
+
+
           <div style="width: 50%; display: inline-block">
-            <h3>도착장소</h3>
-            <search-place @childEvent="endAddress"/>
-            <br>
-            <div>도착장소: {{ endLodging.title }}</div>
-            <div>키퍼회원ID: {{ endLodging.user_id }}</div>
-            <v-img
-              :src="endLodging.firstimage2"
-              width="200px"
-              height="150px"
-              class="ma-2"
-              alt=""
-            />
-            <br>
+            <v-card>
+              <v-col>
+                <v-row>
+                  <h1 style="padding-top: 30px; padding-left: 30px">
+                    도착장소 :
+                  </h1>
+                  <search-place @childEvent="endAddress" style="padding-top:35px; padding-left: 30px"/>
+                </v-row>
+              </v-col>
+              <br>
+              <v-card
+                class="mx-auto"
+                max-width="350"
+                max-height="350"
+                v-if="this.eIndex==true"
+              >
+                <v-img
+                  :src="endLodging.firstimage2"
+                  height="200px"
+                ></v-img>
+                <v-card-title>
+                  {{ endLodging.title }}
+                </v-card-title>
+
+                <v-card-subtitle>
+                  주소:{{ endLodging.addr1 }}
+                </v-card-subtitle>
+
+              </v-card>
+              <br>
+            </v-card>
           </div>
         </div>
 
@@ -144,6 +183,8 @@ export default {
   },
   data() {
     return {
+      sIndex: false,
+      eIndex: false,
       sDate: '',
       panel: [0, 1],
       disabled: false,
@@ -228,10 +269,10 @@ export default {
         console.log(rsp);
         if (rsp.success) {
           console.log(rsp)
-          var imp={
-            user_id:this.$store.state.user.userId,
-            ord_id:'',
-            pay_price:rsp.paid_amount,
+          var imp = {
+            user_id: this.$store.state.user.userId,
+            ord_id: '',
+            pay_price: rsp.paid_amount,
           }
           axios.post('/api/transportPay', imp)
             .then((res) => {
@@ -250,12 +291,15 @@ export default {
 
     startAddress: function (lodging) {
       this.startLodging = lodging
+      this.sIndex = true
       console.log("시작장소데이터")
       console.log(this.startLodging);
+
     },
 
     endAddress: function (lodging) {
       this.endLodging = lodging
+      this.eIndex = true
       console.log("도착장소데이터")
       console.log(lodging)
     },

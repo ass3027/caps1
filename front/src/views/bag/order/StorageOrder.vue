@@ -18,23 +18,39 @@
 
       <v-form v-model="valid">
         <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-          <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
-            <h3 style="padding-top: 10px">
-              맡길장소
-            </h3>
-            <br>
+          <br>
+          <v-card>
+            <v-col>
+              <v-row>
+                <h1 style="padding-top: 30px; padding-left: 30px">
+                  🧳 맡길장소 :
+                </h1>
+                <search-place @childEvent="getEmitData" style="padding-top:30px; padding-left: 10px"/>
 
-            <search-place @childEvent="getEmitData"/>
-            <br>
-            <div>맡길장소: {{ lodging.title }}</div>
-            <v-img
-              :src="lodging.firstimage2"
-              width="200px"
-              height="150px"
-              alt=""
-            />
-            <br>
-          </table>
+              </v-row>
+              <br>
+              <v-card
+                class="mx-auto"
+                max-width="344"
+                v-if="this.index==true"
+              >
+                <v-img
+                  :src="lodging.firstimage2"
+                  height="200px"
+                ></v-img>
+                <v-card-title>
+                  {{ lodging.title }}
+                </v-card-title>
+
+                <v-card-subtitle>
+                  주소:{{lodging.addr1}}
+                </v-card-subtitle>
+
+              </v-card>
+
+              <br>
+            </v-col>
+          </v-card>
         </div>
 
         <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
@@ -135,6 +151,7 @@ export default {
   },
   data() {
     return {
+      index:false,
       sDate: '',
       panel: [0, 1],
       disabled: false,
@@ -219,10 +236,10 @@ export default {
         console.log(rsp);
         if (rsp.success) {
           console.log(rsp)
-          var imp={
-            user_id:this.$store.state.user.userId,
-            ord_id:'',
-            pay_price:rsp.paid_amount,
+          var imp = {
+            user_id: this.$store.state.user.userId,
+            ord_id: '',
+            pay_price: rsp.paid_amount,
           }
           axios.post('/api/transportPay', imp)
             .then((res) => {
@@ -242,7 +259,9 @@ export default {
 
     getEmitData: function (lodging) {
       this.lodging = lodging
-      console.log("받은데이터" + this.lodging)
+      this.index = true
+      console.log("받은데이터", this.lodging)
+
     },
 
     addOrder() {
@@ -261,7 +280,7 @@ export default {
         .post('/api/storageAddOrder', storageBag)
         .then((res) => {
           console.log(storageBag)
-         this.reserve()
+          this.reserve()
         })
     },
     startAddress(address) {
