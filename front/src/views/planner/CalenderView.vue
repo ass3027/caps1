@@ -8,6 +8,7 @@
       <div class="map">
         <MapComponent
           index="00"
+          :rec="rec"
         />
       </div>
 
@@ -220,11 +221,13 @@ import axios from "axios";
 
 export default {
   name: 'CalenderView',
+
   components: {
     DateComponent,
     PlannerHeader,
     MapComponent
   },
+  props:['rec'],
   data() {
     return {
       schName: 'gg',
