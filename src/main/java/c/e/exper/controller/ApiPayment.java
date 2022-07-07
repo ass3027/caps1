@@ -1,11 +1,11 @@
 package c.e.exper.controller;
 
+import c.e.exper.data.BagDAO;
 import c.e.exper.data.PaymentDAO;
+import c.e.exper.data.PaymentDTO;
 import c.e.exper.mapper.PaymentMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,5 +44,12 @@ public class ApiPayment {
         Map<String, Object> result = new HashMap<>();
         return paymentMapper.paymentList("um");
     }
-
+    
+    //물품배송 결제
+    @PostMapping("/transportPay")
+    public void transportPay(@RequestBody PaymentDTO imp){
+        String orderId = paymentMapper.getorderId();
+        imp.setOrd_id(orderId);
+        paymentMapper.transportPay(imp);
+    }
 }

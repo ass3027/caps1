@@ -12,8 +12,12 @@ import java.util.List;
 public class BagService {
    @Autowired
    public BagMapper bagMapper;
+   //일반회원 물품 상세보기
+   public BagDAO gOrderDetail(@PathVariable("ord_id") String ord_id) {
+      return bagMapper.gOrderDetail(ord_id);
+   }
    
-   //물품 상세보기
+   //키퍼회원 물품 상세보기
    public BagDAO trackingDetail(@PathVariable("ord_id") String ord_id) {
       return bagMapper.trackingDetail(ord_id);
    }

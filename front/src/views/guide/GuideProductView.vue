@@ -130,7 +130,6 @@ export default {
         })
     },
     reserve() {
-
       var IMP = window.IMP;
       IMP.init('imp19569487');
       console.log(this.lists)
