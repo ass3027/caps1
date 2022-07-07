@@ -177,7 +177,7 @@ public interface PlaceMapper {
                      where c.PL_ID = a.PL_ID
                      order by count desc
                  )
-            where ROWNUM <= 3""")
+            where ROWNUM <= 6""")
     List<PlaceDAO> findBestPlace();
 
     @Select("""
@@ -206,9 +206,11 @@ public interface PlaceMapper {
                   group by PL_ID
                   order by 2 desc
                  )a, place b
-            where rownum <= 3
+            where rownum <= 6
             and a.PL_ID=b.PL_ID
             """)
     List<PlaceDAO> findBestHotel();
 
+    @Select("select firstimage from place where pl_id=#{contentid}")
+    String getFirstImage(String contentid);
 }

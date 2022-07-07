@@ -51,7 +51,7 @@
       <v-row>
         <search-tour></search-tour>
       </v-row>
-      <v-row justify="center">
+      <v-row justify="center" style="text-align: center">
         <v-col cols="2">
           <img class="" src="/api/photo/altImage/planner4.png" @click="$router.push({path:'/calender'})">
 
@@ -69,7 +69,7 @@
 
         </v-col>
       </v-row>
-      <v-row justify="center">
+      <v-row justify="center" style="text-align: center">
         <v-col cols="2">
           <p style="font-weight: bold" @click="$router.push({path:'/calender'})">여행플래너 작성하기</p>
 
@@ -142,7 +142,7 @@
     </v-row>
 
 
-    <v-row justify="center">
+    <v-row justify="center" style="text-align: center">
       <v-col cols="2">
         <img class="" src="/api/photo/altImage/planner4.png" @click="$router.push({path:'/calender'})">
 
@@ -160,7 +160,7 @@
 
       </v-col>
     </v-row>
-    <v-row justify="center">
+    <v-row justify="center" style="text-align: center">
       <v-col cols="2">
         <p style="font-weight: bold" @click="$router.push({path:'/calender'})">여행플래너 작성하기</p>
 

@@ -2,24 +2,24 @@
   <div>
     <div id="map" />
     <div class="button-group">
-      <button @click="changeSize(0)">
-        Hide
-      </button>
-      <button @click="changeSize(400)">
-        show
-      </button>
-      <button @click="displayMarker(markerPositions1)">
-        marker set 1
-      </button>
-      <button @click="displayMarker(markerPositions2)">
-        marker set 2
-      </button>
-      <button @click="displayMarker([])">
-        marker set 3 (empty)
-      </button>
-      <button @click="displayInfoWindow">
-        infowindow
-      </button>
+<!--      <button @click="changeSize(0)">-->
+<!--        Hide-->
+<!--      </button>-->
+<!--      <button @click="changeSize(400)">-->
+<!--        show-->
+<!--      </button>-->
+<!--      <button @click="displayMarker(markerPositions1)">-->
+<!--        marker set 1-->
+<!--      </button>-->
+<!--      <button @click="displayMarker(markerPositions2)">-->
+<!--        marker set 2-->
+<!--      </button>-->
+<!--      <button @click="displayMarker([])">-->
+<!--        marker set 3 (empty)-->
+<!--      </button>-->
+<!--      <button @click="displayInfoWindow">-->
+<!--        infowindow-->
+<!--      </button>-->
     </div>
   </div>
 </template>
@@ -27,6 +27,7 @@
 <script>
 export default {
   name: "KakaoMap",
+  props:['place'],
   data() {
     return {
       markerPositions1: [
@@ -48,6 +49,7 @@ export default {
     };
   },
   mounted() {
+
     if (window.kakao && window.kakao.maps) {
       this.initMap();
     } else {
@@ -63,7 +65,7 @@ export default {
     initMap() {
       const mapContainer = document.getElementById("map"); // 지도를 표시할 div
       const mapOptions = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),  // 지도의 중심좌표
+        center: new kakao.maps.LatLng(this.place.mapy, this.place.mapx),  // 지도의 중심좌표
         level: 5, // 지도의 확대 레벨
       };
 
@@ -72,7 +74,7 @@ export default {
       var map = new kakao.maps.Map(mapContainer, mapOptions);
 
       // 마커가 표시될 위치
-      var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667);
+      var markerPosition  = new kakao.maps.LatLng(this.place.mapy, this.place.mapx);
 
       // 마커 생성
       var marker = new kakao.maps.Marker({
@@ -142,7 +144,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #map {
-  width: 400px;
+  width: 1000px;
   height: 400px;
 }
 

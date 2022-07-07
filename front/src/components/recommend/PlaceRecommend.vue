@@ -6,19 +6,20 @@
         v-for="(item,i) in items"
         :key="i"
         cols="2"
-        @click="$router.push({path:'/calender'})"
       >
         <img
         :src="item.firstimage"
+        @click="$router.push({path:`/tour/${item.pl_id}`})"
+
         >
         <span
           v-if="item.title!==''"
           class="innerText"
         >
           <h3>{{ item.title }}</h3>
-<!--          <v-btn @click="toCalendar(item)">-->
-<!--            일정에추가-->
-<!--          </v-btn>-->
+          <v-btn @click="toCalendar(item)">
+            일정에추가
+          </v-btn>
         </span>
       </v-col>
     </v-row>
