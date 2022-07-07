@@ -79,10 +79,9 @@ public class ApiPayment {
 
     // 물품배송 결제
     @PostMapping("/transportPay")
-    public void transportPay(@RequestBody PaymentDTO imp) {
+    public void transportPay(@RequestBody PaymentDTO imp){
         String orderId = paymentMapper.getorderId();
         imp.setOrd_id(orderId);
         paymentMapper.transportPay(imp);
     }
-
 }
