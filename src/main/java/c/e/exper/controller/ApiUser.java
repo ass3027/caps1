@@ -68,6 +68,13 @@ public class ApiUser {
     @GetMapping("/find")
     public UserDAO findUser() {
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("user_id = " + user_id);
+        if(user_id.equals("anonymousUser")) {
+            return UserDAO.builder()
+                    .user_id("anonymousUser")
+                    .role("")
+                    .build();
+        }
         return userMapper.selectId(user_id).get();
     }
 
@@ -219,12 +226,12 @@ public class ApiUser {
 //        System.out.println("count: " + i);
     }
 
-    @GetMapping("/role")
-    public String getUserRole(){
-        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        return userMapper.selectId(user_id).get().getRole();
-    }
+//    @GetMapping("/role")
+//    public String getUserRole(){
+//        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+//
+//        return userMapper.selectId(user_id).get().getRole();
+//    }
 
     public String getRandomPhone(){
 

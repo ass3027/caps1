@@ -48,6 +48,10 @@ export default {
 /*  font-style: normal;*/
 /*}*/
 
+* {
+  color : #262626;
+}
+
 .v-application--wrap {
   min-height: unset;
 }

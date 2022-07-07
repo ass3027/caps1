@@ -2,15 +2,24 @@
   <v-app
     class="header-layout"
   >
-
     <div id="userMenu">
-
-      <ul class="list_menu" ><!----> <!---->
-        <li class="menu menu_user" @click="MyPage" v-if="isLogin">
-          <a class="link_menu grade_comm">
-            <span class="ico_grade grade0" style="padding: 0; margin: 0 10px 0 0;">{{ user_role }}</span>
+      <ul class="list_menu">
+        <!----> <!---->
+        <li
+          v-if="isLogin"
+          class="menu menu_user"
+          @click="MyPage"
+        >
+          <a
+            class="link_menu grade_comm"
+            style="font-size:24px"
+          >
+            <span
+              class="ico_grade grade0"
+              style="padding: 0; margin: 0 10px 0 0;"
+            >{{ user_role }}</span>
             <span class="txt">
-              <span class="name">{{ user_id }}</span>
+              <span class="name">{{ user_name }}</span>
               <span class="sir">님</span>
             </span> <!---->
           </a>
@@ -27,82 +36,80 @@
             <li><a @click="logOut">로그아웃</a></li>
           </ul>
         </li>
+        <template v-else>
+          <li
 
-        <li class="menu none_sub menu_join" v-if="!isLogin">
-          <a class="link_menu" href="/join">회원가입</a>
-        </li>
-        <li class="menu none_sub menu_login" v-if="!isLogin">
-          <a class="link_menu" href="/login">로그인</a> <!---->
-        </li>
+            class="menu none_sub menu_join"
+          >
+            <a
+              class="link_menu"
+              href="/join"
+            >회원가입</a>
+          </li>
+          <li
 
-        <li class="menu lst"><a href="/shop/board/list.php?id=notice" class="link_menu">고객센터</a>
+            class="menu none_sub menu_login"
+          >
+            <a
+              class="link_menu"
+              href="/login"
+            >로그인</a> <!---->
+          </li>
+        </template>
+
+
+        <li class="menu lst">
+          <a
+            href="/shop/board/list.php?id=notice"
+            class="link_menu"
+            style="font-size:24px"
+          >고객센터</a>
           <ul class="sub">
-            <li><a href="#none"
-                   onclick="KurlyTrackerLink('/shop/board/list.php?id=notice', 'select_my_kurly_notice_list')">공지사항</a>
+            <li>
+              <a
+                href="#none"
+                onclick="KurlyTrackerLink('/shop/board/list.php?id=notice', 'select_my_kurly_notice_list')"
+              >공지사항</a>
             </li>
-            <li><a href="#none" onclick="KurlyTrackerLink('/shop/service/faq.php', 'select_my_kurly_frequently_qna')">자주하는
-              질문</a></li>
-            <li><a href="#none"
-                   onclick="KurlyTrackerLink('/mypage/inquiry/list', 'select_my_kurly_personal_inquiry_history')">1:1
-              문의</a></li>
-            <li><a href="#none"
-                   onclick="KurlyTrackerLink('/shop/main/html.php?htmid=mypage/bulk_order.htm', 'select_my_kurly_bulk_order')">대량주문
-              문의</a></li>
-            <li><a href="#none" onclick="KurlyTrackerLink('/shop/mypage/offer.php', 'select_my_kurly_product_offer')">상품
-              제안</a></li>
-            <li><a href="#none"
-                   onclick="KurlyTrackerLink('/shop/mypage/echo_packing.php', 'select_my_kurly_eco_packing_feedback')">에코포장
-              피드백</a></li>
+            <li>
+              <a
+                href="#none"
+                onclick="KurlyTrackerLink('/shop/service/faq.php', 'select_my_kurly_frequently_qna')"
+              >자주하는
+                질문</a>
+            </li>
+            <li>
+              <a
+                href="#none"
+                onclick="KurlyTrackerLink('/mypage/inquiry/list', 'select_my_kurly_personal_inquiry_history')"
+              >1:1
+                문의</a>
+            </li>
+            <li>
+              <a
+                href="#none"
+                onclick="KurlyTrackerLink('/shop/main/html.php?htmid=mypage/bulk_order.htm', 'select_my_kurly_bulk_order')"
+              >대량주문
+                문의</a>
+            </li>
+            <li>
+              <a
+                href="#none"
+                onclick="KurlyTrackerLink('/shop/mypage/offer.php', 'select_my_kurly_product_offer')"
+              >상품
+                제안</a>
+            </li>
+            <li>
+              <a
+                href="#none"
+                onclick="KurlyTrackerLink('/shop/mypage/echo_packing.php', 'select_my_kurly_eco_packing_feedback')"
+              >에코포장
+                피드백</a>
+            </li>
           </ul>
         </li>
       </ul>
     </div>
-
-
-<!--        <div id="userMenu">-->
-<!--          &lt;!&ndash;로그인 박스(로그인 O)&ndash;&gt;-->
-<!--          <div-->
-<!--            v-if="isLogin"-->
-<!--            class="login-box"-->
-<!--          >-->
-<!--            <v-btn text>-->
-<!--              {{ $store.state.user.userId }}-->
-<!--            </v-btn>-->
-
-<!--            <v-btn-->
-<!--              text-->
-<!--              @click="logOut"-->
-<!--            >-->
-<!--              logout-->
-<!--            </v-btn>-->
-<!--            <img-->
-<!--              :src="photo"-->
-<!--              style="width:50px;height:50px"-->
-<!--              alt=""-->
-<!--            >-->
-<!--          </div>-->
-<!--          &lt;!&ndash;로그인 박스(로그인 X)&ndash;&gt;-->
-<!--          <div-->
-<!--            v-else-->
-<!--            class="login-box"-->
-<!--          >-->
-<!--            <v-btn-->
-<!--              text-->
-<!--              router-->
-<!--              to="/login"-->
-<!--            >-->
-<!--              login-->
-<!--            </v-btn>-->
-<!--            <v-btn-->
-<!--              text-->
-<!--              router-->
-<!--              to="/join"-->
-<!--            >-->
-<!--              join-->
-<!--            </v-btn>-->
-<!--          </div>-->
-<!--        </div>-->
-
     <div id="headerLogo">
       <h1
         class="logo"
@@ -242,22 +249,19 @@ export default {
         ]
       ],
       scroll: null,
-      user_id: '',
+      user_name: '',
       user_role: null,
     }
   },
   computed: {
-
-
     isLogin() {
       return this.$store.getters['user/isLogin']
     },
-    userId() {
-      return this.$store.state.user.userId
-    },
+
 
   },
   created() {
+    this.updateUser()
     EventBus.$on("photoUpdate", (photo) => {
       this.photo = "/api/photo/" + decodeURI(photo)
     })
@@ -267,9 +271,18 @@ export default {
     })
   },
   methods: {
-    updateUser() {
-      this.user_id = this.$store.state.user.userId
-      this.user_role = this.$store.state.user.userRole
+    async updateUser() {
+      const { data } = await axios.get("/api/user/find")
+      // const user
+      console.log(data)
+      this.user_name = data.user_name
+      if(data.role==='user') this.user_role = '일반회원'
+      else if(data.role==='delivery') this.user_role = '운송회원'
+      else this.user_role = '키퍼회원'
+
+      const temp = {id:data.user_id, role:data.role}
+      await this.$store.dispatch("user/setUser", temp)
+
     },
     logOut() {
       console.log(22)
@@ -333,7 +346,7 @@ export default {
 }
 
 #userMenu .list_menu {
-  float:right
+  float: right;
 }
 
 #userMenu .menu {
@@ -457,7 +470,6 @@ export default {
 #userMenu .menu.lst:before {
   right: 0
 }
-
 
 #userMenu .menu.lst .link_menu {
   padding-right: 13px

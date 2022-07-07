@@ -1,25 +1,29 @@
 <template>
-  <div style="width:100px;height:100px;min-width: 1350px">
-    <h2>일정선택</h2>
-    <select
-      v-model="plan_id"
-      style="border-style:solid;width:150px;height:45px;font-size: 24px; "
-      @change="reload"
-    >
-      <option
-        v-for="(plan,index) in plan_list"
-        :key="index"
-        :value="plan.plan_id"
+
+  <div style="width:100px;min-width: 1350px;margin-bottom: 20px ">
+    <v-divider />
+    <div style="margin-top: 30px">
+      <h2>일정선택</h2>
+      <select
+        v-model="plan_id"
+        style="border-style:solid;width:150px;height:45px;font-size: 24px; "
+        @change="reload"
       >
-        {{ plan.plan_name }}
-      </option>
-    </select>
-    <p
-      v-if=" plan_id==='' "
-      class="warningText"
-    >
-      플래너를 선택해주세요!
-    </p>
+        <option
+          v-for="(plan,index) in plan_list"
+          :key="index"
+          :value="plan.plan_id"
+        >
+          {{ plan.plan_name }}
+        </option>
+      </select>
+      <p
+        v-if=" plan_id==='' "
+        class="warningText"
+      >
+        플래너를 선택해주세요!
+      </p>
+    </div>
     <!--    <v-select-->
     <!--      class="select-size"-->
     <!--      :item="plan_list"-->

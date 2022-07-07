@@ -20,11 +20,12 @@ export default {
       let scheduleData
 
       if (mapData !== undefined) {
-        const previousData = partitionedCalendar.get(state.selectTime)
-
+        let previousData = partitionedCalendar.get(state.selectTime)
+        if(previousData === undefined) previousData = {}
         scheduleData = {
           gitem_id: previousData.gitem_id,
           pl_id: mapData.pl_id,
+          pl_name : mapData.pl_name,
           expect_expenses: previousData.expect_expenses,
           mapX: mapData.mapX,
           mapY: mapData.mapY,
@@ -40,7 +41,6 @@ export default {
           address: ''
         }
       }
-
 
       partitionedCalendar.set(state.selectTime, scheduleData)
       const convertedMap = [...partitionedCalendar]
