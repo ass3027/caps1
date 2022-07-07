@@ -1,57 +1,61 @@
 <template>
-  <div class="card">
-    <h1>{{ keyword }}</h1>
-    <v-row
-      cols="0"
-      md="0"
+  <div>
+    <div style="display: flex"
     >
-      <v-card
-        v-for="(item,index) in lists"
-        :key="index"
-        class="mx-auto"
-        width="344"
-        outlined
-        justify="start"
-      >
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="text-overline mb-4">
-              이름:{{ item.user_name }}
-            </div>
-            <div>
-              자격증:<br>{{ item.guide_license }}
-            </div>
-            <v-list-item-title class="text-h5 mb-1">
-              ID:{{ item.user_id }}
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              소개<br>{{ item.guser_intro }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
+      <v-row
+        style="margin: 18px"
+        cols="0"
+        md="0">
+
+        <v-card
+          v-for="(item,index) in lists"
+          :key="index"
+          style="margin: 20px;"
+          class="mx-auto"
+          width="400"
+        >
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            :src="img(item.pic_name)"
+          >
+            <h2 style="color: black">{{item.user_name}}
+              <br> {{item.user_id}}
+            </h2>
+
+          </v-img>
+
+          <v-card-subtitle class="pb-0">
+
+          </v-card-subtitle>
+
+          <v-card-text class="text--primary">
+            <div>자격증:{{item.guide_license}}</div>
+
+            <div>소개:{{item.guser_intro}}</div>
+          </v-card-text>
 
           <v-card-actions>
             <v-btn
-              outlined
-              rounded
+              color="orange"
               text
               @click="view(item)"
             >
-              상세보기
+              VIEWS
+            </v-btn>
+
+            <v-btn
+              v-if="item.user_id==$store.state.user.userId"
+              color="orange"
+              text
+              @click="views(item)"
+            >
+              INTRO
             </v-btn>
           </v-card-actions>
-
-          <v-list-item-avatar
-            tile
-            size="80"
-            color="grey"
-          >
-            <img :src="img(item.pic_name)">
-          </v-list-item-avatar>
-        </v-list-item>
-
-        <v-card-actions />
-      </v-card>
-    </v-row>
+        </v-card>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -85,7 +89,7 @@ export default {
         })
     },
     img(fileName){
-      return "http://localhost:8081/api/photo/" + fileName
+      return "/api/photo/" + fileName
     },
     view(item){
 
