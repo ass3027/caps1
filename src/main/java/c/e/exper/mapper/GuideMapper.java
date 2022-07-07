@@ -17,7 +17,7 @@ public interface GuideMapper {
     @Insert("INSERT INTO guide_license VALUES(#{guide_license.user_id},#{guide_license.guide_license})")
     void insert(@Param("guide_license") GuideDAO guide);
 
-    @Select("SELECT * FROM guide_license,users,pictures WHERE guide_license.user_id = users.user_id and pictures.user_id = users.user_id and guide_license.user_id like '%'||#{keyword}||'%'")
+    @Select("SELECT * FROM guide_license,users,pictures WHERE guide_license.user_id = users.user_id and pictures.user_id = users.user_id and users.user_name like '%'||#{keyword}||'%'")
     List<GuideDAO> selectBykeyword(String keyword);
 
     @Update("Update users set guser_intro = #{guide.guser_intro} where user_id = #{id}")

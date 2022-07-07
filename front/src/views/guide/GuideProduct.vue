@@ -1,19 +1,19 @@
 <template>
   <div>
+    <v-btn style="float: right; position: relative; top: 30px; right: 30px; height: 30px"
+           class="btn2"
+           @click="onsubmit()"
+    >
+      Search
+    </v-btn>
+
       <input
         v-model="keyword"
         name="keyword"
         type="text"
-        style="border: #1e90cc solid"
+        style="border: #1e90cc solid; float: right; position: relative; top:30px; right: 30px"
         class="search"
       >
-
-    <v-btn
-      class="btn2"
-      @click="onsubmit()"
-    >
-      Search
-    </v-btn>
     <v-row
       cols="0"
       md="0"
