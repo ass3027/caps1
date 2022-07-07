@@ -98,6 +98,9 @@ export default {
   created() {
     this.getReviews()
   },
+  mounted() {
+    console.log('test', this.type, this.id)
+  },
   methods: {
     reviewRegister() {
       // this.$router.push("/ReviewCreate/" + this.type + '/' + this.id)
