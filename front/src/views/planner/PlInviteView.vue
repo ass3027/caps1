@@ -14,9 +14,9 @@
           </thead>
           <tbody>
           <tr>
-            <th>um</th>
-            <th>엄준식</th>
-            <th>010-0000-0000</th>
+            <th>asdf1234</th>
+            <th>이세진</th>
+            <th>010-4065-8016</th>
           </tr>
           </tbody>
         </v-simple-table>
