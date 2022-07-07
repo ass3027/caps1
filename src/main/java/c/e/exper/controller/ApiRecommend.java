@@ -1,6 +1,6 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.GItemDTO;
+import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.ShareDTO;
 import c.e.exper.data.recommendDTO;
@@ -68,9 +68,9 @@ public class ApiRecommend {
     }
 
     @GetMapping("/bestGitem")
-    public List<GItemDTO> bestGitem() {
+    public List<GItemDAO> bestGitem() {
 
-        List<GItemDTO> gItems = gItemMapper.findBestGItem();
+        List<GItemDAO> gItems = gItemMapper.findBestGItem();
         System.out.println(gItems);
 
         return gItems;

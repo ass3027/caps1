@@ -12,16 +12,12 @@ import java.sql.Date;
 @NoArgsConstructor
 @Data
 public class PaymentDAO {
-
-    String pay_id;
+    String user_id;
     String pay_place;
-    String pay_method;
+    String ord_id;
     Date pay_time;
     String pay_price;
     String pay_context;
     String plan_id;
-    String user_id;
-    String ord_id;
     String gtime_num;
-
 }
