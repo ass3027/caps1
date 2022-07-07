@@ -101,8 +101,8 @@ public class GuideService {
    public void 예약_등록(GItemDAO gitemDAO){
       gitemMapper.insertReserve(gitemDAO);
    }
-   public void 결제(GItemDAO gItemDAO){
-      gitemMapper.insertPay(gItemDAO);
+   public void 결제(GItemDAO gitemDAO){
+      gitemMapper.insertPay(gitemDAO);
    }
 
    public List<GItemDAO> 시간_조회(String id){

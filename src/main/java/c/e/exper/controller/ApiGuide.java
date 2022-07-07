@@ -1,6 +1,6 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.GItemDTO;
+import c.e.exper.data.GItemDAO;
 import c.e.exper.data.GuideDAO;
 import c.e.exper.mapper.GuideMapper;
 import c.e.exper.service.GuideService;
@@ -34,7 +34,7 @@ public class ApiGuide {
     }
 
     @GetMapping("/gcount")
-    public GItemDTO findCount(String id) {
+    public GItemDAO findCount(String id) {
         System.out.println(id + "매출조회");
         return guideService.매출_조회(id);
     }
@@ -46,25 +46,25 @@ public class ApiGuide {
 
 
     @GetMapping("/gcount7")
-    public GItemDTO findCount7(String id) {
+    public GItemDAO findCount7(String id) {
         return guideService.매출_조회7(id);
     }
 
 
     @GetMapping("/gcount1")
-    public GItemDTO findCount1(String id) {
+    public GItemDAO findCount1(String id) {
         System.out.println("매출조회1");
         return guideService.매출_조회1(id);
     }
 
     @GetMapping("/gcount30")
-    public GItemDTO findCount30(String id) {
+    public GItemDAO findCount30(String id) {
         return guideService.매출_조회30(id);
     }
 
 
     @GetMapping("/gitemview/{id}")
-    public GItemDTO findGitem(@PathVariable("id") String id) {
+    public GItemDAO findGitem(@PathVariable("id") String id) {
         System.out.println("상품 상세보기");
         return guideService.가이드_상품조회1(id);
     }
@@ -76,7 +76,7 @@ public class ApiGuide {
     }
 
     @GetMapping("/gitem/search/{keyword}")
-    public List<GItemDTO> selectListItem(@PathVariable("keyword") String keyword) {
+    public List<GItemDAO> selectListItem(@PathVariable("keyword") String keyword) {
         return guideService.가이드상품_검색(keyword);
     }
 
@@ -88,26 +88,26 @@ public class ApiGuide {
     }
 
     @PostMapping("/gijoin")
-    public void insertGitem(GItemDTO gitemDTO) {
+    public void insertGitem(GItemDAO gitemDAO) {
 
-        guideService.가이드_상품등록(gitemDTO);
+        guideService.가이드_상품등록(gitemDAO);
 
     }
 
     @PostMapping("/gitjoin")
-    public void insertTimeGitem(GItemDTO gitemDTO) {
+    public void insertTimeGitem(GItemDAO gitemDAO) {
         System.out.println("시간등록");
-        guideService.가이드_시간등록(gitemDTO);
+        guideService.가이드_시간등록(gitemDAO);
     }
 
     @GetMapping("/gitem")
-    public List<GItemDTO> findAllProduct() {
+    public List<GItemDAO> findAllProduct() {
         System.out.println("가이드상품조회");
         return guideService.가이드상품_조회();
     }
 
     @GetMapping("/gtime/{id}")
-    public List<GItemDTO> findTime(@PathVariable("id") String id, String time) {
+    public List<GItemDAO> findTime(@PathVariable("id") String id, String time) {
         System.out.println(time);
         System.out.println("시간조회");
         return guideService.가이드상품_시간조회(id, time);
@@ -134,19 +134,19 @@ public class ApiGuide {
     }
 
     @PostMapping("/gitemReserve")
-    public void insertReserve(@RequestBody GItemDTO gitemDTO) {
-        System.out.println(gitemDTO);
-        guideService.예약_등록(gitemDTO);
+    public void insertReserve(@RequestBody GItemDAO gitemDAO) {
+        System.out.println(gitemDAO);
+        guideService.예약_등록(gitemDAO);
     }
 
     @PostMapping("/gPayInsert")
-    public void insertPay(GItemDTO gItemDTO) {
-        System.out.println(gItemDTO + "결제");
-        guideService.결제(gItemDTO);
+    public void insertPay(GItemDAO gitemDAO) {
+        System.out.println(gitemDAO + "결제");
+        guideService.결제(gitemDAO);
     }
 
     @GetMapping("/gTime")
-    public List<GItemDTO> getTime(String id) {
+    public List<GItemDAO> getTime(String id) {
         return guideService.시간_조회(id);
 
     }

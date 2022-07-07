@@ -28,13 +28,13 @@ public class GItemDAO {
     String pay_price;
     String gtime_num;
     String gdate;
-    String gname;
     int count;
     int count7;
     int count1;
     int count30;
     String firstimage2;
-    String GNAME;
     String pay_time;
+    String firstimage;
+    String gname;
 
 }
