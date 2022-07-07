@@ -112,9 +112,16 @@ export default {
       user.id = data.user_id
       user.role = data.role
       await this.$store.dispatch('user/setUser', user)
-      await this.$router.push("/")
+
+      //role 별 주소 이동
+      if(data.role==='user') await this.$router.push("/")
+      else if(data.role==='delivery') await this.$router.push("/")
+      else await this.$router.push("/")
+
+
       EventBus.$emit("updateId")
     },
+
     getId() {
       axios({
         url   : '/api/user/exper',

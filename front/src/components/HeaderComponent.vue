@@ -19,7 +19,7 @@
               style="padding: 0; margin: 0 10px 0 0;"
             >{{ user_role }}</span>
             <span class="txt">
-              <span class="name">{{ user_id }}</span>
+              <span class="name">{{ user_name }}</span>
               <span class="sir">님</span>
             </span> <!---->
           </a>
@@ -36,25 +36,27 @@
             <li><a @click="logOut">로그아웃</a></li>
           </ul>
         </li>
+        <template v-else>
+          <li
 
-        <li
-          v-if="!isLogin"
-          class="menu none_sub menu_join"
-        >
-          <a
-            class="link_menu"
-            href="/join"
-          >회원가입</a>
-        </li>
-        <li
-          v-if="!isLogin"
-          class="menu none_sub menu_login"
-        >
-          <a
-            class="link_menu"
-            href="/login"
-          >로그인</a> <!---->
-        </li>
+            class="menu none_sub menu_join"
+          >
+            <a
+              class="link_menu"
+              href="/join"
+            >회원가입</a>
+          </li>
+          <li
+
+            class="menu none_sub menu_login"
+          >
+            <a
+              class="link_menu"
+              href="/login"
+            >로그인</a> <!---->
+          </li>
+        </template>
+
 
         <li class="menu lst">
           <a
@@ -108,52 +110,6 @@
         </li>
       </ul>
     </div>
-
-
-    <!--        <div id="userMenu">-->
-    <!--          &lt;!&ndash;로그인 박스(로그인 O)&ndash;&gt;-->
-    <!--          <div-->
-    <!--            v-if="isLogin"-->
-    <!--            class="login-box"-->
-    <!--          >-->
-    <!--            <v-btn text>-->
-    <!--              {{ $store.state.user.userId }}-->
-    <!--            </v-btn>-->
-
-    <!--            <v-btn-->
-    <!--              text-->
-    <!--              @click="logOut"-->
-    <!--            >-->
-    <!--              logout-->
-    <!--            </v-btn>-->
-    <!--            <img-->
-    <!--              :src="photo"-->
-    <!--              style="width:50px;height:50px"-->
-    <!--              alt=""-->
-    <!--            >-->
-    <!--          </div>-->
-    <!--          &lt;!&ndash;로그인 박스(로그인 X)&ndash;&gt;-->
-    <!--          <div-->
-    <!--            v-else-->
-    <!--            class="login-box"-->
-    <!--          >-->
-    <!--            <v-btn-->
-    <!--              text-->
-    <!--              router-->
-    <!--              to="/login"-->
-    <!--            >-->
-    <!--              login-->
-    <!--            </v-btn>-->
-    <!--            <v-btn-->
-    <!--              text-->
-    <!--              router-->
-    <!--              to="/join"-->
-    <!--            >-->
-    <!--              join-->
-    <!--            </v-btn>-->
-    <!--          </div>-->
-    <!--        </div>-->
-
     <div id="headerLogo">
       <h1
         class="logo"
@@ -293,7 +249,7 @@ export default {
         ]
       ],
       scroll: null,
-      user_id: '',
+      user_name: '',
       user_role: null,
     }
   },
@@ -318,8 +274,15 @@ export default {
     async updateUser() {
       const { data } = await axios.get("/api/user/find")
       // const user
-      this.user_id = this.$store.state.user.userId
-      this.user_role = this.$store.state.user.userRole
+      console.log(data)
+      this.user_name = data.user_name
+      if(data.role==='user') this.user_role = '일반회원'
+      else if(data.role==='delivery') this.user_role = '운송회원'
+      else this.user_role = '키퍼회원'
+
+      const temp = {id:data.user_id, role:data.role}
+      await this.$store.dispatch("user/setUser", temp)
+
     },
     logOut() {
       console.log(22)

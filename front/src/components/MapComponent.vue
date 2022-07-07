@@ -103,6 +103,15 @@ export default {
           this.setPathAndShow(schedule)
           EventBus.$emit('passDistance',this.eachDistance)
         })
+
+        EventBus.$on("updatePosition", (position) => {
+          console.log(position)
+          const moveLatLon = new kakao.maps.LatLng(position.mapX, position.mapY);
+
+          // 지도 중심을 부드럽게 이동시킵니다
+          // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+          this.map.panTo(moveLatLon);
+        })
       }
     }
   },
@@ -424,47 +433,47 @@ export default {
       }
       this.pathMarkers = [];
     },
-    removeMarker2(index) {
-
-      this.markers[index].setMap(null);
-    },
-    displayPagination(pagination) {
-
-      var paginationEl = document.getElementById('pagination'),
-        fragment = document.createDocumentFragment(),
-        i;
-
-      // 기존에 추가된 페이지번호를 삭제합니다
-      while (paginationEl.hasChildNodes()) {
-        paginationEl.removeChild(paginationEl.lastChild);
-      }
-
-      for (i = 1; i <= pagination.last; i++) {
-        var el = document.createElement('a');
-        el.href = "#";
-        el.innerHTML = i;
-
-        if (i === pagination.current) {
-          el.className = 'on';
-        } else {
-          el.onclick = (function (i) {
-            return function () {
-              pagination.gotoPage(i);
-            }
-          })(i);
-        }
-
-        fragment.appendChild(el);
-      }
-      paginationEl.appendChild(fragment);
-    },
-
-    displayinfoWindow(marker, title) {
-      let content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-
-      this.infoWindow.setContent(content);
-      this.infoWindow.open(this.map, marker);
-    },
+    // removeMarker2(index) {
+    //
+    //   this.markers[index].setMap(null);
+    // },
+    // displayPagination(pagination) {
+    //
+    //   var paginationEl = document.getElementById('pagination'),
+    //     fragment = document.createDocumentFragment(),
+    //     i;
+    //
+    //   // 기존에 추가된 페이지번호를 삭제합니다
+    //   while (paginationEl.hasChildNodes()) {
+    //     paginationEl.removeChild(paginationEl.lastChild);
+    //   }
+    //
+    //   for (i = 1; i <= pagination.last; i++) {
+    //     var el = document.createElement('a');
+    //     el.href = "#";
+    //     el.innerHTML = i;
+    //
+    //     if (i === pagination.current) {
+    //       el.className = 'on';
+    //     } else {
+    //       el.onclick = (function (i) {
+    //         return function () {
+    //           pagination.gotoPage(i);
+    //         }
+    //       })(i);
+    //     }
+    //
+    //     fragment.appendChild(el);
+    //   }
+    //   paginationEl.appendChild(fragment);
+    // },
+    //
+    // displayinfoWindow(marker, title) {
+    //   let content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+    //
+    //   this.infoWindow.setContent(content);
+    //   this.infoWindow.open(this.map, marker);
+    // },
 
     logLocationInfo(place) {
 
