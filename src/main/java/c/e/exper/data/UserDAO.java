@@ -31,5 +31,10 @@ public class UserDAO {
     int user_birth40;
     int user_birth50;
 
+    int pay_price;
+    int pay_price7;
+    int pay_price30;
+
+
 
 }

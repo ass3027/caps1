@@ -54,7 +54,7 @@ public interface UserMapper { //디비접근
     //연령별(10대)
     @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH10\n" +
             "FROM USERS\n" +
-            "WHERE USER_BIRTH BETWEEN '2013-01-01' AND '2004-12-31'")
+            "WHERE USER_BIRTH BETWEEN '2004-01-01' AND '2013-12-31'")
     UserDAO selectAgeCount10();
 
     //연령별(20대)
@@ -81,9 +81,13 @@ public interface UserMapper { //디비접근
             "WHERE USER_BIRTH BETWEEN '1940-01-01' AND '1973-12-31'")
     UserDAO selectAgeCount50();
 
-//    @Select("select INQ_ID,INQ_TITLE,INQ_TIME,INQ_ID,INQ_COUNT\n" +
-//            "from INQUIRY\n" +
-//            "where user_id=#{user_id}")
+    @Select("select sum(pay_price)as pay_price;")
+
+
+
+
+
+
 
     @Select("select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT\n" +
             "from INQUIRY\n" +

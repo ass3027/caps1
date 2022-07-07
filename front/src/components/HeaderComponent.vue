@@ -183,7 +183,8 @@ export default {
         "가방관리",
         "현지인 가이드",
         "커뮤니티",
-        "고객센터"
+        "고객센터",
+        "통계"
       ],
 
       contents: [
@@ -236,9 +237,16 @@ export default {
         [
           {title: '문의사항 ', route: '/Questions'},
           {title: '게시글 등록', route: '/Writing'},
-          {title: '연령별 가입추이', route: '/AgeChart'},
-          {title: '지역별 가입추이', route: '/AreaChart'},
+          {title: 'Customer3', route: '/Customer'},
+          {title: 'Customer4', route: '/Customer'},
           {title: 'Customer5', route: '/Customer'}
+        ],
+        [
+          {title: '연령별 가입추이 ', route: '/AgeChart'},
+          {title: '지역별 가입추이', route: '/AreaChart'},
+          {title: '', route: ''},
+          {title: '', route: ''},
+          {title: '', route: ''}
         ]
       ],
       scroll: null,
@@ -247,8 +255,6 @@ export default {
     }
   },
   computed: {
-
-
     isLogin() {
       return this.$store.getters['user/isLogin']
     },
