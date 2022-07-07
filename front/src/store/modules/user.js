@@ -16,6 +16,7 @@ export default {
     updateUser(state, user) {
       state.userId = user.id
       state.userRole = user.role
+      console.log(state)
     },
     updatePlanId(state, newPlanId) {
       state.planId = newPlanId
