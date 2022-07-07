@@ -93,13 +93,13 @@
               <div style="width: 50%; display: inline-block">
                 <DateTimePicker
                   :label="'시작날짜'"
-                  @child="resultDate"
+                  @child="startDate"
                 />
               </div>
               <div style="width: 50%; display: inline-block">
                 <DateTimePicker
                   :label="'종료날짜'"
-                  @child="resultDate"
+                  @child="endDate"
                 />
               </div>
             </div>
@@ -153,6 +153,7 @@ export default {
     return {
       index:false,
       sDate: '',
+      eDate:'',
       panel: [0, 1],
       disabled: false,
       readonly: false,
@@ -177,7 +178,7 @@ export default {
       image2: '',
 
       bagType: [
-        {title: '기내용 캐리어(57cm 미만)', value: 11000},
+        {title: '기내용 캐리어(57cm 미만)', value: 500},
         {title: '화물용 캐리어(57cm 이상 67cm 미만)', value: 16000},
         {title: '특대형 캐리어(67cm 이상 또는 20kg 이상)', value: 20000},
         {title: '백팩 소형(40L 미만 그리고 10kg 미만)', value: 10000},
@@ -251,10 +252,15 @@ export default {
         }
       })
     },
-    resultDate(sDate) {
+    startDate(sDate) {
       this.sDate = sDate
       console.log(this.sDate)
       return this.sDate
+    },
+    endDate(eDate) {
+      this.eDate = eDate
+      console.log(this.eDate)
+      return this.eDate
     },
 
     getEmitData: function (lodging) {
@@ -271,7 +277,7 @@ export default {
         user_id: this.$store.state.user.userId, // UserId
         keep_start: this.lodging.pl_id, //맡길장소
         entrust_time: this.sDate,  //맡길시간
-        withdraw_time: this.sDate,  //찾을시간
+        withdraw_time: this.eDate,  //찾을시간
         ord_selection: '물품보관', //물품보관
         ord_request: this.ordRequest,
         status: '보관요청'
