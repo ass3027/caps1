@@ -73,12 +73,13 @@ public class ApiPayment {
     PlaceDAO placeInfo(@PathVariable String pay_id) {
 
         return paymentMapper.placeInfoToPayId(pay_id);
-    
-    //물품배송 결제
-    @PostMapping("/transportPay")
-    public void transportPay(@RequestBody PaymentDTO imp){
-        String orderId = paymentMapper.getorderId();
-        imp.setOrd_id(orderId);
-        paymentMapper.transportPay(imp);
+
+        //물품배송 결제
+//        @PostMapping("/transportPay")
+//        public void transportPay(@RequestBody PaymentDTO imp){
+//            String orderId = paymentMapper.getorderId();
+//            imp.setOrd_id(orderId);
+//            paymentMapper.transportPay(imp);
+//        }
     }
 }

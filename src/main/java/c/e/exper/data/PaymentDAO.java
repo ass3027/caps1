@@ -21,9 +21,8 @@ public class PaymentDAO {
     String pay_price;
     String pay_context;
     String plan_id;
-    String user_id;
     String receipt;
     String card_num;
     String ord_id;
-String gtime_num;
+    String gtime_num;
 }
