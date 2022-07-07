@@ -15,10 +15,10 @@ export default {
 
   data(){
     return{
-      list1:'',
-      list:'',
-      list7:'',
-      list30:'',
+      // list1:'',
+      // list:'',
+      // list7:'',
+      // list30:'',
       type: 'bar',
       data: {
         labels: [ '총매출', '최근한달', '최근 7일', '금일'],
@@ -81,8 +81,8 @@ export default {
           'id':this.$store.state.user.userId
         }
       }).then((res1)=>{
-
-        this.list1 = res1.data.count1;
+console.log(res1)
+        // this.list1 = res1.data.count1;
         this.data.datasets[0].data[3]= res1.data.count1;
 
         //this.data.datasets[0].data.unshift(this.list1) // 금일
@@ -98,7 +98,7 @@ export default {
         }
       }).then((res7)=>{
 
-        this.list7 = res7.data.count7;
+        // this.list7 = res7.data.count7;
         this.data.datasets[0].data[2]= res7.data.count7
         // this.data.datasets[0].data.unshift(this.list7) // 7일
 
@@ -114,7 +114,7 @@ export default {
         }
       }).then((res30)=>{
 
-        this.list30 = res30.data.count30;
+        // this.list30 = res30.data.count30;
         this.data.datasets[0].data[1]= res30.data.count30
 
         // this.data.datasets[0].data.unshift(this.list30)// 30일
@@ -130,14 +130,16 @@ export default {
           'id':this.$store.state.user.userId
         },
       }).then((res)=>{
-        this.list = res.data.count;
+        // this.list = res.data.count;
 
-        this.data.datasets[0].data[0]= this.list
-        this.data.datasets[0].data[3]= this.list1
+        this.data.datasets[0].data[0]= res.data.count;
+          // this.data.datasets[0].data[3]= this.list1
           // this.data.datasets[0].data.unshift(this.list7) // 7일
           // this.data.datasets[0].data.unshift(this.list30)// 30일
           // this.data.datasets[0].data.unshift(this.list) //총
         this.createChart()
+
+        console.log(this.data.datasets[0].data)
 
 
       })

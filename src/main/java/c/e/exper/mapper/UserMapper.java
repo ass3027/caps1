@@ -6,11 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.annotations.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 @Mapper
 public interface UserMapper { //디비접근
@@ -39,13 +40,65 @@ public interface UserMapper { //디비접근
     @Insert("INSERT INTO place(user_id) VALUES(#{user.user_id})")
     void keeperInsert(@Param("user") PlaceDAO user);
 
-    //지역별
-    @Select("SELECT USER_AREA,COUNT(*) FROM users group by USER_AREA order by count(*) desc;")
+    //지역별 연습
+    @Select("SELECT USER_AREA,COUNT(*) FROM users where user_area is not null group by USER_AREA order by count(*) desc")
     List<UserDAO> areaCount();
 
-//    @Select("select USER_BIRTH,count(*) from USERS group by USER_BIRTH order by count(*) desc)
+    //지역별
+    @Select("select USER_AREA, count(USER_AREA) as count\n" +
+            "    from USERS\n" +
+            "    WHERE USER_AREA IS NOT NULL\n" +
+            "    group by USER_AREA order by count(*) desc")
+    List<AreaDTO> selectAreaCount();
+
+    //연령별(10대)
+    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH10\n" +
+            "FROM USERS\n" +
+            "WHERE USER_BIRTH BETWEEN '2013-01-01' AND '2004-12-31'")
+    UserDAO selectAgeCount10();
+
+    //연령별(20대)
+    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH20\n" +
+            "FROM USERS\n" +
+            "WHERE USER_BIRTH BETWEEN '1994-01-01' AND '2003-12-31'")
+    UserDAO selectAgeCount20();
+
+    //연령별(30대)
+    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH30\n" +
+            "FROM USERS\n" +
+            "WHERE USER_BIRTH BETWEEN '1984-01-01' AND '1993-12-31'")
+    UserDAO selectAgeCount30();
+
+    //연령별(40대)
+    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH40\n" +
+            "FROM USERS\n" +
+            "WHERE USER_BIRTH BETWEEN '1974-01-01' AND '1983-12-31'")
+    UserDAO selectAgeCount40();
+
+    //연령별(50대이상)
+    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH50\n" +
+            "FROM USERS\n" +
+            "WHERE USER_BIRTH BETWEEN '1940-01-01' AND '1973-12-31'")
+    UserDAO selectAgeCount50();
+
+//    @Select("select INQ_ID,INQ_TITLE,INQ_TIME,INQ_ID,INQ_COUNT\n" +
+//            "from INQUIRY\n" +
+//            "where user_id=#{user_id}")
+
+    @Select("select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT\n" +
+            "from INQUIRY\n" +
+            "where user_id = #{user_id.jdbcType=VARCHAR}")
+    List<InquiryDAO> selectSearch(String user_id);
 
 
+
+
+    //서울지역 가입수만 받아오기
+    @Select("select count(USER_NAME),USER_AREA\n" +
+            "from USERS\n" +
+            "where USER_AREA = '서울특별시' and user_area is not null\n" +
+            "group by USER_AREA order by count(*)")
+    ArrayList<Integer> selectArea1();
 
 
     //회원정보수정

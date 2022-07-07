@@ -134,11 +134,11 @@
         this.user_name = res.data.user_name
         this.user_birth = res.data.user_birth
         this.gender = res.data.gender
-      this.preference = res.data.preference
-      this.user_area = res.data.user_area
-      this.duser_trans = res.data.duser_trans
-      this.duser_license = res.data.duser_license
-      this.business_num = res.data.business_num
+        this.preference = res.data.preference
+        this.user_area = res.data.user_area
+        this.duser_trans = res.data.duser_trans
+        this.duser_license = res.data.duser_license
+        this.business_num = res.data.business_num
       console.log(res.data)
       console.log(this.$store.state.user.userId)
 

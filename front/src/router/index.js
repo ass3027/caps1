@@ -89,7 +89,9 @@ import DeliveryJoinView from "@/views/auth/DeliveryJoinView";
 import LoginView from "@/views/auth/LoginView";
 import joinView from "@/views/auth/JoinView";
 import KeeperJoinView from "@/views/auth/KeeperJoinView";
-import ChartView from "@/views/auth/ChartView";
+import ChartView from "@/views/auth/AgeChartView";
+import AreaChartView from "@/views/auth/AreaChartView";
+import AgeChartView from "@/views/auth/AgeChartView";
 
 
 
@@ -109,7 +111,8 @@ const routes = [
   {path: "/detailPage/:id", name: "DetailPage", component: DetailPageView},
   {path: "/detailPage/:id/writingMod", name: "WritingMod", component: WritingModView,},
   {path: "/bookmark", name: "BookMark", component: BookMarkView},
-  {path: "/chart", name: "Chart", component: ChartView},
+  {path: "/ageChart", name: "AgeChart", component: AgeChartView},
+  {path: "/areaChart", name: "AreaChart", component: AreaChartView},
 
 
   //성호

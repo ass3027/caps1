@@ -236,8 +236,8 @@ export default {
         [
           {title: '문의사항 ', route: '/Questions'},
           {title: '게시글 등록', route: '/Writing'},
-          {title: 'Customer3', route: '/Customer'},
-          {title: 'Customer4', route: '/Customer'},
+          {title: '연령별 가입추이', route: '/AgeChart'},
+          {title: '지역별 가입추이', route: '/AreaChart'},
           {title: 'Customer5', route: '/Customer'}
         ]
       ],

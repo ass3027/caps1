@@ -6,31 +6,34 @@
     <MyPageHeader />
     <div style="width: 820px; float: right;">
       <div class="head_aticle">
-        <h1 class="tit">
-          게시판 목록
-        </h1>
+          <h1 class="tit">
+            게시판 목록
+          </h1>
       </div>
 
-      <div style="border-top: 2px solid #333">
-        <v-text-field
-          v-model="keyword"
-          class="mx-4"
-          flat
-          hide-details
-          label="Search"
-          prepend-inner-icon="mdi-magnify"
-          solo-inverted
-        />
+<!--        <div style="border-top: 2px solid #333">-->
+<!--          <v-row>-->
+<!--              <v-text-field-->
+<!--                style="margin: 10px"-->
+<!--                v-model="keyword"-->
+<!--                label="Search"-->
+<!--                class="mx-4"-->
+<!--                flat-->
+<!--                hide-details-->
+<!--                prepend-inner-icon="mdi-magnify"-->
+<!--                solo-inverted-->
+<!--              />-->
+<!--              <v-btn style="margin:20px" @click="search">검색</v-btn>-->
+<!--          </v-row>-->
 
 
-        <v-data-table
-          dense
-          :headers="post_list"
-          :items="dd"
-          item-key="name"
-          class="elevation-1"
-        />
-
+<!--        <v-data-table-->
+<!--          dense-->
+<!--          :headers="post_list"-->
+<!--          :items="dd"-->
+<!--          item-key="name"-->
+<!--          class="elevation-1"-->
+<!--        />-->
 
         <v-simple-table
           skyblue
@@ -149,7 +152,7 @@
         </div>
       </div>
     </div>
-  </div>
+<!--  </div>-->
 </template>
 
 <script>
@@ -182,7 +185,7 @@ export default {
       user_id: '',
       inq_count: 0,
       post_list:[],
-
+      keyword:'',
       pageSize: 10
       // paged_post_list:[]
       // tableList:[]
@@ -241,9 +244,13 @@ export default {
       }
       // this.$router.push('/Writing')
     },
-    Search() { //검색
-      this.paging.page = 1;
-      this.fnGetList();
+    search() {
+      axios.get("/api/user/search")
+      .then(res=>{
+        console.log(res)
+      })
+      // this.paging.page = 1;
+      // this.fnGetList();
     },
     listPage(index) {
       this.$router.push({
@@ -258,9 +265,6 @@ export default {
     nextPage() {
       this.pageNum += 1;
     },
-    keyword(){
-
-    }
   }
 }
 </script>
