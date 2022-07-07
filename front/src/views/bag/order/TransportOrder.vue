@@ -22,7 +22,7 @@
             <search-place @childEvent="startAddress"/>
             <br>
             <div>출발장소: {{ startLodging.title }}</div>
-            <div>키퍼회원ID: {{startLodging.user_id }}</div>
+            <div>키퍼회원ID: {{ startLodging.user_id }}</div>
             <v-img
               :src="startLodging.firstimage2"
               width="200px"
@@ -122,12 +122,8 @@
         <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
         <!--      </div>-->
         <div style="width: 80%;margin: 0 auto; padding-top: 20px">
-          <button
-            style="float: right;"
-            @click="addOrder"
-          >
-            작성 완료
-          </button>
+          <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>
+
         </div>
       </v-form>
       <router-view/>
@@ -200,8 +196,53 @@ export default {
       }, 2000)
     },
   },
+  mounted() {
+    const script = document.createElement("script")
+    const script2 = document.createElement("script")
+    script2.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+    script2.integrity = "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=";
+    script2.setAttribute("crossOrigin", "anonymous");
 
+    document.head.appendChild(script2);
+
+    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    script.type = "text/javascript"
+
+    document.head.appendChild(script);
+  },
   methods: {
+    reserve() {
+      var IMP = window.IMP;
+      IMP.init('imp19569487');
+      console.log(this.lists)
+      IMP.request_pay({
+        pg: "html5_inics",
+        pay_method: "card",
+        merchant_uid: "iamport_test_id" + new Date().getTime(),
+        name: '운송결제',
+        amount: this.bagAmount,
+        buyer_email: "testiamport@naver.com",
+        buyer_name: this.$store.state.user.userId,
+        buyer_tel: "01012341234"
+      }, rsp => {
+        console.log(rsp);
+        if (rsp.success) {
+          console.log(rsp)
+          var imp={
+            user_id:this.$store.state.user.userId,
+            ord_id:'',
+            pay_price:rsp.paid_amount,
+          }
+          axios.post('/api/transportPay', imp)
+            .then((res) => {
+              console.log(res)
+
+            })
+        } else {
+          alert("실패")
+        }
+      })
+    },
     resultDate(sDate) {
       this.sDate = sDate
       return this.sDate
@@ -232,15 +273,12 @@ export default {
         ord_request: this.ordRequest,
         status: '승인대기',
       }
-      axios
-        .post('/api/transportAddOrder', transportBag)
+      axios.post('/api/transportAddOrder', transportBag)
         .then((res) => {
           console.log(transportBag)
-          alert('주문완료!')
+          this.reserve()
         })
-
     },
-
   },
 }
 </script>

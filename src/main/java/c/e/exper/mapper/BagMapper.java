@@ -41,8 +41,21 @@ public interface BagMapper {
          "order by ord_id desc")
    List<BagDAO> searchTransport(String user_id);
    
+   //일반회원 물품보관 상세보기
+   @Select("""
+         Select ord_id,orders.user_id,ord_amount,entrust_time,withdraw_time,orders.ord_request,p1.firstImage,orders.ord_selection,orders.status,
+             p1.title as keep_start_title,p2.title as keep_end_title
+                  from orders,place p1,place p2
+                  where orders.ord_id=#{ord_id}
+                  and orders.keep_start=p1.pl_id
+                  and orders.keep_start=p2.pl_id
+         """)
+   BagDAO gOrderDetail(String ord_id);
    
    
+   //키퍼회원 물품상세보기
+   @Select("Select * from orders where ord_id=#{ord_id}")
+   BagDAO trackingDetail(String ord_id);
    
    //출발키퍼 운송 승인완료로 변경
    @Update("update orders set start_status='승인완료' where ord_id=#{ord_id}")
@@ -59,13 +72,6 @@ public interface BagMapper {
    //찾아감으로 업데이트
    @Update("update orders set status='찾아감' where ord_id=#{ord_id}")
    void visitCall(String ord_id);
-   
-   //물품상세보기
-   @Select("Select ord_id,orders.user_id,ord_amount,entrust_time,withdraw_time,ord_request,p1.title as keep_start_title,firstImage " +
-         "from orders,place p1 " +
-         "where ord_id=#{ord_id} " +
-         "and orders.keep_start=p1.pl_id")
-   BagDAO trackingDetail(String ord_id);
    
    //키퍼회원 운송조회
    @Select("""
@@ -102,5 +108,6 @@ public interface BagMapper {
    
    @Update("update orders set status='승인완료' where ord_id=#{ord_id} and start_status='승인완료' and end_status='승인완료'")
    void deliveryAllCall(String ord_id);
+   
    
 }

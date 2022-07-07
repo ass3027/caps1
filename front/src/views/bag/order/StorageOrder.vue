@@ -186,8 +186,54 @@ export default {
       }, 2000)
     },
   },
+  mounted() {
+    const script = document.createElement("script")
+    const script2 = document.createElement("script")
+    script2.src = "https://code.jquery.com/jquery-3.6.0.min.js";
+    script2.integrity = "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=";
+    script2.setAttribute("crossOrigin", "anonymous");
+
+    document.head.appendChild(script2);
+
+    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    script.type = "text/javascript"
+
+    document.head.appendChild(script);
+  },
 
   methods: {
+    reserve() {
+      var IMP = window.IMP;
+      IMP.init('imp19569487');
+      console.log(this.lists)
+      IMP.request_pay({
+        pg: "html5_inics",
+        pay_method: "card",
+        merchant_uid: "iamport_test_id" + new Date().getTime(),
+        name: '보관결제',
+        amount: this.bagAmount,
+        buyer_email: "testiamport@naver.com",
+        buyer_name: this.$store.state.user.userId,
+        buyer_tel: "01012341234"
+      }, rsp => {
+        console.log(rsp);
+        if (rsp.success) {
+          console.log(rsp)
+          var imp={
+            user_id:this.$store.state.user.userId,
+            ord_id:'',
+            pay_price:rsp.paid_amount,
+          }
+          axios.post('/api/transportPay', imp)
+            .then((res) => {
+              console.log(res)
+
+            })
+        } else {
+          alert("실패")
+        }
+      })
+    },
     resultDate(sDate) {
       this.sDate = sDate
       console.log(this.sDate)
@@ -215,7 +261,7 @@ export default {
         .post('/api/storageAddOrder', storageBag)
         .then((res) => {
           console.log(storageBag)
-          alert('주문완료!')
+         this.reserve()
         })
     },
     startAddress(address) {

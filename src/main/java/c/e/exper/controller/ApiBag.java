@@ -57,7 +57,14 @@ public class ApiBag {
       return bagService.searchTransport(getUserId());
    }
    
-   //물품 상세보기
+   //일반 회원 물품 상세보기
+   @GetMapping("/gOrderDetail/{ord_id}")
+   public BagDAO gOrderDetail(@PathVariable String ord_id) {
+      System.out.println();
+      return bagService.gOrderDetail(ord_id);
+   }
+   
+   //키퍼 회원 물품 상세보기
    @GetMapping("/trackingDetail/{ord_id}")
    public BagDAO trackingDetail(@PathVariable String ord_id) {
       System.out.println();
@@ -106,5 +113,7 @@ public class ApiBag {
    public void visitCall(@PathVariable("ord_id") String ord_id) {
       bagService.visitCall(ord_id);
    }
+
+  
 }
 
