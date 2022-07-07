@@ -174,9 +174,6 @@ export default {
             }
 
           }
-          console.log(this.tour.firstimage)
-          console.log(this.tour)
-          console.log(this.images)
         })
 
     })
