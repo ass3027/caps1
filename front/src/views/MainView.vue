@@ -10,8 +10,8 @@
             <calendar-preview></calendar-preview>
           </v-card>
         </v-col>
-        <v-col cols="auto" align-self="start" style="width: 350px;height:380px;" class="mt-5 ml-5">
-          <v-card class="pa-3" elevation="10" style="overflow: auto">
+        <v-col cols="auto" align-self="start" style="" class="mt-5 ml-5">
+          <v-card class="pa-3" elevation="10" style="width: 330px;height:380px;overflow: auto">
           <b>내 가방 현황</b>
           <li v-for="(order,i) in myOrders" :key="i+o"
               @click="$router.push({path:'/GTrackingView'})"
@@ -25,8 +25,11 @@
         <v-col cols="auto" align-self="start" style="" class="mt-5 ml-5">
           <v-card class="pa-3" elevation="10" style="width: 330px;height:380px;overflow: auto">
           <b>호텔 예약 현황</b>
-          <li v-for="(hotel,i) in myHotels" :key="i+h">
-            <p>{{ hotel }}</p>
+          <li v-for="(hotel,i) in myHotels" :key="i+h"
+              @click="$router.push({path:'/productBookView'})"
+          >
+            <p>{{ hotel.st_date.substring(0,10) }}~{{ hotel.end_date.substring(0,10) }}</p>
+            <p>{{ hotel.title }}</p>
           </li>
           </v-card>
 
@@ -231,7 +234,7 @@ export default {
         })
       axios({
         method: 'GET',
-        url: '/api/',
+        url: '/api/productBook',
         params: {
           'id': this.$store.state.user.userId
         }

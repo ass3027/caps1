@@ -139,7 +139,7 @@ public interface PlaceMapper {
     List<recommendDTO> findSimilarUser(String user_id);
 
     @Select("""
-            select a.PL_ID, a.title, FIRSTIMAGE, b.PIC_NAME,mapx,mapy
+            select distinct a.PL_ID, a.title, FIRSTIMAGE, b.PIC_NAME,mapx,mapy
             from (
                      select d.PL_ID, d.title, d.FIRSTIMAGE,d.mapx,d.mapy
                      from users a,
@@ -161,7 +161,8 @@ public interface PlaceMapper {
                            and c.PL_ID is not null
                      )) a
                      left outer join PICTURES b
-                                     on a.PL_ID = b.PL_ID""")
+                                     on a.PL_ID = b.PL_ID
+            where rownum<=6""")
     List<PlaceDAO> findRecPlace(String user_id, String similarUser_id);
 
     @Select("""
