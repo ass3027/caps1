@@ -161,7 +161,7 @@
         <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
         <!--      </div>-->
         <div style="width: 80%;margin: 0 auto; padding-top: 20px">
-          <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>
+          <v-btn style="float: right;" @click="reserve">작성 완료</v-btn>
 
         </div>
       </v-form>
@@ -186,7 +186,7 @@ export default {
       sIndex: false,
       eIndex: false,
       sDate: '',
-      eData:'',
+      eDate:'',
       panel: [0, 1],
       disabled: false,
       readonly: true,
@@ -270,6 +270,7 @@ export default {
         console.log(rsp);
         if (rsp.success) {
           console.log(rsp)
+          this.addOrder()
           var imp = {
             user_id: this.$store.state.user.userId,
             ord_id: '',
@@ -291,7 +292,7 @@ export default {
     },
     endDate(eDate) {
       this.eDate = eDate
-      console.log(this.eDate)
+      console.log('도착날짜',this.eDate)
       return this.eDate
     },
 
@@ -318,7 +319,7 @@ export default {
         keep_start: this.startLodging.pl_id, //시작장소
         keep_end: this.endLodging.pl_id, //도착장소
         entrust_time: this.sDate,  //맡길시간
-        withdraw_time: this.sDate,  //찾을시간
+        withdraw_time: this.eDate,  //찾을시간
         ord_selection: '물품운송', //물품보관
         ord_request: this.ordRequest,
         status: '승인대기',
@@ -326,7 +327,7 @@ export default {
       axios.post('/api/transportAddOrder', transportBag)
         .then((res) => {
           console.log(transportBag)
-          this.reserve()
+
         })
     },
   },

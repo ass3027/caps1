@@ -128,7 +128,7 @@
         <div style="width: 80%;margin: 0 auto; padding-top: 20px">
           <v-btn
             style="float: right;"
-            @click="addOrder"
+            @click="storageReserve"
           >
             작성 완료
           </v-btn>
@@ -237,6 +237,7 @@ export default {
       }, rso => {
         console.log(rso);
         if (rso.success) {
+          this.addOrder()
           console.log(rso)
           var imp = {
             user_id: this.$store.state.user.userId,
@@ -287,7 +288,6 @@ export default {
         .post('/api/storageAddOrder', storageBag)
         .then((res) => {
           console.log(storageBag)
-          this.storageReserve()
         })
     },
     startAddress(address) {
