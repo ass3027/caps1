@@ -15,6 +15,8 @@ public class PlaceService {
 
     static String[] hotelCode = {"B02010100", "B02010200", "B02010300", "B02010400", "B02010500", "B02010600", "B02011500"};
     static String[] motelCode = {"B02010900"};
+    static String[] pensionCode = {"B02010700"};
+    static String[] homeCode = {"B02011100"};
 
     public PlaceService(PlaceMapper placeMapper) {
         this.placeMapper = placeMapper;
@@ -53,6 +55,18 @@ public class PlaceService {
                     categoryPlace.addAll(placeMapper.findByCategory(motel));
                 }
 
+            }
+
+            case "pension" -> {
+                for (String pension : pensionCode) {
+                    categoryPlace.addAll(placeMapper.findByCategory(pension));
+                }
+            }
+
+            case "home" -> {
+                for (String home : homeCode) {
+                    categoryPlace.addAll(placeMapper.findByCategory(home));
+                }
             }
         }
 
