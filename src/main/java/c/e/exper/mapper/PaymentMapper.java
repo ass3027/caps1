@@ -2,13 +2,13 @@ package c.e.exper.mapper;
 
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
+import c.e.exper.data.PaymentDTO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-
 import java.util.List;
 import java.util.Map;
-
 @Mapper
 public interface PaymentMapper {
 
@@ -32,8 +32,16 @@ public interface PaymentMapper {
             where user_id = #{user_id}
             """)
     List<PaymentDAO> paymentList(String user_id);
-
-
+    
+    //물품배송 결제
+    @Insert("insert into payment(user_id,ord_id,pay_price) values(#{user_id},#{ord_id},#{pay_price})")
+    void transportPay(PaymentDTO imp);
+    
+    
+    //nextval -> currval 순으로
+    @Select("select order_seq.currval from dual")
+    String getorderId();
+    
     @Select("""
             select *
                 from PAYMENT
@@ -43,7 +51,7 @@ public interface PaymentMapper {
                 and user_id = #{user_id}
             """)
     List<PaymentDAO> paymentCheck(@Param("id") String id, @Param("user_id") String user_id);
-
+    
     @Select("""
             select *
             from GITEM
@@ -54,6 +62,4 @@ public interface PaymentMapper {
                                                 where pay_id = #{pay_id}))
             """)
     GItemDAO gitemInfoToPayId(@Param("pay_id") String pay_id);
-
-
 }

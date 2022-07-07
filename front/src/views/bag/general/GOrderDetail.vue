@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <table v-if="item.ord_selection==`물품운송`"
-           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
       <div style="margin-top: 10px">
         <p style="display: inline; font-size: large; margin-left: 5px">
           배송경로
@@ -46,10 +46,6 @@
         <tr>
           <th>거리</th>
           <td>{{ degree_start_end }}Km</td>
-        </tr>
-        <tr>
-          <th>나로부터</th>
-          <td>{{ degree_user_start }}Km</td>
         </tr>
         <tr>
           <th>물품정보</th>
@@ -233,7 +229,7 @@ export default {
   methods: {
     //물품 상세보기
     trackingDetail() {
-      axios.get('/api/trackingDetail/' + this.order.ord_id)
+      axios.get('/api/gOrderDetail/' + this.order.ord_id)
         .then((res) => {
           this.item = res.data;
           console.log("item")

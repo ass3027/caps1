@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <table v-if="item.ord_selection===`물품운송`"
-           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
       <div style="margin-top: 10px">
         <p style="display: inline; font-size: large; margin-left: 5px">
           배송경로
@@ -104,13 +104,13 @@
     </table>
 
     <table v-else
-           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
       <div style="margin-top: 10px">
         <p style="display: inline; font-size: large; margin-left: 5px">
           보관 상세조회
         </p>
         <div style="display: inline; float: right; font-size: large; margin-right: 5px">
-          주문번호 #{{ item.ord_id }}
+          주문번호 #{{ order.ord_id }}
         </div>
       </div>
 
@@ -136,7 +136,7 @@
         </tr>
         <tr>
           <th>물품보관장소</th>
-          <td>{{ item.keep_start_title }}</td>
+          <td>{{ keep_start.addr1 }}</td>
         </tr>
 
         <tr>
@@ -263,7 +263,7 @@ export default {
         })
     },
 
-    //물품 상세보기
+    //키퍼회원물품 상세보기
     trackingDetail() {
       axios.get('/api/trackingDetail/' + this.order.ord_id)
         .then((res) => {
