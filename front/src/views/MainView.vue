@@ -4,8 +4,8 @@
     <!-- 로그인시-->
     <div v-if="$store.state.user.userId!='anonymousUser'">
       <v-row style="height:400px;" class="mb-5" justify="center">
-        <v-col cols="auto" align-self="start" class="mt-5" style="width: 350px">
-          <v-card class="pa-3" elevation="10">
+        <v-col cols="auto" align-self="start" class="mt-5" style="">
+          <v-card class="pa-3" elevation="10" style="width: 330px;height:380px;overflow: auto">
             <b>일정 현황</b>
             <calendar-preview></calendar-preview>
           </v-card>
