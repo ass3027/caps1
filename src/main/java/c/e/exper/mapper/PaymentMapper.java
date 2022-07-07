@@ -43,7 +43,7 @@ public interface PaymentMapper {
             FROM PAYMENT p,
                  AVAILABLE_TIME a,
                  GITEM g,
-                 (SELECT title, mapX, mapY, addr1
+                 (SELECT pl_id,title, mapX, mapY, addr1
                   FROM place l
                   WHERE l.pl_id in (SELECT pl_id
                                     FROM payment p,AVAILABLE_TIME a, GITEM g
@@ -52,6 +52,7 @@ public interface PaymentMapper {
                                       AND p.user_id = #{user_id})
                   ) pl
             WHERE p.GTIME_NUM = a.TIME_NUM
+              AND pl.pl_id = g.pl_id  
               AND p.USER_ID = #{user_id}
             """)
     List<Map<String,Object>> getGuideBook(String user_id);
