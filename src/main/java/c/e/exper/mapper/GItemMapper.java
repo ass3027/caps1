@@ -61,7 +61,7 @@ public interface GItemMapper {
             "         group by b.GITEM_ID\n" +
             "         order by 2 desc\n" +
             "     )a, GITEM b, place c\n" +
-            "where ROWNUM <= 3\n" +
+            "where ROWNUM <= 6\n" +
             "and a.GITEM_ID=b.GITEM_ID\n" +
             "and b.PL_ID=c.PL_ID")
     List<GItemDAO> findBestGItem();
