@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div>
     <v-btn style="float: right; position: relative; top: 30px; right: 30px; height: 30px"
            class="btn2"
@@ -15,9 +14,7 @@
         style="border: #1e90cc solid; float: right; position: relative; top:30px; right: 30px"
         class="search"
       >
-=======
   <div class="card">
->>>>>>> parent of 4a4f2e3 (jinhan 2022-07-06 매무리작업)
     <v-row
       cols="0"
       md="0"
@@ -90,6 +87,7 @@
     >
       Search
     </v-btn>
+  </div>
   </div>
 </template>
 <script>

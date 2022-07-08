@@ -26,4 +26,5 @@ public class PaymentDAO {
     String card_num;
     String ord_id;
     String gtime_num;
+    String buy_status;
 }

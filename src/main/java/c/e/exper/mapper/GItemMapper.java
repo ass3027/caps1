@@ -52,7 +52,6 @@ public interface GItemMapper {
             "                                       where USER_ID = #{id}))")
     GItemDAO selectCount(@Param("id") String id);
 
-<<<<<<< HEAD
     @Select("select b.*,FIRSTIMAGE\n" +
             "from (\n" +
             "         select b.GITEM_ID, count(b.GITEM_ID)\n" +
@@ -81,8 +80,6 @@ public interface GItemMapper {
     List<GItemDAO> selectCountList(@Param("id") String id);
 
 
-=======
->>>>>>> parent of 4a4f2e3 (jinhan 2022-07-06 매무리작업)
     @Select("select sum(PAY_PRICE)as count7\n" +
             "from PAYMENT\n" +
             "where gtime_num in (select TIME_NUM\n" +

@@ -311,7 +311,7 @@ export default {
     //   this.$router.push({path:a.route, params:{'value':a.title}})
     // }
     MyPage() {
-      this.$router.push("/MyPage/MyPageInfo")
+      this.$router.push("/MyPage")
     },
     update() {
       this.$router.push("/MyPage/MyPageUpdate")

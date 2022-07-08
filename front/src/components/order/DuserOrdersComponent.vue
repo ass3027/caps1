@@ -4,6 +4,13 @@
     style="padding-top: 60px"
   >
     <div>
+      <h3>현재 위치</h3>
+      <span>latitude: {{ latitude }}</span> <br>
+      <span>longitude: {{ longitude }}</span>
+    </div>
+
+
+    <div>
       <div
         class="status"
         style="margin: 0 auto"
@@ -21,14 +28,13 @@
           @click="changeStatus(3)"
         >운송 완료</span>
       </div>
-
       <div
         v-if="status===1"
         class="orders_status"
       >
         <div
-          v-for="order in orders_possible"
-          :key="order.ord_id"
+          v-for="(order, index) in orders_possible"
+          :key="`possible-${index}`"
           class="item_container"
         >
           <DuserOrderItem
@@ -38,9 +44,10 @@
           />
         </div>
         <div
-          v-if="orders_possible.length === 0 || orders_possible === null"
+          v-if="orders_possible === null || orders_possible.length === 0"
           class="wrap_empty"
         >
+
           <strong>운송가능한 주문이 없습니다.</strong>
         </div>
       </div>
@@ -48,12 +55,12 @@
         v-else-if="status===2"
         class="orders_status"
       >
-        <div style="width: 100%; text-align: center">
-          <span>픽업 전</span>
+        <div style="width: 100%; text-align: center; padding-top: 10px">
+          <h3>픽업 전</h3>
         </div>
         <div
-          v-for="order in orders_pickup_before"
-          :key="order.ord_id"
+          v-for="(order, index) in orders_pickup_before"
+          :key="`before-${index}`"
           class="item_container"
         >
           <DuserOrderItem
@@ -63,11 +70,11 @@
           />
         </div>
         <div style="width: 100%; text-align: center">
-          <span>배송 중</span>
+          <span>운송 중</span>
         </div>
         <div
-          v-for="order in orders_pickup_after"
-          :key="order.ord_id"
+          v-for="(order, index) in orders_pickup_after"
+          :key="`after-${index}`"
           class="item_container"
         >
           <DuserOrderItem
@@ -89,8 +96,8 @@
         class="orders_status"
       >
         <div
-          v-for="order in orders_end"
-          :key="order.ord_id"
+          v-for="(order, index) in orders_end"
+          :key="`end-${index}`"
           class="item_container"
         >
           <DuserOrderItem
@@ -148,7 +155,7 @@ export default {
     orders_pickup_after() {
       if (this.order_all === null) return null
       return this.order_all.filter(i => {
-        return i.status === '픽업완료'
+        return i.status === '운송중'
       })
     },
 
@@ -162,19 +169,31 @@ export default {
 
   },
   created() {
-    axios.get('http://localhost:8000/api/duser/orders/' + this.userId).then(res => {
+    axios.get('/api/duser/orders/' + this.userId).then(res => {
       this.order_all = res.data
 
       console.log('test', this.order_all)
     })
+
+
   },
   mounted() {
     this.test().then()
 
 
-    var status = document.getElementById('status1')
-    status.style.borderBottom = 'none'
-    status.style.backgroundColor = 'white'
+    const status1 = document.getElementById('status1')
+    const status2 = document.getElementById('status2')
+    const status3 = document.getElementById('status3')
+
+
+    console.log('status1', status1)
+
+    status1.style.borderBottom = 'none'
+    status1.style.backgroundColor = 'white'
+
+    status2.style.backgroundColor = '#dee2e6'
+    status3.style.backgroundColor = '#dee2e6'
+
 
   },
   methods: {
@@ -204,14 +223,14 @@ export default {
       console.log('changeStatus, status:', status)
 
       this.status = status
-      var selected = document.getElementById('status' + status)
+      const selected = document.getElementById('status' + status)
 
       for (let i of [1, 2, 3]) {
         if (i === status) continue;
         var selected_else = document.getElementById('status' + i)
 
         selected_else.style.borderBottom = ''
-        selected_else.style.backgroundColor = '#f8f9fa'
+        selected_else.style.backgroundColor = '#dee2e6'
 
       }
 

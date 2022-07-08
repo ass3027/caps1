@@ -32,12 +32,9 @@ public class GItemDAO {
     int count7;
     int count1;
     int count30;
-<<<<<<< HEAD
     String firstimage2;
     String pay_time;
     String firstimage;
     String gname;
-=======
->>>>>>> parent of 4a4f2e3 (jinhan 2022-07-06 매무리작업)
 
 }

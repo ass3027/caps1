@@ -62,8 +62,8 @@ import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
 //민아
 import MypageView from "@/views/auth/MypageView";
-import BookMarkView from "@/components/auth/BookMarkView";
-import QuestionsView from "@/views/auth/QuestionsView";
+import MyBookMark from "@/components/auth/MyBookMark";
+import Questions from "@/components/auth/Questions";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
 import WritingModView from "@/views/auth/WritingModView";
@@ -76,7 +76,8 @@ import {store} from "@/store"
 import GuideIntro from "@/views/guide/GuideIntro";
 import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 
-import MyPageUpdateView from "@/components/auth/MyPageUpdateView";
+import MyPageUpdate from "@/components/auth/MyPageUpdate";
+import MyReview from "@/components/auth/MyReview";
 import ProductBook from "@/views/store/ProductBook";
 import productBookView from "@/views/store/productBookView";
 import GuideReserve from "@/views/guide/GuideReserve";
@@ -100,13 +101,15 @@ const routes = [
   {path: "/deliveryJoin", name: "DeliveryJoin", component: DeliveryJoinView}, //운송원회원 창
   {path: "/keeperJoin", name: "KeeperJoin", component: KeeperJoinView}, //운송원회원 창
   {path: "/login", name: "login", component: LoginView},
+  {path: "/myPage/:select", name: "MyPage", component: MypageView, props: true},
   {path: "/myPage", name: "MyPage", component: MypageView},
-  {path: "/myPageUpdate", name: "MyPageUpdate", component: MyPageUpdateView},
-  {path: "/questions", name: "Questions", component: QuestionsView},
+  {path: "/myPageUpdate", name: "MyPageUpdate", component: MyPageUpdate},
+  {path: "/questions", name: "Questions", component: Questions},
   {path: "/writing", name: "Writing", component: WritingView},
+  {path: "/MyReview", name: "MyReview", component: MyReview},
   {path: "/detailPage/:id", name: "DetailPage", component: DetailPageView},
   {path: "/detailPage/:id/writingMod", name: "WritingMod", component: WritingModView,},
-  {path: "/bookmark", name: "BookMark", component: BookMarkView},
+  {path: "/bookmark", name: "BookMark", component: MyBookMark},
   {path: "/ageChart", name: "AgeChart", component: AgeChartView},
   {path: "/areaChart", name: "AreaChart", component: AreaChartView},
 

@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
 <div>
   <v-btn @click="onsubmit()" style="float: right;">
     검색
@@ -52,8 +51,8 @@
       <v-btn
         color="orange"
         text
-        @click="view(item)"
-=======
+        @click="view(item)"/>
+    </v-card-actions>
   <div
     class=""
     style="width: 1050px; padding-top: 60px"
@@ -66,7 +65,6 @@
         type="text"
         style="border: #1e90cc solid"
         class="search"
->>>>>>> parent of 4a4f2e3 (jinhan 2022-07-06 매무리작업)
       >
       <v-btn @click="onsubmit()">
         검색
@@ -127,9 +125,17 @@
           소개 작성
         </v-btn>
         <v-card-actions />
+
       </div>
+
     </div>
+
   </div>
+  </v-card>
+    </v-row>
+  </div>
+</div>
+
 </template>
 
 <script>
