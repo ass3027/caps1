@@ -1,5 +1,9 @@
 <template>
   <div style="position: relative; max-width: 1040px">
+    <v-select
+      :items="items"
+      label="Standard"
+    ></v-select>
     <canvas
       ref="barChart"
     />
@@ -14,7 +18,6 @@ import {Chart, registerables} from "chart.js";
 Chart.register(...registerables)
 import axios from "axios";
 
-Chart.register(...registerables)
 let chart
 
 
@@ -31,7 +34,7 @@ export default {
       labels: ['총 매출', '최근 한달', '최근 7일', '금일'],
       datasets: [{
         label: '# of Votes',
-        data: ['','','',''],
+        data: ['', '', '', ''],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -49,7 +52,8 @@ export default {
           'rgba(255, 159, 64, 1)'
         ],
         borderWidth: 1
-      }]
+      }],
+      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     },
     options: {
       scales: {
@@ -121,37 +125,39 @@ export default {
         })
     },
 
-    productSales7(){
+    productSales7() {
       axios({
-        method:'GET',
-        url:'/api/chart7',
-        params:{
-          'id':this.$store.state.user.userId
+        method: 'GET',
+        url: '/api/chart7',
+        params: {
+          'id': this.$store.state.user.userId
         }
-      }).then((res7)=>{
+      }).then((res7) => {
 
         this.list7 = res7.data.count7;
-        this.data.datasets[0].data[2]= res7.data.count7
+        this.data.datasets[0].data[2] = res7.data.count7
         // this.data.datasets[0].data.unshift(this.list7) // 7일
 
       })
     },
 
-    productSales30(){
+    productSales30() {
       axios({
-        method:'GET',
-        url:'/api/chart30',
-        params:{
-          'id':this.$store.state.user.userId
+        method: 'GET',
+        url: '/api/chart30',
+        params: {
+          'id': this.$store.state.user.userId
         }
-      }).then((res30)=>{
+      }).then((res30) => {
         this.list30 = res30.data.count30;
-        this.data.datasets[0].data[1]= res30.data.count30
+        this.data.datasets[0].data[1] = res30.data.count30
         // this.data.datasets[0].data.unshift(this.list7) // 7일
         console.log(res30)
 
       })
     },
+
+    // 객실별 매출 조회 기능 구현하면 여기에 구현 하면 된다.
   }
 }
 </script>

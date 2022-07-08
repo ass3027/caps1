@@ -11,23 +11,36 @@
             :items="items"
             item-text="text"
             :value="lists.areaCode"
-            @change="area()"
+            @change="area()">
+          </v-select>
+        </div>
+        <div class="keyword-box">
+          <v-text-field
+            v-model="keyword"
+            dense
+            outlined
+            label="검색키워드"
+            full-width
+            @keyup.enter="placeTitle"
+            :style="{marginTop:'10px'}"
           />
         </div>
       </div>
-      <v-divider class="divider-padding" />
+      <v-divider class="divider-padding"/>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
+
 export default {
-  name : 'PlaceHeader',
+  name: 'PlaceHeader',
   components: {},
-  props:['category'],
+  props: ['category'],
   data() {
     return {
       searchCon: '1',
+      keyword: '',
       lists: [],
       items: [
         {text: '서울', value: '1'},
@@ -51,7 +64,7 @@ export default {
     };
   },
   methods: {
-    area(){
+    area() {
       axios({
         method: 'GET',
         url: `/api/place1/${this.category}/${this.searchCon}`,
@@ -60,9 +73,18 @@ export default {
           this.$store.commit('place/PlaceAeraUpdate', res.data)
           console.log(res.data)
         })
-    }
+    },
+    placeTitle() {
+      axios({
+        method: 'GET',
+        url: `/api/place1/${this.category}/B02/${this.keyword}`
+      })
+        .then((res) => {
+          this.$store.commit('place/PlaceKeyword', res.data)
+          console.log(res.data)
+        })
+    },
   }
-
 };
 </script>
 <style scoped>
@@ -72,6 +94,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
+
 /*.login-box {*/
 /*  display: flex;*/
 /*  justify-content: flex-end;*/
@@ -80,12 +103,21 @@ export default {
   display: flex;
   align-items: center;
 }
+
 .select-box {
   padding: 0 2%;
 }
+
 .select-size {
   width: 50%;
 }
+
+.keyword-box {
+  width: 30%;
+  position: absolute;
+  left: 65%;
+}
+
 .divider-padding {
   margin-top: 10px;
 }

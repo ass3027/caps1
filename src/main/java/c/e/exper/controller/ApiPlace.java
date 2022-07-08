@@ -60,6 +60,10 @@ public class ApiPlace {
       return placeService.카테고리_지역_조회(category, areaCode);
    }
 
+   @GetMapping("/place1/{category}/{areaCode}/{keyword}")
+   public List<PlaceDAO> getKeyword(@PathVariable String category, @PathVariable String keyword){
+      return placeService.키보드_지역_조회(category, keyword);
+   }
 
 //   @GetMapping("/place/{category}")
 //   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
