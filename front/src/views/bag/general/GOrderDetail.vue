@@ -48,18 +48,6 @@
           <td>{{ degree_start_end }}Km</td>
         </tr>
         <tr>
-          <th>물품정보</th>
-          <td>
-          <span
-            v-for="(i, index) in ord_bag_info"
-            :key="index"
-          >
-            {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
-            <span v-if="index !== ord_bag_info.length-1">, </span>
-          </span>
-          </td>
-        </tr>
-        <tr>
           <th>요청사항</th>
           <td>{{ item.ord_request }}</td>
         </tr>

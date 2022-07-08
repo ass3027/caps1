@@ -93,13 +93,13 @@
               <div style="width: 50%; display: inline-block">
                 <DateTimePicker
                   :label="'시작날짜'"
-                  @child="resultDate"
+                  @child="startDate"
                 />
               </div>
               <div style="width: 50%; display: inline-block">
                 <DateTimePicker
                   :label="'종료날짜'"
-                  @child="resultDate"
+                  @child="endDate"
                 />
               </div>
             </div>
@@ -126,12 +126,13 @@
         <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
         <!--      </div>-->
         <div style="width: 80%;margin: 0 auto; padding-top: 20px">
-          <button
+          <v-btn
             style="float: right;"
-            @click="addOrder"
+            @click="storageReserve"
           >
             작성 완료
-          </button>
+          </v-btn>
+
         </div>
       </v-form>
     </v-app>
@@ -153,6 +154,7 @@ export default {
     return {
       index:false,
       sDate: '',
+      eDate:'',
       panel: [0, 1],
       disabled: false,
       readonly: false,
@@ -177,7 +179,7 @@ export default {
       image2: '',
 
       bagType: [
-        {title: '기내용 캐리어(57cm 미만)', value: 11000},
+        {title: '기내용 캐리어(57cm 미만)', value: 500},
         {title: '화물용 캐리어(57cm 이상 67cm 미만)', value: 16000},
         {title: '특대형 캐리어(67cm 이상 또는 20kg 이상)', value: 20000},
         {title: '백팩 소형(40L 미만 그리고 10kg 미만)', value: 10000},
@@ -219,7 +221,7 @@ export default {
   },
 
   methods: {
-    reserve() {
+    storageReserve() {
       var IMP = window.IMP;
       IMP.init('imp19569487');
       console.log(this.lists)
@@ -232,14 +234,15 @@ export default {
         buyer_email: "testiamport@naver.com",
         buyer_name: this.$store.state.user.userId,
         buyer_tel: "01012341234"
-      }, rsp => {
-        console.log(rsp);
-        if (rsp.success) {
-          console.log(rsp)
+      }, rso => {
+        console.log(rso);
+        if (rso.success) {
+          this.addOrder()
+          console.log(rso)
           var imp = {
             user_id: this.$store.state.user.userId,
             ord_id: '',
-            pay_price: rsp.paid_amount,
+            pay_price: rso.paid_amount,
           }
           axios.post('/api/transportPay', imp)
             .then((res) => {
@@ -251,10 +254,15 @@ export default {
         }
       })
     },
-    resultDate(sDate) {
+    startDate(sDate) {
       this.sDate = sDate
       console.log(this.sDate)
       return this.sDate
+    },
+    endDate(eDate) {
+      this.eDate = eDate
+      console.log(this.eDate)
+      return this.eDate
     },
 
     getEmitData: function (lodging) {
@@ -271,7 +279,7 @@ export default {
         user_id: this.$store.state.user.userId, // UserId
         keep_start: this.lodging.pl_id, //맡길장소
         entrust_time: this.sDate,  //맡길시간
-        withdraw_time: this.sDate,  //찾을시간
+        withdraw_time: this.eDate,  //찾을시간
         ord_selection: '물품보관', //물품보관
         ord_request: this.ordRequest,
         status: '보관요청'
@@ -280,7 +288,6 @@ export default {
         .post('/api/storageAddOrder', storageBag)
         .then((res) => {
           console.log(storageBag)
-          this.reserve()
         })
     },
     startAddress(address) {

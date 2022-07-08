@@ -8,6 +8,7 @@
       <div class="map">
         <MapComponent
           index="00"
+          :rec="rec"
         />
       </div>
 
@@ -95,7 +96,7 @@
                   />
                 </v-card-title>
                 <v-card-text>
-                  <template v-if="bookCategory === '가이드'">
+                  <template v-if="bookCategory !== '가이드'">
                     <v-simple-table class="text-center">
                       <thead>
                       <tr>
@@ -116,7 +117,7 @@
                         :key="index"
                       >
                         <!--                          <td>{{book.PAY_ID}}</td>-->
-                        <td>{{ book.TITLE }}</td>
+                        <td>{{ book.PD_ID }}</td>
                         <td>{{ book.PD_NAME }}</td>
                         <td>{{ book.ROOM_NUM }}</td>
                         <td>{{ book.START_DATE }}</td>
@@ -220,11 +221,13 @@ import axios from "axios";
 
 export default {
   name: 'CalenderView',
+
   components: {
     DateComponent,
     PlannerHeader,
     MapComponent
   },
+  props:['rec'],
   data() {
     return {
       schName: 'gg',

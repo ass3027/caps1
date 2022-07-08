@@ -89,6 +89,7 @@ import joinView from "@/views/auth/JoinView";
 import KeeperJoinView from "@/views/auth/KeeperJoinView";
 import AreaChartView from "@/views/auth/AreaChartView";
 import AgeChartView from "@/views/auth/AgeChartView";
+import chartView from "@/views/store/chartView";
 
 
 
@@ -134,6 +135,7 @@ const routes = [
   {path: "/placeadd", name: "placeAdd", component: StoreAdd},
   {path: "/productBook", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
+  {path: "/chart", name: chartView, component: chartView},
   // {path: '/motel', name: 'motel', component: MotelView,},\
   // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 

@@ -128,13 +128,13 @@
               <div style="width: 50%; display: inline-block">
                 <DateTimePicker
                   :label="'시작날짜'"
-                  @child="resultDate"
+                  @child="startDate"
                 />
               </div>
               <div style="width: 50%; display: inline-block">
                 <DateTimePicker
                   :label="'종료날짜'"
-                  @child="resultDate"
+                  @child="endDate"
                 />
               </div>
             </div>
@@ -161,7 +161,7 @@
         <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
         <!--      </div>-->
         <div style="width: 80%;margin: 0 auto; padding-top: 20px">
-          <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>
+          <v-btn style="float: right;" @click="reserve">작성 완료</v-btn>
 
         </div>
       </v-form>
@@ -186,6 +186,7 @@ export default {
       sIndex: false,
       eIndex: false,
       sDate: '',
+      eDate:'',
       panel: [0, 1],
       disabled: false,
       readonly: true,
@@ -211,7 +212,7 @@ export default {
       image2: '',
 
       bagType: [
-        {title: '기내용 캐리어(57cm 미만)', value: 11000},
+        {title: '기내용 캐리어(57cm 미만)', value: 500},
         {title: '화물용 캐리어(57cm 이상 67cm 미만)', value: 16000},
         {title: '특대형 캐리어(67cm 이상 또는 20kg 이상)', value: 20000},
         {title: '백팩 소형(40L 미만 그리고 10kg 미만)', value: 10000},
@@ -269,6 +270,7 @@ export default {
         console.log(rsp);
         if (rsp.success) {
           console.log(rsp)
+          this.addOrder()
           var imp = {
             user_id: this.$store.state.user.userId,
             ord_id: '',
@@ -284,9 +286,14 @@ export default {
         }
       })
     },
-    resultDate(sDate) {
+    startDate(sDate) {
       this.sDate = sDate
       return this.sDate
+    },
+    endDate(eDate) {
+      this.eDate = eDate
+      console.log('도착날짜',this.eDate)
+      return this.eDate
     },
 
     startAddress: function (lodging) {
@@ -312,7 +319,7 @@ export default {
         keep_start: this.startLodging.pl_id, //시작장소
         keep_end: this.endLodging.pl_id, //도착장소
         entrust_time: this.sDate,  //맡길시간
-        withdraw_time: this.sDate,  //찾을시간
+        withdraw_time: this.eDate,  //찾을시간
         ord_selection: '물품운송', //물품보관
         ord_request: this.ordRequest,
         status: '승인대기',
@@ -320,7 +327,7 @@ export default {
       axios.post('/api/transportAddOrder', transportBag)
         .then((res) => {
           console.log(transportBag)
-          this.reserve()
+
         })
     },
   },
