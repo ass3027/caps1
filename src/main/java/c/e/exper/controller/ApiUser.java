@@ -2,6 +2,7 @@ package c.e.exper.controller;
 
 import c.e.exper.data.*;
 import c.e.exper.mapper.PictureMapper;
+import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
@@ -36,14 +37,17 @@ public class ApiUser {
 
     final ReviewService reviewService;
 
+    final ReviewMapper reviewMapper;
 
-    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper, ReviewService reviewService) {
+
+    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper, ReviewService reviewService, ReviewMapper reviewMapper) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
         this.suplMapper = suplMapper;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
         this.reviewService = reviewService;
+        this.reviewMapper = reviewMapper;
     }
 
     public static String randomHangulName() {
@@ -241,21 +245,12 @@ public class ApiUser {
         return userMapper.selectUserOrders(user_id);
     }
 
-    @PostMapping("/apiTest")
-    public void apiTest(@RequestBody List<PlaceDAO> data) {
+    @GetMapping("/review")
+    public List<Review> getUserReview() {
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-//        data.forEach( function(it) {
-//            userMapper.insertPlace(it);
-//            count++;
-//        });
-//        int i;
-//        for(i = 0; i < data.size(); i++) {
-//            userMapper.insertPlace(data.get(i));
-//
-//        }
-//        System.out.println("count: " + i);
+        return reviewMapper.findUserReviews(id);
     }
-
 
 
     public String getRandomPhone() {

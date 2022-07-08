@@ -24,6 +24,13 @@ public interface ReviewMapper {
     List<Review> findAllReview();
 
     @Select("""
+            SELECT *
+            FROM review
+            WHERE user_id = #{user_id}""")
+    List<Review> findUserReviews(@Param("user_id") String user_id);
+
+
+    @Select("""
             select *
             from review
             where pay_id in (select PAY_ID
@@ -147,7 +154,22 @@ public interface ReviewMapper {
                              where PD_ID = #{pd_id}
                                and PAY_ID is not null
                              group by PAY_ID)""")
-    List<Review> findHotelReview(@Param("pd_id") String pd_id);
+    List<Review> findHotelProductReview(@Param("pd_id") String pd_id);
+
+    @Select("""
+            select *
+            from review
+            where PAY_ID in (select PAY_ID
+                             from PRODUCT_TIME
+                             where PD_ID in (select pd_id
+                                             from PRODUCT
+                                             where PL_ID = #{pl_id})
+                               and PAY_ID is not null
+                             group by PAY_ID)
+            """)
+    List<Review> findHotelReview(@Param("pl_id") String pl_id);
+
+
 
     /* 상품 아이디로 모든 리뷰 조1회 */
     @Select("""

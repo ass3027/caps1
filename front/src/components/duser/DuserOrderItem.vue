@@ -1,5 +1,7 @@
 <template>
   <v-card
+    elevation="7"
+    style="border: 1px solid #e2e2e2"
     @click="dialog = true"
   >
     <v-dialog
@@ -8,13 +10,13 @@
     >
       <order-detail :order="order" />
     </v-dialog>
-    <span style="padding-left: 5px">#주문번호 {{ order.ord_id }}</span>
+    <span style="margin: 5px">#주문번호 {{ order.ord_id }}</span>
 
-    <div id="orderItem">
+    <div id="orderItem" style="overflow: auto; padding-bottom: 20px">
 
       <div
         class="order_time_info"
-        style="width: 80%; border-right: thin solid #ccc; padding-right: 20px;"
+        style="width: 80%; border-right: thin solid #ccc; padding-right: 20px; float: left"
       >
 
         <div
@@ -62,14 +64,15 @@
         </div>
       </div>
       <div
-        style="width: 20%; padding-left: 10px"
+        style="width: 20%; padding-left: 10px; float: right"
         class="bag_info"
       >
         <div
           v-for="(i, index) in ord_bag_info"
           :key="index"
+          style="text-align: left"
         >
-          {{ i['BAG_SIZE'] }}{{ i['CNT'] }}
+          {{ i['BAG_SIZE'] }} {{ i['CNT'] }}개
         </div>
         <span>
           {{ order.ord_amount }} 원
@@ -81,7 +84,7 @@
 
 <script>
 import axios from "axios";
-import OrderDetail from "@/components/order/OrderDetail";
+import OrderDetail from "@/components/duser/OrderDetail";
 
 export default {
   name: 'DuserOrderItem',
