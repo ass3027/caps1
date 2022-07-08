@@ -94,6 +94,10 @@ public class ReviewMapperTest {
     }
 
 
+    @Test
+    void findHotelReview() {
+        List<Review> hotelReview = mapper.findHotelReview("1");
 
-
+        hotelReview.forEach(System.out::println);
+    }
 }

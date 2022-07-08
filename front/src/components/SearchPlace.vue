@@ -39,6 +39,7 @@
               label="검색키워드"
               full-width
               :style="{marginTop:'10px'}"
+              @keyup.enter="placeTitle"
             />
           </v-col>
           <v-col>

@@ -196,7 +196,7 @@ export default {
 
       contents: [
         [
-          {title: 'travel1', route: '/travel'},
+          {title: '운송원', route: '/DuserOrders'},
           {title: 'travel2', route: '/travel'},
           {title: 'travel3', route: '/travel'},
           {title: 'travel4', route: '/travel'},

@@ -11,8 +11,8 @@ import PlannerShareWriteView from "../views/share/PlannerShareWriteView";
 import PlannerPicView from "@/views/share/PlannerPicView";
 import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
-import OrderDetail from "@/components/order/OrderDetail";
-import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
+import OrderDetail from "@/components/duser/OrderDetail";
+import DuserOrders from "@/views/duser/DuserOrders";
 import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
 import mainView from "@/views/MainView";
 import TourDetailView from "@/views/TourDetailView";
@@ -60,6 +60,8 @@ import ReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
+
+
 //민아
 import MypageView from "@/views/auth/MypageView";
 import MyBookMark from "@/components/auth/MyBookMark";
@@ -161,7 +163,7 @@ const routes = [
 
 
 
-  {path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
+  {path: "/DuserOrders", name: "DuserOrders", component: DuserOrders},
   {path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true},
   {path: "/TestView", name: "TestView", component: TestView},
 

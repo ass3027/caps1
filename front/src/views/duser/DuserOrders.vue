@@ -11,10 +11,8 @@
 
 
     <div>
-      <div
-        class="status"
-        style="margin: 0 auto"
-      >
+      <!--      상태변경      -->
+      <div class="status" style="margin: 0 auto">
         <span
           id="status1"
           @click="changeStatus(1)"
@@ -28,6 +26,9 @@
           @click="changeStatus(3)"
         >운송 완료</span>
       </div>
+
+
+      <!--      운송가능      -->
       <div
         v-if="status===1"
         class="orders_status"
@@ -51,12 +52,16 @@
           <strong>운송가능한 주문이 없습니다.</strong>
         </div>
       </div>
+
+
+      <!--      운송 중      -->
       <div
         v-else-if="status===2"
         class="orders_status"
       >
-        <div style="width: 100%; text-align: center; padding-top: 10px">
-          <h3>픽업 전</h3>
+        <!--      픽업 전      -->
+        <div style="text-align: center">
+          <h3 class="sub_status">픽업 전</h3>
         </div>
         <div
           v-for="(order, index) in orders_pickup_before"
@@ -68,9 +73,19 @@
             :longitude="longitude"
             :order="order"
           />
+
+
         </div>
-        <div style="width: 100%; text-align: center">
-          <span>운송 중</span>
+        <div
+          v-if="orders_pickup_before.length === 0 || orders_pickup_before === null"
+          class="wrap_empty"
+        >
+          <strong>픽업전인 주문이 없습니다.</strong>
+        </div>
+
+        <!--      픽업완료      -->
+        <div style="text-align: center; padding-top: 50px">
+          <h3 class="sub_status">운송 중</h3>
         </div>
         <div
           v-for="(order, index) in orders_pickup_after"
@@ -85,12 +100,16 @@
         </div>
 
         <div
-          v-if="(orders_pickup_before.length === 0 || orders_pickup_before === null) && (orders_pickup_after.length === 0 || orders_pickup_after === null)"
+          v-if="orders_pickup_after.length === 0 || orders_pickup_after === null"
           class="wrap_empty"
         >
           <strong>운송중인 주문이 없습니다.</strong>
         </div>
+
       </div>
+
+
+      <!--      운송완료      -->
       <div
         v-else
         class="orders_status"
@@ -120,7 +139,7 @@
 
 <script>
 import axios from "axios";
-import DuserOrderItem from "@/components/order/DuserOrderItem";
+import DuserOrderItem from "@/components/duser/DuserOrderItem";
 
 
 export default {
@@ -250,6 +269,7 @@ export default {
 }
 
 .orders_status {
+  padding-top: 30px;
   border: 1px solid #ccc;
   border-top: none;
   border-bottom-left-radius: 10px;
@@ -369,5 +389,12 @@ export default {
 /*.divider-padding {*/
 /*  margin-top: 10px;*/
 /*}*/
+
+.sub_status {
+  display: block;
+  border-bottom: 2px solid #D3D3D3;
+  width: 96%;
+  margin: 0 auto;
+}
 </style>
 

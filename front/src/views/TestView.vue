@@ -12,7 +12,7 @@
 
 <script>
 import axios from "axios";
-import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
+import DuserOrdersComponent from "@/views/duser/DuserOrders";
 
 export default {
 

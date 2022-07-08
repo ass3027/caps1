@@ -6,7 +6,6 @@ import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.service.FileServiceImpl;
 import c.e.exper.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,20 +27,10 @@ public class ApiReview {
     }
 
 
-    @PostMapping("/addReview/{type}/{id}")
+    @PostMapping("/addReview/{id}")
     public boolean addReview(@PathVariable String type, @PathVariable String id, Review review, HttpServletRequest req) {
 
-//        review.setUser_id(SecurityContextHolder.getContext().getAuthentication().getName());
-//        review.setPay_id(id);
-//
-//        System.out.println("등록할 리뷰: " + review);
-//        System.out.println("type: " + type);
-//        System.out.println("id: " + id);
-//
-//        System.out.println(review);
-        if(id == "100" && type == "가이드 상품") {
-            return reviewMapper.addReviewA(review);
-        }
+
 
         return true;
     }
@@ -77,9 +66,11 @@ public class ApiReview {
             case "all":
                 return reviewMapper.findAllReview();
             case "가이드 상품":
-                return reviewMapper.findGuideProductReview(id);
+                return reviewMapper.findGuideProductReview(id); //user_id
+            case "호텔 상품":
+                return reviewMapper.findHotelProductReview(id); // pd_id
             case "호텔":
-                return reviewMapper.findHotelReview(id); // 가이드 id
+                return reviewMapper.findHotelReview(id); // pl_id
         }
 
 

@@ -17,7 +17,7 @@ public interface ProductMapper {
 
     @Select("""
             SELECT PRODUCT.PD_ID, PRODUCT.PD_NAME, PRODUCT.PD_PRICE, PLACE.*,
-                   PRODUCT.PD_INFO, PICTURES.PIC_NAME
+                   PRODUCT.PD_INFO, PICTURES.PIC_NAME, PRODUCT.ROOM_HUMAN, PRODUCT.BED_INFO
             FROM PRODUCT, PICTURES, ( select * from Place where PLACE.PL_ID = #{pl_id} ) PLACE
             WHERE PRODUCT.PD_ID= PICTURES.PD_ID(+)
               AND PLACE.PL_ID= PRODUCT.PL_ID(+)
