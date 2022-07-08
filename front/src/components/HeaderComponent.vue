@@ -1,7 +1,6 @@
 <template>
-  <v-app
-    class="header-layout"
-  >
+  <v-container class="header-layout">
+
     <div id="userMenu">
       <ul class="list_menu">
         <!----> <!---->
@@ -128,13 +127,16 @@
       </h1>
     </div>
 
-    <div>
+
+
+    <!--    일반회원 헤더 -->
+    <div v-if="user_role===`일반회원` || user_role=== undefined">
       <div
         class="menu-Bar"
         style="width: 1050px"
       >
         <v-menu
-          v-for="(menu,index) in menuList"
+          v-for="(menu,index) in gMenuList"
           :key="index"
           offset-y
         >
@@ -154,7 +156,7 @@
 
           <v-list>
             <v-list-item
-              v-for="(content, index2) in contents[index]"
+              v-for="(content, index2) in gContents[index]"
               :key="index2"
               router
               :to="content.route"
@@ -168,8 +170,50 @@
         <v-divider style="margin-top: 10px"/>
       </div>
     </div>
-  </v-app>
 
+    <!--    키퍼회원 헤더 -->
+    <div v-else-if="user_role===`키퍼회원`">
+      <div
+        class="menu-Bar"
+        style="width: 1050px"
+      >
+        <v-menu
+          v-for="(menu,index) in kMenuList"
+          :key="index"
+          offset-y
+        >
+          <template #activator="{ on, attrs }">
+            <div
+              style="display: flex; justify-content: center; width: 30%; text-align: center; height: 55px"
+            >
+              <span
+                v-bind="attrs"
+                style="padding-top: 15px"
+                v-on="on"
+              >
+                {{ menu }}
+              </span>
+            </div>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="(content, index2) in kContents[index]"
+              :key="index2"
+              router
+              :to="content.route"
+              style="display: flex; justify-content: center"
+            >
+              <span>{{ content.title }}</span>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+        <v-divider style="margin-top: 10px"/>
+      </div>
+    </div>
+
+  </v-container>
 </template>
 
 <script>
@@ -183,8 +227,7 @@ export default {
   data() {
     return {
       photo: '',
-      menuList: [
-        "여행지",
+      gMenuList: [
         "여행계획",
         "시설",
         "가방관리",
@@ -194,14 +237,7 @@ export default {
         "통계"
       ],
 
-      contents: [
-        [
-          {title: 'travel1', route: '/travel'},
-          {title: 'travel2', route: '/travel'},
-          {title: 'travel3', route: '/travel'},
-          {title: 'travel4', route: '/travel'},
-          {title: 'travel5', route: '/travel'}
-        ],
+      gContents: [
         [
           {title: '플래너 생성', route: '/plan'},
           {title: '플래너 초대', route: '/plInvite'},
@@ -219,11 +255,8 @@ export default {
         ],
         [
           {title: '가방예약', route: '/SelectionOrder'},
-          {title: '이용안내', route: '/UsageGuideView'},
-          {title: '요금', route: '/FareView'},
-          {title: '후기', route: '/ReviewView'},
           {title: '물품조회', route: '/GTrackingView'},
-          {title: '키퍼물품조회', route: '/KeeperTrackingView'},
+          {title: '키퍼물품조회', route: '/KeeperTrackingView'}
         ],
         [
           {title: '가이드 등록', route: '/GuideRegister'},
@@ -234,11 +267,7 @@ export default {
           {title: '예약 정보', route: '/GuideReserveInfo'},
         ],
         [
-          {title: '공유', route: '/share'},
-          {title: 'Community1', route: '/Community'},
-          {title: 'Community2', route: '/Community'},
-          {title: 'Community4', route: '/Community'},
-          {title: 'Community5', route: '/Community'}
+          {title: '공유게시판', route: '/share'},
         ],
         [
           {title: '문의사항 ', route: '/Questions'},
@@ -255,6 +284,30 @@ export default {
           {title: '', route: ''}
         ]
       ],
+      kMenuList: [
+        "시설",
+        "가방관리",
+        "커뮤니티",
+        "고객센터",
+      ],
+
+      kContents: [
+        [
+          {title: '장소등록', route: ''},
+          {title: '내등록숙박조회', route: ''},
+        ],
+        [
+          {title: '키퍼물품조회', route: '/KeeperTrackingView'}
+        ],
+        [
+          {title: '공유게시판', route: '/share'},
+        ],
+        [
+          {title: '문의사항 ', route: '/Questions'},
+          {title: '게시글 등록', route: '/Writing'},
+        ],
+
+      ],
       scroll: null,
       user_name: '',
       user_role: null,
@@ -264,7 +317,6 @@ export default {
     isLogin() {
       return this.$store.getters['user/isLogin']
     },
-
 
   },
   created() {
@@ -279,15 +331,15 @@ export default {
   },
   methods: {
     async updateUser() {
-      const { data } = await axios.get("/api/user/find")
+      const {data} = await axios.get("/api/user/find")
       // const user
-      console.log(data)
+      console.log('유저정보', data)
       this.user_name = data.user_name
-      if(data.role==='user') this.user_role = '일반회원'
-      else if(data.role==='delivery') this.user_role = '운송회원'
-      else this.user_role = '키퍼회원'
+      if (data.role === 'keeper') this.user_role = '키퍼회원'
+      else if (data.role === 'delivery') this.user_role = '운송회원'
+      else this.user_role = '일반회원'
 
-      const temp = {id:data.user_id, role:data.role}
+      const temp = {id: data.user_id, role: data.role}
       await this.$store.dispatch("user/setUser", temp)
 
     },
@@ -299,7 +351,7 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$store.dispatch('user/setUser', {user_id: 'anonymousUser'})
+          this.$store.dispatch('user/setUser', {user_id: 'anonymousUser',user_role:null},)
           // this.$router.push("/")
           location.href = "/"
         })
