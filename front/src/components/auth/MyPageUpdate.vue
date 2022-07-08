@@ -8,7 +8,7 @@
     <div>
       <table style="border-top: 2px solid #333; width: 100%">
         <tbody>
-        <div style="width: 400px; margin: 0 auto; padding-top: 19px">
+        <div style="width: 400px; margin: 0 auto; padding-top: 19px;">
           <v-text-field
             v-model="user_name"
             :counter="7"

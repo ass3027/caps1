@@ -82,16 +82,16 @@ public interface UserMapper { //디비접근
     UserDAO selectAgeCount50();
 
 
-
-
-
-
-
+//    @Select("select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT\n" +
+//            "from INQUIRY\n" +
+//            "where inq_id = #{inq_id}")
+//    List<InquiryDAO> selectSearch(String user_id);
 
     @Select("select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT\n" +
             "from INQUIRY\n" +
-            "where user_id = #{user_id.jdbcType=VARCHAR}")
-    List<InquiryDAO> selectSearch(String user_id);
+            "where INQ_TITLE like '%'||#{keyword}||'%' order by(inq_id)")
+    List<InquiryDAO> selectSearch(String keyword);
+
 
 
 
