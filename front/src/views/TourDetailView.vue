@@ -4,16 +4,8 @@
       <v-col cols="7">
         <h1>{{tour.title}}</h1>
         <p>{{tour.addr1}}</p>
-        <div>
-<!--          <span style="float:left">-->
-<!--            <v-icon-->
-<!--              color="red"-->
-<!--              @click="editStart(task,i)"-->
-<!--            >-->
-<!--              mdi-heart-plus-->
-<!--            </v-icon>-->
-<!--            찜하기-->
-<!--          </span>-->
+        <div v-if="tour!=''">
+          <book-mark-status :pl_id="tour.contentid"></book-mark-status>
 <!--          <span style="float:right"-->
 <!--                @click="toCalendar"-->
 <!--          >-->
@@ -135,12 +127,14 @@
 <script>
 import axios from "axios";
 import KakaoMap from "@/components/KakaoMap";
+import BookMarkStatus from "@/components/BookMarkStatus";
 
 export default {
 
   name: 'TourDetailView',
   components: {
-    KakaoMap
+    KakaoMap,
+    BookMarkStatus
   },
   props:['pl_id','contentTypeId'],
   data() {
@@ -156,6 +150,7 @@ export default {
     axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest&firstImageYN=Y&mapinfoYN=Y&_type=json`)
     .then((res)=>{
       this.tour=res.data.response.body.items.item
+
       axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&imageYN=Y&MobileOS=ETC&MobileApp=AppTest&subImageYN=Y`)
         .then((res)=>{
           this.images=res.data.response.body.items.item

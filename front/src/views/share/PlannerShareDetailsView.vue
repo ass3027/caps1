@@ -251,7 +251,8 @@ export default {
       }
 
       axios.post('/api/recShare', {}, {params: {share_id: this.share.share_id, user_id: this.$store.state.user.userId}})
-        .then(() => {
+        .then((res) => {
+          if(res.data!="") alert(res.data)
           this.getRecommends()
         })
         .catch(() => {

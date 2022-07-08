@@ -23,11 +23,12 @@
           <v-col
             v-for="(firstimage,index) in shareSet.firstimage"
             :key="index+'f'"
-            cols="auto"
+            cols="6"
           >
             <img
               :src="firstimage"
               alt="My Image"
+              style="width: 100%"
             >
           </v-col>
         </v-row>
@@ -38,7 +39,7 @@
           style="height: 100px"
         >
           <v-col
-            cols="7"
+            cols="12"
             class="fill-height text-truncate"
           >
             <h3>{{ shareSet.share_title }}</h3>
@@ -46,12 +47,12 @@
               {{ shareSet.share_contents }}
             </h4>
           </v-col>
-          <v-col
-            cols="3"
-            class="grey--text"
-          >
-            <h5>{{ shareSet.user_id }}님의 일정</h5>
-          </v-col>
+<!--          <v-col-->
+<!--            cols="3"-->
+<!--            class="grey&#45;&#45;text"-->
+<!--          >-->
+<!--&lt;!&ndash;            <h5>{{ shareSet.user_id }}님의 일정</h5>&ndash;&gt;-->
+<!--          </v-col>-->
         </v-row>
       </v-container>
     </v-card>

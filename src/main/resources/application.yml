@@ -8,6 +8,9 @@ spring:
     remote:
       restart:
         enabled: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
 
 #spring:
 #  datasource:

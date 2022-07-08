@@ -80,10 +80,16 @@ public class ApiOrders {
 
     }
 
-    @GetMapping("/myOrders")
-    public List<OrderDAO> myOrders(String user_id){
+    @GetMapping("/myTransOrders")
+    public List<OrderDAO> myTransOrders(String user_id){
         System.out.println(user_id);
-        return ordersMapper.selectMyOrders(user_id);
+        return ordersMapper.selectMyTransOrders(user_id);
+    }
+
+    @GetMapping("/myKeepOrders")
+    public List<OrderDAO> myKeepOrders(String user_id){
+        System.out.println(user_id);
+        return ordersMapper.selectMyKeepOrders(user_id);
     }
 
 }

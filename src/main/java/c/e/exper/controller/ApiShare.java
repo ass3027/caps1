@@ -223,8 +223,15 @@ public class ApiShare {
     }
 
     @PostMapping("/recShare")
-    public void recShare(@RequestParam("share_id") String share_id,@RequestParam("user_id") String user_id){
-        shareMapper.insertRecommend(share_id,user_id);
+    public String recShare(@RequestParam("share_id") String share_id,@RequestParam("user_id") String user_id){
+        try{
+            shareMapper.insertRecommend(share_id,user_id);
+            return "";
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return "이미 추천하였습니다";
+        }
     }
 
     @GetMapping("/getShareRec")

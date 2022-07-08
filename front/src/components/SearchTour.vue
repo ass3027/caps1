@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+<v-container>
       <v-card >
         <v-card-title class="text-h5 grey lighten-2" >
           관광지를 검색해보세요

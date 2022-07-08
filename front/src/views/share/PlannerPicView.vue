@@ -1,15 +1,20 @@
 <template>
   <div>
-    <PlannerHeader />
+    <PlannerHeader/>
     <v-card>
       <v-container>
-        <h2>사진첩</h2>
+        <h2>사진첩
+          <v-btn class="mb-1" @click="uploadDialog=true">
+            사진 업로드
+          </v-btn>
+        </h2>
         <div>
           <v-hover
             v-slot="{ hover }"
           >
             <v-card
               :elevation="hover ? 10 : 2"
+              width="1600px"
             >
               <img
                 v-for="photo in photos"
@@ -21,18 +26,6 @@
               >
             </v-card>
           </v-hover>
-        </div>
-        <div class="ma-5">
-          <h3>사진 업로드</h3>
-          <input
-            ref="refImage"
-            type="file"
-            placeholder="photo"
-          >
-          <v-btn @click="upload">
-            Upload
-          </v-btn>
-
         </div>
       </v-container>
     </v-card>
@@ -54,7 +47,7 @@
           >
         </v-card-text>
 
-        <v-divider />
+        <v-divider/>
 
         <v-card-actions>
           <v-row justify="end">
@@ -81,6 +74,47 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="uploadDialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          <h3>사진 업로드</h3>
+        </v-card-title>
+        <v-card-text>
+          <v-file-input
+            ref="refImage"
+            v-model="user_photo"
+            placeholder="photo"
+            @change="imageSet()"
+          />
+          <div
+            id="pictures"
+            style="width:400px;height:400px"
+          />
+        </v-card-text>
+        <v-divider/>
+        <v-card-actions>
+          <v-row justify="end">
+            <v-col cols="auto">
+              <v-btn
+                color="grey"
+                text
+                @click="uploadDialog = false"
+              >
+                닫기
+              </v-btn>
+            </v-col>
+            <v-col cols="auto">
+              <v-btn text @click="upload">
+                Upload
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -100,6 +134,7 @@ export default {
       user_photo: '',
       photos: '',
       dialog: false,
+      uploadDialog: false,
       selectedPic: '',
       picsUser: '',
       createdTime: '',
@@ -109,6 +144,30 @@ export default {
     this.getPlanPic();
   },
   methods: {
+    imageSet() {
+      var picture = document.getElementById('pictures');
+      while (picture.hasChildNodes()) {
+        picture.removeChild(picture.firstChild);
+      }
+
+      // this.user_photo = this.$refs.refImage.files[0];
+
+      var reader = new FileReader();
+      reader.readAsDataURL(this.user_photo);
+
+      reader.onload = function () {
+        var photoFrame = document.createElement('div');
+        photoFrame.style = `background : url(${reader.result}); background-size : cover;width:400px;height:400px;`;
+        photoFrame.className = 'photoFrame';
+        document.getElementById('pictures').appendChild(photoFrame);
+        //e.target.value = "";
+
+        // photoFrame.addEventListener("click",function(){
+        //   document.getElementById("pictures").removeChild(photoFrame);
+        // })
+      }
+    },
+
     getPlanPic() {
       axios.get('/api/planner/getPlanPic', {
         params: {
@@ -126,7 +185,7 @@ export default {
 
     },
     upload() {
-      this.user_photo = this.$refs.refImage.files[0];
+      // this.user_photo = this.$refs.refImage.files[0];
       console.log(this.user_photo)
       if (!this.user_photo) {
         alert("사진을 넣어주세요")
@@ -168,11 +227,11 @@ export default {
       var time = photo.pic_name.substring(10, 23)
       var time2 = new Date()
       time2.setTime(time)
-      this.createdTime = time2.getFullYear()+"년"+(time2.getMonth()+1)+"월"+time2.getDate()+"일 "+time2.getHours()+"시"+time2.getMinutes()+"분"
+      this.createdTime = time2.getFullYear() + "년" + (time2.getMonth() + 1) + "월" + time2.getDate() + "일 " + time2.getHours() + "시" + time2.getMinutes() + "분"
       this.dialog = true;
     },
     deletePic() {
-      if(!confirm("정말로 삭제하시겠습니까?"))return
+      if (!confirm("정말로 삭제하시겠습니까?")) return
       axios.delete('/api/photo/' + this.selectedPic)
         .then((res) => {
           console.log(res.data)
