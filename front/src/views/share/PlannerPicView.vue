@@ -8,12 +8,14 @@
           <v-col cols="5">
             <h2>사진첩</h2>
           </v-col>
-          <v-col v-if="sortStatus=='latest'" cols="2">
-            <v-btn @click="sortByOld">최신순</v-btn>
+          <v-col  cols="2">
+            정렬순서 :
+            <v-btn @click="sortBy" text>
+              <div v-if="sortStatus=='latest'">최신순</div>
+              <div v-else>오랜된순</div>
+            </v-btn>
           </v-col>
-          <v-col  v-else cols="2">
-            <v-btn @click="sortByLatest">오래된순</v-btn>
-          </v-col>
+
           <v-col cols="2">
             <v-btn style="float:right" class="ma-0" @click="uploadDialog=true">
               사진 업로드
@@ -24,7 +26,35 @@
         <div class="mt-5">
           <v-row>
             <v-col cols="2">
-              여긴 필터공간
+              카테고리
+              <v-checkbox
+                v-model="selected"
+                label="사람"
+                value="사람"
+              ></v-checkbox>
+              <v-checkbox
+                v-model="selected"
+                label="음식"
+                value="음식"
+              ></v-checkbox>
+              <v-checkbox
+                v-model="selected"
+                label="풍경"
+                value="풍경"
+              ></v-checkbox>
+              <v-checkbox
+                v-model="selected"
+                label="관광지"
+                value="관광지"
+              ></v-checkbox>
+
+
+
+
+
+
+
+
             </v-col>
             <v-col cols="10">
               <v-row>
@@ -49,10 +79,20 @@
 
               </v-row>
               <v-row justify="center" style="text-align: center">
-                <v-col cols="11" >
-                  <v-btn @click="prevPage" text>이전</v-btn>
-                  {{pageNum+1}}
-                  <v-btn @click="nextPage" text>다음</v-btn>
+                <v-col cols="6" >
+<!--                  <v-btn @click="prevPage" text>이전</v-btn>-->
+<!--                  <v-div v-for="i in 10" :key="i" @click="movePage(i)">-->
+<!--                    <v-btn v-if="pageNum+i<=pageCount">-->
+<!--                      {{pageNum+i}}-->
+<!--                    </v-btn>-->
+
+<!--                  </v-div>-->
+<!--                  <v-btn @click="nextPage" text>다음</v-btn>-->
+                  <v-pagination
+                    v-model="pageNum"
+                    :length="pageCount"
+                  >
+                  </v-pagination>
                 </v-col>
                 <v-col cols="1"></v-col>
               </v-row>
@@ -69,7 +109,7 @@
     >
       <v-card>
         <v-card-title class="text-h5 grey lighten-2">
-          {{ createdTime }}
+          {{ createdTime }}[{{picsCategory}}]
         </v-card-title>
         <v-card-text>
           <img
@@ -164,21 +204,38 @@ export default {
   data() {
     return {
       user_photo: '',
-      photos: '',
+      originPhotos:[],
       dialog: false,
       uploadDialog: false,
       selectedPic: '',
       picsUser: '',
+      picsCategory:'',
       createdTime: '',
       pageNum: 0,
       pageSize:12,
-      sortStatus:'latest'
+      sortStatus:'latest',
+      selected: ['사람','음식','풍경','관광지'],
+
     }
   },
   mounted() {
     this.getPlanPic();
   },
   methods: {
+    sortBy(){
+      if(this.sortStatus=='latest'){
+        this.photos=this.photos.sort((a,b)=>{
+          return(Number(a.pic_name.substring(10, 23))-Number(b.pic_name.substring(10, 23)))
+        })
+        this.sortStatus='old'
+      }
+      else{
+        this.photos=this.photos.sort((a,b)=>{
+          return(Number(b.pic_name.substring(10, 23))-Number(a.pic_name.substring(10, 23)))
+        })
+        this.sortStatus='latest'
+      }
+    },
     imageSet() {
       var picture = document.getElementById('pictures');
       while (picture.hasChildNodes()) {
@@ -212,7 +269,7 @@ export default {
         .then(res => {
           console.log("?")
           console.log(res.data)
-          this.photos = res.data;
+          this.originPhotos = res.data;
         })
         .catch((err) => {
           alert(err)
@@ -259,6 +316,7 @@ export default {
       console.log(photo.pic_name)
       this.selectedPic = photo.pic_name
       this.picsUser = photo.user_id;
+      this.picsCategory = photo.category;
       var time = photo.pic_name.substring(10, 23) //파일이름에 타임스탬프들어가는거를
       var time2 = new Date()
       time2.setTime(time) //타임으로 변환해서 시간정보 가져옴
@@ -281,10 +339,16 @@ export default {
     },
     prevPage () {
       this.pageNum -= 1;
-    }
+    },
+
   },
 
   computed: {
+    photos(){
+      return this.originPhotos.filter(photo=>
+        this.selected.includes(photo.category)
+      )
+    },
     pageCount () {
       let listLeng = this.photos.length,
         listSize = this.pageSize,
@@ -301,7 +365,7 @@ export default {
       const start = this.pageNum * this.pageSize,
         end = start + this.pageSize;
       return this.photos.slice(start, end);
-    }
+    },
 
   }
 }
