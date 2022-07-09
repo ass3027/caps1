@@ -27,4 +27,9 @@ public class PaymentDAO {
     String ord_id;
     String gtime_num;
     String buy_status;
+
+    int price1;
+    int price7;
+    int pirce30;
+    int price_sum;
 }

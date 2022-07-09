@@ -157,9 +157,34 @@ public class ApiUser {
     @GetMapping("/age50")
     public UserDAO getUserAge50(){return userMapper.selectAgeCount50();}
 
+    //게시글 검색
     @GetMapping("/search")
     public List<InquiryDAO> getUserSearch(@RequestParam("keyword")String keyword){
         return userMapper.selectSearch(keyword);
+    }
+
+    //총 금액
+    @GetMapping("/price")
+    public PaymentDAO getUserPrice(String user_id){
+        return userMapper.selectPriceSum(user_id);
+    }
+
+    //하루 총액
+    @GetMapping("/price1")
+    public PaymentDAO getUserPrice1(String user_id){
+        return userMapper.selectPrice1(user_id);
+    }
+
+    //최근 일주일 금액
+    @GetMapping("/price7")
+    public PaymentDAO getUserPrice7(String user_id){
+        return userMapper.selectPrice7(user_id);
+    }
+
+    //최근 한달 금액
+    @GetMapping("/price30")
+    public PaymentDAO getUserPrice30(String user_id){
+        return userMapper.selectPrice30(user_id);
     }
 
 

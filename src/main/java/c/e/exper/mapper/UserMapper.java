@@ -81,18 +81,75 @@ public interface UserMapper { //디비접근
             "WHERE USER_BIRTH BETWEEN '1940-01-01' AND '1973-12-31'")
     UserDAO selectAgeCount50();
 
+    @Select("""
+            select sum(PAY_PRICE) as price_sum
+            from PAYMENT
+            where USER_ID = #{user_id}
+            and PAY_ID in (select PAY_ID
+                           from PRODUCT_TIME
+                           where PD_ID in (select pd_id
+                                           from PRODUCT)
+                           and PAY_ID is not null
+                           group by PAY_ID)
+            """)
+    PaymentDAO selectPriceSum(@Param("user_id") String user_id);
+
+    //하루 총액
+    @Select("""
+            select sum(PAY_PRICE) as price1
+                        from PAYMENT
+                        where USER_ID = #{user_id}
+                        and PAY_ID
+                                 in (select PAY_ID
+                                     from PRODUCT_TIME
+                                     where PD_ID in (select pd_id
+                                                     from PRODUCT)
+                                     and PAY_ID is not null
+                                     group by PAY_ID)  and to_char(PAY_TIME,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd')
+            """)
+    PaymentDAO selectPrice1(@Param("user_id") String user_id);
+
+  @Select("""
+            select sum(PAY_PRICE) as price7
+                        from PAYMENT
+                        where USER_ID = #{user_id}
+                        and PAY_ID
+                                 in (select PAY_ID
+                                     from PRODUCT_TIME
+                                     where PD_ID in (select pd_id
+                                                     from PRODUCT)
+                                     and PAY_ID is not null
+                                     group by PAY_ID) and SYSDATE-7 < PAY_TIME
+            """)
+    PaymentDAO selectPrice7(@Param("user_id") String user_id);
+
+    @Select("""
+            select sum(PAY_PRICE) as price30
+                        from PAYMENT
+                        where USER_ID = #{user_id}
+                        and PAY_ID
+                                 in (select PAY_ID
+                                     from PRODUCT_TIME
+                                     where PD_ID in (select pd_id
+                                                     from PRODUCT)
+                                     and PAY_ID is not null
+                                     group by PAY_ID) and to_char(PAY_TIME,'yyyy-mm-dd') > TO_CHAR(SYSDATE-30,'yyyy-mm-dd')
+            """)
+    PaymentDAO selectPrice30(@Param("user_id") String user_id);
+
+
 
 //    @Select("select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT\n" +
 //            "from INQUIRY\n" +
 //            "where inq_id = #{inq_id}")
 //    List<InquiryDAO> selectSearch(String user_id);
 
+
+    //게시판 검색
     @Select("select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT\n" +
             "from INQUIRY\n" +
             "where INQ_TITLE like '%'||#{keyword}||'%' order by(inq_id)")
     List<InquiryDAO> selectSearch(String keyword);
-
-
 
 
 
