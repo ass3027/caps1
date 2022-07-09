@@ -14,9 +14,6 @@
           class="tbl"
           style="border-bottom: 2px solid black"
         >
-          <caption style="display:none">
-            후기 작성 입력상자
-          </caption>
           <colgroup>
             <col style="width:110px;">
             <col style="width:auto">
@@ -99,14 +96,10 @@ export default {
   },
   data() {
     return {
-      name          : "",
-      rev_content   : "",
-      image         : "",
-      rev_photo  : "",
+      rev_content: '',
       title: '',
-      url_string    : "",
-
-      alt_img_url   : "",
+      pay_id: '',
+      imageFile: null,
     }
   },
   computed: {
@@ -117,9 +110,6 @@ export default {
     imageSet(e) {
 
 
-      // this.rev_photo = e.target.files[0]
-      // console.log(this.rev_photo)
-
       var picture = document.getElementById('pictures')
 
 
@@ -128,10 +118,10 @@ export default {
         picture.removeChild(picture.firstChild);
       }
 
-      this.rev_photo = this.$refs.refImage.files[0];
+      this.imageFile = this.$refs.refImage.files[0];
 
       var reader = new FileReader();
-      reader.readAsDataURL(this.rev_photo);
+      reader.readAsDataURL(this.imageFile);
 
       reader.onload = function () {
         var photoFrame = document.createElement('div');
@@ -143,20 +133,23 @@ export default {
 
     },
     onSubmit() {
-      var review = new FormData()
+      this.imageFile = this.$refs.refImage.files[0];
+      console.log('imageFile', this.imageFile)
+      var sendform = new FormData()
 
-      review.append('title', this.title)
-      review.append('rev_content', this.rev_content)
-      review.append('rev_photo', this.rev_photo)
+      sendform.append('title', this.title)
+      sendform.append('rev_content', this.rev_content)
+      sendform.append('pay_id', this.id)
+      sendform.append('imageFile', this.imageFile)
 
 
       axios({
         method : 'post',
-        url    : '/api/addReview/' + this.type + '/' + this.id,
+        url    : '/api/addReview',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        data   : review
+        data: sendform
       }).then((res) => {
 
         alert(res.data)

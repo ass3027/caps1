@@ -33,13 +33,6 @@ public interface PictureMapper {
     @Insert("Insert Into Pictures(PIC_NAME,PLAN_ID,USER_ID) Values(#{pic.pic_name},#{pic.plan_id},#{pic.user_id})")
     void InsertPlan(@Param("pic") PictureDAO pictureDAO);
 
-    @Insert("""
-            Insert Into Pictures(PIC_NAME, ORD_ID) values(#{pic.pic_name}, #{pic.ord_id})""")
-    void InsertOrderReview(@Param("pic") PictureDAO pictureDAO);
-
-    @Insert("""
-            Insert Into Pictures(PIC_NAME, BOOK_ID) values(#{pic.pic_name}, #{pic.book_id})""")
-    void InsertBookReview(@Param("pic") PictureDAO pictureDAO);
 
     @Delete("delete from PICTURES where PIC_NAME = #{pic_name}")
     void deletePicture(String pic_name);

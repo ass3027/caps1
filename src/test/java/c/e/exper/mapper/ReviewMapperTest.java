@@ -1,6 +1,6 @@
 package c.e.exper.mapper;
 
-import c.e.exper.data.Review;
+import c.e.exper.data.ReviewDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +22,7 @@ public class ReviewMapperTest {
     @Test
     public void addOrderReviewTest() {
 
-        Review review = Review.builder()
+        ReviewDTO review = ReviewDTO.builder()
                 .user_id("1")
                 .rev_content("넌 그냥 나가라")
                 .build();
@@ -33,7 +33,7 @@ public class ReviewMapperTest {
     @Test
     public void addBookReviewTest() {
 
-        Review review = Review.builder()
+        ReviewDTO review = ReviewDTO.builder()
                 .user_id("이세진")
                 .rev_content("넌 그냥 들어와라")
                 .build();
@@ -43,19 +43,19 @@ public class ReviewMapperTest {
 
     @Test
     public void selectReview() {
-        Review review = mapper.selectReview("107");
+        ReviewDTO review = mapper.selectReview("107");
         System.out.println(review);
     }
 
     @Test
     public void findAllReviewForKeep() {
-        List<Review> reviews = mapper.findAllReviewForKeep("100");
+        List<ReviewDTO> reviews = mapper.findAllReviewForKeep("100");
         System.out.println(reviews);
     }
 
     @Test
     public void findAllReviewForProduct() {
-        List<Review> allReviewForProduct = mapper.findAllReviewForProduct("100");
+        List<ReviewDTO> allReviewForProduct = mapper.findAllReviewForProduct("100");
 
         allReviewForProduct.forEach(review -> System.out.println(review));
 
@@ -63,14 +63,14 @@ public class ReviewMapperTest {
 
     @Test
     public void findAllReviewForDelivery() {
-        List<Review> allReviewForDelivery = mapper.findAllReviewForDelivery("100");
+        List<ReviewDTO> allReviewForDelivery = mapper.findAllReviewForDelivery("100");
 
         allReviewForDelivery.forEach(review -> System.out.println(review));
     }
 
     @Test
     public void updateReview() {
-        Review review = Review.builder()
+        ReviewDTO review = ReviewDTO.builder()
                 .rev_id("100")
                 .rev_content("ABCDEFGHIJKLMNOPQRSTUVWOXYZ")
                 .build();
@@ -96,7 +96,7 @@ public class ReviewMapperTest {
 
     @Test
     void findHotelReview() {
-        List<Review> hotelReview = mapper.findHotelReview("1");
+        List<ReviewDTO> hotelReview = mapper.findHotelReview("1");
 
         hotelReview.forEach(System.out::println);
     }

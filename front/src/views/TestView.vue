@@ -1,30 +1,20 @@
 <template>
   <div style="width: 1050px">
-    <DuserOrdersComponent/>
-    <!--          <OrdersComponent :user_id="user_id" />-->
-    <!--    <ReviewView :id="'100'" :type="'all'"/>-->
+    <ReviewCreateView :type="'pay_id'" :id="'132'"/>
 
-    <!--    <ReviewCreateView :id="'um'" :type="'guide'"/>-->
-    <!--    <ReviewCreateView />-->
 
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import DuserOrdersComponent from "@/views/duser/DuserOrders";
+import ReviewCreateView from "@/views/ReviewCreateView";
 
 export default {
 
   name: 'TestView',
   components: {
-
-
-    // ReviewView
-    // OrdersComponent,
-    DuserOrdersComponent
-
-
+    ReviewCreateView,
   },
 
   data() {

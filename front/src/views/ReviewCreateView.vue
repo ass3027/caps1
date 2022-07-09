@@ -12,7 +12,6 @@
 
 <script>
 import ReviewForm from "@/components/review/ReviewForm";
-import axios from "axios";
 
 export default {
   name: 'ReviewCreateView',

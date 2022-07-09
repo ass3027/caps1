@@ -1,11 +1,14 @@
 package c.e.exper.controller;
 
 
-import c.e.exper.data.Review;
+import c.e.exper.data.PictureDAO;
+import c.e.exper.data.ReviewDTO;
+import c.e.exper.mapper.PictureMapper;
 import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.service.FileServiceImpl;
 import c.e.exper.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,29 +21,34 @@ public class ApiReview {
     private final ReviewService reviewService;
     private final FileServiceImpl fileService;
     private final ReviewMapper reviewMapper;
+    private final PictureMapper pictureMapper;
 
     @Autowired
-    public ApiReview(ReviewService reviewService, FileServiceImpl fileService, ReviewMapper reviewMapper) {
+    public ApiReview(ReviewService reviewService, FileServiceImpl fileService, ReviewMapper reviewMapper, PictureMapper pictureMapper) {
         this.reviewService = reviewService;
         this.fileService = fileService;
         this.reviewMapper = reviewMapper;
+        this.pictureMapper = pictureMapper;
     }
 
 
-    @PostMapping("/addReview/{id}")
-    public boolean addReview(@PathVariable String type, @PathVariable String id, Review review, HttpServletRequest req) {
+    @PostMapping("/addReview")
+    public boolean addReview(ReviewDTO reviewDTO, HttpServletRequest req) {
+        
+        reviewDTO.setImg_link(fileService.photoSave(reviewDTO.getImageFile(), req, "reviewImage"));
+        reviewDTO.setUser_id(SecurityContextHolder.getContext().getAuthentication().getName());
+        System.out.println("reviewDTO = " + reviewDTO);
 
 
-
-        return true;
+        return reviewMapper.addReview(reviewDTO);
     }
 
     @GetMapping("/allReview")
-    public List<Review> findAllReview() {
+    public List<ReviewDTO> findAllReview() {
 
         System.out.println("모든 리뷰 조회");
 
-        List<Review> allReview = reviewService.모든_리뷰_조회();
+        List<ReviewDTO> allReview = reviewService.모든_리뷰_조회();
 
         if (allReview.isEmpty()) {
             System.out.println("리뷰 없음");
@@ -51,14 +59,14 @@ public class ApiReview {
 
 
     @GetMapping("/find/answer/{id}")
-    public Review findReviewAnswer(@PathVariable String id) {
+    public ReviewDTO findReviewAnswer(@PathVariable String id) {
         System.out.println(id);
 
         return null;
     }
 
     @GetMapping("/find/reviews/{type}/{id}")
-    public List<Review> findReview(@PathVariable String type, @PathVariable String id) {
+    public List<ReviewDTO> findReview(@PathVariable String type, @PathVariable String id) {
         System.out.println(type);
         System.out.println(id);
 
@@ -78,37 +86,37 @@ public class ApiReview {
     }
 
     @GetMapping("/productReview")
-    public List<Review> findProductReview(String pd_id) {
+    public List<ReviewDTO> findProductReview(String pd_id) {
         System.out.println(pd_id);
 
-        List<Review> reviews = reviewMapper.findAllReviewForProduct2(pd_id);
-        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+        List<ReviewDTO> reviews = reviewMapper.findAllReviewForProduct2(pd_id);
+        reviews.forEach(review -> review.setImg_link(reviewMapper.findReviewPictures(review.getRev_id())));
 
         return reviews;
     }
 
     @GetMapping("/guideReview")
-    public List<Review> findGuideReview(String guide_id) {
+    public List<ReviewDTO> findGuideReview(String guide_id) {
         System.out.println(guide_id);
 
-        List<Review> reviews = reviewMapper.findGuideReview(guide_id);
-        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+        List<ReviewDTO> reviews = reviewMapper.findGuideReview(guide_id);
+        reviews.forEach(review -> review.setImg_link(reviewMapper.findReviewPictures(review.getRev_id())));
 
         return reviews;
     }
 
     @GetMapping("/gitemReview")
-    public List<Review> findGitemReview(String gitem_id) {
+    public List<ReviewDTO> findGitemReview(String gitem_id) {
         System.out.println(gitem_id);
 
-        List<Review> reviews = reviewMapper.findGitemReview(gitem_id);
-        reviews.forEach(review -> review.setRev_img_filename(reviewMapper.findReviewPictures(review.getRev_id())));
+        List<ReviewDTO> reviews = reviewMapper.findGitemReview(gitem_id);
+        reviews.forEach(review -> review.setImg_link(reviewMapper.findReviewPictures(review.getRev_id())));
 
         return reviews;
     }
 
     @GetMapping("/storeReview")
-    public List<Review> findStoreReview(@RequestParam String store_id) {
+    public List<ReviewDTO> findStoreReview(@RequestParam String store_id) {
         System.out.println("[findPlName] store_id: " + store_id);
         String pl_name = reviewMapper.findPlName(store_id);
 
@@ -116,7 +124,7 @@ public class ApiReview {
     }
 
     @GetMapping("/keeperReview")
-    public List<Review> findKeeperReview(String keep_id) {
+    public List<ReviewDTO> findKeeperReview(String keep_id) {
         System.out.println("keep_id: " + keep_id);
 
         return reviewService.키퍼아이디_모든리뷰_조회(keep_id);
@@ -124,19 +132,19 @@ public class ApiReview {
 
 
     @PutMapping("/updateReview")
-    public void updateReview(Review review) {
+    public void updateReview(ReviewDTO review) {
 
         System.out.println(review);
         reviewService.리뷰_수정(review);
     }
 
     @PutMapping("/test")
-    public void test(Review review) {
+    public void test(ReviewDTO review) {
         System.out.println(review);
     }
 
     @PostMapping("/deleteReview")
-    public void deleteReview(Review review) {
+    public void deleteReview(ReviewDTO review) {
         int deleteColumnCount = reviewService.리뷰_삭제(review);
 
         System.out.println("삭제 열 갯수: " + deleteColumnCount);

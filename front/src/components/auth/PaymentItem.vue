@@ -74,7 +74,7 @@ export default {
     reviewWrite() {
       this.$router.push({
         name: "ReviewCreateView",
-        params:{type:'호텔 상품', id: this.payment.pay_id}
+        params:{type:'pay_id', id: this.payment.pay_id}
       })
     }
   }

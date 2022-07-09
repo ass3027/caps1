@@ -246,7 +246,7 @@ public class ApiUser {
     }
 
     @GetMapping("/review")
-    public List<Review> getUserReview() {
+    public List<ReviewDTO> getUserReview() {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return reviewMapper.findUserReviews(id);
