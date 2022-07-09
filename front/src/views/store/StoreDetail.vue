@@ -311,31 +311,8 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-
-    // axios({
-    //   methods: 'GET',
-    //   url: '/api/findproduct',
-    //   params: {'pl_id': this.pl_id}
-    // })
-    // .then((res) => {
-    //   this.plProduct = res.data
-    //   console.log(this.plProduct)
-    // })
-
-    // axios({
-    //   method: 'GET',
-    //   url: '/api/findPlName',
-    //   params: {'store_id': this.store_id}
-    // })
-    //   .then((res) => {
-    //     this.store_name = res.data
-    //   })
-    // console.log(this.$route)
   },
   methods: {
-    // showMainImage() {
-    //   this.showImageModal = true;
-    // },
     changeMainImage(index) {
       this.index = index;
     },

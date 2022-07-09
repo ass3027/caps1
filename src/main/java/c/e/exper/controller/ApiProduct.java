@@ -120,5 +120,13 @@ public class ApiProduct {
     }
 
     // 객실별 차트
+    @GetMapping("/productChartss")
+    public ProductDAO productSelect(String user_id, String value){
+        return productMapper.product_chartss(user_id, value);
+    }
 
+    @GetMapping("/bookPdId")
+    public ProductDAO productBookPdId(String pd_id){
+        return productMapper.product_book_pd_id(pd_id);
+    }
 }

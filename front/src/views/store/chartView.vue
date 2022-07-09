@@ -1,17 +1,19 @@
 <template>
   <div style="position: relative; max-width: 1040px">
     <div>
-    <v-select
-      :items="items"
-      item-text="pd_name"
-      item-value="pd_id"
-      v-model="value"
-      @change="change_pd(value)"
-    >
-    </v-select>{{value}}
+      <v-select
+        :items="items"
+        item-text="pd_name"
+        item-value="pd_id"
+        v-model="value"
+        @change="change_pd(value)"
+      >
+      </v-select>
+      {{ value }}
     </div>
     <canvas
       ref="barChart"
+      id="chart"
     />
   </div>
 </template>
@@ -24,14 +26,15 @@ import {Chart, registerables} from "chart.js";
 Chart.register(...registerables)
 import axios from "axios";
 
-let chart
-
 export default {
   name: "chartView",
 
   data: () => ({
-    selectedValue:null,
-
+    selectedValue: null,
+    listss: '',
+    listss1: '',
+    listss7: '',
+    listss30: '',
 
     list: '',
     list1: '',
@@ -74,6 +77,7 @@ export default {
   }),
   created() {
     this.a()
+
     axios({
       method: 'GET',
       url: '/api/productChart',
@@ -97,6 +101,7 @@ export default {
       this.productSales()
     },
 
+
     createChart() {
       new Chart(this.$refs.barChart, {
         type: 'bar',
@@ -105,8 +110,27 @@ export default {
       })
     },
 
-    change_pd(value){
-      console.log(value)
+    change_pd(value) {
+      axios({
+        method: 'GET',
+        url: '/api/productChartss',
+        params: {
+          'user_id': this.$store.state.user.userId,
+          'value': this.value
+        }
+      })
+        .then((res) => {
+
+          this.list = res.data.count;
+
+          this.data.datasets[0].data[0] = this.listss
+          this.data.datasets[0].data[3] = this.listss1
+          // this.data.datasets[0].data.unshift(this.list7) // 7일
+          // this.data.datasets[0].data.unshift(this.list30)// 30일
+          // this.data.datasets[0].data.unshift(this.list) //총
+          this.createChart()
+
+        })
     },
 
 
