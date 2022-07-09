@@ -29,13 +29,9 @@
     <v-simple-table
       skyblue
       dense
-
     >
-      <thead
-        v-if="this.list === true"
-       >
-      <tr
-        >
+      <thead>
+      <tr>
         <th class="text-center" style="font-size:20px;">게시글번호</th>
         <th class="text-center" style="font-size:20px;">제목</th>
         <th class="text-center" style="font-size:20px;">날짜</th>
@@ -59,62 +55,6 @@
     </v-simple-table>
   </v-col>
 </v-row>
-
-
-<!--      <tr-->
-<!--        v-for="(data, index) in list"-->
-<!--        :key="index"-->
-<!--      >{{data.inq_id}}{{data.inq_title}}{{data.inq_time}}-->
-<!--      </tr>-->
-
-
-    <!--새로 만든거-->
-<!--    <v-data-table-->
-<!--      dense-->
-<!--      :headers="headers"-->
-<!--      :items="items"-->
-<!--      item-key="name"-->
-<!--      class="elevation-1"-->
-<!--      @click="listPage(post_list.inq_id)"-->
-<!--    />-->
-
-<!--    <v-btn @click="listPage">상세보기</v-btn>-->
-<!--    <tr v-for="(dd,index) in post_list" :key="index" @click="listPage(dd.inq_id)"/>-->
-
-
-<!--    원래 하던거-->
-    <v-simple-table
-      skyblue
-      dense
-      v-show="show"
-    >
-      <thead
-        v-if="list === true"
-      >
-      <tr
-        v-show="show"
-      >
-        <th class="text-center" style="font-size:20px;">게시글번호</th>
-        <th class="text-center" style="font-size:20px;">제목</th>
-        <th class="text-center" style="font-size:20px;">날짜</th>
-        <th class="text-center" style="font-size:20px;">아이디</th>
-        <th class="text-center" style="font-size:20px;">조회수</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr
-        v-for="(post,index) in paged_post_list"
-        :key="index"
-        @click="listPage(post.inq_id)"
-      >
-        <th class="text-center" style="font-size:15px;">{{ post.inq_id }}</th>
-        <th class="text-center" style="font-size:20px;">{{ post.inq_title }}</th>
-        <th class="text-center" style="font-size:20px;">{{ post.inq_time }}</th>
-        <th class="text-center" style="font-size:20px;">{{ post.user_id }}</th>
-        <th class="text-center" style="font-size:20px;">{{ post.inq_count }}</th>
-      </tr>
-      </tbody>
-    </v-simple-table>
 
 
     <div style="text-align: center">
@@ -198,9 +138,6 @@ export default {
       keyword:'',
       pageSize: 10,
       list:[], //검색한 리스트
-      show:false,
-      // paged_post_list:[]
-      // tableList:[]
     }
   },
   computed:{
@@ -223,31 +160,32 @@ export default {
     }
   },
   mounted() {
-    axios.get("/api/inquiry/Questions/")
-      .then(res=>{
-        console.log(res.data)
-        this.post_list = res.data;
-        this.show = !this.show
-      }).catch((error)=>{
-      this.error = error
-    })
+    // axios.get("/api/inquiry/Questions/")
+    //   .then(res=>{
+    //     console.log(res.data)
+    //     this.list = res.data;
+    //   }).catch((error)=>{
+    //   this.error = error
+    // })
+    this.search()
   },
   methods: {
+    search() {
+      axios.get("/api/user/search" ,{
+        params:{keyword:this.keyword}
+      })
+        .then(res=>{
+          this.list = res.data
+          console.log(res)
+        }).catch((error)=> {
+        this.error = error
+      })
+    },
     check() {
       console.log('성공')
     },
     bookmark() {
       this.$router.push('/BookMark')
-    },
-    questions() {
-      axios.get("/api/inquiry/Questions/")
-        .then(res=>{
-          console.log(res.data)
-          this.post_list = res.data;
-          this.show = !this.show
-        }).catch((error)=>{
-        this.error = error
-      })
     },
     write() {
       if (this.$store.state.user.userId) {
@@ -256,18 +194,6 @@ export default {
         alert("로그인해주세요")
       }
       // this.$router.push('/Writing')
-    },
-    search() {
-      axios.get("/api/user/search" ,{
-        params:{keyword:this.keyword}
-      })
-        .then(res=>{
-          this.list = res.data
-          this.show = !this.show
-          console.log(res)
-        }).catch((error)=> {
-          this.error = error
-      })
     },
     listPage(index) {
       this.$router.push({
