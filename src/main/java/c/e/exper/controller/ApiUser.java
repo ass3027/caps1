@@ -158,8 +158,8 @@ public class ApiUser {
     public UserDAO getUserAge50(){return userMapper.selectAgeCount50();}
 
     @GetMapping("/search")
-    public List<InquiryDAO> getUserSearch(String user_id){
-        return userMapper.selectSearch(user_id);
+    public List<InquiryDAO> getUserSearch(@RequestParam("keyword")String keyword){
+        return userMapper.selectSearch(keyword);
     }
 
 
