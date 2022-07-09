@@ -167,30 +167,18 @@ public class ApiUser {
         return userMapper.selectSearch(keyword);
     }
 
-    //총 금액
-    @GetMapping("/price")
-    public PaymentDAO getUserPrice(){
-        return userMapper.selectPriceSum(getLoginId());
-    }
 
-    //하루 총액
-    @GetMapping("/price1")
-    public PaymentDAO getUserPrice1(){
-        return userMapper.selectPrice1(getLoginId());
+    @GetMapping("/price")
+    public List<Integer> getUserPrice1(){
+        List<Integer> temp = new ArrayList<>();
+        temp.add(userMapper.selectPriceSum(getLoginId()));
+        temp.add(userMapper.selectPrice1(getLoginId()));
+        temp.add(userMapper.selectPrice7(getLoginId()));
+        temp.add(userMapper.selectPrice30(getLoginId()));
+        return temp;
     }
 
     //최근 일주일 금액
-    @GetMapping("/price7")
-    public PaymentDAO getUserPrice7(){
-        return userMapper.selectPrice7(getLoginId());
-    }
-
-    //최근 한달 금액
-    @GetMapping("/price30")
-    public PaymentDAO getUserPrice30(){
-        return userMapper.selectPrice30(getLoginId());
-    }
-
 
     //회원가입
     @PostMapping("/join/{check}")

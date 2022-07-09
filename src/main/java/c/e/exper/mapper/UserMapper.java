@@ -92,7 +92,7 @@ public interface UserMapper { //디비접근
                            and PAY_ID is not null
                            group by PAY_ID)
             """)
-    PaymentDAO selectPriceSum(@Param("user_id") String user_id);
+    int selectPriceSum(@Param("user_id") String user_id);
 
     //하루 총액
     @Select("""
@@ -107,7 +107,7 @@ public interface UserMapper { //디비접근
                                      and PAY_ID is not null
                                      group by PAY_ID)  and to_char(PAY_TIME,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd')
             """)
-    PaymentDAO selectPrice1(@Param("user_id") String user_id);
+    int selectPrice1(@Param("user_id") String user_id);
 
   @Select("""
             select sum(PAY_PRICE) as price7
@@ -121,7 +121,7 @@ public interface UserMapper { //디비접근
                                      and PAY_ID is not null
                                      group by PAY_ID) and SYSDATE-7 < PAY_TIME
             """)
-    PaymentDAO selectPrice7(@Param("user_id") String user_id);
+    int selectPrice7(@Param("user_id") String user_id);
 
     @Select("""
             select sum(PAY_PRICE) as price30
@@ -135,7 +135,7 @@ public interface UserMapper { //디비접근
                                      and PAY_ID is not null
                                      group by PAY_ID) and to_char(PAY_TIME,'yyyy-mm-dd') > TO_CHAR(SYSDATE-30,'yyyy-mm-dd')
             """)
-    PaymentDAO selectPrice30(@Param("user_id") String user_id);
+    int selectPrice30(@Param("user_id") String user_id);
 
 
 

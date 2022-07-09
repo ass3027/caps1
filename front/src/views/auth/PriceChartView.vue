@@ -58,9 +58,9 @@ export default {
   },
   methods:{
     async a() {
-      await this.selectRCount1()
-      await this.selectRCount7()
-      await this.selectRCount30()
+      const { data } = await axios.get("/api/user/price")
+
+      console.log(data)
 
       this.selectRCount()
     },
@@ -72,69 +72,6 @@ export default {
         options:this.options
       })
     },
-
-    selectRCount1(){
-      axios({
-        method:'get',
-        url:'/api/user/price',
-        params:{
-          'id':this.$store.state.user.userId
-        }
-      }).then((res1)=>{
-        console.log(res1)
-        this.data.datasets[0].data[0] = res1.data
-
-      })
-    },
-
-    selectRCount7(){
-      axios({
-        method:'get',
-        url:'/api/user/price7',
-        params:{
-          'id':this.$store.state.user.userId
-        }
-      }).then((res7)=>{
-        this.data.datasets[0].data[2] = res7.data.price7
-
-      })
-    },
-
-    selectRCount30(){
-      axios({
-        method:'get',
-        url:'/api/user/price30',
-        params:{
-          'id':this.$store.state.user.userId
-        }
-      }).then((res30)=>{
-        this.data.datasets[0].data[2] = res30.data.price30
-
-
-      })
-    },
-
-    selectRCount(){
-      axios({
-        method:'get',
-        url:'/api/gcount',
-        params:{
-          'id':this.$store.state.user.userId
-        },
-      }).then((res)=>{
-        this.list = res.data.count;
-
-        this.data.datasets[0].data[0]= this.list
-        this.data.datasets[0].data[3]= this.list1
-        // this.data.datasets[0].data.unshift(this.list7) // 7일
-        // this.data.datasets[0].data.unshift(this.list30)// 30일
-        // this.data.datasets[0].data.unshift(this.list) //총
-        this.createChart()
-
-
-      })
-    },
-
 
   },
 
