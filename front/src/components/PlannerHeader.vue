@@ -3,20 +3,15 @@
   <div style="width:100px;min-width: 1350px;margin-bottom: 20px ">
     <v-divider />
     <div style="margin-top: 30px">
-      <h2>일정선택</h2>
-      <select
+      <h2>플래너선택</h2>
+      <v-select
         v-model="plan_id"
-        style="border-style:solid;width:150px;height:45px;font-size: 24px; "
+        style="width:150px; border: 1px solid"
         @change="reload"
-      >
-        <option
-          v-for="(plan,index) in plan_list"
-          :key="index"
-          :value="plan.plan_id"
-        >
-          {{ plan.plan_name }}
-        </option>
-      </select>
+        :items="plan_list"
+        item-text="plan_name"
+        item-value="plan_id"
+      />
       <p
         v-if=" plan_id==='' "
         class="warningText"

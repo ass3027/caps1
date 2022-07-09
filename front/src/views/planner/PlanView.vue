@@ -4,18 +4,17 @@
 
     <v-row>
       <v-col>
-        <h2>플래너 생성</h2>
+        <h2 style="margin-bottom: 5px">플래너 생성</h2>
         <v-divider />
       </v-col>
     </v-row>
 
     <v-row
-      justify="center"
     >
       <v-col
         style="width:30%;"
       >
-        <h3>플래너 이름</h3>
+        <h3 style="margin-bottom: 9px">플래너 이름</h3>
         <v-text-field
           v-model="plan_name"
           placeholder="name"
@@ -24,6 +23,7 @@
         />
         <h3>시작날짜 및 종료날짜</h3>
         <v-date-picker
+          color="#139DF2"
           v-model="plan_range"
           style="width:50%;height:350px;"
           type="date"
@@ -35,7 +35,7 @@
         </div>
 <!--        <v-spacer/>-->
         <v-btn
-          color="blue"
+          color="#139DF2"
           @click="addPlan"
           @submit.prevent
         >
@@ -45,16 +45,9 @@
       <v-divider vertical />
       <v-col>
         <h2>현재 소속된 플래너 목록</h2>
-        <v-simple-table>
+        <v-simple-table style="text-align: center">
           <thead>
             <tr>
-<!--              <th-->
-<!--                v-for="(key,index) in keys"-->
-<!--                :key="index"-->
-<!--                class="text-left"-->
-<!--              >-->
-<!--                {{ key }}-->
-<!--              </th>-->
               <th>플래너 번호</th>
               <th>플래너 이름</th>
               <th>생성자</th>
@@ -78,7 +71,7 @@
               <td>{{ plan.plan_end }}</td>
               <td>
                 <v-btn
-                  color="light-green"
+                  color="#04D99D"
                   @submit.prevent
                   @click="deletePlan(plan.plan_id)"
                 >
@@ -187,5 +180,9 @@ export default {
 </script>
 
 <style scoped>
+
+th, td {
+  text-align: center !important;
+}
 
 </style>
