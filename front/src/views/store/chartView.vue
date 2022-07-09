@@ -1,9 +1,15 @@
 <template>
   <div style="position: relative; max-width: 1040px">
+    <div>
     <v-select
       :items="items"
-      label="Standard"
-    ></v-select>
+      item-text="pd_name"
+      item-value="pd_id"
+      v-model="value"
+      @change="change_pd(value)"
+    >
+    </v-select>{{value}}
+    </div>
     <canvas
       ref="barChart"
     />
@@ -20,11 +26,13 @@ import axios from "axios";
 
 let chart
 
-
 export default {
   name: "chartView",
 
   data: () => ({
+    selectedValue:null,
+
+
     list: '',
     list1: '',
     list7: '',
@@ -33,7 +41,7 @@ export default {
     data: {
       labels: ['총 매출', '최근 한달', '최근 7일', '금일'],
       datasets: [{
-        label: '# of Votes',
+        label: '매출',
         data: ['', '', '', ''],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -53,7 +61,6 @@ export default {
         ],
         borderWidth: 1
       }],
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     },
     options: {
       scales: {
@@ -61,10 +68,24 @@ export default {
           beginAtZero: true
         }
       }
-    }
+    },
+    items: [],
+    value: [],
   }),
   created() {
     this.a()
+    axios({
+      method: 'GET',
+      url: '/api/productChart',
+      params: {
+        'user_id': this.$store.state.user.userId
+      }
+    })
+      .then((res) => {
+        console.log(res.data)
+
+        this.items = res.data
+      })
   },
 
   methods: {
@@ -84,6 +105,10 @@ export default {
       })
     },
 
+    change_pd(value){
+      console.log(value)
+    },
+
 
     productSales() {
       axios({
@@ -94,6 +119,7 @@ export default {
         }
       })
         .then((res) => {
+
           this.list = res.data.count;
 
           this.data.datasets[0].data[0] = this.list

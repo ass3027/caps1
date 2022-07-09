@@ -130,4 +130,21 @@ public interface ProductMapper {
             """)
     List<BookDAO> product_book_no(@Param("pd_id")String pd_id, @Param("st_date")String st_date, @Param("end_date")String end_date);
 
+    @Select("""
+            select *
+            from PLACE, PRODUCT
+            where PLACE.PL_ID = PRODUCT.PL_ID and PLACE.USER_ID = #{user_id}
+            """)
+    List<ProductDAO> product_chart(@Param("user_id")String user_id);
+
+//    @Select("""
+//            select sum(PAY_PRICE)
+//            from PAYMENT, PRODUCT_TIME
+//            where PAYMENT.PAY_ID = PRODUCT_TIME.PAY_ID and PAYMENT.PAY_ID in (select PRODUCT_TIME.PAY_ID
+//                                                                              from PRODUCT_TIME
+//                                                                              where PD_ID in (select PRODUCT.PD_ID
+//                                                                                              from PRODUCT, PLACE
+//                                                                                              where PLACE.PL_ID = PRODUCT.PL_ID and place.USER_ID = #{user_id} and product.PD_ID = #{value}))
+//            """)
+//    ProductDAO product_chart(@Param("user_id")String user_id, @Param());
 }
