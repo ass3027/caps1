@@ -3,29 +3,61 @@
     <PlannerHeader/>
     <v-card>
       <v-container>
-        <h2>사진첩
-          <v-btn class="mb-1" @click="uploadDialog=true">
-            사진 업로드
-          </v-btn>
-        </h2>
-        <div>
-          <v-hover
-            v-slot="{ hover }"
-          >
-            <v-card
-              :elevation="hover ? 10 : 2"
-              width="1600px"
-            >
-              <img
-                v-for="photo in photos"
-                :key="photo.pic_name"
-                :src="'/api/photo/'+photo.pic_name"
-                width="200px"
-                height="200px"
-                @click="picDetail(photo)"
-              >
-            </v-card>
-          </v-hover>
+        <v-row>
+          <v-col cols="2"></v-col>
+          <v-col cols="5">
+            <h2>사진첩</h2>
+          </v-col>
+          <v-col v-if="sortStatus=='latest'" cols="2">
+            <v-btn @click="sortByOld">최신순</v-btn>
+          </v-col>
+          <v-col  v-else cols="2">
+            <v-btn @click="sortByLatest">오래된순</v-btn>
+          </v-col>
+          <v-col cols="2">
+            <v-btn style="float:right" class="ma-0" @click="uploadDialog=true">
+              사진 업로드
+            </v-btn>
+          </v-col>
+        </v-row>
+
+        <div class="mt-5">
+          <v-row>
+            <v-col cols="2">
+              여긴 필터공간
+            </v-col>
+            <v-col cols="10">
+              <v-row>
+                <v-col
+                  v-for="photo in paginatedData"
+                  :key="photo.pic_name"
+                  cols="auto">
+                  <v-card
+                    width="200px"
+                    height="200px"
+                    style="cursor:pointer"
+                  >
+                    <img
+                      :src="'/api/photo/'+photo.pic_name"
+                      @click="picDetail(photo)"
+                      width="200px"
+                      height="200px"
+                    >
+                  </v-card>
+
+                </v-col>
+
+              </v-row>
+              <v-row justify="center" style="text-align: center">
+                <v-col cols="11" >
+                  <v-btn @click="prevPage" text>이전</v-btn>
+                  {{pageNum+1}}
+                  <v-btn @click="nextPage" text>다음</v-btn>
+                </v-col>
+                <v-col cols="1"></v-col>
+              </v-row>
+            </v-col>
+          </v-row>
         </div>
       </v-container>
     </v-card>
@@ -138,6 +170,9 @@ export default {
       selectedPic: '',
       picsUser: '',
       createdTime: '',
+      pageNum: 0,
+      pageSize:12,
+      sortStatus:'latest'
     }
   },
   mounted() {
@@ -224,9 +259,9 @@ export default {
       console.log(photo.pic_name)
       this.selectedPic = photo.pic_name
       this.picsUser = photo.user_id;
-      var time = photo.pic_name.substring(10, 23)
+      var time = photo.pic_name.substring(10, 23) //파일이름에 타임스탬프들어가는거를
       var time2 = new Date()
-      time2.setTime(time)
+      time2.setTime(time) //타임으로 변환해서 시간정보 가져옴
       this.createdTime = time2.getFullYear() + "년" + (time2.getMonth() + 1) + "월" + time2.getDate() + "일 " + time2.getHours() + "시" + time2.getMinutes() + "분"
       this.dialog = true;
     },
@@ -238,7 +273,36 @@ export default {
           this.getPlanPic()
           this.dialog = false
         })
+    },
+
+  //  페이징 메소드
+    nextPage () {
+      this.pageNum += 1;
+    },
+    prevPage () {
+      this.pageNum -= 1;
     }
+  },
+
+  computed: {
+    pageCount () {
+      let listLeng = this.photos.length,
+        listSize = this.pageSize,
+        page = Math.floor(listLeng / listSize);
+      if (listLeng % listSize > 0) page += 1;
+
+      /*
+      아니면 page = Math.floor((listLeng - 1) / listSize) + 1;
+      이런식으로 if 문 없이 고칠 수도 있다!
+      */
+      return page;
+    },
+    paginatedData () {
+      const start = this.pageNum * this.pageSize,
+        end = start + this.pageSize;
+      return this.photos.slice(start, end);
+    }
+
   }
 }
 
