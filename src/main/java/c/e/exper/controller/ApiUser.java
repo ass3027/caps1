@@ -50,6 +50,10 @@ public class ApiUser {
         this.reviewMapper = reviewMapper;
     }
 
+    static String getLoginId(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     public static String randomHangulName() {
         List<String> 성 = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
                 "송", "류", "전", "홍", "고", "문", "양", "손", "배", "조", "백", "허", "유", "남", "심", "노", "정", "하", "곽", "성", "차", "주",
@@ -165,26 +169,26 @@ public class ApiUser {
 
     //총 금액
     @GetMapping("/price")
-    public PaymentDAO getUserPrice(String user_id){
-        return userMapper.selectPriceSum(user_id);
+    public PaymentDAO getUserPrice(){
+        return userMapper.selectPriceSum(getLoginId());
     }
 
     //하루 총액
     @GetMapping("/price1")
-    public PaymentDAO getUserPrice1(String user_id){
-        return userMapper.selectPrice1(user_id);
+    public PaymentDAO getUserPrice1(){
+        return userMapper.selectPrice1(getLoginId());
     }
 
     //최근 일주일 금액
     @GetMapping("/price7")
-    public PaymentDAO getUserPrice7(String user_id){
-        return userMapper.selectPrice7(user_id);
+    public PaymentDAO getUserPrice7(){
+        return userMapper.selectPrice7(getLoginId());
     }
 
     //최근 한달 금액
     @GetMapping("/price30")
-    public PaymentDAO getUserPrice30(String user_id){
-        return userMapper.selectPrice30(user_id);
+    public PaymentDAO getUserPrice30(){
+        return userMapper.selectPrice30(getLoginId());
     }
 
 
