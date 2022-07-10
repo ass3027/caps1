@@ -20,9 +20,9 @@ public interface UserMapper { //디비접근
 
     //회원정보
     @Select("""
-            SELECT * 
-            FROM users LEFT JOIN delivery_user 
-            ON users.user_id = delivery_user.user_id 
+            SELECT *
+            FROM users LEFT JOIN delivery_user
+            ON users.user_id = delivery_user.user_id
             WHERE USERS.user_id = #{user_id}""")
     Optional<UserDTO> getDeliveryInfoById(String user_id);
 //    (@Param("user_id") 생략가능
@@ -45,44 +45,50 @@ public interface UserMapper { //디비접근
     List<UserDAO> areaCount();
 
     //지역별
-    @Select("select USER_AREA, count(USER_AREA) as count\n" +
-            "    from USERS\n" +
-            "    WHERE USER_AREA IS NOT NULL\n" +
-            "    group by USER_AREA order by count(*) desc")
+    @Select("""
+            select USER_AREA, count(USER_AREA) as count
+                from USERS
+                WHERE USER_AREA IS NOT NULL
+                group by USER_AREA order by count(*) desc""")
     List<AreaDTO> selectAreaCount();
 
     //연령별(10대)
-    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH10\n" +
-            "FROM USERS\n" +
-            "WHERE USER_BIRTH BETWEEN '2004-01-01' AND '2013-12-31'")
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH10
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '2004-01-01' AND '2013-12-31'""")
     UserDAO selectAgeCount10();
 
     //연령별(20대)
-    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH20\n" +
-            "FROM USERS\n" +
-            "WHERE USER_BIRTH BETWEEN '1994-01-01' AND '2003-12-31'")
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH20
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '1994-01-01' AND '2003-12-31'""")
     UserDAO selectAgeCount20();
 
     //연령별(30대)
-    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH30\n" +
-            "FROM USERS\n" +
-            "WHERE USER_BIRTH BETWEEN '1984-01-01' AND '1993-12-31'")
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH30
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '1984-01-01' AND '1993-12-31'""")
     UserDAO selectAgeCount30();
 
     //연령별(40대)
-    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH40\n" +
-            "FROM USERS\n" +
-            "WHERE USER_BIRTH BETWEEN '1974-01-01' AND '1983-12-31'")
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH40
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '1974-01-01' AND '1983-12-31'""")
     UserDAO selectAgeCount40();
 
     //연령별(50대이상)
-    @Select("SELECT COUNT(USER_BIRTH) AS USER_BIRTH50\n" +
-            "FROM USERS\n" +
-            "WHERE USER_BIRTH BETWEEN '1940-01-01' AND '1973-12-31'")
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH50
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '1940-01-01' AND '1973-12-31'""")
     UserDAO selectAgeCount50();
 
     @Select("""
-            select sum(PAY_PRICE) as price_sum
+            select NVL(sum(PAY_PRICE),0) as price_sum
             from PAYMENT
             where USER_ID = #{user_id}
             and PAY_ID in (select PAY_ID
@@ -96,7 +102,7 @@ public interface UserMapper { //디비접근
 
     //하루 총액
     @Select("""
-            select sum(PAY_PRICE) as price1
+            select NVL(sum(PAY_PRICE),0) as price1
                         from PAYMENT
                         where USER_ID = #{user_id}
                         and PAY_ID
@@ -110,7 +116,7 @@ public interface UserMapper { //디비접근
     int selectPrice1(@Param("user_id") String user_id);
 
   @Select("""
-            select sum(PAY_PRICE) as price7
+            select NVL(sum(PAY_PRICE),0) as price7
                         from PAYMENT
                         where USER_ID = #{user_id}
                         and PAY_ID
@@ -124,7 +130,7 @@ public interface UserMapper { //디비접근
     int selectPrice7(@Param("user_id") String user_id);
 
     @Select("""
-            select sum(PAY_PRICE) as price30
+            select NVL(sum(PAY_PRICE),0) as price30
                         from PAYMENT
                         where USER_ID = #{user_id}
                         and PAY_ID
@@ -146,18 +152,20 @@ public interface UserMapper { //디비접근
 
 
     //게시판 검색
-    @Select("select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT\n" +
-            "from INQUIRY\n" +
-            "where INQ_TITLE like '%'||#{keyword}||'%' order by(inq_id)")
+    @Select("""
+            select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT
+            from INQUIRY
+            where INQ_TITLE like '%'||#{keyword}||'%' order by(inq_id)""")
     List<InquiryDAO> selectSearch(String keyword);
 
 
 
     //서울지역 가입수만 받아오기
-    @Select("select count(USER_NAME),USER_AREA\n" +
-            "from USERS\n" +
-            "where USER_AREA = '서울특별시' and user_area is not null\n" +
-            "group by USER_AREA order by count(*)")
+    @Select("""
+            select count(USER_NAME),USER_AREA
+            from USERS
+            where USER_AREA = '서울특별시' and user_area is not null
+            group by USER_AREA order by count(*)""")
     ArrayList<Integer> selectArea1();
 
 

@@ -61,6 +61,7 @@ export default {
       const { data } = await axios.get("/api/user/price")
 
       console.log(data)
+      this.data.datasets[0].data = data
 
       this.selectRCount()
     },
