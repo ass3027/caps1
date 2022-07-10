@@ -23,7 +23,7 @@ ReviewDAO {
     private Date reg_date;                      // 작성일자
     private String title;
     private int hit;
-    private int like;
+    private int rev_like;
     private String ord_id;                         // 주문서 외래키
     private String pay_id;
     private String img_link;

@@ -37,7 +37,7 @@ public interface ReviewMapper {
                              from PAYMENT
                              where gtime_num in (select TIME_NUM
                                                  from AVAILABLE_TIME
-                                                 where GITEM_ID = #{gitem_id}));""")
+                                                 where GITEM_ID = #{gitem_id}))""")
     List<ReviewDTO> findGuideProductReview(@Param("gitem_id") String gitem_id);
 
 
@@ -248,4 +248,23 @@ public interface ReviewMapper {
             FROM book
             WHERE pay_id = #{pay_id}""")
     String findByPay(@Param("pay_id") String pay_id);
+
+
+
+
+    @Update("""
+            UPDATE REVIEW
+            SET HIT = HIT +1
+            WHERE REV_ID = #{rev_id}
+            """)
+    boolean hitCount(@Param("rev_id") String rev_id);
+
+
+    @Update("""
+            UPDATE REVIEW
+            SET rev_like = rev_like +1
+            WHERE REV_ID = #{rev_id}
+            """)
+    boolean likeCount(@Param("rev_id") String rev_id);
+
 }

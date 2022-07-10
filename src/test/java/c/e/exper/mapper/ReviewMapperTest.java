@@ -100,4 +100,10 @@ public class ReviewMapperTest {
 
         hotelReview.forEach(System.out::println);
     }
+
+    @Test
+    void hitCount() {
+
+        System.out.println(mapper.hitCount("173"));
+    }
 }

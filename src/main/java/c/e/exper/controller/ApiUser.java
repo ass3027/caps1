@@ -72,7 +72,13 @@ public class ApiUser {
     }
 
     @GetMapping("/find")
-    public UserDAO findUser() {
+    public UserDAO findUser(@RequestParam(value = "id", required = false) String id) {
+        System.out.println("id = " + id);
+
+        if(id != null) {
+            return userMapper.selectId(id).get();
+        }
+
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println("user_id = " + user_id);
         if(user_id.equals("anonymousUser")) {

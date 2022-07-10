@@ -2,7 +2,6 @@
   <div class="board">
 
     <form name="frmList">
-      <h3>Review ({{ reviews.length }})</h3>
       <!--/.title-->
       <table
         border="0"
@@ -82,19 +81,11 @@
         />
       </div>
     </form>
-    <p
-      class="btnArea after"
-      style="margin-bottom: 0"
-    >
-      <!--      <a>-->
-      <!--        <span class="bhs_button" style="line-height:30px; width:130px;">후기쓰기</span>-->
-      <!--      </a>-->
-    </p>
   </div>
 </template>
 
 <script>
-import ReviewItem from "@/components/review/ReveiwItem";
+import ReviewItem from "@/components/review/ReviewItem";
 
 export default {
 
@@ -127,23 +118,6 @@ export default {
 </script>
 
 <style scoped>
-.bhs_button:hover {
-  width: 150px;
-  display: inline-block;
-  line-height: 40px;
-  text-align: center;
-  background-color: #fff;
-  border: 1px solid #5f0080;
-  color: #5f0080;
-  font-size: 15px;
-  float: right;
-  margin-left: 2px;
-  font-size: 13px;
-}
-
-.xans-product-additional .btnArea .bhs_button {
-  margin: 20px 0 20px 5px;
-}
 
 .btnArea {
   display: table;
@@ -178,19 +152,6 @@ export default {
   display: table;
 }
 
-.bhs_button {
-  width: 150px;
-  display: inline-block;
-  line-height: 40px;
-  text-align: center;
-  background-color: #795b8f;
-  border: 1px solid #333;
-  color: #fff;
-  font-size: 15px;
-  float: right;
-  margin-left: 2px;
-  font-size: 13px;
-}
 
 * {
   font-size: 12px;
@@ -206,15 +167,9 @@ export default {
   top: -2px
 }
 
-.xans-board-listheaderd .ico_secret, .xans-board-title table td .ico_secret {
-  width: 12px;
-  height: 17px;
-  margin-right: 10px;
-  vertical-align: middle
-}
 
 .xans-board-listheader {
-  border-top: 2px solid #333;
+  border-top: 1px solid #333;
   font-size: 13px;
   line-height: 140%
 }
@@ -231,24 +186,8 @@ export default {
   border-top: 1px solid #333
 }
 
-.xans-board-listheader.jh {
-  border-bottom: 1px solid #f4f4f4
-}
-
 .xans-board-listheader.jh tr td {
   padding: 20px 0
-}
-
-.xans-board-listheader td.product {
-  padding-left: 10px;
-  text-align: left;
-  font-size: 16px
-}
-
-.xans-board-listheader td .price {
-  font-size: 18px;
-  font-weight: 700;
-  color: #333 !important
 }
 
 .xans-board-listheader td.button a span {
@@ -257,49 +196,11 @@ export default {
   margin: 0 15px 5px 0
 }
 
-.xans-board-listheader .thumb {
-  width: 126px
-}
 
 .xans-board-listheader .thumb img {
   width: 126px
 }
 
-.xans-board-listheader .thumb2 {
-  width: 150px
-}
-
-.xans-board-listheader .quantity {
-  width: 70px
-}
-
-.xans-board-listheader .system {
-  width: 100px
-}
-
-.xans-board-listheader .rev {
-  width: 100px
-}
-
-.xans-board-listheader .price_p {
-  font-size: 12px;
-  color: #000
-}
-
-.xans-board-listheader .opt {
-  color: gray;
-  font-size: 12px
-}
-
-.xans-board-listheader td.product {
-  width: auto;
-  padding: 12px 20px
-}
-
-.xans-board-listheader p.ordno {
-  text-decoration: underline;
-  letter-spacing: .2px
-}
 
 .xans-board-listheader th {
   padding: 20px 0;
@@ -307,30 +208,4 @@ export default {
   font-size: 12px
 }
 
-.xans-board-listheader .state {
-  width: 110px;
-  font-weight: 700
-}
-
-.xans-board-listheader .product {
-  width: auto
-}
-
-.xans-board-listheader .state {
-  width: 110px;
-  font-weight: 700
-}
-
-.xans-board-listheader .number {
-  width: 181px
-}
-
-.xans-board-listheader .state {
-  width: 156px;
-  font-weight: 700
-}
-
-.xans-board-listheader td.state {
-  color: #333
-}
 </style>

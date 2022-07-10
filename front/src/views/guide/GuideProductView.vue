@@ -60,15 +60,23 @@
         Reserve
       </v-btn>
     </v-card-actions>
+
+    <v-card>
+      <ReviewView :type="'가이드 상품'" :id="gitem_id"/>
+
+    </v-card>
   </v-card>
 </template>
 
 <script>
 import axios from "axios";
+import ReviewView from "@/views/ReviewView";
 
 export default {
   name: "GuideProductView.vue",
-  components: {},
+  components: {
+    ReviewView,
+  },
   props:['gitem_id'],
   data(){
     return{

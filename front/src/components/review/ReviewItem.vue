@@ -35,7 +35,7 @@
         </td>
         <td class="txt_center">
             <span class="review-like-cnt">
-              {{ review.like }}
+              {{ review.rev_like }}
             </span>
         </td>
         <td class="txt_center">
@@ -57,13 +57,12 @@
         <div
           class="review_photo"
           style="padding-top: 30px"
+          v-if="review.img_link != null"
         >
-          <!--          <img src="/api/photo/altImage/packless_travel_logo.png" border="0">-->
           <img
-            v-if="review.rev_img_filename != null"
-            :src="'/api/photo/'+review.rev_img_filename"
+            :src="'/api/photo/'+review.img_link"
             alt="리뷰 이미지"
-            width="600px"
+            width="500px"
           >
           <br>
           <br>
@@ -79,7 +78,7 @@
           @click="like"
         >
           도움이 돼요
-          <span class="num"> {{ review.like }} </span>
+          <span class="num"> {{ review.rev_like }} </span>
         </button>
       </div>
     </div>
@@ -100,7 +99,7 @@ export default {
   data() {
     return {
       rev_rating: this.review.rev_rating,
-      user: {},
+      user: null,
       on: false,
     }
   },
@@ -120,16 +119,12 @@ export default {
     console.log('review', this.review)
     axios({
       method: 'GET',
-      url: 'http://localhost:8080/api/user/find',
+      url: '/api/user/find',
       params: {
-        user_id: this.review.user_id
+        id: this.review.user_id
       }
-
     })
       .then(res => {
-        console.log("[user/find]")
-        console.log(res.data)
-
         this.user = res.data
       })
       .catch((err) => {
@@ -140,13 +135,21 @@ export default {
   methods: {
     displayContent() {
       this.on = !this.on
-      console.log('test', this.review.rev_id)
+
+      console.log('selected review', this.review.rev_id, this.on)
+      if(this.on) {
+        axios.post('/api/hit/' + this.review.rev_id).then(res => {
+          if(res.data) this.review.hit += 1
+          console.log('hit test', this.review.hit)
+        })
+      }
 
     },
     like() {
-
-
-      // DB 변경 추후
+      axios.post('/api/like/' + this.review.rev_id).then(res => {
+        if(res.data) this.review.rev_like += 1
+        console.log('like test', this.review.rev_like)
+      })
     }
   }
 }

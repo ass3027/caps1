@@ -156,5 +156,16 @@ public class ApiReview {
         return reviewService.findByPay(pay_id);
     }
 
+    @PostMapping("/hit/{id}")
+    public boolean hitCount(@PathVariable String id) {
+        System.out.println("Hit Update: " + id);
+        return reviewMapper.hitCount(id);
+    }
+
+    @PostMapping("/like/{id}")
+    public boolean likeCount(@PathVariable String id) {
+        System.out.println("Like Update: " + id);
+        return reviewMapper.likeCount(id);
+    }
 
 }
