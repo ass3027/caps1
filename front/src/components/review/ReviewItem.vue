@@ -62,7 +62,7 @@
           <img
             :src="'/api/photo/'+review.img_link"
             alt="리뷰 이미지"
-            width="500px"
+            width="200px"
           >
           <br>
           <br>
@@ -81,6 +81,27 @@
           <span class="num"> {{ review.rev_like }} </span>
         </button>
       </div>
+      <div class="review_answer" v-if="answer">
+
+        <h3>답변</h3><span> {{ answer }}</span>
+
+      </div>
+      <div class="answer_register" v-if="!answer && (seller_id === this.$store.state.user.userId)">
+
+        <h3>답변 작성</h3>
+
+        <table style="width: 100%" class="answer_textarea">
+          <textarea style="float: left; width: 90%; height: 80px" v-model="answer_content">
+
+          </textarea>
+          <button type="button" @click="answerRegister" style="float: right; border: 1px solid #ccc; width: 9%; height: 80px">
+            등록
+          </button>
+        </table>
+
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -92,15 +113,18 @@ import axios from "axios";
 export default {
   name: 'ReviewItem',
   props: {
-    review: {
+    review_prop: {
       type: Object
     }
   },
   data() {
     return {
-      rev_rating: this.review.rev_rating,
+      review: null,
       user: null,
       on: false,
+      answer: null,
+      seller_id: null,
+      answer_content: '',
     }
   },
   computed: {
@@ -114,9 +138,17 @@ export default {
     //   axios.get('/api/')
     // }
   },
-  mounted() {
-    console.log("[REVIEW]")
-    console.log('review', this.review)
+  created() {
+    this.review = this.review_prop
+
+    axios.get('/api/review/answer/' + this.review.rev_id).then(res => {
+      this.answer = res.data
+    })
+
+    axios.get('/api/review/seller/' + this.review.rev_id).then(res => {
+      this.seller_id = res.data
+    })
+
     axios({
       method: 'GET',
       url: '/api/user/find',
@@ -132,6 +164,10 @@ export default {
       })
     console.log(this.review.rev_content)
   },
+  mounted() {
+    console.log("[REVIEW]")
+    console.log('review', this.review)
+  },
   methods: {
     displayContent() {
       this.on = !this.on
@@ -139,15 +175,37 @@ export default {
       console.log('selected review', this.review.rev_id, this.on)
       if(this.on) {
         axios.post('/api/hit/' + this.review.rev_id).then(res => {
-          if(res.data) this.review.hit += 1
+          if(res.data) {
+            this.review.hit += 1
+          }
           console.log('hit test', this.review.hit)
         })
       }
 
     },
+    answerRegister() {
+      axios({
+        method : 'post',
+        url    : '/api/review/answer/' + this.review.rev_id,
+        params : {
+          'content': this.answer_content
+        }
+      }).then((res) => {
+
+        if(res.data) {
+          alert('답변이 등록되었습니다.')
+          this.$router.go();
+        } else {
+          alert('등록에 실패하였습니다.')
+        }
+
+      })
+    },
     like() {
       axios.post('/api/like/' + this.review.rev_id).then(res => {
-        if(res.data) this.review.rev_like += 1
+        if(res.data) {
+          this.review.rev_like += 1
+        }
         console.log('like test', this.review.rev_like)
       })
     }
@@ -188,6 +246,12 @@ img {
 }
 
 .inner_review {
+  width: 100%;
+  padding: 20px 9px 9px;
+  line-height: 25px;
+}
+
+.review_answer {
   width: 100%;
   padding: 20px 9px 9px;
   line-height: 25px;
@@ -289,40 +353,14 @@ table {
   text-align: center
 }
 
-.grade_comm .grade6 {
-  border: 1px solid #949296;
-  background-color: #fff;
-  color: #949296
+
+.answer_textarea{
+  padding: 8px 10px 9px;
+  border: 1px solid #dddfe1;
 }
 
-.grade_comm .grade0 {
-  border: 1px solid #5f0080;
-  background-color: #fff;
-  color: #5f0080
-}
-
-.grade_comm .grade5 {
-  border: 1px solid #cba3e8;
-  background-color: #cba3e9
-}
-
-.grade_comm .grade1 {
-  border: 1px solid #a864d7;
-  background-color: #a864d8
-}
-
-.grade_comm .grade2 {
-  border: 1px solid #8c4cc3;
-  background-color: #8c4cc4
-}
-
-.grade_comm .grade3 {
-  border: 1px solid #641797;
-  background-color: #641798
-}
-
-.grade_comm .grade4 {
-  border: 1px solid #4f1770;
-  background-color: #4f177a
+textarea {
+  width: 947px;
+  font-size: 12px;
 }
 </style>

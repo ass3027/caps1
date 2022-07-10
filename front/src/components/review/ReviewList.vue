@@ -75,7 +75,7 @@
         style="list-style: none"
       >
         <ReviewItem
-          :review="review"
+          :review_prop="review"
           @deleteReview="deleteReview"
           @review-updated="updateReview"
         />

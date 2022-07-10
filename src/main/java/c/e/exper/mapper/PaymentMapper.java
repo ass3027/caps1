@@ -138,6 +138,15 @@ public interface PaymentMapper {
 
 
 
+    @Select("""
+            select *
+            from PAYMENT
+            where PAY_ID = (select PAY_ID
+                            from REVIEW
+                            where REV_ID = #{rev_id})
+            """)
+    PaymentDAO findByRev(@Param("rev_id") String rev_id);
+
 
 
 

@@ -62,8 +62,7 @@
     </v-card-actions>
 
     <v-card>
-      <ReviewView :type="'가이드 상품'" :id="gitem_id"/>
-
+      <ReviewView :type="'가이드 상품'" :id="gitem_id" :answer="lists.user_id === this.$store.state.user.userId"/>
     </v-card>
   </v-card>
 </template>

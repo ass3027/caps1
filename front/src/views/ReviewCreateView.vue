@@ -169,6 +169,11 @@ export default {
   border: 1px solid #dddfe1;
 }
 
+textarea {
+  width: 947px;
+  font-size: 12px;
+}
+
 th {
   border-top: 1px solid #dddfe1;
   font-size: 12px;
@@ -202,10 +207,6 @@ input {
   font-size: 14px;
   color: black;
   line-height: 46px;
-}
-textarea {
-  width: 947px;
-  font-size: 12px;
 }
 
 </style>

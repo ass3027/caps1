@@ -1,9 +1,10 @@
 package c.e.exper.controller;
 
 
-import c.e.exper.data.PictureDAO;
+import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.ReviewDTO;
-import c.e.exper.mapper.PictureMapper;
+import c.e.exper.mapper.GuideMapper;
+import c.e.exper.mapper.PaymentMapper;
 import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.service.FileServiceImpl;
 import c.e.exper.service.ReviewService;
@@ -21,14 +22,16 @@ public class ApiReview {
     private final ReviewService reviewService;
     private final FileServiceImpl fileService;
     private final ReviewMapper reviewMapper;
-    private final PictureMapper pictureMapper;
+    private final PaymentMapper paymentMapper;
+    private final GuideMapper guideMapper;
 
     @Autowired
-    public ApiReview(ReviewService reviewService, FileServiceImpl fileService, ReviewMapper reviewMapper, PictureMapper pictureMapper) {
+    public ApiReview(ReviewService reviewService, FileServiceImpl fileService, ReviewMapper reviewMapper, PaymentMapper paymentMapper, GuideMapper guideMapper) {
         this.reviewService = reviewService;
         this.fileService = fileService;
         this.reviewMapper = reviewMapper;
-        this.pictureMapper = pictureMapper;
+        this.paymentMapper = paymentMapper;
+        this.guideMapper = guideMapper;
     }
 
 
@@ -168,4 +171,35 @@ public class ApiReview {
         return reviewMapper.likeCount(id);
     }
 
+    // 리뷰아이디로 판매자아이디
+    @GetMapping("/review/seller/{rev_id}")
+    public String getSeller(@PathVariable String rev_id) {
+
+        PaymentDAO payment = paymentMapper.findByRev(rev_id);
+
+        // 가이드
+        if(payment.getGtime_num() != null) {
+            return reviewMapper.sellerId(payment.getGtime_num());
+        }
+
+        // 호텔
+
+
+        return "a";
+    }
+
+    @GetMapping("/review/answer/{rev_id}")
+    public String getAnswer(@PathVariable String rev_id) {
+
+        System.out.println(reviewMapper.getAnswer(rev_id));
+        return reviewMapper.getAnswer(rev_id);
+    }
+
+    @PostMapping("/review/answer/{rev_id}")
+    public boolean setAnswer(@PathVariable String rev_id, String content) {
+        System.out.println("rev_id = " + rev_id);
+        System.out.println("content = " + content);
+
+        return reviewMapper.setAnswer(rev_id, content);
+    }
 }

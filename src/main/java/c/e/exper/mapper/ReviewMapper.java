@@ -267,4 +267,26 @@ public interface ReviewMapper {
             """)
     boolean likeCount(@Param("rev_id") String rev_id);
 
+    @Select("""
+            select user_id
+            from GITEM
+            where GITEM_ID = (select GITEM_ID
+                              from AVAILABLE_TIME
+                              where TIME_NUM = #{time_num})
+            """)
+    String sellerId(@Param("time_num") String time_num);
+
+    @Select("""
+            select rev_content
+            from review_answer
+            where rev_id = #{rev_id}
+            """)
+    String getAnswer(@Param("rev_id") String rev_id);
+
+
+    @Insert("""
+            INSERT INTO review_answer(rev_id, rev_content)
+                   VALUES     (#{rev_id}, #{rev_content})
+            """)
+    boolean setAnswer(@Param("rev_id") String rev_id, @Param("rev_content") String rev_content);
 }
