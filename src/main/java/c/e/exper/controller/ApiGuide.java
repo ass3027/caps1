@@ -73,6 +73,12 @@ public class ApiGuide {
         return guideService.가이드상품_검색(keyword);
     }
 
+    @GetMapping("/gcountList")
+    public List<GItemDAO> findCountList(String id){
+        System.out.println("마지막");
+        return guideService.매출_조회_리스트(id);
+    }
+
     @PostMapping("/gjoin")
     public void insertGuide(GuideDAO guideDAO) {
 
