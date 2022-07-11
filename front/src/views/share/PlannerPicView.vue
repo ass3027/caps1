@@ -225,9 +225,9 @@ export default {
       picsUser: '',
       picsCategory:'',
       createdTime: '',
-      pageNum: 0,
+      pageNum: 1,
       pageSize:12,
-      sortStatus:'latest',
+      sortStatus:'old',
       selected: ['사람','음식','풍경','관광지'],
       category:['사람','음식','풍경','관광지'],
       selectedCate:''
@@ -348,11 +348,16 @@ export default {
     prevPage () {
       this.pageNum -= 1;
     },
+    resetPageNum(){
+      this.pageNum = 1
+    }
 
   },
 
   computed: {
     photos(){
+      this.resetPageNum()
+
       const filterResult = this.originPhotos.filter(photo=>
         this.selected.includes(photo.category)
       )
@@ -367,6 +372,8 @@ export default {
           return(Number(b.pic_name.substring(10, 23))-Number(a.pic_name.substring(10, 23)))
         })
       }
+
+
       return sortResult;
 
     },
@@ -383,7 +390,7 @@ export default {
       return page;
     },
     paginatedData () {
-      const start = this.pageNum * this.pageSize,
+      const start = (this.pageNum-1) * this.pageSize,
         end = start + this.pageSize;
       return this.photos.slice(start, end);
     },
