@@ -9,7 +9,7 @@
     >
       <v-container class="pa-0">
         <!--      사진-->
-        <v-row no-gutters>
+        <v-row no-gutters style="height:120px;overflow: hidden">
           <v-col
             v-for="(pic,index) in shareSet.pic_name"
             :key="index"

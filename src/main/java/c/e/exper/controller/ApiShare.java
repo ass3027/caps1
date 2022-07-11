@@ -1,10 +1,8 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.*;
-import c.e.exper.mapper.PictureMapper;
-import c.e.exper.mapper.PlannerMapper;
-import c.e.exper.mapper.ScheduleMapper;
-import c.e.exper.mapper.ShareMapper;
+import c.e.exper.mapper.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +24,9 @@ public class ApiShare {
     final ScheduleMapper scheduleMapper;
 
     final PictureMapper pictureMapper;
+
+    @Autowired
+    PlaceMapper placeMapper;
 
 
     public ApiShare(ShareMapper shareMapper, PlannerMapper plannerMapper, ScheduleMapper scheduleMapper, PictureMapper pictureMapper) {
@@ -133,9 +134,15 @@ public class ApiShare {
         List<ScheduleDAO> schedules = scheduleMapper.selectAllById(s.getPlan_id());
         List<SharePictureDAO> pic = shareMapper.findPicturesById(share_id);
 
+        ArrayList<String> arr = new ArrayList<>();
+        for(int i=0;i<schedules.size();i++){
+            arr.add(placeMapper.getFirstImage(schedules.get(i).getPl_id()));
+        }
+
         a.add(s);
         a.add(schedules);
         a.add(pic);
+        a.add(arr);
 
         return a;
     }

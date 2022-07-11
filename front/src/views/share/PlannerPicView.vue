@@ -9,11 +9,20 @@
             <h2>사진첩</h2>
           </v-col>
           <v-col  cols="2">
-            정렬순서 :
-            <v-btn @click="sortBy" text>
-              <div v-if="sortStatus=='latest'">최신순</div>
-              <div v-else>오랜된순</div>
-            </v-btn>
+            <v-row>
+              <p class="mt-2">정렬순서 :</p>
+              <div v-if="sortStatus=='latest'">
+                <v-btn @click="sortStatus='old'" text>
+                  오래된순
+                </v-btn>
+              </div>
+              <div v-else>
+                <v-btn @click="sortStatus='latest'" text>
+                  최신순
+                </v-btn>
+              </div>
+
+            </v-row>
           </v-col>
 
           <v-col cols="2">
@@ -165,6 +174,11 @@
             id="pictures"
             style="width:400px;height:400px"
           />
+          <v-select
+            :items="category"
+            label="카테고리"
+            v-model="selectedCate"
+          ></v-select>
         </v-card-text>
         <v-divider/>
         <v-card-actions>
@@ -215,6 +229,8 @@ export default {
       pageSize:12,
       sortStatus:'latest',
       selected: ['사람','음식','풍경','관광지'],
+      category:['사람','음식','풍경','관광지'],
+      selectedCate:''
 
     }
   },
@@ -222,20 +238,6 @@ export default {
     this.getPlanPic();
   },
   methods: {
-    sortBy(){
-      if(this.sortStatus=='latest'){
-        this.photos=this.photos.sort((a,b)=>{
-          return(Number(a.pic_name.substring(10, 23))-Number(b.pic_name.substring(10, 23)))
-        })
-        this.sortStatus='old'
-      }
-      else{
-        this.photos=this.photos.sort((a,b)=>{
-          return(Number(b.pic_name.substring(10, 23))-Number(a.pic_name.substring(10, 23)))
-        })
-        this.sortStatus='latest'
-      }
-    },
     imageSet() {
       var picture = document.getElementById('pictures');
       while (picture.hasChildNodes()) {
@@ -281,6 +283,11 @@ export default {
       console.log(this.user_photo)
       if (!this.user_photo) {
         alert("사진을 넣어주세요")
+        return
+      }
+      if(this.selectedCate==''){
+        alert("카테고리를 선택해주세요")
+        return
       }
       var data = {
         pic_name: this.user_photo,
@@ -293,6 +300,7 @@ export default {
       sendform.append('pic_name', this.user_photo);
       sendform.append('plan_id', this.$store.state.user.planId);
       sendform.append('user_id', this.$store.state.user.userId);
+      sendform.append('category', this.selectedCate);
 
       axios({
         method: 'post',
@@ -345,9 +353,22 @@ export default {
 
   computed: {
     photos(){
-      return this.originPhotos.filter(photo=>
+      const filterResult = this.originPhotos.filter(photo=>
         this.selected.includes(photo.category)
       )
+      var sortResult;
+      if(this.sortStatus=='latest'){
+        sortResult = filterResult.sort((a,b)=>{
+          return(Number(a.pic_name.substring(10, 23))-Number(b.pic_name.substring(10, 23)))
+        })
+      }
+      else{
+        sortResult=filterResult.sort((a,b)=>{
+          return(Number(b.pic_name.substring(10, 23))-Number(a.pic_name.substring(10, 23)))
+        })
+      }
+      return sortResult;
+
     },
     pageCount () {
       let listLeng = this.photos.length,
