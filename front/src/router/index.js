@@ -11,8 +11,8 @@ import PlannerShareWriteView from "../views/share/PlannerShareWriteView";
 import PlannerPicView from "@/views/share/PlannerPicView";
 import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
-import OrderDetail from "@/components/order/OrderDetail";
-import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
+import OrderDetail from "@/components/duser/OrderDetail";
+import DuserOrders from "@/views/duser/DuserOrders";
 import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
 import mainView from "@/views/MainView";
 import TourDetailView from "@/views/TourDetailView";
@@ -40,7 +40,7 @@ import KeeperOrderDetail from "@/views/bag/keeper/KeeperOrderDetail";
 
 //혁태??
 import HotelView from "@/views/store/HotelView";
-import StoreAdd from "@/views/store/StoreAdd";
+import PlaceAdd from "@/views/store/PlaceAdd";
 import StoreDetail from "@/views/store/StoreDetail";
 
 //진한??
@@ -62,8 +62,8 @@ import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
 //민아
 import MypageView from "@/views/auth/MypageView";
-import BookMarkView from "@/components/auth/BookMarkView";
-import QuestionsView from "@/views/auth/QuestionsView";
+import MyBookMark from "@/components/auth/MyBookMark";
+import Questions from "@/components/auth/Questions";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
 import WritingModView from "@/views/auth/WritingModView";
@@ -76,7 +76,8 @@ import {store} from "@/store"
 import GuideIntro from "@/views/guide/GuideIntro";
 import GuideReserveInfo from "@/views/guide/GuideReserveInfo";
 
-import MyPageUpdateView from "@/components/auth/MyPageUpdateView";
+import MyPageUpdate from "@/components/auth/MyPageUpdate";
+import MyReview from "@/components/auth/MyReview";
 import ProductBook from "@/views/store/ProductBook";
 import productBookView from "@/views/store/productBookView";
 import GuideReserve from "@/views/guide/GuideReserve";
@@ -101,13 +102,15 @@ const routes = [
   {path: "/deliveryJoin", name: "DeliveryJoin", component: DeliveryJoinView}, //운송원회원 창
   {path: "/keeperJoin", name: "KeeperJoin", component: KeeperJoinView}, //운송원회원 창
   {path: "/login", name: "login", component: LoginView},
+  {path: "/myPage/:select", name: "MyPage", component: MypageView, props: true},
   {path: "/myPage", name: "MyPage", component: MypageView},
-  {path: "/myPageUpdate", name: "MyPageUpdate", component: MyPageUpdateView},
-  {path: "/questions", name: "Questions", component: QuestionsView},
+  {path: "/myPageUpdate", name: "MyPageUpdate", component: MyPageUpdate},
+  {path: "/questions", name: "Questions", component: Questions},
   {path: "/writing", name: "Writing", component: WritingView},
+  {path: "/MyReview", name: "MyReview", component: MyReview},
   {path: "/detailPage/:id", name: "DetailPage", component: DetailPageView},
   {path: "/detailPage/:id/writingMod", name: "WritingMod", component: WritingModView,},
-  {path: "/bookmark", name: "BookMark", component: BookMarkView},
+  {path: "/bookmark", name: "BookMark", component: MyBookMark},
   {path: "/ageChart", name: "AgeChart", component: AgeChartView},
   {path: "/areaChart", name: "AreaChart", component: AreaChartView},
 
@@ -130,7 +133,7 @@ const routes = [
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
   {path: "/placeadd", name: "placeAdd", component: StoreAdd},
-  {path: "/productBook", name: "productBook", component: ProductBook, props: true},
+  {path: "/productBook/:pd_id", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
   {path: "/chart", name: chartView, component: chartView},
   // {path: '/motel', name: 'motel', component: MotelView,},\
@@ -158,7 +161,7 @@ const routes = [
 
 
 
-  {path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
+  {path: "/DuserOrders", name: "DuserOrders", component: DuserOrders},
   {path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true},
   {path: "/TestView", name: "TestView", component: TestView},
 

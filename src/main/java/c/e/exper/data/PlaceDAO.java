@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,14 +25,14 @@ public class PlaceDAO {
     String keeper_ox;
     String addr1;
     String addr2;
-    String areaCode;
+    String areacode;
     String cat1;
     String cat2;
     String cat3;
-    String contentid;
-    String contenttypeid;
-    String firstimage;
-    String firstimage2;
+    String contentId;
+    String contentTypeId;
+    String firstImage;
+    String firstImage2;
     Double mapx;
     Double mapy;
     String tel;
@@ -39,6 +40,7 @@ public class PlaceDAO {
     String title;
     String zipcode;
     String content;
+    MultipartFile image;
     int seq;
 
 

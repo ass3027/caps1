@@ -9,8 +9,7 @@
       :event-overlap-mode="mode"
       :event-overlap-threshold="30"
       event-height="15"
-    ></v-calendar>
-
+    />
   </div>
 </template>
 

@@ -1,7 +1,19 @@
 <template>
   <div style="position: relative; max-width: 1040px">
+    <div>
+      <v-select
+        :items="items"
+        item-text="pd_name"
+        item-value="pd_id"
+        v-model="value"
+        @change="change_pd(value)"
+      >
+      </v-select>
+      {{ value }}
+    </div>
     <canvas
       ref="barChart"
+      id="chart"
     />
   </div>
 </template>
@@ -14,14 +26,16 @@ import {Chart, registerables} from "chart.js";
 Chart.register(...registerables)
 import axios from "axios";
 
-Chart.register(...registerables)
-let chart
-
-
 export default {
-  name: "chartView",
+  name: "ChartView",
 
   data: () => ({
+    selectedValue: null,
+    listss: '',
+    listss1: '',
+    listss7: '',
+    listss30: '',
+
     list: '',
     list1: '',
     list7: '',
@@ -30,8 +44,8 @@ export default {
     data: {
       labels: ['총 매출', '최근 한달', '최근 7일', '금일'],
       datasets: [{
-        label: '# of Votes',
-        data: ['','','',''],
+        label: '매출',
+        data: ['', '', '', ''],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -49,7 +63,7 @@ export default {
           'rgba(255, 159, 64, 1)'
         ],
         borderWidth: 1
-      }]
+      }],
     },
     options: {
       scales: {
@@ -57,10 +71,25 @@ export default {
           beginAtZero: true
         }
       }
-    }
+    },
+    items: [],
+    value: [],
   }),
   created() {
     this.a()
+
+    axios({
+      method: 'GET',
+      url: '/api/productChart',
+      params: {
+        'user_id': this.$store.state.user.userId
+      }
+    })
+      .then((res) => {
+        console.log(res.data)
+
+        this.items = res.data
+      })
   },
 
   methods: {
@@ -72,12 +101,36 @@ export default {
       this.productSales()
     },
 
+
     createChart() {
       new Chart(this.$refs.barChart, {
         type: 'bar',
         data: this.data,
         options: this.options
       })
+    },
+
+    change_pd(value) {
+      axios({
+        method: 'GET',
+        url: '/api/productChartss',
+        params: {
+          'user_id': this.$store.state.user.userId,
+          'value': this.value
+        }
+      })
+        .then((res) => {
+
+          this.list = res.data.count;
+
+          this.data.datasets[0].data[0] = this.listss
+          this.data.datasets[0].data[3] = this.listss1
+          // this.data.datasets[0].data.unshift(this.list7) // 7일
+          // this.data.datasets[0].data.unshift(this.list30)// 30일
+          // this.data.datasets[0].data.unshift(this.list) //총
+          this.createChart()
+
+        })
     },
 
 
@@ -90,6 +143,7 @@ export default {
         }
       })
         .then((res) => {
+
           this.list = res.data.count;
 
           this.data.datasets[0].data[0] = this.list
@@ -121,37 +175,39 @@ export default {
         })
     },
 
-    productSales7(){
+    productSales7() {
       axios({
-        method:'GET',
-        url:'/api/chart7',
-        params:{
-          'id':this.$store.state.user.userId
+        method: 'GET',
+        url: '/api/chart7',
+        params: {
+          'id': this.$store.state.user.userId
         }
-      }).then((res7)=>{
+      }).then((res7) => {
 
         this.list7 = res7.data.count7;
-        this.data.datasets[0].data[2]= res7.data.count7
+        this.data.datasets[0].data[2] = res7.data.count7
         // this.data.datasets[0].data.unshift(this.list7) // 7일
 
       })
     },
 
-    productSales30(){
+    productSales30() {
       axios({
-        method:'GET',
-        url:'/api/chart30',
-        params:{
-          'id':this.$store.state.user.userId
+        method: 'GET',
+        url: '/api/chart30',
+        params: {
+          'id': this.$store.state.user.userId
         }
-      }).then((res30)=>{
+      }).then((res30) => {
         this.list30 = res30.data.count30;
-        this.data.datasets[0].data[1]= res30.data.count30
+        this.data.datasets[0].data[1] = res30.data.count30
         // this.data.datasets[0].data.unshift(this.list7) // 7일
         console.log(res30)
 
       })
     },
+
+    // 객실별 매출 조회 기능 구현하면 여기에 구현 하면 된다.
   }
 }
 </script>

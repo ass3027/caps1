@@ -23,9 +23,9 @@
           <v-card
             v-for="(schedule,index,ii) in calendar.date"
             :key="index"
-            class="pa-5">
-            <v-row
-            >
+            class="pa-5"
+          >
+            <v-row>
               <v-col cols="12">
                 <div
                   v-if="schedule.size!==0"
@@ -38,7 +38,6 @@
                   />
                 </div>
               </v-col>
-
             </v-row>
             <v-row>
               <v-col cols="5">
@@ -52,9 +51,7 @@
                   {{ s[1].pl_name }}->
                   <!--              map데이터형식이라서 s[0]은키 s[1]값 가져오는거 거기서 pl_name-->
                 </h3>
-
               </v-col>
-
             </v-row>
           </v-card>
 
@@ -67,26 +64,45 @@
               삭제
             </v-btn>
           </div>
-          <h2 class="mt-5">복제된 횟수 : {{ share.share_count }}</h2>
+          <h2 class="mt-5">
+            복제된 횟수 : {{ share.share_count }}
+          </h2>
           <v-btn @click="copyPlanner">
             일정 복제하기
           </v-btn>
 
           <h2>추천 수 : {{ recommends }}</h2>
-          <v-btn @click="recommend">추천하기</v-btn>
+          <v-btn @click="recommend">
+            추천하기
+          </v-btn>
         </v-card>
 
         <!-- 댓글-->
         <v-card class="ma-5 pa-5">
           댓글 작성
-          <v-text-field v-model="comment" @keyup.enter="postComment" placeholder="댓글을 써보세요"></v-text-field>
-          <v-btn @click="postComment">작성</v-btn>
+          <v-text-field
+            v-model="comment"
+            placeholder="댓글을 써보세요"
+            @keyup.enter="postComment"
+          />
+          <v-btn @click="postComment">
+            작성
+          </v-btn>
         </v-card>
-        <v-card v-for="(comment,i) in comments" :key="i" class="ma-5 pa-5">
-          <v-row justify="" class="mt-2">
-            <v-col cols="10" align-self="center">
+        <v-card
+          v-for="(comment,i) in comments"
+          :key="i"
+          class="ma-5 pa-5"
+        >
+          <v-row
+            justify=""
+            class="mt-2"
+          >
+            <v-col
+              cols="10"
+              align-self="center"
+            >
               <p>{{ comment.comment_contents }}</p>
-
             </v-col>
             <v-col cols="2">
               <v-row>
@@ -101,20 +117,16 @@
                 <v-col cols="6">
                   <v-btn
                     v-if="comment.user_id==$store.state.user.userId"
-                    @click="delComment(comment)"
                     class="mb-5"
+                    @click="delComment(comment)"
                   >
                     삭제
                   </v-btn>
                 </v-col>
-
               </v-row>
-
-
             </v-col>
           </v-row>
         </v-card>
-
       </v-col>
     </v-row>
   </v-container>

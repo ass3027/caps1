@@ -2,6 +2,7 @@ package c.e.exper.controller;
 
 import c.e.exper.data.*;
 import c.e.exper.mapper.PictureMapper;
+import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
@@ -36,14 +37,17 @@ public class ApiUser {
 
     final ReviewService reviewService;
 
+    final ReviewMapper reviewMapper;
 
-    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper, ReviewService reviewService) {
+
+    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper, ReviewService reviewService, ReviewMapper reviewMapper) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
         this.suplMapper = suplMapper;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
         this.reviewService = reviewService;
+        this.reviewMapper = reviewMapper;
     }
 
     public static String randomHangulName() {
@@ -68,7 +72,13 @@ public class ApiUser {
     }
 
     @GetMapping("/find")
-    public UserDAO findUser() {
+    public UserDAO findUser(@RequestParam(value = "id", required = false) String id) {
+        System.out.println("id = " + id);
+
+        if(id != null) {
+            return userMapper.selectId(id).get();
+        }
+
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println("user_id = " + user_id);
         if(user_id.equals("anonymousUser")) {
@@ -154,8 +164,8 @@ public class ApiUser {
     public UserDAO getUserAge50(){return userMapper.selectAgeCount50();}
 
     @GetMapping("/search")
-    public List<InquiryDAO> getUserSearch(String user_id){
-        return userMapper.selectSearch(user_id);
+    public List<InquiryDAO> getUserSearch(@RequestParam("keyword")String keyword){
+        return userMapper.selectSearch(keyword);
     }
 
 
@@ -241,21 +251,12 @@ public class ApiUser {
         return userMapper.selectUserOrders(user_id);
     }
 
-    @PostMapping("/apiTest")
-    public void apiTest(@RequestBody List<PlaceDAO> data) {
+    @GetMapping("/review")
+    public List<ReviewDTO> getUserReview() {
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-//        data.forEach( function(it) {
-//            userMapper.insertPlace(it);
-//            count++;
-//        });
-//        int i;
-//        for(i = 0; i < data.size(); i++) {
-//            userMapper.insertPlace(data.get(i));
-//
-//        }
-//        System.out.println("count: " + i);
+        return reviewMapper.findUserReviews(id);
     }
-
 
 
     public String getRandomPhone() {

@@ -2,7 +2,9 @@
   <div>
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div class="member-Join">
-      <p class="text-center">일반회원가입</p>
+      <p class="text-center">
+        일반회원가입
+      </p>
     </div>
 
     <form @submit.prevent>
@@ -75,7 +77,7 @@
             :items="area"
             label="거주하는 지역을 선택해 주세요"
             dense
-          ></v-select>
+          />
         </v-row>
 
 

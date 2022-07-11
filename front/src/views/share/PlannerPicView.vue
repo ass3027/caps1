@@ -3,8 +3,7 @@
     <PlannerHeader />
     <v-card>
       <v-container>
-        <h2>플래너 사진 공유게시판({{ $store.state.user.planId }})</h2>
-        <h2>사진 불러오기</h2>
+        <h2>사진첩</h2>
         <div>
           <v-hover
             v-slot="{ hover }"
@@ -23,15 +22,18 @@
             </v-card>
           </v-hover>
         </div>
-        <h2>사진 넣기</h2>
-        <input
-          ref="refImage"
-          type="file"
-          placeholder="photo"
-        >
-        <v-btn @click="upload">
-          사진업로드
-        </v-btn>
+        <div class="ma-5">
+          <h3>사진 업로드</h3>
+          <input
+            ref="refImage"
+            type="file"
+            placeholder="photo"
+          >
+          <v-btn @click="upload">
+            Upload
+          </v-btn>
+
+        </div>
       </v-container>
     </v-card>
 

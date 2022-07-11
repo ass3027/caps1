@@ -13,19 +13,19 @@
         style="padding-left: 0"
       >
         <li id="MyPage">
-          <a @click="change('MyPageInfo')">회원 정보</a>
+          <a @click="selected('MyPageInfo')">회원 정보</a>
         </li>
         <li id="Bookmark">
-          <a @click="change('Bookmark')">즐겨찾기</a>
+          <a @click="selected('MyBookMark')">즐겨찾기</a>
         </li>
         <li id="MyPageUpdate">
-          <a @click="change('MyPageUpdate')">개인 정보 수정</a>
+          <a @click="selected('MyPageUpdate')">개인 정보 수정</a>
         </li>
         <li id="MyPaymentList">
-          <a @click="change('MyReview')">상품 후기</a>
+          <a @click="selected('MyReview')">상품 후기</a>
         </li>
         <li id="Questions">
-          <a @click="change('Questions')">문의사항</a>
+          <a @click="selected('Questions')">문의사항</a>
         </li>
         <li id="Review">
           <a>상품후기</a>
@@ -55,25 +55,9 @@ export default {
     current_li.classList.add('on')
   },
   methods: {
-    change(value) {
-      this.$parent.changeStatus(value)
+    selected(value) {
+      this.$parent.changeSelected(value)
     },
-    MyPage() {
-      this.change("MyPageInfo")
-    },
-    BookMark() {
-      this.change("Bookmark")
-
-    },
-    UserUpdate() {
-      this.change("MyPageUpdate")
-
-    },
-    questions() {
-      this.change("Questions")
-
-    },
-
   }
 }
 </script>

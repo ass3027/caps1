@@ -1,5 +1,6 @@
 package c.e.exper.mapper;
 
+import c.e.exper.data.GItemDAO;
 import c.e.exper.data.GuideDAO;
 import org.apache.ibatis.annotations.*;
 
@@ -23,6 +24,13 @@ GuideMapper {
 
     @Update("Update users set guser_intro = #{guide.guser_intro} where user_id = #{id}")
     void updateIntro(@Param("guide") GuideDAO guideDAO, String id);
+
+    @Select("""
+            select user_id
+            from gitem
+            where gitem_id = #{gitem_id}
+            """)
+    String selectUser(@Param("gitem_id") String gitem_id);
 
 
 }

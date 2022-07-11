@@ -20,7 +20,7 @@
           class="mx-auto"
         >
           <div>
-            <v-img src="@/image/storage1.png"/>
+            <v-img src="@/image/storage1.png" />
           </div>
           <div class="btn_container">
             <v-btn
@@ -32,14 +32,14 @@
             </v-btn>
           </div>
         </v-col>
-        <v-divider vertical/>
+        <v-divider vertical />
         <v-col
           cols="6"
           sm="2"
           class="mx-auto"
         >
           <div>
-            <v-img src="@/image/transport1.png"/>
+            <v-img src="@/image/transport1.png" />
           </div>
           <div class="btn_container">
             <v-btn
@@ -53,7 +53,7 @@
         </v-col>
       </v-row>
 
-      <router-view/>
+      <router-view />
     </v-app>
   </v-container>
 </template>

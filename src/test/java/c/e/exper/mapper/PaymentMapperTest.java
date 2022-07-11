@@ -1,6 +1,7 @@
 package c.e.exper.mapper;
 
 import c.e.exper.data.GItemDAO;
+import c.e.exper.data.PlaceDAO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,5 +27,11 @@ class PaymentMapperTest {
     void gitemInfoToPayId() {
         GItemDAO gItemDAOS = paymentMapper.gitemInfoToPayId(PAY_ID);
         System.out.println("gItemDAOS = " + gItemDAOS);
+    }
+
+    @Test
+    void placeInfoToPayIdHotel() {
+        PlaceDAO placeDAO = paymentMapper.placeInfoToPayIdHotel("82");
+        System.out.println(placeDAO);
     }
 }

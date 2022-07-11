@@ -2,7 +2,9 @@
   <div>
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div class="delivery-Join">
-      <p class="text-center">운송원 회원가입</p>
+      <p class="text-center">
+        운송원 회원가입
+      </p>
     </div>
 
     <form @submit.prevent>
@@ -69,16 +71,16 @@
           />
         </v-row>
 
-<!--        <v-row>-->
-<!--          <v-select-->
-<!--            v-model="duser_trans"-->
-<!--            :trans = "trans"-->
-<!--            label="운송할 수단을 선택해 주세요"-->
-<!--            dense-->
-<!--          ></v-select>-->
-<!--        </v-row>-->
+        <!--        <v-row>-->
+        <!--          <v-select-->
+        <!--            v-model="duser_trans"-->
+        <!--            :trans = "trans"-->
+        <!--            label="운송할 수단을 선택해 주세요"-->
+        <!--            dense-->
+        <!--          ></v-select>-->
+        <!--        </v-row>-->
 
-<!--      ------------------------>
+        <!--      ------------------------>
 
         <v-row>
           <v-col>
@@ -87,10 +89,22 @@
               v-model="duser_trans"
               row
             >
-              <v-radio label="승용차" value="승용차"></v-radio>
-              <v-radio label="자전거" value="자전거"></v-radio>
-              <v-radio label="오토바이" value="오토바이"></v-radio>
-              <v-radio label="트럭" value="트럭"></v-radio>
+              <v-radio
+                label="승용차"
+                value="승용차"
+              />
+              <v-radio
+                label="자전거"
+                value="자전거"
+              />
+              <v-radio
+                label="오토바이"
+                value="오토바이"
+              />
+              <v-radio
+                label="트럭"
+                value="트럭"
+              />
             </v-radio-group>
           </v-col>
         </v-row>
@@ -107,22 +121,22 @@
 
 
 
-<!--        <v-row>-->
-<!--          <v-select-->
-<!--            v-model="preference"-->
-<!--            :items="items"-->
-<!--            label="선호하는 여행방식을 골라주세요"-->
-<!--            dense-->
-<!--          />-->
-<!--        </v-row>-->
+        <!--        <v-row>-->
+        <!--          <v-select-->
+        <!--            v-model="preference"-->
+        <!--            :items="items"-->
+        <!--            label="선호하는 여행방식을 골라주세요"-->
+        <!--            dense-->
+        <!--          />-->
+        <!--        </v-row>-->
 
-<!--                  <v-overflow-btn-->
-<!--                    v-model="reference"-->
-<!--                    class="my-2"-->
-<!--                    :items="items"-->
-<!--                    label="선호하는 여행방식을 골라주세요"-->
-<!--                    dense-->
-<!--                  ></v-overflow-btn>-->
+        <!--                  <v-overflow-btn-->
+        <!--                    v-model="reference"-->
+        <!--                    class="my-2"-->
+        <!--                    :items="items"-->
+        <!--                    label="선호하는 여행방식을 골라주세요"-->
+        <!--                    dense-->
+        <!--                  ></v-overflow-btn>-->
 
         <v-row>
           <v-date-picker

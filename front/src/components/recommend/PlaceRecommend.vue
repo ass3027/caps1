@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>-->
+    <!--    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>-->
     <v-row v-if="items!=''">
       <v-col
         v-for="(item,i) in items"
@@ -8,9 +8,8 @@
         cols="2"
       >
         <img
-        :src="item.firstimage"
-        @click="$router.push({path:`/tour/${item.pl_id}`})"
-
+          :src="item.firstimage"
+          @click="$router.push({path:`/tour/${item.pl_id}`})"
         >
         <span
           v-if="item.title!==''"
@@ -24,15 +23,13 @@
       </v-col>
     </v-row>
     <v-row v-else>
-        <img
-          src="/api/photo/placeImage/no_place.png"
-          style="width: 230px;height:200px"
-          class="mt-5"
-          @click="$router.push({path:'/calender'})"
-
-        >
+      <img
+        src="/api/photo/placeImage/no_place.png"
+        style="width: 230px;height:200px"
+        class="mt-5"
+        @click="$router.push({path:'/calender'})"
+      >
     </v-row>
-
   </div>
 </template>
 

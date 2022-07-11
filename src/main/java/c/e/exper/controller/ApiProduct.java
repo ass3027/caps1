@@ -113,4 +113,20 @@ public class ApiProduct {
         System.out.println("end_date  " +  end_date);
         return productMapper.product_book_no(pd_id, st_date, end_date);
     }
+
+    @GetMapping("/productChart")
+    public List<ProductDAO> productChart(String user_id){
+        return productMapper.product_chart(user_id);
+    }
+
+    // 객실별 차트
+    @GetMapping("/productChartss")
+    public ProductDAO productSelect(String user_id, String value){
+        return productMapper.product_chartss(user_id, value);
+    }
+
+    @GetMapping("/bookPdId")
+    public ProductDAO productBookPdId(String pd_id){
+        return productMapper.product_book_pd_id(pd_id);
+    }
 }

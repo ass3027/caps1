@@ -10,7 +10,8 @@
       >
         <h2
           class="tit"
-          style="padding-bottom: 34px" align="center"
+          style="padding-bottom: 34px"
+          align="center"
         >
           가방 보관 신청서
         </h2>
@@ -25,27 +26,28 @@
                 <h1 style="padding-top: 30px; padding-left: 30px">
                   🧳 맡길장소 :
                 </h1>
-                <search-place @childEvent="getEmitData" style="padding-top:30px; padding-left: 10px"/>
-
+                <search-place
+                  style="padding-top:30px; padding-left: 10px"
+                  @childEvent="getEmitData"
+                />
               </v-row>
               <br>
               <v-card
+                v-if="index==true"
                 class="mx-auto"
                 max-width="344"
-                v-if="this.index==true"
               >
                 <v-img
                   :src="lodging.firstimage2"
                   height="200px"
-                ></v-img>
+                />
                 <v-card-title>
                   {{ lodging.title }}
                 </v-card-title>
 
                 <v-card-subtitle>
-                  주소:{{lodging.addr1}}
+                  주소:{{ lodging.addr1 }}
                 </v-card-subtitle>
-
               </v-card>
 
               <br>
@@ -66,7 +68,7 @@
               <v-card-text>
                 <v-row align="center">
                   {{ item.title }}
-                  <v-spacer/>
+                  <v-spacer />
                   {{ item.value }}원
                   <v-checkbox
                     v-model="checkedName"
@@ -128,11 +130,10 @@
         <div style="width: 80%;margin: 0 auto; padding-top: 20px">
           <v-btn
             style="float: right;"
-            @click="addOrder"
+            @click="storageReserve"
           >
             작성 완료
           </v-btn>
-
         </div>
       </v-form>
     </v-app>
@@ -237,6 +238,7 @@ export default {
       }, rso => {
         console.log(rso);
         if (rso.success) {
+          this.addOrder()
           console.log(rso)
           var imp = {
             user_id: this.$store.state.user.userId,
@@ -287,7 +289,6 @@ export default {
         .post('/api/storageAddOrder', storageBag)
         .then((res) => {
           console.log(storageBag)
-          this.storageReserve()
         })
     },
     startAddress(address) {

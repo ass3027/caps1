@@ -1,30 +1,25 @@
 <template>
-  <v-container style="width: 70%; ">
-    <v-row>
-      <v-col align="center">
-        <v-card style="width: 60%;margin: 50px;padding: 50px">
-          <h2>가이드 등록</h2>
-          <h1>{{ $store.state.user.userId }}</h1>
-          <v-text-field
-            v-model="guser_intro"
-            name="guideLicense"
-            type="text"
-            class="license"
-            placeholder="소개"
-            style="width: 60%; margin: 10px"
-          />
+  <form class="joinGuide">
+    <h2>가이드 소개 등록</h2>
+    <h1>{{ $store.state.user.userId }}</h1>
 
-          <v-btn
-            class="btn"
-            style="width: 60%; margin: 10px"
-            @click="onsubmit()"
-          >
-            JOIN
-          </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+    <div class="textForm">
+      <input
+        v-model="guser_intro"
+        name="guideLicense"
+        type="text"
+        class="license"
+        placeholder="소개"
+      >
+    </div>
+
+    <v-btn
+      class="btn"
+      @click="onsubmit()"
+    >
+      JOIN
+    </v-btn>
+  </form>
 </template>
 
 <script>
