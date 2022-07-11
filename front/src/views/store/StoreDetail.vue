@@ -241,12 +241,9 @@
       </div>
     </div>
 
-<<<<<<< HEAD
 
 
     {{ pl_id }}
-=======
->>>>>>> parent of 73ea628e (Revert "Merge branch 'master' of https://github.com/ass3027/caps1")
     <ReviewView
       :id="pl_id"
       :type="'호텔'"

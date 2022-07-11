@@ -9,7 +9,7 @@
           <p>
             #{{ share.share_place }} #{{ preference }}
           </p>
-          <v-carousel>
+          <v-carousel v-if="pictures!=''">
             <v-carousel-item
               v-for="(picture,i) in pictures"
               :key="i"
