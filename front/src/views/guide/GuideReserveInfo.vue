@@ -120,6 +120,7 @@ export default {
       })
         .then((res)=>{
           this.lists2 = res.data;
+          console.log(res)
         })
 
     },
