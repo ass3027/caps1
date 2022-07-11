@@ -3,7 +3,8 @@
     <div class="date">{{ paytime }}</div>
     <div class="payment_goods">
       <div class="name"><span>[<span v-if="type === 'guide'">가이드</span><span
-        v-if="type === 'hotel'">호텔</span>] {{ place_info !== null ? place_info.title : 'a' }}</span></div>
+        v-if="type === 'hotel'">호텔</span>] {{ place_info !== null ? place_info.title : 'a' }}</span>
+      </div>
       <div class="payment_info">
         <div class="thumb">
           <img :src="place_info.firstImage">
