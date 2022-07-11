@@ -8,46 +8,60 @@
       </h1>
     </div>
     <ul class="tab_menu">
-      <li id="reviewBefore">
-        <a @click="change('reviewBefore')">작성가능 후기 <span>({{ }})</span></a>
-      </li>
-      <li id="reviewAfter">
-        <a @click="change('reviewAfter')">작성완료 후기 <span>({{ }})</span></a>
-      </li>
+      <li id="reviewBefore"><a @click="change('reviewBefore')">작성가능 후기 <span>({{ paymentList.length }})</span></a></li>
+      <li id="reviewAfter"><a @click="change('reviewAfter')">작성완료 후기 <span>({{  }})</span></a></li>
     </ul>
     <template v-if="status === 'reviewBefore'">
-      <ul class="list_payment">
-        <h2 style="border-bottom: 2px solid #333">
-          가이드
-        </h2>
 
-        <li
-          v-for="payment in guidePaymentList"
-          :key="payment.pay_id"
-        >
-          <GuidePayment :payment="payment" />
+      <ul class="list_payment">
+
+        <!--        가이드 결제내역        -->
+        <h2 style="border-bottom: 2px solid #333">가이드</h2>
+        <li v-for="(payment, index) in guidePaymentList" :key="index">
+          <PaymentItem :payment="payment" :type="'guide'"/>
         </li>
 
-        <h2 style="border-bottom: 2px solid #333; padding-top: 30px">
-          호텔
-        </h2>
+
+        <!--        호텔 결제내역        -->
+        <h2 style="border-bottom: 2px solid #333; padding-top: 30px">호텔</h2>
+        <li v-for="(payment, index) in hotelPaymentList" :key="index">
+          <PaymentItem :payment="payment" :type="'hotel'"/>
+        </li>
+
       </ul>
     </template>
-    <template v-else />
+    <template v-else>
+      <ul class="list_payment">
+
+
+        <div v-for="(review, index) in reviews" :key="index">
+          {{review}}
+        </div>
+
+        <!--        가이드 결제내역        -->
+        <h2 style="border-bottom: 2px solid #333">가이드</h2>
+
+
+      </ul>
+    </template>
+
   </div>
   <!--  </div>-->
 </template>
 <script>
 import axios from "axios";
-import GuidePayment from "@/components/auth/GuidePayment";
+import PaymentItem from "@/components/auth/PaymentItem";
+
 
 export default {
   components: {
-    GuidePayment
+    PaymentItem,
   },
   data() {
     return {
       paymentList: [],
+      hotelPaymentList: [],
+      reviews: [],
       status: 'reviewBefore'
     };
   },
@@ -65,6 +79,17 @@ export default {
       console.log('paymentList', res.data)
       this.paymentList = res.data
     })
+
+    axios.get('/api/payment/paymentList/hotel').then(res => {
+      console.log('hotelPaymentList', res.data)
+      this.hotelPaymentList = res.data
+    })
+
+    axios.get('/api/user/review').then(res => {
+      console.log('review', res.data)
+      this.reviews = res.data
+    })
+
 
 
     const selected = document.getElementById('reviewBefore');
@@ -119,6 +144,9 @@ export default {
 <style scoped>
 .list_payment {
   padding-top: 10px;
+  padding-left: 0;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .tit {

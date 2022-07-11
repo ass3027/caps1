@@ -112,6 +112,26 @@ public class PlaceService {
       }
       return categoryOption;
    }
+
+    public List<PlaceDAO> 키보드_지역_조회(String category, String keyword) {
+
+        List<PlaceDAO> keywordArea = new ArrayList<>();
+
+        switch (category) {
+            case "hotel" -> {
+                for (String hotel : hotelCode) {
+                    keywordArea.addAll(placeMapper.getKeyword(hotel, keyword));
+                }
+            }
+            case "motel" -> {
+                for (String motel : motelCode) {
+                    keywordArea.addAll(placeMapper.getKeyword(motel, keyword));
+                }
+
+            }
+        }
+        return keywordArea;
+    }
 }
 //   public List<PlaceDAO> 지역_조회(){
 //      return placeMapper.selectByPlaceTo(int areaCode);

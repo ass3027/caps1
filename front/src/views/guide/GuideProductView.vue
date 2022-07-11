@@ -3,39 +3,36 @@
     class="mx-auto my-12"
     max-width="374"
   >
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      :src="lists.firstimage2"
-    />
     <v-card-title>USERID:{{ lists.user_id }}</v-card-title>
 
     <v-card-text>
       <v-row
         align="center"
         class="mx-0"
-      />
-
-      <div class="my-4 text-subtitle-1">
-        <div>
+      >
+        <div class="grey--text ms-4">
           ID:{{ lists.gitem_id }}
         </div>
+      </v-row>
+
+      <div class="my-4 text-subtitle-1">
         장소:{{ lists.title }}
       </div>
-      <div>가격:{{ lists.gitem_price }}</div>
+
       <div>소개:{{ lists.introduce }}</div>
+      <v-card-title>가격:{{lists.gitem_price}}</v-card-title>
     </v-card-text>
 
     <v-divider class="mx-4" />
 
     <v-card-title>예약시간</v-card-title>
-    <div class="time">
-      <v-date-picker
-        v-model="gdate"
-        class="picker"
-        @click:date="dateClick"
-      />
-    </div>
+    <v-date-picker
+      @click:date="dateClick"
+      v-model="gdate"
+
+    >
+
+    </v-date-picker>
     {{ gdate }}
 
     <v-card-text>
@@ -64,10 +61,9 @@
       </v-btn>
     </v-card-actions>
 
-    <ReviewView
-      :id="gitem_id"
-      :type="'가이드 상품'"
-    />
+    <v-card>
+      <ReviewView :type="'가이드 상품'" :id="gitem_id" :answer="lists.user_id === this.$store.state.user.userId"/>
+    </v-card>
   </v-card>
 </template>
 
@@ -78,7 +74,7 @@ import ReviewView from "@/views/ReviewView";
 export default {
   name: "GuideProductView.vue",
   components: {
-    ReviewView
+    ReviewView,
   },
   props:['gitem_id'],
   data(){
@@ -210,11 +206,5 @@ export default {
 </script>
 
 <style scoped>
-  .time{
-    width: 100%;
-    margin: 0 auto;
-  }
-.v-picker{
-  text-align: center;
-}
+
 </style>

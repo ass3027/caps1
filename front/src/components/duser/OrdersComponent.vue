@@ -13,7 +13,7 @@
 
 <script>
 import axios from "axios";
-import OrderItem from "@/components/order/OrderItem";
+import OrderItem from "@/components/duser/OrderItem";
 
 export default {
   name: 'OrdersComponent',

@@ -1,6 +1,6 @@
 <template>
   <div style="width:100px;min-width: 1350px;margin-bottom: 20px ">
-    <v-divider />
+    <v-divider/>
     <div style="margin-top: 30px">
       <h2>일정선택</h2>
       <select
@@ -87,7 +87,7 @@ export default {
 </script>
 
 <style scoped>
-.warningText{
+.warningText {
   color: red;
 }
 </style>

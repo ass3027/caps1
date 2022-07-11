@@ -1,6 +1,5 @@
 package c.e.exper.controller;
 
-import c.e.exper.data.BagDAO;
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.PlaceDAO;
@@ -45,6 +44,13 @@ public class ApiPayment {
         return paymentMapper.paymentList(id);
     }
 
+    @GetMapping("/paymentList/hotel")
+    List<PaymentDAO> hotelPaymentList() {
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return paymentMapper.hotelPaymentList(id);
+    }
+
     @GetMapping("/paymentList/{test}")
     List<PaymentDAO> paymentListTest(@PathVariable String test) {
         return paymentMapper.paymentList("um");
@@ -70,10 +76,14 @@ public class ApiPayment {
         return paymentMapper.gitemInfoToPayId(pay_id);
     }
 
-    @GetMapping("/place/{pay_id}")
-    PlaceDAO placeInfo(@PathVariable String pay_id) {
+    @GetMapping("/placeInfo/{type}/{pay_id}")
+    PlaceDAO placeInfo(@PathVariable String type, @PathVariable String pay_id) {
 
-        return paymentMapper.placeInfoToPayId(pay_id);
+        return switch (type) {
+            case "guide" -> paymentMapper.placeInfoToPayIdGuide(pay_id);
+            case "hotel" -> paymentMapper.placeInfoToPayIdHotel(pay_id);
+            default -> null;
+        };
 
     }
 

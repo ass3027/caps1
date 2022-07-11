@@ -94,6 +94,8 @@ public interface PaymentMapper {
             """)
     GItemDAO gitemInfoToPayId(@Param("pay_id") String pay_id);
 
+
+    // 가이드 결제내역 장소 정보
     @Select("""
             select *
             from PLACE
@@ -105,7 +107,47 @@ public interface PaymentMapper {
                                                                 from PAYMENT
                                                                 where pay_id = #{pay_id})))
             """)
-    PlaceDAO placeInfoToPayId(@Param("pay_id") String pay_id);
+    PlaceDAO placeInfoToPayIdGuide(@Param("pay_id") String pay_id);
+
+    // 호텔 결제내역 장소 정보
+    @Select("""
+            select *
+                from PLACE
+                where PL_ID in (select PL_ID
+                            from PRODUCT
+                                    where PD_ID in (select distinct PD_ID
+                                    from PRODUCT_TIME
+                                    where PAY_ID = #{pay_id}))
+            """)
+    PlaceDAO placeInfoToPayIdHotel(@Param("pay_id") String pay_id);
+
+
+    // 사용자 호텔 결제내역
+    @Select("""
+            select *
+            from PAYMENT
+            where USER_ID = #{user_id}
+              and PAY_ID in (select PAY_ID
+                             from PRODUCT_TIME
+                             where PD_ID in (select pd_id
+                                             from PRODUCT)
+                               and PAY_ID is not null
+                             group by PAY_ID)
+            """)
+    List<PaymentDAO> hotelPaymentList(@Param("user_id") String user_id);
+
+
+
+    @Select("""
+            select *
+            from PAYMENT
+            where PAY_ID = (select PAY_ID
+                            from REVIEW
+                            where REV_ID = #{rev_id})
+            """)
+    PaymentDAO findByRev(@Param("rev_id") String rev_id);
+
+
 
 
 }

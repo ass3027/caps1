@@ -35,7 +35,7 @@
           </td>
           <td class="txt_center">
             <span class="review-like-cnt">
-              {{ review.like }}
+              {{ review.rev_like }}
             </span>
           </td>
           <td class="txt_center">
@@ -57,13 +57,12 @@
         <div
           class="review_photo"
           style="padding-top: 30px"
+          v-if="review.img_link != null"
         >
-          <!--          <img src="/api/photo/altImage/packless_travel_logo.png" border="0">-->
           <img
-            v-if="review.rev_img_filename != null"
-            :src="'/api/photo/'+review.rev_img_filename"
+            :src="'/api/photo/'+review.img_link"
             alt="리뷰 이미지"
-            width="600px"
+            width="200px"
           >
           <br>
           <br>
@@ -79,9 +78,30 @@
           @click="like"
         >
           도움이 돼요
-          <span class="num"> {{ review.like }} </span>
+          <span class="num"> {{ review.rev_like }} </span>
         </button>
       </div>
+      <div class="review_answer" v-if="answer">
+
+        <h3>답변</h3><span> {{ answer }}</span>
+
+      </div>
+      <div class="answer_register" v-if="!answer && (seller_id === this.$store.state.user.userId)">
+
+        <h3>답변 작성</h3>
+
+        <table style="width: 100%" class="answer_textarea">
+          <textarea style="float: left; width: 90%; height: 80px" v-model="answer_content">
+
+          </textarea>
+          <button type="button" @click="answerRegister" style="float: right; border: 1px solid #ccc; width: 9%; height: 80px">
+            등록
+          </button>
+        </table>
+
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -93,15 +113,18 @@ import axios from "axios";
 export default {
   name: 'ReviewItem',
   props: {
-    review: {
+    review_prop: {
       type: Object
     }
   },
   data() {
     return {
-      rev_rating: this.review.rev_rating,
-      user: {},
+      review: null,
+      user: null,
       on: false,
+      answer: null,
+      seller_id: null,
+      answer_content: '',
     }
   },
   computed: {
@@ -115,21 +138,25 @@ export default {
     //   axios.get('/api/')
     // }
   },
-  mounted() {
-    console.log("[REVIEW]")
-    console.log('review', this.review)
+  created() {
+    this.review = this.review_prop
+
+    axios.get('/api/review/answer/' + this.review.rev_id).then(res => {
+      this.answer = res.data
+    })
+
+    axios.get('/api/review/seller/' + this.review.rev_id).then(res => {
+      this.seller_id = res.data
+    })
+
     axios({
       method: 'GET',
-      url: 'http://localhost:8080/api/user/find',
+      url: '/api/user/find',
       params: {
-        user_id: this.review.user_id
+        id: this.review.user_id
       }
-
     })
       .then(res => {
-        console.log("[user/find]")
-        console.log(res.data)
-
         this.user = res.data
       })
       .catch((err) => {
@@ -137,16 +164,50 @@ export default {
       })
     console.log(this.review.rev_content)
   },
+  mounted() {
+    console.log("[REVIEW]")
+    console.log('review', this.review)
+  },
   methods: {
     displayContent() {
       this.on = !this.on
-      console.log('test', this.review.rev_id)
+
+      console.log('selected review', this.review.rev_id, this.on)
+      if(this.on) {
+        axios.post('/api/hit/' + this.review.rev_id).then(res => {
+          if(res.data) {
+            this.review.hit += 1
+          }
+          console.log('hit test', this.review.hit)
+        })
+      }
 
     },
+    answerRegister() {
+      axios({
+        method : 'post',
+        url    : '/api/review/answer/' + this.review.rev_id,
+        params : {
+          'content': this.answer_content
+        }
+      }).then((res) => {
+
+        if(res.data) {
+          alert('답변이 등록되었습니다.')
+          this.$router.go();
+        } else {
+          alert('등록에 실패하였습니다.')
+        }
+
+      })
+    },
     like() {
-
-
-      // DB 변경 추후
+      axios.post('/api/like/' + this.review.rev_id).then(res => {
+        if(res.data) {
+          this.review.rev_like += 1
+        }
+        console.log('like test', this.review.rev_like)
+      })
     }
   }
 }
@@ -185,6 +246,12 @@ img {
 }
 
 .inner_review {
+  width: 100%;
+  padding: 20px 9px 9px;
+  line-height: 25px;
+}
+
+.review_answer {
   width: 100%;
   padding: 20px 9px 9px;
   line-height: 25px;
@@ -286,40 +353,14 @@ table {
   text-align: center
 }
 
-.grade_comm .grade6 {
-  border: 1px solid #949296;
-  background-color: #fff;
-  color: #949296
+
+.answer_textarea{
+  padding: 8px 10px 9px;
+  border: 1px solid #dddfe1;
 }
 
-.grade_comm .grade0 {
-  border: 1px solid #5f0080;
-  background-color: #fff;
-  color: #5f0080
-}
-
-.grade_comm .grade5 {
-  border: 1px solid #cba3e8;
-  background-color: #cba3e9
-}
-
-.grade_comm .grade1 {
-  border: 1px solid #a864d7;
-  background-color: #a864d8
-}
-
-.grade_comm .grade2 {
-  border: 1px solid #8c4cc3;
-  background-color: #8c4cc4
-}
-
-.grade_comm .grade3 {
-  border: 1px solid #641797;
-  background-color: #641798
-}
-
-.grade_comm .grade4 {
-  border: 1px solid #4f1770;
-  background-color: #4f177a
+textarea {
+  width: 947px;
+  font-size: 12px;
 }
 </style>

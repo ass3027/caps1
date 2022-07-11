@@ -20,8 +20,7 @@ export default {
         {text:'시작시간', value:'st_time'},
         {text:'종료시간', value:'end_time'},
         {text:'소요시간', value:'require_time'},
-        {text:'장소명', value:'title'},
-        {text:'가격', value:'pay_price'}
+        {text:'장소명', value:'title'}
       ]
     }
   },

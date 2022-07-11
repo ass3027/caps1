@@ -75,7 +75,7 @@ export default {
     reserve(){
     },
     img(fileName){
-      return "/api/photo/" + fileName
+      return "http://localhost:8081/api/photo/" + fileName
     },
 
     importGuide() {

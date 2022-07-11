@@ -1,5 +1,7 @@
 <template>
-  <table
+  <v-card
+    elevation="7"
+    style="border: 1px solid #e2e2e2"
     @click="dialog = true"
   >
     <v-dialog
@@ -8,12 +10,15 @@
     >
       <order-detail :order="order" />
     </v-dialog>
+    <span style="margin: 5px">#주문번호 {{ order.ord_id }}</span>
 
-    <div id="orderItem">
+    <div id="orderItem" style="overflow: auto; padding-bottom: 20px">
+
       <div
         class="order_time_info"
-        style="width: 80%; border-right: thin solid #ccc; padding-right: 20px;"
+        style="width: 80%; border-right: thin solid #ccc; padding-right: 20px; float: left"
       >
+
         <div
           class="left_top"
           style="border-bottom: thin solid #ccc; border-style: dashed;
@@ -59,26 +64,27 @@
         </div>
       </div>
       <div
-        style="width: 20%; padding-left: 10px"
+        style="width: 20%; padding-left: 10px; float: right"
         class="bag_info"
       >
         <div
           v-for="(i, index) in ord_bag_info"
           :key="index"
+          style="text-align: left"
         >
-          {{ i['BAG_SIZE'] }}{{ i['CNT'] }}
+          {{ i['BAG_SIZE'] }} {{ i['CNT'] }}개
         </div>
         <span>
           {{ order.ord_amount }} 원
         </span>
       </div>
     </div>
-  </table>
+  </v-card>
 </template>
 
 <script>
 import axios from "axios";
-import OrderDetail from "@/components/order/OrderDetail";
+import OrderDetail from "@/components/duser/OrderDetail";
 
 export default {
   name: 'DuserOrderItem',
@@ -193,7 +199,7 @@ export default {
 table {
   border: 1px #a39485 solid;
   font-size: .9em;
-  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  box-shadow: -5px 5px 5px 5px rgba(0,0,0,.25);
   width: 100%;
   border-collapse: collapse;
   border-radius: 5px;
@@ -217,57 +223,5 @@ table {
   width: 33%;
   display: inline-block;
 }
-.order_item_info{
-  float: left;
-  width: 26.6%;
-}
-#gnb {
-  display: flex;
-  justify-content: center;
-}
-.gnb_stop {
-  z-index: 300;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 67px;
-  background-color: white;
-}
-
-.login-box {
-  display: block;
-  /*justify-content: flex-end;*/
-  float: right;
-}
-
-.menu-Bar {
-  display: flex;
-  justify-content: center;
-
-}
-
-/*.text-center {*/
-/*  margin-top: 20px;*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*}*/
-
-/*.hotel-list-form {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*}*/
-
-/*.select-box {*/
-/*  padding: 0 2%;*/
-/*}*/
-
-/*.select-size {*/
-/*  width: 50%;*/
-/*}*/
-
-/*.divider-padding {*/
-/*  margin-top: 10px;*/
-/*}*/
 </style>
 

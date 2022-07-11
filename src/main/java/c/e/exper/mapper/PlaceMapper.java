@@ -214,4 +214,21 @@ public interface PlaceMapper {
 
     @Select("select firstimage from place where pl_id=#{contentid}")
     String getFirstImage(String contentid);
+
+    @Select("""
+            SELECT *
+            FROM PLACE
+            WHERE cat3 = #{category} and title like '%'||#{keyword}||'%'
+            and firstimage is not null and tel is not null
+            """)
+    List<PlaceDAO> getKeyword(String category , String keyword);
+
+
+//    @Select("""
+//            SELECT *
+//            FROM PLACE
+//            WHERE cat3 = #{category} and areaCode = #{areaCode}
+//            and firstimage is not null and tel is not null
+//            """)
+//    List<PlaceDAO> CategoryAreaCode(String category, String areaCode);
 }
