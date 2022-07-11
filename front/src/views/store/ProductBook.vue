@@ -1,68 +1,87 @@
 <template>
-  <v-container>
-    <v-col>
+
+
+  <div class="book_info">
+    <v-card width="100%"
+            elevation="10"
+            style="padding:30px"
+    >
       <v-row>
-        <img
-          :src="'/api/photo/' + product.pic_name"
-          style="width: 50%"
-        >
+        <v-col>
+          <h3>예약자 이름</h3>
+          <v-text-field
+            label="체크인 시 필요한 정보입니다."
+            solo
+          />
+          <h3>휴대폰 번호</h3>
+          <v-text-field
+            label="체크인 시 필요한 정보입니다."
+            solo
+          />
+          <h3>숙소 이름</h3>
+          <v-text-field
+            solo
+            :value="products.title"
+            readonly
+            style="font-size: 20px"
+          />
+
+          <h3>객실 타입</h3>
+          <v-text-field
+            solo
+            :value="products.pd_name"
+            readonly
+            style="font-size: 20px"
+          />
+
+          <h3>가격</h3>
+          <v-text-field
+            solo
+            :value="products.pd_price"
+            readonly
+            style="font-size: 20px"
+          />
+
+          <h3>방번호</h3>
+          <v-select
+            v-model="room"
+            :items="roomItems"
+            item-text="text"
+            :value="lists.room"
+            @change="picRoom"
+            style="width:50%"
+          />
+          <h3>체크인</h3>
+          <input
+            v-model="st_date"
+            name="guideIntro"
+            type="date"
+            class="intro"
+            data-placeholder="시작날짜"
+            required
+            aria-required="true">
+          <h3>체크아웃</h3>
+          <input
+            v-model="end_date"
+            name="guideIntro"
+            type="date"
+            class="intro"
+            data-placeholder="시작날짜"
+            required
+            aria-required="true"/>
+          <br><br><br>
+          <v-btn @click="book" style="width: 50%;height: 50px" color="#139DF2">
+            결제하기
+          </v-btn>
+        </v-col>
+        <v-col cols="6">
+          <v-img
+            :src="products.firstimage"
+          />
+        </v-col>
       </v-row>
-      <v-row>
-        숙소이름 : {{ product.title }}
-      </v-row>
-      <v-row>
-        객실타입 : {{ product.pd_name }}
-      </v-row>
-      <v-row>
-        가격 : {{ product.pd_price }}
-      </v-row>
-      <v-row>
-        체크인 : <input
-        v-model="st_date"
-        name="guideIntro"
-        type="date"
-        class="intro"
-        data-placeholder="시작날짜"
-        required
-        aria-required="true"
-      >
-      </v-row>
-      <v-row>
-        체크아웃 : <input
-        v-model="end_date"
-        name="guideIntro"
-        type="date"
-        class="intro"
-        data-placeholder="시작날짜"
-        required
-        aria-required="true"
-      >
-      </v-row>
-      <v-row>
-        <v-select
-          v-model="room"
-          :items="roomItems"
-          item-text="text"
-          :value="lists.room"
-          @change="picRoom"
-        />
-      </v-row>
-      <v-row>
-        <v-btn @click="book">
-          예약하기
-        </v-btn>
-      </v-row>
-      <!--      <v-card-actions>-->
-      <!--        <v-btn-->
-      <!--          color="deep-purple lighten-2"-->
-      <!--          text-->
-      <!--          @click="reserve()"-->
-      <!--        >-->
-      <!--          Reserve-->
-      <!--        </v-btn>-->
-      <!--      </v-card-actions>-->
-    </v-col>
-  </v-container>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -70,9 +89,7 @@ import axios from "axios";
 
 export default {
   name: "ProductBook",
-  props: {
-    product: Object,
-  },
+
   data: () => ({
     name: '',
     phone: '',
@@ -98,8 +115,24 @@ export default {
 
     productTime: [],
 
+    products: [],
+
+
   }),
   mounted() {
+    axios({
+      method: 'GET',
+      url: '/api/bookPdId',
+      params: {'pd_id': this.$route.params.pd_id}
+    })
+    .then((res)=>{
+      this.products = res.data
+      console.log(res.data)
+    })
+
+
+    console.log(this.$route.params)
+    console.log(this.$route.params.pd_id)
 
 
     const script = document.createElement("script")
@@ -120,7 +153,7 @@ export default {
     axios({
       method: 'GET',
       url: '/api/productTime',
-      params: {'pd_id': this.product.pd_id}
+      params: {'pd_id': this.$route.params.pd_id}
     })
       .then((res) => {
         this.productTime = res.data
@@ -187,7 +220,7 @@ export default {
 
           if (res.data.length !== 0) {
             let alertMessage = ""
-            res.data.forEach( it=>{
+            res.data.forEach(it => {
               alertMessage += `${it.date}에 ${it.room_num}호 \n`
             })
             alertMessage += "때문에 예약이 불가능 합니다"
@@ -231,10 +264,11 @@ export default {
                 })
 
                   .then((res) => {
-                    alert("예약이 완료 되었습니다.")
+                    alert("예약이 완료되었습니다.")
                     this.$router.push('/productBookView')
                   })
                   .catch((err) => {
+                    alert("결제 실패하였습니다.")
                     console.log(err)
                   })
                 console.log(rsp)
@@ -270,4 +304,18 @@ export default {
 }
 </script>
 <style scoped>
+.book_info {
+  position: relative;
+
+  width: 10px;
+  top: 50px;
+}
+
+h3 {
+  margin-bottom: 15px;
+}
+
+.v-text-field.v-text-field--enclosed {
+  width: 90%
+}
 </style>

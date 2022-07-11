@@ -4,7 +4,9 @@
     style="padding-top: 35px"
   >
     <div class="member-Join">
-      <p class="text-center">회원가입</p>
+      <p class="text-center">
+        회원가입
+      </p>
     </div>
 
     <v-row
@@ -17,27 +19,27 @@
         class="mx-auto"
       >
         <div>
-          <v-img src="@/image/user(2).png"/>
+          <v-img src="@/image/user(2).png" />
         </div>
         <div class="btn_content">
-            <v-btn
-              class="btn_user"
-              color="white"
-              @click="$router.push({name:'userJoin'})"
-              >
-              일반회원가입
-<!--              @click="$router.push({name:'userJoin'})"-->
-            </v-btn>
+          <v-btn
+            class="btn_user"
+            color="white"
+            @click="$router.push({name:'userJoin'})"
+          >
+            일반회원가입
+            <!--              @click="$router.push({name:'userJoin'})"-->
+          </v-btn>
         </div>
-        </v-col>
-<!--        <v-divider vartical />-->
+      </v-col>
+      <!--        <v-divider vartical />-->
       <v-col
         cols="6"
         sm="2"
         class="mx-auto"
       >
         <div>
-          <v-img src="@/image/delivery-man.png"/>
+          <v-img src="@/image/delivery-man.png" />
         </div>
         <div class="btn_content">
           <v-btn
@@ -56,7 +58,7 @@
         class="mx-auto"
       >
         <div>
-          <v-img src="@/image/open-box.png"/>
+          <v-img src="@/image/open-box.png" />
         </div>
         <div class="btn_content">
           <v-btn
@@ -68,9 +70,6 @@
           </v-btn>
         </div>
       </v-col>
-
-
-
     </v-row>
   </v-app>
 </template>

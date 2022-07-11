@@ -11,8 +11,8 @@ import PlannerShareWriteView from "../views/share/PlannerShareWriteView";
 import PlannerPicView from "@/views/share/PlannerPicView";
 import PlannerShareEditView from "@/views/share/PlannerShareEditView";
 import LocationCheckView from "@/views/LocationCheckView";
-import OrderDetail from "@/components/order/OrderDetail";
-import DuserOrdersComponent from "@/components/order/DuserOrdersComponent";
+import OrderDetail from "@/components/duser/OrderDetail";
+import DuserOrders from "@/views/duser/DuserOrders";
 import PlaceSuppliesView from "@/views/supply/PlaceSuppliesView";
 import mainView from "@/views/MainView";
 import TourDetailView from "@/views/TourDetailView";
@@ -132,8 +132,8 @@ const routes = [
   {path: "/place/:category", name: "place", component: HotelView, props: true},
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
-  {path: "/placeAdd", name: "placeAdd", component: PlaceAdd},
-  {path: "/productBook", name: "productBook", component: ProductBook, props: true},
+  {path: "/placeadd", name: "placeAdd", component: StoreAdd},
+  {path: "/productBook/:pd_id", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
   {path: "/chart", name: chartView, component: chartView},
   // {path: '/motel', name: 'motel', component: MotelView,},\
@@ -161,7 +161,7 @@ const routes = [
 
 
 
-  {path: "/duser/orders", name: "DuserOrdersComponent", component: DuserOrdersComponent},
+  {path: "/DuserOrders", name: "DuserOrders", component: DuserOrders},
   {path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true},
   {path: "/TestView", name: "TestView", component: TestView},
 

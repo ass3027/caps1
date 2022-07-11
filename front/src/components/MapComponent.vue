@@ -2,7 +2,7 @@
   <div class="map_wrap">
     <div
       :id="index"
-      style="width:100%;height:100%;position:relative;overflow:hidden;"
+      style="width:100%;height:100%;position:relative;overflow:hidden;border: 3px solid #000000;border-radius: 10px"
     />
     <div
       v-if="schedule===undefined"

@@ -1,31 +1,33 @@
 <template>
   <v-container>
-    <v-row justify="center" style="text-align: center">
+    <v-row
+      justify="center"
+      style="text-align: center"
+    >
       <v-col cols="7">
-        <h1>{{tour.title}}</h1>
-        <p>{{tour.addr1}}</p>
+        <h1>{{ tour.title }}</h1>
+        <p>{{ tour.addr1 }}</p>
         <div>
-<!--          <span style="float:left">-->
-<!--            <v-icon-->
-<!--              color="red"-->
-<!--              @click="editStart(task,i)"-->
-<!--            >-->
-<!--              mdi-heart-plus-->
-<!--            </v-icon>-->
-<!--            찜하기-->
-<!--          </span>-->
-<!--          <span style="float:right"-->
-<!--                @click="toCalendar"-->
-<!--          >-->
-<!--            <v-icon-->
-<!--              color="orange"-->
-<!--            >-->
-<!--              mdi-calendar-check-outline-->
-<!--            </v-icon>-->
-<!--            일정에 추가하기-->
+          <!--          <span style="float:left">-->
+          <!--            <v-icon-->
+          <!--              color="red"-->
+          <!--              @click="editStart(task,i)"-->
+          <!--            >-->
+          <!--              mdi-heart-plus-->
+          <!--            </v-icon>-->
+          <!--            찜하기-->
+          <!--          </span>-->
+          <!--          <span style="float:right"-->
+          <!--                @click="toCalendar"-->
+          <!--          >-->
+          <!--            <v-icon-->
+          <!--              color="orange"-->
+          <!--            >-->
+          <!--              mdi-calendar-check-outline-->
+          <!--            </v-icon>-->
+          <!--            일정에 추가하기-->
 
-<!--          </span>-->
-
+          <!--          </span>-->
         </div>
 
         <v-carousel
@@ -37,17 +39,20 @@
             :src="image.originimgurl"
             reverse-transition="fade-transition"
             transition="fade-transition"
-          ></v-carousel-item>
+          />
         </v-carousel>
-        <img v-else :src="images.originimgurl">
+        <img
+          v-else
+          :src="images.originimgurl"
+        >
 
         <br>
         <h3>상세정보</h3>
-        <v-divider></v-divider>
+        <v-divider />
         <br>
-        <p v-html="tour.overview"></p>
+        <p v-html="tour.overview" />
         <template v-if="tour!=''">
-          <KakaoMap :place="tour"></KakaoMap>
+          <KakaoMap :place="tour" />
         </template>
 
         <v-row style="text-align: left">
@@ -66,7 +71,7 @@
                   주소
                 </strong>
                 <span>
-                  {{tour.addr1}}
+                  {{ tour.addr1 }}
                 </span>
               </li>
               <li>
@@ -81,9 +86,7 @@
                 <strong>
                   입장료
                 </strong>
-                <span>
-
-                </span>
+                <span />
               </li>
             </ul>
           </v-col>
@@ -93,9 +96,7 @@
                 <strong>
                   홈페이지
                 </strong>
-                <span v-html="tour.homepage">
-                </span>
-
+                <span v-html="tour.homepage" />
               </li>
               <li>
                 <strong>
@@ -117,16 +118,11 @@
                 <strong>
                   시설이용료
                 </strong>
-                <span>
-
-                </span>
-
+                <span />
               </li>
             </ul>
-
           </v-col>
         </v-row>
-
       </v-col>
     </v-row>
   </v-container>

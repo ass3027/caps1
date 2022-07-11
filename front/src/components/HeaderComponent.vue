@@ -225,7 +225,9 @@ export default {
   data() {
     return {
       photo: '',
+
       gMenuList: [
+        "운송원",
         "여행계획",
         "시설",
         "가방관리",
@@ -236,6 +238,13 @@ export default {
       ],
 
       gContents: [
+        [
+          {title: '운송원', route: '/DuserOrders'},
+          {title: 'travel2', route: '/travel'},
+          {title: 'travel3', route: '/travel'},
+          {title: 'travel4', route: '/travel'},
+          {title: 'travel5', route: '/travel'}
+        ],
         [
           {title: '플래너 생성', route: '/plan'},
           {title: '플래너 초대', route: '/plInvite'},
@@ -315,6 +324,7 @@ export default {
     isLogin() {
       return this.$store.getters['user/isLogin']
     },
+
 
   },
   created() {

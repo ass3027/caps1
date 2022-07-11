@@ -1,54 +1,57 @@
 <template>
-  <v-container class="joinGItem" style="text-align: center; width: 70%">
+  <v-container
+    class="joinGItem"
+    style="text-align: center; width: 70%"
+  >
     <v-row>
-    <v-col align="center">
-    <v-card style="width: 60%; margin: 50px;padding: 50px">
-    <h2>가이드 시간 등록</h2>
-    <h2>{{ gitem_id }}</h2>
-    <div class="textForm">
-      <v-text-field
-        v-model="st_time"
-        name="guideIntro"
-        type="time"
-        class="intro"
-        placeholder="시작시간"
-        style="width: 60%; margin: 10px"
-      />
-    </div>
-    <div class="textForm">
-      <v-text-field
-        v-model="end_time"
-        name="guideIntro"
-        type="time"
-        class="intro"
-        data-placeholder="종료시간"
-        required
-        aria-required="true"
-        style="width: 60%; margin: 10px"
-      />
-    </div>
-      <div class="textForm">
-        <v-text-field
-          v-model="gdate"
-          name="guideIntro"
-          type="date"
-          class="intro"
-          data-placeholder="날짜"
-          required
-          aria-required="true"
-          style="width: 60%; margin: 10px"
-        />
-      </div>
+      <v-col align="center">
+        <v-card style="width: 60%; margin: 50px;padding: 50px">
+          <h2>가이드 시간 등록</h2>
+          <h2>{{ gitem_id }}</h2>
+          <div class="textForm">
+            <v-text-field
+              v-model="st_time"
+              name="guideIntro"
+              type="time"
+              class="intro"
+              placeholder="시작시간"
+              style="width: 60%; margin: 10px"
+            />
+          </div>
+          <div class="textForm">
+            <v-text-field
+              v-model="end_time"
+              name="guideIntro"
+              type="time"
+              class="intro"
+              data-placeholder="종료시간"
+              required
+              aria-required="true"
+              style="width: 60%; margin: 10px"
+            />
+          </div>
+          <div class="textForm">
+            <v-text-field
+              v-model="gdate"
+              name="guideIntro"
+              type="date"
+              class="intro"
+              data-placeholder="날짜"
+              required
+              aria-required="true"
+              style="width: 60%; margin: 10px"
+            />
+          </div>
 
-    <v-btn
-      class="btn"
-      style="width: 60%; margin:10px"
-      @click="timeRegister()"
-    >
-      JOIN
-    </v-btn>
-    </v-card>
-    </v-col>
+          <v-btn
+            class="btn"
+            style="width: 60%; margin:10px"
+            @click="timeRegister()"
+          >
+            JOIN
+          </v-btn>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>

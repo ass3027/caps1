@@ -33,7 +33,7 @@
           <br>
           <br>
         </div>
-<!--        <v-spacer/>-->
+        <!--        <v-spacer/>-->
         <v-btn
           color="blue"
           @click="addPlan"
@@ -48,13 +48,13 @@
         <v-simple-table>
           <thead>
             <tr>
-<!--              <th-->
-<!--                v-for="(key,index) in keys"-->
-<!--                :key="index"-->
-<!--                class="text-left"-->
-<!--              >-->
-<!--                {{ key }}-->
-<!--              </th>-->
+              <!--              <th-->
+              <!--                v-for="(key,index) in keys"-->
+              <!--                :key="index"-->
+              <!--                class="text-left"-->
+              <!--              >-->
+              <!--                {{ key }}-->
+              <!--              </th>-->
               <th>플래너 번호</th>
               <th>플래너 이름</th>
               <th>생성자</th>

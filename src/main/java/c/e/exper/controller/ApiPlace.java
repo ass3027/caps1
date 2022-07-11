@@ -40,11 +40,11 @@ public class ApiPlace {
    
    final
    PlaceService placeService;
-   
+
    final PlaceMapper placeMapper;
-   
+
    final Place2Service place2Service;
-   
+
    public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, PlaceService placeService, PlaceMapper placeMapper, Place2Service place2Service) {
       this.storeMapper = storeMapper;
       this.fileService = fileService;
@@ -58,10 +58,15 @@ public class ApiPlace {
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
       return placeService.카테고리별_조회(category);
    }
-   
+
    @GetMapping("/place1/{category}/{areaCode}")
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category, @PathVariable String areaCode) {
       return placeService.카테고리_지역_조회(category, areaCode);
+   }
+
+   @GetMapping("/place1/{category}/{areaCode}/{keyword}")
+   public List<PlaceDAO> getKeyword(@PathVariable String category, @PathVariable String keyword){
+      return placeService.키보드_지역_조회(category, keyword);
    }
 
 //   @GetMapping("/place/{category}")
@@ -82,7 +87,6 @@ public class ApiPlace {
       System.out.println("장소조회1111111");
       return placeService.장소_조회(areaCode, cat1);
    }
-   
    @GetMapping("/placeTour/{areaCode}/{contenttypeid}")
    public List<PlaceDAO> placeListTour(@PathVariable String areaCode, @PathVariable String contenttypeid) {
       System.out.println("관광지조회");
@@ -188,6 +192,6 @@ public class ApiPlace {
 //
 //      return true;
 //   }
-   
+
 
 }
