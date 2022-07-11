@@ -14,10 +14,10 @@
         height="350px"
       >
         <v-img
-          v-if="placeInfo.firstimage"
+          v-if="placeInfo.firstImage"
           width="100%"
           height="300px"
-          :src="placeInfo.firstimage"
+          :src="placeInfo.firstImage"
           alt="실허어엄"
         />
       </v-card>
@@ -33,6 +33,9 @@ export default {
       dd: `/api/photo/` + "userImage/1648100757821img.jpg",
       model: 0,
     };
+  },
+  mounted() {
+    console.log(this.$store.state.place.place)
   },
   computed: {
     place() {
