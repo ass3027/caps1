@@ -78,14 +78,13 @@
 
             <p class="text-h6 text--primary"></p>
 
-
             <v-img
               class="white--text align-end"
               height="200px"
               :src="bookmark.firstimage"
             >
             </v-img>
-            <button @click="remove">삭제하기</button>
+            <button @click="remove(bookmark.pl_id)">삭제하기</button>
           </v-card-text>
         </v-card> <br>
         <br>
@@ -102,7 +101,7 @@ export default {
   components: {},
   data() {
     return {
-      pl_id: '',
+      // pl_id: '',
       addr1: '',
       title: '',
       tel: '',
@@ -162,7 +161,6 @@ export default {
       keeper.classList.remove('on')
       hotel.classList.remove('on')
       tour.classList.remove('on')
-
       this.selected = '모두보기'
       this.current_bookmark_type = this.all
 
@@ -219,17 +217,15 @@ export default {
 
       this.select_type()
     },
-    remove(){
+    remove(pp){
       axios.delete('/api/bookmark/deleteBookMark',{
         params:{
-          user_id :this.$store.state.user.userId,
-          pl_id : this.pl_id
+          pl_id : pp
         }
-      }).then(res=>{
+      }).then( ()=>{
         console.log(123)
         // alert(res.data)
         alert("삭제하시겠습니까?")
-        this.$router.push("/")
       })
     }
   }

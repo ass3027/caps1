@@ -15,19 +15,19 @@ public interface BookMarkMapper {
 //    @Select("SELECT title, addr1, tel, user_id, FROM PLACE where user_id=#{user_id}")
 //    List<PlaceDAO> selectAllByUserId(String user_id);
 
-    @Select("SELECT title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and bookmark.user_id=#{user_id}")
+    @Select("SELECT title, addr1, tel, place.pl_id,place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and bookmark.user_id=#{user_id}")
     List<PlaceDAO> selectAllByUserBookMark(String user_id);
 
     //keeper 즐겨찾기
-    @Select("SELECT title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.keeper_ox='1' and bookmark.user_id=#{user_id}")
+    @Select("SELECT place.pl_id title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.keeper_ox='1' and bookmark.user_id=#{user_id}")
     List<PlaceDAO> selectByUserBookMarkKeeper(String user_id);
 
     //숙소 즐겨찾기
-    @Select("SELECT title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.TITLE like '%호텔%' and bookmark.user_id=#{user_id}")
+    @Select("SELECT place.pl_id, title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.TITLE like '%호텔%' and bookmark.user_id=#{user_id}")
     List<PlaceDAO> selectByUserBookMarkHotel(String user_id);
 
     //관광지 즐겨찾기
-    @Select("SELECT title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.user_id is null and bookmark.user_id=#{user_id}")
+    @Select("SELECT place.pl_id, title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.user_id is null and bookmark.user_id=#{user_id}")
     List<PlaceDAO> selectByUserBookMarkTour(String user_id);
 
     //북마크 여부

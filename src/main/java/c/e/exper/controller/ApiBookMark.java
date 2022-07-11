@@ -77,8 +77,8 @@ public class ApiBookMark {
     }
 
     @DeleteMapping("/deleteBookMark")
-    void deleteBookMark(@RequestParam("user_id")String user_id,
-                        @RequestParam("pl_id")String pl_id){
+    void deleteBookMark(String pl_id){
+        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         bookMarkMapper.deleteBookMark(user_id,pl_id);
     }
 
