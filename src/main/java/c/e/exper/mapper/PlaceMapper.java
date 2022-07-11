@@ -217,6 +217,14 @@ public interface PlaceMapper {
    @Select("select firstimage from place where pl_id=#{contentid}")
    String getFirstImage(String contentid);
    
+   @Select("""
+            SELECT *
+            FROM PLACE
+            WHERE cat3 = #{category} and title like '%'||#{keyword}||'%'
+            and firstimage is not null and tel is not null
+            """)
+   List<PlaceDAO> getKeyword(String category , String keyword);
+   
    //장소등록
    @Insert("""
          insert into place(store_id,user_id,addr1,areacode,cat1,contentTypeId,firstImage,tel,title,zipcode)

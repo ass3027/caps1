@@ -132,7 +132,6 @@ public class PlaceService {
             for (String motel : motelCode) {
                keywordArea.addAll(placeMapper.getKeyword(motel, keyword));
             }
-            
          }
       }
       return keywordArea;
