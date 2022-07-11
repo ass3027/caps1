@@ -134,7 +134,7 @@
 
 <script>
 import axios from 'axios';
-import MapComponent from "@/components/MapComponent";
+import MapComponent from "@/components/planner/MapComponent";
 
 export default {
   name: "PlannerShareDetailsView",

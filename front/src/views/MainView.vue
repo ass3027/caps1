@@ -308,7 +308,7 @@
 import axios from "axios";
 import PlaceRecommend from "@/components/recommend/PlaceRecommend";
 import BestPlace from "@/components/recommend/BestPlace";
-import SearchTour from "@/components/SearchTour";
+import SearchTour from "@/components/search/SearchTour";
 import CalendarPreview from "@/components/preview/CalendarPreview";
 import PlannerShareCardPreview from "@/components/recommend/PlannerShareCardPreview";
 

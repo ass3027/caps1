@@ -63,7 +63,6 @@ import Questions from "@/components/auth/Questions";
 import WritingView from "@/views/auth/WritingView";
 import DetailPageView from "@/views/auth/DetailPageView";
 import WritingModView from "@/views/auth/WritingModView";
-import MINA from "@/views/MINA";
 import TestView from "@/views/TestView";
 
 import {EventBus} from "@/eventBus/eventBus";
@@ -131,8 +130,6 @@ const routes = [
   {path: "/productBook/:pd_id", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
   {path: "/chart", name: chartView, component: chartView},
-  // {path: '/motel', name: 'motel', component: MotelView,},\
-  // {path: '/store', name: 'store', component: StoreView,}, //props: {value:String}},
 
   //세진
   {path: "/calender", name: "calender", component: CalenderView, props: true},
@@ -178,8 +175,6 @@ const routes = [
   {path: "/ReviewCreateView/:type/:id", name: "ReviewCreateView", component: ReviewCreateView, props: true,},
   {path: "/review/store/:store_name", name: "StoreReview", component: StoreReviewView, props: true,},
 
-  //민아 실험?
-  {path: "/mina", component: MINA}
 ];
 
 const router = new VueRouter({

@@ -2,7 +2,7 @@
   <v-container style="padding-left: 15px;min-width: 1350px">
     <PlannerHeader />
 
-    <v-row>
+    <v-row style="margin-bottom: 30px">
       <v-col>
         <h2>플래너 생성</h2>
         <v-divider />
@@ -13,81 +13,94 @@
       justify="center"
     >
       <v-col
-        style="width:30%;"
-      >
-        <h3>플래너 이름</h3>
-        <v-text-field
-          v-model="plan_name"
-          placeholder="name"
-          solo
-          style="width:200px"
-        />
-        <h3>시작날짜 및 종료날짜</h3>
-        <v-date-picker
-          v-model="plan_range"
-          style="width:50%;height:350px;"
-          type="date"
-          range
-        />
-        <div>
-          <br>
-          <br>
-        </div>
-        <!--        <v-spacer/>-->
-        <v-btn
-          color="blue"
-          @click="addPlan"
-          @submit.prevent
-        >
-          생성
-        </v-btn>
-      </v-col>
-      <v-divider vertical />
-      <v-col>
-        <h2>현재 소속된 플래너 목록</h2>
-        <v-simple-table>
-          <thead>
-            <tr>
-              <!--              <th-->
-              <!--                v-for="(key,index) in keys"-->
-              <!--                :key="index"-->
-              <!--                class="text-left"-->
-              <!--              >-->
-              <!--                {{ key }}-->
-              <!--              </th>-->
-              <th>플래너 번호</th>
-              <th>플래너 이름</th>
-              <th>생성자</th>
-              <th>시작날짜</th>
-              <th>종료날짜</th>
-              <th>삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
 
-              v-for="(plan,index) in plan_list"
-              :key="index"
+      >
+        <v-card>
+          <v-card-title><h2>플래너 이름</h2></v-card-title>
+          <v-card-text>
+            <v-text-field
+              v-model="plan_name"
+              placeholder="name"
+              solo
+              style="width:200px;"
+            />
+            <h3>시작날짜 및 종료날짜</h3>
+            <v-date-picker
+              v-model="plan_range"
+              style="width:50%;height:350px;"
+              type="date"
+              range
+            />
+            <div>
+              <br>
+              <br>
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              color="blue"
+              @click="addPlan"
+              @submit.prevent
             >
-              <td>
-                {{ plan.plan_id }}
-              </td>
-              <td>{{ plan.plan_name }}</td>
-              <td>{{ plan.user_id }}</td>
-              <td>{{ plan.plan_start }}</td>
-              <td>{{ plan.plan_end }}</td>
-              <td>
-                <v-btn
-                  color="light-green"
-                  @submit.prevent
-                  @click="deletePlan(plan.plan_id)"
-                >
-                  삭제
-                </v-btn>
-              </td>
-            </tr>
-          </tbody>
-        </v-simple-table>
+              생성
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+
+      </v-col>
+      <v-col>
+        <v-card style="height: 100%">
+          <v-card-title>
+            <h2>현재 소속된 플래너 목록</h2>
+          </v-card-title>
+          <v-card-text>
+            <v-simple-table>
+              <thead>
+              <tr>
+                <!--              <th-->
+                <!--                v-for="(key,index) in keys"-->
+                <!--                :key="index"-->
+                <!--                class="text-left"-->
+                <!--              >-->
+                <!--                {{ key }}-->
+                <!--              </th>-->
+                <th>플래너 번호</th>
+                <th>플래너 이름</th>
+                <th>생성자</th>
+                <th>시작날짜</th>
+                <th>종료날짜</th>
+                <th>삭제</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr
+
+                v-for="(plan,index) in plan_list"
+                :key="index"
+              >
+                <td>
+                  {{ plan.plan_id }}
+                </td>
+                <td>{{ plan.plan_name }}</td>
+                <td>{{ plan.user_id }}</td>
+                <td>{{ plan.plan_start }}</td>
+                <td>{{ plan.plan_end }}</td>
+                <td>
+                  <v-btn
+                    color="light-green"
+                    @submit.prevent
+                    @click="deletePlan(plan.plan_id)"
+                  >
+                    삭제
+                  </v-btn>
+                </td>
+              </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
+
+
       </v-col>
     </v-row>
     <div style="padding:40px" />
@@ -100,7 +113,7 @@
 <script>
 
 import axios from "axios";
-import PlannerHeader from "@/components/PlannerHeader";
+import PlannerHeader from "@/components/planner/PlannerHeader";
 
 export default {
   name: "PlanView",
@@ -186,6 +199,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+  .v-sheet.v-card:not(.v-sheet--outlined){
+    box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  }
 
+  .v-input__slot{
+    box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
+  }
 </style>
