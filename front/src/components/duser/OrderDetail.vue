@@ -235,15 +235,11 @@ export default {
     },
 
     statusChange(toChange) {
-
-
       axios.post("/api/orders/status/change/" + toChange + '/' + this.order.ord_id).then(res => {
         res.data === true ? alert('성공') : alert('실패')
       })
-
       console.log('statusChange', toChange)
       this.$router.go();
-
     }
     ,
     requestMatch() {

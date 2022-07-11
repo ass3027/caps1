@@ -42,6 +42,8 @@ public class ApiReview {
         reviewDTO.setUser_id(SecurityContextHolder.getContext().getAuthentication().getName());
         System.out.println("reviewDTO = " + reviewDTO);
 
+        paymentMapper.revCheck(reviewDTO.getPay_id());
+
 
         return reviewMapper.addReview(reviewDTO);
     }
@@ -153,11 +155,6 @@ public class ApiReview {
         System.out.println("삭제 열 갯수: " + deleteColumnCount);
     }
 
-    @GetMapping("/findByPay")
-    public String findByPay(String pay_id) {
-        System.out.println("pay_id: " + pay_id);
-        return reviewService.findByPay(pay_id);
-    }
 
     @PostMapping("/hit/{id}")
     public boolean hitCount(@PathVariable String id) {
@@ -169,6 +166,13 @@ public class ApiReview {
     public boolean likeCount(@PathVariable String id) {
         System.out.println("Like Update: " + id);
         return reviewMapper.likeCount(id);
+    }
+
+    @GetMapping("/review/payment/{rev_id}")
+    public PaymentDAO getPayment(@PathVariable String rev_id) {
+
+        return paymentMapper.findByRev(rev_id);
+
     }
 
     // 리뷰아이디로 판매자아이디
@@ -188,6 +192,23 @@ public class ApiReview {
         return "a";
     }
 
+    @GetMapping("/review/type/{rev_id}")
+    public String getType(@PathVariable String rev_id) {
+
+        PaymentDAO payment = paymentMapper.findByRev(rev_id);
+
+        // 가이드
+        if(payment.getGtime_num() != null) {
+            return "guide";
+        } else {
+            return "hotel";
+        }
+
+        // 호텔
+
+
+    }
+
     @GetMapping("/review/answer/{rev_id}")
     public String getAnswer(@PathVariable String rev_id) {
 
@@ -201,5 +222,10 @@ public class ApiReview {
         System.out.println("content = " + content);
 
         return reviewMapper.setAnswer(rev_id, content);
+    }
+
+    @GetMapping("/review/paymentCheck/{pay_id}")
+    public boolean paymentReviewCheck(@PathVariable String pay_id) {
+        return reviewMapper.paymentReviewCheck(pay_id) != null;
     }
 }

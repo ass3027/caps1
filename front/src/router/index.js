@@ -40,7 +40,7 @@ import KeeperOrderDetail from "@/views/bag/keeper/KeeperOrderDetail";
 
 //혁태??
 import HotelView from "@/views/store/HotelView";
-import StoreAdd from "@/views/store/StoreAdd";
+import PlaceAdd from "@/views/store/PlaceAdd";
 import StoreDetail from "@/views/store/StoreDetail";
 
 //진한??
@@ -60,8 +60,6 @@ import ReviewView from "@/views/ReviewView";
 import StoreReviewView from "@/views/StoreReviewView";
 import ReviewCreateView from "@/views/ReviewCreateView";
 import LocationUpdate from "@/views/LocationUpdate";
-
-
 //민아
 import MypageView from "@/views/auth/MypageView";
 import MyBookMark from "@/components/auth/MyBookMark";

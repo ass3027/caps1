@@ -106,4 +106,9 @@ public class ReviewMapperTest {
 
         System.out.println(mapper.hitCount("173"));
     }
+
+    @Test
+    void paymentReviewCheck() {
+        System.out.println(mapper.paymentReviewCheck("173"));
+    }
 }

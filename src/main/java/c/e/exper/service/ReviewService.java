@@ -82,7 +82,6 @@ public class ReviewService {
     }
 
 
-    public String findByPay(String pay_id) { return reviewMapper.findByPay(pay_id);}
 
 
 }

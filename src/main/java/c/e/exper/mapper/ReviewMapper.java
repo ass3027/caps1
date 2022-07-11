@@ -243,13 +243,6 @@ public interface ReviewMapper {
             WHERE review_id = #{review.rev_id}""")
     int updateReview(@Param("review") ReviewDTO review);
 
-    @Select("""
-            SELECT book_id
-            FROM book
-            WHERE pay_id = #{pay_id}""")
-    String findByPay(@Param("pay_id") String pay_id);
-
-
 
 
     @Update("""
@@ -289,4 +282,12 @@ public interface ReviewMapper {
                    VALUES     (#{rev_id}, #{rev_content})
             """)
     boolean setAnswer(@Param("rev_id") String rev_id, @Param("rev_content") String rev_content);
+
+
+    @Select("""
+            select rev_id
+            from review
+            where pay_id = #{pay_id}
+            """)
+    String paymentReviewCheck(@Param("pay_id") String pay_id);
 }

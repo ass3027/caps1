@@ -4,10 +4,8 @@ import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.PaymentDTO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
 import java.util.Map;
 @Mapper
@@ -60,7 +58,8 @@ public interface PaymentMapper {
     @Select("""
             SELECT *
             FROM payment
-            where user_id = #{user_id}
+            WHERE user_id = #{user_id}
+              AND rev_check = 0
             """)
     List<PaymentDAO> paymentList(String user_id);
 
@@ -133,6 +132,7 @@ public interface PaymentMapper {
                                              from PRODUCT)
                                and PAY_ID is not null
                              group by PAY_ID)
+              and rev_check = 0
             """)
     List<PaymentDAO> hotelPaymentList(@Param("user_id") String user_id);
 
@@ -146,6 +146,13 @@ public interface PaymentMapper {
                             where REV_ID = #{rev_id})
             """)
     PaymentDAO findByRev(@Param("rev_id") String rev_id);
+
+    @Update("""
+            UPDATE payment
+            SET rev_check = 1
+            WHERE pay_id = #{pay_id}
+            """)
+    boolean revCheck(@Param("pay_id") String pay_id);
 
 
 
