@@ -85,6 +85,33 @@ public class ApiProduct {
         return bookDAOList;
     }
 
+    @GetMapping("/productUserBook")
+    public List<BookDAO> SelectUserBook(String id) {
+//        List<BookDAO> bookDAOS = productMapper.SelectBook(id);
+//        List<String> dateList = new ArrayList<>();
+//        List<BookDTO> bookDTOs = new ArrayList<>();
+//        for (BookDAO bookDAO : bookDAOS) {
+//            String bookDAODate = bookDAO.getDate();
+//            dateList.add(bookDAODate);
+//        }
+//        Collections.sort(dateList);
+//        String startDate = dateList.get(0);
+//        String endDate = dateList.get(dateList.size() - 1);
+//        String startDate1 = startDate.substring(0, 10);
+//        String endDate2 = endDate.substring(0, 10);
+//
+//        for (BookDAO bookDAO : bookDAOS) {
+//            bookDAO.setStartDate(startDate1);
+//            bookDAO.setEndDate(endDate2);
+//        }
+//        bookDAOS.stream().map(bookDTO -> bookDTO.toBookDTO()).forEach(bookDTOs::add);
+//        return bookDTOs;
+        System.out.println("id = " + id);
+        List<BookDAO> bookDAOList = productMapper.SelectUserBook(id);
+        System.out.println("bookDAOList = " + bookDAOList);
+        return bookDAOList;
+    }
+
     @GetMapping("/chart")
     public ProductDAO select(String id) {
         return productMapper.product_Sales(id);
@@ -112,5 +139,21 @@ public class ApiProduct {
         System.out.println("st_date  " +  st_date);
         System.out.println("end_date  " +  end_date);
         return productMapper.product_book_no(pd_id, st_date, end_date);
+    }
+
+    @GetMapping("/productChart")
+    public List<ProductDAO> productChart(String user_id){
+        return productMapper.product_chart(user_id);
+    }
+
+    // 객실별 차트
+    @GetMapping("/productChartss")
+    public ProductDAO productSelect(String user_id, String value){
+        return productMapper.product_chartss(user_id, value);
+    }
+
+    @GetMapping("/bookPdId")
+    public ProductDAO productBookPdId(String pd_id){
+        return productMapper.product_book_pd_id(pd_id);
     }
 }

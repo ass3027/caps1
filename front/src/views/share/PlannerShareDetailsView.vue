@@ -60,7 +60,6 @@
                   />
                 </div>
               </v-col>
-
               <v-col cols="5">
                 <h2>
                   {{ ii + 1 }}번째 날
@@ -73,9 +72,7 @@
                   {{ s[1].pl_name }}->
                   <!-- map데이터형식이라서 s[0]은키 s[1]값 가져오는거 거기서 pl_name-->
                 </h3>
-
               </v-col>
-
             </v-row>
           </v-card>
           </v-container>
@@ -122,8 +119,14 @@
         <!-- 댓글-->
         <v-card class="ma-5 pa-5">
           댓글 작성
-          <v-text-field v-model="comment" @keyup.enter="postComment" placeholder="댓글을 써보세요"></v-text-field>
-          <v-btn @click="postComment">작성</v-btn>
+          <v-text-field
+            v-model="comment"
+            placeholder="댓글을 써보세요"
+            @keyup.enter="postComment"
+          />
+          <v-btn @click="postComment">
+            작성
+          </v-btn>
         </v-card>
         <v-card v-for="(comment,i) in comments" :key="i" class="ma-5 pa-5">
           <v-row justify="" class="mt-2">
@@ -149,20 +152,16 @@
                 <v-col cols="5">
                   <v-btn
                     v-if="comment.user_id==$store.state.user.userId"
-                    @click="delComment(comment)"
                     class="mb-5"
+                    @click="delComment(comment)"
                   >
                     삭제
                   </v-btn>
                 </v-col>
-
               </v-row>
-
-
             </v-col>
           </v-row>
         </v-card>
-
       </v-col>
     </v-row>
   </v-container>
@@ -170,7 +169,7 @@
 
 <script>
 import axios from 'axios';
-import MapComponent from "@/components/MapComponent";
+import MapComponent from "@/components/planner/MapComponent";
 
 export default {
   name: "PlannerShareDetailsView",

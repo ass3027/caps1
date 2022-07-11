@@ -13,19 +13,72 @@
         </div>
         <div class="cardText">
           <div class="cardTitle">
-            {{ product.pd_name }}
+            <h3>{{ product.pd_name }}</h3>
           </div>
           <br>
           <div class="cardPrice">
-            가격 <span class="priceScore">{{ product.pd_price }}원</span>
+            <h4>가격 <span class="priceScore">{{ product.pd_price }}원</span></h4>
+          </div>
+
+          <br>
+          <div class="detail">
+            <div class="">
+              <v-dialog
+                v-model="dialog"
+                width="800"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text
+                    color="red lighten-2"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+
+                    <h5>객실 이용 안내</h5>
+                  </v-text>
+                </template>
+
+                <v-card>
+                  <v-card-title class="text-h5 grey lighten-2">
+                    객실 이용 안내
+                  </v-card-title>
+
+                  <v-card-text style="padding: 100px">
+                    <h6>객실 기본 정보 : {{ product.room_human }}</h6>
+                    <br>
+                    <hr>
+                    <br>
+                    <h6>객실 침대 정보 : {{ product.bed_info }}</h6>
+                    <br>
+                    <hr>
+                    <br>
+                    <h6>객실 용품 : {{ product.pd_info }}</h6>
+                  </v-card-text>
+
+                  <v-divider></v-divider>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="primary"
+                      text
+                      @click="dialog = false"
+                    >
+                      확인
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </div>
           </div>
           <br>
           <div class="cardPlace">
             <hr>
           </div>
           <br>
-          <v-btn @click="go">
-            예약
+          <v-btn class="예약" @click="go">
+            예약하기
           </v-btn>
         </div>
       </div>
@@ -40,7 +93,7 @@
         >
           <img
             :src="'/api/photo/' + image.pic_name"
-            style="width: 50%"
+            style="width: 80%"
           >
         </div>
       </div>
@@ -57,6 +110,7 @@ export default {
   data: () => ({
     show: false,
     productImage: [],
+    dialog: false,
   }),
 
   created() {
@@ -75,8 +129,8 @@ export default {
       })
   },
   methods: {
-    go(){
-      this.$router.push({name:'productBook',params:{product: this.product}})
+    go() {
+      this.$router.push(`/productBook/${this.product.pd_id}`)
     }
   },
 
@@ -142,6 +196,13 @@ export default {
   height: auto;
 
   background: rgba(0, 0, 0, 0.1);
+}
 
+.예약 {
+  width: 100%;
+}
+
+.theme--light.v-btn.v-btn--has-bg {
+  background: #139DF2;
 }
 </style>

@@ -64,7 +64,6 @@
     >
       <img
         :src="item.firstimage"
-
       >
       <span class="innerText">
         <h3>{{ item.gname }}</h3>
@@ -73,7 +72,6 @@
         <!--        </v-btn>-->
         <p style="height: 45px;overflow: hidden">{{ item.introduce }}</p>
       </span>
-
     </v-col>
   </v-row>
 </template>
@@ -87,12 +85,12 @@ export default {
   components: {
     BookMarkStatus
   },
+  props: ['mode'],
   data() {
     return {
       items: [],
     }
   },
-  props: ['mode'],
   mounted() {
     //모드의 종류 place,hotel,guide
 

@@ -1,7 +1,8 @@
 <template>
   <v-container>
     <table
-      style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white">
+      style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 480px; margin: 0 auto; background-color: white"
+    >
       <div style="margin-top: 10px">
         <p style="display: inline; font-size: large; margin-left: 5px">
           배송경로
@@ -54,13 +55,13 @@
         <tr>
           <th>물품정보</th>
           <td>
-            <span
-              v-for="(i, index) in ord_bag_info"
-              :key="index"
-            >
-              {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
-              <span v-if="index !== ord_bag_info.length-1">, </span>
-            </span>
+              <span
+                v-for="(i, index) in ord_bag_info"
+                :key="index"
+              >
+                {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
+                <span v-if="index !== ord_bag_info.length-1">, </span>
+              </span>
           </td>
         </tr>
         <tr>
@@ -234,15 +235,11 @@ export default {
     },
 
     statusChange(toChange) {
-
-
       axios.post("/api/orders/status/change/" + toChange + '/' + this.order.ord_id).then(res => {
-        res.data === true ? alert('성공') : alert('실패')
+        alert(res.data)
+        this.$router.go();
       })
-
       console.log('statusChange', toChange)
-      this.$router.go();
-
     }
     ,
     requestMatch() {

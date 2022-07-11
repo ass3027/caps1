@@ -1,7 +1,9 @@
 <template>
   <v-container>
-    <table v-if="item.ord_selection===`물품운송`"
-           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
+    <table
+      v-if="item.ord_selection===`물품운송`"
+      style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white"
+    >
       <div style="margin-top: 10px">
         <h1 style="display: inline; font-size: large; margin-left: 5px">
           배송 상세 조회
@@ -10,63 +12,64 @@
           주문번호 #{{ order.ord_id }}
         </div>
       </div>
-      <div v-if="item.ord_selection===`물품운송`"
-           id="map"
-           style="width:100%;height:350px;"
+      <div
+        v-if="item.ord_selection===`물품운송`"
+        id="map"
+        style="width:100%;height:350px;"
       />
 
       <table id="order_detail">
         <thead scope="row">
-        <tr/>
+          <tr />
         </thead>
         <tbody>
-        <tr>
-          <th>금액</th>
-          <td>{{ order.ord_amount }} 원</td>
-        </tr>
-        <tr>
-          <th>픽업/완료</th>
-          <td>
-            <div>
-              {{ entrust_time }}
-            </div>
-            <div>
-              {{ withdraw_time }}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>출발지</th>
-          <td>{{ keep_start.addr1 }}</td>
-        </tr>
-        <tr>
-          <th>도착지</th>
-          <td>{{ keep_end.addr1 }}</td>
-        </tr>
-        <tr>
-          <th>거리</th>
-          <td>{{ degree_start_end }}Km</td>
-        </tr>
-        <!--        <tr>-->
-        <!--          <th>나로부터</th>-->
-        <!--          <td>{{ degree_user_start }}Km</td>-->
-        <!--        </tr>-->
-        <tr>
-          <th>물품정보</th>
-          <td>
-            <span
-              v-for="(i, index) in ord_bag_info"
-              :key="index"
-            >
-              {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
-              <span v-if="index !== ord_bag_info.length-1">, </span>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <th>요청사항</th>
-          <td>{{ item.ord_request }}</td>
-        </tr>
+          <tr>
+            <th>금액</th>
+            <td>{{ order.ord_amount }} 원</td>
+          </tr>
+          <tr>
+            <th>픽업/완료</th>
+            <td>
+              <div>
+                {{ entrust_time }}
+              </div>
+              <div>
+                {{ withdraw_time }}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>출발지</th>
+            <td>{{ keep_start.addr1 }}</td>
+          </tr>
+          <tr>
+            <th>도착지</th>
+            <td>{{ keep_end.addr1 }}</td>
+          </tr>
+          <tr>
+            <th>거리</th>
+            <td>{{ degree_start_end }}Km</td>
+          </tr>
+          <!--        <tr>-->
+          <!--          <th>나로부터</th>-->
+          <!--          <td>{{ degree_user_start }}Km</td>-->
+          <!--        </tr>-->
+          <tr>
+            <th>물품정보</th>
+            <td>
+              <span
+                v-for="(i, index) in ord_bag_info"
+                :key="index"
+              >
+                {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
+                <span v-if="index !== ord_bag_info.length-1">, </span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>요청사항</th>
+            <td>{{ item.ord_request }}</td>
+          </tr>
         </tbody>
       </table>
 
@@ -76,7 +79,9 @@
           class="btn_type2"
           height="54px"
           color="white"
-          @click="deliveryCall()">승인완료
+          @click="deliveryCall()"
+        >
+          승인완료
         </v-btn>
       </div>
       <div v-if="order.status === '운송중'">
@@ -94,13 +99,17 @@
           class="btn_type2"
           height="54px"
           color="white"
-          @click="backTrackingView()">목록
+          @click="backTrackingView()"
+        >
+          목록
         </v-btn>
       </div>
     </table>
 
-    <table v-else
-           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
+    <table
+      v-else
+      style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white"
+    >
       <div style="margin-top: 10px">
         <p style="display: inline; font-size: large; margin-left: 5px">
           보관 상세조회
@@ -112,33 +121,33 @@
 
       <table>
         <thead scope="row">
-        <tr/>
+          <tr />
         </thead>
         <tbody>
-        <tr>
-          <th>금액</th>
-          <td>{{ item.ord_amount }} 원</td>
-        </tr>
-        <tr>
-          <th>보관시작시간/보관만료시간</th>
-          <td>
-            <div>
-              {{ item.entrust_time }}
-            </div>
-            <div>
-              {{ item.withdraw_time }}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>물품보관장소</th>
-          <td>{{ keep_start.addr1 }}</td>
-        </tr>
+          <tr>
+            <th>금액</th>
+            <td>{{ item.ord_amount }} 원</td>
+          </tr>
+          <tr>
+            <th>보관시작시간/보관만료시간</th>
+            <td>
+              <div>
+                {{ item.entrust_time }}
+              </div>
+              <div>
+                {{ item.withdraw_time }}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>물품보관장소</th>
+            <td>{{ keep_start.addr1 }}</td>
+          </tr>
 
-        <tr>
-          <th>요청사항</th>
-          <td>{{ item.ord_request }}</td>
-        </tr>
+          <tr>
+            <th>요청사항</th>
+            <td>{{ item.ord_request }}</td>
+          </tr>
         </tbody>
       </table>
 
@@ -147,7 +156,9 @@
           class="btn_type2"
           height="54px"
           color="white"
-          @click="inStorage()">보관중으로 변경
+          @click="inStorage()"
+        >
+          보관중으로 변경
         </v-btn>
       </div>
 
@@ -156,7 +167,9 @@
           class="btn_type2"
           height="54px"
           color="white"
-          @click="compStorage()">보관완료로 변경
+          @click="compStorage()"
+        >
+          보관완료로 변경
         </v-btn>
       </div>
 
@@ -165,7 +178,9 @@
           class="btn_type2"
           height="54px"
           color="white"
-          @click="backTrackingView()">목록
+          @click="backTrackingView()"
+        >
+          목록
         </v-btn>
       </div>
     </table>

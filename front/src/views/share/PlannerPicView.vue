@@ -207,7 +207,7 @@
 <script>
 
 // import axios from 'axios'
-import PlannerHeader from "@/components/PlannerHeader";
+import PlannerHeader from "@/components/planner/PlannerHeader";
 import axios from "axios";
 
 export default {

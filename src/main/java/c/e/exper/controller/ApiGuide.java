@@ -37,12 +37,6 @@ public class ApiGuide {
         System.out.println(id + "매출조회");
         return guideService.매출_조회(id);
     }
-    @GetMapping("/gcountList")
-    public List<GItemDAO> findCountList(String id){
-        System.out.println("마지막");
-        return guideService.매출_조회_리스트(id);
-    }
-
 
     @GetMapping("/gcount7")
     public GItemDAO findCount7(String id) {
@@ -77,6 +71,12 @@ public class ApiGuide {
     @GetMapping("/gitem/search/{keyword}")
     public List<GItemDAO> selectListItem(@PathVariable("keyword") String keyword) {
         return guideService.가이드상품_검색(keyword);
+    }
+
+    @GetMapping("/gcountList")
+    public List<GItemDAO> findCountList(String id){
+        System.out.println("마지막");
+        return guideService.매출_조회_리스트(id);
     }
 
     @PostMapping("/gjoin")
@@ -120,6 +120,11 @@ public class ApiGuide {
         guideService.가이드상품_삭제1(id);
     }
 
+    @DeleteMapping("/dPay")
+    public void dPay(String id){
+        guideService.예약_취소(id);
+    }
+
     @PutMapping("/gitemTimeUpdate")
     public int timeUpdate(int id) {
         System.out.println(id + "시간수정");
@@ -131,6 +136,13 @@ public class ApiGuide {
         System.out.println("소개수정");
         guideService.소개_수정(guideDAO, id);
     }
+
+    @PutMapping("/gTimeUpdate")
+    public int UpdateGtime(int id){
+        System.out.println(id +"결제완료");
+       return guideService.결제_완료(id);
+    }
+
 
     @PostMapping("/gitemReserve")
     public void insertReserve(@RequestBody GItemDAO gitemDAO) {
@@ -147,7 +159,10 @@ public class ApiGuide {
     @GetMapping("/gTime")
     public List<GItemDAO> getTime(String id) {
         return guideService.시간_조회(id);
-
+    }
+    @GetMapping("/gTime2")
+    public List<GItemDAO> getTime2(String id){
+        return guideService.시간_조회2(id);
     }
 
 

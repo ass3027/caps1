@@ -1,53 +1,36 @@
 <template>
-  <div class="address">
-    <div>
-      우편번호 : <input
-        v-model="postcode"
-        type="text"
-        placeholder="우편번호"
-      >
-      <input
-        type="button"
-        value="우편번호 찾기"
-        @click="execDaumPostcode()"
-      ><br>
+  <v-container>
+    <div class="address">
+      <v-col>
+        <v-row>
+         <h2>주소입력 :     </h2> <v-btn @click="execDaumPostcode()">우편번호 찾기</v-btn>
+        </v-row>
+      </v-col>
     </div>
-
-    <div>
-      <input
-        v-model="address"
-        type="text"
-        placeholder="주소"
-      ><br>
-    </div>
-    <input
-      id="detailAddress"
-      v-model="detailAddress"
-      type="text"
-      placeholder="상세주소"
-    >
-  </div>
+  </v-container>
 </template>
 
 <script>
 
 export default {
-  props:{
-
-  },
+  props: {},
   data() {
     return {
-      postcode: "",
-      address: "",
+      postcode: "42117",
+      address: "대구 수성구 동대구로 305 (그랜드관광호텔)",
       extraAddress: "",
       detailAddress: "",
     };
   },
+  mounted() {
+    addressDate(addDate);
+  },
   methods: {
-    execDaumPostcode() {
-      new window.daum.Postcode({
-        oncomplete: (data) => {
 
+
+    async execDaumPostcode() {
+      await new window.daum.Postcode({
+        oncomplete: (data) => {
           if (this.extraAddress !== "") {
             this.extraAddress = "";
           }
@@ -81,8 +64,12 @@ export default {
             this.extraAddress = "";
           }
           // 우편번호를 입력한다.
-          this.$emit('addressData',this.address );
           this.postcode = data.zonecode;
+          this.$emit('addressData', {
+            sAddress: this.address,
+            sPostcode: this.postcode,
+          });
+
         },
       }).open();
 

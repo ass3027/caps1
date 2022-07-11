@@ -19,6 +19,13 @@ export default {
       state.place = option;
     },
 
+    PlaceKeyword(state, keyword){
+      state.place = keyword;
+    },
+
+
+
+
     updatePlace(state, newPlace){
       state.placeOriginal = newPlace
       state.placeInfo = newPlace.reduce(function(acc, current) {

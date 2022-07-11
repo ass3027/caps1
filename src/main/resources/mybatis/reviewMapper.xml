@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="c.e.exper.mapper.ReviewMapper">
-    <resultMap type="c.e.exper.data.Review" id="reviewResult">
+    <resultMap type="c.e.exper.data.ReviewDTO" id="reviewResult">
         <id property="plan_supl_id" column="plan_supl_id"/>
         <result property="plan_id" column="plan_id"/>
         <result property="status" column="status"/>
@@ -16,7 +16,7 @@
         <result property="supl_name" column="supl_name"/>
     </resultMap>
 
-<!--    <insert id="addReview" parameterType="c.e.exper.data.Review" useGeneratedKeys="true" keyProperty="key" keyColumn="key">-->
+<!--    <insert id="addReview" parameterType="c.e.exper.data.ReviewDTO" useGeneratedKeys="true" keyProperty="key" keyColumn="key">-->
 <!--        insert into review(REV_ID, user_id, rev_content, rev_rating, ord_id, book_id) values (REVIEW_SEQ.nextval ,#{user_id}, #{rev_content}, #{rev_rating}, #{ord_id}, #{book_id});-->
 <!--    </insert>-->
 

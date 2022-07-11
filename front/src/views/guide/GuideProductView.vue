@@ -9,7 +9,11 @@
       :src="lists.firstimage2"
     >
     </v-img>
-      <v-card-title>USERID:{{ lists.user_id }}</v-card-title>
+
+        <v-card-title
+        @click="view(lists)">
+          {{ lists.user_id }}
+        </v-card-title>
 
       <v-card-text>
         <v-row
@@ -21,12 +25,12 @@
 
         <div class="my-4 text-subtitle-1">
           <div>
-            ID:{{ lists.gitem_id }}
+            {{ lists.gitem_id }}
           </div>
-          장소:{{ lists.title }}
+          {{ lists.title }}
         </div>
-        <div>가격:{{lists.gitem_price}}</div>
-        <div>소개:{{ lists.introduce }}</div>
+        <div>{{lists.gitem_price}}</div>
+        <div>{{ lists.introduce }}</div>
 
       </v-card-text>
 
@@ -130,6 +134,9 @@ export default {
           this.items = res.data;
           console.log('시간상세보기', res.data)
         })
+    },
+    view(lists){
+      this.$router.push("/GuideView/" + lists.user_id)
     },
 
     importGuide(){

@@ -5,9 +5,9 @@
       ref="barChart"
     />
     <v-data-table
-    :headers="headers"
-    :items="lists"
-    :item-per-page="5"
+      :headers="headers"
+      :items="lists"
+      :item-per-page="5"
     >
 
     </v-data-table>
@@ -62,7 +62,7 @@ export default {
         }
       }
     }
-},
+  },
   created(){
     this.a()
   },
@@ -146,9 +146,9 @@ export default {
 
         //this.data.datasets[0].data[0]= this.list
         this.data.datasets[0].data[0]= res.data.count
-          // this.data.datasets[0].data.unshift(this.list7) // 7일
-          // this.data.datasets[0].data.unshift(this.list30)// 30일
-          // this.data.datasets[0].data.unshift(this.list) //총
+        // this.data.datasets[0].data.unshift(this.list7) // 7일
+        // this.data.datasets[0].data.unshift(this.list30)// 30일
+        // this.data.datasets[0].data.unshift(this.list) //총
         this.createChart()
 
 
@@ -174,8 +174,8 @@ export default {
 }
 </script>
 <style>
-  .canvas{
-    width: 700px;
-    height: 800px;
-  }
+.canvas{
+  width: 700px;
+  height: 800px;
+}
 </style>

@@ -48,7 +48,7 @@
             class="grey--text"
           >
             <h4>공유 수 : {{ shareSet.share_count }}</h4>
-            <h4>추천 수 : {{recommends}}</h4>
+            <h4>추천 수 : {{ recommends }}</h4>
           </v-col>
         </v-row>
         <!--      태그와작성시간-->

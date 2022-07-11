@@ -1,19 +1,19 @@
 <template>
   <div>
-    <v-btn style="float: right; position: relative; top: 30px; right: 30px; height: 30px"
-           class="btn2"
-           @click="onsubmit()"
+    <input
+      v-model="keyword"
+      name="keyword"
+      type="text"
+      style="border: #1e90cc solid"
+      class="search"
+    >
+
+    <v-btn
+      class="btn2"
+      @click="onsubmit()"
     >
       Search
     </v-btn>
-
-      <input
-        v-model="keyword"
-        name="keyword"
-        type="text"
-        style="border: #1e90cc solid; float: right; position: relative; top:30px; right: 30px"
-        class="search"
-      >
     <v-row
       cols="0"
       md="0"
@@ -122,10 +122,10 @@ export default {
           'id' : id
         }
       })
-      .then(()=>{
-        console.log("oo");
-        this.importGitem()
-      })
+        .then(()=>{
+          console.log("oo");
+          this.importGitem()
+        })
     },
 
     importGitem(){
@@ -133,9 +133,9 @@ export default {
         method:'get',
         url   :'/api/gitem',
       })
-      .then((res)=>{
-        this.lists = res.data;
-      })
+        .then((res)=>{
+          this.lists = res.data;
+        })
     }
   }
 }

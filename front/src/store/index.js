@@ -18,6 +18,6 @@ export const store = new VueX.Store({
     place,
   },
   plugins: [createPersistedState({
-    paths: ["user"]
+    paths: ["user"],
   })]
 });

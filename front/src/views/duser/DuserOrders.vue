@@ -4,10 +4,15 @@
     style="padding-top: 60px"
   >
     <div>
-      <div
-        class="status"
-        style="margin: 0 auto"
-      >
+      <h3>현재 위치</h3>
+      <span>latitude: {{ latitude }}</span> <br>
+      <span>longitude: {{ longitude }}</span>
+    </div>
+
+
+    <div>
+      <!--      상태변경      -->
+      <div class="status" style="margin: 0 auto">
         <span
           id="status1"
           @click="changeStatus(1)"
@@ -22,13 +27,15 @@
         >운송 완료</span>
       </div>
 
+
+      <!--      운송가능      -->
       <div
         v-if="status===1"
         class="orders_status"
       >
         <div
-          v-for="order in orders_possible"
-          :key="order.ord_id"
+          v-for="(order, index) in orders_possible"
+          :key="`possible-${index}`"
           class="item_container"
         >
           <DuserOrderItem
@@ -38,22 +45,27 @@
           />
         </div>
         <div
-          v-if="orders_possible.length === 0 || orders_possible === null"
+          v-if="orders_possible === null || orders_possible.length === 0"
           class="wrap_empty"
         >
+
           <strong>운송가능한 주문이 없습니다.</strong>
         </div>
       </div>
+
+
+      <!--      운송 중      -->
       <div
         v-else-if="status===2"
         class="orders_status"
       >
-        <div style="width: 100%; text-align: center">
-          <span>픽업 전</span>
+        <!--      픽업 전      -->
+        <div style="text-align: center">
+          <h3 class="sub_status">픽업 전</h3>
         </div>
         <div
-          v-for="order in orders_pickup_before"
-          :key="order.ord_id"
+          v-for="(order, index) in orders_pickup_before"
+          :key="`before-${index}`"
           class="item_container"
         >
           <DuserOrderItem
@@ -61,13 +73,23 @@
             :longitude="longitude"
             :order="order"
           />
-        </div>
-        <div style="width: 100%; text-align: center">
-          <span>배송 중</span>
+
+
         </div>
         <div
-          v-for="order in orders_pickup_after"
-          :key="order.ord_id"
+          v-if="orders_pickup_before.length === 0 || orders_pickup_before === null"
+          class="wrap_empty"
+        >
+          <strong>픽업전인 주문이 없습니다.</strong>
+        </div>
+
+        <!--      픽업완료      -->
+        <div style="text-align: center; padding-top: 50px">
+          <h3 class="sub_status">운송 중</h3>
+        </div>
+        <div
+          v-for="(order, index) in orders_pickup_after"
+          :key="`after-${index}`"
           class="item_container"
         >
           <DuserOrderItem
@@ -78,19 +100,23 @@
         </div>
 
         <div
-          v-if="(orders_pickup_before.length === 0 || orders_pickup_before === null) && (orders_pickup_after.length === 0 || orders_pickup_after === null)"
+          v-if="orders_pickup_after.length === 0 || orders_pickup_after === null"
           class="wrap_empty"
         >
           <strong>운송중인 주문이 없습니다.</strong>
         </div>
+
       </div>
+
+
+      <!--      운송완료      -->
       <div
         v-else
         class="orders_status"
       >
         <div
-          v-for="order in orders_end"
-          :key="order.ord_id"
+          v-for="(order, index) in orders_end"
+          :key="`end-${index}`"
           class="item_container"
         >
           <DuserOrderItem
@@ -113,7 +139,7 @@
 
 <script>
 import axios from "axios";
-import DuserOrderItem from "@/components/order/DuserOrderItem";
+import DuserOrderItem from "@/components/duser/DuserOrderItem";
 
 
 export default {
@@ -148,7 +174,7 @@ export default {
     orders_pickup_after() {
       if (this.order_all === null) return null
       return this.order_all.filter(i => {
-        return i.status === '픽업완료'
+        return i.status === '운송중'
       })
     },
 
@@ -162,19 +188,31 @@ export default {
 
   },
   created() {
-    axios.get('http://localhost:8000/api/duser/orders/' + this.userId).then(res => {
+    axios.get('/api/duser/orders/' + this.userId).then(res => {
       this.order_all = res.data
 
       console.log('test', this.order_all)
     })
+
+
   },
   mounted() {
     this.test().then()
 
 
-    var status = document.getElementById('status1')
-    status.style.borderBottom = 'none'
-    status.style.backgroundColor = 'white'
+    const status1 = document.getElementById('status1')
+    const status2 = document.getElementById('status2')
+    const status3 = document.getElementById('status3')
+
+
+    console.log('status1', status1)
+
+    status1.style.borderBottom = 'none'
+    status1.style.backgroundColor = 'white'
+
+    status2.style.backgroundColor = '#dee2e6'
+    status3.style.backgroundColor = '#dee2e6'
+
 
   },
   methods: {
@@ -204,14 +242,14 @@ export default {
       console.log('changeStatus, status:', status)
 
       this.status = status
-      var selected = document.getElementById('status' + status)
+      const selected = document.getElementById('status' + status)
 
       for (let i of [1, 2, 3]) {
         if (i === status) continue;
         var selected_else = document.getElementById('status' + i)
 
         selected_else.style.borderBottom = ''
-        selected_else.style.backgroundColor = '#f8f9fa'
+        selected_else.style.backgroundColor = '#dee2e6'
 
       }
 
@@ -231,6 +269,7 @@ export default {
 }
 
 .orders_status {
+  padding-top: 30px;
   border: 1px solid #ccc;
   border-top: none;
   border-bottom-left-radius: 10px;
@@ -350,5 +389,12 @@ export default {
 /*.divider-padding {*/
 /*  margin-top: 10px;*/
 /*}*/
+
+.sub_status {
+  display: block;
+  border-bottom: 2px solid #D3D3D3;
+  width: 96%;
+  margin: 0 auto;
+}
 </style>
 
