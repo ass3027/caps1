@@ -241,9 +241,8 @@
       </div>
     </div>
 
-
     <ReviewView
-      :id="'조선호텔'"
+      :id="pl_id"
       :type="'호텔'"
       style="width: 1274px; margin: 0 auto"
     />
