@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <h2>플래너 공유 작성하기</h2>
     <v-text-field
       v-model="title"
@@ -56,7 +56,7 @@
     <v-btn @click="addPost">
       작성완료
     </v-btn>
-  </v-container>
+  </div>
 </template>
 
 <script>

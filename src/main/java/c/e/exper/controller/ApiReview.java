@@ -1,7 +1,6 @@
 package c.e.exper.controller;
 
 
-import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.ReviewDTO;
 import c.e.exper.mapper.GuideMapper;
@@ -38,12 +37,12 @@ public class ApiReview {
 
     @PostMapping("/addReview")
     public boolean addReview(ReviewDTO reviewDTO, HttpServletRequest req) {
-
+        
         reviewDTO.setImg_link(fileService.photoSave(reviewDTO.getImageFile(), req, "reviewImage"));
         reviewDTO.setUser_id(SecurityContextHolder.getContext().getAuthentication().getName());
         System.out.println("reviewDTO = " + reviewDTO);
 
-//        paymentMapper.revCheck(reviewDTO.getPay_id());
+        paymentMapper.revCheck(reviewDTO.getPay_id());
 
 
         return reviewMapper.addReview(reviewDTO);
@@ -169,10 +168,10 @@ public class ApiReview {
         return reviewMapper.likeCount(id);
     }
 
-    @GetMapping("/review/productInfo/{rev_id}")
-    public GItemDAO getProductInfo(@PathVariable String rev_id) {
+    @GetMapping("/review/payment/{rev_id}")
+    public PaymentDAO getPayment(@PathVariable String rev_id) {
 
-        return reviewMapper.findProductInfo(rev_id);
+        return paymentMapper.findByRev(rev_id);
 
     }
 
@@ -183,7 +182,7 @@ public class ApiReview {
         PaymentDAO payment = paymentMapper.findByRev(rev_id);
 
         // 가이드
-        if (payment.getGtime_num() != null) {
+        if(payment.getGtime_num() != null) {
             return reviewMapper.sellerId(payment.getGtime_num());
         }
 
@@ -199,7 +198,7 @@ public class ApiReview {
         PaymentDAO payment = paymentMapper.findByRev(rev_id);
 
         // 가이드
-        if (payment.getGtime_num() != null) {
+        if(payment.getGtime_num() != null) {
             return "guide";
         } else {
             return "hotel";

@@ -94,11 +94,13 @@ export default {
     })
 
 
+
     const selected = document.getElementById('reviewBefore');
 
     selected.style.borderBottom = '2px solid #333'
     selected.style.color = '#333'
     selected.style.fontWeight = '700'
+
 
 
   },
@@ -127,7 +129,7 @@ export default {
       const statusList = ['reviewBefore', 'reviewAfter'];
 
       statusList.forEach(it => {
-        if (it === status) {
+        if(it === status) {
           const selected = document.getElementById(it);
 
           selected.style.borderBottom = '2px solid #333'
@@ -141,6 +143,9 @@ export default {
           selected_else.style.fontWeight = '0'
         }
       })
+
+
+
 
 
     }
@@ -266,6 +271,7 @@ li {
   line-height: 44px;
   text-align: center;
 }
+
 
 
 .tab_menu li:last-child a {

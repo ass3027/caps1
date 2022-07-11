@@ -30,7 +30,7 @@ public interface PictureMapper {
     @Insert("Insert Into Pictures(PIC_NAME,PL_ID) Values(#{pic.pic_name},#{pic.pl_id})")
     void InsertStore(@Param("pic") PictureDAO pictureDAO);
 
-    @Insert("Insert Into Pictures(PIC_NAME,PLAN_ID,USER_ID,category) Values(#{pic.pic_name},#{pic.plan_id},#{pic.user_id},#{pic.category})")
+    @Insert("Insert Into Pictures(PIC_NAME,PLAN_ID,USER_ID) Values(#{pic.pic_name},#{pic.plan_id},#{pic.user_id})")
     void InsertPlan(@Param("pic") PictureDAO pictureDAO);
 
 

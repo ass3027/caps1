@@ -1,11 +1,12 @@
 <template>
   <div class="">
     <link
-      crossorigin="anonymous"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
     >
+
 
     <div v-if="temp===1 && products[0].pd_id !== null">
       <div class="container my-0 my-md-4">
@@ -21,8 +22,8 @@
                     v-if="temp===1"
                     :src="'/api/photo/' + products[index].pic_name"
                     alt=""
-                    class="image"
                     style="width: 100%"
+                    class="image"
                   />
                 </div>
               </div>
@@ -46,11 +47,11 @@
                       @click="changeMainImage(index)"
                     >
                       <v-img
-                        :class="mainImage === product.pic_name ? 'activess' : ''"
                         :src="'/api/photo/' + product.pic_name"
+                        style="width:100%"
                         alt=""
                         class="image"
-                        style="width:100%"
+                        :class="mainImage === product.pic_name ? 'activess' : ''"
                       />
                     </div>
                   </div>
@@ -140,8 +141,8 @@
                     v-if="temp===1"
                     :src="products[0].firstimage"
                     alt=""
-                    class="image"
                     style="width: 100%"
+                    class="image"
                   />
                 </div>
               </div>
@@ -165,10 +166,10 @@
                       @click="changeMainImage(index)"
                     >
                       <v-img
-                        :class="mainImage === product.firstimage ? 'activess' : ''"
+                        style="width:100%"
                         alt=""
                         class="image"
-                        style="width:100%"
+                        :class="mainImage === product.firstimage ? 'activess' : ''"
                       />
                     </div>
                   </div>
@@ -241,8 +242,9 @@
       </div>
     </div>
 
+
     <ReviewView
-      :id="pl_id"
+      :id="'조선호텔1'"
       :type="'호텔'"
       style="width: 1274px; margin: 0 auto"
     />
@@ -251,6 +253,7 @@
 </template>
 
 <script>
+import StoreReviewView from "@/views/StoreReviewView";
 import axios from "axios";
 import PlaceProduct from "@/components/store/PlaceProduct";
 import ReviewView from "@/views/ReviewView";
