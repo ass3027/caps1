@@ -36,5 +36,8 @@ public class GItemDAO {
     String pay_time;
     String firstimage;
     String gname;
+    String pay_id;
+    int buy_status;
+
 
 }

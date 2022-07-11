@@ -1,77 +1,47 @@
 <template>
-<div>
-  <v-btn @click="onsubmit()" style="float: right;">
-    검색
-  </v-btn>
+  <div class="col-9 ">
+    <div class="row">
+      <div class="col-4" id="listaproyectos"
+           v-for="(item,index) in lists"
+           :key="index">
+        <div class="card text-align textocorrecto">
+          <!--Card image-->
+          <v-img
+            class="pic"
+            height="140px"
+            width="140px"
+            :src="img(item.pic_name)"
+          >
+          </v-img>
+          <!--Card content-->
+          <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title">{{item.user_name}}</h4>
+            <!--Text-->
+            <p class="card-text">{{item.guser_intro}}</p>
 
-  <input
-    v-model="keyword"
-    name="keyword"
-    type="text"
-    style="border: #1e90cc solid; float: right;"
-    class="search"
-  >
+            <v-btn
+              color="orange"
+              text
+              @click="view(item)"
+            >
+              VIEWS
+            </v-btn>
 
-  <div style="display: flex"
-  >
-    <v-row
-      style="margin: 18px"
-    cols="0"
-    md="0">
-
-  <v-card
-    v-for="(item,index) in lists"
-    :key="index"
-    style="margin: 20px;"
-    class="mx-auto"
-    width="400"
-  >
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      :src="img(item.pic_name)"
-    >
-      <h2 style="color: black">{{item.user_name}}
-      <br> {{item.user_id}}
-      </h2>
-
-    </v-img>
-
-    <v-card-subtitle class="pb-0">
-
-    </v-card-subtitle>
-
-    <v-card-text class="text--primary">
-      <div>자격증:{{item.guide_license}}</div>
-
-      <div>소개:{{item.guser_intro}}</div>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-        @click="view(item)"
-      >
-        VIEWS
-      </v-btn>
-
-      <v-btn
-        v-if="item.user_id==$store.state.user.userId"
-        color="orange"
-        text
-        @click="views(item)"
-      >
-        INTRO
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-    </v-row>
+            <v-btn
+              v-if="item.user_id==$store.state.user.userId"
+              color="orange"
+              text
+              @click="views(item)"
+            >
+              INTRO
+            </v-btn>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
 </template>
-
 <script>
 import axios from "axios";
 
@@ -128,6 +98,9 @@ export default {
 </script>
 <style scoped>
 
+.col-4 {
+  border: 10px double black;
+}
 
 </style>
 
