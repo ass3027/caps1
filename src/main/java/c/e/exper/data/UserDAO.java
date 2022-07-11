@@ -31,9 +31,12 @@ public class UserDAO {
     int user_birth40;
     int user_birth50;
 
-    int pay_price;
-    int pay_price7;
-    int pay_price30;
+
+    int price; //금일
+    int price1; //하루전
+    int price7;
+    int price30;
+    int price_sum;
 
 
 

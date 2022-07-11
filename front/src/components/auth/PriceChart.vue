@@ -21,10 +21,10 @@ export default {
       list30:'',
       type: 'bar',
       data: {
-        labels: [ '총매출', '최근한달', '최근 7일', '금일'],
+        labels: [ '총금액', '최근한달', '최근 7일' ,'전일', '금일'],
         datasets: [{
           label: '# of price',
-          data: ['','','',''],
+          data: ['','','','',''],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -54,16 +54,16 @@ export default {
     }
   },
   created(){
+    console.log(123)
     this.a()
   },
   methods:{
     async a() {
       const { data } = await axios.get("/api/user/price")
-
       console.log(data)
       this.data.datasets[0].data = data
 
-      this.selectRCount()
+      this.createChart()
     },
 
     createChart(){

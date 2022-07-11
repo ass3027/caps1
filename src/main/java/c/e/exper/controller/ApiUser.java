@@ -125,12 +125,15 @@ public class ApiUser {
 
     //내정보수정
     @PostMapping("/dataUpdate")
-    public boolean getUserdataUpdate(UserDAO userDAO) {
+    public boolean getUserdataUpdate(UserDAO userDAO,DuserDAO duserDAO) {
         userDAO.setUser_pw(
                 passwordEncoder().encode(
                         userDAO.getUser_pw()
                 )
         );
+        if(userDAO.getRole().equals("delivery")) {
+            userMapper.updateDuserInfo(duserDAO);
+        }
         return userMapper.updateUserInfo(userDAO);
     }
 
@@ -175,6 +178,7 @@ public class ApiUser {
         temp.add(userMapper.selectPrice30(getLoginId()));
         temp.add(userMapper.selectPrice7(getLoginId()));
         temp.add(userMapper.selectPrice1(getLoginId()));
+        temp.add(userMapper.selectPrice(getLoginId()));
         return temp;
     }
 

@@ -8,7 +8,7 @@
     <div>
       <table style="border-top: 2px solid #333; width: 100%">
         <tbody>
-        <div style="width: 400px; margin: 0 auto; padding-top: 19px;">
+        <div style="width: 900px; margin-top: 0px; padding-top: 19px;">
           <v-text-field
             v-model="user_name"
             :counter="7"
@@ -53,13 +53,38 @@
             type="text"
           />
 
+          <template
+            v-if="this.$store.state.user.userRole === 'delivery' "
+          >
+            <v-select
+              v-model="duser_trans"
+              :items="trans"
+              class="preference"
+              dense
+              label="운송할 수단을 선택해 주세요"
+            />
+
+            <v-text-field
+              v-model="duser_license"
+              name="guideLicense"
+              type="text"
+              class="license"
+              placeholder="자격증"
+            />
+          </template>
+
           <v-select
+
+            v-else
             v-model="preference"
             :items="items"
             class="preference"
             dense
             label="선호하는 여행방식을 골라주세요"
           />
+
+
+
         </div>
         </tbody>
       </table>
@@ -103,10 +128,14 @@ export default {
       user_name: '',
       user_photo: '',
       preference: '',
-      items: ['사진인증형', '맛집탐방형', '관광형', '휴식형']
+      items: ['사진인증형', '맛집탐방형', '관광형', '휴식형'],
+      duser_trans:'', //운송수단
+      trans: ['승용차', '자전거', '오토바이', '킥보드', '트럭'],
+      duser_license:'', //보유자격증
     };
   },
   mounted() {
+    console.log(this.$store.state.user.userRole)
     axios.get('/api/user/data/' + this.$store.state.user.userId)
       .then((res) => {
         this.user_id = res.data.user_id
@@ -114,6 +143,8 @@ export default {
         this.user_phone = res.data.user_phone
         this.user_name = res.data.user_name
         this.preference = res.data.preference
+        this.duser_trans = res.data.duser_trans
+        this.duser_license = res.data.duser_license
         // console.log(res.data)
 
       })
@@ -136,24 +167,27 @@ export default {
       console.log("성공")
     },
     Modify() {
-      var sendform = new FormData()
-      console.log(this.user_name)
-      sendform.append("user_id", this.user_id)
-      sendform.append("user_name", this.user_name)
-      sendform.append("user_pw", this.user_pw)
-      sendform.append("user_phone", this.user_phone)
-      sendform.append("preference", this.preference)
+      const userForm = new FormData();
+      const duserForm = new FormData();
+      userForm.append("role", this.$store.state.user.userRole)
+      userForm.append("user_id", this.user_id)
+      userForm.append("user_name", this.user_name)
+      userForm.append("user_pw", this.user_pw)
+      userForm.append("user_phone", this.user_phone)
+
+      if(this.$store.state.user.userRole === 'delivery'){
+        userForm.append('duser_trans', this.duser_trans);
+        userForm.append('duser_license', this.duser_license);
+        userForm.append("preference", "")
+      } else userForm.append("preference", this.preference)
 
 
       axios({
         method: 'post',
         url: '/api/user/dataUpdate',
-        headers: {
-          "Content-Type": 'multipart/form-data', //사진같은 다양한 파일을 올릴때
-        },
-        data: sendform,
-      })
+        data: userForm
 
+      })
         .then((res) => {
           console.log(res.data)
           if (res.data === true) {

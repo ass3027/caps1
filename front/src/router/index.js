@@ -92,7 +92,7 @@ import KeeperJoinView from "@/views/auth/KeeperJoinView";
 import AreaChartView from "@/views/auth/AreaChartView";
 import AgeChartView from "@/views/auth/AgeChartView";
 import chartView from "@/views/store/chartView";
-import PriceChartView from "@/views/auth/PriceChartView";
+import PriceChart from "@/components/auth/PriceChart";
 
 
 
@@ -116,7 +116,7 @@ const routes = [
   {path: "/bookmark", name: "BookMark", component: MyBookMark},
   {path: "/ageChart", name: "AgeChart", component: AgeChartView},
   {path: "/areaChart", name: "AreaChart", component: AreaChartView},
-  {path: "/priceChart", name: "PriceChart", component: PriceChartView},
+  {path: "/priceChart", name: "PriceChart", component: PriceChart},
 
 
   //성호

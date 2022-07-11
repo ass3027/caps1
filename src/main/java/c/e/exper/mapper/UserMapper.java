@@ -87,6 +87,7 @@ public interface UserMapper { //디비접근
             WHERE USER_BIRTH BETWEEN '1940-01-01' AND '1973-12-31'""")
     UserDAO selectAgeCount50();
 
+    //총합
     @Select("""
             select NVL(sum(PAY_PRICE),0) as price_sum
             from PAYMENT
@@ -100,7 +101,7 @@ public interface UserMapper { //디비접근
             """)
     int selectPriceSum(@Param("user_id") String user_id);
 
-    //하루 총액
+    //금일
     @Select("""
             select NVL(sum(PAY_PRICE),0) as price1
                         from PAYMENT
@@ -111,11 +112,41 @@ public interface UserMapper { //디비접근
                                      where PD_ID in (select pd_id
                                                      from PRODUCT)
                                      and PAY_ID is not null
-                                     group by PAY_ID)  and to_char(PAY_TIME,'yyyy-mm-dd') = TO_CHAR(SYSDATE,'yyyy-mm-dd')
+                                     group by PAY_ID)  and to_char(PAY_TIME,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+            """)
+    int selectPrice(@Param("user_id") String user_id);
+
+    //전일
+    @Select("""
+            select NVL(sum(PAY_PRICE),0) as price1
+            from PAYMENT
+            where USER_ID = 'asdf1234'
+            and PAY_ID
+              in (select PAY_ID
+                  from PRODUCT_TIME
+                  where PD_ID in (select pd_id
+                                  from PRODUCT)
+                  and PAY_ID is not null
+                  group by PAY_ID)
+                  and to_char(PAY_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE - 1, 'YYYY-MM-DD')
             """)
     int selectPrice1(@Param("user_id") String user_id);
 
-  @Select("""
+//  @Select("""
+//            select NVL(sum(PAY_PRICE),0) as price7
+//                        from PAYMENT
+//                        where USER_ID = #{user_id}
+//                        and PAY_ID
+//                                 in (select PAY_ID
+//                                     from PRODUCT_TIME
+//                                     where PD_ID in (select pd_id
+//                                                     from PRODUCT)
+//                                     and PAY_ID is not null
+//                                     group by PAY_ID) and SYSDATE-7 < PAY_TIME
+//            """)
+//    int selectPrice7(@Param("user_id") String user_id);
+
+    @Select("""
             select NVL(sum(PAY_PRICE),0) as price7
                         from PAYMENT
                         where USER_ID = #{user_id}
@@ -248,5 +279,10 @@ public interface UserMapper { //디비접근
             """)
     boolean checkDeliveryUser(@Param("user_id") String user_id);
 
-
+    @Update("""
+            UPDATE DELIVERY_USER
+            SET duser_trans = #{duser_trans}, duser_license = #{duser_license}
+            WHERE user_id = #{user_id}
+            """)
+    boolean updateDuserInfo(DuserDAO duserDAO);
 }

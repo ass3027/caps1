@@ -27,9 +27,12 @@
         <li id="Questions">
           <a @click="selected('Questions')">문의사항</a>
         </li>
-        <li id="Review">
-          <a>상품후기</a>
+        <li id="PriceChart">
+          <a @click="selected('PriceChart')">결제통계</a>
         </li>
+<!--        <li id="Review">-->
+<!--          <a>상품후기</a>-->
+<!--        </li>-->
       </ul>
     </div>
     <a class="link_inquire">
