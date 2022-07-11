@@ -91,14 +91,14 @@
         <v-card style="height:120px;padding-bottom: 10px;margin-bottom: 40px">
           <h2>멤버 초대</h2>
           <div
-            style="width: 60%;height:60px;float: left;text-align: center;margin-left: 10px">
+            style="width: 60%;height:60px;float: left;text-align: center;margin-left: 40px">
             <v-text-field
               v-model="input_id"
               placeholder="회원ID"
               md="4"
             />
           </div>
-          <div style="width: 30%;height:60px;float: right;margin-right: 20px;padding-top: 4px">
+          <div style="text-align: left;width: 23%;height:60px;float: right;margin-right: 20px;margin-top: 13px">
             <v-btn
               color="blue"
               @click="invite"

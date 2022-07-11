@@ -12,16 +12,16 @@ import java.util.Map;
 public interface PaymentMapper {
 
     @Select("""
-            SELECT pay.pay_id, start_date, end_date, pr.pd_id, pr.pd_name, room_num, pl.pl_id, title, mapX, mapY,addr1 
+            SELECT pay.pay_id, start_date, end_date, pr.pd_id, pr.pd_name, room_num, pl.pl_id, title, mapX, mapY,addr1
             FROM payment pay,
-                 product pr, 
+                 product pr,
                  (SELECT pl_id, title, mapX, mapY, addr1
                   FROM place l
                   WHERE l.pl_id in (SELECT d.pl_id
                                     FROM payment p, product_time t, product d
                                     WHERE p.pay_id = t.pay_id
                                     AND d.pd_id = t.pd_id
-                                    AND p.user_id = #{user_id})  
+                                    AND p.user_id = #{user_id})
                  
                  
                  ) pl,
@@ -31,6 +31,7 @@ public interface PaymentMapper {
                   group by pay_id, PD_ID,room_num ) book
                               
             WHERE pay.user_id = #{user_id}
+            AND pl.pl_id = pr.pl_id
             AND book.pd_id = pr.pd_id
             AND pay.pay_id = book.pay_id
             """)
@@ -50,7 +51,7 @@ public interface PaymentMapper {
                                       AND p.user_id = #{user_id})
                   ) pl
             WHERE p.GTIME_NUM = a.TIME_NUM
-              AND pl.pl_id = g.pl_id  
+              AND pl.pl_id = g.pl_id
               AND p.USER_ID = #{user_id}
             """)
     List<Map<String,Object>> getGuideBook(String user_id);

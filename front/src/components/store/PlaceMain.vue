@@ -25,7 +25,6 @@
   </div>
 </template>
 <script>
-import StoreDetail from "@/views/store/StoreDetail";
 
 export default {
   name: "PlaceMain",
@@ -34,6 +33,9 @@ export default {
       dd: `/api/photo/` + "userImage/1648100757821img.jpg",
       model: 0,
     };
+  },
+  mounted() {
+    console.log(this.$store.state.place.place)
   },
   computed: {
     place() {

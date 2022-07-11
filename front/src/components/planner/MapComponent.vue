@@ -107,6 +107,7 @@ export default {
 
         EventBus.$on("updatePosition", (position) => {
           console.log(position)
+          if(position.mapX === 0 || position.mapY === 0) return
           const moveLatLon = new kakao.maps.LatLng(position.mapX, position.mapY);
 
           // 지도 중심을 부드럽게 이동시킵니다

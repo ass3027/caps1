@@ -23,7 +23,12 @@ public class GuideService {
       this.guideMapper = guideMapper;
       this.gitemMapper = gitemMapper;
    }
-   
+
+   public List<GItemDAO> 매출_조회_리스트(String id){
+      return gitemMapper.selectCountList(id);
+   }
+
+
    public List<GuideDAO> 가이드_조회() {
       return guideMapper.selectAll();
    }

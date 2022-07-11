@@ -1,20 +1,20 @@
 <template>
   <div style="position: relative; max-width: 1040px">
     <div>
-      <v-select
-        :items="items"
-        item-text="pd_name"
-        item-value="pd_id"
-        v-model="value"
-        @change="change_pd(value)"
-      >
-      </v-select>
-      {{ value }}
+<!--      <v-select-->
+<!--        :items="items"-->
+<!--        item-text="pd_name"-->
+<!--        item-value="pd_id"-->
+<!--        v-model="value"-->
+<!--        @change="change_pd(value)"-->
+<!--      >-->
+<!--      </v-select>-->
     </div>
     <canvas
       ref="barChart"
       id="chart"
     />
+    <ProductUserBook/>
   </div>
 </template>
 
@@ -25,10 +25,11 @@ import {Chart, registerables} from "chart.js";
 
 Chart.register(...registerables)
 import axios from "axios";
+import ProductUserBook from "@/views/store/productUserBook";
 
 export default {
   name: "ChartView",
-
+  components: {ProductUserBook},
   data: () => ({
     selectedValue: null,
     listss: '',

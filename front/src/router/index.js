@@ -190,8 +190,8 @@ router.beforeResolve((to, from, next) => {
   } else {
     const dd = async () => {
       try {
-        const {data} = await axios.get("/api/user/find");
-        await store.dispatch("user/setUser", {"id": data.user_id, "role": data.role});
+        const { data } = await axios.get("/api/user/find");
+        await store.dispatch("user/setUser", {"id":data.user_id , "role":data.role});
         if ("anonymousUser" !== data) {
           const photo = await axios.get("/api/user/photo")
           EventBus.$emit("photoUpdate", photo.data)
