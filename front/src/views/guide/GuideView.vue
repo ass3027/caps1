@@ -1,5 +1,16 @@
 <template>
   <div class="col-9 ">
+    <input
+    v-model="keyword"
+    name="keyword"
+    type="text"
+    style="border: #1e90cc solid; margin-bottom:22px"
+    >
+    <v-btn
+    @click="onsubmit()"
+    >
+      Search
+    </v-btn>
     <div class="row">
       <div class="col-4" id="listaproyectos"
            v-for="(item,index) in lists"
