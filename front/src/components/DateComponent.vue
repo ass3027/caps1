@@ -6,7 +6,7 @@
     @click="unselect"
   >
     <v-row>
-      <v-col style="text-align: center">
+      <v-col style="text-align: center;width: 361px">
         <h2 class="text-center">
           {{ date }}
         </h2>
@@ -34,8 +34,12 @@
                   @click.native="select(key,index)"
                 >
                   <div>
-                    <h3 v-if="key===100">숙소</h3>
-                    <h3 v-else>{{ key }}시</h3>
+                    <h3 v-if="key===100">
+                      숙소
+                    </h3>
+                    <h3 v-else>
+                      {{ key }}시
+                    </h3>
                   </div>
                   <div>
                     {{ plan.get(key).address }}
@@ -57,25 +61,30 @@
                   </v-card-title>
 
                   <v-card-text>
-                    <p>{{ plan.get(key) }}</p>
-                    <p>주소 : {{ plan.get(key).address }}</p>
-                    <p>장소 : {{ plan.get(key).pl_name }}</p>
-                    <SearchPlace
-                      @childEvent="selectPlace"
-                    />
-                    <p>관광 상품 : {{ plan.get(key).gitem_id }}</p>
-                    <p>
+                    <h3>{{ plan.get(key) }}</h3>
+                    <h3>주소 : {{ plan.get(key).address }}</h3>
+                    <h3>
+                      장소 : {{ plan.get(key).pl_name }}
+                      <SearchPlace
+                        style="width: 96px;margin: 0 !important;"
+                        @childEvent="selectPlace"
+                      />
+                    </h3>
+
+                    <h3>관광 상품 : {{ plan.get(key).gitem_id }}</h3>
+                    <h3>
                       예상 요금 :
                       <v-text-field
                         v-model="plan.get(key).expect_expenses"
                         style="width:50%"
                       />
-                    </p>
+                    </h3>
                   </v-card-text>
 
                   <v-divider />
                   <v-card-actions>
                     <v-btn
+
                       color="primary"
                       text
                       @click="closs(index)"
@@ -110,8 +119,8 @@
           <template #activator="{ on, attrs}">
             <v-btn
               v-bind="attrs"
-              v-on="on"
               style="margin-right: 10px"
+              v-on="on"
             >
               일정추가
             </v-btn>
@@ -357,7 +366,7 @@ export default {
 }
 
 .border {
-  border: solid #E3E3E3 4px;
+  border: solid #262626 4px;
   border-radius: 10px;
   /*min-width: 500px;*/
   /*background: #5eaf13;*/
@@ -377,14 +386,6 @@ export default {
 ;
 }
 
-/*.selecting div {*/
-/*  color: #FFFFFF;*/
-/*}*/
-
-
-/*.selecting h3 {*/
-/*  color: #FFFFFF;*/
-/*}*/
 
 .innerBorder {
   overflow-y: scroll;
@@ -400,16 +401,53 @@ export default {
   display: none;
 }
 
-.circle {
-  /*background-color: #81ecec;*/
-  /*width: 80px;*/
-  /*height: 80px;*/
-  /*border-radius: 50%;*/
-  /*text-align: center;*/
-  /*margin: 0 auto;*/
-  /*font-size: 12px;*/
-  /*vertical-align: middle;*/
-  /*line-height: 80px;*/
+
+.v-sheet.v-card:not(.v-sheet--outlined){
+  /*outline: 3px solid #000000;*/
+  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.v-application .primary--text {
+  color: #262626 !important;
+}
+
+.v-btn:not(.v-btn--round).v-size--default {
+  font-size: 12pt;
+  width:90px;
+  height:35px;
+  background: #3396FF;
+  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) ;
+}
+
+
+.v-btn {
+  font-size: 12pt;
+  width:90px;
+  height:35px;
+  background: #3396FF;
+  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
+}
+
+
+.v-card__actions .v-btn:not(.v-btn--round).v-size--default {
+  font-size: 14pt;
+  width:90px;
+  height:35px;
+  /*background: #262626;*/
+}
+
+.v-card-action .v-btn {
+  font-size: 14pt;
+  width:90px;
+  height:35px;
+  background: #262626;
+}
+
+
+
+.v-card__text h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 </style>

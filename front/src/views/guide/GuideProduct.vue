@@ -1,19 +1,20 @@
 <template>
   <div>
-    <v-btn style="float: right; position: relative; top: 30px; right: 30px; height: 30px"
-           class="btn2"
-           @click="onsubmit()"
+    <v-btn
+      style="float: right; position: relative; top: 30px; right: 30px; height: 30px"
+      class="btn2"
+      @click="onsubmit()"
     >
       Search
     </v-btn>
 
-      <input
-        v-model="keyword"
-        name="keyword"
-        type="text"
-        style="border: #1e90cc solid; float: right; position: relative; top:30px; right: 30px"
-        class="search"
-      >
+    <input
+      v-model="keyword"
+      name="keyword"
+      type="text"
+      style="border: #1e90cc solid; float: right; position: relative; top:30px; right: 30px"
+      class="search"
+    >
     <v-row
       cols="0"
       md="0"
@@ -32,8 +33,9 @@
           height="200px"
           :src="item.firstimage2"
         >
-          <h2 style="color: black">{{item.user_name}}
-            <br> {{item.user_id}}
+          <h2 style="color: black">
+            {{ item.user_name }}
+            <br> {{ item.user_id }}
           </h2>
           <v-btn
             v-if="item.user_id==$store.state.user.userId"
@@ -52,7 +54,7 @@
           <v-list-item-content>
             <div class="text-overline mb-4">
               <v-card-title :gid="item.gitem_id">
-                상품이름:{{ item.gname}}<br>
+                상품이름:{{ item.gname }}<br>
                 장소:{{ item.title }}<br>
                 가격:{{ item.gitem_price }}
               </v-card-title>
@@ -77,7 +79,6 @@
         </v-list-item>
       </v-card>
     </v-row>
-
   </div>
 </template>
 <script>

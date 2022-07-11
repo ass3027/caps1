@@ -12,28 +12,28 @@
         align="center"
         style="padding-left: 45%"
       >
-        <div class="textForm" style="margin-top: -70px">
+        <div
+          class="textForm"
+          style="margin-top: -70px"
+        >
           <div style="width: 50%; display: inline-block; vertical-align: bottom;">
             <input
-                  v-model="lodging.pl_id"
-                  name="guideIntro"
-                  type="text"
-                  class="intro"
-                  placeholder="장소번호"
-                >
+              v-model="lodging.pl_id"
+              name="guideIntro"
+              type="text"
+              class="intro"
+              placeholder="장소번호"
+            >
           </div>
 
           <div style="width: 50%; display: inline-block;">
-                <search-place-tour
-                  @childEvent="getEmitData"
-                  class="place"
-                  style="margin: 50px 80px 5px;"
-                >
-
-                </search-place-tour>
-              </div>
-
-            </div>
+            <search-place-tour
+              class="place"
+              style="margin: 50px 80px 5px;"
+              @childEvent="getEmitData"
+            />
+          </div>
+        </div>
 
 
         <div class="textForm">
@@ -95,7 +95,6 @@
             placeholder="상품가격"
           >
         </div>
-
       </v-col>
     </v-row>
 
@@ -104,9 +103,9 @@
     >
       <v-btn
         class="btn"
-        @click="onsubmit()"
         style="margin: 30px"
         width="45%"
+        @click="onsubmit()"
       >
         JOIN
       </v-btn>

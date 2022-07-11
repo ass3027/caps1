@@ -26,13 +26,23 @@
           <ul class="sub">
             <li><a>주문 내역</a></li>
             <li><a>선물 내역</a></li>
-            <li><a type="button" @click="bookmark">찜한 상품</a></li>
+            <li>
+              <a
+                type="button"
+                @click="bookmark"
+              >찜한 상품</a>
+            </li>
             <li><a>배송지 관리</a></li>
             <li><a>상품 후기</a></li>
             <li><a>상품 문의</a></li>
             <li><a>적립금</a><!----></li>
             <li><a>쿠폰</a><!----></li>
-            <li><a type="button" @click="update">개인 정보 수정</a></li>
+            <li>
+              <a
+                type="button"
+                @click="update"
+              >개인 정보 수정</a>
+            </li>
             <li><a @click="logOut">로그아웃</a></li>
           </ul>
         </li>
@@ -165,11 +175,10 @@
           </v-list>
         </v-menu>
 
-        <v-divider style="margin-top: 10px"/>
+        <v-divider style="margin-top: 10px" />
       </div>
     </div>
   </v-app>
-
 </template>
 
 <script>

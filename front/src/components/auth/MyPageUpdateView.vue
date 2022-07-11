@@ -8,59 +8,59 @@
     <div>
       <table style="border-top: 2px solid #333; width: 100%">
         <tbody>
-        <div style="width: 400px; margin: 0 auto; padding-top: 19px">
-          <v-text-field
-            v-model="user_name"
-            :counter="7"
-            class="name"
-            label="이름"
-            name="name"
-            placeholder="이름"
-            required
-            type="text"
-          />
+          <div style="width: 400px; margin: 0 auto; padding-top: 19px">
+            <v-text-field
+              v-model="user_name"
+              :counter="7"
+              class="name"
+              label="이름"
+              name="name"
+              placeholder="이름"
+              required
+              type="text"
+            />
 
-          <v-text-field
-            v-model="user_id"
-            :counter="30"
-            class="id"
-            label="아이디"
-            name="userId"
-            placeholder="아이디"
-            required
-            type="text"
-          />
+            <v-text-field
+              v-model="user_id"
+              :counter="30"
+              class="id"
+              label="아이디"
+              name="userId"
+              placeholder="아이디"
+              required
+              type="text"
+            />
 
-          <v-text-field
-            v-model="user_pw"
-            :counter="100"
-            class="pw"
-            label="비밀번호"
-            name="user pw"
-            placeholder="비밀번호를 입력하세요"
-            required
-            type="password"
-          />
+            <v-text-field
+              v-model="user_pw"
+              :counter="100"
+              class="pw"
+              label="비밀번호"
+              name="user pw"
+              placeholder="비밀번호를 입력하세요"
+              required
+              type="password"
+            />
 
-          <v-text-field
-            v-model="user_phone"
-            :counter="20"
-            class="phone"
-            label="전화번호"
-            name="user phone"
-            placeholder="전화번호"
-            required
-            type="text"
-          />
+            <v-text-field
+              v-model="user_phone"
+              :counter="20"
+              class="phone"
+              label="전화번호"
+              name="user phone"
+              placeholder="전화번호"
+              required
+              type="text"
+            />
 
-          <v-select
-            v-model="preference"
-            :items="items"
-            class="preference"
-            dense
-            label="선호하는 여행방식을 골라주세요"
-          />
-        </div>
+            <v-select
+              v-model="preference"
+              :items="items"
+              class="preference"
+              dense
+              label="선호하는 여행방식을 골라주세요"
+            />
+          </div>
         </tbody>
       </table>
     </div>

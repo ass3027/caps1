@@ -18,25 +18,25 @@
       </v-row>
       <v-row>
         체크인 : <input
-        v-model="st_date"
-        name="guideIntro"
-        type="date"
-        class="intro"
-        data-placeholder="시작날짜"
-        required
-        aria-required="true"
-      >
+          v-model="st_date"
+          name="guideIntro"
+          type="date"
+          class="intro"
+          data-placeholder="시작날짜"
+          required
+          aria-required="true"
+        >
       </v-row>
       <v-row>
         체크아웃 : <input
-        v-model="end_date"
-        name="guideIntro"
-        type="date"
-        class="intro"
-        data-placeholder="시작날짜"
-        required
-        aria-required="true"
-      >
+          v-model="end_date"
+          name="guideIntro"
+          type="date"
+          class="intro"
+          data-placeholder="시작날짜"
+          required
+          aria-required="true"
+        >
       </v-row>
       <v-row>
         <v-select

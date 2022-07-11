@@ -88,18 +88,18 @@
                 v-if=" business_num"
                 v-model=" business_num"
                 label="사업자번호"
-      class="box"
-      outlined
-      readonly
-      />
-      </v-col>
-    </v-row>
-    </v-container>
+                class="box"
+                outlined
+                readonly
+              />
+            </v-col>
+          </v-row>
+        </v-container>
+      </div>
     </div>
-    </div>
-    </div>
-    <!--  </div>-->
-      </template>
+  </div>
+  <!--  </div>-->
+</template>
       <script>
         import MyPageHeader from "@/components/store/MyPageHeader";
         import axios from "axios";

@@ -32,76 +32,76 @@
         skyblue
       >
         <thead>
-        <tr>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            게시글번호
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            제목
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            날짜
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            아이디
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            조회수
-          </th>
-        </tr>
+          <tr>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              게시글번호
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              제목
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              날짜
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              아이디
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              조회수
+            </th>
+          </tr>
         </thead>
         <tbody>
-        <tr
-          v-for="(post,index) in paged_post_list"
-          :key="index"
-          @click="listPage(post.inq_id)"
-        >
-          <th
-            class="text-center"
-            style="font-size:20px;"
+          <tr
+            v-for="(post,index) in paged_post_list"
+            :key="index"
+            @click="listPage(post.inq_id)"
           >
-            {{ post.inq_id }}
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            {{ post.inq_title }}
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            {{ post.inq_time }}
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            {{ post.user_id }}
-          </th>
-          <th
-            class="text-center"
-            style="font-size:20px;"
-          >
-            {{ post.inq_count }}
-          </th>
-        </tr>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_id }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_title }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_time }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.user_id }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_count }}
+            </th>
+          </tr>
         </tbody>
       </v-simple-table>
       <div style="text-align: center">

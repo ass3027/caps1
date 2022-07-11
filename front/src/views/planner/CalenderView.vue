@@ -3,7 +3,7 @@
     id="lll"
     class="calendar"
   >
-    <PlannerHeader/>
+    <PlannerHeader />
     <v-row>
       <div class="map">
         <MapComponent
@@ -17,15 +17,24 @@
         style="width:30%; height: 750px;margin-bottom: 100px;display: inline-block"
       >
         <v-row>
-          <v-col cols="6" style="padding: 0">
+          <v-col
+            cols="6"
+            style="padding: 0"
+          >
             <h2>시작 일자</h2>
           </v-col>
-          <v-col cols="6" style="padding: 0">
+          <v-col
+            cols="6"
+            style="padding: 0"
+          >
             <h2>종료 일자</h2>
           </v-col>
         </v-row>
         <v-row>
-          <v-col style="padding-top: 0">
+          <v-col
+            cols="6"
+            style="padding-top: 0"
+          >
             <input
               v-model="startDate"
               type="date"
@@ -36,7 +45,10 @@
           <!--          <v-col style="width: 5%;">-->
           <!--            <p style="font-size: 34px;">~</p>-->
           <!--          </v-col>-->
-          <v-col style="padding-top: 0">
+          <v-col
+            cols="6"
+            style="padding-top: 0"
+          >
             <input
               v-model="endDate"
               type="date"
@@ -45,40 +57,39 @@
             >
           </v-col>
         </v-row>
-        <v-row style="text-align:center">
-          <v-col cols="4">
-            <h2
-              placeholder="일정이름"
-              style="height: 10%;font-size: 25px;padding: 10px"
-            > 일정 이름 :</h2>
-          </v-col>
-          <v-col cols="8">
-            <input
-              v-model="schName"
-              style="font-size: 25px;padding: 3px;border: 3px solid;
-               border-radius: 4px;"
-            >
-          </v-col>
-
-        </v-row>
+        <!--        <v-row style="text-align:center">-->
+        <!--          <v-col cols="4">-->
+        <!--            <h2-->
+        <!--              placeholder="일정이름"-->
+        <!--              style="height: 10%;font-size: 25px;padding: 10px"-->
+        <!--            >-->
+        <!--              일정 이름 :-->
+        <!--            </h2>-->
+        <!--          </v-col>-->
+        <!--          <v-col cols="8">-->
+        <!--            <input-->
+        <!--              v-model="schName"-->
+        <!--              style="font-size: 25px;padding: 3px;border: 3px solid;-->
+        <!--               border-radius: 4px;"-->
+        <!--            >-->
+        <!--          </v-col>-->
+        <!--        </v-row>-->
         <v-row style="width:100%;height: 10%;">
           <v-col cols="6">
             <v-btn
               @click="save()"
-
             >
               저장
             </v-btn>
           </v-col>
           <v-col cols="6">
             <v-dialog
-              width="50%"
               v-model="bookDialog"
+              width="50%"
             >
-              <template v-slot:activator="{on}">
+              <template #activator="{on}">
                 <v-btn
-
-                  style="float:right"
+                  style=""
                   v-bind="on"
                   @click="bookDialog=true"
                 >
@@ -89,82 +100,84 @@
                 <v-card-title>
                   <v-select
                     v-model="bookCategory"
-                    @change="gd"
                     style="width: 50%"
                     label="숙소/가이드"
                     :items="['가이드','숙소']"
+                    @change="gd"
                   />
                 </v-card-title>
                 <v-card-text>
                   <template v-if="bookCategory !== '가이드'">
                     <v-simple-table class="text-center">
                       <thead>
-                      <tr>
-                        <!--                          <th>pay_id</th>-->
-                        <th>호텔명</th>
-                        <th>상품명</th>
-                        <th>호실</th>
-                        <th class="text-center">체크인 시간</th>
-                        <th>체크아웃시간</th>
-                        <th></th>
-
-                      </tr>
-
+                        <tr>
+                          <!--                          <th>pay_id</th>-->
+                          <th>호텔명</th>
+                          <th>상품명</th>
+                          <th>호실</th>
+                          <th class="text-center">
+                            체크인 시간
+                          </th>
+                          <th>체크아웃시간</th>
+                          <th />
+                        </tr>
                       </thead>
                       <tbody>
-                      <tr
-                        v-for="(book,index) in books.productBook"
-                        :key="index"
-                      >
-                        <!--                          <td>{{book.PAY_ID}}</td>-->
-                        <td>{{ book.PD_ID }}</td>
-                        <td>{{ book.PD_NAME }}</td>
-                        <td>{{ book.ROOM_NUM }}</td>
-                        <td>{{ book.START_DATE }}</td>
-                        <td>{{ book.END_DATE }}</td>
-                        <td>
-                          <v-btn @click="addSchProduct(book)">일정 추가</v-btn>
-                        </td>
-                      </tr>
-
+                        <tr
+                          v-for="(book,index) in books.productBook"
+                          :key="index"
+                        >
+                          <!--                          <td>{{book.PAY_ID}}</td>-->
+                          <td>{{ book.PD_ID }}</td>
+                          <td>{{ book.PD_NAME }}</td>
+                          <td>{{ book.ROOM_NUM }}</td>
+                          <td>{{ book.START_DATE }}</td>
+                          <td>{{ book.END_DATE }}</td>
+                          <td>
+                            <v-btn @click="addSchProduct(book)">
+                              일정 추가
+                            </v-btn>
+                          </td>
+                        </tr>
                       </tbody>
                     </v-simple-table>
                   </template>
                   <template v-else>
                     <v-simple-table class="text-center">
                       <thead>
-                      <tr>
-                        <th>가이드상품명</th>
-                        <th>날짜</th>
-                        <th>시작시각</th>
-                        <th>종료시각</th>
-                        <!--                          <th class="text-center">start_date</th>-->
-                        <!--                          <th>end_date</th>-->
-                        <th></th>
-
-                      </tr>
-
+                        <tr>
+                          <th>가이드상품명</th>
+                          <th>날짜</th>
+                          <th>시작시각</th>
+                          <th>종료시각</th>
+                          <!--                          <th class="text-center">start_date</th>-->
+                          <!--                          <th>end_date</th>-->
+                          <th />
+                        </tr>
                       </thead>
                       <tbody>
-                      <tr
-                        v-for="(book,index) in books.guideBook"
-                        :key="index"
-                      >
-                        <td>{{ book.GNAME }}</td>
-                        <td>{{ book.GDATE }}</td>
-                        <td>{{ book.ST_TIME }}</td>
-                        <td>{{ book.END_TIME }}</td>
-                        <td>
-                          <v-btn @click="addSchGuide(book)">일정 추가</v-btn>
-                        </td>
-                      </tr>
-
+                        <tr
+                          v-for="(book,index) in books.guideBook"
+                          :key="index"
+                        >
+                          <td>{{ book.GNAME }}</td>
+                          <td>{{ book.GDATE }}</td>
+                          <td>{{ book.ST_TIME }}</td>
+                          <td>{{ book.END_TIME }}</td>
+                          <td>
+                            <v-btn @click="addSchGuide(book)">
+                              일정 추가
+                            </v-btn>
+                          </td>
+                        </tr>
                       </tbody>
                     </v-simple-table>
                   </template>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn @click="bookDialog=false">닫기</v-btn>
+                  <v-btn @click="bookDialog=false">
+                    닫기
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -206,8 +219,6 @@
         </v-row>
       </div>
     </v-row>
-
-
   </div>
 </template>
 
@@ -475,7 +486,7 @@ export default {
       //해제
       this.$store.commit("calendar/updateSelect", selectTime)
       alert("추가 되었습니다")
-
+      this.bookDialog = false
 
       // this.$store.commit('calendar/updateCalendarDate', )
     },
@@ -506,6 +517,7 @@ export default {
       //해제
       this.$store.commit("calendar/updateSelect", selectTime)
       alert("추가 되었습니다")
+      this.bookDialog = false
     }
   }
 }
@@ -544,6 +556,22 @@ export default {
 
 .col {
   text-align: center;
+}
+
+.v-btn {
+  font-size: 14pt;
+  width:100px;
+  height:45px;
+  background: #3396FF;
+  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
+}
+
+.v-btn:not(.v-btn--round).v-size--default {
+  font-size: 14pt;
+  width:110px;
+  height:45px;
+  background: #3396FF;
+  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
 }
 </style>
 

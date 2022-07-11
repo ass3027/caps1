@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div class="date">{{ payment.pay_time }}</div>
+    <div class="date">
+      {{ payment.pay_time }}
+    </div>
     <div class="payment_goods">
-      <div class="name"><a>[가이드] {{ place_info.title }}</a></div>
+      <div class="name">
+        <a>[가이드] {{ place_info.title }}</a>
+      </div>
       <div class="payment_info">
         <div class="thumb">
           <img :src="place_info.firstimage">
@@ -15,13 +19,20 @@
           <dl>
             <dl>
               <dt>결제금액</dt>
-              <dd style="float: left">{{ payment.pay_price }}</dd>
-              <button @click="reviewWrite" style="float: right;border: 1px solid #dddfe1;font-size: 14px;padding: 4px">후기 작성 ></button>
+              <dd style="float: left">
+                {{ payment.pay_price }}
+              </dd>
+              <button
+                style="float: right;border: 1px solid #dddfe1;font-size: 14px;padding: 4px"
+                @click="reviewWrite"
+              >
+                후기 작성 >
+              </button>
             </dl>
           </dl>
         </div>
       </div>
-      <div class="payment_status"></div>
+      <div class="payment_status" />
     </div>
   </div>
 </template>

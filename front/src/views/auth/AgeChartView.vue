@@ -1,9 +1,9 @@
 <template>
-  <div style="position: relative ; max-width:1040px" >
+  <div style="position: relative ; max-width:1040px">
     <canvas
       ref="barChart"
     />
-<!--        <div>{{data.datasets[0]}}</div>-->
+    <!--        <div>{{data.datasets[0]}}</div>-->
   </div>
 </template>
 

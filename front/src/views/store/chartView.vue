@@ -19,7 +19,7 @@ let chart
 
 
 export default {
-  name: "chartView",
+  name: "ChartView",
 
   data: () => ({
     list: '',

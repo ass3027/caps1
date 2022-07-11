@@ -1,6 +1,6 @@
 <template>
   <div style="width: 1050px">
-    <DuserOrdersComponent/>
+    <DuserOrdersComponent />
     <!--          <OrdersComponent :user_id="user_id" />-->
     <!--    <ReviewView :id="'100'" :type="'all'"/>-->
 

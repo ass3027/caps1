@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MyPageHeader/>
+    <MyPageHeader />
     <!--  <BookMarkView></BookMarkView>-->
     <template>
       <v-card>

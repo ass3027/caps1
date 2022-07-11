@@ -1,6 +1,5 @@
 <template>
   <div style="max-width: 1050px; margin: 0 auto; padding-top: 60px">
-
     <form
       id="form_review"
       name="form_review"

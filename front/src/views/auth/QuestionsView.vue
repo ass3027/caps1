@@ -6,152 +6,152 @@
     <MyPageHeader />
     <div style="width: 820px; float: right;">
       <div class="head_aticle">
-          <h1 class="tit">
-            게시판 목록
-          </h1>
+        <h1 class="tit">
+          게시판 목록
+        </h1>
       </div>
 
-<!--        <div style="border-top: 2px solid #333">-->
-<!--          <v-row>-->
-<!--              <v-text-field-->
-<!--                style="margin: 10px"-->
-<!--                v-model="keyword"-->
-<!--                label="Search"-->
-<!--                class="mx-4"-->
-<!--                flat-->
-<!--                hide-details-->
-<!--                prepend-inner-icon="mdi-magnify"-->
-<!--                solo-inverted-->
-<!--              />-->
-<!--              <v-btn style="margin:20px" @click="search">검색</v-btn>-->
-<!--          </v-row>-->
+      <!--        <div style="border-top: 2px solid #333">-->
+      <!--          <v-row>-->
+      <!--              <v-text-field-->
+      <!--                style="margin: 10px"-->
+      <!--                v-model="keyword"-->
+      <!--                label="Search"-->
+      <!--                class="mx-4"-->
+      <!--                flat-->
+      <!--                hide-details-->
+      <!--                prepend-inner-icon="mdi-magnify"-->
+      <!--                solo-inverted-->
+      <!--              />-->
+      <!--              <v-btn style="margin:20px" @click="search">검색</v-btn>-->
+      <!--          </v-row>-->
 
 
-<!--        <v-data-table-->
-<!--          dense-->
-<!--          :headers="post_list"-->
-<!--          :items="dd"-->
-<!--          item-key="name"-->
-<!--          class="elevation-1"-->
-<!--        />-->
+      <!--        <v-data-table-->
+      <!--          dense-->
+      <!--          :headers="post_list"-->
+      <!--          :items="dd"-->
+      <!--          item-key="name"-->
+      <!--          class="elevation-1"-->
+      <!--        />-->
 
-        <v-simple-table
-          skyblue
-          dense
+      <v-simple-table
+        skyblue
+        dense
+      >
+        <thead>
+          <tr>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              게시글번호
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              제목
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              날짜
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              아이디
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              조회수
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(post,index) in paged_post_list"
+            :key="index"
+            @click="listPage(post.inq_id)"
+          >
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_id }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_title }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_time }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.user_id }}
+            </th>
+            <th
+              class="text-center"
+              style="font-size:20px;"
+            >
+              {{ post.inq_count }}
+            </th>
+          </tr>
+        </tbody>
+      </v-simple-table>
+      <div style="text-align: center">
+        <div style="display: inline-block;">
+          <v-btn
+            :disabled="pageNum === 0"
+            class="page-btn"
+            @click="prevPage"
+          >
+            이전
+          </v-btn>
+          <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
+          <v-btn
+            :disabled="pageNum+1 >= pageCount"
+            class="page-btn"
+            @click="nextPage"
+          >
+            다음
+          </v-btn>
+        </div>
+      </div>
+
+      {{ user_id }}
+      {{ inq_title }}
+      <div id="button">
+        <v-btn
+          type="button"
+          color="pink"
+          @click="check"
         >
-          <thead>
-            <tr>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                게시글번호
-              </th>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                제목
-              </th>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                날짜
-              </th>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                아이디
-              </th>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                조회수
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(post,index) in paged_post_list"
-              :key="index"
-              @click="listPage(post.inq_id)"
-            >
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                {{ post.inq_id }}
-              </th>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                {{ post.inq_title }}
-              </th>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                {{ post.inq_time }}
-              </th>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                {{ post.user_id }}
-              </th>
-              <th
-                class="text-center"
-                style="font-size:20px;"
-              >
-                {{ post.inq_count }}
-              </th>
-            </tr>
-          </tbody>
-        </v-simple-table>
-        <div style="text-align: center">
-          <div style="display: inline-block;">
-            <v-btn
-              :disabled="pageNum === 0"
-              class="page-btn"
-              @click="prevPage"
-            >
-              이전
-            </v-btn>
-            <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
-            <v-btn
-              :disabled="pageNum+1 >= pageCount"
-              class="page-btn"
-              @click="nextPage"
-            >
-              다음
-            </v-btn>
-          </div>
-        </div>
-
-        {{ user_id }}
-        {{ inq_title }}
-        <div id="button">
-          <v-btn
-            type="button"
-            color="pink"
-            @click="check"
-          >
-            등록
-          </v-btn>
-          <!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
-          <v-btn
-            type="button"
-            @click="write"
-          >
-            글쓰기
-          </v-btn>
-        </div>
+          등록
+        </v-btn>
+        <!--      <v-btn type="button" @click="cancel">취소</v-btn>-->
+        <v-btn
+          type="button"
+          @click="write"
+        >
+          글쓰기
+        </v-btn>
       </div>
     </div>
+  </div>
 <!--  </div>-->
 </template>
 

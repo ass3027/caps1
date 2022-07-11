@@ -1,5 +1,4 @@
 <template>
-
   <div style="width:100px;min-width: 1350px;margin-bottom: 20px ">
     <v-divider />
     <div style="margin-top: 30px">

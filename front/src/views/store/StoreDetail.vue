@@ -63,27 +63,27 @@
           <div class="col-12 col-md-6 text-left my-3">
             <div class="container">
               <div>
-              <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
-                Packless Travel
-              </span>
+                <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
+                  Packless Travel
+                </span>
               </div>
 
               <div class="mt-2 mb-4">
-              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ products[index].title }}
-              </span>
+                <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
+                  {{ products[index].title }}
+                </span>
               </div>
 
               <div>
-              <span style="font-size: 24px; font-weight: 900">
-                {{ products[index].addr1 }}
-              </span>
+                <span style="font-size: 24px; font-weight: 900">
+                  {{ products[index].addr1 }}
+                </span>
               </div>
 
               <div class="my-3">
-              <span class="text-muted">
-                {{ products[index].content }}
-              </span>
+                <span class="text-muted">
+                  {{ products[index].content }}
+                </span>
               </div>
 
               <div class="row">
@@ -103,12 +103,12 @@
                   <!--                </div>-->
                 </div>
                 <div class="col-4 col-md-12 my-1">
-                <span
-                  class=""
-                  style="font-weight: 700; color: rgb(183, 183, 183);"
-                >
-                  {{ products[index].tel }}
-                </span>
+                  <span
+                    class=""
+                    style="font-weight: 700; color: rgb(183, 183, 183);"
+                  >
+                    {{ products[index].tel }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -181,27 +181,27 @@
           <div class="col-12 col-md-6 text-left my-3">
             <div class="container">
               <div>
-              <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
-                Packless Travel
-              </span>
+                <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
+                  Packless Travel
+                </span>
               </div>
 
               <div class="mt-2 mb-4">
-              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ products[index].title }}
-              </span>
+                <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
+                  {{ products[index].title }}
+                </span>
               </div>
 
               <div>
-              <span style="font-size: 24px; font-weight: 900">
-                {{ products[index].addr1 }}
-              </span>
+                <span style="font-size: 24px; font-weight: 900">
+                  {{ products[index].addr1 }}
+                </span>
               </div>
 
               <div class="my-3">
-              <span class="text-muted">
-                {{ products[index].content }}
-              </span>
+                <span class="text-muted">
+                  {{ products[index].content }}
+                </span>
               </div>
 
               <div class="row">
@@ -221,19 +221,19 @@
                   <!--                </div>-->
                 </div>
                 <div class="col-4 col-md-12 my-1">
-                <span
-                  class=""
-                  style="font-weight: 700; color: rgb(183, 183, 183);"
-                >
-                  {{ products[index].tel }}
-                </span>
+                  <span
+                    class=""
+                    style="font-weight: 700; color: rgb(183, 183, 183);"
+                  >
+                    {{ products[index].tel }}
+                  </span>
                   <br>
                   <span
                     class=""
                     style="font-weight: 700; color: rgb(183, 183, 183);"
                   >
-                  숙소로 문의 부탁드립니다.
-                </span>
+                    숙소로 문의 부탁드립니다.
+                  </span>
                 </div>
               </div>
             </div>
@@ -243,11 +243,13 @@
     </div>
 
 
-    <ReviewView :type="'호텔'" :id="'조선호텔1'" style="width: 1274px; margin: 0 auto"/>
-
+    <ReviewView
+      :id="'조선호텔1'"
+      :type="'호텔'"
+      style="width: 1274px; margin: 0 auto"
+    />
   </div>
   <!--    <StoreReviewView :store_name="store_name"/>-->
-
 </template>
 
 <script>

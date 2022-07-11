@@ -3,7 +3,6 @@
     <br>
 
     <div class="xans-element- xans-product xans-product-additional detail_board  ">
-
       <div v-if="reviews.length === 0">
         리뷰 없음
       </div>

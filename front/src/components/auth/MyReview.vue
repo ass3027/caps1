@@ -8,26 +8,32 @@
       </h1>
     </div>
     <ul class="tab_menu">
-      <li id="reviewBefore"><a @click="change('reviewBefore')">작성가능 후기 <span>({{  }})</span></a></li>
-      <li id="reviewAfter"><a @click="change('reviewAfter')">작성완료 후기 <span>({{  }})</span></a></li>
+      <li id="reviewBefore">
+        <a @click="change('reviewBefore')">작성가능 후기 <span>({{ }})</span></a>
+      </li>
+      <li id="reviewAfter">
+        <a @click="change('reviewAfter')">작성완료 후기 <span>({{ }})</span></a>
+      </li>
     </ul>
     <template v-if="status === 'reviewBefore'">
-
       <ul class="list_payment">
-        <h2 style="border-bottom: 2px solid #333">가이드</h2>
+        <h2 style="border-bottom: 2px solid #333">
+          가이드
+        </h2>
 
-        <li v-for="payment in guidePaymentList" :key="payment.pay_id">
-          <GuidePayment :payment="payment"/>
+        <li
+          v-for="payment in guidePaymentList"
+          :key="payment.pay_id"
+        >
+          <GuidePayment :payment="payment" />
         </li>
 
-        <h2 style="border-bottom: 2px solid #333; padding-top: 30px">호텔</h2>
-
+        <h2 style="border-bottom: 2px solid #333; padding-top: 30px">
+          호텔
+        </h2>
       </ul>
     </template>
-    <template v-else>
-
-    </template>
-
+    <template v-else />
   </div>
   <!--  </div>-->
 </template>

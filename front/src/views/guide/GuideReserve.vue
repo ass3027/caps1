@@ -1,16 +1,14 @@
 <template>
   <div style="position: relative; max-width: 1040px;">
     <canvas
-      class="canvas"
       ref="barChart"
+      class="canvas"
     />
     <v-data-table
-    :headers="headers"
-    :items="lists"
-    :item-per-page="5"
-    >
-
-    </v-data-table>
+      :headers="headers"
+      :items="lists"
+      :item-per-page="5"
+    />
   </div>
 </template>
 
