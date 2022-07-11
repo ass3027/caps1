@@ -13,14 +13,14 @@
         </div>
         <div class="cardText">
           <div class="cardTitle">
-            <h4>{{ product.pd_name }}</h4>
+            <h3>{{ product.pd_name }}</h3>
           </div>
           <br>
           <div class="cardPrice">
-            <h5>가격 <span class="priceScore">{{ product.pd_price }}원</span></h5>
+            <h4>가격 <span class="priceScore">{{ product.pd_price }}원</span></h4>
           </div>
 
-
+          <br>
           <div class="detail">
             <div class="">
               <v-dialog
@@ -34,7 +34,8 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    객실 이용 안내
+
+                    <h5>객실 이용 안내</h5>
                   </v-text>
                 </template>
 
@@ -44,15 +45,15 @@
                   </v-card-title>
 
                   <v-card-text style="padding: 100px">
-                    <h6>객실 기본 정보 : {{product.room_human}}</h6>
+                    <h6>객실 기본 정보 : {{ product.room_human }}</h6>
                     <br>
                     <hr>
                     <br>
-                    <h6>객실 침대 정보 : {{product.bed_info}}</h6>
+                    <h6>객실 침대 정보 : {{ product.bed_info }}</h6>
                     <br>
                     <hr>
                     <br>
-                    <h6>객실 용품 : {{product.pd_info}}</h6>
+                    <h6>객실 용품 : {{ product.pd_info }}</h6>
                   </v-card-text>
 
                   <v-divider></v-divider>
@@ -76,7 +77,7 @@
             <hr>
           </div>
           <br>
-          <v-btn class="예약" @click="go" color="#5882FA">
+          <v-btn class="예약" @click="go">
             예약하기
           </v-btn>
         </div>
@@ -129,7 +130,7 @@ export default {
   },
   methods: {
     go() {
-      this.$router.push({name: 'productBook', params: {product: this.product}})
+      this.$router.push(`/productBook/${this.product.pd_id}`)
     }
   },
 
@@ -196,7 +197,12 @@ export default {
 
   background: rgba(0, 0, 0, 0.1);
 }
-.예약{
+
+.예약 {
   width: 100%;
+}
+
+.theme--light.v-btn.v-btn--has-bg {
+  background: #139DF2;
 }
 </style>

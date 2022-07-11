@@ -45,19 +45,30 @@
       <div>
         <template v-if="check == '보관'">
           <h3>보관조회</h3>
-          <v-data-table :headers="storageHeaders" :items="sortedStorageList" :items-per-page="5">
-            <template v-slot:[`item.detail`]="{ item }">
-              <v-btn @click="orderDetail(item)">상세보기</v-btn>
-
+          <v-data-table
+            :headers="storageHeaders"
+            :items="sortedStorageList"
+            :items-per-page="5"
+          >
+            <template #[`item.detail`]="{ item }">
+              <v-btn @click="orderDetail(item)">
+                상세보기
+              </v-btn>
             </template>
           </v-data-table>
         </template>
 
         <template v-else>
           <h3>운송조회</h3>
-          <v-data-table :headers="transportHeaders" :items="sortedTransportList" :items-per-page="5">
-            <template v-slot:[`item.detail`]="{ item }">
-              <v-btn @click="orderDetail(item)">상세보기</v-btn>
+          <v-data-table
+            :headers="transportHeaders"
+            :items="sortedTransportList"
+            :items-per-page="5"
+          >
+            <template #[`item.detail`]="{ item }">
+              <v-btn @click="orderDetail(item)">
+                상세보기
+              </v-btn>
             </template>
           </v-data-table>
         </template>
@@ -70,7 +81,7 @@
 import axios from "axios";
 
 export default {
-  name: "keeperTrackingView",
+  name: "KeeperTrackingView",
   data() {
     return {
       dialogStorage: 'true',

@@ -79,6 +79,7 @@
       })
 
       if(this.select !== undefined) {
+        console.log('select', this.select)
         this.selected = this.select
       }
 

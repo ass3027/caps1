@@ -2,12 +2,16 @@
   <div style="max-width: 1050px">
     <br>
 
-    <div class="xans-element- xans-product xans-product-additional detail_board  ">
+    <div class="xans-element- xans-product xans-product-additional detail_board">
 
-      <div v-if="reviews.length === 0">
-        리뷰 없음
+      <h3 style="border-bottom: 1px solid #333">후기 ({{ reviews.length }})</h3>
+
+      <div
+        v-if="reviews.length === 0"
+        class="wrap_empty"
+      >
+        <strong>후기가 없습니다.</strong>
       </div>
-
       <div v-else>
         <review-list
           :reviews="slice_reviews"
@@ -55,6 +59,7 @@
         class="layout-pagination-button layout-pagination-last-page"
         @click="pageLast"
       >맨 끝 페이지로 가기</a>
+
     </div>
   </div>
 </template>
@@ -87,8 +92,9 @@ export default {
   },
   computed: {
     slice_reviews() {
-      var current_page = this.current_page
-      return this.reviews.slice((current_page - 1) * 7, current_page * 7)
+      const a = this.reviews.slice((this.current_page - 1) * 7, this.current_page * 7)
+      console.log('test', a)
+      return a
     },
     max_page() {
       return Math.ceil(this.reviews.length / 7)
@@ -101,77 +107,21 @@ export default {
   methods: {
     reviewRegister() {
       // this.$router.push("/ReviewCreate/" + this.type + '/' + this.id)
-      this.$router.push('/MyPage/MyPaymentList')
+      this.$router.push('/MyPage/MyReview')
 
       console.log('test', '!!!!!!!!!!!')
     },
     getReviews() {
 
-      axios.get('http://localhost:8080/api/findReviews/' + this.type + '/' + this.id)
+      axios.get('/api/find/reviews/' + this.type + '/' + this.id)
         .then(res => {
-          console.log(res.data)
+          console.log('/api/find/reviews/', res.data, this.type, this.id)
           this.reviews = res.data
         })
         .catch((err) => {
           console.log(err)
         })
 
-      // if (this.type === 'product') {
-      //   axios.get('http://localhost:8080/api/productReview?pd_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      //
-      // } else if (this.type === 'store') {
-      //   axios.get('http://localhost:8080/api/storeReview?store_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // } else if (this.type === 'guide') {
-      //   axios.get('http://localhost:8080/api/guideReview?guide_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // } else if (this.type === 'gitem') {
-      //   axios.get('http://localhost:8080/api/gitemReview?gitem_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // } else if (this.type === 'keeper') {
-      //   axios.get('http://localhost:8080/api/keeperReview?keeper_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // } else if (this.type === 'delivery') {
-      //   axios.get('http://localhost:8080/api/deliveryReview?delivery_id=' + this.id)
-      //     .then(res => {
-      //       console.log(res.data)
-      //       this.reviews = res.data
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      // }
 
 
     },
@@ -256,13 +206,13 @@ export default {
   text-align: right;
   width: 100%;
   display: table;
-  border-top: 1px solid #6a3664;
+  border-top: 1px solid #333;
 
 }
 
 .layout-pagination-number:hover {
   background-color: #f7f7f7;
-  color: #5f0080;
+  color: #333;
 }
 
 a:any-link {
@@ -327,13 +277,24 @@ a:any-link {
   display: inline-block
 }
 
-.xans-product-additional div.board .btnArea a .btn_submit {
-  background-color: #5f0080
+.wrap_empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  text-align: center;
+  font-family: NotoSansCJKkr
 }
 
-.xans-product-additional div.board .btnArea a .btn_submit:hover {
-  background-color: #401661;
-  color: #fff
+.wrap_empty strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -.3px
 }
 </style>
 

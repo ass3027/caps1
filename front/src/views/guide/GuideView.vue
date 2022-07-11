@@ -1,143 +1,58 @@
 <template>
-<div>
-  <v-btn @click="onsubmit()" style="float: right;">
-    검색
-  </v-btn>
-
-  <input
-    v-model="keyword"
-    name="keyword"
-    type="text"
-    style="border: #1e90cc solid; float: right;"
-    class="search"
-  >
-
-  <div style="display: flex"
-  >
-    <v-row
-      style="margin: 18px"
-    cols="0"
-    md="0">
-
-  <v-card
-    v-for="(item,index) in lists"
-    :key="index"
-    style="margin: 20px;"
-    class="mx-auto"
-    width="400"
-  >
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      :src="img(item.pic_name)"
+  <div class="col-9 ">
+    <input
+      v-model="keyword"
+      name="keyword"
+      type="text"
+      style="border: #1e90cc solid; margin-bottom:22px"
     >
-      <h2 style="color: black">{{item.user_name}}
-      <br> {{item.user_id}}
-      </h2>
+    <v-btn
+      @click="onsubmit()"
+    >
+      Search
+    </v-btn>
+    <div class="row">
+      <div class="col-4" id="listaproyectos"
+           v-for="(item,index) in lists"
+           :key="index">
+        <div class="card text-align textocorrecto">
+          <!--Card image-->
+          <v-img
+            class="pic"
+            height="140px"
+            width="140px"
+            :src="img(item.pic_name)"
+          >
+          </v-img>
+          <!--Card content-->
+          <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title">{{item.user_name}}</h4>
+            <!--Text-->
+            <p class="card-text">{{item.guser_intro}}</p>
 
-    </v-img>
-
-    <v-card-subtitle class="pb-0">
-
-    </v-card-subtitle>
-
-    <v-card-text class="text--primary">
-      <div>자격증:{{item.guide_license}}</div>
-
-      <div>소개:{{item.guser_intro}}</div>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="orange"
-        text
-        @click="view(item)"/>
-    </v-card-actions>
-  <div
-    class=""
-    style="width: 1050px; padding-top: 60px"
-  >
-    <v-row style="padding-bottom: 20px">
-
-      <input
-        v-model="keyword"
-        name="keyword"
-        type="text"
-        style="border: #1e90cc solid"
-        class="search"
-      >
-      <v-btn @click="onsubmit()">
-        검색
-      </v-btn>
-    </v-row>
-    <div>
-      <div
-        v-for="(item,index) in lists"
-        :key="index"
-        style="width: 33%;margin-right: 0.3%;margin-bottom: 2px; display: inline-block; border: 10px solid #dddfe1; border-radius: 10px"
-        outlined
-        justify="start"
-      >
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="text-overline mb-4">
-              이름:{{ item.user_name }}
-            </div>
-            <div>
-              자격증:<br>{{ item.guide_license }}
-            </div>
-            <v-list-item-title class="text-h5 mb-1">
-              ID:{{ item.user_id }}
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              소개<br>{{ item.guser_intro }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-
-          <div>
-            <v-list-item-avatar
-              tile
-              size="80"
-              color="grey"
+            <v-btn
+              color="orange"
+              text
+              @click="view(item)"
             >
-              <img :src="img(item.pic_name)">
-            </v-list-item-avatar>
+              VIEWS
+            </v-btn>
 
-            <v-card-actions style="padding: 0">
-              <v-btn
-                outlined
-                rounded
-                text
-                @click="view(item)"
-              >
-                상세보기
-              </v-btn>
-            </v-card-actions>
+            <v-btn
+              v-if="item.user_id==$store.state.user.userId"
+              color="orange"
+              text
+              @click="views(item)"
+            >
+              INTRO
+            </v-btn>
           </div>
-        </v-list-item>
-        <v-btn
-          v-if="item.user_id==$store.state.user.userId"
-          outlined
-          rounded
-          text
-          @click="views(item)"
-        >
-          소개 작성
-        </v-btn>
-        <v-card-actions />
-
+        </div>
       </div>
-
     </div>
-
   </div>
-  </v-card>
-    </v-row>
-  </div>
-</div>
-
 </template>
-
 <script>
 import axios from "axios";
 
@@ -194,6 +109,9 @@ export default {
 </script>
 <style scoped>
 
+.col-4 {
+  border: 10px double black;
+}
 
 </style>
 

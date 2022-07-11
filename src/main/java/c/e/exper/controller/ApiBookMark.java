@@ -4,10 +4,7 @@ import c.e.exper.data.PlaceDAO;
 import c.e.exper.mapper.BookMarkMapper;
 import c.e.exper.mapper.PlaceMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
 import java.util.*;
@@ -67,6 +64,25 @@ public class ApiBookMark {
         return bookmarkData;
 
     }
+
+    @GetMapping("/getBookMarkStatus")
+    String getBookMarkStatus(@RequestParam("user_id")String user_id,
+                             @RequestParam("pl_id")String pl_id){
+        return bookMarkMapper.getBookMarkStatus(user_id,pl_id);
+    }
+
+    @PostMapping("/insertBookMark")
+    void insertBookMark(@RequestParam("user_id")String user_id,
+                             @RequestParam("pl_id")String pl_id){
+        bookMarkMapper.insertBookMark(user_id,pl_id);
+    }
+
+    @DeleteMapping("/deleteBookMark")
+    void deleteBookMark(@RequestParam("user_id")String user_id,
+                             @RequestParam("pl_id")String pl_id){
+        bookMarkMapper.deleteBookMark(user_id,pl_id);
+    }
+
 }
 
 

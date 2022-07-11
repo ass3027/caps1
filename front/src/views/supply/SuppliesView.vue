@@ -280,8 +280,8 @@
               </template>
 
               <v-list-item
-                v-for="(supl, i) in set"
-                :key="i"
+                v-for="(supl, index) in set"
+                :key="index"
                 link
               >
                 <v-list-item-title v-text="supl.supl_name" />
@@ -300,7 +300,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
-import PlannerHeader from "@/components/PlannerHeader";
+import PlannerHeader from "@/components/planner/PlannerHeader";
 
 export default {
   name: 'SuppliesView',

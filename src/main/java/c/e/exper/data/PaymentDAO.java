@@ -14,18 +14,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class PaymentDAO {
-    String user_id;
-    String pay_place;
+    String pay_id;
     String pay_method;
     LocalDateTime pay_time;
-    String pay_id;
     String pay_price;
     String pay_context;
     String plan_id;
-    String receipt;
-    String card_num;
+    String user_id;
     String ord_id;
     String gtime_num;
+    boolean rev_check;
+
     String buy_status;
 
     int price1;

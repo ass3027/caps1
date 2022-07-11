@@ -1,19 +1,14 @@
 <template>
   <v-container>
-    <v-row justify="center" style="text-align: center">
+    <v-row
+      justify="center"
+      style="text-align: center"
+    >
       <v-col cols="7">
         <h1>{{tour.title}}</h1>
         <p>{{tour.addr1}}</p>
-        <div>
-<!--          <span style="float:left">-->
-<!--            <v-icon-->
-<!--              color="red"-->
-<!--              @click="editStart(task,i)"-->
-<!--            >-->
-<!--              mdi-heart-plus-->
-<!--            </v-icon>-->
-<!--            찜하기-->
-<!--          </span>-->
+        <div v-if="tour!=''">
+          <book-mark-status :pl_id="tour.contentid"></book-mark-status>
 <!--          <span style="float:right"-->
 <!--                @click="toCalendar"-->
 <!--          >-->
@@ -37,17 +32,20 @@
             :src="image.originimgurl"
             reverse-transition="fade-transition"
             transition="fade-transition"
-          ></v-carousel-item>
+          />
         </v-carousel>
-        <img v-else :src="images.originimgurl">
+        <img
+          v-else
+          :src="images.originimgurl"
+        >
 
         <br>
         <h3>상세정보</h3>
-        <v-divider></v-divider>
+        <v-divider />
         <br>
-        <p v-html="tour.overview"></p>
+        <p v-html="tour.overview" />
         <template v-if="tour!=''">
-          <KakaoMap :place="tour"></KakaoMap>
+          <KakaoMap :place="tour" />
         </template>
 
         <v-row style="text-align: left">
@@ -66,7 +64,7 @@
                   주소
                 </strong>
                 <span>
-                  {{tour.addr1}}
+                  {{ tour.addr1 }}
                 </span>
               </li>
               <li>
@@ -81,9 +79,7 @@
                 <strong>
                   입장료
                 </strong>
-                <span>
-
-                </span>
+                <span />
               </li>
             </ul>
           </v-col>
@@ -93,9 +89,7 @@
                 <strong>
                   홈페이지
                 </strong>
-                <span v-html="tour.homepage">
-                </span>
-
+                <span v-html="tour.homepage" />
               </li>
               <li>
                 <strong>
@@ -117,16 +111,11 @@
                 <strong>
                   시설이용료
                 </strong>
-                <span>
-
-                </span>
-
+                <span />
               </li>
             </ul>
-
           </v-col>
         </v-row>
-
       </v-col>
     </v-row>
   </v-container>
@@ -135,12 +124,14 @@
 <script>
 import axios from "axios";
 import KakaoMap from "@/components/KakaoMap";
+import BookMarkStatus from "@/components/BookMarkStatus";
 
 export default {
 
   name: 'TourDetailView',
   components: {
-    KakaoMap
+    KakaoMap,
+    BookMarkStatus
   },
   props:['pl_id','contentTypeId'],
   data() {
@@ -156,6 +147,7 @@ export default {
     axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest&firstImageYN=Y&mapinfoYN=Y&_type=json`)
     .then((res)=>{
       this.tour=res.data.response.body.items.item
+
       axios.get(`http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage?ServiceKey=5rTZpUCbTNQQs2rG3%2FXoLvSO%2FDTYLSBp8OgERTKIgFOKwh5LHirGiqkQ%2Begr9tI6qHEkQJWFY2wHcA36h6DU6A%3D%3D&contentId=${this.pl_id}&imageYN=Y&MobileOS=ETC&MobileApp=AppTest&subImageYN=Y`)
         .then((res)=>{
           this.images=res.data.response.body.items.item

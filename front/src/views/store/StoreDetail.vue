@@ -1,12 +1,11 @@
 <template>
   <div class="">
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      rel="stylesheet"
     >
-
 
     <div v-if="temp===1 && products[0].pd_id !== null">
       <div class="container my-0 my-md-4">
@@ -22,8 +21,8 @@
                     v-if="temp===1"
                     :src="'/api/photo/' + products[index].pic_name"
                     alt=""
-                    style="width: 100%"
                     class="image"
+                    style="width: 100%"
                   />
                 </div>
               </div>
@@ -47,11 +46,11 @@
                       @click="changeMainImage(index)"
                     >
                       <v-img
+                        :class="mainImage === product.pic_name ? 'activess' : ''"
                         :src="'/api/photo/' + product.pic_name"
-                        style="width:100%"
                         alt=""
                         class="image"
-                        :class="mainImage === product.pic_name ? 'activess' : ''"
+                        style="width:100%"
                       />
                     </div>
                   </div>
@@ -63,27 +62,27 @@
           <div class="col-12 col-md-6 text-left my-3">
             <div class="container">
               <div>
-              <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
-                Packless Travel
-              </span>
+                <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
+                  Packless Travel
+                </span>
               </div>
 
               <div class="mt-2 mb-4">
-              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ products[index].title }}
-              </span>
+                <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
+                  {{ products[index].title }}
+                </span>
               </div>
 
               <div>
-              <span style="font-size: 24px; font-weight: 900">
-                {{ products[index].addr1 }}
-              </span>
+                <span style="font-size: 24px; font-weight: 900">
+                  {{ products[index].addr1 }}
+                </span>
               </div>
 
               <div class="my-3">
-              <span class="text-muted">
-                {{ products[index].content }}
-              </span>
+                <span class="text-muted">
+                  {{ products[index].content }}
+                </span>
               </div>
 
               <div class="row">
@@ -103,12 +102,12 @@
                   <!--                </div>-->
                 </div>
                 <div class="col-4 col-md-12 my-1">
-                <span
-                  class=""
-                  style="font-weight: 700; color: rgb(183, 183, 183);"
-                >
-                  {{ products[index].tel }}
-                </span>
+                  <span
+                    class=""
+                    style="font-weight: 700; color: rgb(183, 183, 183);"
+                  >
+                    {{ products[index].tel }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -141,8 +140,8 @@
                     v-if="temp===1"
                     :src="products[0].firstimage"
                     alt=""
-                    style="width: 100%"
                     class="image"
+                    style="width: 100%"
                   />
                 </div>
               </div>
@@ -166,10 +165,10 @@
                       @click="changeMainImage(index)"
                     >
                       <v-img
-                        style="width:100%"
+                        :class="mainImage === product.firstimage ? 'activess' : ''"
                         alt=""
                         class="image"
-                        :class="mainImage === product.firstimage ? 'activess' : ''"
+                        style="width:100%"
                       />
                     </div>
                   </div>
@@ -181,27 +180,27 @@
           <div class="col-12 col-md-6 text-left my-3">
             <div class="container">
               <div>
-              <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
-                Packless Travel
-              </span>
+                <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
+                  Packless Travel
+                </span>
               </div>
 
               <div class="mt-2 mb-4">
-              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ products[index].title }}
-              </span>
+                <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
+                  {{ products[index].title }}
+                </span>
               </div>
 
               <div>
-              <span style="font-size: 24px; font-weight: 900">
-                {{ products[index].addr1 }}
-              </span>
+                <span style="font-size: 24px; font-weight: 900">
+                  {{ products[index].addr1 }}
+                </span>
               </div>
 
               <div class="my-3">
-              <span class="text-muted">
-                {{ products[index].content }}
-              </span>
+                <span class="text-muted">
+                  {{ products[index].content }}
+                </span>
               </div>
 
               <div class="row">
@@ -221,19 +220,19 @@
                   <!--                </div>-->
                 </div>
                 <div class="col-4 col-md-12 my-1">
-                <span
-                  class=""
-                  style="font-weight: 700; color: rgb(183, 183, 183);"
-                >
-                  {{ products[index].tel }}
-                </span>
+                  <span
+                    class=""
+                    style="font-weight: 700; color: rgb(183, 183, 183);"
+                  >
+                    {{ products[index].tel }}
+                  </span>
                   <br>
                   <span
                     class=""
                     style="font-weight: 700; color: rgb(183, 183, 183);"
                   >
-                  숙소로 문의 부탁드립니다.
-                </span>
+                    숙소로 문의 부탁드립니다.
+                  </span>
                 </div>
               </div>
             </div>
@@ -243,15 +242,18 @@
     </div>
 
 
-    <ReviewView :type="'호텔'" :id="'조선호텔1'" style="width: 1274px; margin: 0 auto"/>
 
+    {{ pl_id }}
+    <ReviewView
+      :id="pl_id"
+      :type="'호텔'"
+      style="width: 1274px; margin: 0 auto"
+    />
   </div>
   <!--    <StoreReviewView :store_name="store_name"/>-->
-
 </template>
 
 <script>
-import StoreReviewView from "@/views/StoreReviewView";
 import axios from "axios";
 import PlaceProduct from "@/components/store/PlaceProduct";
 import ReviewView from "@/views/ReviewView";
@@ -311,31 +313,8 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-
-    // axios({
-    //   methods: 'GET',
-    //   url: '/api/findproduct',
-    //   params: {'pl_id': this.pl_id}
-    // })
-    // .then((res) => {
-    //   this.plProduct = res.data
-    //   console.log(this.plProduct)
-    // })
-
-    // axios({
-    //   method: 'GET',
-    //   url: '/api/findPlName',
-    //   params: {'store_id': this.store_id}
-    // })
-    //   .then((res) => {
-    //     this.store_name = res.data
-    //   })
-    // console.log(this.$route)
   },
   methods: {
-    // showMainImage() {
-    //   this.showImageModal = true;
-    // },
     changeMainImage(index) {
       this.index = index;
     },

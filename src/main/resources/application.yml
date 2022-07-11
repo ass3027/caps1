@@ -11,6 +11,9 @@ spring:
         enabled: true     # livereload 사용시 활성화
       restart:
         enabled: false    #운영 에서는 제거.
+  servlet:
+    multipart:
+      max-file-size: 10MB
 
 #spring:
 #  datasource:
@@ -20,8 +23,11 @@ spring:
 #    password: 1234
 #  devtools:
 #    remote:
+#      enabled: true
+#      livereload:
+#        enabled: true     # livereload 사용시 활성화
 #      restart:
-#        enabled: true
+#        enabled: false    #운영 에서는 제거.
 
 
 

@@ -49,7 +49,7 @@ export default {
 /*}*/
 
 * {
-  color : #262626;
+  color : #262626 ;
 }
 
 .v-application--wrap {
@@ -68,4 +68,10 @@ nav a {
 .v-application--wrap {
   min-height: unset;
 }
+
+/*.v-btn{*/
+/*  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;*/
+/*}*/
+
+
 </style>

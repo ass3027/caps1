@@ -1,6 +1,7 @@
 package c.e.exper.mapper;
 
 import c.e.exper.data.PlaceDAO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -25,4 +26,21 @@ public interface BookMarkMapper {
     @Select("SELECT title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.cat1='AO2' and bookmark.user_id=#{user_id}")
     List<PlaceDAO> selectByUserBookMarkHotel(String user_id);
 
+    //북마크 여부
+    @Select("""
+            select count(*)
+            from BOOKMARK
+            where USER_ID = #{user_id}
+            and PL_ID = ${pl_id}
+            """)
+    String getBookMarkStatus(String user_id, String pl_id);
+
+
+    //북마크 추가
+    @Insert("insert into BOOKMARK(user_id, pl_id) values(#{user_id},#{pl_id})")
+    void insertBookMark(String user_id, String pl_id);
+
+    //북마크 삭제
+    @Delete("delete from BOOKMARK where user_id=#{user_id} and PL_ID=${pl_id}")
+    void deleteBookMark(String user_id, String pl_id);
 }

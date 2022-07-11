@@ -139,8 +139,6 @@ export default {
         photoFrame.className = 'photoFrame';
         document.getElementById('pictures').appendChild(photoFrame);
       }
-
-
     },
     onSubmit() {
       var review = new FormData()

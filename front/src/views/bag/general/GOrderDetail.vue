@@ -1,7 +1,9 @@
 <template>
   <v-container>
-    <table v-if="item.ord_selection==`물품운송`"
-           style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
+    <table
+      v-if="item.ord_selection==`물품운송`"
+      style="display:table; border: 2px solid black; height: 200px; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white"
+    >
       <div style="margin-top: 10px">
         <p style="display: inline; font-size: large; margin-left: 5px">
           배송경로
@@ -17,55 +19,58 @@
 
       <table id="order_detail">
         <thead scope="row">
-        <tr/>
+          <tr />
         </thead>
         <tbody>
-        <tr>
-          <th>금액</th>
-          <td>{{ order.ord_amount }} 원</td>
-        </tr>
-        <tr>
-          <th>픽업/완료</th>
-          <td>
-            <div>
-              {{ entrust_time }}
-            </div>
-            <div>
-              {{ withdraw_time }}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>출발지</th>
-          <td>{{ keep_start.addr1 }},{</td>
-        </tr>
-        <tr>
-          <th>도착지</th>
-          <td>{{ keep_end.addr1 }}</td>
-        </tr>
-        <tr>
-          <th>거리</th>
-          <td>{{ degree_start_end }}Km</td>
-        </tr>
-        <tr>
-          <th>요청사항</th>
-          <td>{{ item.ord_request }}</td>
-        </tr>
+          <tr>
+            <th>금액</th>
+            <td>{{ order.ord_amount }} 원</td>
+          </tr>
+          <tr>
+            <th>픽업/완료</th>
+            <td>
+              <div>
+                {{ entrust_time }}
+              </div>
+              <div>
+                {{ withdraw_time }}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>출발지</th>
+            <td>{{ keep_start.addr1 }},{</td>
+          </tr>
+          <tr>
+            <th>도착지</th>
+            <td>{{ keep_end.addr1 }}</td>
+          </tr>
+          <tr>
+            <th>거리</th>
+            <td>{{ degree_start_end }}Km</td>
+          </tr>
+          <tr>
+            <th>요청사항</th>
+            <td>{{ item.ord_request }}</td>
+          </tr>
         </tbody>
-
       </table>
       <div>
         <v-btn
           class="btn_type2"
           height="54px"
           color="white"
-          @click="backTrackingView()">목록
+          @click="backTrackingView()"
+        >
+          목록
         </v-btn>
       </div>
     </table>
 
-    <table v-else
-           style="display:table; border: 2px solid black; height: 200px; margin: 0 auto; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white">
+    <table
+      v-else
+      style="display:table; border: 2px solid black; height: 200px; margin: 0 auto; padding: 20px 15px; width: 600px; margin: 0 auto; background-color: white"
+    >
       <div style="margin-top: 10px">
         <p style="display: inline; font-size: large; margin-left: 5px">
           보관상세
@@ -83,38 +88,38 @@
 
       <table>
         <thead scope="row">
-        <tr/>
+          <tr />
         </thead>
         <tbody>
-        <tr>
-          <th><h2>금액</h2></th>
-          <td><h3>{{ item.ord_amount }} 원</h3></td>
-        </tr>
-        <tr>
-          <th><h2>보관시작시간</h2></th>
-          <td>
-            <div>
-              <h3>{{ item.entrust_time }}</h3>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th><h2>보관만료시간</h2></th>
-          <td>
-            <div>
-              <h3>{{ item.withdraw_time }}</h3>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th><h2>물품보관장소</h2></th>
-          <td><h3>{{ item.keep_start_title }}</h3></td>
-        </tr>
+          <tr>
+            <th><h2>금액</h2></th>
+            <td><h3>{{ item.ord_amount }} 원</h3></td>
+          </tr>
+          <tr>
+            <th><h2>보관시작시간</h2></th>
+            <td>
+              <div>
+                <h3>{{ item.entrust_time }}</h3>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th><h2>보관만료시간</h2></th>
+            <td>
+              <div>
+                <h3>{{ item.withdraw_time }}</h3>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th><h2>물품보관장소</h2></th>
+            <td><h3>{{ item.keep_start_title }}</h3></td>
+          </tr>
 
-        <tr>
-          <th><h2>요청사항</h2></th>
-          <td><h3>{{ item.ord_request }}</h3></td>
-        </tr>
+          <tr>
+            <th><h2>요청사항</h2></th>
+            <td><h3>{{ item.ord_request }}</h3></td>
+          </tr>
         </tbody>
       </table>
       <div>
@@ -122,7 +127,9 @@
           class="btn_type2"
           height="54px"
           color="white"
-          @click="backTrackingView()">목록
+          @click="backTrackingView()"
+        >
+          목록
         </v-btn>
       </div>
     </table>

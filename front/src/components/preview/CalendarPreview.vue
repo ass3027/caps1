@@ -8,7 +8,7 @@
       :events="events"
       :event-overlap-mode="mode"
       :event-overlap-threshold="30"
-      event-height="15"
+      :event-height=17
     ></v-calendar>
 
   </div>
@@ -42,7 +42,6 @@ export default {
   mounted() {
     axios.get(`/api/planner/${this.$store.state.user.userId}`)
       .then((res)=>{
-        console.log(res.data)
         for (let i = 0; i < res.data.length; i++) {
           this.events.push({
             name: res.data[i].plan_name,
@@ -52,7 +51,6 @@ export default {
 
           })
         }
-        console.log(this.events)
 
       })
   },

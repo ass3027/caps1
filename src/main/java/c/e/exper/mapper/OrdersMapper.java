@@ -123,6 +123,15 @@ public interface OrdersMapper {
             and b.PL_ID=a.KEEP_START
             and c.PL_ID=a.KEEP_END
             """)
-    public List<OrderDAO> selectMyOrders(String user_id);
+    public List<OrderDAO> selectMyTransOrders(String user_id);
+
+    @Select("""
+            select ENTRUST_TIME,WITHDRAW_TIME,b.title as keep_start, STATUS
+            from ORDERS a,place b
+            where a.user_id='asdf1234'
+                        and b.PL_ID=a.KEEP_START
+            and ORD_SELECTION = '물품보관'
+                        """)
+    public List<OrderDAO> selectMyKeepOrders(String user_id);
 
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>-->
+    <!--    <h2>{{ $store.state.user.userId }}님에게 추천하는 여행지들</h2>-->
     <v-row v-if="items!=''">
       <v-col
         v-for="(item,i) in items"
@@ -8,39 +8,51 @@
         cols="2"
       >
         <img
-        :src="item.firstimage"
-        @click="$router.push({path:`/tour/${item.pl_id}`})"
-
+          :src="item.firstimage"
+          @click="$router.push({path:`/tour/${item.pl_id}`})"
         >
         <span
           v-if="item.title!==''"
           class="innerText"
         >
           <h3>{{ item.title }}</h3>
-          <v-btn @click="toCalendar(item)">
-            일정에추가
-          </v-btn>
+          <v-row>
+            <v-col cols="auto">
+              <v-icon
+                color="orange"
+                @click="toCalendar(item)"
+              >
+                mdi-calendar-check-outline
+              </v-icon>
+              일정
+            </v-col>
+            <v-col cols="auto">
+              <book-mark-status :pl_id="item.pl_id"></book-mark-status>
+            </v-col>
+          </v-row>
         </span>
       </v-col>
     </v-row>
     <v-row v-else>
-        <img
-          src="/api/photo/placeImage/no_place.png"
-          style="width: 230px;height:200px"
-          class="mt-5"
-          @click="$router.push({path:'/calender'})"
-
-        >
+      <img
+        src="/api/photo/placeImage/no_place.png"
+        style="width: 230px;height:200px"
+        class="mt-5"
+        @click="$router.push({path:'/calender'})"
+      >
     </v-row>
-
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import BookMarkStatus from "@/components/BookMarkStatus";
 
 export default {
   name: "PlaceRecommend",
+  components:{
+    BookMarkStatus
+  },
   data () {
     return {
       items: [

@@ -1,12 +1,20 @@
 <template>
   <div style="position: relative; max-width: 1040px">
-    <v-select
-      :items="items"
-      label="Standard"
-    ></v-select>
+    <div>
+<!--      <v-select-->
+<!--        :items="items"-->
+<!--        item-text="pd_name"-->
+<!--        item-value="pd_id"-->
+<!--        v-model="value"-->
+<!--        @change="change_pd(value)"-->
+<!--      >-->
+<!--      </v-select>-->
+    </div>
     <canvas
       ref="barChart"
+      id="chart"
     />
+    <ProductUserBook/>
   </div>
 </template>
 
@@ -17,14 +25,18 @@ import {Chart, registerables} from "chart.js";
 
 Chart.register(...registerables)
 import axios from "axios";
-
-let chart
-
+import ProductUserBook from "@/views/store/productUserBook";
 
 export default {
-  name: "chartView",
-
+  name: "ChartView",
+  components: {ProductUserBook},
   data: () => ({
+    selectedValue: null,
+    listss: '',
+    listss1: '',
+    listss7: '',
+    listss30: '',
+
     list: '',
     list1: '',
     list7: '',
@@ -33,7 +45,7 @@ export default {
     data: {
       labels: ['총 매출', '최근 한달', '최근 7일', '금일'],
       datasets: [{
-        label: '# of Votes',
+        label: '매출',
         data: ['', '', '', ''],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -53,7 +65,6 @@ export default {
         ],
         borderWidth: 1
       }],
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     },
     options: {
       scales: {
@@ -61,10 +72,25 @@ export default {
           beginAtZero: true
         }
       }
-    }
+    },
+    items: [],
+    value: [],
   }),
   created() {
     this.a()
+
+    axios({
+      method: 'GET',
+      url: '/api/productChart',
+      params: {
+        'user_id': this.$store.state.user.userId
+      }
+    })
+      .then((res) => {
+        console.log(res.data)
+
+        this.items = res.data
+      })
   },
 
   methods: {
@@ -76,12 +102,36 @@ export default {
       this.productSales()
     },
 
+
     createChart() {
       new Chart(this.$refs.barChart, {
         type: 'bar',
         data: this.data,
         options: this.options
       })
+    },
+
+    change_pd(value) {
+      axios({
+        method: 'GET',
+        url: '/api/productChartss',
+        params: {
+          'user_id': this.$store.state.user.userId,
+          'value': this.value
+        }
+      })
+        .then((res) => {
+
+          this.list = res.data.count;
+
+          this.data.datasets[0].data[0] = this.listss
+          this.data.datasets[0].data[3] = this.listss1
+          // this.data.datasets[0].data.unshift(this.list7) // 7일
+          // this.data.datasets[0].data.unshift(this.list30)// 30일
+          // this.data.datasets[0].data.unshift(this.list) //총
+          this.createChart()
+
+        })
     },
 
 
@@ -94,6 +144,7 @@ export default {
         }
       })
         .then((res) => {
+
           this.list = res.data.count;
 
           this.data.datasets[0].data[0] = this.list

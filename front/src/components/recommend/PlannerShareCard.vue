@@ -8,7 +8,7 @@
     >
       <v-container class="pa-0">
         <!--      사진-->
-        <v-row no-gutters>
+        <v-row no-gutters style="height:120px;overflow: hidden">
           <v-col
             v-for="(pic,index) in shareSet.pic_name"
             :key="index"
@@ -32,37 +32,34 @@
         </v-row>
         <!--      내용과 프사-->
         <v-row
-          justify="space-around"
-          class="ma-0"
+          class="pl-5"
           style="height: 100px"
         >
           <v-col
             cols="7"
-            class="fill-height text-truncate"
           >
             <h3>{{ shareSet.share_title }}</h3>
-            <h4 class="grey--text">
+            <h4 class="grey--text" style="height: 42px;overflow: hidden">
               {{ shareSet.share_contents }}
             </h4>
           </v-col>
           <v-col
-            cols="3"
+            cols="5"
             class="grey--text"
           >
             <h4>공유 수 : {{ shareSet.share_count }}</h4>
-            <h4>추천 수 : {{recommends}}</h4>
+            <h4>추천 수 : {{ recommends }}</h4>
           </v-col>
         </v-row>
         <!--      태그와작성시간-->
         <v-row
-          justify="space-around"
-          class="ma-5"
+          class=""
         >
-          <v-col cols="7">
+          <v-col cols="7" class="pl-10">
             <h5>#{{ shareSet.share_place }} #{{ preference }}</h5>
           </v-col>
           <v-col
-            cols="3"
+            cols="5"
             class="grey--text"
           >
             <h5>{{ shareSet.user_id }}님의 일정</h5>

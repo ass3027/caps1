@@ -5,6 +5,7 @@ import c.e.exper.data.PaymentDAO;
 import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.PaymentDTO;
 import c.e.exper.mapper.PaymentMapper;
+import c.e.exper.mapper.ReviewMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/payment")
@@ -23,8 +25,11 @@ public class ApiPayment {
     final
     PaymentMapper paymentMapper;
 
-    public ApiPayment(PaymentMapper paymentMapper) {
+    final ReviewMapper reviewMapper;
+
+    public ApiPayment(PaymentMapper paymentMapper, ReviewMapper reviewMapper) {
         this.paymentMapper = paymentMapper;
+        this.reviewMapper = reviewMapper;
     }
 
     @GetMapping("/bookList")
@@ -40,8 +45,9 @@ public class ApiPayment {
     @GetMapping("/paymentList")
     List<PaymentDAO> paymentList() {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println("id = " + id);
+
         return paymentMapper.paymentList(id);
+
     }
 
     @GetMapping("/paymentList/hotel")
