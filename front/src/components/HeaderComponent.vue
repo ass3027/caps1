@@ -127,8 +127,6 @@
       </h1>
     </div>
 
-
-
     <!--    일반회원 헤더 -->
     <div v-if="user_role===`일반회원` || user_role=== undefined">
       <div
@@ -293,7 +291,7 @@ export default {
 
       kContents: [
         [
-          {title: '장소등록', route: ''},
+          {title: '장소등록', route: '/placeAdd'},
           {title: '내등록숙박조회', route: ''},
         ],
         [
@@ -351,7 +349,7 @@ export default {
       })
         .then((res) => {
           console.log(res)
-          this.$store.dispatch('user/setUser', {user_id: 'anonymousUser',user_role:null},)
+          this.$store.dispatch('user/setUser', {user_id: 'anonymousUser', user_role: null},)
           // this.$router.push("/")
           location.href = "/"
         })

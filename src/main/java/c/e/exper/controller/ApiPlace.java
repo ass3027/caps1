@@ -15,10 +15,14 @@ import c.e.exper.mapper.PictureMapper;
 import c.e.exper.service.FileService;
 import c.e.exper.service.Place2Service;
 import c.e.exper.service.PlaceService;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -36,11 +40,11 @@ public class ApiPlace {
    
    final
    PlaceService placeService;
-
+   
    final PlaceMapper placeMapper;
-
+   
    final Place2Service place2Service;
-
+   
    public ApiPlace(StoreMapper storeMapper, FileService fileService, PictureMapper pictureMapper, PlaceService placeService, PlaceMapper placeMapper, Place2Service place2Service) {
       this.storeMapper = storeMapper;
       this.fileService = fileService;
@@ -54,12 +58,11 @@ public class ApiPlace {
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
       return placeService.카테고리별_조회(category);
    }
-
+   
    @GetMapping("/place1/{category}/{areaCode}")
    public List<PlaceDAO> getPlaceByCategory(@PathVariable String category, @PathVariable String areaCode) {
       return placeService.카테고리_지역_조회(category, areaCode);
    }
-
 
 //   @GetMapping("/place/{category}")
 //   public List<PlaceDAO> getPlaceByCategory(@PathVariable String category) {
@@ -75,43 +78,66 @@ public class ApiPlace {
 //   }
    
    @GetMapping("/place/{areaCode}/{cat1}")
-   public List<PlaceDAO> placeList(@PathVariable String areaCode,@PathVariable String cat1) {
+   public List<PlaceDAO> placeList(@PathVariable String areaCode, @PathVariable String cat1) {
       System.out.println("장소조회1111111");
-      return placeService.장소_조회(areaCode,cat1);
+      return placeService.장소_조회(areaCode, cat1);
    }
+   
    @GetMapping("/placeTour/{areaCode}/{contenttypeid}")
-   public List<PlaceDAO> placeListTour(@PathVariable String areaCode,@PathVariable String contenttypeid) {
+   public List<PlaceDAO> placeListTour(@PathVariable String areaCode, @PathVariable String contenttypeid) {
       System.out.println("관광지조회");
-      return placeService.장소_조회2(areaCode,contenttypeid);
+      return placeService.장소_조회2(areaCode, contenttypeid);
    }
-
+   
    @GetMapping("/place/{areaCode}/{cat1}/{keyword}")
-   public List<PlaceDAO> keywordList(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable("keyword")String keyword) {
+   public List<PlaceDAO> keywordList(@PathVariable String areaCode, @PathVariable String cat1, @PathVariable("keyword") String keyword) {
       System.out.println("/place/{areaCode}/{cat1}/{keyword} : " + keyword);
-      return placeService.장소_검색(areaCode,cat1,keyword);
+      return placeService.장소_검색(areaCode, cat1, keyword);
    }
-
+   
    @GetMapping("/placeA01/{contenttypeid}")
-   public List<PlaceDAO> keywordByPlaceA01(@PathVariable("contenttypeid")String contenttypeid,
-                                           @RequestParam("keyword")String keyword) {
+   public List<PlaceDAO> keywordByPlaceA01(@PathVariable("contenttypeid") String contenttypeid,
+                                           @RequestParam("keyword") String keyword) {
       System.out.println("/placeA01/" + contenttypeid + keyword);
       return placeMapper.keywordByPlaceA01(contenttypeid, keyword);
    }
-      
+   
    @GetMapping("/placeTour/{areaCode}/{contenttypeid}/{keyword}")
-   public List<PlaceDAO> keywordTourList(@PathVariable String areaCode,@PathVariable String contenttypeid,@PathVariable("keyword")String keyword) {
+   public List<PlaceDAO> keywordTourList(@PathVariable String areaCode, @PathVariable String contenttypeid, @PathVariable("keyword") String keyword) {
       System.out.println("/place/{areaCode}/{contenttypeid}/{keyword} : " + keyword);
-      return placeService.장소_검색Tour(areaCode,contenttypeid,keyword);
+      return placeService.장소_검색Tour(areaCode, contenttypeid, keyword);
    }
-
-
-
+   
    @GetMapping("/place/{keyWord}")
-   public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord){
+   public List<PlaceDAO> getListByKeyword(@PathVariable String keyWord) {
       return placeService.searchByKeyWord(keyWord);
    }
-
    
+   @PostMapping("/placeAdd")
+   public void placeAdd(@ModelAttribute PlaceDAO placeAdd, HttpServletRequest req) throws IOException {
+      System.out.println("호텔 추가 컨트롤러임");
+      //이미지 주소
+      //이미지 주소를 만든다 webApp 이라는 파일에 넣을 수 있게 경로랑 이름을 설정한다.
+      String realPath = req.getServletContext().getRealPath("/placeImage/" + placeAdd.getImage().getOriginalFilename());
+      
+      //이미지 파일
+      //file 클래스를 써서 파일을 생성하고 이미지 주소로 설정한 변수를 매개변수로 넣어주고
+      // file은 multipartFile로 타입을 설정하고 placeAdd에 있는 image로 설정한다.
+      File destinationFile = new File(realPath);
+      MultipartFile file = placeAdd.getImage();
+      file.transferTo(destinationFile);
+      
+      System.out.println("realPath = " + realPath);
+      System.out.println(placeAdd.getImage().getOriginalFilename());
+
+//      placeService.placeAdd(placeAdd);
+   }
+   
+   @GetMapping("/place2/{category}/{option}")
+   public List<PlaceDAO> placeOption(@PathVariable String category, @PathVariable String option) {
+      return placeService.카테고리_옵션_조회(category, option);
+   }
+
 //   @GetMapping("/place/{areaCode}/{cat1}/{pageNumber}")
 //   public List<PlaceDAO> placeCount(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable int pageNumber) {
 //      System.out.println("갯수");
@@ -129,41 +155,39 @@ public class ApiPlace {
 //
 //        return data;
 //    }
-   
-   @PostMapping("/placeadd")
-   public boolean placeadd(StoreDTO store, HttpServletRequest req) {
-      
-      System.out.println("호텔 추가 컨트롤러임");
-      
-      String filePath = fileService.photoSave(store.getPic_name(), req, "storeImage");
-      
-      StoreDAO storeDAO = StoreDAO.builder()
-            .store_id(store.getStore_id())
-            .user_id(store.getUser_id())
-            .pl_id(store.getPl_id())
-            .store_name(store.getStore_name())
-            .store_phone(store.getStore_phone())
-            .category(store.getCategory())
-            .pic_name(filePath)
-            .build();
-      
-      System.out.println(storeDAO);
-      
-      storeMapper.insert(storeDAO);
-      
-      System.out.println("사진추가");
-      
-      PictureDAO pictureDAO = new PictureDAO();
-      pictureDAO.setPic_name(filePath);
-      pictureDAO.setStore_id(storeDAO.getStore_id());
-      
-      pictureMapper.InsertStore(pictureDAO);
-      
-      return true;
-   }
 
-   @GetMapping("/place2/{category}/{option}")
-   public List<PlaceDAO> placeOption(@PathVariable String category, @PathVariable String option) {
-      return placeService.카테고리_옵션_조회(category, option);
-   }
+
+//   @PostMapping("/placeAdd")
+//   public boolean placeadd(StoreDTO store, HttpServletRequest req) {
+//
+//      System.out.println("호텔 추가 컨트롤러임");
+//
+//      String filePath = fileService.photoSave(store.getPic_name(), req, "storeImage");
+//
+//      StoreDAO storeDAO = StoreDAO.builder()
+//            .store_id(store.getStore_id())
+//            .user_id(store.getUser_id())
+//            .pl_id(store.getPl_id())
+//            .store_name(store.getStore_name())
+//            .store_phone(store.getStore_phone())
+//            .category(store.getCategory())
+//            .pic_name(filePath)
+//            .build();
+//
+//      System.out.println(storeDAO);
+//
+//      storeMapper.insert(storeDAO);
+//
+//      System.out.println("사진추가");
+//
+//      PictureDAO pictureDAO = new PictureDAO();
+//      pictureDAO.setPic_name(filePath);
+//      pictureDAO.setStore_id(storeDAO.getStore_id());
+//
+//      pictureMapper.InsertStore(pictureDAO);
+//
+//      return true;
+//   }
+   
+
 }
