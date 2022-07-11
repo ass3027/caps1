@@ -192,6 +192,8 @@ export default {
             data:sendform,
           }).then((res)=>{
             console.log(res + 'success')
+          }).catch(()=>{
+            alert("실패2")
           })
 
         } else{

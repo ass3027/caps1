@@ -50,7 +50,7 @@ public class ApiUser {
         this.reviewMapper = reviewMapper;
     }
 
-    static String getLoginId(){
+    static String getLoginId() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
@@ -79,7 +79,7 @@ public class ApiUser {
     public UserDAO findUser() {
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println("user_id = " + user_id);
-        if(user_id.equals("anonymousUser")) {
+        if (user_id.equals("anonymousUser")) {
             return UserDAO.builder()
                     .user_id("anonymousUser")
                     .role("")
@@ -113,7 +113,7 @@ public class ApiUser {
     //아이디 중복 확인
     @GetMapping("/userid")
     public boolean getUserIdCheck( //반환타입,함수명
-        @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
+                                   @RequestParam("user_id") String pp) { //프론트에서 user_id 받아옴
         Optional<UserDAO> id = userMapper.selectId(pp); //
         return id.isEmpty();
 //        if (id.isEmpty()){
@@ -125,13 +125,13 @@ public class ApiUser {
 
     //내정보수정
     @PostMapping("/dataUpdate")
-    public boolean getUserdataUpdate(UserDAO userDAO,DuserDAO duserDAO) {
+    public boolean getUserdataUpdate(UserDAO userDAO, DuserDAO duserDAO) {
         userDAO.setUser_pw(
                 passwordEncoder().encode(
                         userDAO.getUser_pw()
                 )
         );
-        if(userDAO.getRole().equals("delivery")) {
+        if (userDAO.getRole().equals("delivery")) {
             userMapper.updateDuserInfo(duserDAO);
         }
         return userMapper.updateUserInfo(userDAO);
@@ -139,40 +139,50 @@ public class ApiUser {
 
     //지역별 추이
     @GetMapping("/area")
-    public List<AreaDTO> getUserArea5(){
+    public List<AreaDTO> getUserArea5() {
         System.out.print(userMapper.selectAreaCount());
         return userMapper.selectAreaCount();
     }
 
     //연령별(10대)
     @GetMapping("/age")
-    public UserDAO getUserAge(){return userMapper.selectAgeCount10();}
+    public UserDAO getUserAge() {
+        return userMapper.selectAgeCount10();
+    }
 
     //연령별(20대)
     @GetMapping("/age20")
-    public UserDAO getUserAge20(){return userMapper.selectAgeCount20();}
+    public UserDAO getUserAge20() {
+        return userMapper.selectAgeCount20();
+    }
 
     //연령별(30대)
     @GetMapping("/age30")
-    public UserDAO getUserAge30(){return userMapper.selectAgeCount30();}
+    public UserDAO getUserAge30() {
+        return userMapper.selectAgeCount30();
+    }
 
     //연령별(40대)
     @GetMapping("/age40")
-    public UserDAO getUserAge40(){return userMapper.selectAgeCount40();}
+    public UserDAO getUserAge40() {
+        return userMapper.selectAgeCount40();
+    }
 
     //연령별(50대)
     @GetMapping("/age50")
-    public UserDAO getUserAge50(){return userMapper.selectAgeCount50();}
+    public UserDAO getUserAge50() {
+        return userMapper.selectAgeCount50();
+    }
 
     //게시글 검색
     @GetMapping("/search")
-    public List<InquiryDAO> getUserSearch(@RequestParam("keyword")String keyword){
+    public List<InquiryDAO> getUserSearch(@RequestParam("keyword") String keyword) {
         return userMapper.selectSearch(keyword);
     }
 
 
     @GetMapping("/price")
-    public List<Integer> getUserPrice1(){
+    public List<Integer> getUserPrice1() {
         List<Integer> temp = new ArrayList<>();
         temp.add(userMapper.selectPriceSum(getLoginId()));
         temp.add(userMapper.selectPrice30(getLoginId()));

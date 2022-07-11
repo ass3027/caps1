@@ -2,6 +2,7 @@ package c.e.exper.controller;
 
 
 import c.e.exper.data.PaymentDAO;
+import c.e.exper.data.ProductDAO;
 import c.e.exper.data.ReviewDTO;
 import c.e.exper.mapper.GuideMapper;
 import c.e.exper.mapper.PaymentMapper;
@@ -173,6 +174,13 @@ public class ApiReview {
     public PaymentDAO getPayment(@PathVariable String rev_id) {
 
         return paymentMapper.findByRev(rev_id);
+
+    }
+
+    @GetMapping("/review/productInfoHotel/{rev_id}")
+    public ProductDAO getProductInfoHotel(@PathVariable String rev_id) {
+        System.out.println(rev_id);
+        return reviewMapper.findProductInfoHotel(rev_id);
 
     }
 

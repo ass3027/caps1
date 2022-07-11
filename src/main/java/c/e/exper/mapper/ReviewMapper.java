@@ -1,6 +1,8 @@
 package c.e.exper.mapper;
 
 
+import c.e.exper.data.GItemDAO;
+import c.e.exper.data.ProductDAO;
 import c.e.exper.data.ReviewDTO;
 import org.apache.ibatis.annotations.*;
 
@@ -290,4 +292,31 @@ public interface ReviewMapper {
             where pay_id = #{pay_id}
             """)
     String paymentReviewCheck(@Param("pay_id") String pay_id);
+
+    @Select("""
+            select *
+            from GITEM
+            where GITEM_ID = (select GITEM_ID
+                              from AVAILABLE_TIME
+                              where TIME_NUM = (select GTIME_NUM
+                                                from PAYMENT
+                                                where PAY_ID = (select PAY_ID
+                                                                from REVIEW
+                                                                where REV_ID = #{rev_id})))            
+            """)
+    GItemDAO findProductInfo(@Param("rev_id") String rev_id);
+
+
+    @Select("""
+            select *
+             from PRODUCT
+             where PD_ID = (select PD_ID
+                            from PRODUCT_TIME
+                            where PAY_ID = (select PAY_ID
+                                            from REVIEW
+                                            where REV_ID = #{rev_id})
+                            group by PD_ID)
+            """)
+    ProductDAO findProductInfoHotel(@Param("rev_id") String rev_id);
+
 }

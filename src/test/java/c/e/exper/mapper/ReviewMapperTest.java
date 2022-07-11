@@ -17,7 +17,6 @@ public class ReviewMapperTest {
     private UserMapper userMapper;
 
 
-
     // 주문서 리뷰 등록
     @Test
     public void addOrderReviewTest() {
@@ -110,5 +109,10 @@ public class ReviewMapperTest {
     @Test
     void paymentReviewCheck() {
         System.out.println(mapper.paymentReviewCheck("173"));
+    }
+
+    @Test
+    void findProductInfoHotel() {
+        System.out.println(mapper.findProductInfoHotel("238"));
     }
 }

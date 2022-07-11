@@ -122,6 +122,12 @@ export default {
       this.payment = res.data
     })
 
+    // if (type === 'hotel') {
+    //   axios.get('/api/review/productInfoHotel/' + this.review.rev_id).then(res => {
+    //     console.log('product_info', res.data)
+    //     this.product_info = res.data
+    //   })
+    // }
 
     axios.get('/api/review/answer/' + this.review.rev_id).then(res => {
       this.answer = res.data
@@ -147,6 +153,8 @@ export default {
     console.log(this.review.rev_content)
   },
   mounted() {
+
+
     console.log("[REVIEW]")
     console.log('review', this.review)
 
@@ -163,8 +171,11 @@ export default {
   },
   methods: {
     goProduct() {
-      if(this.type === 'guide'){
-        this.$router.push('/GuideProduct/' + this.payment.gitem_num);
+      if (this.type === 'guide') {
+        this.$router.push('/GuideProduct/' + 20);
+      } else if (this.type === 'hotel') {
+        this.$router.push('/palce/1/1')
+        console.log('test test test', this.product_info.pl_id)
       }
 
     },
