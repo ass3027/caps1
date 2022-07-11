@@ -2,7 +2,9 @@
   <div>
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div class="delivery-Join">
-      <p class="text-center">키퍼 회원가입</p>
+      <p class="text-center">
+        키퍼 회원가입
+      </p>
     </div>
 
     <form @submit.prevent>

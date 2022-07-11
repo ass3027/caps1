@@ -7,7 +7,8 @@
       <div style="width: 80%; margin: 0 auto; padding-bottom: 34px; border-bottom: 2px solid black">
         <h2
           class="tit"
-          style="padding-bottom: 34px" align="center"
+          style="padding-bottom: 34px"
+          align="center"
         >
           가방 운송 신청서
         </h2>
@@ -16,7 +17,6 @@
         v-model="valid"
         style="padding-top: 50px"
       >
-
         <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
           <div style="width: 50%; display: inline-block">
             <v-card>
@@ -25,20 +25,23 @@
                   <h1 style="padding-top: 30px; padding-left: 30px">
                     출발장소 :
                   </h1>
-                  <search-place @childEvent="startAddress" style="padding-top:35px; padding-left: 30px"/>
+                  <search-place
+                    style="padding-top:35px; padding-left: 30px"
+                    @childEvent="startAddress"
+                  />
                 </v-row>
               </v-col>
               <br>
               <v-card
+                v-if="sIndex==true"
                 class="mx-auto"
                 max-width="350"
                 max-height="350"
-                v-if="this.sIndex==true"
               >
                 <v-img
                   :src="startLodging.firstimage2"
                   height="200px"
-                ></v-img>
+                />
                 <v-card-title>
                   {{ startLodging.title }}
                 </v-card-title>
@@ -46,7 +49,6 @@
                 <v-card-subtitle>
                   주소:{{ startLodging.addr1 }}
                 </v-card-subtitle>
-
               </v-card>
               <br>
             </v-card>
@@ -60,20 +62,23 @@
                   <h1 style="padding-top: 30px; padding-left: 30px">
                     도착장소 :
                   </h1>
-                  <search-place @childEvent="endAddress" style="padding-top:35px; padding-left: 30px"/>
+                  <search-place
+                    style="padding-top:35px; padding-left: 30px"
+                    @childEvent="endAddress"
+                  />
                 </v-row>
               </v-col>
               <br>
               <v-card
+                v-if="eIndex==true"
                 class="mx-auto"
                 max-width="350"
                 max-height="350"
-                v-if="this.eIndex==true"
               >
                 <v-img
                   :src="endLodging.firstimage2"
                   height="200px"
-                ></v-img>
+                />
                 <v-card-title>
                   {{ endLodging.title }}
                 </v-card-title>
@@ -81,7 +86,6 @@
                 <v-card-subtitle>
                   주소:{{ endLodging.addr1 }}
                 </v-card-subtitle>
-
               </v-card>
               <br>
             </v-card>
@@ -101,7 +105,7 @@
               <v-card-text>
                 <v-row align="center">
                   {{ item.title }}
-                  <v-spacer/>
+                  <v-spacer />
                   {{ item.value }}원
                   <v-checkbox
                     v-model="checkedName"
@@ -161,11 +165,15 @@
         <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
         <!--      </div>-->
         <div style="width: 80%;margin: 0 auto; padding-top: 20px">
-          <v-btn style="float: right;" @click="reserve">작성 완료</v-btn>
-
+          <v-btn
+            style="float: right;"
+            @click="reserve"
+          >
+            작성 완료
+          </v-btn>
         </div>
       </v-form>
-      <router-view/>
+      <router-view />
     </v-app>
   </v-container>
 </template>

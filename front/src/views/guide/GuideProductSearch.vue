@@ -18,8 +18,9 @@
           height="200px"
           :src="item.firstimage2"
         >
-          <h2 style="color: black">{{item.user_name}}
-            <br> {{item.user_id}}
+          <h2 style="color: black">
+            {{ item.user_name }}
+            <br> {{ item.user_id }}
           </h2>
           <v-btn
             v-if="item.user_id==$store.state.user.userId"
@@ -38,7 +39,7 @@
           <v-list-item-content>
             <div class="text-overline mb-4">
               <v-card-title :gid="item.gitem_id">
-                상품이름:{{ item.gname}}<br>
+                상품이름:{{ item.gname }}<br>
                 장소:{{ item.title }}<br>
                 가격:{{ item.gitem_price }}
               </v-card-title>
@@ -63,7 +64,6 @@
         </v-list-item>
       </v-card>
     </v-row>
-
   </div>
 </template>
 

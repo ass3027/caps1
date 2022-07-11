@@ -41,7 +41,7 @@
         Click Me
       </v-btn>
 
-      <calendar-preview></calendar-preview>
+      <calendar-preview />
 
       <v-dialog
         v-model="dialog"

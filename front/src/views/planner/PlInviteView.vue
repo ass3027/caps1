@@ -1,32 +1,31 @@
 <template>
-  <v-container style="width: 70% ">
+  <v-container style="width: 70%;">
     <PlannerHeader />
-    <v-row>
-      <v-card>
-        <h2>그룹생성자</h2>
-        <v-simple-table>
-          <thead>
-          <tr>
-            <th>아이디</th>
-            <th>이름</th>
-            <th>전화번호</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th>asdf1234</th>
-            <th>이세진</th>
-            <th>010-4065-8016</th>
-          </tr>
-          </tbody>
-        </v-simple-table>
-      </v-card>
-    </v-row>
-    <v-row style="justify-content : center;">
+    <v-row />
+    <v-row style="text-align: center">
       <v-col
         col="5"
         style="width:40%"
       >
+        <v-card style="margin-bottom: 20px">
+          <h2>그룹생성자</h2>
+          <v-simple-table>
+            <thead>
+              <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>전화번호</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>asdf1234</th>
+                <th>이세진</th>
+                <th>010-4065-8016</th>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
         <v-card
           style="margin-bottom: 30px;"
           class="text-center"
@@ -47,10 +46,10 @@
                 v-for="(data,key) in plan_user_list"
                 :key="key"
               >
-                <td >
+                <td>
                   {{ data.user_id }}
                 </td>
-                <td >
+                <td>
                   {{ data.plan_id }}
                 </td>
               </tr>
@@ -59,36 +58,28 @@
         </v-card>
         <v-divider />
         <v-card>
-          <h2>초대 현황</h2>
-          <v-divider />
-
-          <h4>내가 초대된</h4>
+          <h2>초대 보류</h2>
           <v-simple-table>
             <thead>
               <tr>
-                <th>아이디</th>
-                <th>이름</th>
-                <th />
+                <th class="text-center">
+                  아이디
+                </th>
+                <th class="text-center">
+                  이름
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr
-                v-for="(data,index) in invite_list_user"
+                v-for="(data,index) in invite_list_plan"
                 :key="index"
               >
-                <td >
+                <td>
                   {{ data.user_id }}
                 </td>
-                <td >
-                  {{ data.plan_id }}
-                </td>
                 <td>
-                  <v-btn
-                    class="button"
-                    @click="accept(data)"
-                  >
-                    수락
-                  </v-btn>
+                  {{ data.plan_id }}
                 </td>
               </tr>
             </tbody>
@@ -116,28 +107,36 @@
         <v-divider />
 
         <v-card>
-          <h2>내가 초대한</h2>
+          <h2>초대 목록</h2>
+          <v-divider />
+
+          <h4>내가 초대된</h4>
           <v-simple-table>
             <thead>
               <tr>
-                <th class="text-center">
-                  아이디
-                </th>
-                <th class="text-center">
-                  이름
-                </th>
+                <th>아이디</th>
+                <th>이름</th>
+                <th />
               </tr>
             </thead>
             <tbody>
               <tr
-                v-for="(data,index) in invite_list_plan"
+                v-for="(data,index) in invite_list_user"
                 :key="index"
               >
-                <td >
+                <td>
                   {{ data.user_id }}
                 </td>
-                <td >
+                <td>
                   {{ data.plan_id }}
+                </td>
+                <td>
+                  <v-btn
+                    class="button"
+                    @click="accept(data)"
+                  >
+                    수락
+                  </v-btn>
                 </td>
               </tr>
             </tbody>
@@ -271,4 +270,8 @@ export default {
   text-decoration: none;
   font-size: 18px;
 }
+.v-sheet.v-card:not(.v-sheet--outlined){
+  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)
+}
+
 </style>

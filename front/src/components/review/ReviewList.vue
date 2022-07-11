@@ -1,6 +1,5 @@
 <template>
   <div class="board">
-
     <form name="frmList">
       <!--/.title-->
       <table
@@ -23,49 +22,49 @@
           <col style="width:80px;">
         </colgroup>
         <tbody>
-        <tr>
-          <th
-            class="input_txt"
-            scope="col"
-          >
-            번호
-          </th>
-          <th
-            class="input_txt"
-            scope="col"
-          >
-            제목
-          </th>
-          <th
-            class="input_txt"
-            scope="col"
-          />
-          <th
-            align="left"
-            class="input_txt"
-            scope="col"
-          >
-            작성자
-          </th>
-          <th
-            class="input_txt"
-            scope="col"
-          >
-            작성일
-          </th>
-          <th
-            class="input_txt"
-            scope="col"
-          >
-            도움
-          </th>
-          <th
-            class="input_txt"
-            scope="col"
-          >
-            조회
-          </th>
-        </tr>
+          <tr>
+            <th
+              class="input_txt"
+              scope="col"
+            >
+              번호
+            </th>
+            <th
+              class="input_txt"
+              scope="col"
+            >
+              제목
+            </th>
+            <th
+              class="input_txt"
+              scope="col"
+            />
+            <th
+              align="left"
+              class="input_txt"
+              scope="col"
+            >
+              작성자
+            </th>
+            <th
+              class="input_txt"
+              scope="col"
+            >
+              작성일
+            </th>
+            <th
+              class="input_txt"
+              scope="col"
+            >
+              도움
+            </th>
+            <th
+              class="input_txt"
+              scope="col"
+            >
+              조회
+            </th>
+          </tr>
         </tbody>
       </table>
       <div

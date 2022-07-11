@@ -19,31 +19,31 @@
         <col style="width:80px;">
       </colgroup>
       <tbody class="review-lists">
-      <tr>
-        <td style="text-align: center">
-          {{ review.rev_id }}
-        </td>
-        <td class="subject">
-          {{ review.title }}
-        </td>
-        <td class="user_grade grade_comm"/>
-        <td class="user_grade">
-          {{ user.user_name }}
-        </td>
-        <td class="time txt_center">
-          {{ reg_date }}
-        </td>
-        <td class="txt_center">
+        <tr>
+          <td style="text-align: center">
+            {{ review.rev_id }}
+          </td>
+          <td class="subject">
+            {{ review.title }}
+          </td>
+          <td class="user_grade grade_comm" />
+          <td class="user_grade">
+            {{ user.user_name }}
+          </td>
+          <td class="time txt_center">
+            {{ reg_date }}
+          </td>
+          <td class="txt_center">
             <span class="review-like-cnt">
               {{ review.rev_like }}
             </span>
-        </td>
-        <td class="txt_center">
+          </td>
+          <td class="txt_center">
             <span class="review-hit-cnt">
               {{ review.hit }}
             </span>
-        </td>
-      </tr>
+          </td>
+        </tr>
       </tbody>
     </table>
 

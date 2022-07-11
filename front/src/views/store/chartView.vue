@@ -27,7 +27,7 @@ Chart.register(...registerables)
 import axios from "axios";
 
 export default {
-  name: "chartView",
+  name: "ChartView",
 
   data: () => ({
     selectedValue: null,

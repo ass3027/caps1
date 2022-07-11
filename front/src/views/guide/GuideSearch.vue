@@ -1,12 +1,11 @@
 <template>
   <div>
-    <div style="display: flex"
-    >
+    <div style="display: flex">
       <v-row
         style="margin: 18px"
         cols="0"
-        md="0">
-
+        md="0"
+      >
         <v-card
           v-for="(item,index) in lists"
           :key="index"
@@ -19,20 +18,18 @@
             height="200px"
             :src="img(item.pic_name)"
           >
-            <h2 style="color: black">{{item.user_name}}
-              <br> {{item.user_id}}
+            <h2 style="color: black">
+              {{ item.user_name }}
+              <br> {{ item.user_id }}
             </h2>
-
           </v-img>
 
-          <v-card-subtitle class="pb-0">
-
-          </v-card-subtitle>
+          <v-card-subtitle class="pb-0" />
 
           <v-card-text class="text--primary">
-            <div>자격증:{{item.guide_license}}</div>
+            <div>자격증:{{ item.guide_license }}</div>
 
-            <div>소개:{{item.guser_intro}}</div>
+            <div>소개:{{ item.guser_intro }}</div>
           </v-card-text>
 
           <v-card-actions>
