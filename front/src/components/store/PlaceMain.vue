@@ -14,10 +14,10 @@
         height="350px"
       >
         <v-img
-          v-if="placeInfo.firstImage"
+          v-if="placeInfo.firstimage"
           width="100%"
           height="300px"
-          :src="placeInfo.firstImage"
+          :src="placeInfo.firstimage"
           alt="실허어엄"
         />
       </v-card>

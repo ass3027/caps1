@@ -31,7 +31,7 @@ public class PlaceDAO {
     String cat3;
     String contentId;
     String contentTypeId;
-    String firstImage;
+    String firstimage;
     String firstImage2;
     Double mapx;
     Double mapy;
