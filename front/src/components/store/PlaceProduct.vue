@@ -13,14 +13,14 @@
         </div>
         <div class="cardText">
           <div class="cardTitle">
-            <h4>{{ product.pd_name }}</h4>
+            <h3>{{ product.pd_name }}</h3>
           </div>
           <br>
           <div class="cardPrice">
-            <h5>가격 <span class="priceScore">{{ product.pd_price }}원</span></h5>
+            <h4>가격 <span class="priceScore">{{ product.pd_price }}원</span></h4>
           </div>
 
-
+          <br>
           <div class="detail">
             <div class="">
               <v-dialog
@@ -34,7 +34,8 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    객실 이용 안내
+
+                    <h5>객실 이용 안내</h5>
                   </v-text>
                 </template>
 

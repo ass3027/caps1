@@ -12,11 +12,13 @@
           <v-text-field
             label="체크인 시 필요한 정보입니다."
             solo
+            :value="this.$store.state.user.userId"
           />
           <h3>휴대폰 번호</h3>
           <v-text-field
             label="체크인 시 필요한 정보입니다."
             solo
+            :value="this.$store.state.user.user_phone"
           />
           <h3>숙소 이름</h3>
           <v-text-field
@@ -43,14 +45,20 @@
           />
 
           <h3>방번호</h3>
-          <v-select
-            v-model="room"
-            :items="roomItems"
-            item-text="text"
-            :value="lists.room"
-            @change="picRoom"
-            style="width:50%"
+          <v-text-field
+            solo
+            :value="room"
+            readonly
+            style="font-size: 20px"
           />
+<!--          <v-select-->
+<!--            v-model="room"-->
+<!--            :items="roomItems"-->
+<!--            item-text="text"-->
+<!--            :value="lists.room"-->
+<!--            @change="picRoom"-->
+<!--            style="width:50%"-->
+<!--          />-->
           <h3>체크인</h3>
           <input
             v-model="st_date"
@@ -70,7 +78,7 @@
             required
             aria-required="true"/>
           <br><br><br>
-          <v-btn @click="book" style="width: 50%;height: 50px" color="#139DF2">
+          <v-btn @click="book" style="width: 50%; height: 50px;" color="#139DF2">
             결제하기
           </v-btn>
         </v-col>
@@ -106,7 +114,7 @@ export default {
     copy: [],
 
     lists: [],
-    room: '',
+    room: '101',
     roomItems: [
       {text: '101호', value: '101'},
     ],
@@ -127,13 +135,10 @@ export default {
     })
     .then((res)=>{
       this.products = res.data
-      console.log(res.data)
+      console.log(this.products)
     })
 
-
-    console.log(this.$route.params)
     console.log(this.$route.params.pd_id)
-
 
     const script = document.createElement("script")
     const script2 = document.createElement("script")
@@ -172,21 +177,6 @@ export default {
       console.log(this.room)
     },
 
-    ex() {
-      // const tempDate = new Date(this.st_date)
-      // const endDate = new Date(this.end_date)
-      //
-      // for (let i = 0; tempDate <= endDate; i++) {
-      //   this.dateArr.push(this.dateFormat(tempDate))
-      //   tempDate.setDate(tempDate.getDate() + 1)
-      // }
-      // console.log(this.dateArr)
-      //
-      // const PayBook = {};
-      //
-      // PayBook["pd_id"] =
-    },
-
     dateFormat(date) {
       let month = date.getMonth() + 1;
       let day = date.getDate();
@@ -205,18 +195,16 @@ export default {
 
 
     book() {
-
       axios({
         method: 'GET',
-        url: 'api/productNoBook',
+        url: '/api/productNoBook',
         params: {
-          'pd_id': this.product.pd_id,
+          'pd_id': this.$route.params.pd_id,
           'st_date': this.st_date,
           'end_date': this.end_date
         }
       })
         .then((res) => {
-          console.log(res.data)
 
           if (res.data.length !== 0) {
             let alertMessage = ""
@@ -234,8 +222,8 @@ export default {
               pg: "html5_inics",
               pay_method: "card",
               merchant_uid: "iamport_test_id" + new Date().getTime(),
-              name: this.product.title,
-              amount: this.product.pd_price,
+              name: this.products.title,
+              amount: this.products.pd_price,
               buyer_email: "testiamport@naver.com",
               buyer_name: this.$store.state.user.userId,
               buyer_tel: "01012341234"
@@ -247,7 +235,7 @@ export default {
 
                 const sendform = new FormData();
 
-                sendform.append('pay_price', this.product.pd_price)
+                sendform.append('pay_price', this.products.pd_price)
                 sendform.append('user_id', this.$store.state.user.userId)
 
                 axios({
@@ -259,10 +247,9 @@ export default {
                   data: JSON.stringify(bookInfo),
                   params: {
                     'user_id': this.$store.state.user.userId,
-                    'pay_price': this.product.pd_price
+                    'pay_price': this.products.pd_price
                   }
                 })
-
                   .then((res) => {
                     alert("예약이 완료되었습니다.")
                     this.$router.push('/productBookView')
