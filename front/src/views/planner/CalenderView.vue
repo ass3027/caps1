@@ -224,9 +224,9 @@
 
 <script>
 /* eslint-disable */
-import DateComponent from '@/components/DateComponent'
-import PlannerHeader from "@/components/PlannerHeader";
-import MapComponent from "@/components/MapComponent";
+import DateComponent from '@/components/planner/DateComponent'
+import PlannerHeader from "@/components/planner/PlannerHeader";
+import MapComponent from "@/components/planner/MapComponent";
 import axios from "axios";
 /* eslint-disable */
 

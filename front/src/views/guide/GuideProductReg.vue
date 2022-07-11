@@ -117,7 +117,7 @@
 
 
 import axios from "axios";
-import SearchPlaceTour from "@/components/SearchPlaceTour";
+import SearchPlaceTour from "@/components/search/SearchPlaceTour";
 
 export default {
   name: 'GuideProductReg',

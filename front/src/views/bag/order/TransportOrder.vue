@@ -181,7 +181,7 @@
 <script>
 import DateTimePicker from "@/views/bag/order/DateTimePicker"
 import axios from "axios";
-import SearchPlace from "@/components/SearchPlace";
+import SearchPlace from "@/components/search/SearchPlace";
 
 export default {
   components: {

@@ -2,7 +2,7 @@
   <v-container style="width: 70%;">
     <PlannerHeader />
     <v-row />
-    <v-row style="text-align: center">
+    <v-row style="height:100%;text-align: center">
       <v-col
         col="5"
         style="width:40%"
@@ -88,20 +88,27 @@
       </v-col>
       <v-divider vertical />
       <v-col>
-        <v-card style="padding-bottom: 10px;margin-bottom: 40px">
+        <v-card style="height:120px;padding-bottom: 10px;margin-bottom: 40px">
           <h2>멤버 초대</h2>
-          회원ID
-          <v-text-field
-            v-model="input_id"
-            placeholder="내용을 입력해주세요"
-            md="4"
-          />
-          <button
-            class="button"
-            @click="invite"
-          >
-            초대
-          </button>
+          <div
+            style="width: 60%;height:60px;float: left;text-align: center;margin-left: 10px">
+            <v-text-field
+              v-model="input_id"
+              placeholder="회원ID"
+              md="4"
+            />
+          </div>
+          <div style="width: 30%;height:60px;float: right;margin-right: 20px;padding-top: 4px">
+            <v-btn
+              color="blue"
+              @click="invite"
+              @submit.prevent
+            >
+              초대
+            </v-btn>
+          </div>
+
+
         </v-card>
 
         <v-divider />
@@ -149,7 +156,7 @@
 
 <script>
 import axios from "axios";
-import PlannerHeader from "@/components/PlannerHeader";
+import PlannerHeader from "@/components/planner/PlannerHeader";
 
 export default {
   name: "PlInviteView",
