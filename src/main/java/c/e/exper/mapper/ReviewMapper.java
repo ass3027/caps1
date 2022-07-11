@@ -1,6 +1,7 @@
 package c.e.exper.mapper;
 
 
+import c.e.exper.data.GItemDAO;
 import c.e.exper.data.ReviewDTO;
 import org.apache.ibatis.annotations.*;
 
@@ -172,7 +173,6 @@ public interface ReviewMapper {
     List<ReviewDTO> findHotelReview(@Param("pl_id") String pl_id);
 
 
-
     /* 상품 아이디로 모든 리뷰 조1회 */
     @Select("""
             SELECT *
@@ -244,7 +244,6 @@ public interface ReviewMapper {
     int updateReview(@Param("review") ReviewDTO review);
 
 
-
     @Update("""
             UPDATE REVIEW
             SET HIT = HIT +1
@@ -290,4 +289,17 @@ public interface ReviewMapper {
             where pay_id = #{pay_id}
             """)
     String paymentReviewCheck(@Param("pay_id") String pay_id);
+
+    @Select("""
+            select *
+            from GITEM
+            where GITEM_ID = (select GITEM_ID
+                              from AVAILABLE_TIME
+                              where TIME_NUM = (select GTIME_NUM
+                                                from PAYMENT
+                                                where PAY_ID = (select PAY_ID
+                                                                from REVIEW
+                                                                where REV_ID = #{rev_id})))            
+            """)
+    GItemDAO findProductInfo(@Param("rev_id") String rev_id);
 }

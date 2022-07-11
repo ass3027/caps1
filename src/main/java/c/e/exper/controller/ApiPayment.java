@@ -2,21 +2,17 @@ package c.e.exper.controller;
 
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
-import c.e.exper.data.PlaceDAO;
 import c.e.exper.data.PaymentDTO;
+import c.e.exper.data.PlaceDAO;
 import c.e.exper.mapper.PaymentMapper;
 import c.e.exper.mapper.ReviewMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/payment")
@@ -33,12 +29,12 @@ public class ApiPayment {
     }
 
     @GetMapping("/bookList")
-    Map<String,Object> getBookList(){
-        Map<String,Object> result = new HashMap<>();
+    Map<String, Object> getBookList() {
+        Map<String, Object> result = new HashMap<>();
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        result.put("productBook",paymentMapper.getProductBook(id));
-        result.put("guideBook",paymentMapper.getGuideBook(id));
+        result.put("productBook", paymentMapper.getProductBook(id));
+        result.put("guideBook", paymentMapper.getGuideBook(id));
         return result;
     }
 
@@ -46,15 +42,34 @@ public class ApiPayment {
     List<PaymentDAO> paymentList() {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return paymentMapper.paymentList(id);
+        List<PaymentDAO> paymentDAOS = paymentMapper.paymentList(id);
+        List<PaymentDAO> result = new ArrayList<>();
 
+        for (PaymentDAO i : paymentDAOS) {
+            if (reviewMapper.paymentReviewCheck(i.getPay_id()) == null) {
+                result.add(i);
+            }
+        }
+
+
+        return result;
     }
+
 
     @GetMapping("/paymentList/hotel")
     List<PaymentDAO> hotelPaymentList() {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return paymentMapper.hotelPaymentList(id);
+        List<PaymentDAO> paymentDAOS = paymentMapper.hotelPaymentList(id);
+        List<PaymentDAO> result = new ArrayList<>();
+
+        for (PaymentDAO i : paymentDAOS) {
+            if (reviewMapper.paymentReviewCheck(i.getPay_id()) == null) {
+                result.add(i);
+            }
+        }
+
+        return result;
     }
 
     @GetMapping("/paymentList/{test}")
@@ -95,7 +110,7 @@ public class ApiPayment {
 
     // 물품배송 결제
     @PostMapping("/transportPay")
-    public void transportPay(@RequestBody PaymentDTO imp){
+    public void transportPay(@RequestBody PaymentDTO imp) {
         String orderId = paymentMapper.getorderId();
         imp.setOrd_id(orderId);
         paymentMapper.transportPay(imp);

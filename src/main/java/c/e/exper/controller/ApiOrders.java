@@ -51,13 +51,26 @@ public class ApiOrders {
         // 운송 중 -> 운송 완료   arrival
 
         if (Objects.equals(change_to, "픽업전")) {
-            if (!Objects.equals(status, "승인완료")) return "이미 매칭된 배송건입니다";
-            if (ordersMapper.statusChange(change_to, ord_id)) {
-                return ordersMapper.updateDeliveryId(ord_id, SecurityContextHolder.getContext().getAuthentication().getName()) ? "매칭이 완료되었습니다." : "매칭 오류.";
+            if (!Objects.equals(status, "승인완료"))
+                return "이미 매칭된 배송건입니다";
+            else {
+                if (ordersMapper.statusChange(change_to, ord_id)) {
+                    return ordersMapper.updateDeliveryId(ord_id, SecurityContextHolder.getContext().getAuthentication().getName()) ? "매칭이 완료되었습니다." : "매칭 오류.";
+                }
             }
         }
 
-        return ordersMapper.statusChange(change_to, ord_id) ? "성공" : "실패";
+        if (Objects.equals(change_to, "운송중")) {
+            if (ordersMapper.statusChange(change_to, ord_id)) return "정상처리";
+            else return "처리실패";
+        }
+
+        if (Objects.equals(change_to, "운송완료")) {
+            if (ordersMapper.statusChange(change_to, ord_id)) return "정상처리";
+            else return "처리실패";
+        }
+
+        return ordersMapper.statusChange(change_to, ord_id) ? "매칭성공" : "매칭실패";
     }
 
 
@@ -81,7 +94,7 @@ public class ApiOrders {
     }
 
     @GetMapping("/myOrders")
-    public List<OrderDAO> myOrders(String user_id){
+    public List<OrderDAO> myOrders(String user_id) {
         System.out.println(user_id);
         return ordersMapper.selectMyOrders(user_id);
     }
