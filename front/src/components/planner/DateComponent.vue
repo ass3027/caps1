@@ -169,7 +169,7 @@
 
 <script>
 import {EventBus} from "@/eventBus/eventBus";
-import SearchPlace from "@/components/SearchPlace";
+import SearchPlace from "@/components/search/SearchPlace";
 
 export default {
   name: "DateComponent",

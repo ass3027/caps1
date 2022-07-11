@@ -300,7 +300,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
-import PlannerHeader from "@/components/PlannerHeader";
+import PlannerHeader from "@/components/planner/PlannerHeader";
 
 export default {
   name: 'SuppliesView',

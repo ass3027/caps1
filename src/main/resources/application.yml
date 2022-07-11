@@ -1,23 +1,9 @@
-#spring:
-#  datasource:
-#    driver-class-name: oracle.jdbc.OracleDriver
-#    url: jdbc:oracle:thin:@10.30.3.95:1521/orcl
-#    username: c##1901208
-#    password: p1901208
-#  devtools:
-#    remote:
-#      enabled: true
-#      livereload:
-#        enabled: true     # livereload 사용시 활성화
-#      restart:
-#        enabled: false    #운영 에서는 제거.
-
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:XE
-    username: sewoon
-    password: 1234
+    url: jdbc:oracle:thin:@10.30.3.95:1521/orcl
+    username: c##1901208
+    password: p1901208
   devtools:
     remote:
       enabled: true
@@ -25,6 +11,20 @@ spring:
         enabled: true     # livereload 사용시 활성화
       restart:
         enabled: false    #운영 에서는 제거.
+
+#spring:
+#  datasource:
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@localhost:1521:XE
+#    username: sewoon
+#    password: 1234
+#  devtools:
+#    remote:
+#      enabled: true
+#      livereload:
+#        enabled: true     # livereload 사용시 활성화
+#      restart:
+#        enabled: false    #운영 에서는 제거.
 
 
 

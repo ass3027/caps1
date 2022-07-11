@@ -5,7 +5,7 @@
       <h2>일정선택</h2>
       <select
         v-model="plan_id"
-        style="border-style:solid;width:150px;height:45px;font-size: 24px; "
+        style="border: 3px solid ;border-radius:10px;width:150px;height:45px;font-size: 24px; "
         @change="reload"
       >
         <option
