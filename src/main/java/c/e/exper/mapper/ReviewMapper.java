@@ -174,6 +174,7 @@ public interface ReviewMapper {
     List<ReviewDTO> findHotelReview(@Param("pl_id") String pl_id);
 
 
+
     /* 상품 아이디로 모든 리뷰 조1회 */
     @Select("""
             SELECT *
@@ -243,6 +244,7 @@ public interface ReviewMapper {
             SET rev_content = #{review.rev_content}
             WHERE review_id = #{review.rev_id}""")
     int updateReview(@Param("review") ReviewDTO review);
+
 
 
     @Update("""

@@ -34,6 +34,9 @@ export default {
       model: 0,
     };
   },
+  mounted() {
+    console.log(this.$store.state.place.place)
+  },
   computed: {
     place() {
       return this.$store.state.place;

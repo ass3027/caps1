@@ -7,7 +7,7 @@
       </div>
       <div class="payment_info">
         <div class="thumb">
-          <img :src="place_info.firstImage">
+          <img :src="place_info !== null ? place_info.firstimage : 'a'">
         </div>
         <div class="desc">
           <dl>
@@ -20,9 +20,7 @@
           </dl>
         </div>
 
-        <button style="float: right;border: 1px solid #dddfe1;font-size: 14px;padding: 4px" @click="reviewWrite">후기 작성
-          >
-        </button>
+        <button @click="reviewWrite" style="float: right;border: 1px solid #dddfe1;font-size: 14px;padding: 4px">후기 작성 ></button>
 
       </div>
       <div class="payment_status"></div>
@@ -50,7 +48,7 @@ export default {
     paytime() {
       var paytime = this.payment.pay_time
 
-      if (paytime === undefined) return '값 없음'
+      if(paytime === undefined) return '값 없음'
 
       paytime = paytime.replaceAll('-', '.')
       paytime = paytime.replaceAll('T', ' ')
@@ -67,7 +65,7 @@ export default {
   },
   mounted() {
 
-    axios.get('/api/payment/placeInfo/' + this.type + '/' + this.payment.pay_id).then(res => {
+    axios.get('/api/payment/placeInfo/' + this.type +'/' + this.payment.pay_id).then(res => {
       console.log('place_info', res.data)
       this.place_info = res.data
     })
@@ -78,7 +76,7 @@ export default {
     reviewWrite() {
       this.$router.push({
         name: "ReviewCreateView",
-        params: {type: this.type, id: this.payment.pay_id}
+        params:{type: this.type, id: this.payment.pay_id}
       })
     }
   }
@@ -195,7 +193,6 @@ li {
   padding: 14px 0 20px;
 
 }
-
 .payment_info dt {
   float: left;
 

@@ -105,7 +105,7 @@ export default {
         {title: '모텔', value: 'B02010900'},
       ],
       select: 'B02010100',
-      searchCon: '1',
+      searchCon: '4',
       areacode: [
         {text: '서울', value: '1'},
         {text: '인천', value: '2'},
@@ -153,7 +153,7 @@ export default {
     //   }
     // },
     submit() {
-      const sendForm = new FormData();
+      var sendForm = new FormData();
       //사업자 번호
       sendForm.append('store_id', this.store_id);
       //유저 아이디

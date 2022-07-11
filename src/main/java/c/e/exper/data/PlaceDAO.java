@@ -29,10 +29,10 @@ public class PlaceDAO {
     String cat1;
     String cat2;
     String cat3;
-    String contentId;
-    String contentTypeId;
-    String firstImage;
-    String firstImage2;
+    String firstimage;
+    String contentid;
+    String contenttypeid;
+    String firstimage2;
     Double mapx;
     Double mapy;
     String tel;

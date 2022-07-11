@@ -12,9 +12,24 @@
       <span class="innerText">
         <h3>{{ item.title }}</h3>
         <template v-if="$store.state.user.userId!='anonymousUser'">
-          <v-btn @click="toCalendar(item)">
-            일정에추가
-          </v-btn>
+<!--          <v-btn @click="toCalendar(item)">-->
+          <!--            일정에추가-->
+          <!--          </v-btn>-->
+          <v-row>
+            <v-col cols="auto">
+              <v-icon
+                color="orange"
+                @click="toCalendar(item)"
+              >
+                mdi-calendar-check-outline
+              </v-icon>
+              일정
+            </v-col>
+            <v-col cols="auto">
+              <book-mark-status :pl_id="item.pl_id"></book-mark-status>
+            </v-col>
+          </v-row>
+
 
         </template>
 
@@ -63,9 +78,13 @@
 
 <script>
 import axios from "axios";
+import BookMarkStatus from "@/components/BookMarkStatus";
 
 export default {
   name: "PlaceRecommend",
+  components: {
+    BookMarkStatus
+  },
   props: ['mode'],
   data() {
     return {
@@ -79,13 +98,15 @@ export default {
       axios
         .get('/api/bestPlace')
         .then(res => {
+          console.log(res.data)
 
-          res.data.forEach(i => {
-            if (i.pic_name == null) {
-              i.pic_name = "placeImage/noImage.png"
-            }
-          })
+          // res.data.forEach(i => {
+          //   if (i.pic_name == null) {
+          //     i.pic_name = "placeImage/noImage.png"
+          //   }
+          // })
           this.items = res.data
+          console.log(this.items)
 
         })
     }
@@ -94,11 +115,11 @@ export default {
         .get('/api/bestHotel')
         .then(res => {
 
-          res.data.forEach(i => {
-            if (i.pic_name == null) {
-              i.pic_name = "placeImage/noImage.png"
-            }
-          })
+          // res.data.forEach(i => {
+          //   if (i.pic_name == null) {
+          //     i.pic_name = "placeImage/noImage.png"
+          //   }
+          // })
           this.items = res.data
 
         })

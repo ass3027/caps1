@@ -7,12 +7,9 @@
       style="width: 100%"
     >
 
-      {{ type }}
-      {{ id }}
       <div style="border-bottom: 2px solid black ">
         <h2>후기 작성</h2>
-        <div class="name"><h3>[<span v-if="type === 'guide'">가이드</span><span v-if="type === 'hotel'">호텔</span>]
-          {{ place_info !== null ? place_info.title : 'a' }}</h3></div>
+        <div class="name"><h3>[<span v-if="type === 'guide'">가이드</span><span v-if="type === 'hotel'">호텔</span>] {{ place_info !== null ? place_info.title : 'a' }}</h3></div>
       </div>
 
       <div class="write_board">
@@ -32,10 +29,10 @@
             <td>
               <input
                 v-model="title"
-                class="inp "
+                type="text"
                 name="subject"
                 placeholder="제목을 입력해주세요."
-                type="text"
+                class="inp "
               >
             </td>
           </tr>
@@ -46,10 +43,10 @@
                   <textarea
                     id="fieldCmt"
                     v-model="rev_content"
-                    cols="100"
                     name="contents"
-                    placeholder="리뷰 내용을 입력해주세요."
+                    cols="100"
                     rows="10"
+                    placeholder="리뷰 내용을 입력해주세요."
                   />
               </div>
             </td>
@@ -61,8 +58,8 @@
               <div class="field_cmt">
                 <input
                   ref="refImage"
-                  placeholder="photo"
                   type="file"
+                  placeholder="photo"
                   @change="imageSet($event)"
                 >
               </div>
@@ -79,9 +76,9 @@
 
         <button
           id="btnSubmit"
+          type="button"
           class="btn_reg btn_disabled"
           style="margin-top: 20px"
-          type="button"
           @click="onSubmit"
         >
           등록하기
@@ -95,7 +92,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'ReviewCreateView',
+  name:'ReviewCreateView',
   props: {
     type: String,
     id: String,
@@ -109,9 +106,11 @@ export default {
       place_info: null,
     }
   },
-  computed: {},
+  computed: {
+
+  },
   mounted() {
-    axios.get('/api/payment/placeInfo/' + this.type + '/' + this.id).then(res => {
+    axios.get('/api/payment/placeInfo/' + this.type +'/' + this.id).then(res => {
       console.log('place_info', res.data)
       this.place_info = res.data
     })
@@ -124,7 +123,8 @@ export default {
       var picture = document.getElementById('pictures')
 
 
-      while (picture.hasChildNodes()) {
+
+      while(picture.hasChildNodes()) {
         picture.removeChild(picture.firstChild);
       }
 
@@ -154,15 +154,15 @@ export default {
 
 
       axios({
-        method: 'post',
-        url: '/api/addReview',
+        method : 'post',
+        url    : '/api/addReview',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
         data: sendform
       }).then((res) => {
 
-        if (res.data) {
+        if(res.data) {
           alert("후기가 등록되었습니다.")
           this.$router.go(-1)
         }
@@ -177,7 +177,7 @@ export default {
 
 <style scoped>
 
-.field_cmt {
+.field_cmt{
   padding: 8px 10px 9px;
   border: 1px solid #dddfe1;
 }
@@ -192,16 +192,13 @@ th {
   font-size: 12px;
   color: #666;
 }
-
 td {
   padding: 10px 0 10px 10px;
   border-top: 1px solid #dddfe1;
 }
-
 input {
   width: 100%;
 }
-
 .inp {
   width: 100%;
   height: 34px;
