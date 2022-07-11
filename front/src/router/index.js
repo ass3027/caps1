@@ -131,7 +131,7 @@ const routes = [
   {path: "/place/:category", name: "place", component: HotelView, props: true},
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
-  {path: "/placeadd", name: "placeAdd", component: StoreAdd},
+  {path: "/placeadd", name: "placeAdd", component: PlaceAdd},
   {path: "/productBook/:pd_id", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
   {path: "/chart", name: chartView, component: chartView},
