@@ -31,7 +31,7 @@ public class ApiBookMark {
         List<PlaceDAO> all = bookMarkMapper.selectAllByUserBookMark(getUser_id());
         List<PlaceDAO> keeper = bookMarkMapper.selectByUserBookMarkKeeper(getUser_id());
         List<PlaceDAO> hotel = bookMarkMapper.selectByUserBookMarkHotel(getUser_id());
-//        List<PlaceDAO> tour = bookMarkMapper.selectByUserBookMarkTour(getUser_id());
+        List<PlaceDAO> tour = bookMarkMapper.selectByUserBookMarkTour(getUser_id());
         Map<String, List<PlaceDAO>> bookmarkData = new HashMap<>();
 
         if (all.isEmpty()) {
@@ -52,12 +52,11 @@ public class ApiBookMark {
             bookmarkData.put("hotel", hotel);
         }
 
-//        if (tour.isEmpty()) {
-//            bookmarkData.put("tour", new ArrayList<>());
-//        } else {
-//            bookmarkData.put("tour", tour);
-//        }
-
+        if (tour.isEmpty()) {
+            bookmarkData.put("tour", new ArrayList<>());
+        } else {
+            bookmarkData.put("tour", tour);
+        }
 
 
 
@@ -79,9 +78,11 @@ public class ApiBookMark {
 
     @DeleteMapping("/deleteBookMark")
     void deleteBookMark(@RequestParam("user_id")String user_id,
-                             @RequestParam("pl_id")String pl_id){
+                        @RequestParam("pl_id")String pl_id){
         bookMarkMapper.deleteBookMark(user_id,pl_id);
     }
+
+
 
 }
 

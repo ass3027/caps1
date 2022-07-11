@@ -23,8 +23,12 @@ public interface BookMarkMapper {
     List<PlaceDAO> selectByUserBookMarkKeeper(String user_id);
 
     //숙소 즐겨찾기
-    @Select("SELECT title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.cat1='AO2' and bookmark.user_id=#{user_id}")
+    @Select("SELECT title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.TITLE like '%호텔%' and bookmark.user_id=#{user_id}")
     List<PlaceDAO> selectByUserBookMarkHotel(String user_id);
+
+    //관광지 즐겨찾기
+    @Select("SELECT title, addr1, tel, place.user_id, firstImage FROM PLACE, BOOKMARK WHERE place.pl_id = bookmark.pl_id and place.user_id is null and bookmark.user_id=#{user_id}")
+    List<PlaceDAO> selectByUserBookMarkTour(String user_id);
 
     //북마크 여부
     @Select("""
@@ -41,6 +45,6 @@ public interface BookMarkMapper {
     void insertBookMark(String user_id, String pl_id);
 
     //북마크 삭제
-    @Delete("delete from BOOKMARK where user_id=#{user_id} and PL_ID=${pl_id}")
+    @Delete("delete from BOOKMARK where user_id=#{user_id} and PL_ID=#{pl_id}")
     void deleteBookMark(String user_id, String pl_id);
 }

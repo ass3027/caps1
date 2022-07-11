@@ -51,17 +51,6 @@
 
 <!--    -->
 
-
-
-
-
-
-    <div>
-<!--      <p>{{current_bookmark_type}}</p>-->
-    </div>
-
-
-
 <!--    -->
     <div class="list_bookmark">
       <div
@@ -96,6 +85,7 @@
               :src="bookmark.firstimage"
             >
             </v-img>
+            <button @click="remove">삭제하기</button>
           </v-card-text>
         </v-card> <br>
         <br>
@@ -150,7 +140,6 @@ export default {
       this.$router.push("/")
     },
     select_type() {
-
       var type = document.getElementById('type_select')
       var display = document.getElementById('type_display')
 
@@ -162,7 +151,6 @@ export default {
         display.style.display = 'block'
       }
     },
-
     select_all() {
       console.log('1')
       var all = document.getElementById('select_all')
@@ -231,7 +219,19 @@ export default {
 
       this.select_type()
     },
-
+    remove(){
+      axios.delete('/api/bookmark/deleteBookMark',{
+        params:{
+          user_id :this.$store.state.user.userId,
+          pl_id : this.pl_id
+        }
+      }).then(res=>{
+        console.log(123)
+        // alert(res.data)
+        alert("삭제하시겠습니까?")
+        this.$router.push("/")
+      })
+    }
   }
 }
 </script>
