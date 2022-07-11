@@ -7,11 +7,12 @@
       name="form_review"
       style="width: 100%"
     >
+      {{ this.payment.gitem_num }}
+      {{ this.review.rev_id }}
       <table style="width:100%; border-bottom: 2px solid black ">
-        <div class="name" style="float:left;"><h3>[<span v-if="type === 'guide'">가이드</span><span
-          v-if="type === 'hotel'">호텔</span>] {{ place_info !== null ? place_info.title : 'a' }}</h3></div>
+        <div class="name" style="float:left;"><h3>[<span v-if="type === 'guide'">가이드</span><span v-if="type === 'hotel'">호텔</span>] {{ place_info !== null ? place_info.title : 'a' }}</h3></div>
         <div style="float: right">
-          <button style="font-size: 12px" type="button" @click="goProduct">상품 페이지로 이동></button>
+          <button type="button" style="font-size: 12px" @click="goProduct">상품 페이지로 이동></button>
         </div>
       </table>
 
@@ -27,18 +28,10 @@
           <tbody>
           <tr>
             <th style="padding: 16px 0">
-              번호
-            </th>
-            <td>
-              <span class="content">{{ review.rev_id }}</span>
-            </td>
-          </tr>
-          <tr>
-            <th style="padding: 16px 0">
               제목
             </th>
             <td>
-              <span class="content">{{ review.title }}</span>
+              <span class="content">{{ review.title}}</span>
             </td>
           </tr>
           <tr>
@@ -68,8 +61,7 @@
                 id="pictures"
                 style="width: 150px;"
               >
-                <div :style="`background-image: url('/api/photo/${review.img_link}')`" class="photoFrame"
-                     style="height: 150px; width: 150px; background-size: cover">
+                <div class="photoFrame" :style="`background-image: url('/api/photo/${review.img_link}')`" style="height: 150px; width: 150px; background-size: cover">
                 </div>
               </div>
             </td>
@@ -114,7 +106,7 @@ export default {
       answer_content: '',
       place_info: null,
       type: null,
-      product_info: null,
+      payment: null,
     }
   },
   computed: {
@@ -126,8 +118,8 @@ export default {
     this.review = this.review_prop
 
 
-    axios.get('/api/review/productInfo/' + this.review.rev_id).then(res => {
-      this.product_info = res.data
+    axios.get('/api/review/payment/' + this.review.rev_id).then(res => {
+      this.payment = res.data
     })
 
 
@@ -158,11 +150,11 @@ export default {
     console.log("[REVIEW]")
     console.log('review', this.review)
 
-    console.log('/api/payment/placeInfo/' + this.type + '/' + this.review.pay_id)
+    console.log('/api/payment/placeInfo/' + this.type +'/' + this.review.pay_id)
     axios.get('/api/review/type/' + this.review.rev_id).then(res => {
       this.type = res.data
 
-      axios.get('/api/payment/placeInfo/' + this.type + '/' + this.review.pay_id).then(res => {
+      axios.get('/api/payment/placeInfo/' + this.type +'/' + this.review.pay_id).then(res => {
         console.log('place_info', res.data)
         this.place_info = res.data
       })
@@ -171,21 +163,21 @@ export default {
   },
   methods: {
     goProduct() {
-      if (this.type === 'guide') {
-        this.$router.push('/GuideProduct/' + this.product_info.gitem_id);
+      if(this.type === 'guide'){
+        this.$router.push('/GuideProduct/' + this.payment.gitem_num);
       }
 
     },
     answerRegister() {
       axios({
-        method: 'post',
-        url: '/api/review/answer/' + this.review.rev_id,
-        params: {
+        method : 'post',
+        url    : '/api/review/answer/' + this.review.rev_id,
+        params : {
           'content': this.answer_content
         }
       }).then((res) => {
 
-        if (res.data) {
+        if(res.data) {
           alert('답변이 등록되었습니다.')
           this.$router.go();
         } else {
@@ -196,7 +188,7 @@ export default {
     },
     like() {
       axios.post('/api/like/' + this.review.rev_id).then(res => {
-        if (res.data) {
+        if(res.data) {
           this.review.rev_like += 1
         }
         console.log('like test', this.review.rev_like)
@@ -224,12 +216,10 @@ th {
   font-size: 12px;
   color: #666;
 }
-
 td {
   padding: 10px 0 10px 10px;
   border-top: 1px solid #dddfe1;
 }
-
 input {
   width: 100%;
 }

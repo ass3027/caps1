@@ -2,13 +2,12 @@ package c.e.exper.mapper;
 
 import c.e.exper.data.GItemDAO;
 import c.e.exper.data.PaymentDAO;
-import c.e.exper.data.PaymentDTO;
 import c.e.exper.data.PlaceDAO;
+import c.e.exper.data.PaymentDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
-
 @Mapper
 public interface PaymentMapper {
 
@@ -55,12 +54,13 @@ public interface PaymentMapper {
               AND pl.pl_id = g.pl_id
               AND p.USER_ID = #{user_id}
             """)
-    List<Map<String, Object>> getGuideBook(String user_id);
+    List<Map<String,Object>> getGuideBook(String user_id);
 
     @Select("""
             SELECT *
             FROM payment
             WHERE user_id = #{user_id}
+              AND rev_check = 0
             """)
     List<PaymentDAO> paymentList(String user_id);
 
@@ -133,8 +133,10 @@ public interface PaymentMapper {
                                              from PRODUCT)
                                and PAY_ID is not null
                              group by PAY_ID)
+              and rev_check = 0
             """)
     List<PaymentDAO> hotelPaymentList(@Param("user_id") String user_id);
+
 
 
     @Select("""
@@ -152,6 +154,8 @@ public interface PaymentMapper {
             WHERE pay_id = #{pay_id}
             """)
     boolean revCheck(@Param("pay_id") String pay_id);
+
+
 
 
 }

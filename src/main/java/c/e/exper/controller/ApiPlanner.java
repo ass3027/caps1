@@ -165,7 +165,6 @@ public class ApiPlanner {
 //        공유사진등록할떄 유저아이디 등록하는거
         pictureDAO.setUser_id(pictureDTO.getUser_id());
         pictureDAO.setPlan_id(pictureDTO.getPlan_id());
-        pictureDAO.setCategory(pictureDTO.getCategory());
 
         pictureMapper.InsertPlan(pictureDAO);
 

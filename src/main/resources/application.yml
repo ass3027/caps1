@@ -11,9 +11,6 @@ spring:
         enabled: true     # livereload 사용시 활성화
       restart:
         enabled: false    #운영 에서는 제거.
-  servlet:
-    multipart:
-      max-file-size: 10MB
 
 #spring:
 #  datasource:

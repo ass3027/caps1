@@ -21,6 +21,5 @@ public class PictureDTO {
     String plan_id;
     String store_id;
     String user_id;
-    String category;
 
 }
