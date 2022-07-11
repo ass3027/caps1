@@ -18,43 +18,43 @@
 
       <table id="order_detail">
         <thead scope="row">
-          <tr />
+        <tr/>
         </thead>
         <tbody>
-          <tr>
-            <th>금액</th>
-            <td>{{ order.ord_amount }} 원</td>
-          </tr>
-          <tr>
-            <th>픽업/완료</th>
-            <td>
-              <div>
-                {{ entrust_time }}
-              </div>
-              <div>
-                {{ withdraw_time }}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>출발지</th>
-            <td>{{ keep_start.addr1 }}</td>
-          </tr>
-          <tr>
-            <th>도착지</th>
-            <td>{{ keep_end.addr1 }}</td>
-          </tr>
-          <tr>
-            <th>거리</th>
-            <td>{{ degree_start_end }}Km</td>
-          </tr>
-          <tr>
-            <th>나로부터</th>
-            <td>{{ degree_user_start }}Km</td>
-          </tr>
-          <tr>
-            <th>물품정보</th>
-            <td>
+        <tr>
+          <th>금액</th>
+          <td>{{ order.ord_amount }} 원</td>
+        </tr>
+        <tr>
+          <th>픽업/완료</th>
+          <td>
+            <div>
+              {{ entrust_time }}
+            </div>
+            <div>
+              {{ withdraw_time }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>출발지</th>
+          <td>{{ keep_start.addr1 }}</td>
+        </tr>
+        <tr>
+          <th>도착지</th>
+          <td>{{ keep_end.addr1 }}</td>
+        </tr>
+        <tr>
+          <th>거리</th>
+          <td>{{ degree_start_end }}Km</td>
+        </tr>
+        <tr>
+          <th>나로부터</th>
+          <td>{{ degree_user_start }}Km</td>
+        </tr>
+        <tr>
+          <th>물품정보</th>
+          <td>
               <span
                 v-for="(i, index) in ord_bag_info"
                 :key="index"
@@ -62,12 +62,12 @@
                 {{ i['BAG_SIZE'] }}x{{ i['CNT'] }}
                 <span v-if="index !== ord_bag_info.length-1">, </span>
               </span>
-            </td>
-          </tr>
-          <tr>
-            <th>요청사항</th>
-            <td>{{ order.ord_request }}</td>
-          </tr>
+          </td>
+        </tr>
+        <tr>
+          <th>요청사항</th>
+          <td>{{ order.ord_request }}</td>
+        </tr>
         </tbody>
       </table>
       <div v-if="order.status === '승인완료'">
@@ -236,10 +236,10 @@ export default {
 
     statusChange(toChange) {
       axios.post("/api/orders/status/change/" + toChange + '/' + this.order.ord_id).then(res => {
-        res.data === true ? alert('성공') : alert('실패')
+        alert(res.data)
+        this.$router.go();
       })
       console.log('statusChange', toChange)
-      this.$router.go();
     }
     ,
     requestMatch() {
