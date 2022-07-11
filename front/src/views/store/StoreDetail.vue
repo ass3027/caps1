@@ -1,12 +1,11 @@
 <template>
   <div class="">
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      rel="stylesheet"
     >
-
 
     <div v-if="temp===1 && products[0].pd_id !== null">
       <div class="container my-0 my-md-4">
@@ -22,8 +21,8 @@
                     v-if="temp===1"
                     :src="'/api/photo/' + products[index].pic_name"
                     alt=""
-                    style="width: 100%"
                     class="image"
+                    style="width: 100%"
                   />
                 </div>
               </div>
@@ -47,11 +46,11 @@
                       @click="changeMainImage(index)"
                     >
                       <v-img
+                        :class="mainImage === product.pic_name ? 'activess' : ''"
                         :src="'/api/photo/' + product.pic_name"
-                        style="width:100%"
                         alt=""
                         class="image"
-                        :class="mainImage === product.pic_name ? 'activess' : ''"
+                        style="width:100%"
                       />
                     </div>
                   </div>
@@ -141,8 +140,8 @@
                     v-if="temp===1"
                     :src="products[0].firstimage"
                     alt=""
-                    style="width: 100%"
                     class="image"
+                    style="width: 100%"
                   />
                 </div>
               </div>
@@ -166,10 +165,10 @@
                       @click="changeMainImage(index)"
                     >
                       <v-img
-                        style="width:100%"
+                        :class="mainImage === product.firstimage ? 'activess' : ''"
                         alt=""
                         class="image"
-                        :class="mainImage === product.firstimage ? 'activess' : ''"
+                        style="width:100%"
                       />
                     </div>
                   </div>
@@ -242,11 +241,14 @@
       </div>
     </div>
 
+<<<<<<< HEAD
 
 
     {{ pl_id }}
+=======
+>>>>>>> parent of 73ea628e (Revert "Merge branch 'master' of https://github.com/ass3027/caps1")
     <ReviewView
-      :id="'조선호텔1'"
+      :id="pl_id"
       :type="'호텔'"
       style="width: 1274px; margin: 0 auto"
     />
@@ -255,7 +257,6 @@
 </template>
 
 <script>
-import StoreReviewView from "@/views/StoreReviewView";
 import axios from "axios";
 import PlaceProduct from "@/components/store/PlaceProduct";
 import ReviewView from "@/views/ReviewView";
