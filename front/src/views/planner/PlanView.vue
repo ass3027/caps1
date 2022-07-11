@@ -199,7 +199,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .v-sheet.v-card:not(.v-sheet--outlined){
     box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   }

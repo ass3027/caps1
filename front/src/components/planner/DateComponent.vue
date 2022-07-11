@@ -270,7 +270,7 @@ export default {
       this.$store.commit('calendar/updateSelect', a)
       this.selectedTime = key
       EventBus.$emit('updateDate', this.date) // 경로
-      EventBus.$emit('updatePosition', selected.calendar.date[this.date].get(key)) // 경로
+      EventBus.$emit('updatePosition', selected.calendar.date[this.date].get(key)) // 위치
       console.log(this.eachDistance.length)
     },
     unselect(e) {
