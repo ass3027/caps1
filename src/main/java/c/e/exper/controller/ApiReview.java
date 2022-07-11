@@ -83,6 +83,7 @@ public class ApiReview {
             case "호텔 상품":
                 return reviewMapper.findHotelProductReview(id); // pd_id
             case "호텔":
+                System.out.println("id = " + id);
                 return reviewMapper.findHotelReview(id); // pl_id
         }
 

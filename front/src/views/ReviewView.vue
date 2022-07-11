@@ -59,6 +59,7 @@
         class="layout-pagination-button layout-pagination-last-page"
         @click="pageLast"
       >맨 끝 페이지로 가기</a>
+
     </div>
   </div>
 </template>
@@ -91,8 +92,9 @@ export default {
   },
   computed: {
     slice_reviews() {
-      var current_page = this.current_page
-      return this.reviews.slice((current_page - 1) * 7, current_page * 7)
+      const a = this.reviews.slice((this.current_page - 1) * 7, this.current_page * 7)
+      console.log('test', a)
+      return a
     },
     max_page() {
       return Math.ceil(this.reviews.length / 7)

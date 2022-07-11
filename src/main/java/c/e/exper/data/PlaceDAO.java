@@ -25,21 +25,14 @@ public class PlaceDAO {
     String keeper_ox;
     String addr1;
     String addr2;
-    String areaCode;
+    String areacode;
     String cat1;
     String cat2;
     String cat3;
-<<<<<<< Updated upstream
-    String contentId;
-    String contentTypeId;
     String firstimage;
-    String firstImage2;
-=======
     String contentid;
     String contenttypeid;
-    String firstimage;
     String firstimage2;
->>>>>>> Stashed changes
     Double mapx;
     Double mapy;
     String tel;

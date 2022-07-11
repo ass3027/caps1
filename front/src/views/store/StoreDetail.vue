@@ -243,6 +243,8 @@
     </div>
 
 
+
+    {{ pl_id }}
     <ReviewView
       :id="'조선호텔1'"
       :type="'호텔'"

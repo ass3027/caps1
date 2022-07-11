@@ -377,13 +377,10 @@ export default {
         this.ShareSets = res.data;
         console.log(this.ShareSets)
       })
-<<<<<<< Updated upstream
 
-=======
   },
   destroyed() {
     window.scrollTo(0, 0)
->>>>>>> Stashed changes
   },
   methods: {
     test() {

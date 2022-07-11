@@ -146,7 +146,7 @@ public class ApiPlace {
             .tel(placeAdd.getTel())
             .title(placeAdd.getTitle())
             .zipcode(placeAdd.getZipcode())
-            .firstImage(filePath)
+            .firstimage(filePath)
             .build();
       placeMapper.placeAdd(placeDAO);
     
