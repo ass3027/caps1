@@ -18,7 +18,7 @@
           <v-text-field
             label="체크인 시 필요한 정보입니다."
             solo
-            :value="this.$store.state.user.user_phone"
+            :value="this.user_info.user_phone"
           />
           <h3>숙소 이름</h3>
           <v-text-field
@@ -125,9 +125,20 @@ export default {
 
     products: [],
 
+    user_info: [],
+
 
   }),
   mounted() {
+    axios({
+      method: 'GET',
+      url: '/api/user/find',
+    })
+    .then((res)=>{
+      this.user_info = res.data
+      console.log(res.data)
+    })
+
     axios({
       method: 'GET',
       url: '/api/bookPdId',
