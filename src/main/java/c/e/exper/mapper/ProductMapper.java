@@ -68,6 +68,13 @@ public interface ProductMapper {
             """)
     List<BookDAO> SelectBook(@Param("id") String id);
 
+    @Select("""
+            select min("date") st_date, max("date")+1 end_date, c.title, b.USER_ID, d.pd_name
+            from PRODUCT_TIME a, PAYMENT b, PLACE c, PRODUCT d
+            where b.PAY_ID = a.PAY_ID and c.PL_ID = d.PL_ID and c.USER_ID = #{id}
+            group by a.PAY_ID, c.title, b.USER_ID, d.pd_name
+            """)
+    List<BookDAO> SelectUserBook(@Param("id") String id);
 
     @Select("""
             select sum(PAY_PRICE) as count

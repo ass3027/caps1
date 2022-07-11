@@ -37,6 +37,7 @@ import KeeperOrderDetail from "@/views/bag/keeper/KeeperOrderDetail";
 //--------------------------------------------------------------------
 //혁태??
 import HotelView from "@/views/store/HotelView";
+import PlaceAdd from "@/views/store/PlaceAdd";
 import StoreDetail from "@/views/store/StoreDetail";
 
 //진한??
@@ -126,7 +127,7 @@ const routes = [
   {path: "/place/:category", name: "place", component: HotelView, props: true},
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
-  // {path: "/placeadd", name: "placeAdd", component: StoreAdd},
+  {path: "/placeAdd", name: "placeAdd", component: PlaceAdd},
   {path: "/productBook/:pd_id", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
   {path: "/chart", name: chartView, component: chartView},
@@ -189,8 +190,8 @@ router.beforeResolve((to, from, next) => {
   } else {
     const dd = async () => {
       try {
-        const {data} = await axios.get("/api/user/find");
-        await store.dispatch("user/setUser", {"id": data.user_id, "role": data.role});
+        const { data } = await axios.get("/api/user/find");
+        await store.dispatch("user/setUser", {"id":data.user_id , "role":data.role});
         if ("anonymousUser" !== data) {
           const photo = await axios.get("/api/user/photo")
           EventBus.$emit("photoUpdate", photo.data)

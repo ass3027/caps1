@@ -26,6 +26,7 @@ public class BookDAO {
     String endDate;
     String max_room_num;
     String count;
+    String pd_name;
 
     String st_date;
     String end_date;
