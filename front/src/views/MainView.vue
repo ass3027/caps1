@@ -12,7 +12,7 @@
         justify="center"
       >
         <v-col
-          cols="auto"
+          cols="3"
           align-self="start"
           class="mt-5"
           style=""
@@ -23,7 +23,7 @@
             style="width: 330px;height:380px;overflow: auto"
           >
             <b>일정 현황</b>
-            <calendar-preview />
+            <calendar-preview/>
           </v-card>
         </v-col>
         <v-col
@@ -101,7 +101,7 @@
 
     <div v-if="$store.state.user.userId=='anonymousUser'">
       <v-row>
-        <search-tour />
+        <search-tour/>
       </v-row>
       <v-row
         justify="center"
@@ -181,7 +181,7 @@
       <v-row class="mt-10">
         <h2>맞춤 여행지</h2>
       </v-row>
-      <place-recommend />
+      <place-recommend/>
     </div>
 
 
@@ -192,13 +192,13 @@
       <h2>추천 여행지</h2>
     </v-row>
     <v-row class="mb-5">
-      <best-place mode="place" />
+      <best-place mode="place"/>
     </v-row>
     <v-row>
       <h2>추천 호텔</h2>
     </v-row>
     <v-row class="mb-5">
-      <best-place mode="hotel" />
+      <best-place mode="hotel"/>
     </v-row>
 
 
@@ -206,7 +206,7 @@
       <h2>추천 가이드</h2>
     </v-row>
     <v-row class="mb-5">
-      <best-place mode="guide" />
+      <best-place mode="guide"/>
     </v-row>
 
     <v-row class="ml-0">
@@ -220,7 +220,7 @@
         cols="2"
         @click="$router.push({name:'shareDetails', params:{id:share.share_id}})"
       >
-        <planner-share-card-preview :share-set="share" />
+        <planner-share-card-preview :share-set="share"/>
       </v-col>
     </v-row>
 
@@ -377,7 +377,13 @@ export default {
         this.ShareSets = res.data;
         console.log(this.ShareSets)
       })
+<<<<<<< Updated upstream
 
+=======
+  },
+  destroyed() {
+    window.scrollTo(0, 0)
+>>>>>>> Stashed changes
   },
   methods: {
     test() {

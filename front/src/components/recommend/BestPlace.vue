@@ -79,13 +79,15 @@ export default {
       axios
         .get('/api/bestPlace')
         .then(res => {
+          console.log(res.data)
 
-          res.data.forEach(i => {
-            if (i.pic_name == null) {
-              i.pic_name = "placeImage/noImage.png"
-            }
-          })
+          // res.data.forEach(i => {
+          //   if (i.pic_name == null) {
+          //     i.pic_name = "placeImage/noImage.png"
+          //   }
+          // })
           this.items = res.data
+          console.log(this.items)
 
         })
     }
@@ -94,11 +96,11 @@ export default {
         .get('/api/bestHotel')
         .then(res => {
 
-          res.data.forEach(i => {
-            if (i.pic_name == null) {
-              i.pic_name = "placeImage/noImage.png"
-            }
-          })
+          // res.data.forEach(i => {
+          //   if (i.pic_name == null) {
+          //     i.pic_name = "placeImage/noImage.png"
+          //   }
+          // })
           this.items = res.data
 
         })
