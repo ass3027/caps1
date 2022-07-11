@@ -23,7 +23,7 @@
               >
                 mdi-calendar-check-outline
               </v-icon>
-              일정
+              일정.
             </v-col>
             <v-col cols="auto">
               <book-mark-status :pl_id="item.pl_id"></book-mark-status>
