@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 
-
 //성호형??
 import SuppliesVue from "../views/supply/SuppliesView";
 import PlannerShareView from "../views/share/PlannerShareView";
@@ -36,8 +35,6 @@ import CalenderView from "@/views/planner/CalenderView";
 import KeeperTrackingView from "@/views/bag/keeper/KeeperTrackingView";
 import KeeperOrderDetail from "@/views/bag/keeper/KeeperOrderDetail";
 //--------------------------------------------------------------------
-
-
 //혁태??
 import HotelView from "@/views/store/HotelView";
 import PlaceAdd from "@/views/store/PlaceAdd";
@@ -91,13 +88,12 @@ import AgeChartView from "@/views/auth/AgeChartView";
 import chartView from "@/views/store/chartView";
 
 
-
 Vue.use(VueRouter);
 
 const routes = [
   //민아
   {path: "/join", name: "join", component: joinView}, //회원선택하UserJoinView는 창
-  {path: "/userJoin", name: "userJoin", component: UserJoinView }, //일반회원 가입창
+  {path: "/userJoin", name: "userJoin", component: UserJoinView}, //일반회원 가입창
   {path: "/deliveryJoin", name: "DeliveryJoin", component: DeliveryJoinView}, //운송원회원 창
   {path: "/keeperJoin", name: "KeeperJoin", component: KeeperJoinView}, //운송원회원 창
   {path: "/login", name: "login", component: LoginView},
@@ -124,20 +120,20 @@ const routes = [
   {path: "/bsh/:id", name: "bshDetail", component: TestBshDetailView, props: true},
   {path: "/placeSupplies", name: "placeSupplies", component: PlaceSuppliesView},
   {path: "/", name: "main", component: mainView},
-  {path: "/tour/:pl_id", name: "tourDetail", component: TourDetailView,props:true},
+  {path: "/tour/:pl_id", name: "tourDetail", component: TourDetailView, props: true},
 
 
   //혁태
   {path: "/place/:category", name: "place", component: HotelView, props: true},
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
-  {path: "/placeadd", name: "placeAdd", component: PlaceAdd},
+  {path: "/placeAdd", name: "placeAdd", component: PlaceAdd},
   {path: "/productBook/:pd_id", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
   {path: "/chart", name: chartView, component: chartView},
 
   //세진
-  {path: "/calender", name: "calender", component: CalenderView,props: true},
+  {path: "/calender", name: "calender", component: CalenderView, props: true},
   {path: "/plInvite", name: "plInvite", component: PlInviteView},
   {path: "/plan", name: "plan", component: PlanView},
   {path: "/planPic", name: "planPic", component: PlannerPicView},
@@ -156,8 +152,6 @@ const routes = [
   //---------------------------------------------------------------//
 
 
-
-
   {path: "/DuserOrders", name: "DuserOrders", component: DuserOrders},
   {path: "/orderDetail/:ordId", name: "OrderDetail", component: OrderDetail, props: true},
   {path: "/TestView", name: "TestView", component: TestView},
@@ -174,7 +168,7 @@ const routes = [
   {path: "/GuideProduct/Search/:keyword", name: "GuideProductSearch", component: GuideProductSearch, props: true},
   {path: "/GuideIntro/:user_id", name: "GuideIntro", component: GuideIntro},
   {path: "/GuideReserveInfo", name: "GuideReserveInfo", component: GuideReserveInfo},
-  {path: "/GuideReserve", name:"GuideReserve", component: GuideReserve},
+  {path: "/GuideReserve", name: "GuideReserve", component: GuideReserve},
   //세운
   {path: "/location/check/:ord_id", name: "LocationCheckView", component: LocationCheckView, props: true,},
   {path: "/location/update/:duser_id", name: "LocationUpdateView", component: LocationUpdate, props: true,},

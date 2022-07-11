@@ -134,7 +134,7 @@ public class ApiPlace {
       System.out.println("realPath = " + realPath);
       System.out.println(placeAdd.getImage().getOriginalFilename());
 
-//      placeService.placeAdd(placeAdd);
+      placeService.placeAdd(placeAdd);
    }
    
    @GetMapping("/place2/{category}/{option}")
