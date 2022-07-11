@@ -25,7 +25,6 @@
   </div>
 </template>
 <script>
-import StoreDetail from "@/views/store/StoreDetail";
 
 export default {
   name: "PlaceMain",
