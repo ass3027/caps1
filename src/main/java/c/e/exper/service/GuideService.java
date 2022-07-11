@@ -87,12 +87,22 @@ public class GuideService {
       gitemMapper.deleteGitemOne(id);
 
    }
+
+   public void 예약_취소(String id){
+      gitemMapper.deletePayment(id);
+   }
+
    public int 시간_수정(int id){
       return gitemMapper.updateTime(id);
    }
    public void 소개_수정(GuideDAO guideDAO, String id){
        guideMapper.updateIntro(guideDAO, id);
    }
+
+   public int 결제_완료(int id){
+      return gitemMapper.updategTime(id);
+   }
+
    public void 예약_등록(GItemDAO gitemDAO){
       gitemMapper.insertReserve(gitemDAO);
    }
@@ -102,6 +112,9 @@ public class GuideService {
 
    public List<GItemDAO> 시간_조회(String id){
       return gitemMapper.selectTimes(id);
+   }
+   public List<GItemDAO> 시간_조회2(String id){
+      return gitemMapper.selectTimes2(id);
    }
 
 }

@@ -21,6 +21,9 @@ public interface GItemMapper {
     @Delete("Delete from gitem where gitem_id = #{id}")
     void deleteGitemOne(String id);
 
+    @Delete("Delete from payment where pay_id = #{id}")
+    void deletePayment(String id);
+
     @Select("Select * From gitem,place where gitem.pl_id = place.pl_id and gitem_id = #{id}")
     GItemDAO selectByGitemId(String id);
 
@@ -33,6 +36,9 @@ public interface GItemMapper {
     @Update("Update available_time set book_whether = 0 where time_num = #{id}")
     int updateTime(@Param("id") int id);
 
+    @Update("Update payment set buy_status = 0 where pay_id = #{id}")
+    int updategTime(@Param("id") int id);
+
     @Insert("Insert into book(user_id, time_num) values( #{user_id}, #{time_num})")
     void insertReserve(GItemDAO gitemDAO);
 
@@ -40,12 +46,16 @@ public interface GItemMapper {
     void insertPay(GItemDAO gitemDAO);
 
     @Select("Select * From available_time a, gitem g, place p, payment " +
-            "where  g.gitem_id = a.gitem_id and p.pl_id = g.pl_id and payment.gtime_num = a.time_num and payment.user_id = #{id}")
+            "where  g.gitem_id = a.gitem_id and p.pl_id = g.pl_id and payment.gtime_num = a.time_num and payment.user_id = #{id} and  payment.buy_status = 0")
     List<GItemDAO> selectTimes(@Param("id") String id);
+
+    @Select("Select * From available_time a, gitem g, place p, payment " +
+            "where  g.gitem_id = a.gitem_id and p.pl_id = g.pl_id and payment.gtime_num = a.time_num and payment.user_id = #{id} and  payment.buy_status = 1")
+    List<GItemDAO> selectTimes2(@Param("id") String id);
 
     @Select("select sum(PAY_PRICE)as count\n" +
             "from PAYMENT\n" +
-            "where gtime_num in (select TIME_NUM\n" +
+            "where buy_status = 0 and gtime_num in (select TIME_NUM\n" +
             "                    from AVAILABLE_TIME\n" +
             "                    where GITEM_ID in (select GITEM_ID\n" +
             "                                       from GITEM\n" +
@@ -70,6 +80,7 @@ public interface GItemMapper {
             "from PAYMENT p,GITEM g, AVAILABLE_TIME a\n" +
             "where p.GTIME_NUM = a.TIME_NUM\n" +
             "AND a.GITEM_ID = g.GITEM_ID\n" +
+            "AND p.buy_status = 0\n" +
             "AND gtime_num in (select TIME_NUM\n" +
             "                    from AVAILABLE_TIME\n" +
             "                    where GITEM_ID in (select GITEM_ID\n" +
@@ -82,7 +93,7 @@ public interface GItemMapper {
 
     @Select("select sum(PAY_PRICE)as count7\n" +
             "from PAYMENT\n" +
-            "where gtime_num in (select TIME_NUM\n" +
+            "where buy_status = 0 and gtime_num in (select TIME_NUM\n" +
             "                    from AVAILABLE_TIME\n" +
             "                    where GITEM_ID in (select GITEM_ID\n" +
             "                                       from GITEM\n" +
@@ -92,7 +103,7 @@ public interface GItemMapper {
 
     @Select("select sum(PAY_PRICE)as count1\n" +
             "from PAYMENT\n" +
-            "where gtime_num in (select TIME_NUM\n" +
+            "where buy_status = 0 and gtime_num in (select TIME_NUM\n" +
             "                    from AVAILABLE_TIME\n" +
             "                    where GITEM_ID in (select GITEM_ID\n" +
             "                                       from GITEM\n" +
@@ -102,7 +113,7 @@ public interface GItemMapper {
 
     @Select("select sum(PAY_PRICE)as count30\n" +
             "from PAYMENT\n" +
-            "where gtime_num in (select TIME_NUM\n" +
+            "where buy_status = 0 and gtime_num in (select TIME_NUM\n" +
             "                    from AVAILABLE_TIME\n" +
             "                    where GITEM_ID in (select GITEM_ID\n" +
             "                                       from GITEM\n" +
