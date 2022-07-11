@@ -6,9 +6,12 @@
       name="form_review"
       style="width: 100%"
     >
-      <h2 style="padding: 5px 0 34px; border-bottom: 2px solid black ">
-        후기 작성
-      </h2>
+
+      <div style="border-bottom: 2px solid black ">
+        <h2>후기 작성</h2>
+        <div class="name"><h3>[<span v-if="type === 'guide'">가이드</span><span v-if="type === 'hotel'">호텔</span>] {{ place_info !== null ? place_info.title : 'a' }}</h3></div>
+      </div>
+
       <div class="write_board">
         <table
           class="tbl"
@@ -100,10 +103,17 @@ export default {
       title: '',
       pay_id: '',
       imageFile: null,
+      place_info: null,
     }
   },
   computed: {
 
+  },
+  mounted() {
+    axios.get('/api/payment/placeInfo/' + this.type +'/' + this.id).then(res => {
+      console.log('place_info', res.data)
+      this.place_info = res.data
+    })
   },
   methods: {
 
@@ -152,7 +162,10 @@ export default {
         data: sendform
       }).then((res) => {
 
-        alert(res.data)
+        if(res.data) {
+          alert("후기가 등록되었습니다.")
+          this.$router.go(-1)
+        }
 
       })
 

@@ -9,7 +9,7 @@
     </div>
     <ul class="tab_menu">
       <li id="reviewBefore"><a @click="change('reviewBefore')">작성가능 후기 <span>({{ paymentList.length }})</span></a></li>
-      <li id="reviewAfter"><a @click="change('reviewAfter')">작성완료 후기 <span>({{  }})</span></a></li>
+      <li id="reviewAfter"><a @click="change('reviewAfter')">작성완료 후기 <span>({{ reviews.length }})</span></a></li>
     </ul>
     <template v-if="status === 'reviewBefore'">
 
@@ -17,7 +17,9 @@
 
         <!--        가이드 결제내역        -->
         <h2 style="border-bottom: 2px solid #333">가이드</h2>
-        <li v-for="(payment, index) in guidePaymentList" :key="index">
+        <li v-for="(payment, index) in guidePaymentList"
+            :key="index"
+        >
           <PaymentItem :payment="payment" :type="'guide'"/>
         </li>
 
@@ -34,12 +36,12 @@
       <ul class="list_payment">
 
 
-        <div v-for="(review, index) in reviews" :key="index">
-          {{review}}
-        </div>
+        <v-card v-for="(review, index) in reviews" :key="index" style="margin-bottom: 10px">
 
-        <!--        가이드 결제내역        -->
-        <h2 style="border-bottom: 2px solid #333">가이드</h2>
+          <Myreview-item :review_prop="review"/>
+
+
+        </v-card>
 
 
       </ul>
@@ -51,11 +53,12 @@
 <script>
 import axios from "axios";
 import PaymentItem from "@/components/auth/PaymentItem";
-
+import MyreviewItem from "@/components/review/MyreviewItem";
 
 export default {
   components: {
     PaymentItem,
+    MyreviewItem
   },
   data() {
     return {
@@ -97,6 +100,9 @@ export default {
     selected.style.borderBottom = '2px solid #333'
     selected.style.color = '#333'
     selected.style.fontWeight = '700'
+
+
+
   },
   methods: {
     gitemInfo(pay_id) {
@@ -106,6 +112,12 @@ export default {
         return res.data
       })
 
+    },
+    reviewCheck(pay_id) {
+
+      axios.get('/api/review/paymentCheck/' + pay_id).then(res => {
+        return res.data
+      })
     },
 
     change(status) {
@@ -142,6 +154,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .list_payment {
   padding-top: 10px;
   padding-left: 0;

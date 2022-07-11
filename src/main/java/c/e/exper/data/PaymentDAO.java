@@ -23,6 +23,7 @@ public class PaymentDAO {
     String user_id;
     String ord_id;
     String gtime_num;
+    boolean rev_check;
 
     String buy_status;
 }
