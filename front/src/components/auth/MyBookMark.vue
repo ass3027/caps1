@@ -48,14 +48,58 @@
         </li>
       </ul>
     </div>
+
+<!--    -->
+
+
+
+
+
+
+    <div>
+<!--      <p>{{current_bookmark_type}}</p>-->
+    </div>
+
+
+
+<!--    -->
     <div class="list_bookmark">
-      배열 길이: {{ current_bookmark_type.length }}
       <div
         v-for="(bookmark, index) in current_bookmark_type"
         :key="index"
       >
-        {{ bookmark }} <br>
+        <v-card
+          class="mx-auto"
+          max-width="1500"
+          max-height="1000"
+        >
+          <v-card-text>
+            <div class="b">
+              <h2 style="margin-bottom: 15px">{{ bookmark.title}}</h2>
+            </div>
+            <div class="b">
+              {{ bookmark.addr1}}
+            </div>
+
+
+            <p class="text-h6 text--primary"></p>
+            <div class="b">
+             전화번호 : {{ bookmark.tel}}
+            </div>
+
+            <p class="text-h6 text--primary"></p>
+
+
+            <v-img
+              class="white--text align-end"
+              height="200px"
+              :src="bookmark.firstimage"
+            >
+            </v-img>
+          </v-card-text>
+        </v-card> <br>
         <br>
+
       </div>
     </div>
   </div>
@@ -89,10 +133,10 @@ export default {
     axios.get("/api/bookmark/BookMark")
       .then((res) => {
         console.log(res.data)
-
         this.all = res.data.all
         this.keeper = res.data.keeper
         this.hotel = res.data.hotel
+        this.tour = res.data.tour
 
         this.current_bookmark_type = this.all
 

@@ -53,7 +53,6 @@ public class ApiPayment {
     @GetMapping("/paymentList/hotel")
     List<PaymentDAO> hotelPaymentList() {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
         return paymentMapper.hotelPaymentList(id);
     }
 

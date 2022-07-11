@@ -31,6 +31,7 @@ public class ApiBookMark {
         List<PlaceDAO> all = bookMarkMapper.selectAllByUserBookMark(getUser_id());
         List<PlaceDAO> keeper = bookMarkMapper.selectByUserBookMarkKeeper(getUser_id());
         List<PlaceDAO> hotel = bookMarkMapper.selectByUserBookMarkHotel(getUser_id());
+//        List<PlaceDAO> tour = bookMarkMapper.selectByUserBookMarkTour(getUser_id());
         Map<String, List<PlaceDAO>> bookmarkData = new HashMap<>();
 
         if (all.isEmpty()) {
@@ -50,6 +51,14 @@ public class ApiBookMark {
         } else {
             bookmarkData.put("hotel", hotel);
         }
+
+//        if (tour.isEmpty()) {
+//            bookmarkData.put("tour", new ArrayList<>());
+//        } else {
+//            bookmarkData.put("tour", tour);
+//        }
+
+
 
 
         return bookmarkData;

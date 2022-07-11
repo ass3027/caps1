@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative">
+  <div style="position: relative;width: 80%">
     <canvas
       ref="barChart"
     />

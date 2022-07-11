@@ -12,6 +12,7 @@
         <MyPageUpdate v-else-if="selected === 'MyPageUpdate'"/>
         <MyReview v-else-if="selected === 'MyReview'"/>
         <Questions v-else-if="selected === 'Questions'"/>
+        <PriceChart v-else-if="selected === 'PriceChart'"/>
       </div>
     </div>
   </div>
@@ -24,6 +25,7 @@
   import MyReview from "@/components/auth/MyReview";
   import Questions from "@/components/auth/Questions";
   import MyPageInfo from "@/components/auth/MyPageInfo";
+  import PriceChart from "@/components/auth/PriceChart";
 
   export default {
     components:{
@@ -32,7 +34,8 @@
       MyBookMark,
       MyPageUpdate,
       MyReview,
-      Questions
+      Questions,
+      PriceChart
     },
     props: {
       select: String
