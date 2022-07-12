@@ -1,5 +1,8 @@
 <template>
   <div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <div class="card">
       <div class="cardInfo">
         <div
@@ -13,13 +16,14 @@
         </div>
         <div class="cardText">
           <div class="cardTitle">
-            <h3>{{ product.pd_name }}</h3>
+           <span style="font-size: 20px; font-weight: 900; color: black;">{{ product.pd_name }}</span>
           </div>
           <br>
           <div class="cardPrice">
-            <h4>가격 <span class="priceScore">{{ product.pd_price }}원</span></h4>
+            <span class="priceScore" style="font-size: 20px; font-weight: 350; color: black;">가격 {{ product.pd_price }}원</span>
           </div>
-
+          <br>
+          <hr>
           <br>
           <div class="detail">
             <div class="">
@@ -34,8 +38,7 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-
-                    <h5>객실 이용 안내</h5>
+                    객실 이용 안내
                   </v-text>
                 </template>
 
@@ -74,7 +77,6 @@
           </div>
           <br>
           <div class="cardPlace">
-            <hr>
           </div>
           <br>
           <v-btn class="예약" @click="go">
@@ -138,6 +140,7 @@ export default {
 </script>
 
 <style scoped>
+
 * {
   margin: 0px;
   padding: 0px;
@@ -160,9 +163,9 @@ export default {
 
 .cardImg {
   display: block;
-  width: 45%;
+  width: 40%;
   /*background: red;*/
-  float: left;
+  margin: 5px;
 }
 
 .cardImg img {
@@ -199,10 +202,12 @@ export default {
 }
 
 .예약 {
-  width: 100%;
+  width: 80%;
 }
 
 .theme--light.v-btn.v-btn--has-bg {
   background: #139DF2;
 }
+
+
 </style>
