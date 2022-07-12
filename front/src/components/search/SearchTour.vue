@@ -67,24 +67,23 @@
                   alt=""
                 >
               </v-row>
-              <v-row>
+              <v-row justify="center" style="text-align: center">
                 <v-card-subtitle>
-                  장소명: {{ data.title }}<br>
-                  주소명:{{ data.addr1 }}<br>
-                  전화번호:{{ data.tel }}
+                  {{ data.title }}<br>
+                  {{ data.addr1 }}<br>
+                  {{ data.tel }}
                 </v-card-subtitle>
-                <v-col>
-                  <v-card-actions style="position: absolute; bottom: 0; right: 0">
-                    <v-spacer />
-                    <v-btn
-                      depressed
-                      color="primary"
-                      @click="goDetail(data)"
-                    >
-                      상세보기
-                    </v-btn>
-                  </v-card-actions>
-                </v-col>
+                <v-card-actions style="position: absolute; bottom: 0; right: 0">
+                  <v-spacer/>
+                  <v-btn
+                    depressed
+                    color="primary"
+                    @click="goDetail(data)"
+                  >
+                    상세보기
+
+                  </v-btn>
+                </v-card-actions>
               </v-row>
             </v-card>
           </v-skeleton-loader>
@@ -172,19 +171,19 @@ export default {
     }
     ,
     placeTitle() {
-        axios({
-          method: "get",
-          url: `/api/placeA01/${this.searchCon}`,
-          params:{keyword:this.keyword}
+      axios({
+        method: "get",
+        url: `/api/placeA01/${this.searchCon}`,
+        params: {keyword: this.keyword}
+      })
+        .then((res) => {
+          this.lists = res.data;
+          console.log('키워드응답' + res);
+          this.curPageNum = 1
         })
-          .then((res) => {
-            this.lists = res.data;
-            console.log('키워드응답' + res);
-            this.curPageNum = 1
-          })
     },
     goDetail(data) {
-      this.$router.push({name:'tourDetail',params:{pl_id:data.pl_id,contentTypeId:this.searchCon}})
+      this.$router.push({name: 'tourDetail', params: {pl_id: data.pl_id, contentTypeId: this.searchCon}})
     }
   }
   ,

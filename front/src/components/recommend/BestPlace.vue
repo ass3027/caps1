@@ -107,7 +107,6 @@ export default {
       axios
         .get('/api/bestPlace')
         .then(res => {
-          console.log(res.data)
 
           // res.data.forEach(i => {
           //   if (i.pic_name == null) {
@@ -115,7 +114,6 @@ export default {
           //   }
           // })
           this.items = res.data
-          console.log(this.items)
 
         })
     }
@@ -137,7 +135,6 @@ export default {
       axios
         .get('/api/bestGitem')
         .then(res => {
-          console.log(res.data)
           res.data.forEach(i => {
             if (i.pic_name == null) {
               i.pic_name = "placeImage/noImage.png"

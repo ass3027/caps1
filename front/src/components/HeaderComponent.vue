@@ -250,7 +250,7 @@ export default {
           {title: '플래너 초대', route: '/plInvite'},
           {title: '일정', route: '/calender'},
           {title: '준비물', route: '/supplies'},
-          {title: '플래너 사진', route: '/planPic'}
+          {title: '사진첩', route: '/planPic'}
         ],
         [
           {title: '호텔', route: '/place/hotel'},

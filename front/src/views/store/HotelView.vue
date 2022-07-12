@@ -34,10 +34,10 @@ export default {
     return {
       category: '',
       option: [
-        {title: "pool", value: "1"},
-        {title: "spa", value: "2"},
-        {title: "restaurant", value: "3"},
-        {title: "golf", value: "3"}
+        {title: "골프", value: "1"},
+        {title: "스파", value: "2"},
+        {title: "레스토랑", value: "3"},
+        {title: "골프장", value: "4"}
       ]
     }
   },

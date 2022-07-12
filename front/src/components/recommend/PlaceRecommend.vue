@@ -70,7 +70,6 @@ export default {
     axios
       .get('/api/recPlace')
       .then(res=>{
-        console.log("ㄴㄹ"+res.data)
         if(res.data==''){
           return
         }
