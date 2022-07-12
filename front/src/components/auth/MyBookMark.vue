@@ -78,7 +78,6 @@
 
             <p class="text-h6 text--primary"></p>
 
-
             <v-img
               class="white--text align-end"
               height="200px"
@@ -102,6 +101,7 @@ export default {
   components: {},
   data() {
     return {
+      // pl_id: '',
       addr1: '',
       title: '',
       tel: '',
@@ -161,7 +161,6 @@ export default {
       keeper.classList.remove('on')
       hotel.classList.remove('on')
       tour.classList.remove('on')
-
       this.selected = '모두보기'
       this.current_bookmark_type = this.all
 
@@ -221,7 +220,6 @@ export default {
     remove(pp){
       axios.delete('/api/bookmark/deleteBookMark',{
         params:{
-          user_id :this.$store.state.user.userId,
           pl_id : pp
         }
       }).then(res=>{

@@ -220,9 +220,9 @@ export default {
           if (res.data.length !== 0) {
             let alertMessage = ""
             res.data.forEach(it => {
-              alertMessage += `${it.date}에 ${it.room_num}호 \n`
+              alertMessage += `${it.date} 예약이 불가능합니다. \n`
             })
-            alertMessage += "때문에 예약이 불가능 합니다"
+            // alertMessage += "때문에 예약이 불가능 합니다"
             alert(alertMessage)
 
           } else {

@@ -128,7 +128,7 @@ public interface OrdersMapper {
     @Select("""
             select ENTRUST_TIME,WITHDRAW_TIME,b.title as keep_start, STATUS
             from ORDERS a,place b
-            where a.user_id='asdf1234'
+            where a.user_id=#{user_id}
                         and b.PL_ID=a.KEEP_START
             and ORD_SELECTION = '물품보관'
                         """)

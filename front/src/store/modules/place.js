@@ -23,6 +23,10 @@ export default {
       state.place = keyword;
     },
 
+    PlaceBook(state, Book){
+      state.place = Book;
+    },
+
 
 
 

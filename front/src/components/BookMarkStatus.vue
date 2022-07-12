@@ -1,18 +1,24 @@
 <template>
   <div>
-  <span v-if="bookMarkStatus==0" style="float:left">
+  <span
+    v-if="bookMarkStatus==0"
+    style="float:left;cursor:pointer"
+    @click="insertBookMark"
+  >
     <v-icon
       color="red"
-      @click="insertBookMark"
     >
       mdi-heart-plus-outline
     </v-icon>
     찜하기
   </span>
-  <span v-else style="float:left">
+  <span
+    v-else
+    style="float:left;cursor:pointer"
+    @click="deleteBookMark"
+  >
     <v-icon
       color="red"
-      @click="deleteBookMark"
     >
       mdi-heart-plus
     </v-icon>

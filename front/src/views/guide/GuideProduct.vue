@@ -1,82 +1,83 @@
 <template>
-  <div>
+  <div class="container">
+    <div
+    style="position: relative; left: 800px">
     <input
       v-model="keyword"
       name="keyword"
       type="text"
-      style="border: #1e90cc solid"
+      style="border: #000000 solid"
       class="search"
     >
 
     <v-btn
+      style="width: 90px; height: 30px; margin-top: -2px"
       class="btn2"
       @click="onsubmit()"
     >
       Search
     </v-btn>
-    <v-row
-      cols="0"
-      md="0"
-    >
-      <v-card
+    </div>
+
+<div class="item_list">
+      <div class="card"
         v-for="(item,index) in lists"
         :key="index"
-        class="mx-auto"
-        width="400"
-        style="margin: 20px;"
-        outlined
-        justify="start"
+
       >
+        <div class="img">
+
         <v-img
           class="white--text align-end"
           height="200px"
           :src="item.firstimage2"
         >
-          <h2 style="color: black">{{item.user_name}}
+          <div style="opacity: 0.5;
+               position: relative; left: 80px; bottom: 100px">
+            <v-btn
+              style="height: 25px"
+              v-if="item.user_id==$store.state.user.userId"
+              @click="view(item)"
+            >
+              시간등록
+            </v-btn>
+            <v-btn
+              style="height: 25px"
+              v-if="item.user_id==$store.state.user.userId"
+              @click="deleteItem(item.gitem_id)"
+            >
+              삭제
+            </v-btn>
+          </div>
+          <h2 style="color: black">
             <br> {{item.user_id}}
           </h2>
-          <v-btn
-            v-if="item.user_id==$store.state.user.userId"
-            @click="view(item)"
-          >
-            시간등록
-          </v-btn>
-          <v-btn
-            v-if="item.user_id==$store.state.user.userId"
-            @click="deleteItem(item.gitem_id)"
-          >
-            삭제
-          </v-btn>
-        </v-img>
-        <v-list-item three-line>
-          <v-list-item-content>
-            <div class="text-overline mb-4">
-              <v-card-title :gid="item.gitem_id">
-                상품이름:{{ item.gname}}<br>
-                장소:{{ item.title }}<br>
-                가격:{{ item.gitem_price }}
-              </v-card-title>
-            </div>
-            <v-card-text>
-              시작날짜:{{ item.st_date }}
-              <br>
-              종료날짜:{{ item.end_date }}
-              <br>
-              요구시간:{{ item.require_time }}
-            </v-card-text>
 
-            <v-list-item-subtitle>
-              소개:{{ item.introduce }}
-            </v-list-item-subtitle>
-            <v-btn
-              @click="views(item)"
-            >
-              자세히보기
-            </v-btn>
-          </v-list-item-content>
-        </v-list-item>
-      </v-card>
-    </v-row>
+        </v-img>
+        </div>
+
+            <div class="text-overline mb-4"
+                 style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height: 3rem"
+                 >
+
+                {{ item.gname}}<br>
+                {{ item.title }}<br>
+                {{ item.gitem_price }}원
+
+              <v-btn
+                style="left: 100px; width: 90px; height: 30px"
+                @click="views(item)"
+              >
+                자세히보기
+              </v-btn>
+
+            </div>
+
+
+
+
+      </div>
+</div>
 
   </div>
 </template>
@@ -142,9 +143,27 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  position: relative;
+
+.container{
+  max-width: 1100px;
+  margin: auto;
+}
+.item_list{
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
+.item_list .card {
+  border: 1px solid #eeeeee;
+  border-radius: 5px;
+  height: 350px;
+  width:250px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.item_list .card img{
+  height: 200px;
+  width: 250px;
+}
 </style>

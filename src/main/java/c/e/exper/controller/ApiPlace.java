@@ -209,6 +209,12 @@ public class ApiPlace {
 //      return true;
 //   }
 
+
+   // Left 컴포넌트 빈 방
+   @GetMapping("/datePic")
+   public List<PlaceDAO> datePic(String settingstart, String settingend){
+      return placeMapper.datePic(settingstart, settingend);
+   }
 }
 
 

@@ -132,11 +132,18 @@ public class ApiShare {
         List<Object> a = new ArrayList();
         Share s = shareMapper.findShareById(share_id);
         List<ScheduleDAO> schedules = scheduleMapper.selectAllById(s.getPlan_id());
+        System.out.println(schedules);
         List<SharePictureDAO> pic = shareMapper.findPicturesById(share_id);
 
         ArrayList<String> arr = new ArrayList<>();
         for(int i=0;i<schedules.size();i++){
-            arr.add(placeMapper.getFirstImage(schedules.get(i).getPl_id()));
+            if(schedules.get(i).getPl_id()==null){
+                System.out.println("empty");
+
+            } else{
+                System.out.println("있어");
+                arr.add(placeMapper.getFirstImage(schedules.get(i).getPl_id()));
+            }
         }
 
         a.add(s);

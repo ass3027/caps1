@@ -11,7 +11,7 @@
             >
               <template #activator="{ on, attrs }">
                 <v-btn
-                  color="red lighten-2"
+                  color="#139DF2"
                   dark
                   v-bind="attrs"
                   v-on="on"
@@ -40,7 +40,7 @@
                 <v-card-actions>
                   <v-spacer />
                   <v-btn
-                    color="primary"
+                    color="#139DF2"
                     text
                     @click="SetDataForm()"
                   >
@@ -54,9 +54,9 @@
       </div>
       <div>
         <div>상세조건</div>
-        <div>
-          <v-btn>초기화</v-btn>
-          <v-btn @click="setting()">
+        <div style="text-align: center">
+          <v-btn color="#139DF2">초기화</v-btn>
+          <v-btn @click="setting()" color="#139DF2">
             적용
           </v-btn>
         </div>
@@ -150,6 +150,19 @@ export default {
       // this.$store.commit('place/optionPlace', this.checkOptions)
 
       console.log(this.category, this.checkOptions)
+
+      axios({
+        method: 'GET',
+        url: '/api/datePic',
+        params: {
+          'settingstart' : this.settingstart,
+          'settingend' : this.settingend
+        }
+      })
+        .then((res)=>{
+          this.$store.commit('place/PlaceBook', res.data)
+          console.log(res.data)
+        })
     }
   },
 };

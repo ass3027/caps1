@@ -10,17 +10,24 @@
         <img
           :src="item.firstimage"
           @click="$router.push({path:`/tour/${item.pl_id}`})"
+          style="cursor:pointer"
         >
         <span
           v-if="item.title!==''"
           class="innerText"
         >
-          <h3>{{ item.title }}</h3>
+          <h3
+            @click="$router.push({path:`/tour/${item.pl_id}`})"
+            style="cursor:pointer"
+          >{{ item.title }}</h3>
           <v-row>
-            <v-col cols="auto">
+            <v-col
+              cols="auto"
+              @click="toCalendar(item)"
+              style="cursor:pointer"
+            >
               <v-icon
                 color="orange"
-                @click="toCalendar(item)"
               >
                 mdi-calendar-check-outline
               </v-icon>
