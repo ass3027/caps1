@@ -2,7 +2,9 @@
   <div>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@500&display=swap"
+      rel="stylesheet">
     <div class="card">
       <div class="cardInfo">
         <div
@@ -16,11 +18,13 @@
         </div>
         <div class="cardText">
           <div class="cardTitle">
-           <span style="font-size: 20px; font-weight: 900; color: black;">{{ product.pd_name }}</span>
+            <span style="font-size: 20px; font-weight: 900; color: black;">{{ product.pd_name }}</span>
           </div>
           <br>
           <div class="cardPrice">
-            <span class="priceScore" style="font-size: 20px; font-weight: 350; color: black;">가격 {{ product.pd_price }}원</span>
+            <span class="priceScore" style="font-size: 20px; font-weight: 350; color: black;">가격 {{
+                product.pd_price
+              }}원</span>
           </div>
           <br>
           <hr>
@@ -88,16 +92,16 @@
         v-show="show"
         class="cardMoreInfo"
       >
-        <div
-          v-for="(image, index) in productImage"
-          :key="index"
-          class="imgGaurd"
-        >
-          <img
+        <v-carousel
+          hide-delimiter-background
+          style="width: 55%;">
+          <v-carousel-item
+            v-for="(image, index) in productImage"
+            :key="index"
             :src="'/api/photo/' + image.pic_name"
-            style="width: 80%"
-          >
-        </div>
+          ></v-carousel-item>
+        </v-carousel>
+
       </div>
     </div>
   </div>
@@ -208,6 +212,8 @@ export default {
 .theme--light.v-btn.v-btn--has-bg {
   background: #139DF2;
 }
+
+
 
 
 </style>
