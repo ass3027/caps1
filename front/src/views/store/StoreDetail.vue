@@ -43,6 +43,7 @@
                     v-for="(product, index) in products"
                     :key="index"
                     class="col-3"
+                    @click="aa"
                   >
                     <div
                       class="thumbnail"
@@ -73,12 +74,14 @@
               <div class="mt-2 mb-4">
                 <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
                   {{ products[index].title }}
+                  <v-btn @click="addBookMark">즐겨찾기 추가</v-btn>
                 </span>
               </div>
 
               <div>
                 <span style="font-size: 24px; font-weight: 900">
                   {{ products[index].addr1 }}
+
                 </span>
               </div>
 
@@ -191,6 +194,7 @@
               <div class="mt-2 mb-4">
                 <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
                   {{ products[index].title }}
+                   <v-btn @click="addBookMark()">즐겨찾기 추가</v-btn>
                 </span>
               </div>
 
@@ -286,6 +290,7 @@ export default {
       index: 0,
 
       store_name: '',
+      user_id:'',
     }
   },
   computed: {
@@ -324,6 +329,33 @@ export default {
     calcPrice(item) {
       return parseFloat(parseFloat(item.price).toFixed(2) * item.quantity).toFixed(2);
     },
+    addBookMark(){
+      axios.get("/api/bookmark/insertBookMark",{
+        params:{
+            user_id :this.$store.state.user.userId,
+            pl_id :this.pl_id
+        }
+      }).then(()=>{
+          alert("즐겨찾기에 추가되었습니다")
+        // alert("")
+        this.$router.push("/myPage/MyBookMark")
+      })
+
+      // const sendForm = new FormData();
+      // sendForm.append('user_id', this.user_id);
+      // sendForm.append('pl_id', this.pl_id);
+      //
+      // axios({
+      //   methods: 'post',
+      //   url:'/api/bookmark/insertBookMark',
+      //   data:sendForm
+      // }).then((res)=>{
+      //   console.log(res.data)
+      //   console.log(123)
+      //   alert('즐겨찾기에 추가되었습니다.')
+      // })
+
+    }
   }
 }
 </script>

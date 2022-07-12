@@ -222,10 +222,15 @@ export default {
         params:{
           pl_id : pp
         }
-      }).then( ()=>{
-        console.log(123)
-        // alert(res.data)
-        alert("삭제하시겠습니까?")
+      }).then(res=>{
+        console.log(res)
+        if (confirm("삭제하시겠습니까?") == true){
+          alert('삭제되었습니다')
+        }else{
+          return false;
+        }
+        // alert("삭제하시겠습니까?")
+        this.$router.push("/MyPage/BookMark")
       })
     }
   }

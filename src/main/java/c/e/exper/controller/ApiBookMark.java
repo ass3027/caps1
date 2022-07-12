@@ -70,9 +70,19 @@ public class ApiBookMark {
         return bookMarkMapper.getBookMarkStatus(user_id,pl_id);
     }
 
-    @PostMapping("/insertBookMark")
+//    @PostMapping("/insertBookMark")
+//    void insertBookMark(@RequestParam("user_id")String user_id,
+//                             @RequestParam("pl_id")String pl_id){
+//        System.out.println("user_id = " + user_id);
+//        System.out.println("pl_id = " + pl_id);
+//        bookMarkMapper.insertBookMark(user_id,pl_id);
+//    }
+
+    @GetMapping("/insertBookMark")
     void insertBookMark(@RequestParam("user_id")String user_id,
-                             @RequestParam("pl_id")String pl_id){
+                        @RequestParam("pl_id")String pl_id){
+        System.out.println("a = " + user_id);
+        System.out.println("b = " + pl_id);
         bookMarkMapper.insertBookMark(user_id,pl_id);
     }
 
@@ -81,8 +91,6 @@ public class ApiBookMark {
         String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
         bookMarkMapper.deleteBookMark(user_id,pl_id);
     }
-
-
 
 }
 
