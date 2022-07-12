@@ -1,118 +1,94 @@
 <template>
-  <v-container style="width: 70%">
-    <v-row>
-      <v-col align="center">
-        <h2>가이드 상품 등록</h2>
-        <h1>{{ $store.state.user.userId }}</h1>
-        <div />
-      </v-col>
-    </v-row>
-    <v-row style="width: 70%">
-      <v-col
-        align="center"
-        style="padding-left: 45%"
-      >
-        <div
-          class="textForm"
-          style="margin-top: -70px"
-        >
-          <div style="width: 50%; display: inline-block; vertical-align: bottom;">
-            <input
-              v-model="lodging.pl_id"
-              name="guideIntro"
-              type="text"
-              class="intro"
-              placeholder="장소번호"
-            >
+  <div class="resume-view">
+    <div id="Contents">
+      <div class="resumeWrap">
+        <div class="resumeType1">
+          <div class="resumeType1-inner">
+            <div id="ResumeBaseInfo" class="resumeView">
+              <h2 class="hide">
+                상품 등록
+              </h2>
+              <v-text-field
+                v-model="lodging.pl_id"
+                name="guideIntro"
+                type="text"
+                class="intro"
+                placeholder="장소번호"/>
+              <SearchPlaceTour
+              style="margin-left: 630px; margin-top:-95px"
+              @childEvent="getEmitData"/>
+              <v-text-field
+                v-model="gname"
+                name="guideIntro"
+                type="text"
+                class="intro"
+                placeholder="상품이름">
+              </v-text-field>
+
+              <v-text-field
+                v-model="introduce"
+                name="guideIntro"
+                type="text"
+                class="intro"
+                placeholder="소개">
+              </v-text-field>
+
+              <v-text-field
+                v-model="st_date"
+                name="guideIntro"
+                type="date"
+                class="intro"
+                data-placeholder="시작날짜"
+                required
+                aria-required="true">
+              </v-text-field>
+
+              <v-text-field
+                v-model="end_date"
+                name="guideIntro"
+                type="date"
+                class="intro"
+                data-placeholder="종료날짜"
+                required
+                aria-required="true">
+              </v-text-field>
+
+              <v-text-field
+                v-model="require_time"
+                name="guideIntro"
+                type="text"
+                class="intro"
+                placeholder="요구시간">
+              </v-text-field>
+
+              <v-text-field
+                v-model="gitem_price"
+                name="guideIntro"
+                type="text"
+                class="intro"
+                placeholder="상품가격">
+              </v-text-field>
+
+              <v-btn
+                class="btn"
+                style="float: right"
+                width="20%"
+                @click="onsubmit()"
+                type="button"
+              >
+                JOIN
+              </v-btn>
+
+            </div>
+            </div>
+            <div>
           </div>
 
-          <div style="width: 50%; display: inline-block;">
-            <search-place-tour
-              class="place"
-              style="margin: 50px 80px 5px;"
-              @childEvent="getEmitData"
-            />
-          </div>
         </div>
-
-
-        <div class="textForm">
-          <input
-            v-model="gname"
-            name="guideIntro"
-            type="text"
-            class="intro"
-            placeholder="상품이름"
-          >
-        </div>
-
-        <div class="textForm">
-          <input
-            v-model="introduce"
-            name="guideIntro"
-            type="text"
-            class="intro"
-            placeholder="소개"
-          >
-        </div>
-        <div class="textForm">
-          <input
-            v-model="st_date"
-            name="guideIntro"
-            type="date"
-            class="intro"
-            data-placeholder="시작날짜"
-            required
-            aria-required="true"
-          >
-        </div>
-        <div class="textForm">
-          <input
-            v-model="end_date"
-            name="guideIntro"
-            type="date"
-            class="intro"
-            data-placeholder="종료날짜"
-            required
-            aria-required="true"
-          >
-        </div>
-        <div class="textForm">
-          <input
-            v-model="require_time"
-            name="guideIntro"
-            type="text"
-            class="intro"
-            placeholder="요구시간"
-          >
-        </div>
-        <div class="textForm">
-          <input
-            v-model="gitem_price"
-            name="guideIntro"
-            type="text"
-            class="intro"
-            placeholder="상품가격"
-          >
-        </div>
-      </v-col>
-    </v-row>
-
-    <v-row
-      style="padding-left: 195px"
-    >
-      <v-btn
-        class="btn"
-        style="margin: 30px"
-        width="45%"
-        @click="onsubmit()"
-      >
-        JOIN
-      </v-btn>
-    </v-row>
-  </v-container>
+      </div>
+    </div>
+  </div>
 </template>
-
 <script>
 
 
@@ -185,61 +161,6 @@ export default {
 }
 
 </script>
-<style scoped>
-* {
+<style>
 
-  text-decoration: none;
-  font-family:sans-serif;
-
-
-}
-
-
-
-.joinForm h2 {
-  text-align: center;
-  margin: 30px;
-}
-
-.textForm {
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
-}
-
-
-
-.intro {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.btn {
-  position:relative;
-  left:40%;
-  transform: translateX(-50%);
-  margin-bottom: 40px;
-  width:50%;
-  height:40px;
-  background: linear-gradient(125deg,#81ecec,#6c5ce7,#81ecec);
-  background-size: 200%;
-  color:white;
-  font-weight: bold;
-  border:none;
-  cursor:pointer;
-  transition: 0.4s;
-  display:inline;
-}
-
-.btn:hover {
-  background-position: right;
-}
-input[type="date"]::before {content:attr(data-placeholder);width:100%}
-input[type="date"]:focus::before,
-input[type="date"]:valid::before {display:none}
 </style>

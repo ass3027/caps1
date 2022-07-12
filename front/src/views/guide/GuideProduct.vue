@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div
-    style="position: relative; left: 800px">
+    style="position: relative; text-align: right; padding: 9px">
     <input
       v-model="keyword"
       name="keyword"
@@ -144,16 +144,19 @@ export default {
   margin: auto;
 }
 .item_list{
-  display: inline-flex;
+  display: -webkit-box;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+.card{
+  margin: 7px;
 }
 
 .item_list .card {
   border: 1px solid #eeeeee;
   border-radius: 5px;
   height: 350px;
-  width:325px;
+  width:344px;
   padding: 5px;
   margin-bottom: 10px;
 }
