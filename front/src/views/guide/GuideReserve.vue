@@ -1,101 +1,181 @@
 <template>
-  <div>
-    <!--    <script type="text/javascript" src="https://code.jquery-1.12.4.min.js"></script>-->
-    <!--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>-->
+  <div style="position: relative; max-width: 1040px;">
+    <canvas
+      class="canvas"
+      ref="barChart"
+    />
+    <v-data-table
+      :headers="headers"
+      :items="lists"
+      :item-per-page="5"
+    >
 
-    <h2>IAMPORT 결제 데모</h2>
-    <h2>가격 20원</h2>
-    <li>
-      <button
-        type="button"
-        @click="iamportPayment"
-      >
-        결제테스트
-      </button>
-    </li>
+    </v-data-table>
   </div>
 </template>
 
 <script>
-
+import { Chart, registerables } from 'chart.js'
+import axios from "axios";
+Chart.register(...registerables)
 
 export default {
-  name: 'GuideReserve',
-  components: {
 
-  },
   data(){
     return{
-
+      lists:[],
+      headers:[
+        {text:'결제된 시간', value:'pay_time'},
+        {text:'상품 이름', value:'gname'},
+        {text:'결제 금액', value:'pay_price'}
+      ],
+      type: 'bar',
+      data: {
+        labels: [ '총매출', '최근한달', '최근 7일', '금일'],
+        datasets: [{
+          label: '# of Votes',
+          data: ['','','',''],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
     }
   },
-  mounted(){
-    const script = document.createElement("script")
-    const script2 = document.createElement("script")
-    script2.src = "https://code.jquery.com/jquery-3.6.0.min.js";
-    script2.integrity = "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=";
-    script2.setAttribute("crossOrigin" ,"anonymous");
-
-    document.head.appendChild(script2);
-
-    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
-    script.type="text/javascript"
-
-    document.head.appendChild(script);
-
-
-
-
-
+  created(){
+    this.a()
   },
   methods:{
-    iamportPayment(){
-      var IMP = window.IMP;
-      IMP.init('imp19569487');
+    async a() {
+      await this.selectRCount1()
+      await this.selectRCount7()
+      await this.selectRCount30()
+      this.selectRcountList()
+      this.selectRCount()
+    },
 
-      IMP.request_pay({
-        pg:"html5_inics",
-        pay_method: "card",
-        merchant_uid:"iamport_test_id" + new Date().getTime(),
-        name:"가이드",
-        amount: 20,
-        buyer_email:"testiamport@naver.com",
-        buyer_name:"홍길동",
-        buyer_tel:"01012341234"
-      }, rsp =>{
-        console.log(rsp);
-        if (rsp.success){
-          alert("성공")
-        } else{
-          alert("실패")
+    createChart(){
+      new Chart(this.$refs.barChart, {
+        type:'bar',
+        data:this.data,
+        options:this.options
+      })
+    },
+
+    selectRCount1(){
+      axios({
+        method:'get',
+        url:'/api/gcount1',
+        params:{
+          'id':this.$store.state.user.userId
         }
+      }).then((res1)=>{
+
+        //this.list1 = res1.data.count1;
+        console.log(res1);
+        this.data.datasets[0].data[3]= res1.data.count1;
+
+        //this.data.datasets[0].data.unshift(this.list1) // 금일
+      })
+    },
+
+    selectRCount7(){
+      axios({
+        method:'get',
+        url:'/api/gcount7',
+        params:{
+          'id':this.$store.state.user.userId
+        }
+      }).then((res7)=>{
+
+        //this.list7 = res7.data.count7;
+        this.data.datasets[0].data[2]= res7.data.count7
+        // this.data.datasets[0].data.unshift(this.list7) // 7일
+
+      })
+    },
+
+    selectRCount30(){
+      axios({
+        method:'get',
+        url:'/api/gcount30',
+        params:{
+          'id':this.$store.state.user.userId
+        }
+      }).then((res30)=>{
+
+        //this.list30 = res30.data.count30;
+        this.data.datasets[0].data[1]= res30.data.count30
+
+        // this.data.datasets[0].data.unshift(this.list30)// 30일
+
+      })
+    },
+
+    selectRCount(){
+      axios({
+        method:'get',
+        url:'/api/gcount',
+        params:{
+          'id':this.$store.state.user.userId
+        },
+      }).then((res)=>{
+        //this.list = res.data;
+        console.log(res.data)
+
+        //this.data.datasets[0].data[0]= this.list
+        this.data.datasets[0].data[0]= res.data.count
+        // this.data.datasets[0].data.unshift(this.list7) // 7일
+        // this.data.datasets[0].data.unshift(this.list30)// 30일
+        // this.data.datasets[0].data.unshift(this.list) //총
+        this.createChart()
+
+
+      })
+    },
+    selectRcountList(){
+      axios({
+        method:'get',
+        url:'/api/gcountList',
+        params:{
+          'id':this.$store.state.user.userId
+        }
+      }).then((res)=>{
+
+        this.lists = res.data
       })
     }
-  }
+
+
+  },
+
+
 }
-// $(document).ready(function(){
-//   $("#iamportPayment").click(function (){
-//     payment();
-//   })
-// })
-//
-// function payment(data){
-//   IMP.init('imp19569487');
-//   IMP.request_pay({
-//     pg:"kakaopay.TC0ONETIME",
-//     pay_method: "card",
-//     merchant_uid:"iamport_test_id",
-//     name:"가이드",
-//     amount: 20000,
-//     buyer_email:"testiamport@naver.com",
-//     buyer_name:"홍길동",
-//     buyer_tel:"01012341234"
-//   }, function (rsp){
-//     if (rsp.success) {
-//       alert("완료 -> imp_uid :" +rsp.imp_uid+" / merchant_uid(orderkey) : "+rsp.merchant_uid);
-//     } else{
-//       alert("실패 : 코드("+rsp.error_code+") /메세지("+rsp.error_msg+")");
-//     }
-//   })
-// }
 </script>
+<style>
+.canvas{
+  width: 700px;
+  height: 800px;
+}
+</style>

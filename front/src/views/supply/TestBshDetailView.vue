@@ -2,7 +2,10 @@
   <div>
     <v-container>
       details
-      {{$route.params}}
+      {{ $route.params }}
+      id:{{ id }}
+      id2:{{ id2 }}
+      abc:{{ abc }}
     </v-container>
   </div>
 </template>
@@ -12,6 +15,11 @@ import axios from 'axios'
 
 export default {
   name: "TestBshDetailView",
+  props:{
+    id:String,
+    id2:String,
+    abc:String
+  },
   data() {
     return {
       exchangeRate:'bsh',

@@ -1,61 +1,71 @@
 <template>
   <div>
-
     <div class="login">
-      <h3 class="tit_login">로그인</h3>
-      <div class="write_form" style="padding-top: 36px">
+      <h3 class="tit_login">
+        로그인
+      </h3>
+      <div
+        class="write_form"
+        style="padding-top: 36px"
+      >
         <div class="write_view login_view">
           <form @submit.prevent="login()">
             <input
               v-model="id"
               type="text"
               placeholder="아이디를 입력해주세요"
-            />
+            >
             <input
               v-model="pw"
               type="password"
               placeholder="비밀번호를 입력해주세요"
               style="margin-top: 10px"
-            />
+            >
 
             <div style="padding-bottom: 28px; height: 60px">
-              <div class="login_search" style="float: right; padding-top: 13px">
+              <div
+                class="login_search"
+                style="float: right; padding-top: 13px"
+              >
                 <a class="link"> 아이디 찾기 </a>
-                <span class="bar"></span>
+                <span class="bar" />
                 <a class="link"> 비밀번호 찾기 </a>
               </div>
             </div>
 
-            <v-btn class="btn_type2" @click="login()"
-                   height="54px" color="white">
+            <v-btn
+              class="btn_type2"
+              height="54px"
+              color="white"
+              @click="login()"
+            >
               로그인
             </v-btn>
           </form>
           <!--    <button @click="logout()">logout</button>-->
 
           <div>
-            <v-btn class="btn_type2" @click="getId()"
-                   height="54px" color="white">
+            <v-btn
+              class="btn_type2"
+              height="54px"
+              color="white"
+              @click="getId()"
+            >
               getId
             </v-btn>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import {EventBus} from "@/eventBus/eventBus";
 
 export default {
   name: "LoginView",
-  beforeRouteEnter(to,from,next){
-    console.log(to)
-    console.log(from)
-    next()
-  },
   data() {
     return {
       id: '',
@@ -71,13 +81,12 @@ export default {
         alert("비번을 입력하세요")
         return
       }
-      var loginData = new FormData();
+      const loginData = new FormData();
       loginData.append('username', this.id)
       loginData.append('password', this.pw)
-      console.log('this.id', this.id)
-      console.log('this.pw', this.pw)
 
-      axios({
+
+      const {headers} = await axios({
         url   : '/api/login',
         method: 'post',
         auth : {
@@ -86,35 +95,39 @@ export default {
         },
         data  : loginData
       })
-          .then((res) => {
-            console.log(res)
-            //console.log(res.data)
-            if (res.headers.gg === "ss") {
-              alert("fail")
-            }
-            else {
-              //this.$store.commit('user/updateUserId',this.id)
-              console.log('test', this.id)
+      console.log(headers)
 
-              this.$store.dispatch('user/setUser',this.id)
-              //res.headers.gg를 header컴포넌트로 보내야하는딩
-              this.$router.push("/")
-              //location.reload()
-            }
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+      if (headers.gg === "ss") {
+        alert("fail")
+      }
+      else {
+        await this.updateUser()
+      }
+
     },
     async updateUser(){
+      const { data } = await axios.get("/api/user/find")
+      console.log(data)
+      const user = {}
+      user.id = data.user_id
+      user.role = data.role
+      await this.$store.dispatch('user/setUser', user)
 
+      //role 별 주소 이동
+      if(data.role==='user') await this.$router.push("/")
+      else if(data.role==='delivery') await this.$router.push("/")
+      else await this.$router.push("/")
+
+
+      EventBus.$emit("updateId")
     },
+
     getId() {
       axios({
         url   : '/api/user/exper',
         method: 'get'
       })
-          .then((res) => {
+          .then( res => {
             console.log(res)
             console.log(res.data)
           })

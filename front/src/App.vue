@@ -4,10 +4,10 @@
       <HeaderComponent />
 
 
-      <router-view style="padding-bottom: 60px; min-width: 1050px; margin: 0 auto"/>
+      <router-view style="padding-bottom: 60px; min-width: 1050px; margin: 0 auto" />
 
 
-      <FooterComponent style="border-top: 1px solid #f7f7f7; padding-bottom: 60px; min-width: 1050px; margin: 0 auto"/>
+      <FooterComponent style="border-top: 1px solid #f7f7f7; padding-bottom: 60px; min-width: 1050px; margin: 0 auto" />
     </v-main>
   </v-app>
 </template>
@@ -40,12 +40,16 @@ export default {
 </script>
 
 <style>
-@font-face {
-  font-family: "GmarketSansMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+/*@font-face {*/
+/*  font-family: "GmarketSansMedium";*/
+/*  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")*/
+/*    format("woff");*/
+/*  font-weight: normal;*/
+/*  font-style: normal;*/
+/*}*/
+
+* {
+  color : #262626 ;
 }
 
 .v-application--wrap {
@@ -64,4 +68,10 @@ nav a {
 .v-application--wrap {
   min-height: unset;
 }
+
+/*.v-btn{*/
+/*  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;*/
+/*}*/
+
+
 </style>

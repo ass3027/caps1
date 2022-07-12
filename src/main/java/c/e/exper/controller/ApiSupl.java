@@ -60,9 +60,11 @@ public class ApiSupl {
         } else {
             Plan_Suplies ps = new Plan_Suplies();
             Suplies d = new Suplies();
+            d.setSupl_id("0");
             ps.setSupl_id(d);
             ps.setName(p.getSupl_id().getSupl_name());
             ps.setPlan_id(p.getPlan_id());
+            System.out.println(ps);
             SuplMapper.insertPlanSuplies(ps);
 
         }

@@ -1,55 +1,65 @@
 <template>
-  <div style="padding-left: 15px">
+  <v-container style="width: 70%;">
     <PlannerHeader />
-    <v-row>
+    <v-row />
+    <v-row style="height:100%;text-align: center">
       <v-col
-        cols="12"
-        sm="3"
-        md="4"
+        col="5"
+        style="width:40%"
       >
-        <v-card>
+        <v-card style="margin-bottom: 20px">
+          <h2>그룹생성자</h2>
+          <v-simple-table>
+            <thead>
+              <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>전화번호</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>asdf1234</th>
+                <th>이세진</th>
+                <th>010-4065-8016</th>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card>
+        <v-card
+          style="margin-bottom: 30px;"
+          class="text-center"
+        >
           <h2>현재 멤버</h2>
           <v-spacer />
           <v-divider />
-          <ul
-            v-for="(data,key) in plan_user_list"
-            :key="key"
-          >
-            <li>id : {{ data.user_id }} / 플래너 아이디 : {{ data.plan_id }}</li>
-          </ul>
+          <v-simple-table>
+            <thead>
+              <tr>
+                <th>아이디</th>
+                <th>이름</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(data,key) in plan_user_list"
+                :key="key"
+              >
+                <td>
+                  {{ data.user_id }}
+                </td>
+                <td>
+                  {{ data.plan_id }}
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
         </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-divider />
-    </v-row>
-    <v-row>
-      <v-col
-        sm="4"
-      >
-        <v-card style="padding-bottom: 4px">
-          <h2>멤버 초대</h2>
-          회원ID
-          <v-text-field
-            v-model="input_id"
-            placeholder="내용을 입력해주세요"
-            md="4"
-          />
-          <button
-            class="button"
-            @click="invite"
-          >
-            초대
-          </button>
-        </v-card>
-      </v-col>
-      <v-divider vertical />
-      <v-col>
+        <v-divider />
         <v-card>
-          <h2>내가 초대한</h2>
-          <v-simple-table
-            dark
-          >
+          <h2>초대 보류</h2>
+          <v-simple-table>
             <thead>
               <tr>
                 <th class="text-center">
@@ -65,33 +75,50 @@
                 v-for="(data,index) in invite_list_plan"
                 :key="index"
               >
-                <th class="text-center">
+                <td>
                   {{ data.user_id }}
-                </th>
-                <th class="text-center">
+                </td>
+                <td>
                   {{ data.plan_id }}
-                </th>
+                </td>
               </tr>
             </tbody>
           </v-simple-table>
         </v-card>
       </v-col>
-    </v-row>
-
-    <v-row>
-      <v-divider />
-    </v-row>
-
-    <v-row>
+      <v-divider vertical />
       <v-col>
+        <v-card style="height:120px;padding-bottom: 10px;margin-bottom: 40px">
+          <h2>멤버 초대</h2>
+          <div
+            style="width: 60%;height:60px;float: left;text-align: center;margin-left: 40px">
+            <v-text-field
+              v-model="input_id"
+              placeholder="회원ID"
+              md="4"
+            />
+          </div>
+          <div style="text-align: left;width: 23%;height:60px;float: right;margin-right: 20px;margin-top: 13px">
+            <v-btn
+              color="blue"
+              @click="invite"
+              @submit.prevent
+            >
+              초대
+            </v-btn>
+          </div>
+
+
+        </v-card>
+
+        <v-divider />
+
         <v-card>
-          <h2>초대 현황</h2>
+          <h2>초대 목록</h2>
           <v-divider />
 
           <h4>내가 초대된</h4>
-          <v-simple-table
-            dark
-          >
+          <v-simple-table>
             <thead>
               <tr>
                 <th>아이디</th>
@@ -104,32 +131,32 @@
                 v-for="(data,index) in invite_list_user"
                 :key="index"
               >
-                <th class="text-center">
+                <td>
                   {{ data.user_id }}
-                </th>
-                <th class="text-center">
+                </td>
+                <td>
                   {{ data.plan_id }}
-                </th>
-                <th>
+                </td>
+                <td>
                   <v-btn
                     class="button"
                     @click="accept(data)"
                   >
                     수락
                   </v-btn>
-                </th>
+                </td>
               </tr>
             </tbody>
           </v-simple-table>
         </v-card>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
 import axios from "axios";
-import PlannerHeader from "@/components/PlannerHeader";
+import PlannerHeader from "@/components/planner/PlannerHeader";
 
 export default {
   name: "PlInviteView",
@@ -174,7 +201,6 @@ export default {
         })
     },
     invite() {
-      console.log("axios 어떻게 쓰더라?? 개망ㅋㅋ")
       axios({
         url: `/api/planner/invite`,
         method: 'post',
@@ -184,6 +210,7 @@ export default {
         }
       })
         .then((res) => {
+          console.log(res.data)
           if (res.data === true) {
             this.updateInvite()
             console.log('success')
@@ -250,4 +277,8 @@ export default {
   text-decoration: none;
   font-size: 18px;
 }
+.v-sheet.v-card:not(.v-sheet--outlined){
+  box-shadow: 0px 0px 20px 4px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)
+}
+
 </style>

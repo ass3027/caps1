@@ -2,42 +2,24 @@ package c.e.exper.controller;
 
 import c.e.exper.data.*;
 import c.e.exper.mapper.PictureMapper;
+import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.mapper.SuplMapper;
 import c.e.exper.mapper.UserMapper;
 import c.e.exper.service.FileService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
 import c.e.exper.service.ReviewService;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-import java.security.Principal;
-import java.security.Security;
-
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.regex.Pattern;
-
-
-
 import java.util.*;
 import java.util.regex.Pattern;
-
-import java.util.Optional;
 
 import static c.e.exper.service.SecurityConfig.passwordEncoder;
 
 @RestController
 @RequestMapping("/api/user")
 public class ApiUser {
-
     final
     PictureMapper pictureMapper;
 
@@ -55,181 +37,21 @@ public class ApiUser {
 
     final ReviewService reviewService;
 
+    final ReviewMapper reviewMapper;
 
-    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper, ReviewService reviewService) {
+
+    public ApiUser(UserMapper userMapper, ServletContext servletContext, SuplMapper suplMapper, FileService fileService, PictureMapper pictureMapper, ReviewService reviewService, ReviewMapper reviewMapper) {
         this.userMapper = userMapper;
         this.servletContext = servletContext;
         this.suplMapper = suplMapper;
         this.fileService = fileService;
         this.pictureMapper = pictureMapper;
         this.reviewService = reviewService;
+        this.reviewMapper = reviewMapper;
     }
 
-    @GetMapping("/find")
-    public UserDAO findUser(String user_id) {
-        return userMapper.selectId(user_id).get();
-    }
-
-    @GetMapping("/id")
-    public String getId() {
-
+    static String getLoginId() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
-    @GetMapping("/photo")
-    public String getUserPicture(){
-        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        return pictureMapper.selectPicnameByUserId(user_id);
-    }
-    
-    //마이페이지
-    @GetMapping("/data/{id}")
-    public UserDAO getUserInfoById(@PathVariable String id){
-         //반환데이터형식
-        return userMapper.selectId(id).get();
-    }
-
-
-    //아이디 중복 확인
-    @GetMapping("/userid")
-    public boolean getUserIdCheck( //반환타입,함수명
-        @RequestParam("user_id") String pp){ //프론트에서 user_id 받아옴
-        Optional<UserDAO> id = userMapper.selectId(pp); //
-        return id.isEmpty();
-//        if (id.isEmpty()){
-//            return true;
-//        }else {
-//            return false;
-//        }
-    }
-
-    //내정보수정
-    @PostMapping("/dataUpdate")
-    public boolean getUserdataUpdate(UserDAO userDAO){
-        userDAO.setUser_pw(
-                passwordEncoder().encode(
-                        userDAO.getUser_pw()
-                )
-        );
-        return userMapper.updateUserInfo(userDAO);
-    }
-
-
-    @PostMapping("/join")
-    public boolean join(UserDTO user,HttpServletRequest req) {
-
-        // id 중복확인
-        if (userMapper.selectId(user.getUser_id()).isPresent()) {
-            return false;
-        }
-
-        //passwordEncoder는 sercurity Config에서 임포트함
-        user.setUser_pw(
-                passwordEncoder().encode(
-                        user.getUser_pw()
-                )
-        );
-
-
-        // 폰 번호가 형식에 안 맞을 경우 랜덤 값
-        if ( !Pattern.matches("^010[0-9]{8}$", user.getUser_phone())) {
-            user.setUser_phone(getRandomPhone());
-            System.out.println("[user_phone:]" + user.getUser_phone());
-        }
-        // 유저 이름이 형식에 안 맞을 경우 랜덤 값(2~5글자 사이의 한글)
-        if(!Pattern.matches("^[가-힣]{2,5}$", user.getUser_name())) {
-            user.setUser_name(randomHangulName());
-        }
-
-
-        //파일 이름 저장 밑 파일 실제 저장
-        //경로 이상함
-        String filePath = fileService.photoSave(user.getUser_photo(),req,"userImage");
-
-        System.out.println("[filePath]" + filePath);
-
-        //파일 경로를 넣은 DAO 생성
-        UserDAO daoUser = UserDAO.builder()
-                .user_id(user.getUser_id())
-                .user_pw(user.getUser_pw())
-                .user_birth(user.getUser_birth())
-                .user_name(user.getUser_name())
-                .user_phone(user.getUser_phone())
-
-                .role(user.getRole())
-                .gender(user.getGender())
-                .preference(user.getPreference())
-                .guser_intro("")
-                .build();
-        System.out.println(daoUser);
-
-        userMapper.insert(daoUser);
-
-        //사진 DAO 생성 및 값 설정
-        PictureDAO pictureDAO = new PictureDAO();
-        pictureDAO.setPic_name(filePath);
-        pictureDAO.setUser_id(user.getUser_id());
-
-        pictureMapper.InsertUser(pictureDAO);
-
-        return true;
-    }
-
-    @GetMapping("/orders")
-    public List<OrderDAO> getUserOrders(String user_id){
-        List<OrderDAO> orderDAOS = userMapper.selectUserOrders(user_id);
-
-        return orderDAOS;
-    }
-
-    @PostMapping("/apiTest")
-    public void apiTest(@RequestBody List<PlaceDAO> data) {
-
-//        data.forEach( function(it) {
-//            userMapper.insertPlace(it);
-//            count++;
-//        });
-//        int i;
-//        for(i = 0; i < data.size(); i++) {
-//            userMapper.insertPlace(data.get(i));
-//
-//        }
-//        System.out.println("count: " + i);
-    }
-
-    @GetMapping("/role/{user_id}")
-    public String getUserRole(@PathVariable("user_id") String user_id){
-
-        if(userMapper.checkGuide(user_id)){
-            return "가이드";
-        } else if (userMapper.checkDeliveryUser(user_id)) {
-            return "운송원";
-        } else {
-            return "일반";
-        }
-
-    }
-
-    public String getRandomPhone(){
-
-        char[] charaters = {'0','1','2','3','4','5','6','7','8','9'};
-
-        StringBuffer sb = new StringBuffer();
-        sb.append('0');
-        sb.append('1');
-        sb.append('0');
-
-
-        Random rn = new Random();
-
-        for( int i = 0 ; i < 8 ; i++ ){
-
-            sb.append( charaters[ rn.nextInt( charaters.length ) ] );
-
-        }
-
-        return sb.toString();
-
     }
 
     public static String randomHangulName() {
@@ -251,6 +73,237 @@ public class ApiUser {
         Collections.shuffle(성);
         Collections.shuffle(이름);
         return 성.get(0) + 이름.get(0) + 이름.get(1);
+    }
+
+    @GetMapping("/find")
+    public UserDAO findUser() {
+        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("user_id = " + user_id);
+        if (user_id.equals("anonymousUser")) {
+            return UserDAO.builder()
+                    .user_id("anonymousUser")
+                    .role("")
+                    .build();
+        }
+        return userMapper.selectId(user_id).get();
+    }
+
+    @GetMapping("/id")
+    public String getId() {
+
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    @GetMapping("/photo")
+    public String getUserPicture() {
+        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        return pictureMapper.selectPicnameByUserId(user_id);
+    }
+
+    //마이페이지
+    @GetMapping("/data/{id}")
+    public UserDTO getUserInfoById(@PathVariable String id) {
+        //반환데이터형식
+
+        Optional<UserDTO> userInfo = userMapper.getDeliveryInfoById(id);
+
+        return userInfo.orElseGet(UserDTO::new);
+    }
+
+    //아이디 중복 확인
+    @GetMapping("/userid")
+    public boolean getUserIdCheck( //반환타입,함수명
+                                   @RequestParam("user_id") String pp) { //프론트에서 user_id 받아옴
+        Optional<UserDAO> id = userMapper.selectId(pp); //
+        return id.isEmpty();
+//        if (id.isEmpty()){
+//            return true;
+//        }else {
+//            return false;
+//        }
+    }
+
+    //내정보수정
+    @PostMapping("/dataUpdate")
+    public boolean getUserdataUpdate(UserDAO userDAO, DuserDAO duserDAO) {
+        userDAO.setUser_pw(
+                passwordEncoder().encode(
+                        userDAO.getUser_pw()
+                )
+        );
+        if (userDAO.getRole().equals("delivery")) {
+            userMapper.updateDuserInfo(duserDAO);
+        }
+        return userMapper.updateUserInfo(userDAO);
+    }
+
+    //지역별 추이
+    @GetMapping("/area")
+    public List<AreaDTO> getUserArea5() {
+        System.out.print(userMapper.selectAreaCount());
+        return userMapper.selectAreaCount();
+    }
+
+    //연령별(10대)
+    @GetMapping("/age")
+    public UserDAO getUserAge() {
+        return userMapper.selectAgeCount10();
+    }
+
+    //연령별(20대)
+    @GetMapping("/age20")
+    public UserDAO getUserAge20() {
+        return userMapper.selectAgeCount20();
+    }
+
+    //연령별(30대)
+    @GetMapping("/age30")
+    public UserDAO getUserAge30() {
+        return userMapper.selectAgeCount30();
+    }
+
+    //연령별(40대)
+    @GetMapping("/age40")
+    public UserDAO getUserAge40() {
+        return userMapper.selectAgeCount40();
+    }
+
+    //연령별(50대)
+    @GetMapping("/age50")
+    public UserDAO getUserAge50() {
+        return userMapper.selectAgeCount50();
+    }
+
+    //게시글 검색
+    @GetMapping("/search")
+    public List<InquiryDAO> getUserSearch(@RequestParam("keyword") String keyword) {
+        return userMapper.selectSearch(keyword);
+    }
+
+
+    @GetMapping("/price")
+    public List<Integer> getUserPrice1() {
+        List<Integer> temp = new ArrayList<>();
+        temp.add(userMapper.selectPriceSum(getLoginId()));
+        temp.add(userMapper.selectPrice30(getLoginId()));
+        temp.add(userMapper.selectPrice7(getLoginId()));
+        temp.add(userMapper.selectPrice1(getLoginId()));
+        temp.add(userMapper.selectPrice(getLoginId()));
+        return temp;
+    }
+
+    //최근 일주일 금액
+
+    //회원가입
+    @PostMapping("/join/{check}")
+    public boolean join(UserDTO user, HttpServletRequest req, @PathVariable("check") String check) {
+
+
+        System.out.println(check);
+        // id 중복확인
+        if (userMapper.selectId(user.getUser_id()).isPresent()) {
+            return false;
+        }
+
+        //passwordEncoder는 sercurity Config에서 임포트함
+        user.setUser_pw(
+                passwordEncoder().encode(
+                        user.getUser_pw()
+                )
+        );
+
+
+        // 폰 번호가 형식에 안 맞을 경우 랜덤 값
+        if (!Pattern.matches("^010[0-9]{8}$", user.getUser_phone())) {
+            user.setUser_phone(getRandomPhone());
+            System.out.println("[user_phone:]" + user.getUser_phone());
+        }
+        // 유저 이름이 형식에 안 맞을 경우 랜덤 값(2~5글자 사이의 한글)
+        if (!Pattern.matches("^[가-힣]{2,5}$", user.getUser_name())) {
+            user.setUser_name(randomHangulName());
+        }
+
+
+        //파일 이름 저장 밑 파일 실제 저장
+        //경로 이상함
+        String filePath = fileService.photoSave(user.getUser_photo(), req, "userImage");
+
+        System.out.println("[filePath]" + filePath);
+
+        //파일 경로를 넣은 DAO 생성
+        UserDAO daoUser = UserDAO.builder()
+                .user_id(user.getUser_id())
+                .user_pw(user.getUser_pw())
+                .user_birth(user.getUser_birth())
+                .user_name(user.getUser_name())
+                .user_phone(user.getUser_phone())
+
+                .role(user.getRole())
+                .gender(user.getGender())
+                .preference(user.getPreference())
+                .guser_intro("")
+                .business_num(user.getBusiness_num())
+                .user_area(user.getUser_area())
+                .build();
+
+        System.out.println(daoUser);
+        userMapper.insert(daoUser);
+
+
+        if (check.equals("운송원")) {
+            DuserDAO daoDuser = DuserDAO.builder()
+                    .user_id(user.getUser_id())
+                    .duser_license(user.getDuser_license())
+                    .duser_trans(user.getDuser_trans())
+                    .build();
+            userMapper.deliveryInsert(daoDuser);
+        }
+
+
+        //사진 DAO 생성 및 값 설정
+        PictureDAO pictureDAO = new PictureDAO();
+        pictureDAO.setPic_name(filePath);
+        pictureDAO.setUser_id(user.getUser_id());
+
+        pictureMapper.InsertUser(pictureDAO);
+
+        return true;
+    }
+
+    @GetMapping("/orders")
+    public List<OrderDAO> getUserOrders(String user_id) {
+
+        return userMapper.selectUserOrders(user_id);
+    }
+
+    @GetMapping("/review")
+    public List<ReviewDTO> getUserReview() {
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return reviewMapper.findUserReviews(id);
+    }
+
+
+    public String getRandomPhone() {
+
+        char[] charaters = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+        StringBuilder sb = new StringBuilder();
+        sb.append('0');
+        sb.append('1');
+        sb.append('0');
+
+
+        Random rn = new Random();
+
+        for (int i = 0; i < 8; i++) {
+
+            sb.append(charaters[rn.nextInt(charaters.length)]);
+
+        }
+
+        return sb.toString();
+
     }
 
 

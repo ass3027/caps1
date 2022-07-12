@@ -2,14 +2,19 @@
   <div>
     <v-container>
       asdf
-      {{reverse}}
-      {{now}}
-      {{array}}
-      {{array.i}}
-      {{abc}}
-      {{mapTest2}}
-      <v-btn @click="goDetail">inputArray</v-btn>
-      <input v-model="message" type="text">
+      {{ reverse }}
+      {{ now }}
+      {{ array }}
+      {{ array.i }}
+      {{ abc }}
+      {{ mapTest2 }}
+      <v-btn @click="goDetail">
+        inputArray
+      </v-btn>
+      <input
+        v-model="message"
+        type="text"
+      >
       <v-row>
         <v-col>
           {{ exchangeRate }}
@@ -28,20 +33,20 @@
       </v-row>
 
 
-        <v-btn
-          color="red lighten-2"
-          dark
-          @click="inputArray"
-        >
-          Click Me
-        </v-btn>
+      <v-btn
+        color="red lighten-2"
+        dark
+        @click="inputArray"
+      >
+        Click Me
+      </v-btn>
 
+      <calendar-preview />
 
       <v-dialog
         v-model="dialog"
         width="500"
       >
-
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">
             Privacy Policy
@@ -51,10 +56,10 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </v-card-text>
 
-          <v-divider></v-divider>
+          <v-divider />
 
           <v-card-actions>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn
               color="primary"
               text
@@ -71,9 +76,13 @@
 
 <script>
 import axios from 'axios'
+import CalendarPreview from "@/components/preview/CalendarPreview";
 
 export default {
   name: "TestBshView",
+  components:{
+    CalendarPreview,
+  },
   data() {
     return {
       exchangeRate:'bsh',
@@ -150,7 +159,8 @@ export default {
 
     },
     goDetail(){
-      this.$router.push({name:'bshDetail',params:{id:'123'},query:{bsh:this.message}})
+      this.$router.push({name:'bshDetail',params:{id:'123',id2:'234',abc:this.abc},query:{bsh:this.message}})
+
     }
   }
 }

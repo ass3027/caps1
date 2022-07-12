@@ -79,6 +79,7 @@ public class ApiPlanner {
     public boolean inviting(@RequestBody InviteDTO inviteDTO){
 
         if ( !inviteAffiliateService.inviteRedundancyCheck(inviteDTO) ) {
+            System.out.println("redundant");
             return false;
         }
         inviteMapper.insert(inviteDTO.toDAO());
@@ -164,6 +165,7 @@ public class ApiPlanner {
 //        공유사진등록할떄 유저아이디 등록하는거
         pictureDAO.setUser_id(pictureDTO.getUser_id());
         pictureDAO.setPlan_id(pictureDTO.getPlan_id());
+        pictureDAO.setCategory(pictureDTO.getCategory());
 
         pictureMapper.InsertPlan(pictureDAO);
 
@@ -184,7 +186,8 @@ public class ApiPlanner {
         List<ScheduleDAO> list = scheduleMapper.selectAllById(planId);
         List<ScheduleDTO> converted  = new ArrayList<>();
         list.forEach( it->{
-            System.out.println(it.getPl_id());
+            System.out.println(it.toDTO().getSch_startTime());
+            System.out.println(it.toDTO().getSch_endTime());
             converted.add(it.toDTO());
         });
 
@@ -199,8 +202,10 @@ public class ApiPlanner {
 
         scheduleMapper.deleteByPlanId(scheduleList.get(0).getPlan_id());
         scheduleList.forEach( it->{
-            System.out.println(33);
-            scheduleMapper.insert(it.toDAO());
+            ScheduleDAO s = it.toDAO();
+            System.out.println(s.getSch_startTime());
+            System.out.println(s.getSch_endTime());
+            scheduleMapper.insert(s);
         }); // Lamda can be replaced with method reference
     }
 

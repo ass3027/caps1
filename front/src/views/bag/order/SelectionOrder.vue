@@ -1,53 +1,61 @@
 <template>
-  <v-app id="app">
-    <div class="Bag-order">
-      <p class="text-center">
-        가방예약
-      </p>
-    </div>
+  <v-container>
+    <v-app
+      id="app"
+      style="padding-top: 35px"
+    >
+      <div class="Bag-order">
+        <p class="text-center">
+          가방예약
+        </p>
+      </div>
 
-    <v-row justify="space-around">
-      <v-col
-        cols="6"
-        sm="2"
-        class="mx-auto"
+      <v-row
+        justify="space-around"
+        style="padding-top: 35px"
       >
-        <div>
-          <v-img src="@/image/storage1.png" />
-        </div>
-        <div class="btn_container">
-          <v-btn
-            @click="$router.push({name:'StorageOrder'})"
-            class="btn_type2"
-            color="white"
-          >
-            가방 보관
-          </v-btn>
-        </div>
-      </v-col>
-      <v-divider vertical />
-      <v-col
-        cols="6"
-        sm="2"
-        class="mx-auto"
-      >
-        <div>
-          <v-img src="@/image/transport1.png" />
-        </div>
-        <div class="btn_container">
-          <v-btn
-            @click="$router.push({name:'TransportOrder'})"
-            class="btn_type2"
-            color="white"
-          >
-            가방배송
-          </v-btn>
-        </div>
-      </v-col>
-    </v-row>
+        <v-col
+          cols="6"
+          sm="2"
+          class="mx-auto"
+        >
+          <div>
+            <v-img src="@/image/storage1.png" />
+          </div>
+          <div class="btn_container">
+            <v-btn
+              class="btn_type2"
+              color="white"
+              @click="$router.push({name:'StorageOrder'})"
+            >
+              가방 보관
+            </v-btn>
+          </div>
+        </v-col>
+        <v-divider vertical />
+        <v-col
+          cols="6"
+          sm="2"
+          class="mx-auto"
+        >
+          <div>
+            <v-img src="@/image/transport1.png" />
+          </div>
+          <div class="btn_container">
+            <v-btn
+              class="btn_type2"
+              color="white"
+              @click="$router.push({name:'TransportOrder'})"
+            >
+              가방배송
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
 
-    <router-view />
-  </v-app>
+      <router-view />
+    </v-app>
+  </v-container>
 </template>
 
 <script>
@@ -59,11 +67,11 @@ export default {
 
     return: {}
   }),
-
 }
 </script>
 
 <style scoped>
+
 .Bag-order {
   margin: 10px;
   font-size: xx-large;
@@ -80,7 +88,8 @@ export default {
   color: #333;
   margin-top: 10px;
 }
-.btn_container{
+
+.btn_container {
   margin-top: 30px;
 }
 

@@ -19,6 +19,10 @@ public class GuideDAO {
     String user_name;
     String pic_name;
     String guser_intro;
+    String user_phone;
+    String gender;
+    String user_area;
+    String user_birth;
 
 
 

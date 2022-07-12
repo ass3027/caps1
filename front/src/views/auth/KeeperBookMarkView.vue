@@ -1,99 +1,116 @@
 <template>
-<div>
-  <MyPageHeader></MyPageHeader>
-<!--  <BookMarkView></BookMarkView>-->
-  <template>
-    <v-card>
-      <v-toolbar
-        flat
-        color="primary"
-        dark
-      >
-        <v-toolbar-title>즐겨찾기</v-toolbar-title>
-      </v-toolbar>
-      <v-tabs vertical>
-        <v-tab>
-          <v-icon left type="button" @click="all">mdi-bookmark</v-icon>
-          모두보기
-        </v-tab>
-        <v-tab type="button" @click="keeper">키퍼</v-tab>
-        <v-tab type="button" @click="hotel">숙소</v-tab>
-        <v-tab>관광지</v-tab>
-
-<!--        <v-tab-item>-->
-<!--          <v-card flat>-->
-<!--            <v-col-->
-<!--              v-for="(post, index) in posts"-->
-<!--              :key="index" style="display:flex;float:left; width:400px"-->
-<!--            >-->
-<!--              <v-card-->
-<!--                @click="url(post.pl.id)"-->
-<!--                style="width: 400px; height: 450px"-->
-<!--              >-->
-<!--                <v-img-->
-<!--                  class="white&#45;&#45;text align-end"-->
-<!--                  height="200px"-->
-<!--                  v-bind:src="post.firstimage"-->
-<!--                />-->
-<!--                <v-card-subtitle class="text&#45;&#45;primary">-->
-<!--                  <p>{{post.addr1}}</p>-->
-<!--                  <p>{{post.title}}</p>-->
-<!--                  <p>{{post.tel}}</p>-->
-<!--                  <p>{{post.user_id}}</p>-->
-<!--                </v-card-subtitle>-->
-<!--                <v-btn-->
-<!--                  color="orange"-->
-<!--                  text-->
-<!--                  @click="url"-->
-<!--                >사이트 이동하기</v-btn>-->
-<!--              </v-card>-->
-<!--            </v-col>-->
-<!--          </v-card>-->
-<!--        </v-tab-item>-->
-
-
-        <v-tab-item>
-          <v-card flat>
-            <v-col
-              v-for="(post, index) in posts"
-              :key="index" style="display: flex;float: left; width: 400px"
+  <div>
+    <MyPageHeader />
+    <!--  <BookMarkView></BookMarkView>-->
+    <template>
+      <v-card>
+        <v-toolbar
+          color="primary"
+          dark
+          flat
+        >
+          <v-toolbar-title>즐겨찾기</v-toolbar-title>
+        </v-toolbar>
+        <v-tabs vertical>
+          <v-tab>
+            <v-icon
+              left
+              type="button"
+              @click="all"
             >
-              <v-card
-                @click="url(post.pl.id)"
-                style="width: 400px; height: 450px"
+              mdi-bookmark
+            </v-icon>
+            모두보기
+          </v-tab>
+          <v-tab
+            type="button"
+            @click="keeper"
+          >
+            키퍼
+          </v-tab>
+          <v-tab
+            type="button"
+            @click="hotel"
+          >
+            숙소
+          </v-tab>
+          <v-tab>관광지</v-tab>
+
+          <!--        <v-tab-item>-->
+          <!--          <v-card flat>-->
+          <!--            <v-col-->
+          <!--              v-for="(post, index) in posts"-->
+          <!--              :key="index" style="display:flex;float:left; width:400px"-->
+          <!--            >-->
+          <!--              <v-card-->
+          <!--                @click="url(post.pl.id)"-->
+          <!--                style="width: 400px; height: 450px"-->
+          <!--              >-->
+          <!--                <v-img-->
+          <!--                  class="white&#45;&#45;text align-end"-->
+          <!--                  height="200px"-->
+          <!--                  v-bind:src="post.firstimage"-->
+          <!--                />-->
+          <!--                <v-card-subtitle class="text&#45;&#45;primary">-->
+          <!--                  <p>{{post.addr1}}</p>-->
+          <!--                  <p>{{post.title}}</p>-->
+          <!--                  <p>{{post.tel}}</p>-->
+          <!--                  <p>{{post.user_id}}</p>-->
+          <!--                </v-card-subtitle>-->
+          <!--                <v-btn-->
+          <!--                  color="orange"-->
+          <!--                  text-->
+          <!--                  @click="url"-->
+          <!--                >사이트 이동하기</v-btn>-->
+          <!--              </v-card>-->
+          <!--            </v-col>-->
+          <!--          </v-card>-->
+          <!--        </v-tab-item>-->
+
+
+          <v-tab-item>
+            <v-card flat>
+              <v-col
+                v-for="(post, index) in posts"
+                :key="index"
+                style="display: flex;float: left; width: 400px"
               >
-                <v-img
-                  class="white--text align-end"
-                  height="200px"
-                  v-bind:src="post.firstimage"
-                />
-                <v-card-subtitle class="text--primary">
-                  <p>{{post.addr1}}</p>
-                  <p>{{post.title}}</p>
-                  <p>{{post.tel}}</p>
-                  <p>{{post.user_id}}</p>
-                </v-card-subtitle>
-                <v-btn
-                  color="orange"
-                  text
-                  @click="url"
-                >사이트 이동하기</v-btn>
-              </v-card>
-            </v-col>
-          </v-card>
-        </v-tab-item>
-
-
-      </v-tabs>
-    </v-card>
-  </template>
-</div>
+                <v-card
+                  style="width: 400px; height: 450px"
+                  @click="url(post.pl.id)"
+                >
+                  <v-img
+                    :src="post.firstimage"
+                    class="white--text align-end"
+                    height="200px"
+                  />
+                  <v-card-subtitle class="text--primary">
+                    <p>{{ post.addr1 }}</p>
+                    <p>{{ post.title }}</p>
+                    <p>{{ post.tel }}</p>
+                    <p>{{ post.user_id }}</p>
+                  </v-card-subtitle>
+                  <v-btn
+                    color="orange"
+                    text
+                    @click="url"
+                  >
+                    사이트 이동하기
+                  </v-btn>
+                </v-card>
+              </v-col>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
+      </v-card>
+    </template>
+  </div>
 </template>
 
 <script>
 import MyPageHeader from "@/components/store/MyPageHeader";
-import BookMarkView from "@/views/auth/BookMarkView";
 import axios from "axios";
+
 export default {
   components: {
     MyPageHeader,
@@ -123,7 +140,7 @@ export default {
   //     })
   // },
   methods: {
-    all(){
+    all() {
       this.$router.push("/bookmark")
     },
     url() {

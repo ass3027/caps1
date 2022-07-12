@@ -1,19 +1,13 @@
 package c.e.exper.mapper;
 
-import c.e.exper.data.OrderDAO;
-import c.e.exper.data.PaymentDAO;
-import c.e.exper.data.PlaceDAO;
-import c.e.exper.data.UserDAO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.*;
+import c.e.exper.data.*;
 import org.apache.ibatis.annotations.*;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 @Mapper
 public interface UserMapper { //디비접근
@@ -23,18 +17,194 @@ public interface UserMapper { //디비접근
 
     @Select("SELECT * FROM users WHERE user_id=#{user_id}")
     Optional<UserDAO> selectId(String user_id);
+
+    //회원정보
+    @Select("""
+            SELECT *
+            FROM users LEFT JOIN delivery_user
+            ON users.user_id = delivery_user.user_id
+            WHERE USERS.user_id = #{user_id}""")
+    Optional<UserDTO> getDeliveryInfoById(String user_id);
 //    (@Param("user_id") 생략가능
 
 
-    //회원가입
-    @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null,#{user.gender},#{user.preference})")
+    //회원가입(일반회원)
+    @Insert("INSERT INTO users VALUES(#{user.user_id},#{user.user_pw},#{user.user_phone},#{user.user_name},#{user.user_birth},#{user.role},null,#{user.gender, jdbcType=VARCHAR},#{user.preference, jdbcType=VARCHAR}, #{user.business_num, jdbcType=VARCHAR},#{user.user_area,jdbcType=VARCHAR})")
     void insert(@Param("user") UserDAO user);
+
+    //회원가입(운송원)
+    @Insert("INSERT INTO delivery_user(user_id, duser_trans, duser_license) VALUES(#{duser.user_id},#{duser.duser_trans},#{duser.duser_license})")
+    void deliveryInsert(@Param("duser") DuserDAO duser);
+
+    //키퍼(키퍼회원) --사업자번호 상호명 사업자이름?
+    @Insert("INSERT INTO place(user_id) VALUES(#{user.user_id})")
+    void keeperInsert(@Param("user") PlaceDAO user);
+
+    //지역별 연습
+    @Select("SELECT USER_AREA,COUNT(*) FROM users where user_area is not null group by USER_AREA order by count(*) desc")
+    List<UserDAO> areaCount();
+
+    //지역별
+    @Select("""
+            select USER_AREA, count(USER_AREA) as count
+                from USERS
+                WHERE USER_AREA IS NOT NULL
+                group by USER_AREA order by count(*) desc""")
+    List<AreaDTO> selectAreaCount();
+
+    //연령별(10대)
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH10
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '2004-01-01' AND '2013-12-31'""")
+    UserDAO selectAgeCount10();
+
+    //연령별(20대)
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH20
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '1994-01-01' AND '2003-12-31'""")
+    UserDAO selectAgeCount20();
+
+    //연령별(30대)
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH30
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '1984-01-01' AND '1993-12-31'""")
+    UserDAO selectAgeCount30();
+
+    //연령별(40대)
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH40
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '1974-01-01' AND '1983-12-31'""")
+    UserDAO selectAgeCount40();
+
+    //연령별(50대이상)
+    @Select("""
+            SELECT COUNT(USER_BIRTH) AS USER_BIRTH50
+            FROM USERS
+            WHERE USER_BIRTH BETWEEN '1940-01-01' AND '1973-12-31'""")
+    UserDAO selectAgeCount50();
+
+    //총합
+    @Select("""
+            select NVL(sum(PAY_PRICE),0) as price_sum
+            from PAYMENT
+            where USER_ID = #{user_id}
+            and PAY_ID in (select PAY_ID
+                           from PRODUCT_TIME
+                           where PD_ID in (select pd_id
+                                           from PRODUCT)
+                           and PAY_ID is not null
+                           group by PAY_ID)
+            """)
+    int selectPriceSum(@Param("user_id") String user_id);
+
+    //금일
+    @Select("""
+            select NVL(sum(PAY_PRICE),0) as price1
+                        from PAYMENT
+                        where USER_ID = #{user_id}
+                        and PAY_ID
+                                 in (select PAY_ID
+                                     from PRODUCT_TIME
+                                     where PD_ID in (select pd_id
+                                                     from PRODUCT)
+                                     and PAY_ID is not null
+                                     group by PAY_ID)  and to_char(PAY_TIME,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+            """)
+    int selectPrice(@Param("user_id") String user_id);
+
+    //전일
+    @Select("""
+            select NVL(sum(PAY_PRICE),0) as price1
+            from PAYMENT
+            where USER_ID = 'asdf1234'
+            and PAY_ID
+              in (select PAY_ID
+                  from PRODUCT_TIME
+                  where PD_ID in (select pd_id
+                                  from PRODUCT)
+                  and PAY_ID is not null
+                  group by PAY_ID)
+                  and to_char(PAY_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE - 1, 'YYYY-MM-DD')
+            """)
+    int selectPrice1(@Param("user_id") String user_id);
+
+//  @Select("""
+//            select NVL(sum(PAY_PRICE),0) as price7
+//                        from PAYMENT
+//                        where USER_ID = #{user_id}
+//                        and PAY_ID
+//                                 in (select PAY_ID
+//                                     from PRODUCT_TIME
+//                                     where PD_ID in (select pd_id
+//                                                     from PRODUCT)
+//                                     and PAY_ID is not null
+//                                     group by PAY_ID) and SYSDATE-7 < PAY_TIME
+//            """)
+//    int selectPrice7(@Param("user_id") String user_id);
+
+    @Select("""
+            select NVL(sum(PAY_PRICE),0) as price7
+                        from PAYMENT
+                        where USER_ID = #{user_id}
+                        and PAY_ID
+                                 in (select PAY_ID
+                                     from PRODUCT_TIME
+                                     where PD_ID in (select pd_id
+                                                     from PRODUCT)
+                                     and PAY_ID is not null
+                                     group by PAY_ID) and SYSDATE-7 < PAY_TIME
+            """)
+    int selectPrice7(@Param("user_id") String user_id);
+
+    @Select("""
+            select NVL(sum(PAY_PRICE),0) as price30
+                        from PAYMENT
+                        where USER_ID = #{user_id}
+                        and PAY_ID
+                                 in (select PAY_ID
+                                     from PRODUCT_TIME
+                                     where PD_ID in (select pd_id
+                                                     from PRODUCT)
+                                     and PAY_ID is not null
+                                     group by PAY_ID) and to_char(PAY_TIME,'yyyy-mm-dd') > TO_CHAR(SYSDATE-30,'yyyy-mm-dd')
+            """)
+    int selectPrice30(@Param("user_id") String user_id);
+
+
+
+//    @Select("select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT\n" +
+//            "from INQUIRY\n" +
+//            "where inq_id = #{inq_id}")
+//    List<InquiryDAO> selectSearch(String user_id);
+
+
+    //게시판 검색
+    @Select("""
+            select INQ_ID,INQ_TITLE,INQ_TIME,USER_ID,INQ_COUNT
+            from INQUIRY
+            where INQ_TITLE like '%'||#{keyword}||'%' order by(inq_id)""")
+    List<InquiryDAO> selectSearch(String keyword);
+
+
+
+    //서울지역 가입수만 받아오기
+    @Select("""
+            select count(USER_NAME),USER_AREA
+            from USERS
+            where USER_AREA = '서울특별시' and user_area is not null
+            group by USER_AREA order by count(*)""")
+    ArrayList<Integer> selectArea1();
+
 
     //회원정보수정
     @Update("UPDATE USERS SET user_pw=#{user.user_pw}, user_phone=#{user.user_phone}, user_name=#{user.user_name}, preference=#{user.preference} WHERE user_id=#{user.user_id}")
     boolean updateUserInfo(@Param("user") UserDAO user);
-  //반환데이터형식(반환값) //함수이름          데이터형식 //매개변수
-  //반환해주는것!
+    //반환데이터형식(반환값) //함수이름          데이터형식 //매개변수
+    //반환해주는것!
 
 //    @Insert("""
 //            insert into
@@ -81,7 +251,7 @@ public interface UserMapper { //디비접근
 
     /* user 전화번호 올바른 형식으로 업데이트 */
     @Update("update users set user_phone=#{phone_num} where user_id = #{user_id}")
-    void updateUserPhone(@Param("phone_num")String phone_num, @Param("user_id") String user_id);
+    void updateUserPhone(@Param("phone_num") String phone_num, @Param("user_id") String user_id);
 
     @Select("SELECT user_id FROM users")
     List<String> selectAllId();
@@ -101,6 +271,7 @@ public interface UserMapper { //디비접근
             """)
     boolean checkGuide(@Param("user_id") String user_id);
 
+
     @Select("""
             SELECT count(*)
             FROM delivery_user
@@ -108,7 +279,10 @@ public interface UserMapper { //디비접근
             """)
     boolean checkDeliveryUser(@Param("user_id") String user_id);
 
-
-
-
+    @Update("""
+            UPDATE DELIVERY_USER
+            SET duser_trans = #{duser_trans}, duser_license = #{duser_license}
+            WHERE user_id = #{user_id}
+            """)
+    boolean updateDuserInfo(DuserDAO duserDAO);
 }

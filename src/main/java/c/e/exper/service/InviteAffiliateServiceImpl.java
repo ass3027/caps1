@@ -30,11 +30,13 @@ public class InviteAffiliateServiceImpl implements InviteAffiliateService{
 
         //초대할 회원이 없으면 ㅇ안대
         if(userMapper.selectId(inviteDTO.getUser_id()).isEmpty()) {
+            System.out.println("can't find target user");
             return false;
         }
 
         //이 회원을 이미 초대 했는지
         if( inviteMapper.selectById(inviteDTO.toDAO()).isPresent() ) {
+            System.out.println("user is already invited");
             return false;
         }
         AffiliatedDAO affiliatedDAO = AffiliatedDAO.builder()
@@ -43,6 +45,7 @@ public class InviteAffiliateServiceImpl implements InviteAffiliateService{
                 .build();
 
         //초대할 놈이 이미 플래너에 소속되어있는지
+        System.out.println("user is already affiliated");
         return affiliatedMapper.SelectById(affiliatedDAO).isEmpty();
 
     }

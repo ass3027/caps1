@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "axios": "^0.26.0",
+    "chart.js": "^3.8.0",
     "core-js": "^3.8.3",
     "vue": "^2.6.14",
+    "vue-chartjs": "^4.1.1",
     "vue-daum-postcode": "^0.10.0",
     "vue-router": "^3.5.4",
     "vuetify": "^2.6.4",
@@ -24,6 +26,7 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "^5.0.4",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.6.0",
     "eslint-plugin-vuetify": "^1.1.0",

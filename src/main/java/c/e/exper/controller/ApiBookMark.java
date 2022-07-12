@@ -4,16 +4,10 @@ import c.e.exper.data.PlaceDAO;
 import c.e.exper.mapper.BookMarkMapper;
 import c.e.exper.mapper.PlaceMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/bookmark")
@@ -30,34 +24,66 @@ public class ApiBookMark {
     }
 
 
+
+
     @GetMapping("/BookMark")
-    public Map<String, Object> AllBookMark() {
+    public Map<String, List<PlaceDAO>> AllBookMark() {
         List<PlaceDAO> all = bookMarkMapper.selectAllByUserBookMark(getUser_id());
         List<PlaceDAO> keeper = bookMarkMapper.selectByUserBookMarkKeeper(getUser_id());
         List<PlaceDAO> hotel = bookMarkMapper.selectByUserBookMarkHotel(getUser_id());
-        Map<String, Object> bookmarkData = new HashMap<>();
+        List<PlaceDAO> tour = bookMarkMapper.selectByUserBookMarkTour(getUser_id());
+        Map<String, List<PlaceDAO>> bookmarkData = new HashMap<>();
 
         if (all.isEmpty()) {
-            bookmarkData.put("all", new PlaceDAO());
+            bookmarkData.put("all", new ArrayList<>());
         } else {
             bookmarkData.put("all", all);
         }
 
         if (keeper.isEmpty()) {
-            bookmarkData.put("keeper", new PlaceDAO());
+            bookmarkData.put("keeper", new ArrayList<>());
         } else {
-            bookmarkData.put("keeper", keeper.get(0));
+            bookmarkData.put("keeper", keeper);
         }
 
         if (hotel.isEmpty()) {
-            bookmarkData.put("hotel", new PlaceDAO());
+            bookmarkData.put("hotel", new ArrayList<>());
         } else {
-            bookmarkData.put("hotel", hotel.get(0));
+            bookmarkData.put("hotel", hotel);
         }
-        System.out.println(bookmarkData.get("all"));
+
+        if (tour.isEmpty()) {
+            bookmarkData.put("tour", new ArrayList<>());
+        } else {
+            bookmarkData.put("tour", tour);
+        }
+
+
+
         return bookmarkData;
 
     }
+
+    @GetMapping("/getBookMarkStatus")
+    String getBookMarkStatus(@RequestParam("user_id")String user_id,
+                             @RequestParam("pl_id")String pl_id){
+        return bookMarkMapper.getBookMarkStatus(user_id,pl_id);
+    }
+
+    @PostMapping("/insertBookMark")
+    void insertBookMark(@RequestParam("user_id")String user_id,
+                             @RequestParam("pl_id")String pl_id){
+        bookMarkMapper.insertBookMark(user_id,pl_id);
+    }
+
+    @DeleteMapping("/deleteBookMark")
+    void deleteBookMark(String pl_id){
+        String user_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        bookMarkMapper.deleteBookMark(user_id,pl_id);
+    }
+
+
+
 }
 
 

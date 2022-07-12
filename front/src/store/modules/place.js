@@ -4,11 +4,27 @@ export default {
     placeInfo: [],
     placeOriginal:[],
     place:[],
+    placeAera: [],
   },
   mutations:{
     PlaceUpdate(state, placeNew){
       state.place = placeNew;
     },
+
+    PlaceAeraUpdate(state, aeraUpdate){
+      state.place = aeraUpdate;
+    },
+
+    PlaceOption(state, option){
+      state.place = option;
+    },
+
+    PlaceKeyword(state, keyword){
+      state.place = keyword;
+    },
+
+
+
 
     updatePlace(state, newPlace){
       state.placeOriginal = newPlace

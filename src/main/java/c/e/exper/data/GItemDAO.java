@@ -22,4 +22,22 @@ public class GItemDAO {
     String end_time;
     String book_whether;
     String title;
+    String book_time;
+    String detail;
+    String gitem_price;
+    String pay_price;
+    String gtime_num;
+    String gdate;
+    int count;
+    int count7;
+    int count1;
+    int count30;
+    String firstimage2;
+    String pay_time;
+    String firstimage;
+    String gname;
+    String pay_id;
+    int buy_status;
+
+
 }

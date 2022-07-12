@@ -7,7 +7,10 @@
       <br><br>
       <PlaceHeader :category="category" />
       <div class="body-form">
-        <PlaceLeft :option="option" :category="category"/>
+        <PlaceLeft
+          :option="option"
+          :category="category"
+        />
         <PlaceMain />
       </div>
     </div>
@@ -27,13 +30,6 @@ export default {
     PlaceMain,
     PlaceLeft
   },
-  created() {
-    this.category = this.$route.params.category
-    console.log(this.category)
-  },
-  mounted(){
-
-  },
   data() {
     return {
       category: '',
@@ -44,6 +40,13 @@ export default {
         {title: "golf", value: "3"}
       ]
     }
+  },
+  created() {
+    this.category = this.$route.params.category
+    console.log(this.category)
+  },
+  mounted(){
+
   }
 }
 </script>

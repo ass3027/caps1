@@ -1,132 +1,123 @@
 <template>
-  <div id="app" style="width: 1050px; padding-top: 65px">
+  <div
+    id="app"
+    style="width: 1050px; padding-top: 65px"
+  >
     <div>
-      <MyPageHeader/>
+      <MyPageHeader />
       <div style="width: 820px; float: right;">
-        <h2>회원정보</h2>
-        <v-container  >
-          <v-row justify="center">
-            <v-col
-              cols="12"
-              sm="6"
-            >
-              <v-text-field
-                v-model="user_name"
-                label="이름"
-                class="box"
-                outlined
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="user_id"
-                label="아이디"
-                class="box"
-                outlined
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="gender"
-                label="성별"
-                class="box"
-                outlined
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="user_phone"
-                label="연락처"
-                class="box"
-                outlined
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="preference"
-                label="내가 선호하는 여행방식"
-                class="box"
-                outlined
-                readonly
-              ></v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
+
+        <MyPageInfo v-if="selected === 'MyPageInfo'"/>
+        <MyBookMark v-else-if="selected === 'MyBookMark'"/>
+        <MyPageUpdate v-else-if="selected === 'MyPageUpdate'"/>
+        <MyReview v-else-if="selected === 'MyReview'"/>
+        <Questions v-else-if="selected === 'Questions'"/>
+        <PriceChart v-else-if="selected === 'PriceChart'"/>
       </div>
-
-
-
-
     </div>
   </div>
-<!--  </div>-->
 </template>
 <script>
-import MyPageHeader from "@/components/store/MyPageHeader";
-import axios from "axios";
-export default {
-  components:{
-    MyPageHeader
-  },
+  import MyPageHeader from "@/components/store/MyPageHeader";
+  import axios from "axios";
+  import MyBookMark from "@/components/auth/MyBookMark";
+  import MyPageUpdate from "@/components/auth/MyPageUpdate";
+  import MyReview from "@/components/auth/MyReview";
+  import Questions from "@/components/auth/Questions";
+  import MyPageInfo from "@/components/auth/MyPageInfo";
+  import PriceChart from "@/components/auth/PriceChart";
 
-  data(){
-    return{
-      user_id: '',
-      user_pw: '',
-      user_phone: '',
-      user_name: '',
-      user_photo: '',
-      gender: '',
-      preference:''
+  export default {
+    components:{
+      MyPageHeader,
+      MyPageInfo,
+      MyBookMark,
+      MyPageUpdate,
+      MyReview,
+      Questions,
+      PriceChart
+    },
+    props: {
+      select: String
+    },
+    data(){
+      return{
+        user_id: '',
+        user_pw: '',
+        user_phone: '',
+        user_name: '',
+        user_birth:'',
+        user_photo: '',
+        gender: '',
+        preference:'',
+        user_area:true,
+        duser_trans:'',
+        duser_license:'',
+        business_num:'',
 
-    };
-  },
-  mounted() {
-    axios.get('/api/user/data/'+ this.$store.state.user.userId)
-    .then(res=> {
-      this.user_id = res.data.user_id
-      this.user_pw = res.data.user_pw //공백으로 둬야하나?
-      this.user_phone = res.data.user_phone
-      this.user_name = res.data.user_name
-      this.gender = res.data.gender
-      this.preference = res.data.preference
-      console.log(res.data)
-      console.log(this.$store.state.user.userId)
+        selected: 'MyPageInfo',
+      };
+    },
+    mounted() {
+      axios.get('/api/user/data/'+ this.$store.state.user.userId).then(res=> {
+        this.user_id = res.data.user_id
+        this.user_pw = res.data.user_pw //공백으로 둬야하나?
+        this.user_phone = res.data.user_phone
+        this.user_name = res.data.user_name
+        this.user_birth = res.data.user_birth
+        this.gender = res.data.gender
+        this.preference = res.data.preference
+        this.user_area = res.data.user_area
+        this.duser_trans = res.data.duser_trans
+        this.duser_license = res.data.duser_license
+        this.business_num = res.data.business_num
+        console.log(res.data)
+        console.log(this.$store.state.user.userId)
+      }).catch((error)=>{
+        console.log(error)
+        // console.log(res.data.user_name)
+      })
 
-    }).catch((error)=>{
-      console.log(error)
-      // console.log(res.data.user_name)
-    })
-  },
-  methods:{
-    onsubmit(){
+      if(this.select !== undefined) {
+        console.log('select', this.select)
+        this.selected = this.select
+      }
+
+    },
+    methods:{
+      changeSelected(value) {
+        this.selected = value
+      },
+      onsubmit(){
+          console.log("성공")
+      },
+      login(){
+          this.$router.push("/login")
+          // this.$router.go();
+          console.log("성공")
+      },
+      main(){
+        this.$router.push("/BookMark")
         console.log("성공")
-    },
-    login(){
-        this.$router.push("/login")
-        // this.$router.go();
+      },
+      Modify(){
+        axios.post("/api/Mypage")
+        this.$router.push("/mydata")
         console.log("성공")
-    },
-    main(){
-      this.$router.push("/BookMark")
-      console.log("성공")
-    },
-    Modify(){
-      // alert("정보수정을 하시겠습니까?")
-      // alert("수정완료되었습니다")
-      axios.post("/api/Mypage")
-      this.$router.push("/mydata")
-      console.log("성공")
-    },
-    bookmark(){
-      this.$router.push("/BookMark")
-    },
-    pay(){
-      this.$router.push("/pay")
-    },
-    questions(){
-      this.$router.push("/Questions")
-    },
-    mydata(){
-      this.$router.push("/MyData")
+      },
+      bookmark(){
+        this.$router.push("/BookMark")
+      },
+      pay(){
+        this.$router.push("/pay")
+      },
+      questions(){
+        this.$router.push("/Questions")
+      },
+      mydata(){
+        this.$router.push("/MyData")
+      }
     }
-  }
 }
 </script>
 
@@ -169,5 +160,19 @@ header{
   padding: 0px 10px;
 }
 
+
+
+.head_aticle {
+  padding: 5px 0 34px;
+}
+
+.tit {
+  height: 36px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: #333;
+  letter-spacing: -.5px;
+}
 
 </style>

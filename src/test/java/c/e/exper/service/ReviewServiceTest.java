@@ -1,12 +1,8 @@
 package c.e.exper.service;
 
-import c.e.exper.data.Review;
+import c.e.exper.data.ReviewDTO;
 import c.e.exper.mapper.ReviewMapper;
 import c.e.exper.mapper.UserMapper;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import c.e.exper.mapper.UserMapper;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,17 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ReviewServiceTest {
@@ -75,7 +62,7 @@ class ReviewServiceTest {
         // given
 
         // when
-        List<Review> reviewList = reviewService.모든_리뷰_조회();
+        List<ReviewDTO> reviewList = reviewService.모든_리뷰_조회();
 
         // then
         reviewList.forEach(review -> System.out.println(review));
@@ -87,21 +74,12 @@ class ReviewServiceTest {
     void 리뷰_등록() {
 
         // given
-        Review review = Review.builder()
+        ReviewDTO review = ReviewDTO.builder()
                 .user_id("um")
                 .rev_content("엄...")
-                .rev_rating(3)
-                .ord_id(2)
                 .build();
 
         // when
-        if(review.getBook_id() == null && review.getOrd_id() == null) {
-            System.out.println("잘못된 형식입니다.");
-        } else if (review.getBook_id() != null) {
-            reviewMapper.addBookReview(review);
-        } else {
-            reviewMapper.addOrderReview(review);
-        }
 
         // then
     }

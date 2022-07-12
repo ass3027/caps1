@@ -1,138 +1,273 @@
 <template>
   <div class="">
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      rel="stylesheet"
     >
-    <div class="container my-0 my-md-4">
-      <div class="row align-items-center justify-content-between">
-        <div class="col-12 col-md-5 p-0 p-md-2">
-          <div class="d-flex flex-column">
-            <div class="col-12 px-md-2 d-none d-md-block">
-              <div
-                class=""
-                style="cursor: pointer"
-              >
-                <v-img
-                  v-if=" temp===1"
-                  :src="'/api/photo/' + products[index].pic_name"
-                  alt=""
-                  style="width: 100%"
-                  class="image"
-                />
-              </div>
-            </div>
 
-            <!--            <div class="d-block d-md-none col-12 px-0">-->
-            <!--              <b-carousel v-model="slide" controls :interval="0">-->
-            <!--                <b-carousel-slide v-for="(product, index) in this.products" :key="index" :img-src="image">-->
-            <!--                </b-carousel-slide>-->
-            <!--              </b-carousel>-->
-            <!--            </div>-->
-
-            <div class="col-12 d-none d-md-block my-4">
-              <div class="row">
+    <div v-if="temp===1 && products[0].pd_id !== null">
+      <div class="container my-0 my-md-4">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-12 col-md-5 p-0 p-md-2">
+            <div class="d-flex flex-column">
+              <div class="col-12 px-md-2 d-none d-md-block">
                 <div
-                  v-for="(product, index) in products"
-                  :key="index"
-                  class="col-3"
+                  class=""
+                  style="cursor: pointer"
                 >
+                  <v-img
+                    v-if="temp===1"
+                    :src="'/api/photo/' + products[index].pic_name"
+                    alt=""
+                    class="image"
+                    style="width: 100%"
+                  />
+                </div>
+              </div>
+
+              <!--            <div class="d-block d-md-none col-12 px-0">-->
+              <!--              <b-carousel v-model="slide" controls :interval="0">-->
+              <!--                <b-carousel-slide v-for="(product, index) in this.products" :key="index" :img-src="image">-->
+              <!--                </b-carousel-slide>-->
+              <!--              </b-carousel>-->
+              <!--            </div>-->
+
+              <div class="col-12 d-none d-md-block my-4">
+                <div class="row">
                   <div
-                    class="thumbnail"
-                    @click="changeMainImage(index)"
+                    v-for="(product, index) in products"
+                    :key="index"
+                    class="col-3"
                   >
-                    <v-img
-                      :src="'/api/photo/' + product.pic_name"
-                      style="width:100%"
-                      alt=""
-                      class="image"
-                      :class="mainImage === product.pic_name ? 'activess' : ''"
-                    />
+                    <div
+                      class="thumbnail"
+                      @click="changeMainImage(index)"
+                    >
+                      <v-img
+                        :class="mainImage === product.pic_name ? 'activess' : ''"
+                        :src="'/api/photo/' + product.pic_name"
+                        alt=""
+                        class="image"
+                        style="width:100%"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="col-12 col-md-6 text-left my-3">
-          <div class="container">
-            <div>
-              <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
-                Packless Travel
-              </span>
-            </div>
-
-            <div class="mt-2 mb-4">
-              <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
-                {{ $route.query.pl_name }}
-              </span>
-            </div>
-
-            <div class="my-3">
-              <span class="text-muted">
-                개인 바베큐 됩니다.
-              </span>
-            </div>
-
-            <div class="row">
-              <div class="col-8 col-md-12 d-flex flex-row align-items-center">
-                <div>
-                  <span style="font-size: 24px; font-weight: 900">
-                    ${{ parseFloat(price).toFixed(2) }}
-                  </span>
-                </div>
-                <div class="">
-                  <span
-                    class="mx-3 discount px-2 py-1 rounded"
-                    style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)"
-                  >
-                    50%
-                  </span>
-                </div>
+          <div class="col-12 col-md-6 text-left my-3">
+            <div class="container">
+              <div>
+                <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
+                  Packless Travel
+                </span>
               </div>
 
-              <div class="col-4 col-md-12 my-1">
-                <span
-                  class=""
-                  style="font-weight: 700; color: rgb(183, 183, 183); text-decoration: line-through;"
-                >
-                  $250.00
+              <div class="mt-2 mb-4">
+                <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
+                  {{ products[index].title }}
                 </span>
+              </div>
+
+              <div>
+                <span style="font-size: 24px; font-weight: 900">
+                  {{ products[index].addr1 }}
+                </span>
+              </div>
+
+              <div class="my-3">
+                <span class="text-muted">
+                  {{ products[index].content }}
+                </span>
+              </div>
+
+              <div class="row">
+                <div class="col-8 col-md-12 d-flex flex-row align-items-center">
+                  <!--                <div>-->
+                  <!--                  <span style="font-size: 24px; font-weight: 900">-->
+                  <!--                    {{ products[index].addr1 }}-->
+                  <!--                  </span>-->
+                  <!--                </div>-->
+                  <!--                <div class="">-->
+                  <!--                  <span-->
+                  <!--                    class="mx-3 discount px-2 py-1 rounded"-->
+                  <!--                    style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)"-->
+                  <!--                  >-->
+                  <!--                    50%-->
+                  <!--                  </span>-->
+                  <!--                </div>-->
+                </div>
+                <div class="col-4 col-md-12 my-1">
+                  <span
+                    class=""
+                    style="font-weight: 700; color: rgb(183, 183, 183);"
+                  >
+                    {{ products[index].tel }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <hr>
-        <div>
+          <hr>
           <div>
-            <place-product/>
+            <div>
+              <place-product
+                v-for="(product,index) in products"
+                :key="index"
+                :product="product"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <StoreReviewView :store_name="store_name"/>
+
+    <div v-else-if="temp===1">
+      <div class="container my-0 my-md-4">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-12 col-md-5 p-0 p-md-2">
+            <div class="d-flex flex-column">
+              <div class="col-12 px-md-2 d-none d-md-block">
+                <div
+                  class=""
+                  style="cursor: pointer"
+                >
+                  <v-img
+                    v-if="temp===1"
+                    :src="products[0].firstimage"
+                    alt=""
+                    class="image"
+                    style="width: 100%"
+                  />
+                </div>
+              </div>
+
+              <!--            <div class="d-block d-md-none col-12 px-0">-->
+              <!--              <b-carousel v-model="slide" controls :interval="0">-->
+              <!--                <b-carousel-slide v-for="(product, index) in this.products" :key="index" :img-src="image">-->
+              <!--                </b-carousel-slide>-->
+              <!--              </b-carousel>-->
+              <!--            </div>-->
+
+              <div class="col-12 d-none d-md-block my-4">
+                <div class="row">
+                  <div
+                    v-for="(product, index) in products"
+                    :key="index"
+                    class="col-3"
+                  >
+                    <div
+                      class="thumbnail"
+                      @click="changeMainImage(index)"
+                    >
+                      <v-img
+                        :class="mainImage === product.firstimage ? 'activess' : ''"
+                        alt=""
+                        class="image"
+                        style="width:100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 text-left my-3">
+            <div class="container">
+              <div>
+                <span style="font-size: 13px; letter-spacing: 1px; color: hsl(26, 100%, 55%); font-weight: 700">
+                  Packless Travel
+                </span>
+              </div>
+
+              <div class="mt-2 mb-4">
+                <span style="font-size: 40px; font-weight: 900; color: black; line-height: 2.8rem">
+                  {{ products[index].title }}
+                </span>
+              </div>
+
+              <div>
+                <span style="font-size: 24px; font-weight: 900">
+                  {{ products[index].addr1 }}
+                </span>
+              </div>
+
+              <div class="my-3">
+                <span class="text-muted">
+                  {{ products[index].content }}
+                </span>
+              </div>
+
+              <div class="row">
+                <div class="col-8 col-md-12 d-flex flex-row align-items-center">
+                  <!--                <div>-->
+                  <!--                  <span style="font-size: 24px; font-weight: 900">-->
+                  <!--                    {{ products[index].addr1 }}-->
+                  <!--                  </span>-->
+                  <!--                </div>-->
+                  <!--                <div class="">-->
+                  <!--                  <span-->
+                  <!--                    class="mx-3 discount px-2 py-1 rounded"-->
+                  <!--                    style="font-weight: 900; font-size: 14px; color: hsl(26, 100%, 55%)"-->
+                  <!--                  >-->
+                  <!--                    50%-->
+                  <!--                  </span>-->
+                  <!--                </div>-->
+                </div>
+                <div class="col-4 col-md-12 my-1">
+                  <span
+                    class=""
+                    style="font-weight: 700; color: rgb(183, 183, 183);"
+                  >
+                    {{ products[index].tel }}
+                  </span>
+                  <br>
+                  <span
+                    class=""
+                    style="font-weight: 700; color: rgb(183, 183, 183);"
+                  >
+                    숙소로 문의 부탁드립니다.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    {{ pl_id }}
+    <ReviewView
+      :id="pl_id"
+      :type="'호텔'"
+      style="width: 1274px; margin: 0 auto"
+    />
   </div>
+  <!--    <StoreReviewView :store_name="store_name"/>-->
 </template>
 
 <script>
-import StoreReviewView from "@/views/StoreReviewView";
 import axios from "axios";
 import PlaceProduct from "@/components/store/PlaceProduct";
+import ReviewView from "@/views/ReviewView";
 
 export default {
   name: 'ProductPage',
   components: {
     PlaceProduct,
-    StoreReviewView
+    // StoreReviewView
+    ReviewView
   },
-  props: [ 'pl_id' ],
+  props: ['pl_id'],
   data() {
     return {
-      title: '5성급 편안호텔',
-      price: "125.000",
       count: 1,
       images: [
         // require('@/image/product1.png'),
@@ -163,28 +298,23 @@ export default {
       params: {'pl_id': this.pl_id}
     })
       .then((res) => {
-        this.products = res.data
+        this.products = res.data.reduce(function (acc, current) {
+          if (acc.findIndex(({pd_id}) => pd_id === current.pd_id) === -1) {
+            acc.push(current);
+          }
+          return acc;
+        }, []);
+
+        console.log(this.products)
+
         this.temp++
+
       })
       .catch((err) => {
         console.log(err)
       })
-
-    axios({
-      method: 'GET',
-      url: '/api/findPlName',
-      params: {'store_id': this.store_id}
-    })
-      .then((res) => {
-        this.store_name = res.data
-      })
-
-    console.log(this.$route)
   },
   methods: {
-    // showMainImage() {
-    //   this.showImageModal = true;
-    // },
     changeMainImage(index) {
       this.index = index;
     },

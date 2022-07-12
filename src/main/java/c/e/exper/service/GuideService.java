@@ -23,7 +23,12 @@ public class GuideService {
       this.guideMapper = guideMapper;
       this.gitemMapper = gitemMapper;
    }
-   
+
+   public List<GItemDAO> 매출_조회_리스트(String id){
+      return gitemMapper.selectCountList(id);
+   }
+
+
    public List<GuideDAO> 가이드_조회() {
       return guideMapper.selectAll();
    }
@@ -39,6 +44,22 @@ public class GuideService {
    public GuideDAO 가이드_조회1(String id) {
       return guideMapper.selectById(id);
    }
+
+   public GItemDAO 매출_조회(String id){
+      return gitemMapper.selectCount(id);
+   }
+   public GItemDAO 매출_조회7(String id){
+      return gitemMapper.selectCount7(id);
+   }
+
+   public GItemDAO 매출_조회1(String id){
+      return gitemMapper.selectCount1(id);
+   }
+
+   public GItemDAO 매출_조회30(String id){
+      return gitemMapper.selectCount30(id);
+   }
+
    public GItemDAO 가이드_상품조회1(String id){
       return gitemMapper.selectByGitemId(id);
    }
@@ -63,15 +84,42 @@ public class GuideService {
       return gitemMapper.selectAll();
       
    }
-   public List<GItemDAO> 가이드상품_시간조회(String id){
-      return gitemMapper.selectTime(id);
+   public List<GItemDAO> 가이드상품_시간조회(String id, String time){
+      return gitemMapper.selectTime(id, time);
    }
 
    public void 가이드상품_삭제1(String id){
       gitemMapper.deleteGitemOne(id);
 
    }
+
+   public void 예약_취소(String id){
+      gitemMapper.deletePayment(id);
+   }
+
    public int 시간_수정(int id){
       return gitemMapper.updateTime(id);
    }
+   public void 소개_수정(GuideDAO guideDAO, String id){
+       guideMapper.updateIntro(guideDAO, id);
+   }
+
+   public int 결제_완료(int id){
+      return gitemMapper.updategTime(id);
+   }
+
+   public void 예약_등록(GItemDAO gitemDAO){
+      gitemMapper.insertReserve(gitemDAO);
+   }
+   public void 결제(GItemDAO gitemDAO){
+      gitemMapper.insertPay(gitemDAO);
+   }
+
+   public List<GItemDAO> 시간_조회(String id){
+      return gitemMapper.selectTimes(id);
+   }
+   public List<GItemDAO> 시간_조회2(String id){
+      return gitemMapper.selectTimes2(id);
+   }
+
 }
