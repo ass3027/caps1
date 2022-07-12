@@ -231,4 +231,18 @@ public interface PlaceMapper {
          values(#{store_id},#{user_id},#{addr1},#{areacode},'B02','32',#{firstImage},#{tel},#{title},#{zipcode})
          """)
    void placeAdd(PlaceDAO placeAdd);
+
+   // Left 예약 불가
+   @Select("""
+           select c."date", c.ROOM_NUM, place.*
+           from product p,
+                (select count(*) count, PD_ID, "date", ROOM_NUM
+                 from PRODUCT_TIME t
+                 where "date" between #{settingstart} AND #{settingend}
+                 group by "date", PD_ID, ROOM_NUM
+                ) c, place
+           where p.PD_ID = c.PD_ID and place.PL_ID = p.PL_ID
+           and p.MAX_ROOM_NUM <= c.count
+           """)
+   List<PlaceDAO> datePic(String settingstart, String settingend);
 }
