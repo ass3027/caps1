@@ -40,21 +40,25 @@
                 v-model="selected"
                 label="사람"
                 value="사람"
+                color="red"
               ></v-checkbox>
               <v-checkbox
                 v-model="selected"
                 label="음식"
                 value="음식"
+                color="orange"
               ></v-checkbox>
               <v-checkbox
                 v-model="selected"
                 label="풍경"
                 value="풍경"
+                color="green"
               ></v-checkbox>
               <v-checkbox
                 v-model="selected"
                 label="관광지"
                 value="관광지"
+                color="blue"
               ></v-checkbox>
 
 
@@ -356,7 +360,6 @@ export default {
 
   computed: {
     photos(){
-      this.resetPageNum()
 
       const filterResult = this.originPhotos.filter(photo=>
         this.selected.includes(photo.category)
