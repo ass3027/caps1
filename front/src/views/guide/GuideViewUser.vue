@@ -5,7 +5,17 @@
         <div class="resumeType1">
           <div class="resumeType1-inner">
             <div id="ResumeBaseInfo" class="resumeView">
-              <h2 class="hide">가이드 정보</h2>
+              <h2 class="hide">
+                가이드 정보
+                <v-btn
+                  v-if="lists.user_id==$store.state.user.userId"
+                style="left: 520px; width: 100px"
+                  @click="views(lists)"
+
+                >
+                  수정하기
+                </v-btn>
+              </h2>
               <div class="photoArea">
                      <span class="photo">
                        <v-img
@@ -65,7 +75,9 @@ export default {
     img(fileName){
       return "/api/photo/" + fileName
     },
-
+    views(lists){
+      this.$router.push("/GuideIntro/" + lists.user_id)
+    },
     importGuide() {
       axios({
         method:'get',

@@ -65,17 +65,12 @@
                 {{ item.gitem_price }}원
 
               <v-btn
-                style="left: 100px; width: 90px; height: 30px"
+                style="left: 175px; width: 90px; height: 30px"
                 @click="views(item)"
               >
                 자세히보기
               </v-btn>
-
             </div>
-
-
-
-
       </div>
 </div>
 
@@ -149,7 +144,7 @@ export default {
   margin: auto;
 }
 .item_list{
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -158,7 +153,7 @@ export default {
   border: 1px solid #eeeeee;
   border-radius: 5px;
   height: 350px;
-  width:250px;
+  width:325px;
   padding: 5px;
   margin-bottom: 10px;
 }

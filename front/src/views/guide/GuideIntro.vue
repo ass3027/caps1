@@ -1,25 +1,34 @@
 <template>
-  <form class="joinGuide">
-    <h2>가이드 소개 등록</h2>
-    <h1>{{ $store.state.user.userId }}</h1>
+  <div class="resume-view">
+    <div id="Contents">
+      <div class="resumeWrap">
+        <div class="resumeType1">
+          <div class="resumeType1-inner">
+            <div id="ResumeBaseInfo" class="resumeView">
+              <h2 class="hide">
+                가이드 소개 수정
+              </h2>
+              <br>
+              <v-textarea
+                name="input-7-1"
+                v-model="guser_intro"
+                filled
+                label="소개"
+                auto-grow
+              ></v-textarea>
+              <v-btn
+                class="btn"
+                @click="onsubmit()"
+              >
+                SUBMIT
+              </v-btn>
+            </div>
+          </div>
 
-    <div class="textForm">
-      <input
-        v-model="guser_intro"
-        name="guideLicense"
-        type="text"
-        class="license"
-        placeholder="소개"
-      >
+        </div>
+      </div>
     </div>
-
-    <v-btn
-      class="btn"
-      @click="onsubmit()"
-    >
-      JOIN
-    </v-btn>
-  </form>
+  </div>
 </template>
 
 <script>
@@ -52,7 +61,7 @@ export default {
         },
         data: sendform,
       }).then((res)=>{
-        console.log(res)
+        this.$router.push("/GuideView/"+ this.$store.state.user.userId)
       })
     }
   }

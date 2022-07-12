@@ -1,45 +1,41 @@
 <template>
-  <div class="col-9 ">
-    <div class="row">
-      <div class="col-4" id="listaproyectos"
+  <div class="container">
+    <div class="item_list">
+      <div class="card"
            v-for="(item,index) in lists"
-           :key="index">
-        <div class="card text-align textocorrecto">
-          <!--Card image-->
+           :key="index"
+
+      >
+        <div class="img">
+
           <v-img
-            class="pic"
-            height="140px"
-            width="140px"
+            class="white--text align-end"
+            height="200px"
             :src="img(item.pic_name)"
           >
+            <h2 style="color: black">
+            </h2>
+
           </v-img>
-          <!--Card content-->
-          <div class="card-body">
-            <!--Title-->
-            <h4 class="card-title">{{item.user_name}}</h4>
-            <!--Text-->
-            <p class="card-text">{{item.guser_intro}}</p>
+        </div>
 
-            <v-btn
-              color="orange"
-              text
-              @click="view(item)"
-            >
-              VIEWS
-            </v-btn>
+        <div class="text-overline mb-4"
+             style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height: 3rem"
+        >
 
-            <v-btn
-              v-if="item.user_id==$store.state.user.userId"
-              color="orange"
-              text
-              @click="views(item)"
-            >
-              INTRO
-            </v-btn>
-          </div>
+          {{ item.user_name}}({{item.user_id}})<br>
+          {{ item.guser_intro }}<br>
+          {{ item.user_area}}
+          <v-btn
+            style="left: 71px; width: 90px; height: 30px"
+            @click="views(item)"
+          >
+            자세히보기
+          </v-btn>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -87,9 +83,27 @@ export default {
 
 <style scoped>
 
-.col-4 {
-  border: 10px double black;
+.container{
+  max-width: 1100px;
+  margin: auto;
+}
+.item_list{
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
+.item_list .card {
+  border: 1px solid #eeeeee;
+  border-radius: 5px;
+  height: 350px;
+  width:250px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.item_list .card img{
+  height: 200px;
+  width: 250px;
+}
 </style>
 
