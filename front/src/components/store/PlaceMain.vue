@@ -57,14 +57,16 @@ export default {
   width: 70%;
   height: 100%;
   margin-top: 33px;
-  /* overflow: auto; 스크롤안에 스크롤 */
+  overflow: auto; /*스크롤 안에 스크롤*/
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
 }
 
 .hotelcard {
   /*margin-right: 3%;*/
+
   width: 800px;
   height: 350px;
   display: flex;
