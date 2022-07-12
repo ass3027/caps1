@@ -85,7 +85,7 @@
               :src="bookmark.firstimage"
             >
             </v-img>
-            <button @click="remove">삭제하기</button>
+            <button @click="remove(bookmark.pl_id)">삭제하기</button>
           </v-card-text>
         </v-card> <br>
         <br>
@@ -102,7 +102,6 @@ export default {
   components: {},
   data() {
     return {
-      pl_id: '',
       addr1: '',
       title: '',
       tel: '',
@@ -219,17 +218,21 @@ export default {
 
       this.select_type()
     },
-    remove(){
+    remove(pp){
       axios.delete('/api/bookmark/deleteBookMark',{
         params:{
           user_id :this.$store.state.user.userId,
-          pl_id : this.pl_id
+          pl_id : pp
         }
       }).then(res=>{
-        console.log(123)
-        // alert(res.data)
-        alert("삭제하시겠습니까?")
-        this.$router.push("/")
+        console.log(res)
+        if (confirm("삭제하시겠습니까?") == true){
+          alert('삭제되었습니다')
+        }else{
+          return false;
+        }
+        // alert("삭제하시겠습니까?")
+        this.$router.push("/MyPage/BookMark")
       })
     }
   }

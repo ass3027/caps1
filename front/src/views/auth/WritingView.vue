@@ -136,11 +136,6 @@ export default {
     bookmark() {
       this.$router.push('/BookMark')
     },
-    pay() {
-    },
-    myData() {
-      this.$router.push('/MyData')
-    },
     questions() {
       this.$router.push('/Questions')
     },
