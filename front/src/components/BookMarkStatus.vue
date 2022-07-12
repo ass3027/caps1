@@ -56,7 +56,7 @@ export default {
         alert("로그인을 해주세요")
         return
       }
-      axios.post('/api/bookmark/insertBookMark', {},{params: {user_id: this.$store.state.user.userId, pl_id: this.pl_id}})
+      axios.get('/api/bookmark/insertBookMark', {params: {user_id: this.$store.state.user.userId, pl_id: this.pl_id}})
         .then(() => {
           this.getBookMarkStatus()
         })

@@ -57,7 +57,7 @@
             v-for="(item,index) in paginatedData"
             :key="index"
             cols="5"
-            style="padding: 0; margin:10px"
+            style="padding: 0; margin:10px;cursor: pointer"
             @click="$router.push({name:'shareDetails', params:{id:item.share_id}})"
           >
             <planner-share-card :share-set="item" />
