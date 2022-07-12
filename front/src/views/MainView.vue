@@ -31,43 +31,48 @@
             <b>내 가방 현황</b>
             <v-divider></v-divider>
             <b>- 보관 -</b>
-            <li v-for="(order,i) in myKeepOrders" :key="i+`ko`"
+            <v-card v-for="(order,i) in myKeepOrders" :key="i+`ko`"
                 @click="$router.push({path:'/GTrackingView'})"
+                style="cursor:pointer;padding: 4px;margin:2px"
             >
               <p>{{ order.entrust_time }}->{{ order.withdraw_time }}</p>
               <p>{{ order.keep_start }}->{{ order.keep_end }}</p>
               <p>{{ order.status }}</p>
-            </li>
+            </v-card>
             <v-divider></v-divider>
             <b>- 운송 -</b>
-            <li v-for="(order,i) in myTransOrders" :key="i+`jo`"
+            <v-card v-for="(order,i) in myTransOrders" :key="i+`jo`"
                 @click="$router.push({path:'/GTrackingView'})"
+                style="cursor:pointer;padding: 4px;margin:2px"
             >
               <p>{{ order.entrust_time }}->{{ order.withdraw_time }}</p>
               <p>{{ order.keep_start }}</p>
               <p>{{ order.status }}</p>
-            </li>
+            </v-card>
           </v-card>
         </v-col>
         <v-col cols="3" align-self="start" style="" class="mt-5">
           <v-card class="pa-3" elevation="10" style="width: 330px;height:380px;overflow: auto">
             <b>호텔 예약 현황</b>
-            <li v-for="(hotel,i) in myHotels" :key="i+`h`"
+            <v-card v-for="(hotel,i) in myHotels" :key="i+`h`"
                 @click="$router.push({path:'/productBookView'})"
+                style="cursor:pointer;padding: 4px;margin:2px"
             >
               <p>{{ hotel.st_date.substring(0, 10) }}~{{ hotel.end_date.substring(0, 10) }}</p>
               <p>{{ hotel.title }}</p>
-            </li>
+            </v-card>
           </v-card>
         </v-col>
         <v-col cols="3" align-self="start" style="" class="mt-5">
           <v-card class="pa-3" elevation="10" style="width: 330px;height:380px;overflow: auto">
             <b>가이드 예약 현황</b>
-            <li v-for="(guide,i) in myGuides" :key="i+`g`"
-                @click="$router.push({path:'/GuideReserveInfo'})">
+            <v-card v-for="(guide,i) in myGuides" :key="i+`g`"
+                @click="$router.push({path:'/GuideReserveInfo'})"
+                style="cursor:pointer;padding: 4px;margin:2px"
+            >
               <p>{{ guide.gdate }}{{ guide.title }}</p>
               <p>{{ guide.st_time }}~{{ guide.end_time }}</p>
-            </li>
+            </v-card>
           </v-card>
         </v-col>
       </v-row>
@@ -82,7 +87,7 @@
       </v-row>
       <v-row
         justify="center"
-        style="text-align: center"
+        style="text-align: center;cursor: pointer"
       >
         <v-col cols="2">
           <img
@@ -115,7 +120,7 @@
       </v-row>
       <v-row
         justify="center"
-        style="text-align: center"
+        style="text-align: center;cursor: pointer;"
       >
         <v-col cols="2">
           <p
@@ -192,7 +197,7 @@
       <v-col
         v-for="(share,index) in ShareSets"
         :key="index+`s`"
-        style="padding: 0; margin-bottom: 20px"
+        style="padding: 0; margin-bottom: 20px;cursor: pointer"
         cols="2"
         @click="$router.push({name:'shareDetails', params:{id:share.share_id}})"
       >
@@ -206,7 +211,7 @@
       </v-row>
 
 
-      <v-row justify="center" style="text-align: center">
+      <v-row justify="center" style="text-align: center;cursor: pointer">
         <v-col cols="2">
           <img class="" src="/api/photo/altImage/planner4.png" @click="$router.push({path:'/calender'})">
 
@@ -224,7 +229,7 @@
 
         </v-col>
       </v-row>
-      <v-row justify="center" style="text-align: center">
+      <v-row justify="center" style="text-align: center;cursor:pointer;">
         <v-col cols="2">
           <p style="font-weight: bold" @click="$router.push({path:'/calender'})">여행플래너 작성하기</p>
 
@@ -277,6 +282,8 @@ export default {
     }
   },
   mounted() {
+    window.scrollTo(0,0)
+
     if (this.$store.state.user.userId != '') {
       axios.get('/api/orders/myTransOrders', {params: {user_id: this.$store.state.user.userId}})
         .then((res) => {
@@ -288,7 +295,7 @@ export default {
         })
       axios({
         method: 'get',
-        url: '/api/gTime',
+        url: '/api/gTime2',
         params: {
           'id': this.$store.state.user.userId
         }
@@ -326,9 +333,6 @@ export default {
   },
   destroyed() {
     window.scrollTo(0,0)
-  },
-  destroyed() {
-    window.scrollTo(0, 0)
   },
   methods: {
     test() {

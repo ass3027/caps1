@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     getPlace() {
-      axios.get("/api/placeA01/" + this.keyword)
+      axios.get("/api/place/" + this.keyword)
         .then(res => {
           console.log(res.data)
 

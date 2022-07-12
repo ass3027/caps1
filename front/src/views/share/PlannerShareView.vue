@@ -95,7 +95,7 @@ export default {
     return {
       sets: [],
       originTableSets: [],
-      pageNum: 0,
+      pageNum: 1,
       pageSize:4,
       selected: '',
       searchContents:''
@@ -170,7 +170,7 @@ export default {
       return page;
     },
     paginatedData () {
-      const start = this.pageNum * this.pageSize,
+      const start = (this.pageNum-1) * this.pageSize,
         end = start + this.pageSize;
       return this.tableSets.slice(start, end);
     },
