@@ -47,12 +47,6 @@
           {{ item.user_name}}<br>
           {{ item.user_area}}<br>
           {{ item.guser_intro }}
-          <v-btn
-            style="left: 100px; width: 90px; height: 30px"
-            @click="views(item)"
-          >
-            자세히보기
-          </v-btn>
         </div>
       </div>
     </div>
