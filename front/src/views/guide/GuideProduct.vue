@@ -65,7 +65,7 @@
                 {{ item.gitem_price }}원
 
               <v-btn
-                style="left: 175px; width: 90px; height: 30px"
+                style="left: 195px; width: 90px; height: 30px"
                 @click="views(item)"
               >
                 자세히보기

@@ -65,7 +65,8 @@
         </v-chip-group>
       </v-card-text>
 
-      <v-card-actions>
+      <v-card-actions
+      style="float: right">
         <v-btn
           color="deep-purple lighten-2"
           text
@@ -230,7 +231,7 @@ export default {
     width: 100%;
     margin: 0 auto;
   }
-.v-picker{
+.time{
   text-align: center;
 }
 </style>
