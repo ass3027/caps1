@@ -69,10 +69,10 @@ public interface ProductMapper {
     List<BookDAO> SelectBook(@Param("id") String id);
 
     @Select("""
-            select min("date") st_date, max("date")+1 end_date, c.title, b.USER_ID, d.pd_name
-            from PRODUCT_TIME a, PAYMENT b, PLACE c, PRODUCT d
-            where b.PAY_ID = a.PAY_ID and c.PL_ID = d.PL_ID and c.USER_ID = #{id}
-            group by a.PAY_ID, c.title, b.USER_ID, d.pd_name
+            select min("date") st_date, max("date")+1 end_date, c.title, b.USER_ID, d.pd_name, u.USER_NAME, u.USER_PHONE
+            from PRODUCT_TIME a, PAYMENT b, PLACE c, PRODUCT d, USERS u
+            where b.PAY_ID = a.PAY_ID and c.PL_ID = d.PL_ID and c.USER_ID = #{id} and b.USER_ID = u.USER_ID
+            group by a.PAY_ID, c.title, b.USER_ID, d.pd_name, u.USER_NAME, u.USER_PHONE
             """)
     List<BookDAO> SelectUserBook(@Param("id") String id);
 

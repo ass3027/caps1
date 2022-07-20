@@ -258,7 +258,6 @@ export default {
           {title: '펜션', route: '/place/pension'},
           {title: '게스트하우스', route: '/place/home'},
           {title: '예약 조회', route: '/productBookView'},
-          {title: '매출 조회', route: '/chart'}
         ],
         [
           {title: '가방예약', route: '/SelectionOrder'},
@@ -300,8 +299,9 @@ export default {
 
       kContents: [
         [
-          {title: '장소등록', route: '/placeAdd'},
-          {title: '내등록숙박조회', route: ''},
+          {title: '장소 등록', route: '/placeAdd'},
+          {title: '등록숙박 조회', route: ''},
+          {title: '매출 조회', route: '/chart'}
         ],
         [
           {title: '키퍼물품조회', route: '/KeeperTrackingView'}

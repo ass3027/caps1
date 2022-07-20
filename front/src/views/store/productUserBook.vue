@@ -26,7 +26,8 @@ export default {
         {text: '예약상품', value: 'pd_name' },
         {text: '체크인 시간', value: 'st_date'},
         {text: '체크아웃 시간', value: 'end_date'},
-        {text: '예약자', value: 'user_id'},
+        {text: '예약자 전화번호', value: 'user_phone'},
+        {text: '예약자', value: 'user_name'},
       ]
     }
   },

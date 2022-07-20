@@ -14,6 +14,8 @@ public class BookDAO {
     String book_time;
     String book_price;
     String user_id;
+    String user_name;
+    String user_phone;
     String pay_id;
     String plan_id;
     String time_num;
