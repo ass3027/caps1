@@ -218,17 +218,27 @@ public interface PlaceMapper {
    String getFirstImage(String contentid);
    
    @Select("""
-            SELECT *
-            FROM PLACE
-            WHERE cat3 = #{category} and title like '%'||#{keyword}||'%'
-            and firstimage is not null and tel is not null
-            """)
-   List<PlaceDAO> getKeyword(String category , String keyword);
+         SELECT *
+         FROM PLACE
+         WHERE cat3 = #{category} and title like '%'||#{keyword}||'%'
+         and firstimage is not null and tel is not null
+         """)
+   List<PlaceDAO> getKeyword(String category, String keyword);
    
    //장소등록
    @Insert("""
-         insert into place(store_id,user_id,addr1,areacode,cat1,contentTypeId,firstImage,tel,title,zipcode)
-         values(#{store_id},#{user_id},#{addr1},#{areacode},'B02','32',#{firstImage},#{tel},#{title},#{zipcode})
+         insert into place(store_id,user_id,addr1,areacode,cat1,contentTypeId,firstimage,tel,title,zipcode)
+         values(#{store_id},#{user_id},#{addr1},#{areacode},'B02','32',#{firstimage},#{tel},#{title},#{zipcode})
          """)
    void placeAdd(PlaceDAO placeAdd);
+   
+   @Select("""
+         select * from place where user_id=#{user_id}
+         """)
+   List<PlaceDAO> placeCheck(String user_id);
+   
+   @Select("""
+         select * from place where pl_id=#{pl_id}
+         """)
+   PlaceDAO placeDetail(String pl_id);
 }

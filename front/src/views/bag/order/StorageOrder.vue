@@ -1,142 +1,139 @@
 <template>
-  <v-container>
-    <v-app
-      id="app"
-      style="padding-top: 65px; width: 1050px"
+  <v-container style="padding-top: 65px; width: 1050px; margin-left:auto; margin-right: auto;">
+    <div
+      class="Bag-order"
+      style="width: 80%; margin: 0 auto; border-bottom: 2px solid black"
     >
-      <div
-        class="Bag-order"
-        style="width: 80%; margin: 0 auto; border-bottom: 2px solid black"
+      <h2
+        class="tit"
+        style="padding-bottom: 34px"
+        align="center"
       >
-        <h2
-          class="tit"
-          style="padding-bottom: 34px"
-          align="center"
-        >
-          가방 보관 신청서
-        </h2>
+        가방 보관 신청서
+      </h2>
+    </div>
+
+    <v-form v-model="valid">
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+        <br>
+        <v-card>
+          <v-col>
+            <v-row>
+              <h1 style="padding-top: 30px; padding-left: 30px">
+                🧳 맡길장소를 등록해주세요.
+              </h1>
+              <search-place
+                style="padding-top:30px; padding-left: 10px"
+                @childEvent="getEmitData"
+              />
+            </v-row>
+            <br>
+            <v-card
+              v-if="index==true"
+              class="mx-auto"
+              max-width="344"
+            >
+              <v-img
+                :src="lodging.firstimage2"
+                height="200px"
+              />
+              <v-card-title>
+                {{ lodging.title }}
+              </v-card-title>
+
+              <v-card-subtitle>
+                주소:{{ lodging.addr1 }}
+              </v-card-subtitle>
+            </v-card>
+
+            <br>
+          </v-col>
+        </v-card>
       </div>
 
-      <v-form v-model="valid">
-        <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+        <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
+          <h3>짐 종류와 수량</h3>
+          <hr style="width: 15%; ">
           <br>
-          <v-card>
-            <v-col>
-              <v-row>
-                <h1 style="padding-top: 30px; padding-left: 30px">
-                  🧳 맡길장소 :
-                </h1>
-                <search-place
-                  style="padding-top:30px; padding-left: 10px"
-                  @childEvent="getEmitData"
+
+          <v-card
+            v-for="(item, index) in bagType"
+            :key="index"
+            style="margin-top: 10px"
+          >
+            <v-card-text>
+              <v-row align="center">
+                {{ item.title }}
+                <v-spacer/>
+                {{ item.value }}원
+                <v-checkbox
+                  v-model="checkedName"
+                  :value="item.value"
                 />
               </v-row>
-              <br>
-              <v-card
-                v-if="index==true"
-                class="mx-auto"
-                max-width="344"
-              >
-                <v-img
-                  :src="lodging.firstimage2"
-                  height="200px"
-                />
-                <v-card-title>
-                  {{ lodging.title }}
-                </v-card-title>
-
-                <v-card-subtitle>
-                  주소:{{ lodging.addr1 }}
-                </v-card-subtitle>
-              </v-card>
-
-              <br>
-            </v-col>
+            </v-card-text>
           </v-card>
-        </div>
 
-        <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-          <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
-            <h3>짐 종류와 수량</h3>
-            <br>
+          <v-card style="margin: 20px 0">
+            <v-card-text>
+              가방 합계가격: {{ bagAmount }} 원
+            </v-card-text>
+          </v-card>
+          <br>
+        </table>
+      </div>
 
-            <v-card
-              v-for="(item, index) in bagType"
-              :key="index"
-              style="margin-top: 10px"
-            >
-              <v-card-text>
-                <v-row align="center">
-                  {{ item.title }}
-                  <v-spacer />
-                  {{ item.value }}원
-                  <v-checkbox
-                    v-model="checkedName"
-                    :value="item.value"
-                  />
-                </v-row>
-              </v-card-text>
-            </v-card>
-
-            <v-card style="margin: 20px 0">
-              <v-card-text>
-                가방 합계가격: {{ bagAmount }} 원
-              </v-card-text>
-            </v-card>
-            <br>
-          </table>
-        </div>
-
-        <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-          <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
-            <h3>시간</h3>
-            <br>
-            <div style="padding-left: 15%">
-              <div style="width: 50%; display: inline-block">
-                <DateTimePicker
-                  :label="'시작날짜'"
-                  @child="startDate"
-                />
-              </div>
-              <div style="width: 50%; display: inline-block">
-                <DateTimePicker
-                  :label="'종료날짜'"
-                  @child="endDate"
-                />
-              </div>
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+        <table style="width: 100%; border-bottom: 2px solid #dddfe1;">
+          <h3>시간</h3>
+          <br>
+          <div style="padding-left: 15%">
+            <div style="width: 50%; display: inline-block">
+              <DateTimePicker
+                :label="'시작날짜'"
+                @child="startDate"
+              />
             </div>
-            <br>
-          </table>
-        </div>
+            <div style="width: 50%; display: inline-block">
+              <DateTimePicker
+                :label="'종료날짜'"
+                @child="endDate"
+              />
+            </div>
+          </div>
+          <br>
+        </table>
+      </div>
 
-        <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
-          <table style="width: 100%; border-bottom: 2px solid black;">
-            <h3>요청사항</h3>
-            <br>
-            <v-textarea
-              v-model="ordRequest"
-              style="padding-bottom: 10px"
-              name="input-7-1"
-              label="요청사항을 입력해주세요(255글자 내)"
-              hint="Hint text"
-            />
-          </table>
-        </div>
+      <div style="width: 80%; margin: 0 auto; padding-bottom: 20px">
+        <table style="width: 100%; border-bottom: 2px solid black;">
+          <h3>요청사항</h3>
+          <br>
+          <v-textarea
+            v-model="ordRequest"
+            style="padding-bottom: 10px"
+            name="input-7-1"
+            label="요청사항을 입력해주세요(255글자 내)"
+            hint="Hint text"
+          />
+        </table>
+      </div>
 
 
-        <!--      <div style="width: 80%;margin: 0 auto; padding-top: 20px">-->
-        <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
-        <!--      </div>-->
-        <div style="width: 80%;margin: 0 auto; padding-top: 20px">
-          <v-btn
-            style="float: right;"
-            @click="storageReserve"
-          >
-            작성 완료
-          </v-btn>
-        </div>
-      </v-form>
-    </v-app>
+      <!--      <div style="width: 80%;margin: 0 auto; padding-top: 20px">-->
+      <!--        <v-btn style="float: right;" @click="addOrder">작성 완료</v-btn>-->
+      <!--      </div>-->
+      <div style="width: 80%;margin: 0 auto; padding-top: 20px">
+        <v-btn
+          style="float: right;"
+          @click="storageReserve"
+        >
+          작성 완료
+        </v-btn>
+      </div>
+    </v-form>
+
   </v-container>
 </template>
 
@@ -153,9 +150,9 @@ export default {
   },
   data() {
     return {
-      index:false,
+      index: false,
       sDate: '',
-      eDate:'',
+      eDate: '',
       panel: [0, 1],
       disabled: false,
       readonly: false,
@@ -180,7 +177,7 @@ export default {
       image2: '',
 
       bagType: [
-        {title: '기내용 캐리어(57cm 미만)', value: 500},
+        {title: '기내용 캐리어(57cm 미만)', value: 123},
         {title: '화물용 캐리어(57cm 이상 67cm 미만)', value: 16000},
         {title: '특대형 캐리어(67cm 이상 또는 20kg 이상)', value: 20000},
         {title: '백팩 소형(40L 미만 그리고 10kg 미만)', value: 10000},

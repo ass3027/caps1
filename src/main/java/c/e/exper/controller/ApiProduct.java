@@ -1,11 +1,16 @@
 package c.e.exper.controller;
 
 import c.e.exper.data.*;
+import c.e.exper.mapper.PictureMapper;
+import c.e.exper.mapper.PlaceMapper;
 import c.e.exper.mapper.ProductMapper;
+import c.e.exper.service.FileService;
 import oracle.ucp.proxy.annotation.Post;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -14,11 +19,20 @@ import java.util.*;
 @RequestMapping("/api")
 public class ApiProduct {
 
+    private final
+    FileService fileService;
+    
+    private final
+    PictureMapper pictureMapper;
+    
     final
     ProductMapper productMapper;
 
-    public ApiProduct(ProductMapper productMapper) {
+    public ApiProduct(ProductMapper productMapper, FileService fileService,PictureMapper pictureMapper) {
         this.productMapper = productMapper;
+        this.fileService = fileService;
+        this.pictureMapper = pictureMapper;
+       
     }
 
     @GetMapping("/product")
@@ -155,5 +169,16 @@ public class ApiProduct {
     @GetMapping("/bookPdId")
     public ProductDAO productBookPdId(String pd_id){
         return productMapper.product_book_pd_id(pd_id);
+    }
+    
+    @PostMapping("/productAdd")
+    public boolean placeAdd(@ModelAttribute ProductItemDTO productItem, HttpServletRequest req) throws IOException {
+        
+        String filePath = fileService.photoSave(productItem.getImage(), req, "placeImage");
+        System.out.println("[filePath]" + filePath);
+        
+        productMapper.productItem(productItem.getPdName(),productItem.getPdPrice(),productItem.getPlId(),productItem.getPdInfo());
+        pictureMapper.productImage("/api/photo/"+ filePath,productItem.getPlId());
+        return true;
     }
 }

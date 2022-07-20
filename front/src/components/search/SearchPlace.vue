@@ -130,7 +130,7 @@ export default {
       curPageNum: 1,
       dialog: false,
       lists: [],
-      searchCon: '1',
+      searchCon: '4',
       items: [
         {text: '서울', value: '1'},
         {text: '인천', value: '2'},

@@ -311,7 +311,7 @@ export default {
               console.log(res.data)
             })
         }
-        this.$router.push('/KeeperTrackingView')
+        this.$router.push('/keeperTrackingView')
       }
 
     },
@@ -322,7 +322,7 @@ export default {
         .then((res) => {
           console.log(res)
         })
-      this.$router.push('/KeeperTrackingView');
+      this.$router.push('/keeperTrackingView');
     },
 
     //보관 보관완료으로 변경
@@ -331,11 +331,11 @@ export default {
         .then((res) => {
           console.log(res)
         })
-      this.$router.push('/KeeperTrackingView');
+      this.$router.push('/keeperTrackingView');
     },
     //목록으로 돌아가기
     backTrackingView() {
-      this.$router.push('/KeeperTrackingView')
+      this.$router.push('/keeperTrackingView')
     },
 
     initMap() {

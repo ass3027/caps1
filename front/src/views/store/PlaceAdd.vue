@@ -1,77 +1,114 @@
 <template>
-  <v-container>
-    <div>
-      <h1>등록유저: {{ user_id }}</h1>
+  <v-container style="padding-top: 65px; width: 1050px; ">
+    <div
+      class="Bag-order"
+      style="width: 80%; margin: 0 auto; border-bottom: 2px solid black"
+    >
+      <h2
+        class="tit"
+        style="padding-bottom: 34px"
+        align="center"
+      >
+        장소등록
+      </h2>
+    </div>
+    <div align="center" style="margin-top: 30px">
+      <h3>{{ $store.state.user.userId }}님은 장소를 등록해주세요.</h3>
 
-      <v-text-field
-        v-model="title"
-        type="text"
-        placeholder="시설 이름"
-      />
+      <div style="margin-top: 30px">
+        <v-text-field
+          v-model="title"
+          type="text"
+          placeholder="시설 이름"
+          label="시설이름"
+          style="width:300px"
+          outlined
+        />
 
-      <v-text-field
-        v-model="store_id"
-        type="text"
-        placeholder="사업자번호"
-      />
+        <v-text-field
+          v-model="store_id"
+          type="text"
+          placeholder="사업자번호"
+          label="사업자번호"
+          style="width:300px"
+          outlined
+        />
 
-      <v-text-field
-        v-model="tel"
-        type="text"
-        placeholder="시설 전화번호"
-      />
+        <v-text-field
+          v-model="tel"
+          type="text"
+          placeholder="시설 전화번호"
+          label="시설 전화번호"
+          style="width:300px"
+          outlined
+        />
+      </div>
 
-      <address-component @addressData="addressDate"/>
-
-
-      <h2> 우편번호: {{ this.addr1.sPostcode }}</h2>
-      <h2> 주소: {{ this.addr1.sAddress }} </h2>
-
-
-      <v-container fluid>
-        <div>
-          <v-select
-            v-model="searchCon"
-            :style="{width:'150px',marginLeft:'10px'}"
-            label="지역"
-            :items="areacode"
-            item-text="text"
-            :value="areacode"
+      <v-row align="center">
+        <v-col style="position: relative; left: 160px;">
+          <h3>주 소 검 색 : </h3>
+        </v-col>
+        <v-col>
+          <address-component
+            @addressData="addressData"
+            style="left:10px"
           />
-        </div>
-        {{ searchCon }}
-        <v-row align="center">
-          <v-col cols="6">
-            <v-select
-              v-model="select"
-              :style="{width:'150px',marginLeft:'10px'}"
-              label="숙박시설 유형선택"
-              item-text="title"
-              :items="items"
-              item-value="value"
-              return-object
-            />
-          </v-col>
-        </v-row>
-      </v-container>
+        </v-col>
+      </v-row>
+
+      <v-text-field
+        label="우편번호"
+        type="text"
+        v-model="this.addr1.sPostcode"
+        style="width:300px; margin-top: 30px"
+        outlined
+        readonly>
+      </v-text-field>
+
+
+      <v-text-field
+        label="주소"
+        type="text"
+        v-model="this.addr1.sAddress"
+        style="width:300px"
+        outlined
+        readonly>
+      </v-text-field>
+
+      <v-select
+        v-model="searchCon"
+        style="width:300px"
+        label="지역"
+        :items="areacode"
+        item-text="text"
+        :value="areacode"
+      />
+
+
+      <v-select
+        v-model="select"
+        style="width:300px"
+        label="숙박시설 유형선택"
+        item-text="title"
+        :items="items"
+        item-value="value"
+        return-object
+      />
 
       <v-file-input
-       v-model="file"
+        v-model="file"
         placeholder="photo"
-      />
-
-      <div
-        id="pictures"
-        style="width:400px;height:400px"
+        style="width:300px"
       />
 
       <v-btn
         color="primary"
         @click="submit()"
       >
-        submit
+        장소등록완료
       </v-btn>
     </div>
+
   </v-container>
 </template>
 
@@ -88,7 +125,7 @@ export default {
 
   data() {
     return {
-      file:[],
+      file: [],
       pl_id: '',
       store_id: '123412341',
       addr1: '',
@@ -129,7 +166,7 @@ export default {
   },
   methods: {
     //우편번호,주소,상세주소
-    addressDate: function (addData) {
+    addressData: function (addData) {
       console.log(addData)
       this.addr1 = addData
     },

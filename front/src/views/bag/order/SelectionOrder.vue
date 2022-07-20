@@ -1,60 +1,63 @@
 <template>
   <v-container>
-    <v-app
-      id="app"
+    <div class="Bag-order">
+      <p class="text-center">
+        가방예약 선택
+      </p>
+      <v-col>
+        <hr style="width: 80%; margin-left:auto; margin-right: auto; ">
+      </v-col>
+    </div>
+
+    <v-row
+      justify="space-around"
       style="padding-top: 35px"
     >
-      <div class="Bag-order">
-        <p class="text-center">
-          가방예약
-        </p>
-      </div>
-
-      <v-row
-        justify="space-around"
-        style="padding-top: 35px"
+      <v-col
+        cols="6"
+        sm="2"
+        class="mx-auto"
+        style="position: relative; left: 50px"
       >
-        <v-col
-          cols="6"
-          sm="2"
-          class="mx-auto"
-        >
-          <div>
-            <v-img src="@/image/storage1.png" />
-          </div>
-          <div class="btn_container">
-            <v-btn
-              class="btn_type2"
-              color="white"
-              @click="$router.push({name:'StorageOrder'})"
-            >
-              가방 보관
-            </v-btn>
-          </div>
-        </v-col>
-        <v-divider vertical />
-        <v-col
-          cols="6"
-          sm="2"
-          class="mx-auto"
-        >
-          <div>
-            <v-img src="@/image/transport1.png" />
-          </div>
-          <div class="btn_container">
-            <v-btn
-              class="btn_type2"
-              color="white"
-              @click="$router.push({name:'TransportOrder'})"
-            >
-              가방배송
-            </v-btn>
-          </div>
-        </v-col>
-      </v-row>
+        <div style="margin-right: auto">
+          <v-img src="@/image/storage2.png"/>
+        </div>
+        <div class="btn_container">
+          <v-btn
+            class="btn_type2"
+            color="white"
+            @click="$router.push({name:'storageOrder'})"
+          >
+            가방 보관
+          </v-btn>
+        </div>
+      </v-col>
 
-      <router-view />
-    </v-app>
+      <hr style="height: 300px; margin-left:auto; margin-right: auto; ">
+
+      <v-col
+        cols="6"
+        sm="2"
+        class="mx-auto"
+        style="position: relative; right: 50px"
+      >
+        <div>
+          <v-img src="@/image/transport2.png"/>
+        </div>
+        <div class="btn_container">
+          <v-btn
+            class="btn_type2"
+            color="white"
+            @click="$router.push({name:'transportOrder'})"
+          >
+            가방배송
+          </v-btn>
+        </div>
+      </v-col>
+    </v-row>
+
+    <router-view/>
+
   </v-container>
 </template>
 

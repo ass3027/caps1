@@ -301,7 +301,7 @@ export default {
       kContents: [
         [
           {title: '장소등록', route: '/placeAdd'},
-          {title: '내등록숙박조회', route: ''},
+          {title: '내등록숙박조회', route: '/placeCheck'},
         ],
         [
           {title: '키퍼물품조회', route: '/KeeperTrackingView'}

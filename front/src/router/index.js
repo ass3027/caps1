@@ -34,10 +34,15 @@ import PlanView from "@/views/planner/PlanView";
 import CalenderView from "@/views/planner/CalenderView";
 import KeeperTrackingView from "@/views/bag/keeper/KeeperTrackingView";
 import KeeperOrderDetail from "@/views/bag/keeper/KeeperOrderDetail";
+import PlaceAdd from "@/views/store/PlaceAdd";
+import PlaceCheck from "@/views/store/PlaceCheck";
+import PlaceDetail from "@/views/store/PlaceDetail";
+import ProductAdd from "@/views/store/ProductAdd";
 //--------------------------------------------------------------------
+
 //혁태??
 import HotelView from "@/views/store/HotelView";
-import PlaceAdd from "@/views/store/PlaceAdd";
+
 import StoreDetail from "@/views/store/StoreDetail";
 
 //진한??
@@ -129,7 +134,7 @@ const routes = [
   {path: "/place/:category", name: "place", component: HotelView, props: true},
   {path: "/hotel", name: "hotel", component: HotelView},
   {path: "/palce/:category/:pl_id", name: "hotelDetail", component: StoreDetail, props: true,},
-  {path: "/placeAdd", name: "placeAdd", component: PlaceAdd},
+
   {path: "/productBook/:pd_id", name: "productBook", component: ProductBook, props: true},
   {path: "/productBookView", name: productBookView, component: productBookView},
   {path: "/chart", name: chartView, component: chartView},
@@ -142,15 +147,19 @@ const routes = [
 
   //봉식
   //---------------------------------------------------------------//
-  {path: "/GOrderDetail/:ordId", name: "GOrderDetail", component: GOrderDetail, props: true},
-  {path: "/GTrackingView", name: "GTrackingView", component: GTrackingView, props: true},
-  {path: "/FareView", name: "FareView", component: FareView},
-  {path: "/UsageGuideView", name: "UsageGuideView", component: UsageGuideView,},
-  {path: "/TransportOrder", name: "TransportOrder", component: TransportOrder},
-  {path: "/SelectionOrder", name: "SelectionOrder", component: SelectionOrder},
-  {path: "/StorageOrder", name: "StorageOrder", component: StorageOrder},
-  {path: "/KeeperTrackingView", name: "KeeperTrackingView", component: KeeperTrackingView, props: true},
-  {path: "/KeeperOrderDetail/:ord_id", name: "KeeperOrderDetail", component: KeeperOrderDetail, props: true},
+  {path: "/gOrderDetail/:ordId", name: "gOrderDetail", component: GOrderDetail, props: true},
+  {path: "/gTrackingView", name: "gTrackingView", component: GTrackingView, props: true},
+  {path: "/fareView", name: "fareView", component: FareView},
+  {path: "/usageGuideView", name: "usageGuideView", component: UsageGuideView,},
+  {path: "/transportOrder", name: "transportOrder", component: TransportOrder},
+  {path: "/selectionOrder", name: "selectionOrder", component: SelectionOrder},
+  {path: "/storageOrder", name: "storageOrder", component: StorageOrder},
+  {path: "/keeperTrackingView", name: "keeperTrackingView", component: KeeperTrackingView, props: true},
+  {path: "/keeperOrderDetail/:ord_id", name: "keeperOrderDetail", component: KeeperOrderDetail, props: true},
+  {path: "/placeAdd", name: "placeAdd", component: PlaceAdd},
+  {path: "/placeCheck", name: "placeCheck", component: PlaceCheck,props: true},
+  {path: "/placeDetail/:pl_id", name: "placeDetail", component: PlaceDetail,props:true},
+  {path: "/productAdd/:pl_id", name: "productAdd", component: ProductAdd,props:true},
   //---------------------------------------------------------------//
 
 

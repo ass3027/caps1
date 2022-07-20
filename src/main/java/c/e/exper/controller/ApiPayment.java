@@ -89,7 +89,6 @@ public class ApiPayment {
             case "hotel" -> paymentMapper.placeInfoToPayIdHotel(pay_id);
             default -> null;
         };
-
     }
 
     // 물품배송 결제

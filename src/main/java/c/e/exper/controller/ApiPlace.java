@@ -17,6 +17,7 @@ import c.e.exper.service.Place2Service;
 import c.e.exper.service.PlaceService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,6 +53,10 @@ public class ApiPlace {
       this.placeService = placeService;
       this.placeMapper = placeMapper;
       this.place2Service = place2Service;
+   }
+   
+   private String getUserId() {
+      return SecurityContextHolder.getContext().getAuthentication().getName();
    }
    
    @GetMapping("/place1/{category}")
@@ -122,23 +127,11 @@ public class ApiPlace {
    public boolean placeAdd(@ModelAttribute PlaceDAO placeAdd, HttpServletRequest req) throws IOException {
       System.out.println("호텔 추가 컨트롤러임");
       System.out.println(placeAdd.getStore_id());
-      //이미지 주소
-      //이미지 주소를 만든다. webApp 파일에 넣을 수 있게 경로랑 이름을 설정한다.
-      String filePath = req.getServletContext().getRealPath("/placeImage/" + placeAdd.getImage().getOriginalFilename());
-      
-      //이미지 파일
-      //file 클래스를 써서 파일을 생성하고 이미지 주소로 설정한 변수를 매개변수로 넣어주고
-      // file은 multipartFile로 타입을 설정하고 placeAdd에 있는 image로 설정한다.
-      File destinationFile = new File(filePath);
-      MultipartFile file = placeAdd.getImage();
-      file.transferTo(destinationFile);
-      
-      System.out.println("filePath = " + filePath);
-      System.out.println(placeAdd.getImage().getOriginalFilename());
+      String filePath = fileService.photoSave(placeAdd.getImage(), req, "placeImage");
+      System.out.println("[filePath]" + filePath);
       
       //사진 경로 설정
       PlaceDAO placeDAO = PlaceDAO.builder()
-            
             .store_id(placeAdd.getStore_id())
             .user_id(placeAdd.getUser_id())
             .addr1(placeAdd.getAddr1())
@@ -146,18 +139,44 @@ public class ApiPlace {
             .tel(placeAdd.getTel())
             .title(placeAdd.getTitle())
             .zipcode(placeAdd.getZipcode())
-            .firstimage(filePath)
+            .firstimage("/api/photo/" + filePath)
             .build();
       placeMapper.placeAdd(placeDAO);
-    
+      //이미지 주소
+      //이미지 주소를 만든다. webApp 파일에 넣을 수 있게 경로랑 이름을 설정한다.
+//      String filePath = req.getServletContext().getRealPath("/placeImage/" + placeAdd.getImage().getOriginalFilename());
+//      //이미지 파일
+//      //file 클래스를 써서 파일을 생성하고 이미지 주소로 설정한 변수를 매개변수로 넣어주고
+//      // file은 multipartFile로 타입을 설정하고 placeAdd에 있는 image로 설정한다.
+//      File destinationFile = new File(filePath);
+//      MultipartFile file = placeAdd.getImage();
+//      file.transferTo(destinationFile);
+
+//
+//      System.out.println("filePath = " + filePath);
+//      System.out.println(placeAdd.getImage().getOriginalFilename());
       return true;
    }
+   
    
    @GetMapping("/place2/{category}/{option}")
    public List<PlaceDAO> placeOption(@PathVariable String category, @PathVariable String option) {
       return placeService.카테고리_옵션_조회(category, option);
    }
-
+   
+   //키퍼회원 자신이 등록한 장소조회
+   @GetMapping("/placeCheck")
+   public List<PlaceDAO> placeCheck() {
+      return placeService.placeCheck(getUserId());
+   }
+   
+   //키퍼회원 등록한 장소 상세보기
+   @GetMapping("/placeDetail/{pl_id}")
+   public PlaceDAO placeDetail(@PathVariable String pl_id) {
+      return placeService.placeDetail(pl_id);
+   }
+   
+}
 //   @GetMapping("/place/{areaCode}/{cat1}/{pageNumber}")
 //   public List<PlaceDAO> placeCount(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable int pageNumber) {
 //      System.out.println("갯수");
@@ -208,7 +227,5 @@ public class ApiPlace {
 //
 //      return true;
 //   }
-
-}
 
 

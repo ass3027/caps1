@@ -1,79 +1,77 @@
 <template>
   <v-container>
-    <v-app>
-      <v-col>
-        <v-row>
-          {{ keeperStorageList.user_id }}
-        </v-row>
-        <h1>키퍼 회원 전체 물품 현황 조회</h1>
-      </v-col>
-      <v-row style="width: 300px;">
-        <v-col style="width: 150px">
-          <v-select
-            v-model="check"
-            label="조회 목록"
-            :items="dropdown_edit"
-            item-value="text"
-          />
-        </v-col>
-
-        <v-col
-          v-if="check=='보관'"
-          style="width: 150px"
-        >
-          <v-select
-            v-model="storageStatusCheck"
-            label="주문상태"
-            :items="storageStatus"
-            item-value="text"
-          />
-        </v-col>
-
-        <v-col
-          v-else
-          style="width: 150px"
-        >
-          <v-select
-            v-model="transportStatusCheck"
-            label="주문상태"
-            :items="transportStatus"
-            item-value="text"
-          />
-        </v-col>
+    <v-col>
+      <v-row>
+        {{ keeperStorageList.user_id }}
       </v-row>
+      <h1>키퍼 회원 전체 물품 현황 조회</h1>
+    </v-col>
+    <v-row style="width: 300px;">
+      <v-col style="width: 150px">
+        <v-select
+          v-model="check"
+          label="조회 목록"
+          :items="dropdown_edit"
+          item-value="text"
+        />
+      </v-col>
 
-      <div>
-        <template v-if="check == '보관'">
-          <h3>보관조회</h3>
-          <v-data-table
-            :headers="storageHeaders"
-            :items="sortedStorageList"
-            :items-per-page="5"
-          >
-            <template #[`item.detail`]="{ item }">
-              <v-btn @click="orderDetail(item)">
-                상세보기
-              </v-btn>
-            </template>
-          </v-data-table>
-        </template>
+      <v-col
+        v-if="check=='보관'"
+        style="width: 150px"
+      >
+        <v-select
+          v-model="storageStatusCheck"
+          label="주문상태"
+          :items="storageStatus"
+          item-value="text"
+        />
+      </v-col>
 
-        <template v-else>
-          <h3>운송조회</h3>
-          <v-data-table
-            :headers="transportHeaders"
-            :items="sortedTransportList"
-            :items-per-page="5"
-          >
-            <template #[`item.detail`]="{ item }">
-              <v-btn @click="orderDetail(item)">
-                상세보기
-              </v-btn>
-            </template>
-          </v-data-table>
-        </template>
-      </div>
-    </v-app>
+      <v-col
+        v-else
+        style="width: 150px"
+      >
+        <v-select
+          v-model="transportStatusCheck"
+          label="주문상태"
+          :items="transportStatus"
+          item-value="text"
+        />
+      </v-col>
+    </v-row>
+
+    <div>
+      <template v-if="check == '보관'">
+        <h3>보관조회</h3>
+        <v-data-table
+          :headers="storageHeaders"
+          :items="sortedStorageList"
+          :items-per-page="5"
+        >
+          <template #[`item.detail`]="{ item }">
+            <v-btn @click="orderDetail(item)">
+              상세보기
+            </v-btn>
+          </template>
+        </v-data-table>
+      </template>
+
+      <template v-else>
+        <h3>운송조회</h3>
+        <v-data-table
+          :headers="transportHeaders"
+          :items="sortedTransportList"
+          :items-per-page="5"
+        >
+          <template #[`item.detail`]="{ item }">
+            <v-btn @click="orderDetail(item)">
+              상세보기
+            </v-btn>
+          </template>
+        </v-data-table>
+      </template>
+    </div>
   </v-container>
 </template>
 
