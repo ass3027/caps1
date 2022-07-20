@@ -161,4 +161,10 @@ public interface ProductMapper {
             where place.pl_id = product.pl_id and product.pd_id = #{pd_id}
             """)
     ProductDAO product_book_pd_id(@Param("pd_id")String pd_id);
+    
+    @Insert("""
+         insert into product(pd_name,pd_price,pl_id,pd_info) values(#{pd_name},#{pd_price},#{pl_id},#{pd_info})
+         """)
+    void productItem(String pd_name, String pd_price, String pl_id, String pd_info);
+}
 }

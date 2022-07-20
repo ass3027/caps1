@@ -33,95 +33,94 @@ import java.security.Principal;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    final
-    CustomDetailService customDetailService;
-
-    @Autowired
-    PictureMapper pictureMapper;
-
-
-
-    public SecurityConfig(CustomDetailService customDetailService, PictureMapper pictureMapper) {
-        this.customDetailService = customDetailService;
-
-    }
-
-    @Bean
-    public static PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
-    }
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/**").hasAnyRole("user","admin")
-                .antMatchers("/**").permitAll()
-                .and()
+   
+   final
+   CustomDetailService customDetailService;
+   
+   @Autowired
+   PictureMapper pictureMapper;
+   
+   
+   public SecurityConfig(CustomDetailService customDetailService, PictureMapper pictureMapper) {
+      this.customDetailService = customDetailService;
+      
+   }
+   
+   @Bean
+   public static PasswordEncoder passwordEncoder() {
+      return new BCryptPasswordEncoder();
+   }
+   
+   @Override
+   public void configure(WebSecurity web) {
+      web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
+   }
+   
+   @Override
+   public void configure(HttpSecurity http) throws Exception {
+      http.authorizeRequests()
+            .antMatchers("/**").hasAnyRole("user", "admin")
+            .antMatchers("/**").permitAll()
+            .and()
             .formLogin()
-                .loginPage("/")
-                .loginProcessingUrl("/api/login")
-                .successHandler(loginSuccessHandler)
-                .failureHandler(loginFailureHandler)
+            .loginPage("/")
+            .loginProcessingUrl("/api/login")
+            .successHandler(loginSuccessHandler)
+            .failureHandler(loginFailureHandler)
 //                .defaultSuccessUrl("/")
-                .permitAll()
-                .and()
+            .permitAll()
+            .and()
             .logout()
-                .logoutUrl("/api/logout")
-                .permitAll();
-
-        http.csrf().disable();
-
-        http.cors();
+            .logoutUrl("/api/logout")
+            .permitAll();
+      
+      http.csrf().disable();
+      
+      http.cors();
 
 //        http.logout()
 //                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //                .logoutSuccessUrl("/login")
 //                .invalidateHttpSession(true);
-
-        http.exceptionHandling()
-                .accessDeniedPage("/login");
-
-    }
-
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customDetailService);
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
-
-
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
-    AuthenticationSuccessHandler loginSuccessHandler = (request, response, authentication) ->{
-        User user = (User) authentication.getPrincipal();
-        System.out.println("name"+user.getUsername());
-        String picture = pictureMapper.selectPicnameByUserId(user.getUsername());
-        System.out.println(picture);
-        response.addHeader("photo",picture);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-
-        response.getWriter().write(pictureMapper.selectPicnameByUserId(user.getUsername()));
-    };
-
-
-    AuthenticationFailureHandler loginFailureHandler = (request, response, exception) -> response.addHeader("gg","ss");
+      
+      http.exceptionHandling()
+            .accessDeniedPage("/login");
+      
+   }
+   
+   @Override
+   public void configure(AuthenticationManagerBuilder auth) throws Exception {
+      auth.userDetailsService(customDetailService);
+   }
+   
+   @Bean
+   public CorsConfigurationSource corsConfigurationSource() {
+      CorsConfiguration configuration = new CorsConfiguration();
+      
+      configuration.addAllowedOriginPattern("*");
+      configuration.addAllowedHeader("*");
+      configuration.addAllowedMethod("*");
+      configuration.setAllowCredentials(true);
+      
+      
+      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+      source.registerCorsConfiguration("/**", configuration);
+      return source;
+   }
+   
+   AuthenticationSuccessHandler loginSuccessHandler = (request, response, authentication) -> {
+      User user = (User) authentication.getPrincipal();
+      System.out.println("name" + user.getUsername());
+      String picture = pictureMapper.selectPicnameByUserId(user.getUsername());
+      System.out.println(picture);
+      response.addHeader("photo", picture);
+      response.setContentType("application/json");
+      response.setCharacterEncoding("utf-8");
+      
+      //궁금한점
+      response.getWriter().write(pictureMapper.selectPicnameByUserId(user.getUsername()));
+   };
+   
+   
+   AuthenticationFailureHandler loginFailureHandler = (request, response, exception) -> response.addHeader("gg", "ss");
 }

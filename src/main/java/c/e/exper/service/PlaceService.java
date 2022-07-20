@@ -136,6 +136,14 @@ public class PlaceService {
       }
       return keywordArea;
    }
+   
+   public List<PlaceDAO> placeCheck(String user_id) {
+      return placeMapper.placeCheck(user_id);
+   }
+   
+   public PlaceDAO placeDetail(String pl_id) {
+      return placeMapper.placeDetail(pl_id);
+   }
 }
 //   public List<PlaceDAO> 지역_조회(){
 //      return placeMapper.selectByPlaceTo(int areaCode);

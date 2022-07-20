@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <v-container>
+
     <!--    //<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div class="delivery-Join">
       <p class="text-center">
@@ -80,7 +81,6 @@
           />
         </v-row>
 
-
         <v-row>
           <v-date-picker
             v-model="user_birth"
@@ -105,7 +105,8 @@
         submit
       </v-btn>
     </form>
-  </div>
+
+  </v-container>
 </template>
 <script>
 // @ is an alias to /src
@@ -123,16 +124,16 @@ export default {
       user_birth: '',
       user_photo: {},
       role: 'keeper',
-      checked:false,
-      gender:'',
+      checked: false,
+      gender: '',
       // preference:'',
-      items:['사진인증형','맛집탐방형', '관광형', '휴식형'],
-      trans:['승용차', '자전거', '오토바이', '킥보드', '트럭'], //운송수단종류
-      duser_trans:'', //운송수단,
-      row : null,
-      duser_license:'', //운송원 자격증
-      business_num:'', //사업자번호
-      userId:false //
+      items: ['사진인증형', '맛집탐방형', '관광형', '휴식형'],
+      trans: ['승용차', '자전거', '오토바이', '킥보드', '트럭'], //운송수단종류
+      duser_trans: '', //운송수단,
+      row: null,
+      duser_license: '', //운송원 자격증
+      business_num: '', //사업자번호
+      userId: false //
     };
   },
   methods: {
@@ -162,7 +163,7 @@ export default {
     submit: function () {
       var sendform = new FormData();
 
-      if (this.checked === false){
+      if (this.checked === false) {
         alert("아이디중복 버튼을 눌러주세요")
         return
       }
@@ -196,24 +197,24 @@ export default {
         if (res.data) {
           alert('회원가입 성공');
           this.$router.push("/")
-        } else  {
+        } else {
           alert('회원가입 실패');
         }
       });
     },
-    idCheck(){
-      axios.get('/api/user/userid',{ //객체
-        params:{
-          user_id:this.user_id
+    idCheck() {
+      axios.get('/api/user/userid', { //객체
+        params: {
+          user_id: this.user_id
         }
       })
-        .then((res) =>{
+        .then((res) => {
           console.log(res)
           // console.log(res.data.user_id)
           console.log(res.data)
-          if(res.data === false){
+          if (res.data === false) {
             alert("중복된 아이디 입니다")
-          }else {
+          } else {
             this.checked = true
             alert("사용가능한 아이디입니다.")
           }
@@ -226,7 +227,7 @@ export default {
 // }
 </script>
 <style scoped>
-.delivery-Join{
+.delivery-Join {
   margin-top: 10px;
   font-size: 40px;
 }

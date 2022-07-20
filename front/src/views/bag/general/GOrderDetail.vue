@@ -19,40 +19,40 @@
 
       <table id="order_detail">
         <thead scope="row">
-          <tr />
+        <tr/>
         </thead>
         <tbody>
-          <tr>
-            <th>금액</th>
-            <td>{{ order.ord_amount }} 원</td>
-          </tr>
-          <tr>
-            <th>픽업/완료</th>
-            <td>
-              <div>
-                {{ entrust_time }}
-              </div>
-              <div>
-                {{ withdraw_time }}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>출발지</th>
-            <td>{{ keep_start.addr1 }},{</td>
-          </tr>
-          <tr>
-            <th>도착지</th>
-            <td>{{ keep_end.addr1 }}</td>
-          </tr>
-          <tr>
-            <th>거리</th>
-            <td>{{ degree_start_end }}Km</td>
-          </tr>
-          <tr>
-            <th>요청사항</th>
-            <td>{{ item.ord_request }}</td>
-          </tr>
+        <tr>
+          <th>금액</th>
+          <td>{{ order.ord_amount }} 원</td>
+        </tr>
+        <tr>
+          <th>픽업/완료</th>
+          <td>
+            <div>
+              {{ entrust_time }}
+            </div>
+            <div>
+              {{ withdraw_time }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>출발지</th>
+          <td>{{ keep_start.addr1 }},{</td>
+        </tr>
+        <tr>
+          <th>도착지</th>
+          <td>{{ keep_end.addr1 }}</td>
+        </tr>
+        <tr>
+          <th>거리</th>
+          <td>{{ degree_start_end }}Km</td>
+        </tr>
+        <tr>
+          <th>요청사항</th>
+          <td>{{ item.ord_request }}</td>
+        </tr>
         </tbody>
       </table>
       <div>
@@ -88,38 +88,38 @@
 
       <table>
         <thead scope="row">
-          <tr />
+        <tr/>
         </thead>
         <tbody>
-          <tr>
-            <th><h2>금액</h2></th>
-            <td><h3>{{ item.ord_amount }} 원</h3></td>
-          </tr>
-          <tr>
-            <th><h2>보관시작시간</h2></th>
-            <td>
-              <div>
-                <h3>{{ item.entrust_time }}</h3>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th><h2>보관만료시간</h2></th>
-            <td>
-              <div>
-                <h3>{{ item.withdraw_time }}</h3>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th><h2>물품보관장소</h2></th>
-            <td><h3>{{ item.keep_start_title }}</h3></td>
-          </tr>
+        <tr>
+          <th><h2>금액</h2></th>
+          <td><h3>{{ item.ord_amount }} 원</h3></td>
+        </tr>
+        <tr>
+          <th><h2>보관시작시간</h2></th>
+          <td>
+            <div>
+              <h3>{{ item.entrust_time }}</h3>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th><h2>보관만료시간</h2></th>
+          <td>
+            <div>
+              <h3>{{ item.withdraw_time }}</h3>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th><h2>물품보관장소</h2></th>
+          <td><h3>{{ item.keep_start_title }}</h3></td>
+        </tr>
 
-          <tr>
-            <th><h2>요청사항</h2></th>
-            <td><h3>{{ item.ord_request }}</h3></td>
-          </tr>
+        <tr>
+          <th><h2>요청사항</h2></th>
+          <td><h3>{{ item.ord_request }}</h3></td>
+        </tr>
         </tbody>
       </table>
       <div>
@@ -141,7 +141,7 @@ import axios from "axios";
 
 
 export default {
-  name: 'GOrderDetail',
+  name: 'gOrderDetail',
   props: {
     order: {type: Object},
   },
@@ -233,7 +233,7 @@ export default {
     },
     //목록으로 돌아가기
     backTrackingView() {
-      this.$router.push('/GTrackingView')
+      this.$router.push('/gTrackingView')
     },
 
 
@@ -299,8 +299,6 @@ export default {
         this.$router.go();
       })
     },
-
-
   }
 };
 </script>

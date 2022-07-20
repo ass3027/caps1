@@ -3,7 +3,7 @@
     <div class="address">
       <v-col>
         <v-row>
-         <h2>주소입력 :     </h2> <v-btn @click="execDaumPostcode()">우편번호 찾기</v-btn>
+          <v-btn @click="execDaumPostcode()">우편번호 찾기</v-btn>
         </v-row>
       </v-col>
     </div>
@@ -23,7 +23,7 @@ export default {
     };
   },
   mounted() {
-    addressDate(addDate);
+
   },
   methods: {
 
@@ -64,7 +64,7 @@ export default {
             this.extraAddress = "";
           }
           // 우편번호를 입력한다.
-          this.postcode = data.zonecode;
+
           this.$emit('addressData', {
             sAddress: this.address,
             sPostcode: this.postcode,
