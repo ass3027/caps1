@@ -42,11 +42,12 @@
           <th>장소정보</th>
           <td>
           </td>
-          <v-btn @click="productAdd()">상품등록</v-btn>
+          <td>
+            <v-btn @click="productAdd()">상품등록</v-btn>
+          </td>
         </tr>
         </tbody>
       </table>
-
     </table>
     <div v-if="this.productItemAddCon===`상품등록`">
       <v-col>
@@ -54,19 +55,26 @@
       </v-col>
       <v-row>
         <ProductItem style="margin-left:auto; margin-right: auto" :plId="plId"></ProductItem>
-
       </v-row>
     </div>
+    <product-item-list
+      v-for="(product,index) in productList"
+      :product="product"
+      :key="index"
+    />
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
 import ProductItem from "@/views/store/ProductItem";
+import ProductItemUpdate from "@/views/store/ProductItemList";
+import ProductItemList from "@/views/store/ProductItemList";
 
 export default {
   name: "placeDetail",
   components: {
+    ProductItemList,
     ProductItem
   },
   props: {
@@ -77,12 +85,40 @@ export default {
       plId: this.place.pl_id,
       placeDetailItemData: '',
       productItemAddCon: null,
+      productItemUpdateCon: null,
       productData: [],
       productList: [],
+      pd_id: this.place.pd_id,
     }
   },
   mounted() {
     this.placeDetail()
+  },
+
+  created() {
+    axios({
+      method: 'GET',
+      url: '/api/productDetail',
+      params: {
+        'pl_id': this.plId
+      }
+    })
+      .then((res) => {
+        this.productList = res.data.reduce(function (acc, current) {
+          if (acc.findIndex(({pl_id}) => pl_id === current.pl_id) === -1) {
+            acc.push(current);
+          }
+          return acc;
+        }, []);
+
+        console.log(this.productList)
+
+        this.temp++
+
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   },
 
   methods: {
@@ -100,7 +136,9 @@ export default {
     productAdd() {
       this.productItemAddCon = `상품등록`;
     },
-
+    productUpdate() {
+      this.productItemUpdateCon = `상품수정`;
+    },
   }
 }
 </script>

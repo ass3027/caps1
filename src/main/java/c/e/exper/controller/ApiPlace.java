@@ -176,7 +176,7 @@ public class ApiPlace {
       return placeService.placeDetail(pl_id);
    }
    
-}
+
 //   @GetMapping("/place/{areaCode}/{cat1}/{pageNumber}")
 //   public List<PlaceDAO> placeCount(@PathVariable String areaCode,@PathVariable String cat1,@PathVariable int pageNumber) {
 //      System.out.println("갯수");

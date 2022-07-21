@@ -7,7 +7,11 @@
         style="width:300px"
         @change="previewFile(file)"
       />
-      <img :src="preview" style="width: 200px">
+      {{product}}
+      <v-img
+        :src="product.pic_name"
+      />
+      <br>
       <v-text-field
         v-model="productName"
         type="text"
@@ -32,12 +36,13 @@
         style="width:300px"
         outlined
       />
-
+      <div>
+      </div>
       <v-btn>
         수정
       </v-btn>
-      <v-btn @click="save">
-        저장
+      <v-btn @click="productDel()">
+        삭제
       </v-btn>
     </v-card>
   </v-container>
@@ -47,7 +52,7 @@
 import axios from "axios";
 
 export default {
-  name: "productItem",
+  name: "productItemList",
   data() {
     return {
       preview: '',
@@ -57,10 +62,33 @@ export default {
       file: [],
     }
   },
-  props: ['plId'],
+  props: ['product'],
+
+  created() {
+    console.log(this.product)
+    this.productName = this.product.pd_name
+    this.productPrice = this.product.pd_price
+    this.productInfo = this.product.pd_info
+  },
 
 
   methods: {
+    async productDel(){
+      const { data } = await axios.delete('/api/productDelete', {
+        params:{
+          'pd_id': this.product.pd_id
+        }
+      })
+
+      console.log(data)
+      if (confirm("삭제하시겠습니까?") == true){
+        alert('삭제되었습니다')
+      }else{
+        return false;
+      }
+      this.$router.push("/")
+    },
+
     previewFile(file) {
       const fileData = (data) => {
         this.preview = data

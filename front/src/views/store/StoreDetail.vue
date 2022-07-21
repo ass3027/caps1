@@ -247,9 +247,6 @@
         </div>
       </div>
     </div>
-
-
-
     {{ pl_id }}
     <ReviewView
       :id="pl_id"

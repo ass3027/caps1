@@ -300,7 +300,7 @@ export default {
       kContents: [
         [
           {title: '장소 등록', route: '/placeAdd'},
-          {title: '등록숙박 조회', route: ''},
+          {title: '등록숙박 조회', route: '/placeCheck'},
           {title: '매출 조회', route: '/chart'}
         ],
         [

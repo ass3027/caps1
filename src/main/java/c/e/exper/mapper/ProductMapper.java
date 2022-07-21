@@ -166,5 +166,14 @@ public interface ProductMapper {
          insert into product(pd_name,pd_price,pl_id,pd_info) values(#{pd_name},#{pd_price},#{pl_id},#{pd_info})
          """)
     void productItem(String pd_name, String pd_price, String pl_id, String pd_info);
-}
+
+    @Select("""
+            select *
+            from product, pictures
+            where product.pl_id = pictures.pl_id and product.pl_id = #{pl_id}
+            """)
+    List<ProductDAO> productItemGet(String pl_id);
+
+    @Delete("delete from product where PD_ID=#{pd_id}")
+    void productDelete(String pd_id);
 }

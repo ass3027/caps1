@@ -181,4 +181,15 @@ public class ApiProduct {
         pictureMapper.productImage("/api/photo/"+ filePath,productItem.getPlId());
         return true;
     }
+
+    @GetMapping("/productDetail")
+    public List<ProductDAO> productDetail(String pl_id){
+        System.out.println(pl_id);
+        return productMapper.productItemGet(pl_id);
+    }
+
+    @DeleteMapping("/productDelete")
+    void productDelete(String pd_id){
+        productMapper.productDelete(pd_id);
+    }
 }
