@@ -7,7 +7,6 @@
         style="width:300px"
         @change="previewFile(file)"
       />
-      {{product}}
       <v-img
         :src="product.pic_name"
       />
@@ -38,7 +37,7 @@
       />
       <div>
       </div>
-      <v-btn>
+      <v-btn @click="productEdit()">
         수정
       </v-btn>
       <v-btn @click="productDel()">
@@ -87,6 +86,17 @@ export default {
         return false;
       }
       this.$router.push("/")
+    },
+
+    productEdit(){
+      axios.put('/api/productEdit',{
+        params:{
+          'pd_id': this.product.pd_id
+        }
+      })
+        .then(() => {
+          alert('수정완료')
+        })
     },
 
     previewFile(file) {

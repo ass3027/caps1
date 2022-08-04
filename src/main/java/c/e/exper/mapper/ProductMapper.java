@@ -3,6 +3,7 @@ package c.e.exper.mapper;
 import c.e.exper.data.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.awt.print.Book;
 import java.util.List;
@@ -176,4 +177,11 @@ public interface ProductMapper {
 
     @Delete("delete from product where PD_ID=#{pd_id}")
     void productDelete(String pd_id);
+
+    @Update("""
+            update product
+            set pd_name = #{pd_name}, pd_price = #{pd_price}, pd_info = #{pd_info}
+            where pd_id = #{pd_id}
+            """)
+    void productEdit(ProductDAO productDAO);
 }

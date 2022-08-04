@@ -192,4 +192,11 @@ public class ApiProduct {
     void productDelete(String pd_id){
         productMapper.productDelete(pd_id);
     }
+
+    @PostMapping("/productEdit")
+    public String productEdit(@RequestBody ProductDAO productDAO){
+        System.out.println(productDAO);
+        productMapper.productEdit(productDAO);
+        return "수정";
+    }
 }
