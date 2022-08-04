@@ -194,9 +194,9 @@ public class ApiProduct {
     }
 
     @PostMapping("/productEdit")
-    public String productEdit(@RequestBody ProductDAO productDAO){
-        System.out.println(productDAO);
+    public Boolean productEdit(@RequestBody ProductDAO productDAO){
+        System.out.println("수정수정수정" + productDAO);
         productMapper.productEdit(productDAO);
-        return "수정";
+        return true;
     }
 }

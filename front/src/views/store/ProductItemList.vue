@@ -89,10 +89,11 @@ export default {
     },
 
     productEdit(){
-      axios.put('/api/productEdit',{
-        params:{
-          'pd_id': this.product.pd_id
-        }
+      axios.post('/api/productEdit',{
+        'pd_id': this.product.pd_id,
+        'pd_name': this.productName,
+        'pd_price': this.productPrice,
+        'pd_info': this.productInfo
       })
         .then(() => {
           alert('수정완료')
