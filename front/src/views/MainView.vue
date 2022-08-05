@@ -30,33 +30,40 @@
           <v-card class="pa-3" elevation="10" style="width: 330px;height:380px;overflow: auto">
             <b>내 가방 현황</b>
             <v-divider></v-divider>
-            <b>- 보관 -</b>
-            <v-card v-for="(order,i) in myKeepOrders" :key="i+`ko`"
-                @click="$router.push({path:'/GTrackingView'})"
-                style="cursor:pointer;padding: 4px;margin:2px"
-            >
-              <p>{{ order.entrust_time }}->{{ order.withdraw_time }}</p>
-              <p>{{ order.keep_start }}->{{ order.keep_end }}</p>
-              <p>{{ order.status }}</p>
-            </v-card>
-            <v-divider></v-divider>
-            <b>- 운송 -</b>
-            <v-card v-for="(order,i) in myTransOrders" :key="i+`jo`"
-                @click="$router.push({path:'/GTrackingView'})"
-                style="cursor:pointer;padding: 4px;margin:2px"
-            >
-              <p>{{ order.entrust_time }}->{{ order.withdraw_time }}</p>
-              <p>{{ order.keep_start }}</p>
-              <p>{{ order.status }}</p>
-            </v-card>
+            <details>
+              <summary><b>- 보관 -</b></summary>
+              <v-card v-for="(order,i) in myKeepOrders" :key="i+`ko`"
+                      @click="$router.push({path:'/GTrackingView'})"
+                      style="cursor:pointer;padding: 4px;margin:2px"
+              >
+                <p>{{ order.entrust_time }}->{{ order.withdraw_time }}</p>
+                <p>{{ order.keep_start }}->{{ order.keep_end }}</p>
+                <p>{{ order.status }}</p>
+              </v-card>
+              <v-divider></v-divider>
+            </details>
+
+            <details>
+              <summary>
+                <b>- 운송 -</b>
+              </summary>
+              <v-card v-for="(order,i) in myTransOrders" :key="i+`jo`"
+                      @click="$router.push({path:'/GTrackingView'})"
+                      style="cursor:pointer;padding: 4px;margin:2px"
+              >
+                <p>{{ order.entrust_time }}->{{ order.withdraw_time }}</p>
+                <p>{{ order.keep_start }}</p>
+                <p>{{ order.status }}</p>
+              </v-card>
+            </details>
           </v-card>
         </v-col>
         <v-col cols="3" align-self="start" style="" class="mt-5">
           <v-card class="pa-3" elevation="10" style="width: 330px;height:380px;overflow: auto">
             <b>호텔 예약 현황</b>
             <v-card v-for="(hotel,i) in myHotels" :key="i+`h`"
-                @click="$router.push({path:'/productBookView'})"
-                style="cursor:pointer;padding: 4px;margin:2px"
+                    @click="$router.push({path:'/productBookView'})"
+                    style="cursor:pointer;padding: 4px;margin:2px"
             >
               <p>{{ hotel.st_date.substring(0, 10) }}~{{ hotel.end_date.substring(0, 10) }}</p>
               <p>{{ hotel.title }}</p>
@@ -67,8 +74,8 @@
           <v-card class="pa-3" elevation="10" style="width: 330px;height:380px;overflow: auto">
             <b>가이드 예약 현황</b>
             <v-card v-for="(guide,i) in myGuides" :key="i+`g`"
-                @click="$router.push({path:'/GuideReserveInfo'})"
-                style="cursor:pointer;padding: 4px;margin:2px"
+                    @click="$router.push({path:'/GuideReserveInfo'})"
+                    style="cursor:pointer;padding: 4px;margin:2px"
             >
               <p>{{ guide.gdate }}{{ guide.title }}</p>
               <p>{{ guide.st_time }}~{{ guide.end_time }}</p>
@@ -282,7 +289,7 @@ export default {
     }
   },
   mounted() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
 
     if (this.$store.state.user.userId != '') {
       axios.get('/api/orders/myTransOrders', {params: {user_id: this.$store.state.user.userId}})
@@ -332,7 +339,7 @@ export default {
       })
   },
   destroyed() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   },
   methods: {
     test() {
