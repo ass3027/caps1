@@ -62,7 +62,7 @@
         </div>
       </div>
       <div>
-        <div>호텔유형</div>
+        <div>공용시설</div>
         <div
           v-for="(option, i) in option "
           :key="i"
